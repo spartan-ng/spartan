@@ -1,16 +1,29 @@
-import { Directive } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { lucideChevronDown } from '@ng-icons/lucide';
 import { BrnNavigationMenuTrigger } from '@spartan-ng/brain/navigation-menu';
 import { classes } from '@spartan-ng/helm/utils';
 
-@Directive({
+@Component({
+	// eslint-disable-next-line @angular-eslint/component-selector
 	selector: 'button[hlmNavigationMenuTrigger]',
+	imports: [NgIcon],
+	providers: [provideIcons({ lucideChevronDown })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	hostDirectives: [BrnNavigationMenuTrigger],
+	host: {
+		'data-slot': 'navigation-menu-trigger',
+	},
+	template: `
+		<ng-content />
+		<ng-icon name="lucideChevronDown" class="spartan-navigation-menu-trigger-icon" />
+	`,
 })
 export class HlmNavigationMenuTrigger {
 	constructor() {
 		classes(
 			() =>
-				'bg-background hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground data-[state=open]:hover:bg-accent data-[state=open]:text-accent-foreground data-[state=open]:focus:bg-accent data-[state=open]:bg-accent/50 focus-visible:ring-ring/50 group inline-flex h-9 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-[color,box-shadow] outline-none focus-visible:ring-[3px] focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50',
+				'spartan-navigation-menu-trigger group group/navigation-menu-trigger inline-flex h-9 w-max items-center justify-center outline-none disabled:pointer-events-none',
 		);
 	}
 }

@@ -1,6 +1,9 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
+import { NavigationMenuRtl } from '@spartan-ng/app/app/pages/(components)/components/(navigation-menu)/navigation-menu--rtl.example';
+import { CodeRtlPreview } from '@spartan-ng/app/app/shared/code/code-rtl-preview';
+import { RtlHeader } from '@spartan-ng/app/app/shared/code/rtl-header';
 import { InstallTabs } from '@spartan-ng/app/app/shared/layout/install-tabs';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { UIApiDocs } from '@spartan-ng/app/app/shared/layout/ui-docs-section/ui-docs-section';
@@ -48,10 +51,17 @@ export const routeMeta: RouteMeta = {
 		PageBottomNavLink,
 		UIApiDocs,
 		SectionSubSubHeading,
+		CodeRtlPreview,
+		RtlHeader,
+		NavigationMenuRtl,
 	],
 	template: `
 		<section spartanMainSection>
-			<spartan-section-intro name="Navigation Menu" lead="A collection of links for navigating websites" />
+			<spartan-section-intro
+				name="Navigation Menu"
+				lead="A collection of links for navigating websites"
+				showThemeToggle
+			/>
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
@@ -60,7 +70,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
-			<spartan-install-tabs primitive="navigation-menu" />
+			<spartan-install-tabs primitive="navigation-menu" [showOnlyVega]="false" />
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="mt-6 space-y-4">
 				<spartan-code [code]="_defaultImports" />
@@ -113,6 +123,14 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_openOnClickCode()" />
 			</spartan-tabs>
 
+			<spartan-header-rtl />
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanRtlCodePreview firstTab>
+					<spartan-navigation-menu-rtl />
+				</div>
+				<spartan-code secondTab [code]="_rtlCode()" />
+			</spartan-tabs>
+
 			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="brain" />
 
@@ -134,6 +152,7 @@ export default class NavigationMenuPage {
 	protected readonly _controlledCode = computed(() => this._snippets()['controlled']);
 	protected readonly _nestedCode = computed(() => this._snippets()['nested']);
 	protected readonly _openOnClickCode = computed(() => this._snippets()['openOnClick']);
+	protected readonly _rtlCode = computed(() => this._snippets()['rtl']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
 }

@@ -45,7 +45,7 @@ export class HlmDropdownMenuCheckbox {
 	constructor() {
 		classes(
 			() =>
-				'spartan-dropdown-menu-checkbox-item group relative flex w-full cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_ng-icon]:pointer-events-none [&_ng-icon]:shrink-0',
+				'spartan-dropdown-menu-checkbox-item group/dropdown-menu-checkbox relative flex w-full cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_ng-icon]:pointer-events-none [&_ng-icon]:shrink-0',
 		);
 	}
 }

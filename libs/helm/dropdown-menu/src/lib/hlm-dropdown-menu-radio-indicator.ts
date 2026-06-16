@@ -15,6 +15,9 @@ import { classes } from '@spartan-ng/helm/utils';
 })
 export class HlmDropdownMenuRadioIndicator {
 	constructor() {
-		classes(() => 'spartan-dropdown-menu-item-indicator pointer-events-none opacity-0 group-data-checked:opacity-100');
+		classes(
+			() =>
+				'spartan-dropdown-menu-item-indicator pointer-events-none opacity-0 group-data-checked/dropdown-menu-radio:opacity-100',
+		);
 	}
 }

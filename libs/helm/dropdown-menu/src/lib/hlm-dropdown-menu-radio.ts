@@ -40,7 +40,7 @@ export class HlmDropdownMenuRadio {
 	constructor() {
 		classes(
 			() =>
-				'spartan-dropdown-menu-radio-item group relative flex w-full cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_ng-icon]:pointer-events-none [&_ng-icon]:shrink-0',
+				'spartan-dropdown-menu-radio-item group/dropdown-menu-radio relative flex w-full cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_ng-icon]:pointer-events-none [&_ng-icon]:shrink-0',
 		);
 	}
 }

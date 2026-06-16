@@ -30,10 +30,11 @@ export class BrnOverlayService {
 		context?: OverlayContext,
 		options?: Partial<BrnOverlayOptions>,
 	): BrnOverlayRef<OverlayResult> {
+		const overlayId = ++overlaySequence;
 		const mergedOptions: BrnOverlayOptions = {
 			...this._defaultOptions,
 			...options,
-			id: options?.id ?? `brn-overlay-${overlaySequence + 1}`,
+			id: options?.id ?? `brn-overlay-${overlayId}`,
 		};
 
 		if (this._openOverlayIds.has(mergedOptions.id)) {
@@ -61,18 +62,12 @@ export class BrnOverlayService {
 		});
 
 		const destroyed = new Subject<void>();
-		const brnOverlayRef = new BrnOverlayRef<OverlayResult>(
-			overlayRef,
-			this._injector,
-			++overlaySequence,
-			mergedOptions,
-			() => {
-				destroyed.next();
-				destroyed.complete();
-				this._openOverlayIds.delete(mergedOptions.id);
-				this._removeFromStack(overlayRef);
-			},
-		);
+		const brnOverlayRef = new BrnOverlayRef<OverlayResult>(overlayRef, this._injector, overlayId, mergedOptions, () => {
+			destroyed.next();
+			destroyed.complete();
+			this._openOverlayIds.delete(mergedOptions.id);
+			this._removeFromStack(overlayRef);
+		});
 
 		const contextOrData: BrnOverlayContext<OverlayContext> = {
 			...(context as OverlayContext),

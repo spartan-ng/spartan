@@ -75,26 +75,28 @@ export class BrnSelectTrigger {
 
 	/** Listen for keydown events */
 	protected onKeyDown(event: KeyboardEvent): void {
-		if (event.key === 'Enter') {
+		// Capture the expansion state up-front. Committing a value (Enter/Tab while open)
+		// closes the panel synchronously, so re-reading the state afterwards would report
+		// the panel as closed and re-open it on the same keypress.
+		const isExpanded = this._isExpanded();
+
+		if (isExpanded && (event.key === 'Enter' || event.key === 'Tab')) {
 			// prevent form submission if inside a form
-			event.preventDefault();
+			if (event.key === 'Enter') {
+				event.preventDefault();
+			}
 
-			this._select.selectActiveItem();
-		}
-
-		if (event.key === 'Tab' && this._isExpanded()) {
 			this._select.selectActiveItem();
 			return;
 		}
 
-		if (this._isExpanded()) {
-			if (event.key === 'Tab') {
-				this._select.selectActiveItem();
+		if (!isExpanded && (event.key === 'Enter' || event.key === 'ArrowDown' || event.key === 'ArrowUp')) {
+			// prevent form submission if inside a form
+			if (event.key === 'Enter') {
+				event.preventDefault();
 			}
-		} else {
-			if (event.key === 'Enter' || event.key === 'ArrowDown' || event.key === 'ArrowUp') {
-				this._select.open();
-			}
+
+			this._select.open();
 		}
 
 		this._select.keyManager.onKeydown(event);

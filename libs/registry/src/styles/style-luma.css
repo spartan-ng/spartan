@@ -615,10 +615,6 @@
 		@apply bg-popover text-popover-foreground rounded-4xl p-1;
 	}
 
-	.spartan-command-dialog {
-		@apply rounded-4xl! p-0;
-	}
-
 	.spartan-command-input-wrapper {
 		@apply p-1 pb-0;
 	}
@@ -628,7 +624,7 @@
 	}
 
 	.spartan-command-input-icon {
-		@apply size-4 shrink-0 opacity-50;
+		@apply shrink-0 text-[calc(var(--spacing)*4)] opacity-50;
 	}
 
 	.spartan-command-input {
@@ -644,7 +640,7 @@
 	}
 
 	.spartan-command-group {
-		@apply text-foreground **:[[cmdk-group-heading]]:text-muted-foreground overflow-hidden p-1.5 **:[[cmdk-group-heading]]:px-3 **:[[cmdk-group-heading]]:py-2 **:[[cmdk-group-heading]]:text-xs **:[[cmdk-group-heading]]:font-medium;
+		@apply text-foreground **:data-[slot=command-group-label]:text-muted-foreground overflow-hidden p-1.5 **:data-[slot=command-group-label]:px-3 **:data-[slot=command-group-label]:py-2 **:data-[slot=command-group-label]:text-xs **:data-[slot=command-group-label]:font-medium;
 	}
 
 	.spartan-command-separator {
@@ -652,11 +648,11 @@
 	}
 
 	.spartan-command-item {
-		@apply data-selected:bg-muted data-selected:text-foreground data-selected:*:[ng-icon]:text-foreground relative flex cursor-default items-center gap-2 rounded-2xl px-3 py-2 text-sm font-medium outline-hidden select-none in-data-[slot=dialog-content]:rounded-3xl [&_ng-icon:not([class*='text-'])]:text-[calc(var(--spacing)*4)];
+		@apply data-selected:bg-muted data-selected:text-foreground data-selected:*:[&>ng-icon]:text-foreground relative flex cursor-default items-center gap-2 rounded-2xl px-3 py-2 text-sm font-medium outline-hidden select-none in-data-[slot=dialog-content]:rounded-3xl [&_ng-icon:not([class*='text-'])]:text-[calc(var(--spacing)*4)];
 	}
 
 	.spartan-command-shortcut {
-		@apply text-muted-foreground group-data-selected/command-item:text-foreground ml-auto text-xs tracking-widest;
+		@apply text-muted-foreground group-data-[selected]/command-item:text-foreground ms-auto text-xs tracking-widest;
 	}
 
 	/* MARK: Context Menu */
@@ -1073,7 +1069,7 @@
 	}
 
 	.spartan-progress-value {
-		@apply text-muted-foreground ml-auto text-sm tabular-nums;
+		@apply text-muted-foreground ms-auto text-sm tabular-nums;
 	}
 
 	/* MARK: Resizable */

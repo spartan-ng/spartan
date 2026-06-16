@@ -10,14 +10,13 @@ import {
 	lucideUser,
 	lucideX,
 } from '@ng-icons/lucide';
-import { HlmButtonImports } from '@spartan-ng/helm/button';
+import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmCommandImports } from '@spartan-ng/helm/command';
 import { HlmIconImports } from '@spartan-ng/helm/icon';
-import { HlmKbdImports } from '@spartan-ng/helm/kbd';
 
 @Component({
-	selector: 'spartan-command-dialog',
-	imports: [HlmCommandImports, HlmIconImports, HlmButtonImports, HlmKbdImports],
+	selector: 'spartan-command-shortcuts',
+	imports: [HlmCommandImports, HlmIconImports, HlmButton],
 	providers: [
 		provideIcons({
 			lucideX,
@@ -30,41 +29,15 @@ import { HlmKbdImports } from '@spartan-ng/helm/kbd';
 			lucideSearch,
 		}),
 	],
-	host: {
-		'(window:keydown)': 'onKeyDown($event)',
-	},
 	template: `
 		<div class="mx-auto flex max-w-screen-sm items-center justify-center space-x-4 py-20 text-sm">
-			<p>
-				Press
-				<kbd hlmKbd>⌘ + J</kbd>
-			</p>
-			<p>
-				Last command:
-				<code data-testid="lastCommand" hlmCode>{{ command() || 'none' }}</code>
-			</p>
+			<button hlmBtn variant="outline" (click)="stateChanged('open')">Open Menu</button>
 		</div>
 		<hlm-command-dialog [state]="state()" (stateChange)="stateChanged($event)">
 			<hlm-command>
 				<hlm-command-input placeholder="Type a command or search..." />
 				<hlm-command-list>
 					<div *hlmCommandEmptyState hlmCommandEmpty>No results found.</div>
-					<hlm-command-group>
-						<hlm-command-group-label>Suggestions</hlm-command-group-label>
-						<button hlm-command-item value="calendar" (selected)="commandSelected('calendar')">
-							<ng-icon name="lucideCalendar" />
-							Calendar
-						</button>
-						<button hlm-command-item value="emojy" (selected)="commandSelected('emojy')">
-							<ng-icon name="lucideSmile" />
-							Search Emoji
-						</button>
-						<button hlm-command-item value="calculator" (selected)="commandSelected('calculator')">
-							<ng-icon name="lucidePlus" />
-							Calculator
-						</button>
-					</hlm-command-group>
-					<hlm-command-separator />
 					<hlm-command-group>
 						<hlm-command-group-label>Settings</hlm-command-group-label>
 						<button hlm-command-item value="profile" (selected)="commandSelected('profile')">
@@ -88,15 +61,9 @@ import { HlmKbdImports } from '@spartan-ng/helm/kbd';
 		</hlm-command-dialog>
 	`,
 })
-export class CommandDialog {
+export class CommandShortcuts {
 	public readonly command = signal('');
 	public readonly state = signal<'closed' | 'open'>('closed');
-
-	onKeyDown(event: KeyboardEvent) {
-		if ((event.metaKey || event.ctrlKey) && (event.key === 'j' || event.key === 'J')) {
-			this.state.set('open');
-		}
-	}
 
 	stateChanged(state: 'open' | 'closed') {
 		this.state.set(state);

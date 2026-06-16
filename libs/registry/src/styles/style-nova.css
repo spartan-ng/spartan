@@ -388,11 +388,7 @@
 
 	/* MARK: Command */
 	.spartan-command {
-		@apply bg-popover text-popover-foreground rounded-xl! p-1;
-	}
-
-	.spartan-command-dialog {
-		@apply rounded-xl!;
+		@apply bg-popover text-popover-foreground rounded-xl p-1;
 	}
 
 	.spartan-command-input-wrapper {
@@ -404,7 +400,7 @@
 	}
 
 	.spartan-command-input-icon {
-		@apply size-4 shrink-0 opacity-50;
+		@apply shrink-0 text-[calc(var(--spacing)*4)] opacity-50;
 	}
 
 	.spartan-command-input {
@@ -420,7 +416,7 @@
 	}
 
 	.spartan-command-group {
-		@apply text-foreground **:[[cmdk-group-heading]]:text-muted-foreground overflow-hidden p-1 **:[[cmdk-group-heading]]:px-2 **:[[cmdk-group-heading]]:py-1.5 **:[[cmdk-group-heading]]:text-xs **:[[cmdk-group-heading]]:font-medium;
+		@apply text-foreground **:data-[slot=command-group-label]:text-muted-foreground overflow-hidden p-1 **:data-[slot=command-group-label]:px-2 **:data-[slot=command-group-label]:py-1.5 **:data-[slot=command-group-label]:text-xs **:data-[slot=command-group-label]:font-medium;
 	}
 
 	.spartan-command-separator {
@@ -428,11 +424,11 @@
 	}
 
 	.spartan-command-item {
-		@apply data-selected:bg-muted data-selected:text-foreground data-selected:*:[ng-icon]:text-foreground relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none in-data-[slot=dialog-content]:rounded-lg! [&_ng-icon:not([class*='text-'])]:text-[calc(var(--spacing)*4)];
+		@apply data-selected:bg-muted data-selected:text-foreground relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none in-data-[slot=dialog-content]:rounded-lg! [&_ng-icon:not([class*='text-'])]:text-[calc(var(--spacing)*4)];
 	}
 
 	.spartan-command-shortcut {
-		@apply text-muted-foreground group-data-selected/command-item:text-foreground ml-auto text-xs tracking-widest;
+		@apply text-muted-foreground group-data-[selected]/command-item:text-foreground ms-auto text-xs tracking-widest;
 	}
 
 	/* MARK: Context Menu */
@@ -862,7 +858,7 @@
 	}
 
 	.spartan-progress-value {
-		@apply text-muted-foreground ml-auto text-sm tabular-nums;
+		@apply text-muted-foreground ms-auto text-sm tabular-nums;
 	}
 
 	/* MARK: Radio Group */

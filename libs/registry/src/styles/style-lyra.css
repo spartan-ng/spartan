@@ -498,7 +498,7 @@
 	}
 
 	.spartan-dropdown-menu-item-indicator {
-		@apply absolute end-2 flex items-center justify-center;
+		@apply absolute end-2 flex items-center justify-center [&_ng-icon]:text-[calc(var(--spacing)*4)];
 	}
 
 	.spartan-dropdown-menu-label {

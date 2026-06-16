@@ -3,6 +3,7 @@ import { CdkContextMenuTrigger } from '@angular/cdk/menu';
 import { booleanAttribute, computed, Directive, effect, inject, input } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { createMenuPosition, type MenuAlign, type MenuSide } from '@spartan-ng/brain/core';
+import { classes } from '@spartan-ng/helm/utils';
 import { injectHlmContextMenuConfig } from './hlm-context-menu-token';
 
 @Directive({
@@ -50,5 +51,7 @@ export class HlmContextMenuTrigger {
 		effect(() => {
 			this._cdkTrigger.menuPosition = this._menuPosition();
 		});
+
+		classes(() => 'select-none');
 	}
 }

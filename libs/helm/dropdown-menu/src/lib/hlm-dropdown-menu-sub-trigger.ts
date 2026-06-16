@@ -2,20 +2,21 @@ import { CdkMenuTrigger } from '@angular/cdk/menu';
 import { computed, Directive, effect, inject, input } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { createMenuPosition, type MenuAlign, type MenuSide } from '@spartan-ng/brain/core';
+import { classes } from '@spartan-ng/helm/utils';
 import { injectHlmDropdownMenuConfig } from './hlm-dropdown-menu-token';
 
 @Directive({
-	selector: '[hlmDropdownMenuTrigger]',
+	selector: '[hlmDropdownMenuSubTrigger]',
 	hostDirectives: [
 		{
 			directive: CdkMenuTrigger,
-			inputs: ['cdkMenuTriggerFor: hlmDropdownMenuTrigger', 'cdkMenuTriggerData: hlmDropdownMenuTriggerData'],
-			outputs: ['cdkMenuOpened: hlmDropdownMenuOpened', 'cdkMenuClosed: hlmDropdownMenuClosed'],
+			inputs: ['cdkMenuTriggerFor: hlmDropdownMenuSubTrigger', 'cdkMenuTriggerData: hlmDropdownMenuTriggerData'],
+			outputs: ['cdkMenuOpened: hlmDropdownMenuSubOpened', 'cdkMenuClosed: hlmDropdownMenuSubClosed'],
 		},
 	],
-	host: { 'data-slot': 'dropdown-menu-trigger' },
+	host: { 'data-slot': 'dropdown-menu-sub-trigger' },
 })
-export class HlmDropdownMenuTrigger {
+export class HlmDropdownMenuSubTrigger {
 	private readonly _cdkTrigger = inject(CdkMenuTrigger, { host: true });
 	private readonly _config = injectHlmDropdownMenuConfig();
 
@@ -25,9 +26,6 @@ export class HlmDropdownMenuTrigger {
 	private readonly _menuPosition = computed(() => createMenuPosition(this.align(), this.side()));
 
 	constructor() {
-		// once the trigger opens we wait until the next tick and then grab the last position
-		// used to position the menu. we store this in our trigger which the brnMenu directive has
-		// access to through DI
 		this._cdkTrigger.opened.pipe(takeUntilDestroyed()).subscribe(() =>
 			setTimeout(
 				() =>
@@ -40,5 +38,7 @@ export class HlmDropdownMenuTrigger {
 		effect(() => {
 			this._cdkTrigger.menuPosition = this._menuPosition();
 		});
+
+		classes(() => 'aria-expanded:bg-accent aria-expanded:text-accent-foreground');
 	}
 }

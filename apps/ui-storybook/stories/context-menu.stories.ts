@@ -58,7 +58,7 @@ export const Default: Story = {
             <hlm-dropdown-menu-shortcut>⌘R</hlm-dropdown-menu-shortcut>
           </button>
 
-          <button inset hlmDropdownMenuItem [hlmDropdownMenuTrigger]='moreTools'>
+          <button inset hlmDropdownMenuItem [hlmDropdownMenuSubTrigger]='moreTools'>
             More Tools
             <hlm-dropdown-menu-item-sub-indicator />
           </button>

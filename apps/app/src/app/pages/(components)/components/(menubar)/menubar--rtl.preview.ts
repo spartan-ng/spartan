@@ -166,7 +166,7 @@ import { HlmMenubarImports } from '@spartan-ng/helm/menubar';
 		<!-- VIEW -->
 
 		<ng-template #view>
-			<hlm-dropdown-menu sideOffset="2" class="w-44">
+			<hlm-dropdown-menu sideOffset="2" class="w-64">
 				<button hlmDropdownMenuCheckbox>
 					<hlm-dropdown-menu-checkbox-indicator />
 					{{ _t()['bookmarksBar'] }}
@@ -179,25 +179,25 @@ import { HlmMenubarImports } from '@spartan-ng/helm/menubar';
 
 				<hlm-dropdown-menu-separator />
 
-				<button hlmDropdownMenuItem inset>
+				<button hlmDropdownMenuItem>
 					{{ _t()['reload'] }}
 					<hlm-dropdown-menu-shortcut>⌘R</hlm-dropdown-menu-shortcut>
 				</button>
 
-				<button hlmDropdownMenuItem inset disabled>
+				<button hlmDropdownMenuItem disabled>
 					{{ _t()['forceReload'] }}
 					<hlm-dropdown-menu-shortcut>⇧⌘R</hlm-dropdown-menu-shortcut>
 				</button>
 
 				<hlm-dropdown-menu-separator />
 
-				<button hlmDropdownMenuItem inset>
+				<button hlmDropdownMenuItem>
 					{{ _t()['toggleFullscreen'] }}
 				</button>
 
 				<hlm-dropdown-menu-separator />
 
-				<button hlmDropdownMenuItem inset>
+				<button hlmDropdownMenuItem>
 					{{ _t()['hideSidebar'] }}
 				</button>
 			</hlm-dropdown-menu>
@@ -224,13 +224,13 @@ import { HlmMenubarImports } from '@spartan-ng/helm/menubar';
 
 				<hlm-dropdown-menu-separator />
 
-				<button hlmDropdownMenuItem inset>
+				<button hlmDropdownMenuItem>
 					{{ _t()['editProfile'] }}
 				</button>
 
 				<hlm-dropdown-menu-separator />
 
-				<button hlmDropdownMenuItem inset>
+				<button hlmDropdownMenuItem>
 					{{ _t()['addProfile'] }}
 				</button>
 			</hlm-dropdown-menu>
@@ -360,7 +360,7 @@ export class MenubarRtl {
 	private readonly _translation = computed(() => this._translations[this._language()]);
 	protected readonly _t = computed(() => this._translation().values);
 	protected readonly _dir = computed(() => this._translation().dir);
-	protected readonly _profile = signal('');
+	protected readonly _profile = signal('benoit');
 
 	private readonly _directionality = inject(Directionality);
 

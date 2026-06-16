@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
 import { HlmMenubarImports } from '@spartan-ng/helm/menubar';
 
 @Component({
 	selector: 'spartan-menubar-preview',
 	imports: [HlmMenubarImports, HlmDropdownMenuImports],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<hlm-menubar>
 			<button [hlmMenubarTrigger]="file">File</button>
@@ -14,7 +15,7 @@ import { HlmMenubarImports } from '@spartan-ng/helm/menubar';
 		</hlm-menubar>
 
 		<ng-template #file>
-			<hlm-dropdown-menu sideOffset="1.5">
+			<hlm-dropdown-menu sideOffset="2">
 				<button hlmDropdownMenuItem>
 					New Tab
 					<hlm-dropdown-menu-shortcut>⌘</hlm-dropdown-menu-shortcut>
@@ -35,7 +36,7 @@ import { HlmMenubarImports } from '@spartan-ng/helm/menubar';
 		</ng-template>
 
 		<ng-template #edit>
-			<hlm-dropdown-menu sideOffset="1.5" class="w-48">
+			<hlm-dropdown-menu sideOffset="2" class="w-48">
 				<hlm-dropdown-menu-group>
 					<button hlmDropdownMenuItem>
 						Undo
@@ -72,7 +73,7 @@ import { HlmMenubarImports } from '@spartan-ng/helm/menubar';
 		</ng-template>
 
 		<ng-template #view>
-			<hlm-dropdown-menu sideOffset="1.5">
+			<hlm-dropdown-menu sideOffset="2">
 				<button hlmDropdownMenuCheckbox>
 					<hlm-dropdown-menu-checkbox-indicator />
 					Always Show Bookmarks Bar
@@ -98,7 +99,7 @@ import { HlmMenubarImports } from '@spartan-ng/helm/menubar';
 		</ng-template>
 
 		<ng-template #profiles>
-			<hlm-dropdown-menu sideOffset="1.5" class="w-48">
+			<hlm-dropdown-menu sideOffset="2" class="w-48">
 				<button hlmDropdownMenuRadio>
 					<hlm-dropdown-menu-radio-indicator />
 					Andy
@@ -132,7 +133,7 @@ export const defaultSkeleton = `
 </hlm-menubar>
 
 <ng-template #file>
-  <hlm-dropdown-menu sideOffset="1.5">
+  <hlm-dropdown-menu sideOffset="2">
     <button hlmDropdownMenuItem>
       New Tab
       <hlm-dropdown-menu-shortcut>⌘</hlm-dropdown-menu-shortcut>

@@ -174,7 +174,7 @@ export const routeMeta: RouteMeta = {
 		<spartan-page-nav />
 	`,
 })
-export default class ComboboxPage {
+export default class ContextMenuPage {
 	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('context-menu');
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
 	protected readonly _basicCode = computed(() => this._snippets()['basic']);

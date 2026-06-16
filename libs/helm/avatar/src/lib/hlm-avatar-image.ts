@@ -4,7 +4,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
 	selector: 'img[hlmAvatarImage]',
-	exportAs: 'avatarImage',
+	exportAs: 'hlmAvatarImage',
 	hostDirectives: [BrnAvatarImage],
 	host: {
 		'data-slot': 'avatar-image',

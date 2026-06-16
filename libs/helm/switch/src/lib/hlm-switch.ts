@@ -28,6 +28,7 @@ export const HLM_SWITCH_VALUE_ACCESSOR = {
 	providers: [HLM_SWITCH_VALUE_ACCESSOR],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
+		'data-slot': 'switch',
 		class: 'contents',
 		'[attr.aria-label]': 'null',
 		'[attr.aria-labelledby]': 'null',

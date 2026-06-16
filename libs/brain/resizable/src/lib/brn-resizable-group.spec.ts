@@ -71,4 +71,51 @@ describe('BrnResizableGroup horizontal RTL resize', () => {
 
 		expect(firstPanelSize()).toBeLessThan(50);
 	});
+
+	it('detaches document listeners and restores the cursor when destroyed mid-drag', async () => {
+		const { handle, fixture } = await setup();
+		TestBed.inject(Directionality).valueSignal.set('ltr');
+
+		const at = (clientX: number) => ({ bubbles: true, cancelable: true, clientX, clientY: 0, button: 0 });
+
+		// begin a drag but never release the pointer
+		handle.dispatchEvent(new MouseEvent('mousedown', at(100)));
+		expect(document.body.style.cursor).toBe('ew-resize');
+
+		const removeSpy = vi.spyOn(document, 'removeEventListener');
+
+		// destroy the group while the drag is still active
+		fixture.destroy();
+
+		// every document listener is detached and the global cursor is restored
+		expect(document.body.style.cursor).toBe('default');
+		for (const type of ['mousemove', 'touchmove', 'mouseup', 'touchend', 'touchcancel']) {
+			expect(removeSpy).toHaveBeenCalledWith(type, expect.any(Function));
+		}
+
+		// a late move must not reach a torn-down handler
+		expect(() => document.dispatchEvent(new MouseEvent('mousemove', at(180)))).not.toThrow();
+
+		removeSpy.mockRestore();
+	});
+
+	it('ends the drag and restores the cursor when a touch is cancelled (touchcancel)', async () => {
+		const { handle } = await setup();
+		TestBed.inject(Directionality).valueSignal.set('ltr');
+
+		// begin a drag
+		handle.dispatchEvent(
+			new MouseEvent('mousedown', { bubbles: true, cancelable: true, clientX: 100, clientY: 0, button: 0 }),
+		);
+		expect(document.body.style.cursor).toBe('ew-resize');
+
+		// the system interrupts the touch: touchcancel fires instead of touchend
+		document.dispatchEvent(new Event('touchcancel', { bubbles: true }));
+
+		// the drag is torn down: cursor restored and listeners gone (a late move is a no-op)
+		expect(document.body.style.cursor).toBe('default');
+		expect(() =>
+			document.dispatchEvent(new MouseEvent('mousemove', { bubbles: true, clientX: 180, clientY: 0 })),
+		).not.toThrow();
+	});
 });

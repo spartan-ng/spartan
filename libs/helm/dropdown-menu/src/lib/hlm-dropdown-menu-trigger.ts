@@ -13,9 +13,7 @@ import { injectHlmDropdownMenuConfig } from './hlm-dropdown-menu-token';
 			outputs: ['cdkMenuOpened: hlmDropdownMenuOpened', 'cdkMenuClosed: hlmDropdownMenuClosed'],
 		},
 	],
-	host: {
-		'data-slot': 'dropdown-menu-trigger',
-	},
+	host: { 'data-slot': 'dropdown-menu-trigger' },
 })
 export class HlmDropdownMenuTrigger {
 	private readonly _cdkTrigger = inject(CdkMenuTrigger, { host: true });

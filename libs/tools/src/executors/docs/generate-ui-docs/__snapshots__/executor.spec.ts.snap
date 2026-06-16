@@ -605,14 +605,14 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "brn-avatar",
       },
       "BrnAvatarFallback": {
-        "exportAs": "avatarFallback",
+        "exportAs": "brnAvatarFallback",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[brnAvatarFallback]",
       },
       "BrnAvatarImage": {
-        "exportAs": "avatarImage",
+        "exportAs": "brnAvatarImage",
         "inputs": [],
         "models": [],
         "outputs": [],
@@ -639,7 +639,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmAvatarBadge],hlm-avatar-badge",
       },
       "HlmAvatarFallback": {
-        "exportAs": "avatarFallback",
+        "exportAs": "hlmAvatarFallback",
         "inputs": [],
         "models": [],
         "outputs": [],
@@ -658,7 +658,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmAvatarGroupCount],hlm-avatar-group-count",
       },
       "HlmAvatarImage": {
-        "exportAs": "avatarImage",
+        "exportAs": "hlmAvatarImage",
         "inputs": [],
         "models": [],
         "outputs": [],
@@ -2818,6 +2818,146 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
       },
     },
   },
+  "drawer": {
+    "brain": {
+      "BrnDrawer": {
+        "exportAs": "brnDrawer",
+        "inputs": [
+          {
+            "name": "direction",
+            "required": false,
+            "type": "'bottom' | 'top' | 'left' | 'right'",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnDrawer],brn-drawer",
+      },
+      "BrnDrawerClose": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "button[brnDrawerClose]",
+      },
+      "BrnDrawerContent": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnDrawerContent]",
+      },
+      "BrnDrawerDescription": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnDrawerDescription]",
+      },
+      "BrnDrawerHandle": {
+        "inputs": [
+          {
+            "name": "closeThreshold",
+            "required": false,
+            "type": "number",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnDrawerHandle]",
+      },
+      "BrnDrawerOverlay": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnDrawerOverlay],brn-drawer-overlay",
+      },
+      "BrnDrawerTitle": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnDrawerTitle]",
+      },
+      "BrnDrawerTrigger": {
+        "inputs": [
+          {
+            "name": "direction",
+            "required": false,
+            "type": "'bottom' | 'top' | 'left' | 'right' | undefined",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "button[brnDrawerTrigger]",
+      },
+    },
+    "helm": {
+      "HlmDrawer": {
+        "exportAs": "hlmDrawer",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-drawer",
+      },
+      "HlmDrawerClose": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "button[hlmDrawerClose]",
+      },
+      "HlmDrawerContent": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-drawer-content",
+      },
+      "HlmDrawerDescription": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmDrawerDescription]",
+      },
+      "HlmDrawerFooter": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmDrawerFooter],hlm-drawer-footer",
+      },
+      "HlmDrawerHeader": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmDrawerHeader],hlm-drawer-header",
+      },
+      "HlmDrawerOverlay": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmDrawerOverlay],hlm-drawer-overlay",
+      },
+      "HlmDrawerPortal": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmDrawerPortal]",
+      },
+      "HlmDrawerTitle": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmDrawerTitle]",
+      },
+      "HlmDrawerTrigger": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "button[hlmDrawerTrigger]",
+      },
+    },
+  },
   "dropdown-menu": {
     "helm": {
       "HlmDropdownMenu": {
@@ -2835,19 +2975,26 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
       "HlmDropdownMenuCheckbox": {
         "inputs": [
           {
-            "name": "checked",
-            "required": false,
-            "type": "boolean",
-          },
-          {
-            "name": "disabled",
+            "name": "inset",
             "required": false,
             "type": "boolean",
           },
         ],
         "models": [],
         "outputs": [],
-        "selector": "[hlmDropdownMenuCheckbox]",
+        "selector": "[hlmDropdownMenuCheckbox],[hlmDropdownMenuCheckboxItem]",
+      },
+      "HlmDropdownMenuCheckboxCdk": {
+        "inputs": [
+          {
+            "name": "keepOpen",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmDropdownMenuCheckboxCdk]",
       },
       "HlmDropdownMenuCheckboxIndicator": {
         "inputs": [],
@@ -2902,21 +3049,22 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmDropdownMenuLabel],hlm-dropdown-menu-label",
       },
       "HlmDropdownMenuRadio": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmDropdownMenuRadio]",
+      },
+      "HlmDropdownMenuRadioCdk": {
         "inputs": [
           {
-            "name": "checked",
-            "required": false,
-            "type": "boolean",
-          },
-          {
-            "name": "disabled",
+            "name": "keepOpen",
             "required": false,
             "type": "boolean",
           },
         ],
         "models": [],
         "outputs": [],
-        "selector": "[hlmDropdownMenuRadio]",
+        "selector": "[hlmDropdownMenuRadioCdk]",
       },
       "HlmDropdownMenuRadioIndicator": {
         "inputs": [],
@@ -2941,6 +3089,23 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "models": [],
         "outputs": [],
         "selector": "[hlmDropdownMenuSub],hlm-dropdown-menu-sub",
+      },
+      "HlmDropdownMenuSubTrigger": {
+        "inputs": [
+          {
+            "name": "align",
+            "required": false,
+            "type": "MenuAlign",
+          },
+          {
+            "name": "side",
+            "required": false,
+            "type": "MenuSide",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmDropdownMenuSubTrigger]",
       },
       "HlmDropdownMenuTrigger": {
         "inputs": [
@@ -3665,13 +3830,13 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "[hlmNativeSelectOptGroup]",
+        "selector": "optgroup[hlmNativeSelectOptGroup]",
       },
       "HlmNativeSelectOption": {
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "[hlmNativeSelectOption]",
+        "selector": "option[hlmNativeSelectOption]",
       },
     },
   },

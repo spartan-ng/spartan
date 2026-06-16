@@ -79,7 +79,7 @@ import { HlmIcon } from '@spartan-ng/helm/icon';
 						<ng-icon hlm name="lucideListFilterPlus" size="sm" />
 						<span>Add to List</span>
 					</button>
-					<button hlmDropdownMenuItem class="flex justify-between" [hlmDropdownMenuTrigger]="submenu">
+					<button hlmDropdownMenuItem class="flex justify-between" [hlmDropdownMenuSubTrigger]="submenu">
 						<div class="flex items-center gap-2">
 							<ng-icon hlm name="lucideTag" size="sm" />
 							<span>Label as...</span>

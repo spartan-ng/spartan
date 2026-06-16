@@ -21,8 +21,8 @@ import { metaWith } from '../../../../shared/meta/meta.util';
 import {
 	cssVariables,
 	spartanPresetImport,
+	tailwindAutocompletion,
 	tailwindImports,
-	tailwindIntellisense,
 	tailwindPrettierSorting,
 } from './installation-snippets';
 
@@ -196,7 +196,7 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-section-sub-heading id="editor-setup">Editor Setup (Optional)</spartan-section-sub-heading>
 
-			<h3 spartanH4 id="intellisense">IntelliSense</h3>
+			<h3 spartanH4 id="tailwind-autocompletion">Tailwind autocompletion</h3>
 			<p class="${hlmP}">
 				Enable Tailwind autocompletion in
 				<code class="${hlmCode}">hlm</code>
@@ -206,6 +206,8 @@ export const routeMeta: RouteMeta = {
 				<code class="${hlmCode}">classes</code>
 				functions:
 			</p>
+
+			<h4 spartanH4>Intellisense (VSCode)</h4>
 
 			<ol class="my-6 ml-6 list-decimal [&>li]:mt-2">
 				<li>
@@ -227,7 +229,20 @@ export const routeMeta: RouteMeta = {
 				</li>
 			</ol>
 
-			<spartan-code class="mt-4" [code]="_tailwindIntellisense" />
+			<spartan-code class="mt-4" [code]="_tailwindAutocompletion" />
+
+			<h4 spartanH4>Tailwind CSS plugin (Jetbrains)</h4>
+
+			<ol class="my-6 ml-6 list-decimal [&>li]:mt-2">
+				<li>
+					Open Tailwind configuration (
+					<code>Settings > Language & Frameworks > Style sheets > Tailwind CSS</code>
+					)
+				</li>
+				<li>Add this to the configuration:</li>
+			</ol>
+
+			<spartan-code class="mt-4" [code]="_tailwindAutocompletion" />
 
 			<h3 spartanH4 id="sorting-classes" class="mt-8">Class Sorting</h3>
 			<p class="${hlmP}">Automatically sort Tailwind classes with Prettier:</p>
@@ -243,6 +258,13 @@ export const routeMeta: RouteMeta = {
 					>
 						prettier-plugin-tailwindcss
 					</a>
+				</li>
+				<li>
+					(Optional) For Jetbrains-based IDEs: configure Prettier. Go to
+					<code>Settings > Language & Frameworks > JavaScript > Prettier</code>
+					, check "Automatic Prettier configuration" and add
+					<code>html</code>
+					in the "Run for files" pattern.
 				</li>
 				<li>
 					Add this to your
@@ -266,6 +288,6 @@ export default class InstallationPage {
 	protected readonly _tailwindImports = tailwindImports;
 	protected readonly _spartanPresetImport = spartanPresetImport;
 	protected readonly _cssVariables = cssVariables;
-	protected readonly _tailwindIntellisense = tailwindIntellisense;
+	protected readonly _tailwindAutocompletion = tailwindAutocompletion;
 	protected readonly _tailwindPrettierSorting = tailwindPrettierSorting;
 }

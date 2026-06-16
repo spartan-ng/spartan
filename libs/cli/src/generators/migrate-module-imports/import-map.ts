@@ -38,7 +38,7 @@ export default {
 	HlmAutocompleteModule: 'HlmAutocompleteImports',
 	HlmAvatarModule: 'HlmAvatarImports',
 	HlmBadgeModule: 'HlmBadgeImports',
-	HlmBreadCrumbModule: 'HlmBreadCrumbImports',
+	HlmBreadCrumbModule: 'HlmBreadcrumbImports',
 	HlmButtonModule: 'HlmButtonImports',
 	HlmCalendarModule: 'HlmCalendarImports',
 	HlmCardModule: 'HlmCardImports',

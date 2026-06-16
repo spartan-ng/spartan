@@ -6,6 +6,7 @@ import { classes } from '@spartan-ng/helm/utils';
 @Directive({
 	selector: '[hlmInput]',
 	hostDirectives: [{ directive: BrnInput, inputs: ['id', 'forceInvalid'] }, BrnFieldControlDescribedBy],
+	host: { 'data-slot': 'input' },
 })
 export class HlmInput {
 	constructor() {

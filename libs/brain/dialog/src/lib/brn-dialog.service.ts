@@ -18,9 +18,6 @@ let dialogSequence = 0;
 
 export type BrnDialogContext<T> = T & { close: (result?: unknown) => void };
 
-/** @deprecated Use `injectBrnDialogContext` instead. */
-export const injectBrnDialogCtx = <T>(): BrnDialogContext<T> => inject(DIALOG_DATA);
-
 export const injectBrnDialogContext = <DialogContext = unknown>(options: InjectOptions = {}) =>
 	inject(DIALOG_DATA, options) as DialogContext;
 

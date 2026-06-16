@@ -1,4 +1,5 @@
 import { formatFiles, logger, type Tree } from '@nx/devkit';
+import { prompt } from 'enquirer';
 import { getImportAlias } from '../../utils/config';
 import { type Healthcheck, type HealthcheckReport, HealthcheckStatus, isHealthcheckFixable } from './healthchecks';
 import { brainImportsHealthcheck } from './healthchecks/brain-imports';
@@ -30,7 +31,6 @@ import { namingConventionHealthcheck } from './healthchecks/naming-conventions';
 import { sonnerHealthcheck } from './healthchecks/sonner';
 import { versionHealthcheck } from './healthchecks/version';
 import type { HealthcheckGeneratorSchema } from './schema';
-import { promptUser } from './utils/prompt';
 import { printReport } from './utils/reporter';
 import { runHealthcheck } from './utils/runner';
 
@@ -83,7 +83,15 @@ export async function healthcheckGenerator(tree: Tree, options: HealthcheckGener
 
 	for (const report of failedReports) {
 		if (report.fixable && isHealthcheckFixable(report.healthcheck)) {
-			const fix = options.autoFix || (await promptUser(report.healthcheck.prompt));
+			const fix =
+				options.autoFix ||
+				(
+					await prompt<{ confirmed: boolean }>({
+						type: 'confirm',
+						name: 'confirmed',
+						message: report.healthcheck.prompt,
+					})
+				).confirmed;
 
 			if (fix) {
 				await report.healthcheck.fix(tree, { angularCli: options.angularCli, importAlias });

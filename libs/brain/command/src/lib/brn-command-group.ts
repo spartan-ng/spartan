@@ -5,7 +5,7 @@ import { BrnCommandItemToken } from './brn-command-item.token';
 	selector: '[brnCommandGroup]',
 	host: {
 		role: 'group',
-		'[attr.data-hidden]': '!_visible() ? "" : null',
+		'[attr.data-hidden]': '!_visible() ? true : null',
 		'[id]': 'id()',
 	},
 })

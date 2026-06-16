@@ -9,11 +9,11 @@ import { classes } from '@spartan-ng/helm/utils';
 	providers: [provideIcons({ lucideChevronRight })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<ng-icon name="lucideChevronRight" class="text-base" />
+		<ng-icon name="lucideChevronRight" class="text-[calc(var(--spacing)*4)] rtl:rotate-180" />
 	`,
 })
 export class HlmDropdownMenuItemSubIndicator {
 	constructor() {
-		classes(() => 'ms-auto size-4');
+		classes(() => 'ms-auto flex items-center justify-center');
 	}
 }

@@ -16,6 +16,7 @@ import { SectionSubHeading } from '../../../../shared/layout/section-sub-heading
 import { Tabs } from '../../../../shared/layout/tabs';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
+import { PopoverBasic } from './popover--basic.preview';
 import { PopoverPreview, defaultImports, defaultSkeleton } from './popover.preview';
 
 export const routeMeta: RouteMeta = {
@@ -38,9 +39,10 @@ export const routeMeta: RouteMeta = {
 		PageNav,
 		PageBottomNav,
 		PageBottomNavLink,
-		PopoverPreview,
 		RtlHeader,
 		CodeRtlPreview,
+		PopoverPreview,
+		PopoverBasic,
 		PopoverRtlPreview,
 	],
 	template: `
@@ -65,6 +67,15 @@ export const routeMeta: RouteMeta = {
 				<spartan-code [code]="_defaultImports" />
 				<spartan-code [code]="_defaultSkeleton" />
 			</div>
+
+			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
+			<h3 id="basic" spartanH4>Basic</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-popover-basic />
+				</div>
+				<spartan-code secondTab [code]="_basicCode()" />
+			</spartan-tabs>
 
 			<spartan-header-rtl />
 			<spartan-tabs firstTab="Preview" secondTab="Code">
@@ -91,6 +102,7 @@ export const routeMeta: RouteMeta = {
 export default class PopoverPage {
 	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('popover');
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
+	protected readonly _basicCode = computed(() => this._snippets()['basic']);
 	protected readonly _rtlCode = computed(() => this._snippets()['rtl']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;

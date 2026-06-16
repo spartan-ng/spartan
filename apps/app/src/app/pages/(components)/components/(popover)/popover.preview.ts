@@ -9,7 +9,7 @@ import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 	imports: [HlmPopoverImports, HlmButtonImports, HlmLabelImports, HlmInputImports],
 	template: `
 		<hlm-popover sideOffset="5">
-			<button id="edit-profile" hlmPopoverTrigger hlmBtn variant="outline">Open Popover</button>
+			<button hlmPopoverTrigger hlmBtn variant="outline">Open Popover</button>
 			<hlm-popover-content class="grid w-80 gap-4" *hlmPopoverPortal="let ctx">
 				<div class="space-y-2">
 					<h4 class="leading-none font-medium">Dimensions</h4>

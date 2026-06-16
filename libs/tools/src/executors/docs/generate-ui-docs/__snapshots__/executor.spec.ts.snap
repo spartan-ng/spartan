@@ -4230,11 +4230,29 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "outputs": [],
         "selector": "[hlmPopoverContent],hlm-popover-content",
       },
+      "HlmPopoverDescription": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmPopoverDescription]",
+      },
+      "HlmPopoverHeader": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmPopoverHeader],hlm-popover-header",
+      },
       "HlmPopoverPortal": {
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmPopoverPortal]",
+      },
+      "HlmPopoverTitle": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmPopoverTitle]",
       },
       "HlmPopoverTrigger": {
         "inputs": [],

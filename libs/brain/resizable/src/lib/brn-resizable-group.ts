@@ -2,6 +2,7 @@ import { Directionality } from '@angular/cdk/bidi';
 import {
 	afterNextRender,
 	contentChildren,
+	DestroyRef,
 	Directive,
 	DOCUMENT,
 	ElementRef,
@@ -62,7 +63,14 @@ export class BrnResizableGroup {
 
 	private _pendingSizes: number[] | null = null;
 
+	/** Tears down the in-flight drag (document listeners, queued frame, cursor); null when idle. */
+	private _stopResize: (() => void) | null = null;
+
 	constructor() {
+		// If the group is destroyed mid-drag, the document listeners would otherwise stay attached
+		// (document is never GC'd), pinning this directive and firing against a torn-down view.
+		inject(DestroyRef).onDestroy(() => this._stopResize?.());
+
 		afterNextRender(() => {
 			this._initializePanelSizes();
 		});
@@ -91,6 +99,9 @@ export class BrnResizableGroup {
 	public startResize(handleIndex: number, event: MouseEvent | TouchEvent): void {
 		event.preventDefault();
 
+		// tear down any in-flight drag before starting a new one
+		this._stopResize?.();
+
 		const cursor = this.direction() === 'vertical' ? 'ns-resize' : 'ew-resize';
 		this._document.body.style.cursor = `${cursor}`;
 		const sizes = [...this.layout()];
@@ -108,21 +119,40 @@ export class BrnResizableGroup {
 			});
 		};
 
-		const handleEnd = () => {
-			this._zone.run(() => this._endResize());
-
-			this._document.body.style.cursor = 'default';
+		// Detaches the document listeners, cancels any queued frame and restores the cursor. Stored
+		// on the instance so it runs on normal drag-end and on destroy-during-drag alike.
+		const cleanup = () => {
 			this._document.removeEventListener('mousemove', handleMove);
 			this._document.removeEventListener('touchmove', handleMove);
 			this._document.removeEventListener('mouseup', handleEnd);
 			this._document.removeEventListener('touchend', handleEnd);
+			this._document.removeEventListener('touchcancel', handleEnd);
+			this._document.body.style.cursor = 'default';
+
+			if (this._resizeRaf !== null) {
+				cancelAnimationFrame(this._resizeRaf);
+				this._resizeRaf = null;
+				this._pendingSizes = null;
+			}
+
+			this._stopResize = null;
 		};
+
+		const handleEnd = () => {
+			this._zone.run(() => this._endResize());
+			cleanup();
+		};
+
+		this._stopResize = cleanup;
 
 		this._zone.runOutsideAngular(() => {
 			this._document.addEventListener('mousemove', handleMove);
 			this._document.addEventListener('touchmove', handleMove);
 			this._document.addEventListener('mouseup', handleEnd);
 			this._document.addEventListener('touchend', handleEnd);
+			// touch drags can be interrupted by the system (touchcancel) without firing touchend;
+			// end the resize on it too so listeners + cursor are not left dangling.
+			this._document.addEventListener('touchcancel', handleEnd);
 		});
 	}
 

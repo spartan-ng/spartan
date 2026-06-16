@@ -6,7 +6,11 @@ import { classes } from '@spartan-ng/helm/utils';
 @Directive({
 	selector: '[hlmProgressIndicator],hlm-progress-indicator',
 	hostDirectives: [BrnProgressIndicator],
-	host: { '[class.animate-indeterminate]': '_indeterminate()', '[style.transform]': '_transform()' },
+	host: {
+		'data-slot': 'progress-indicator',
+		'[class.animate-indeterminate]': '_indeterminate()',
+		'[style.transform]': '_transform()',
+	},
 })
 export class HlmProgressIndicator {
 	private readonly _progress = injectBrnProgress();

@@ -23,8 +23,3 @@ export const HlmBreadcrumbImports = [
 	HlmBreadcrumbPage,
 	HlmBreadcrumbList,
 ] as const;
-
-/**
- * @deprecated Use `HlmBreadcrumbImports` instead.
- */
-export const HlmBreadCrumbImports = HlmBreadcrumbImports;

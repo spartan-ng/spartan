@@ -2,6 +2,6 @@ import { Directive } from '@angular/core';
 
 @Directive({
 	selector: '[brnAvatarFallback]',
-	exportAs: 'avatarFallback',
+	exportAs: 'brnAvatarFallback',
 })
 export class BrnAvatarFallback {}

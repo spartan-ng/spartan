@@ -5,6 +5,7 @@ import { classes } from '@spartan-ng/helm/utils';
 @Directive({
 	selector: 'hlm-progress,[hlmProgress]',
 	hostDirectives: [{ directive: BrnProgress, inputs: ['value', 'max', 'getValueLabel'] }],
+	host: { 'data-slot': 'progress' },
 })
 export class HlmProgress {
 	constructor() {

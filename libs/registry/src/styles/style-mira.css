@@ -520,11 +520,11 @@
 	}
 
 	.spartan-dropdown-menu-item-indicator {
-		@apply absolute right-2 flex items-center justify-center;
+		@apply absolute end-2 flex items-center justify-center;
 	}
 
 	.spartan-dropdown-menu-label {
-		@apply text-muted-foreground px-2 py-1.5 text-xs data-inset:pl-7.5;
+		@apply text-muted-foreground px-2 py-1.5 text-xs data-inset:ps-7.5;
 	}
 
 	.spartan-dropdown-menu-separator {
@@ -532,7 +532,7 @@
 	}
 
 	.spartan-dropdown-menu-shortcut {
-		@apply text-muted-foreground group-focus/dropdown-menu-item:text-accent-foreground ml-auto text-[0.625rem] tracking-widest;
+		@apply text-muted-foreground group-focus/dropdown-menu-item:text-accent-foreground ms-auto text-[0.625rem] tracking-widest;
 	}
 
 	.spartan-dropdown-menu-sub-content {

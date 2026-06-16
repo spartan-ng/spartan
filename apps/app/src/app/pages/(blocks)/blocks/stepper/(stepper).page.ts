@@ -48,7 +48,7 @@ export const routeMeta: RouteMeta = {
 		<spartan-block-viewer block="stepper-lazy-content" title="A stepper with lazy content" id="stepper-5">
 			<p class="text-muted-foreground max-w-3xl text-sm text-pretty">
 				Use
-				<code class="${hlmCode}">hlmStepContent</code>
+				<code class="${hlmCode}">spartanStepContent</code>
 				to attach a step's body lazily, keeping the initial render lighter.
 			</p>
 		</spartan-block-viewer>

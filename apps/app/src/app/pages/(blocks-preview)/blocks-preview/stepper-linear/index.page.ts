@@ -19,7 +19,7 @@ import { SpartanStepperImports } from '../../../(blocks)/blocks/stepper/lib';
 			<div class="w-full max-w-2xl">
 				<spartan-stepper [linear]="true">
 					<spartan-step [stepControl]="_identityForm" label="Identity">
-						<form [formGroup]="_identityForm" class="flex flex-col gap-4">
+						<form [formGroup]="_identityForm" class="flex flex-col gap-4 p-2">
 							<hlm-field>
 								<label hlmFieldLabel for="validation-name">Name</label>
 								<input hlmInput id="validation-name" formControlName="name" placeholder="Required before continuing" />
@@ -34,10 +34,10 @@ import { SpartanStepperImports } from '../../../(blocks)/blocks/stepper/lib';
 						</form>
 					</spartan-step>
 
-					<spartan-step [stepControl]="_securityForm">
+					<spartan-step [stepControl]="_securityForm" label="Security">
 						<ng-template hlmStepLabel>Security</ng-template>
 
-						<form [formGroup]="_securityForm" class="flex flex-col gap-4">
+						<form [formGroup]="_securityForm" class="flex flex-col gap-4 p-2">
 							<hlm-field>
 								<label hlmFieldLabel for="validation-password">Temporary Password</label>
 								<input

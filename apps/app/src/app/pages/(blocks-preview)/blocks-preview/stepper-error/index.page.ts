@@ -31,7 +31,7 @@ import { SpartanStepperImports } from '../../../(blocks)/blocks/stepper/lib';
 						errorMessage="Enter a valid work email before continuing."
 						label="Contact"
 					>
-						<form [formGroup]="_contactForm" class="flex flex-col gap-4">
+						<form [formGroup]="_contactForm" class="flex flex-col gap-4 p-2">
 							<hlm-field>
 								<label hlmFieldLabel for="error-email">Work Email</label>
 								<input

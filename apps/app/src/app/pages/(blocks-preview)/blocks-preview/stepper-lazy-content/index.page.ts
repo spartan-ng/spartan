@@ -22,7 +22,7 @@ import { SpartanStepperImports } from '../../../(blocks)/blocks/stepper/lib';
 							>
 								<p class="text-muted-foreground max-w-sm text-center text-sm">
 									The first step renders immediately. Later steps use
-									<code class="text-foreground font-mono">hlmStepContent</code>
+									<code class="text-foreground font-mono">spartanStepContent</code>
 									so their bodies are attached lazily.
 								</p>
 							</div>

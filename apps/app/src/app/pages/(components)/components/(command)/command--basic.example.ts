@@ -41,7 +41,7 @@ import { HlmCommandImports } from '@spartan-ng/helm/command';
 					<hlm-command-group>
 						<hlm-command-group-label>Suggestions</hlm-command-group-label>
 						<button hlm-command-item value="calendar" (selected)="commandSelected('calendar')">Calendar</button>
-						<button hlm-command-item value="emojy" (selected)="commandSelected('emojy')">Search Emoji</button>
+						<button hlm-command-item value="emoji" (selected)="commandSelected('emoji')">Search Emoji</button>
 						<button hlm-command-item value="calculator" (selected)="commandSelected('calculator')">Calculator</button>
 					</hlm-command-group>
 				</hlm-command-list>

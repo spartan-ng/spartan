@@ -163,6 +163,7 @@ Our initial 300 contributors and sponsors are featured here and on the front pag
 144. [SOG-web](https://github.com/SOG-web)
 145. [Joebeurg](https://github.com/Joebeurg)
 146. [mehrabix](https://github.com/mehrabix)
+147. [Copilot](https://github.com/Copilot)
 
 [Become a spartan today!](https://github.com/sponsors/goetzrobin)
 

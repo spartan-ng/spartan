@@ -3,6 +3,7 @@ import { CdkMenuItem, CdkMenuItemRadio, CdkMenuItemSelectable } from '@angular/c
 import { Directive, booleanAttribute, inject, input } from '@angular/core';
 import { classes } from '@spartan-ng/helm/utils';
 
+/** @internal. Use HlmDropdownMenuRadio instead. */
 @Directive({
 	selector: '[hlmDropdownMenuRadioCdk]',
 	providers: [

@@ -3,6 +3,7 @@ import { CdkMenuItem, CdkMenuItemCheckbox, CdkMenuItemSelectable } from '@angula
 import { Directive, booleanAttribute, inject, input } from '@angular/core';
 import { classes } from '@spartan-ng/helm/utils';
 
+/** @internal. Use HlmDropdownMenuCheckbox instead. */
 @Directive({
 	selector: '[hlmDropdownMenuCheckboxCdk]',
 	providers: [

@@ -404,7 +404,7 @@
 	}
 
 	.spartan-command-input-icon {
-		@apply size-3.5 shrink-0 opacity-50;
+		@apply shrink-0 text-[calc(var(--spacing)*3.5)] opacity-50;
 	}
 
 	.spartan-command-input {
@@ -420,7 +420,7 @@
 	}
 
 	.spartan-command-group {
-		@apply text-foreground **:[[cmdk-group-heading]]:text-muted-foreground overflow-hidden p-1 **:[[cmdk-group-heading]]:px-2.5 **:[[cmdk-group-heading]]:py-1.5 **:[[cmdk-group-heading]]:text-xs **:[[cmdk-group-heading]]:font-medium;
+		@apply text-foreground **:data-[slot=command-group-label]:text-muted-foreground overflow-hidden p-1 **:data-[slot=command-group-label]:px-2.5 **:data-[slot=command-group-label]:py-1.5 **:data-[slot=command-group-label]:text-xs **:data-[slot=command-group-label]:font-medium;
 	}
 
 	.spartan-command-separator {
@@ -428,11 +428,11 @@
 	}
 
 	.spartan-command-item {
-		@apply data-selected:bg-muted data-selected:text-foreground data-selected:*:[ng-icon]:text-foreground relative flex min-h-7 cursor-default items-center gap-2 rounded-md px-2.5 py-1.5 text-xs/relaxed outline-hidden select-none in-data-[slot=dialog-content]:rounded-md [&_ng-icon:not([class*='text-'])]:text-[calc(var(--spacing)*3.5)];
+		@apply data-[selected]:bg-muted data-[selected]:text-foreground relative flex min-h-7 cursor-default items-center gap-2 rounded-md px-2.5 py-1.5 text-xs/relaxed outline-hidden select-none in-data-[slot=dialog-content]:rounded-md [&_ng-icon:not([class*='text-'])]:text-[calc(var(--spacing)*3.5)];
 	}
 
 	.spartan-command-shortcut {
-		@apply text-muted-foreground group-data-selected/command-item:text-foreground ml-auto text-[0.625rem] tracking-widest;
+		@apply text-muted-foreground group-data-[selected]/command-item:text-foreground ms-auto text-[0.625rem] tracking-widest;
 	}
 
 	/* MARK: Context Menu */
@@ -469,7 +469,7 @@
 	}
 
 	.spartan-context-menu-shortcut {
-		@apply text-muted-foreground group-focus/context-menu-item:text-accent-foreground ml-auto text-[0.625rem] tracking-widest;
+		@apply text-muted-foreground group-focus/context-menu-item:text-accent-foreground ms-auto text-[0.625rem] tracking-widest;
 	}
 
 	.spartan-context-menu-sub-trigger {
@@ -582,7 +582,7 @@
 	}
 
 	.spartan-dropdown-menu-shortcut {
-		@apply text-muted-foreground group-focus/dropdown-menu-item:text-accent-foreground ml-auto text-[0.625rem] tracking-widest;
+		@apply text-muted-foreground group-focus/dropdown-menu-item:text-accent-foreground ms-auto text-[0.625rem] tracking-widest;
 	}
 
 	.spartan-dropdown-menu-sub-trigger {
@@ -968,7 +968,7 @@
 	}
 
 	.spartan-progress-value {
-		@apply text-muted-foreground ml-auto text-xs/relaxed tabular-nums;
+		@apply text-muted-foreground ms-auto text-xs/relaxed tabular-nums;
 	}
 
 	/* MARK: Radio Group */

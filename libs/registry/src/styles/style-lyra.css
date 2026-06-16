@@ -386,7 +386,7 @@
 	}
 
 	.spartan-command-input-icon {
-		@apply size-4 shrink-0 opacity-50;
+		@apply shrink-0 text-[calc(var(--spacing)*4)] opacity-50;
 	}
 
 	.spartan-command-input {
@@ -402,7 +402,7 @@
 	}
 
 	.spartan-command-group {
-		@apply text-foreground **:[[cmdk-group-heading]]:text-muted-foreground overflow-hidden **:[[cmdk-group-heading]]:px-2 **:[[cmdk-group-heading]]:py-1.5 **:[[cmdk-group-heading]]:text-xs;
+		@apply text-foreground **:data-[slot=command-group-label]:text-muted-foreground overflow-hidden **:data-[slot=command-group-label]:px-2 **:data-[slot=command-group-label]:py-1.5 **:data-[slot=command-group-label]:text-xs;
 	}
 
 	.spartan-command-separator {
@@ -410,11 +410,11 @@
 	}
 
 	.spartan-command-item {
-		@apply data-selected:bg-muted data-selected:text-foreground data-selected:*:[ng-icon]:text-foreground relative flex cursor-default items-center gap-2 rounded-none px-2 py-2 text-xs outline-hidden select-none in-data-[slot=dialog-content]:rounded-none! [&_ng-icon:not([class*='text-'])]:text-[calc(var(--spacing)*4)];
+		@apply data-[selected]:bg-muted data-[selected]:text-foreground data-[selected]:*:[&>ng-icon]:text-foreground relative flex cursor-default items-center gap-2 rounded-none px-2 py-2 text-xs outline-hidden select-none in-data-[slot=dialog-content]:rounded-none! [&_ng-icon:not([class*='text-'])]:text-[calc(var(--spacing)*4)];
 	}
 
 	.spartan-command-shortcut {
-		@apply text-muted-foreground group-data-selected/command-item:text-foreground ml-auto text-xs tracking-widest;
+		@apply text-muted-foreground group-data-[selected]/command-item:text-foreground ms-auto text-xs tracking-widest;
 	}
 
 	/* MARK: Context Menu */
@@ -451,7 +451,7 @@
 	}
 
 	.spartan-context-menu-shortcut {
-		@apply text-muted-foreground group-focus/context-menu-item:text-accent-foreground ml-auto text-xs tracking-widest;
+		@apply text-muted-foreground group-focus/context-menu-item:text-accent-foreground ms-auto text-xs tracking-widest;
 	}
 
 	.spartan-context-menu-sub-trigger {
@@ -560,7 +560,7 @@
 	}
 
 	.spartan-dropdown-menu-shortcut {
-		@apply text-muted-foreground group-focus/dropdown-menu-item:text-accent-foreground ml-auto text-xs tracking-widest;
+		@apply text-muted-foreground group-focus/dropdown-menu-item:text-accent-foreground ms-auto text-xs tracking-widest;
 	}
 
 	.spartan-dropdown-menu-sub-trigger {
@@ -946,7 +946,7 @@
 	}
 
 	.spartan-progress-value {
-		@apply text-muted-foreground ml-auto text-xs tabular-nums;
+		@apply text-muted-foreground ms-auto text-xs tabular-nums;
 	}
 
 	/* MARK: Radio Group */

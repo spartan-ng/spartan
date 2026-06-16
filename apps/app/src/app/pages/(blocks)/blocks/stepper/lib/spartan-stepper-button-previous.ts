@@ -3,11 +3,11 @@ import { Directive } from '@angular/core';
 
 /** Button that moves to the previous step in a stepper workflow. */
 @Directive({
-	selector: 'button[hlmStepperPrevious]',
+	selector: 'button[spartanStepperPrevious]',
 	host: {
-		class: 'hlm-stepper-previous',
+		class: 'spartan-stepper-previous',
 		'[type]': 'type',
 		'[style.touch-action]': '"manipulation"',
 	},
 })
-export class HlmStepperPrevious extends CdkStepperPrevious {}
+export class SpartanStepperPrevious extends CdkStepperPrevious {}

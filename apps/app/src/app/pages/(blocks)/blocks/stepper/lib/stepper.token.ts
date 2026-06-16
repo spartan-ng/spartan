@@ -1,19 +1,19 @@
 import { InjectionToken, type ValueProvider, inject } from '@angular/core';
-import type { HlmStepperIndicatorMode } from './hlm-step-header';
+import type { SpartanStepperIndicatorMode } from './spartan-step-header';
 
-export interface HlmStepperConfig {
+export interface SpartanStepperConfig {
 	animationEnabled: boolean;
 	animationDuration: number;
-	defaultIndicatorMode: HlmStepperIndicatorMode;
+	defaultIndicatorMode: SpartanStepperIndicatorMode;
 }
 
-const defaultConfig: HlmStepperConfig = {
+const defaultConfig: SpartanStepperConfig = {
 	animationEnabled: true,
 	animationDuration: 300,
 	defaultIndicatorMode: 'state',
 };
 
-const HlmStepperConfigToken = new InjectionToken<HlmStepperConfig>('HlmStepperConfig');
+const SpartanStepperConfigToken = new InjectionToken<SpartanStepperConfig>('spartanStepperConfig');
 
 function normalizeDuration(duration: number): number {
 	if (!Number.isFinite(duration)) {
@@ -23,15 +23,15 @@ function normalizeDuration(duration: number): number {
 	return Math.max(0, Math.round(duration));
 }
 
-export function provideHlmStepperConfig(config: Partial<HlmStepperConfig>): ValueProvider {
+export function provideSpartanStepperConfig(config: Partial<SpartanStepperConfig>): ValueProvider {
 	const mergedConfig = { ...defaultConfig, ...config };
 	return {
-		provide: HlmStepperConfigToken,
+		provide: SpartanStepperConfigToken,
 		useValue: { ...mergedConfig, animationDuration: normalizeDuration(mergedConfig.animationDuration) },
 	};
 }
 
-export function injectHlmStepperConfig(): HlmStepperConfig {
-	const config = inject(HlmStepperConfigToken, { optional: true }) ?? defaultConfig;
+export function injectSpartanStepperConfig(): SpartanStepperConfig {
+	const config = inject(SpartanStepperConfigToken, { optional: true }) ?? defaultConfig;
 	return { ...config, animationDuration: normalizeDuration(config.animationDuration) };
 }

@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
-import { HlmStepperImports } from '../../../(blocks)/blocks/stepper/lib';
+import { SpartanStepperImports } from '../../../(blocks)/blocks/stepper/lib';
 
 @Component({
 	selector: 'spartan-stepper-vertical',
-	imports: [HlmStepperImports, HlmButtonImports],
+	imports: [SpartanStepperImports, HlmButtonImports],
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
@@ -14,8 +14,8 @@ import { HlmStepperImports } from '../../../(blocks)/blocks/stepper/lib';
 	template: `
 		<div class="flex min-h-svh w-full justify-center p-6 md:p-10">
 			<div class="w-full max-w-2xl">
-				<hlm-stepper orientation="vertical">
-					<hlm-step label="Campaign">
+				<spartan-stepper orientation="vertical">
+					<spartan-step label="Campaign">
 						<div class="flex flex-col gap-4">
 							<div
 								class="text-muted-foreground flex h-48 items-center justify-center rounded-lg border-2 border-dashed text-lg font-medium"
@@ -26,12 +26,12 @@ import { HlmStepperImports } from '../../../(blocks)/blocks/stepper/lib';
 							</div>
 
 							<div class="flex justify-end">
-								<button hlmBtn hlmStepperNext>Next</button>
+								<button hlmBtn spartanStepperNext>Next</button>
 							</div>
 						</div>
-					</hlm-step>
+					</spartan-step>
 
-					<hlm-step label="Audience">
+					<spartan-step label="Audience">
 						<div class="flex flex-col gap-4">
 							<div
 								class="text-muted-foreground flex h-48 items-center justify-center rounded-lg border-2 border-dashed text-lg font-medium"
@@ -43,13 +43,13 @@ import { HlmStepperImports } from '../../../(blocks)/blocks/stepper/lib';
 							</div>
 
 							<div class="flex justify-between gap-2">
-								<button hlmBtn variant="outline" hlmStepperPrevious>Back</button>
-								<button hlmBtn hlmStepperNext>Next</button>
+								<button hlmBtn variant="outline" spartanStepperPrevious>Back</button>
+								<button hlmBtn spartanStepperNext>Next</button>
 							</div>
 						</div>
-					</hlm-step>
+					</spartan-step>
 
-					<hlm-step label="Review">
+					<spartan-step label="Review">
 						<div class="flex flex-col gap-4">
 							<div
 								class="text-muted-foreground flex h-48 items-center justify-center rounded-lg border-2 border-dashed text-lg font-medium"
@@ -61,12 +61,12 @@ import { HlmStepperImports } from '../../../(blocks)/blocks/stepper/lib';
 							</div>
 
 							<div class="flex justify-between gap-2">
-								<button hlmBtn variant="outline" hlmStepperPrevious>Back</button>
+								<button hlmBtn variant="outline" spartanStepperPrevious>Back</button>
 								<button hlmBtn>Publish</button>
 							</div>
 						</div>
-					</hlm-step>
-				</hlm-stepper>
+					</spartan-step>
+				</spartan-stepper>
 			</div>
 		</div>
 	`,

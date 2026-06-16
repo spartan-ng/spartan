@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, signal, ViewEncapsulation } from '@angular/core';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
-import { HlmStepperImports } from '../../../(blocks)/blocks/stepper/lib';
+import { SpartanStepperImports } from '../../../(blocks)/blocks/stepper/lib';
 
 @Component({
 	selector: 'spartan-stepper-animations',
-	imports: [HlmStepperImports, HlmButtonImports],
+	imports: [SpartanStepperImports, HlmButtonImports],
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
@@ -33,8 +33,8 @@ import { HlmStepperImports } from '../../../(blocks)/blocks/stepper/lib';
 					/>
 				</div>
 
-				<hlm-stepper [animationsEnabled]="_animationsEnabled()" [animationDuration]="_animationDuration()">
-					<hlm-step label="Account">
+				<spartan-stepper [animationsEnabled]="_animationsEnabled()" [animationDuration]="_animationDuration()">
+					<spartan-step label="Account">
 						<div class="flex flex-col gap-4">
 							<div
 								class="text-muted-foreground flex h-48 items-center justify-center rounded-lg border-2 border-dashed text-center text-sm"
@@ -42,12 +42,12 @@ import { HlmStepperImports } from '../../../(blocks)/blocks/stepper/lib';
 								Toggle animations and adjust duration to preview step transitions.
 							</div>
 							<div class="flex justify-end">
-								<button hlmBtn hlmStepperNext>Next</button>
+								<button hlmBtn spartanStepperNext>Next</button>
 							</div>
 						</div>
-					</hlm-step>
+					</spartan-step>
 
-					<hlm-step label="Profile">
+					<spartan-step label="Profile">
 						<div class="flex flex-col gap-4">
 							<div
 								class="text-muted-foreground flex h-48 items-center justify-center rounded-lg border-2 border-dashed text-center text-sm"
@@ -59,13 +59,13 @@ import { HlmStepperImports } from '../../../(blocks)/blocks/stepper/lib';
 								.
 							</div>
 							<div class="flex justify-between gap-2">
-								<button hlmBtn variant="outline" hlmStepperPrevious>Back</button>
-								<button hlmBtn hlmStepperNext>Next</button>
+								<button hlmBtn variant="outline" spartanStepperPrevious>Back</button>
+								<button hlmBtn spartanStepperNext>Next</button>
 							</div>
 						</div>
-					</hlm-step>
+					</spartan-step>
 
-					<hlm-step label="Review">
+					<spartan-step label="Review">
 						<div class="flex flex-col gap-4">
 							<div
 								class="text-muted-foreground flex h-48 items-center justify-center rounded-lg border-2 border-dashed text-center text-sm"
@@ -75,12 +75,12 @@ import { HlmStepperImports } from '../../../(blocks)/blocks/stepper/lib';
 								and override per instance with inputs when needed.
 							</div>
 							<div class="flex justify-between gap-2">
-								<button hlmBtn variant="outline" hlmStepperPrevious>Back</button>
+								<button hlmBtn variant="outline" spartanStepperPrevious>Back</button>
 								<button hlmBtn>Finish</button>
 							</div>
 						</div>
-					</hlm-step>
-				</hlm-stepper>
+					</spartan-step>
+				</spartan-stepper>
 			</div>
 		</div>
 	`,

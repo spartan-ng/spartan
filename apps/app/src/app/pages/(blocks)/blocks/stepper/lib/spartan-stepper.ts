@@ -2,18 +2,35 @@ import { CdkStep, CdkStepper, CdkStepperModule } from '@angular/cdk/stepper';
 import { NgTemplateOutlet } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, input, numberAttribute, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { hlm } from '@spartan-ng/helm/utils';
+import { cva } from 'class-variance-authority';
 import { tap } from 'rxjs/operators';
-import { HlmStep } from './hlm-step';
-import { HlmStepHeader, HlmStepperIndicatorMode } from './hlm-step-header';
-import { injectHlmStepperConfig } from './stepper.token';
+import { SpartanStep } from './spartan-step';
+import { SpartanStepHeader, SpartanStepperIndicatorMode } from './spartan-step-header';
+import { injectSpartanStepperConfig } from './stepper.token';
 
-export type HlmLabelPosition = 'end' | 'bottom';
-export type HlmHeaderPosition = 'top' | 'bottom';
+export type SpartanStepperLabelPosition = 'end' | 'bottom';
+export type SpartanStepperHeaderPosition = 'top' | 'bottom';
+
+const stepTransition = cva('', {
+	variants: {
+		motion: {
+			none: '',
+			'enter-forward': 'animate-in fade-in slide-in-from-right-8 fill-mode-both',
+			'enter-backward': 'animate-in fade-in slide-in-from-left-8 fill-mode-both',
+			'leave-forward': 'animate-out fade-out slide-out-to-left-8 fill-mode-both absolute top-0 right-0 left-0',
+			'leave-backward': 'animate-out fade-out slide-out-to-right-8 fill-mode-both absolute top-0 right-0 left-0',
+			'enter-bottom':
+				'animate-in fade-in slide-in-from-bottom-2 fill-mode-both duration-400 [animation-timing-function:cubic-bezier(0.34,1.56,0.64,1)]',
+		},
+	},
+	defaultVariants: { motion: 'none' },
+});
 
 @Component({
-	selector: 'hlm-stepper',
-	imports: [CdkStepperModule, NgTemplateOutlet, HlmStepHeader],
-	providers: [{ provide: CdkStepper, useExisting: HlmStepper }],
+	selector: 'spartan-stepper',
+	imports: [CdkStepperModule, NgTemplateOutlet, SpartanStepHeader],
+	providers: [{ provide: CdkStepper, useExisting: SpartanStepper }],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		@switch (orientation) {
@@ -42,9 +59,7 @@ export type HlmHeaderPosition = 'top' | 'bottom';
 								[style.transition-duration.ms]="animationDuration()"
 							>
 								<section
-									class="ms-4 overflow-hidden ps-6"
-									[class.border-s]="!$last"
-									[class.step-enter-bottom]="animationsEnabled() && selectedIndex === i"
+									[class]="_verticalStepClass(!$last, i)"
 									role="region"
 									[id]="_getStepContentId(i)"
 									[attr.aria-labelledby]="_getStepLabelId(i)"
@@ -69,7 +84,7 @@ export type HlmHeaderPosition = 'top' | 'bottom';
 		}
 
 		<ng-template #stepHeaderTemplate let-step="step">
-			<hlm-step-header
+			<spartan-step-header
 				cdkStepHeader
 				class="min-w-0"
 				(click)="step.select()"
@@ -146,12 +161,12 @@ export type HlmHeaderPosition = 'top' | 'bottom';
 		</ng-template>
 	`,
 })
-export class HlmStepper extends CdkStepper {
-	private readonly _config = injectHlmStepperConfig();
+export class SpartanStepper extends CdkStepper {
+	private readonly _config = injectSpartanStepperConfig();
 
-	public readonly labelPosition = input<HlmLabelPosition>('end');
-	public readonly headerPosition = input<HlmHeaderPosition>('top');
-	public readonly indicatorMode = input<HlmStepperIndicatorMode>('state');
+	public readonly labelPosition = input<SpartanStepperLabelPosition>('end');
+	public readonly headerPosition = input<SpartanStepperHeaderPosition>('top');
+	public readonly indicatorMode = input<SpartanStepperIndicatorMode>('state');
 	public readonly stepperAriaLabel = input<string | null>('Progress');
 	public readonly stepperAriaLabelledby = input<string | null>(null);
 	public readonly animationsEnabled = input(this._config.animationEnabled, { transform: booleanAttribute });
@@ -188,20 +203,28 @@ export class HlmStepper extends CdkStepper {
 	}
 
 	protected stepIcon(step: CdkStep): string | null {
-		return step instanceof HlmStep ? step.icon() : null;
+		return step instanceof SpartanStep ? step.icon() : null;
 	}
 
 	protected _enterAnimationClass(): string {
 		if (!this._hasSelectionChanged()) {
 			return '';
 		}
-		return this._animationDirection() === 'forward' ? 'step-enter-forward' : 'step-enter-backward';
+		return stepTransition({ motion: this._animationDirection() === 'forward' ? 'enter-forward' : 'enter-backward' });
 	}
 
 	protected _leaveAnimationClass(): string {
 		if (!this._hasSelectionChanged()) {
 			return '';
 		}
-		return this._animationDirection() === 'forward' ? 'step-leave-forward' : 'step-leave-backward';
+		return stepTransition({ motion: this._animationDirection() === 'forward' ? 'leave-forward' : 'leave-backward' });
+	}
+
+	protected _verticalStepClass(showConnector: boolean, index: number): string {
+		return hlm(
+			'ms-4 overflow-hidden ps-6',
+			showConnector && 'border-s',
+			this.animationsEnabled() && this.selectedIndex === index && stepTransition({ motion: 'enter-bottom' }),
+		);
 	}
 }

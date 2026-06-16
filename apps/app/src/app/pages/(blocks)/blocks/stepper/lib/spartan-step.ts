@@ -1,27 +1,27 @@
 import { CdkPortalOutlet, TemplatePortal } from '@angular/cdk/portal';
 import { CdkStep } from '@angular/cdk/stepper';
 import {
-	ChangeDetectionStrategy,
-	Component,
-	contentChild,
-	DestroyRef,
-	effect,
-	inject,
-	input,
-	untracked,
-	ViewContainerRef,
+    ChangeDetectionStrategy,
+    Component,
+    contentChild,
+    DestroyRef,
+    effect,
+    inject,
+    input,
+    untracked,
+    ViewContainerRef,
 } from '@angular/core';
-import { HlmStepContent } from './hlm-step-content';
-import { HlmStepLabel } from './hlm-step-label';
+import { SpartanStepContent } from './spartan-step-content';
+import { SpartanStepLabel } from './spartan-step-label';
 
 @Component({
-	selector: 'hlm-step',
-	exportAs: 'hlmStep',
+	selector: 'spartan-step',
+	exportAs: 'spartanStep',
 	imports: [CdkPortalOutlet],
 	providers: [
 		{
 			provide: CdkStep,
-			useExisting: HlmStep,
+			useExisting: SpartanStep,
 		},
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -35,17 +35,17 @@ import { HlmStepLabel } from './hlm-step-label';
 		</ng-template>
 	`,
 })
-export class HlmStep extends CdkStep {
+export class SpartanStep extends CdkStep {
 	private readonly _viewContainerRef = inject(ViewContainerRef);
 	private readonly _destroyRef = inject(DestroyRef);
 
 	public readonly icon = input<string | null>(null);
 
-	/** Content for step label given by `<ng-template hlmStepLabel>`. */
-	public readonly stepLabelContent = contentChild(HlmStepLabel);
+	/** Content for step label given by `<ng-template SpartanStepLabel>`. */
+	public readonly stepLabelContent = contentChild(SpartanStepLabel);
 
 	/** Content that will be rendered lazily. */
-	private readonly _lazyContent = contentChild(HlmStepContent);
+	private readonly _lazyContent = contentChild(SpartanStepContent);
 
 	/** Currently-attached portal containing the lazy content. */
 	public portal: TemplatePortal | null = null;

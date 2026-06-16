@@ -3,11 +3,11 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmFieldImports } from '@spartan-ng/helm/field';
 import { HlmInputImports } from '@spartan-ng/helm/input';
-import { HlmStepperImports } from '../../../(blocks)/blocks/stepper/lib';
+import { SpartanStepperImports } from '../../../(blocks)/blocks/stepper/lib';
 
 @Component({
 	selector: 'spartan-stepper-linear',
-	imports: [ReactiveFormsModule, HlmStepperImports, HlmButtonImports, HlmFieldImports, HlmInputImports],
+	imports: [ReactiveFormsModule, SpartanStepperImports, HlmButtonImports, HlmFieldImports, HlmInputImports],
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
@@ -17,8 +17,8 @@ import { HlmStepperImports } from '../../../(blocks)/blocks/stepper/lib';
 	template: `
 		<div class="flex min-h-svh w-full justify-center p-6 md:p-10">
 			<div class="w-full max-w-2xl">
-				<hlm-stepper [linear]="true">
-					<hlm-step [stepControl]="_identityForm" label="Identity">
+				<spartan-stepper [linear]="true">
+					<spartan-step [stepControl]="_identityForm" label="Identity">
 						<form [formGroup]="_identityForm" class="flex flex-col gap-4">
 							<hlm-field>
 								<label hlmFieldLabel for="validation-name">Name</label>
@@ -29,12 +29,12 @@ import { HlmStepperImports } from '../../../(blocks)/blocks/stepper/lib';
 							</hlm-field>
 
 							<div class="flex justify-end">
-								<button hlmBtn hlmStepperNext>Next</button>
+								<button hlmBtn spartanStepperNext>Next</button>
 							</div>
 						</form>
-					</hlm-step>
+					</spartan-step>
 
-					<hlm-step [stepControl]="_securityForm">
+					<spartan-step [stepControl]="_securityForm">
 						<ng-template hlmStepLabel>Security</ng-template>
 
 						<form [formGroup]="_securityForm" class="flex flex-col gap-4">
@@ -58,19 +58,19 @@ import { HlmStepperImports } from '../../../(blocks)/blocks/stepper/lib';
 							</hlm-field>
 
 							<div class="flex justify-between gap-2">
-								<button hlmBtn variant="outline" hlmStepperPrevious>Back</button>
-								<button hlmBtn hlmStepperNext>Next</button>
+								<button hlmBtn variant="outline" spartanStepperPrevious>Back</button>
+								<button hlmBtn spartanStepperNext>Next</button>
 							</div>
 						</form>
-					</hlm-step>
+					</spartan-step>
 
-					<hlm-step label="Review">
+					<spartan-step label="Review">
 						<div class="flex flex-col gap-4">
 							<div
 								class="text-muted-foreground flex h-48 items-center justify-center rounded-lg border-2 border-dashed text-lg font-medium"
 							>
 								<p class="text-muted-foreground max-w-sm text-center text-sm">
-									<code class="text-foreground font-mono">hlmStepperNext</code>
+									<code class="text-foreground font-mono">spartanStepperNext</code>
 									respects
 									<code class="text-foreground font-mono">linear</code>
 									mode, and
@@ -80,12 +80,12 @@ import { HlmStepperImports } from '../../../(blocks)/blocks/stepper/lib';
 							</div>
 
 							<div class="flex justify-between gap-2">
-								<button hlmBtn variant="outline" hlmStepperPrevious>Back</button>
+								<button hlmBtn variant="outline" spartanStepperPrevious>Back</button>
 								<button hlmBtn>Complete</button>
 							</div>
 						</div>
-					</hlm-step>
-				</hlm-stepper>
+					</spartan-step>
+				</spartan-stepper>
 			</div>
 		</div>
 	`,

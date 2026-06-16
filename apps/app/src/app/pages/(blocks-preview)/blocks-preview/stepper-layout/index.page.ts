@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, signal, ViewEncapsulation } from '@angular/core';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
-import { HlmHeaderPosition, HlmLabelPosition, HlmStepperImports } from '../../../(blocks)/blocks/stepper/lib';
+import { SpartanStepperHeaderPosition, SpartanStepperImports, SpartanStepperLabelPosition } from '../../../(blocks)/blocks/stepper/lib';
 
 @Component({
 	selector: 'spartan-stepper-layout',
-	imports: [HlmStepperImports, HlmButtonImports],
+	imports: [SpartanStepperImports, HlmButtonImports],
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
@@ -24,8 +24,8 @@ import { HlmHeaderPosition, HlmLabelPosition, HlmStepperImports } from '../../..
 					</button>
 				</div>
 
-				<hlm-stepper [labelPosition]="_labelPosition()" [headerPosition]="_headerPosition()">
-					<hlm-step label="Overview">
+				<spartan-stepper [labelPosition]="_labelPosition()" [headerPosition]="_headerPosition()">
+					<spartan-step label="Overview">
 						<div class="flex flex-col gap-4">
 							<div
 								class="text-muted-foreground flex h-48 items-center justify-center rounded-lg border-2 border-dashed text-lg font-medium"
@@ -39,12 +39,12 @@ import { HlmHeaderPosition, HlmLabelPosition, HlmStepperImports } from '../../..
 								</p>
 							</div>
 							<div class="flex justify-end">
-								<button hlmBtn hlmStepperNext>Next</button>
+								<button hlmBtn spartanStepperNext>Next</button>
 							</div>
 						</div>
-					</hlm-step>
+					</spartan-step>
 
-					<hlm-step label="Preferences" optional>
+					<spartan-step label="Preferences" optional>
 						<div class="flex flex-col gap-4">
 							<div
 								class="text-muted-foreground flex h-48 items-center justify-center rounded-lg border-2 border-dashed text-lg font-medium"
@@ -55,13 +55,13 @@ import { HlmHeaderPosition, HlmLabelPosition, HlmStepperImports } from '../../..
 								</p>
 							</div>
 							<div class="flex justify-between gap-2">
-								<button hlmBtn variant="outline" hlmStepperPrevious>Back</button>
-								<button hlmBtn hlmStepperNext>Next</button>
+								<button hlmBtn variant="outline" spartanStepperPrevious>Back</button>
+								<button hlmBtn spartanStepperNext>Next</button>
 							</div>
 						</div>
-					</hlm-step>
+					</spartan-step>
 
-					<hlm-step label="Done">
+					<spartan-step label="Done">
 						<div class="flex flex-col gap-4">
 							<div
 								class="text-muted-foreground flex h-48 items-center justify-center rounded-lg border-2 border-dashed text-lg font-medium"
@@ -72,19 +72,19 @@ import { HlmHeaderPosition, HlmLabelPosition, HlmStepperImports } from '../../..
 								</p>
 							</div>
 							<div class="flex justify-between gap-2">
-								<button hlmBtn variant="outline" hlmStepperPrevious>Back</button>
+								<button hlmBtn variant="outline" spartanStepperPrevious>Back</button>
 								<button hlmBtn>Finish</button>
 							</div>
 						</div>
-					</hlm-step>
-				</hlm-stepper>
+					</spartan-step>
+				</spartan-stepper>
 			</div>
 		</div>
 	`,
 })
 export default class StepperLayoutPage {
-	protected readonly _labelPosition = signal<HlmLabelPosition>('end');
-	protected readonly _headerPosition = signal<HlmHeaderPosition>('top');
+	protected readonly _labelPosition = signal<SpartanStepperLabelPosition>('end');
+	protected readonly _headerPosition = signal<SpartanStepperHeaderPosition>('top');
 
 	updateLabelPosition() {
 		this._labelPosition.set(this._labelPosition() === 'end' ? 'bottom' : 'end');

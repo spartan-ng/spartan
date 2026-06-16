@@ -5,14 +5,14 @@ import { provideIcons } from '@ng-icons/core';
 import { lucideCheck, lucideCircleAlert, lucidePencil } from '@ng-icons/lucide';
 import { ButtonVariants, buttonVariants } from '@spartan-ng/helm/button';
 import { HlmIconImports } from '@spartan-ng/helm/icon';
-import { HlmStepLabel } from './hlm-step-label';
-import { HlmLabelPosition } from './hlm-stepper';
-import { injectHlmStepperConfig } from './stepper.token';
+import { SpartanStepLabel } from './spartan-step-label';
+import { SpartanStepperLabelPosition } from './spartan-stepper';
+import { injectSpartanStepperConfig } from './stepper.token';
 
-export type HlmStepperIndicatorMode = 'number' | 'state' | 'icon';
+export type SpartanStepperIndicatorMode = 'number' | 'state' | 'icon';
 
 @Component({
-	selector: 'hlm-step-header',
+	selector: 'spartan-step-header',
 	imports: [NgTemplateOutlet, HlmIconImports],
 	providers: [provideIcons({ lucideCheck, lucideCircleAlert, lucidePencil })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -52,11 +52,11 @@ export type HlmStepperIndicatorMode = 'number' | 'state' | 'icon';
 		</span>
 	`,
 })
-export class HlmStepHeader extends CdkStepHeader {
-	protected readonly _config = injectHlmStepperConfig();
+export class SpartanStepHeader extends CdkStepHeader {
+	protected readonly _config = injectSpartanStepperConfig();
 
 	public readonly state = input<StepState>('number');
-	public readonly label = input<HlmStepLabel | string | null>(null);
+	public readonly label = input<SpartanStepLabel | string | null>(null);
 	public readonly errorMessage = input('');
 	public readonly index = input(0, { transform: numberAttribute });
 	public readonly selected = input(false, { transform: booleanAttribute });
@@ -65,8 +65,8 @@ export class HlmStepHeader extends CdkStepHeader {
 	public readonly optional = input(false, { transform: booleanAttribute });
 	public readonly disabled = input(false, { transform: booleanAttribute });
 	public readonly icon = input<string | null>(null);
-	public readonly indicatorMode = input<HlmStepperIndicatorMode>(this._config.defaultIndicatorMode);
-	public readonly labelPosition = input<HlmLabelPosition>('end');
+	public readonly indicatorMode = input<SpartanStepperIndicatorMode>(this._config.defaultIndicatorMode);
+	public readonly labelPosition = input<SpartanStepperLabelPosition>('end');
 
 	protected readonly _stringLabel = computed(() => {
 		const label = this.label();
@@ -75,7 +75,7 @@ export class HlmStepHeader extends CdkStepHeader {
 
 	protected readonly _templateLabel = computed(() => {
 		const label = this.label();
-		return label instanceof HlmStepLabel ? label : null;
+		return label instanceof SpartanStepLabel ? label : null;
 	});
 
 	protected readonly _showOptionalLabel = computed(() => this.optional() && this.state() !== 'error');

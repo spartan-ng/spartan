@@ -3,11 +3,11 @@ import { Directive } from '@angular/core';
 
 /** Button that moves to the next step in a stepper workflow. */
 @Directive({
-	selector: 'button[hlmStepperNext]',
+	selector: 'button[spartanStepperNext]',
 	host: {
-		class: 'hlm-stepper-next',
+		class: 'spartan-stepper-next',
 		'[type]': 'type',
 		'[style.touch-action]': '"manipulation"',
 	},
 })
-export class HlmStepperNext extends CdkStepperNext {}
+export class SpartanStepperNext extends CdkStepperNext {}

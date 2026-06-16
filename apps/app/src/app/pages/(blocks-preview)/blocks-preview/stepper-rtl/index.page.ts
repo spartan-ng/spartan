@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component, computed, inject, ViewEncapsulation } from '@angular/core';
 import { TranslateService } from '@spartan-ng/app/app/shared/translate.service';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
-import { HlmStepperImports } from '../../../(blocks)/blocks/stepper/lib';
+import { SpartanStepperImports } from '../../../(blocks)/blocks/stepper/lib';
 
 @Component({
 	selector: 'spartan-stepper-rtl',
-	imports: [HlmStepperImports, HlmButtonImports],
+	imports: [SpartanStepperImports, HlmButtonImports],
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
@@ -18,8 +18,8 @@ import { HlmStepperImports } from '../../../(blocks)/blocks/stepper/lib';
 			<div class="w-full max-w-2xl space-y-8">
 				<section class="space-y-3">
 					<h4 class="text-foreground text-sm font-semibold">{{ _t().horizontal }}</h4>
-					<hlm-stepper>
-						<hlm-step [label]="_t().account">
+					<spartan-stepper>
+						<spartan-step [label]="_t().account">
 							<div class="flex flex-col gap-4">
 								<div
 									class="text-muted-foreground flex h-48 items-center justify-center rounded-lg border-2 border-dashed text-lg font-medium"
@@ -27,12 +27,12 @@ import { HlmStepperImports } from '../../../(blocks)/blocks/stepper/lib';
 									{{ _t().contentOne }}
 								</div>
 								<div class="flex justify-end">
-									<button hlmBtn hlmStepperNext>{{ _t().next }}</button>
+									<button hlmBtn spartanStepperNext>{{ _t().next }}</button>
 								</div>
 							</div>
-						</hlm-step>
+						</spartan-step>
 
-						<hlm-step [label]="_t().address">
+						<spartan-step [label]="_t().address">
 							<div class="flex flex-col gap-4">
 								<div
 									class="text-muted-foreground flex h-48 items-center justify-center rounded-lg border-2 border-dashed text-lg font-medium"
@@ -40,13 +40,13 @@ import { HlmStepperImports } from '../../../(blocks)/blocks/stepper/lib';
 									{{ _t().contentTwo }}
 								</div>
 								<div class="flex justify-between gap-2">
-									<button hlmBtn variant="outline" hlmStepperPrevious>{{ _t().previous }}</button>
-									<button hlmBtn hlmStepperNext>{{ _t().next }}</button>
+									<button hlmBtn variant="outline" spartanStepperPrevious>{{ _t().previous }}</button>
+									<button hlmBtn spartanStepperNext>{{ _t().next }}</button>
 								</div>
 							</div>
-						</hlm-step>
+						</spartan-step>
 
-						<hlm-step [label]="_t().review">
+						<spartan-step [label]="_t().review">
 							<div class="flex flex-col gap-4">
 								<div
 									class="text-muted-foreground flex h-48 items-center justify-center rounded-lg border-2 border-dashed text-lg font-medium"
@@ -54,18 +54,18 @@ import { HlmStepperImports } from '../../../(blocks)/blocks/stepper/lib';
 									{{ _t().contentThree }}
 								</div>
 								<div class="flex justify-between gap-2">
-									<button hlmBtn variant="outline" hlmStepperPrevious>{{ _t().previous }}</button>
+									<button hlmBtn variant="outline" spartanStepperPrevious>{{ _t().previous }}</button>
 									<button hlmBtn>{{ _t().finish }}</button>
 								</div>
 							</div>
-						</hlm-step>
-					</hlm-stepper>
+						</spartan-step>
+					</spartan-stepper>
 				</section>
 
 				<section class="space-y-3">
 					<h4 class="text-foreground text-sm font-semibold">{{ _t().vertical }}</h4>
-					<hlm-stepper orientation="vertical">
-						<hlm-step [label]="_t().firstStage">
+					<spartan-stepper orientation="vertical">
+						<spartan-step [label]="_t().firstStage">
 							<div class="flex flex-col gap-4">
 								<div
 									class="text-muted-foreground flex h-48 items-center justify-center rounded-lg border-2 border-dashed text-lg font-medium"
@@ -73,12 +73,12 @@ import { HlmStepperImports } from '../../../(blocks)/blocks/stepper/lib';
 									{{ _t().verticalExampleText }}
 								</div>
 								<div class="flex justify-start">
-									<button hlmBtn hlmStepperNext>{{ _t().next }}</button>
+									<button hlmBtn spartanStepperNext>{{ _t().next }}</button>
 								</div>
 							</div>
-						</hlm-step>
+						</spartan-step>
 
-						<hlm-step [label]="_t().secondStage">
+						<spartan-step [label]="_t().secondStage">
 							<div class="flex flex-col gap-4">
 								<div
 									class="text-muted-foreground flex h-48 items-center justify-center rounded-lg border-2 border-dashed text-lg font-medium"
@@ -86,13 +86,13 @@ import { HlmStepperImports } from '../../../(blocks)/blocks/stepper/lib';
 									{{ _t().rtlSupportText }}
 								</div>
 								<div class="flex justify-between gap-2">
-									<button hlmBtn variant="outline" hlmStepperPrevious>{{ _t().previous }}</button>
-									<button hlmBtn hlmStepperNext>{{ _t().next }}</button>
+									<button hlmBtn variant="outline" spartanStepperPrevious>{{ _t().previous }}</button>
+									<button hlmBtn spartanStepperNext>{{ _t().next }}</button>
 								</div>
 							</div>
-						</hlm-step>
+						</spartan-step>
 
-						<hlm-step [label]="_t().finalStage">
+						<spartan-step [label]="_t().finalStage">
 							<div class="flex flex-col gap-4">
 								<div
 									class="text-muted-foreground flex h-48 items-center justify-center rounded-lg border-2 border-dashed text-lg font-medium"
@@ -100,12 +100,12 @@ import { HlmStepperImports } from '../../../(blocks)/blocks/stepper/lib';
 									{{ _t().readyToSubmit }}
 								</div>
 								<div class="flex justify-between gap-2">
-									<button hlmBtn variant="outline" hlmStepperPrevious>{{ _t().previous }}</button>
+									<button hlmBtn variant="outline" spartanStepperPrevious>{{ _t().previous }}</button>
 									<button hlmBtn>{{ _t().finish }}</button>
 								</div>
 							</div>
-						</hlm-step>
-					</hlm-stepper>
+						</spartan-step>
+					</spartan-stepper>
 				</section>
 			</div>
 		</div>

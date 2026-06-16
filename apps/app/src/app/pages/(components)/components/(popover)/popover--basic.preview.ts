@@ -11,7 +11,7 @@ import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 			<hlm-popover-content *hlmPopoverPortal="let ctx">
 				<hlm-popover-header>
 					<div hlmPopoverTitle>Dimensions</div>
-					<p>Set the dimensions for the layer.</p>
+					<p hlmPopoverDescription>Set the dimensions for the layer.</p>
 				</hlm-popover-header>
 			</hlm-popover-content>
 		</hlm-popover>

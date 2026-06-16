@@ -3,6 +3,7 @@ import { CdkContextMenuTrigger } from '@angular/cdk/menu';
 import { booleanAttribute, computed, Directive, effect, inject, input } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { createMenuPosition, type MenuAlign, type MenuSide } from '@spartan-ng/brain/core';
+import { classes } from '@spartan-ng/helm/utils';
 import { injectHlmContextMenuConfig } from './hlm-context-menu-token';
 
 @Directive({
@@ -35,6 +36,7 @@ export class HlmContextMenuTrigger {
 	private readonly _menuPosition = computed(() => createMenuPosition(this.align(), this.side()));
 
 	constructor() {
+		classes(() => 'select-none');
 		// once the trigger opens we wait until the next tick and then grab the last position
 		// used to position the menu. we store this in our trigger which the brnMenu directive has
 		// access to through DI

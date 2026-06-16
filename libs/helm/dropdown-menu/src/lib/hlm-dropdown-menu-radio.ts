@@ -1,6 +1,6 @@
 import { type BooleanInput } from '@angular/cdk/coercion';
 import { CdkMenuItemRadio } from '@angular/cdk/menu';
-import { Directive, booleanAttribute, inject, input } from '@angular/core';
+import { booleanAttribute, Directive, inject, input } from '@angular/core';
 import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({

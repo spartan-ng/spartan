@@ -1,6 +1,10 @@
 import { ChangeDetectionStrategy, Component, signal, ViewEncapsulation } from '@angular/core';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
-import { SpartanStepperHeaderPosition, SpartanStepperImports, SpartanStepperLabelPosition } from '../../../(blocks)/blocks/stepper/lib';
+import {
+	SpartanStepperHeaderPosition,
+	SpartanStepperImports,
+	SpartanStepperLabelPosition,
+} from '../../../(blocks)/blocks/stepper/lib';
 
 @Component({
 	selector: 'spartan-stepper-layout',

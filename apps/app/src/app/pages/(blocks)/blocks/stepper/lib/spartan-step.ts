@@ -1,15 +1,15 @@
 import { CdkPortalOutlet, TemplatePortal } from '@angular/cdk/portal';
 import { CdkStep } from '@angular/cdk/stepper';
 import {
-    ChangeDetectionStrategy,
-    Component,
-    contentChild,
-    DestroyRef,
-    effect,
-    inject,
-    input,
-    untracked,
-    ViewContainerRef,
+	ChangeDetectionStrategy,
+	Component,
+	contentChild,
+	DestroyRef,
+	effect,
+	inject,
+	input,
+	untracked,
+	ViewContainerRef,
 } from '@angular/core';
 import { SpartanStepContent } from './spartan-step-content';
 import { SpartanStepLabel } from './spartan-step-label';

@@ -56,6 +56,7 @@ export class BrnOverlay<TResult = unknown, TContext extends Record<string, unkno
 	private readonly _panelClass = signal<string | string[] | null | undefined>(undefined);
 	private readonly _backdropClass = signal<string | string[] | null | undefined>(undefined);
 	private _content: OverlayContentRegistration<TContext> | undefined;
+	private _destroyed = false;
 	private readonly _resolvedBackdropClass = computed(() => this._backdropClass() ?? this._defaultOptions.backdropClass);
 	private readonly _resolvedPanelClass = computed(
 		() => this._panelClass() ?? this._content?.panelClass() ?? this._defaultOptions.panelClass,
@@ -111,6 +112,9 @@ export class BrnOverlay<TResult = unknown, TContext extends Record<string, unkno
 	}));
 
 	constructor() {
+		// Registered first so the flag is set before forceClose() below tears the overlay down and
+		// emits on closed$/stateChanged$ - otherwise those emits hit a destroyed OutputRef (NG0953).
+		this._destroyRef.onDestroy(() => (this._destroyed = true));
 		this._destroyRef.onDestroy(() => this._overlayRef()?.forceClose());
 		this._syncPanelClass();
 		this._syncBackdropClass();
@@ -149,14 +153,14 @@ export class BrnOverlay<TResult = unknown, TContext extends Record<string, unkno
 		);
 		this._overlayRef.set(overlayRef);
 
-		overlayRef.stateChanged$
-			.pipe(takeUntilDestroyed(this._destroyRef))
-			.subscribe((state) => this.stateChanged.emit(state));
+		overlayRef.stateChanged$.pipe(takeUntilDestroyed(this._destroyRef)).subscribe((state) => {
+			if (!this._destroyed) this.stateChanged.emit(state);
+		});
 
 		overlayRef.closed$.pipe(takeUntilDestroyed(this._destroyRef)).subscribe((result) => {
 			if (this._overlayRef() === overlayRef) this._overlayRef.set(undefined);
 			this._restoreFocus(elementToRestoreFocusTo);
-			this.closed.emit(result as TResult);
+			if (!this._destroyed) this.closed.emit(result as TResult);
 		});
 	}
 

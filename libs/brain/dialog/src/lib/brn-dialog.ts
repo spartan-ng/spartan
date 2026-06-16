@@ -53,6 +53,7 @@ export class BrnDialog<TResult = unknown, TContext extends Record<string, unknow
 	private readonly _panelClass = signal<string | string[] | null | undefined>(undefined);
 	private readonly _backdropClass = signal<string | string[] | null | undefined>(undefined);
 	private _content: DialogContentRegistration<TContext> | undefined;
+	private _destroyed = false;
 	private _overlayClass: Signal<string | null | undefined> | undefined;
 	private readonly _resolvedBackdropClass = computed(
 		() => this._backdropClass() ?? this._overlayClass?.() ?? this._defaultOptions.backdropClass,
@@ -126,6 +127,9 @@ export class BrnDialog<TResult = unknown, TContext extends Record<string, unknow
 	}));
 
 	constructor() {
+		// Registered first so the flag is set before forceClose() below tears the dialog down and
+		// emits on closed$/stateChanged$ - otherwise those emits hit a destroyed OutputRef (NG0953).
+		this._destroyRef.onDestroy(() => (this._destroyed = true));
 		this._destroyRef.onDestroy(() => this._dialogRef()?.forceClose());
 		this._syncPanelClass();
 		this._syncOverlayClass();
@@ -159,13 +163,13 @@ export class BrnDialog<TResult = unknown, TContext extends Record<string, unknow
 		);
 		this._dialogRef.set(dialogRef);
 
-		dialogRef.stateChanged$
-			.pipe(takeUntilDestroyed(this._destroyRef))
-			.subscribe((state) => this.stateChanged.emit(state));
+		dialogRef.stateChanged$.pipe(takeUntilDestroyed(this._destroyRef)).subscribe((state) => {
+			if (!this._destroyed) this.stateChanged.emit(state);
+		});
 
 		dialogRef.closed$.pipe(takeUntilDestroyed(this._destroyRef)).subscribe((result) => {
 			if (this._dialogRef() === dialogRef) this._dialogRef.set(undefined);
-			this.closed.emit(result as TResult);
+			if (!this._destroyed) this.closed.emit(result as TResult);
 		});
 	}
 

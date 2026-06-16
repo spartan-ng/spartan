@@ -16,6 +16,6 @@ import { classes } from '@spartan-ng/helm/utils';
 })
 export class HlmCommandGroup {
 	constructor() {
-		classes(() => 'spartan-command-group block');
+		classes(() => 'spartan-command-group block data-hidden:hidden');
 	}
 }

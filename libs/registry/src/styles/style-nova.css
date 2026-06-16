@@ -391,10 +391,6 @@
 		@apply bg-popover text-popover-foreground rounded-xl! p-1;
 	}
 
-	.spartan-command-dialog {
-		@apply rounded-xl!;
-	}
-
 	.spartan-command-input-wrapper {
 		@apply p-1 pb-0;
 	}
@@ -428,7 +424,7 @@
 	}
 
 	.spartan-command-item {
-		@apply data-[selected]:bg-muted data-[selected]:text-foreground relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none in-data-[slot=dialog-content]:rounded-lg! [&_ng-icon:not([class*='text-'])]:text-[calc(var(--spacing)*4)];
+		@apply data-selected:bg-muted data-selected:text-foreground relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none in-data-[slot=dialog-content]:rounded-lg! [&_ng-icon:not([class*='text-'])]:text-[calc(var(--spacing)*4)];
 	}
 
 	.spartan-command-shortcut {

@@ -40,7 +40,7 @@ import { HlmIconImports } from '@spartan-ng/helm/icon';
 			<hlm-command>
 				<hlm-command-input [placeholder]="_t()['placeholder']" />
 				<hlm-command-list>
-					<div *hlmCommandEmptyState hlmCommandEmpty>_t()['empty']</div>
+					<div *hlmCommandEmptyState hlmCommandEmpty>{{ _t()['empty'] }}</div>
 					<hlm-command-group>
 						<hlm-command-group-label>{{ _t()['suggestions'] }}</hlm-command-group-label>
 						<button hlm-command-item value="Calendar">

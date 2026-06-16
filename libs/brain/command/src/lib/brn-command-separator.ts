@@ -5,12 +5,12 @@ import { injectBrnCommand } from './brn-command.token';
 	selector: '[brnCommandSeparator]',
 	host: {
 		role: 'separator',
-		'[attr.data-hidden]': '!_visible() ? true : null',
+		'[attr.data-hidden]': '_hasSearchInput() ? true : null',
 	},
 })
 export class BrnCommandSeparator {
 	private readonly _command = injectBrnCommand();
 
-	/** Determine if the command has any visible items */
-	protected readonly _visible = computed(() => this._command.items().some((item) => item.visible()));
+	/** Determine if the command has any search input */
+	protected readonly _hasSearchInput = computed(() => this._command.search().length > 0);
 }

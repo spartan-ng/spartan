@@ -1,7 +1,8 @@
+import { InteractivityChecker } from '@angular/cdk/a11y';
 import { Overlay, OverlayPositionBuilder, type OverlayRef, ScrollStrategyOptions } from '@angular/cdk/overlay';
 import { ComponentPortal, type ComponentType, TemplatePortal } from '@angular/cdk/portal';
 import type { ViewContainerRef } from '@angular/core';
-import { inject, Injectable, Injector, type StaticProvider, TemplateRef } from '@angular/core';
+import { afterNextRender, inject, Injectable, Injector, type StaticProvider, TemplateRef } from '@angular/core';
 import { merge, Subject } from 'rxjs';
 import { filter, map, takeUntil } from 'rxjs/operators';
 import type { BrnOverlayOptions } from './brn-overlay-options';
@@ -19,6 +20,7 @@ export class BrnOverlayService {
 	private readonly _positionBuilder = inject(OverlayPositionBuilder);
 	private readonly _scrollStrategies = inject(ScrollStrategyOptions);
 	private readonly _injector = inject(Injector);
+	private readonly _interactivityChecker = inject(InteractivityChecker);
 	private readonly _defaultOptions = injectBrnOverlayDefaultOptions();
 
 	private readonly _openOverlayIds = new Set<string>();
@@ -99,7 +101,41 @@ export class BrnOverlayService {
 			throw error;
 		}
 
+		if (mergedOptions.autoFocus) {
+			this._focusInitialElement(overlayRef, destroyed);
+		}
+
 		return brnOverlayRef;
+	}
+
+	/**
+	 * Moves focus to the first tabbable element inside the overlay once its content has rendered.
+	 * If the overlay has no tabbable content (e.g. a select listbox), focus is left untouched so the
+	 * trigger keeps it - this is what keeps the `aria-activedescendant` keyboard model working.
+	 */
+	private _focusInitialElement(overlayRef: OverlayRef, destroyed: Subject<void>): void {
+		let cancelled = false;
+		destroyed.subscribe(() => (cancelled = true));
+		afterNextRender(
+			() => {
+				if (cancelled) return;
+				const root = overlayRef.overlayElement;
+				if (!root) return;
+				const target = this._firstTabbableElement(root);
+				target?.focus();
+			},
+			{ injector: this._injector },
+		);
+	}
+
+	private _firstTabbableElement(root: HTMLElement): HTMLElement | null {
+		const candidates = root.querySelectorAll<HTMLElement>(
+			'a[href], button, input, textarea, select, [tabindex], [contenteditable="true"]',
+		);
+		for (const candidate of Array.from(candidates)) {
+			if (this._interactivityChecker.isTabbable(candidate)) return candidate;
+		}
+		return null;
 	}
 
 	private _createProviders<Result, Context>(

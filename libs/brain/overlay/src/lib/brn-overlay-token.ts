@@ -6,6 +6,7 @@ export type BrnOverlayDefaultOptions = Omit<BrnOverlayOptions, 'direction' | 'id
 const createDefaultOptions = (): BrnOverlayDefaultOptions => ({
 	attachPositions: [],
 	attachTo: null,
+	autoFocus: false,
 	backdropClass: '',
 	closeOnBackdropClick: true,
 	closeOnOutsidePointerEvents: false,

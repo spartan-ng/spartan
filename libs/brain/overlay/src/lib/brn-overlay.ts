@@ -89,6 +89,9 @@ export class BrnOverlay<TResult = unknown, TContext extends Record<string, unkno
 	public readonly disableClose = input<boolean, BooleanInput>(this._defaultOptions.disableClose, {
 		transform: booleanAttribute,
 	});
+	public readonly autoFocus = input<boolean, BooleanInput>(this._defaultOptions.autoFocus, {
+		transform: booleanAttribute,
+	});
 
 	protected readonly _options = computed<Partial<BrnOverlayOptions>>(() => ({
 		id: this.id(),
@@ -102,6 +105,7 @@ export class BrnOverlay<TResult = unknown, TContext extends Record<string, unkno
 		attachTo: this.getAttachTo(),
 		attachPositions: this.getAttachPositions(),
 		disableClose: this.disableClose(),
+		autoFocus: this.autoFocus(),
 		backdropClass: cssClassesToArray(this._resolvedBackdropClass()),
 		panelClass: cssClassesToArray(this._resolvedPanelClass()),
 	}));

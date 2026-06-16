@@ -147,7 +147,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_sidesCode()" />
 			</spartan-tabs>
 
-			<h3 id="statefull" spartanH4>Stateful</h3>
+			<h3 id="stateful" spartanH4>Stateful</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-context-menu-with-state />

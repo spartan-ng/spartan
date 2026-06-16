@@ -15,19 +15,19 @@ import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
 		<ng-template #menu>
 			<hlm-dropdown-menu class="w-56">
 				<hlm-dropdown-menu-group>
-					<hlm-dropdown-menu-label>Panel Position</hlm-dropdown-menu-label>
-					@let p = position();
-					<button hlmDropdownMenuRadio [checked]="p === 'card'" (triggered)="position.set('card')">
+					<hlm-dropdown-menu-label>Select Payment Method</hlm-dropdown-menu-label>
+					@let p = payment();
+					<button hlmDropdownMenuRadio [checked]="p === 'card'" (triggered)="payment.set('card')">
 						<ng-icon name="lucideCreditCard" />
 						Credit Card
 						<hlm-dropdown-menu-radio-indicator />
 					</button>
-					<button hlmDropdownMenuRadio [checked]="p === 'paypal'" (triggered)="position.set('paypal')">
+					<button hlmDropdownMenuRadio [checked]="p === 'paypal'" (triggered)="payment.set('paypal')">
 						<ng-icon name="lucideWallet" />
 						PayPal
 						<hlm-dropdown-menu-radio-indicator />
 					</button>
-					<button hlmDropdownMenuRadio [checked]="p === 'bank'" (triggered)="position.set('bank')">
+					<button hlmDropdownMenuRadio [checked]="p === 'bank'" (triggered)="payment.set('bank')">
 						<ng-icon name="lucideBuilding2" />
 						Bank Transfer
 						<hlm-dropdown-menu-radio-indicator />
@@ -38,5 +38,5 @@ import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
 	`,
 })
 export class DropdownRadioGroupIcons {
-	public readonly position = signal<'card' | 'paypal' | 'bank'>('card');
+	public readonly payment = signal<'card' | 'paypal' | 'bank'>('card');
 }

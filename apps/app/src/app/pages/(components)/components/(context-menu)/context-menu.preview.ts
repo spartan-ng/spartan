@@ -40,7 +40,7 @@ import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
 				<hlm-dropdown-menu-separator />
 				<hlm-dropdown-menu-group>
 					<button hlmDropdownMenuCheckbox checked>
-						Show Booksmarks Bar
+						Show Bookmarks Bar
 						<hlm-dropdown-menu-checkbox-indicator />
 					</button>
 					<button hlmDropdownMenuCheckbox>

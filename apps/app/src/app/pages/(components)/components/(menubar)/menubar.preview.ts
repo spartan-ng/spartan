@@ -50,7 +50,7 @@ import { HlmMenubarImports } from '@spartan-ng/helm/menubar';
 
 				<hlm-dropdown-menu-separator />
 
-				<button hlmDropdownMenuItem align="start" side="right" [hlmDropdownMenuSubTrigger]="find">
+				<button hlmDropdownMenuItem [hlmDropdownMenuSubTrigger]="share" align="start" side="right">
 					Share
 					<hlm-dropdown-menu-item-sub-indicator />
 				</button>
@@ -62,7 +62,7 @@ import { HlmMenubarImports } from '@spartan-ng/helm/menubar';
 				<button hlmDropdownMenuItem>Paste</button>
 			</hlm-dropdown-menu>
 		</ng-template>
-		<ng-template #find>
+		<ng-template #share>
 			<hlm-dropdown-menu-sub>
 				<button hlmDropdownMenuItem>Search the web</button>
 				<hlm-dropdown-menu-separator />

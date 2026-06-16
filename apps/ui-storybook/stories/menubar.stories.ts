@@ -91,7 +91,7 @@ export const Default: Story = {
 
         <hlm-dropdown-menu-separator />
 
-        <button hlmDropdownMenuItem [hlmDropdownMenuSubTrigger]='find'>
+        <button hlmDropdownMenuItem [hlmDropdownMenuSubTrigger]='share'>
           Share
           <hlm-dropdown-menu-item-sub-indicator />
         </button>
@@ -104,7 +104,7 @@ export const Default: Story = {
 
       </hlm-dropdown-menu>
     </ng-template>
-    <ng-template #find>
+    <ng-template #share>
       <hlm-dropdown-menu-sub>
         <button hlmDropdownMenuItem>
           Search the web

@@ -16,15 +16,31 @@ import { HlmMenubarImports } from '@spartan-ng/helm/menubar';
 
 		<ng-template #file>
 			<hlm-dropdown-menu sideOffset="2">
-				<button hlmDropdownMenuItem>
-					New Tab
-					<hlm-dropdown-menu-shortcut>⌘</hlm-dropdown-menu-shortcut>
-				</button>
-				<button hlmDropdownMenuItem>New Window</button>
+				<hlm-dropdown-menu-group>
+					<button hlmDropdownMenuItem>
+						New Tab
+						<hlm-dropdown-menu-shortcut>⌘T</hlm-dropdown-menu-shortcut>
+					</button>
+					<button hlmDropdownMenuItem>
+						New Window
+						<hlm-dropdown-menu-shortcut>⌘N</hlm-dropdown-menu-shortcut>
+					</button>
+					<button hlmDropdownMenuItem disabled>New Incognito Window</button>
+				</hlm-dropdown-menu-group>
 				<hlm-dropdown-menu-separator />
-				<button hlmDropdownMenuItem>Share</button>
+				<hlm-dropdown-menu-group>
+					<button hlmDropdownMenuItem [hlmDropdownMenuSubTrigger]="share" align="start" side="right">
+						Share
+						<hlm-dropdown-menu-item-sub-indicator />
+					</button>
+				</hlm-dropdown-menu-group>
 				<hlm-dropdown-menu-separator />
-				<button hlmDropdownMenuItem>Print</button>
+				<hlm-dropdown-menu-group>
+					<button hlmDropdownMenuItem>
+						Print
+						<hlm-dropdown-menu-shortcut>⌘P</hlm-dropdown-menu-shortcut>
+					</button>
+				</hlm-dropdown-menu-group>
 			</hlm-dropdown-menu>
 		</ng-template>
 		<ng-template #share>
@@ -47,22 +63,20 @@ import { HlmMenubarImports } from '@spartan-ng/helm/menubar';
 						<hlm-dropdown-menu-shortcut>⇧⌘Z</hlm-dropdown-menu-shortcut>
 					</button>
 				</hlm-dropdown-menu-group>
-
 				<hlm-dropdown-menu-separator />
-
-				<button hlmDropdownMenuItem [hlmDropdownMenuSubTrigger]="share" align="start" side="right">
-					Share
-					<hlm-dropdown-menu-item-sub-indicator />
-				</button>
-
+				<hlm-dropdown-menu-group>
+					<button hlmDropdownMenuItem [hlmDropdownMenuSubTrigger]="find" align="start" side="right">
+						Find
+						<hlm-dropdown-menu-item-sub-indicator />
+					</button>
+				</hlm-dropdown-menu-group>
 				<hlm-dropdown-menu-separator />
-
 				<button hlmDropdownMenuItem>Cut</button>
 				<button hlmDropdownMenuItem>Copy</button>
 				<button hlmDropdownMenuItem>Paste</button>
 			</hlm-dropdown-menu>
 		</ng-template>
-		<ng-template #share>
+		<ng-template #find>
 			<hlm-dropdown-menu-sub>
 				<button hlmDropdownMenuItem>Search the web</button>
 				<hlm-dropdown-menu-separator />
@@ -75,47 +89,47 @@ import { HlmMenubarImports } from '@spartan-ng/helm/menubar';
 		<ng-template #view>
 			<hlm-dropdown-menu sideOffset="2">
 				<button hlmDropdownMenuCheckbox>
+					Bookmarks Bar
 					<hlm-dropdown-menu-checkbox-indicator />
-					Always Show Bookmarks Bar
 				</button>
 				<button hlmDropdownMenuCheckbox checked>
+					Full URLs
 					<hlm-dropdown-menu-checkbox-indicator />
-					Always Show Full URLs
 				</button>
 				<hlm-dropdown-menu-separator />
-				<button hlmDropdownMenuItem inset>
+				<button hlmDropdownMenuItem>
 					Reload
 					<hlm-dropdown-menu-shortcut>⌘R</hlm-dropdown-menu-shortcut>
 				</button>
-				<button hlmDropdownMenuItem inset disabled>
+				<button hlmDropdownMenuItem disabled>
 					Force Reload
 					<hlm-dropdown-menu-shortcut>⇧⌘R</hlm-dropdown-menu-shortcut>
 				</button>
 				<hlm-dropdown-menu-separator />
-				<button hlmDropdownMenuItem inset>Toggle Fullscreen</button>
+				<button hlmDropdownMenuItem>Toggle Fullscreen</button>
 				<hlm-dropdown-menu-separator />
-				<button hlmDropdownMenuItem inset>Hide Sidebar</button>
+				<button hlmDropdownMenuItem>Hide Sidebar</button>
 			</hlm-dropdown-menu>
 		</ng-template>
 
 		<ng-template #profiles>
 			<hlm-dropdown-menu sideOffset="2" class="w-48">
 				<button hlmDropdownMenuRadio>
-					<hlm-dropdown-menu-radio-indicator />
 					Andy
+					<hlm-dropdown-menu-radio-indicator />
 				</button>
 				<button hlmDropdownMenuRadio checked>
-					<hlm-dropdown-menu-radio-indicator />
 					Benoit
+					<hlm-dropdown-menu-radio-indicator />
 				</button>
 				<button hlmDropdownMenuRadio>
-					<hlm-dropdown-menu-radio-indicator />
 					Lewis
+					<hlm-dropdown-menu-radio-indicator />
 				</button>
 				<hlm-dropdown-menu-separator />
-				<button inset hlmDropdownMenuItem>Edit...</button>
+				<button hlmDropdownMenuItem>Edit...</button>
 				<hlm-dropdown-menu-separator />
-				<button inset hlmDropdownMenuItem>Add Profile...</button>
+				<button hlmDropdownMenuItem>Add Profile...</button>
 			</hlm-dropdown-menu>
 		</ng-template>
 	`,

@@ -388,7 +388,7 @@
 
 	/* MARK: Command */
 	.spartan-command {
-		@apply bg-popover text-popover-foreground rounded-xl! p-1;
+		@apply bg-popover text-popover-foreground rounded-xl p-1;
 	}
 
 	.spartan-command-input-wrapper {

@@ -391,7 +391,6 @@
 		@apply bg-popover text-popover-foreground rounded-xl p-1;
 	}
 
-
 	.spartan-command-input-wrapper {
 		@apply p-1 pb-0;
 	}

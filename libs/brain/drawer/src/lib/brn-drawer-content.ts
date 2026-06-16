@@ -14,6 +14,6 @@ import { BrnDrawer } from './brn-drawer';
 		provideExposedSideProviderExisting(() => BrnDrawerContent),
 	],
 })
-export class BrnDrawerContent<T> extends BrnDialogContent<T> implements ExposesSide {
+export class BrnDrawerContent<T extends Record<string, unknown>> extends BrnDialogContent<T> implements ExposesSide {
 	public readonly side = inject(BrnDrawer).directionState;
 }

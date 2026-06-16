@@ -1,19 +1,21 @@
-import { Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { HlmContextMenuImports } from '@spartan-ng/helm/context-menu';
 import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
 
 @Component({
 	selector: 'spartan-context-menu-with-state',
 	imports: [HlmDropdownMenuImports, HlmContextMenuImports],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div
 			align="start"
 			side="right"
 			[hlmContextMenuTriggerData]="{ $implicit: { data: 'Changes Saved' } }"
 			[hlmContextMenuTrigger]="menu"
-			class="border-border flex h-[150px] w-[300px] items-center justify-center rounded-md border border-dashed text-sm"
+			class="flex aspect-video w-full min-w-xs items-center justify-center rounded-xl border border-dashed text-sm"
 		>
-			Right click here
+			<span class="hidden pointer-fine:inline-block">Right click here</span>
+			<span class="hidden pointer-coarse:inline-block">Long press here</span>
 		</div>
 		<div class="mt-2 text-center font-mono text-xs">{{ _pastedContent() }}</div>
 

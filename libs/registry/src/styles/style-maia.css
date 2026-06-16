@@ -436,53 +436,7 @@
 	}
 
 	/* MARK: Context Menu */
-	.spartan-context-menu-content {
-		@apply data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/5 bg-popover text-popover-foreground min-w-48 rounded-2xl p-1 shadow-2xl ring-1 duration-100;
-	}
-
-	.spartan-context-menu-content-logical {
-		@apply data-[side=inline-start]:slide-in-from-right-2 data-[side=inline-end]:slide-in-from-left-2;
-	}
-
-	.spartan-context-menu-item {
-		@apply focus:bg-accent focus:text-accent-foreground data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[ng-icon]:text-destructive focus:*:[ng-icon]:text-accent-foreground gap-2.5 rounded-xl px-3 py-2 text-sm data-inset:ps-9.5 [&_ng-icon:not([class*='text-'])]:text-[calc(var(--spacing)*4)];
-	}
-
-	.spartan-context-menu-checkbox-item {
-		@apply focus:bg-accent focus:text-accent-foreground gap-2 rounded-xl py-2 ps-3 pe-8 text-sm data-inset:ps-9.5 [&_ng-icon:not([class*='text-'])]:text-[calc(var(--spacing)*4)];
-	}
-
-	.spartan-context-menu-radio-item {
-		@apply focus:bg-accent focus:text-accent-foreground gap-2 rounded-sm py-1.5 ps-2 pe-8 text-sm data-inset:ps-9.5 [&_ng-icon:not([class*='text-'])]:text-[calc(var(--spacing)*4)];
-	}
-
-	.spartan-context-menu-item-indicator {
-		@apply absolute end-2;
-	}
-
-	.spartan-context-menu-label {
-		@apply text-muted-foreground px-3 py-2.5 text-xs data-inset:ps-9.5;
-	}
-
-	.spartan-context-menu-separator {
-		@apply bg-border/50 -mx-1 my-1 h-px;
-	}
-
-	.spartan-context-menu-shortcut {
-		@apply text-muted-foreground group-focus/context-menu-item:text-accent-foreground ms-auto text-xs tracking-widest;
-	}
-
-	.spartan-context-menu-sub-trigger {
-		@apply focus:bg-accent focus:text-accent-foreground data-open:bg-accent data-open:text-accent-foreground rounded-xl px-3 py-2 text-sm data-inset:ps-9.5 [&_ng-icon:not([class*='text-'])]:text-[calc(var(--spacing)*4)];
-	}
-
-	.spartan-context-menu-sub-content {
-		@apply data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 bg-popover text-popover-foreground min-w-32 rounded-md border p-1 shadow-lg duration-100;
-	}
-
-	.spartan-context-menu-subcontent {
-		@apply shadow-lg;
-	}
+	/* uses dropdown menu styles */
 
 	/* MARK: Date Picker */
 	.spartan-date-picker-trigger {
@@ -550,27 +504,23 @@
 
 	/* MARK: Dropdown Menu */
 	.spartan-dropdown-menu-content {
-		@apply data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/5 bg-popover text-popover-foreground min-w-48 rounded-2xl p-1 shadow-2xl ring-1 duration-100;
-	}
-
-	.spartan-dropdown-menu-content-logical {
-		@apply data-[side=inline-start]:slide-in-from-right-2 data-[side=inline-end]:slide-in-from-left-2;
+		@apply data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/5 bg-popover text-popover-foreground dark:ring-foreground/10 min-w-48 rounded-2xl p-1 shadow-2xl ring-1 duration-100;
 	}
 
 	.spartan-dropdown-menu-item {
-		@apply focus:bg-accent focus:text-accent-foreground data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[ng-icon]:text-destructive not-data-[variant=destructive]:focus:**:text-accent-foreground gap-2.5 rounded-xl px-3 py-2 text-sm data-inset:ps-9.5 [&_ng-icon:not([class*='text-'])]:text-[calc(var(--spacing)*4)];
+		@apply hover:bg-accent focus:bg-accent hover:text-accent-foreground focus:text-accent-foreground data-[variant=destructive]:text-destructive data-[variant=destructive]:hover:bg-destructive/10 data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:hover:bg-destructive/20 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:hover:text-destructive data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[ng-icon]:text-destructive not-data-[variant=destructive]:hover:**:text-accent-foreground not-data-[variant=destructive]:focus:**:text-accent-foreground gap-2.5 rounded-xl px-3 py-2 text-sm data-inset:ps-9.5 [&_ng-icon:not([class*='text-'])]:text-[calc(var(--spacing)*4)];
 	}
 
 	.spartan-dropdown-menu-checkbox-item {
-		@apply focus:bg-accent focus:text-accent-foreground focus:**:text-accent-foreground gap-2.5 rounded-xl py-2 ps-3 pe-8 text-sm data-inset:ps-9.5 [&_ng-icon:not([class*='text-'])]:text-[calc(var(--spacing)*4)];
+		@apply hover:bg-accent focus:bg-accent hover:text-accent-foreground focus:text-accent-foreground hover:**:text-accent-foreground focus:**:text-accent-foreground gap-2.5 rounded-xl py-2 ps-3 pe-8 text-sm data-inset:ps-9.5 [&_ng-icon:not([class*='text-'])]:text-[calc(var(--spacing)*4)];
 	}
 
 	.spartan-dropdown-menu-radio-item {
-		@apply focus:bg-accent focus:text-accent-foreground focus:**:text-accent-foreground gap-2.5 rounded-xl py-2 ps-3 pe-8 text-sm data-inset:ps-9.5 [&_ng-icon:not([class*='text-'])]:text-[calc(var(--spacing)*4)];
+		@apply hover:bg-accent focus:bg-accent hover:text-accent-foreground focus:text-accent-foreground hover:**:text-accent-foreground focus:**:text-accent-foreground gap-2.5 rounded-xl py-2 ps-3 pe-8 text-sm data-inset:ps-9.5 [&_ng-icon:not([class*='text-'])]:text-[calc(var(--spacing)*4)];
 	}
 
 	.spartan-dropdown-menu-item-indicator {
-		@apply absolute end-2 flex items-center justify-center;
+		@apply absolute end-2 flex items-center justify-center [&_ng-icon]:text-[calc(var(--spacing)*4)];
 	}
 
 	.spartan-dropdown-menu-label {
@@ -585,16 +535,8 @@
 		@apply text-muted-foreground group-focus/dropdown-menu-item:text-accent-foreground ms-auto text-xs tracking-widest;
 	}
 
-	.spartan-dropdown-menu-sub-trigger {
-		@apply focus:bg-accent focus:text-accent-foreground data-open:bg-accent data-open:text-accent-foreground not-data-[variant=destructive]:focus:**:text-accent-foreground gap-2 rounded-xl px-3 py-2 text-sm data-inset:ps-9.5 [&_ng-icon:not([class*='text-'])]:text-[calc(var(--spacing)*4)];
-	}
-
 	.spartan-dropdown-menu-sub-content {
 		@apply data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/5 bg-popover text-popover-foreground min-w-36 rounded-2xl p-1 shadow-2xl ring-1 duration-100;
-	}
-
-	.spartan-dropdown-menu-subcontent {
-		@apply shadow-lg;
 	}
 
 	/* MARK: Empty */
@@ -808,54 +750,6 @@
 
 	.spartan-menubar-trigger {
 		@apply hover:bg-muted aria-expanded:bg-muted rounded-xl px-2.5 py-1 text-sm font-medium;
-	}
-
-	.spartan-menubar-content {
-		@apply bg-popover text-popover-foreground data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/5 min-w-48 rounded-2xl p-1 shadow-2xl ring-1 duration-100;
-	}
-
-	.spartan-menubar-content-logical {
-		@apply data-[side=inline-start]:slide-in-from-right-2 data-[side=inline-end]:slide-in-from-left-2;
-	}
-
-	.spartan-menubar-item {
-		@apply focus:bg-accent focus:text-accent-foreground data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[ng-icon]:text-destructive! not-data-[variant=destructive]:focus:**:text-accent-foreground gap-2.5 rounded-xl px-3 py-2 text-sm data-disabled:opacity-50 data-inset:ps-9.5 [&_ng-icon:not([class*='text-'])]:text-[calc(var(--spacing)*4)];
-	}
-
-	.spartan-menubar-checkbox-item {
-		@apply focus:bg-accent focus:text-accent-foreground focus:**:text-accent-foreground gap-2.5 rounded-xl py-2 ps-9.5 pe-3 text-sm data-inset:ps-9.5;
-	}
-
-	.spartan-menubar-checkbox-item-indicator {
-		@apply start-3 size-4 [&_ng-icon:not([class*='text-'])]:text-[calc(var(--spacing)*4)];
-	}
-
-	.spartan-menubar-radio-item {
-		@apply focus:bg-accent focus:text-accent-foreground focus:**:text-accent-foreground gap-2.5 rounded-xl py-2 ps-9.5 pe-3 text-sm data-disabled:opacity-50 data-inset:ps-9.5 [&_ng-icon:not([class*='text-'])]:text-[calc(var(--spacing)*4)];
-	}
-
-	.spartan-menubar-radio-item-indicator {
-		@apply start-3 size-4 [&_ng-icon:not([class*='text-'])]:text-[calc(var(--spacing)*4)];
-	}
-
-	.spartan-menubar-label {
-		@apply text-muted-foreground px-3.5 py-2.5 text-xs data-inset:ps-9.5;
-	}
-
-	.spartan-menubar-separator {
-		@apply bg-border/50;
-	}
-
-	.spartan-menubar-shortcut {
-		@apply text-muted-foreground group-focus/menubar-item:text-accent-foreground text-xs tracking-widest;
-	}
-
-	.spartan-menubar-sub-trigger {
-		@apply focus:bg-accent focus:text-accent-foreground data-open:bg-accent data-open:text-accent-foreground gap-2 rounded-xl px-3 py-2 text-sm data-inset:ps-9.5 [&_ng-icon:not([class*='text-'])]:text-[calc(var(--spacing)*4)];
-	}
-
-	.spartan-menubar-sub-content {
-		@apply bg-popover text-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/5 min-w-32 rounded-2xl p-1 shadow-2xl ring-1 duration-100;
 	}
 
 	/* MARK: Navigation Menu */

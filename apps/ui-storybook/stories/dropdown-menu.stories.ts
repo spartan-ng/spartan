@@ -79,7 +79,7 @@ export const Default: Story = {
             <hlm-dropdown-menu-shortcut>⌘B</hlm-dropdown-menu-shortcut>
           </button>
 
-          <button hlmDropdownMenuItem [hlmDropdownMenuTrigger]='invite' side="right" align="start">
+          <button hlmDropdownMenuItem [hlmDropdownMenuSubTrigger]='invite' side="right" align="start">
             <ng-icon hlm name='lucideUserPlus' size="sm" />
             <span>Invite Users</span>
             <hlm-dropdown-menu-item-sub-indicator />

@@ -2981,19 +2981,26 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
       "HlmDropdownMenuCheckbox": {
         "inputs": [
           {
-            "name": "checked",
-            "required": false,
-            "type": "boolean",
-          },
-          {
-            "name": "disabled",
+            "name": "inset",
             "required": false,
             "type": "boolean",
           },
         ],
         "models": [],
         "outputs": [],
-        "selector": "[hlmDropdownMenuCheckbox]",
+        "selector": "[hlmDropdownMenuCheckbox],[hlmDropdownMenuCheckboxItem]",
+      },
+      "HlmDropdownMenuCheckboxCdk": {
+        "inputs": [
+          {
+            "name": "keepOpen",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmDropdownMenuCheckboxCdk]",
       },
       "HlmDropdownMenuCheckboxIndicator": {
         "inputs": [],
@@ -3048,21 +3055,22 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmDropdownMenuLabel],hlm-dropdown-menu-label",
       },
       "HlmDropdownMenuRadio": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmDropdownMenuRadio]",
+      },
+      "HlmDropdownMenuRadioCdk": {
         "inputs": [
           {
-            "name": "checked",
-            "required": false,
-            "type": "boolean",
-          },
-          {
-            "name": "disabled",
+            "name": "keepOpen",
             "required": false,
             "type": "boolean",
           },
         ],
         "models": [],
         "outputs": [],
-        "selector": "[hlmDropdownMenuRadio]",
+        "selector": "[hlmDropdownMenuRadioCdk]",
       },
       "HlmDropdownMenuRadioIndicator": {
         "inputs": [],
@@ -3087,6 +3095,23 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "models": [],
         "outputs": [],
         "selector": "[hlmDropdownMenuSub],hlm-dropdown-menu-sub",
+      },
+      "HlmDropdownMenuSubTrigger": {
+        "inputs": [
+          {
+            "name": "align",
+            "required": false,
+            "type": "MenuAlign",
+          },
+          {
+            "name": "side",
+            "required": false,
+            "type": "MenuSide",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmDropdownMenuSubTrigger]",
       },
       "HlmDropdownMenuTrigger": {
         "inputs": [

@@ -10,6 +10,9 @@ import { HlmNavigationMenuImports } from '@spartan-ng/helm/navigation-menu';
 	selector: 'spartan-navigation-menu-rtl',
 	imports: [HlmNavigationMenuImports, RouterLink],
 	providers: [provideIcons({ lucideChevronDown, lucideLink, lucideCircle, lucideCheck, lucideInfo }), Directionality],
+	host: {
+		'[dir]': '_dir()',
+	},
 	template: `
 		<nav hlmNavigationMenu>
 			<ul hlmNavigationMenuList class="flex-wrap">

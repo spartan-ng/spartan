@@ -6,7 +6,7 @@ import { classes } from '@spartan-ng/helm/utils';
 	selector: 'a[hlmNavigationMenuLink]',
 	hostDirectives: [{ directive: BrnNavigationMenuLink, inputs: ['active'] }],
 	host: {
-		'data-slot': 'navigation-menu-item',
+		'data-slot': 'navigation-menu-link',
 	},
 })
 export class HlmNavigationMenuLink {

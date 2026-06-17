@@ -4,9 +4,11 @@ import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/prim
 import { CalendarRangeExample } from '@spartan-ng/app/app/pages/(components)/components/(calendar)/calendar--range.example';
 import { CalendarYearAndMonthExample } from '@spartan-ng/app/app/pages/(components)/components/(calendar)/calendar--year-and-month.example';
 import { CodePreview } from '@spartan-ng/app/app/shared/code/code-preview';
+import { RtlHeader } from '@spartan-ng/app/app/shared/code/rtl-header';
 import { InstallTabs } from '@spartan-ng/app/app/shared/layout/install-tabs';
 import { MainSection } from '@spartan-ng/app/app/shared/layout/main-section';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
+import { link } from '@spartan-ng/app/app/shared/typography/link';
 import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { PageBottomNav } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav';
@@ -46,6 +48,7 @@ export const routeMeta: RouteMeta = {
 		MainSection,
 		InstallTabs,
 		SectionSubSubHeading,
+		RtlHeader,
 	],
 	template: `
 		<section spartanMainSection>
@@ -147,6 +150,15 @@ export const routeMeta: RouteMeta = {
 				</div>
 				<spartan-code secondTab [code]="_yearAndMonthCode()" />
 			</spartan-tabs>
+
+			<spartan-header-rtl />
+
+			<p class="${hlmP}">
+				For an RTL example please look at the
+				<a href="/blocks/calendar#calendar-12" target="_blank" rel="noreferrer" class="${link}">
+					Jalali (Persian) calendar.
+				</a>
+			</p>
 
 			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="brain" />

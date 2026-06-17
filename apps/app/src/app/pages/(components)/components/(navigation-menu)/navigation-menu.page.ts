@@ -81,7 +81,7 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
 
-			<h3 id="examples__vertical" spartanH4>Vertical</h3>
+			<h3 id="vertical" spartanH4>Vertical</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab class="justify-start">
 					<spartan-navigation-menu-vertical />
@@ -89,7 +89,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_verticalCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__controlled" spartanH4>Controlled</h3>
+			<h3 id="controlled" spartanH4>Controlled</h3>
 			<p class="py-2">
 				The navigation menu's
 				<code class="${hlmCode}">value</code>
@@ -104,7 +104,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_controlledCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__nested" spartanH4>Nested</h3>
+			<h3 id="nested" spartanH4>Nested</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab class="justify-start">
 					<spartan-navigation-menu-nested />
@@ -112,7 +112,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_nestedCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__open-on-click" spartanH4>Open on Click</h3>
+			<h3 id="open-on-click" spartanH4>Open on Click</h3>
 			<p class="py-2">
 				Set
 				<code class="${hlmCode}">openOn="click"</code>
@@ -125,7 +125,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_openOnClickCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__align" spartanH4>Align</h3>
+			<h3 id="align" spartanH4>Align</h3>
 			<p class="py-2">
 				Use the
 				<code class="${hlmCode}">align</code>

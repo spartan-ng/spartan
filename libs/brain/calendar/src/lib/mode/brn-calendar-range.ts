@@ -25,7 +25,7 @@ import { compareDays } from '../utils/compare-days';
 	providers: [provideBrnCalendar(BrnCalendarRange)],
 })
 export class BrnCalendarRange<T> implements BrnCalendarBase<T> {
-	private _cells: BrnCalendarCellButton<T>[] = [];
+	private readonly _cells: BrnCalendarCellButton<T>[] = [];
 
 	private readonly _i18n = injectBrnCalendarI18n();
 	// /** Access the date adapter */

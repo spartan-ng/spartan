@@ -27,7 +27,7 @@ import { compareDays } from '../utils/compare-days';
 export class BrnCalendarMulti<T> implements BrnCalendarBase<T> {
 	private readonly _i18n = injectBrnCalendarI18n();
 
-	private _cells: BrnCalendarCellButton<T>[] = [];
+	private readonly _cells: BrnCalendarCellButton<T>[] = [];
 
 	/**
 	 * Determine if a date is the start of a range. In a date picker, this is always false.

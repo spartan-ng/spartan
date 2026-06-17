@@ -4,13 +4,13 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronLeft, lucideChevronRight } from '@ng-icons/lucide';
 import { BrnCalendar, BrnCalendarImports, injectBrnCalendarI18n } from '@spartan-ng/brain/calendar';
 import { injectDateAdapter } from '@spartan-ng/brain/date-time';
-import { buttonVariants } from '@spartan-ng/helm/button';
+import { buttonVariants, HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmSelectImports } from '@spartan-ng/helm/select';
 import { classes, hlm } from '@spartan-ng/helm/utils';
 
 @Component({
 	selector: 'hlm-calendar',
-	imports: [BrnCalendarImports, NgIcon, HlmSelectImports, NgTemplateOutlet],
+	imports: [BrnCalendarImports, NgIcon, HlmSelectImports, NgTemplateOutlet, HlmButtonImports],
 	viewProviders: [provideIcons({ lucideChevronLeft, lucideChevronRight })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	hostDirectives: [
@@ -93,12 +93,12 @@ import { classes, hlm } from '@spartan-ng/helm/utils';
 			</div>
 
 			<table class="w-full border-collapse space-y-1" brnCalendarGrid>
-				<thead>
+				<thead aria-hidden="true">
 					<tr class="flex">
 						<th
 							*brnCalendarWeekday="let weekday"
 							scope="col"
-							class="text-muted-foreground w-8 rounded-md text-[0.8rem] font-normal"
+							class="text-muted-foreground flex-1 rounded-(--cell-radius) text-[0.8rem] font-normal select-none"
 							[attr.aria-label]="_i18n.config().labelWeekday(weekday)"
 						>
 							{{ _i18n.config().formatWeekdayName(weekday) }}

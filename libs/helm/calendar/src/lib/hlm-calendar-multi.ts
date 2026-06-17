@@ -103,7 +103,7 @@ import { classes, hlm } from '@spartan-ng/helm/utils';
 			</div>
 
 			<table class="w-full border-collapse" brnCalendarGrid>
-				<thead>
+				<thead aria-hidden="true">
 					<tr class="flex">
 						<th
 							*brnCalendarWeekday="let weekday"

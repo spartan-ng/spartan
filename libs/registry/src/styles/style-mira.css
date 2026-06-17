@@ -269,7 +269,6 @@
 		@apply p-3 [--cell-radius:var(--radius-md)] [--cell-size:calc(var(--spacing)*6)];
 	}
 
-
 	.spartan-calendar-caption-label {
 		@apply bg-input/20 dark:bg-input/30 h-7 ps-2 pe-1.5;
 	}

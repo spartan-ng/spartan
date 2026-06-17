@@ -1,4 +1,4 @@
-import { computed, Directive, ElementRef, inject, input } from '@angular/core';
+import { computed, DestroyRef, Directive, ElementRef, inject, input } from '@angular/core';
 import { injectDateAdapter } from '@spartan-ng/brain/date-time';
 import { injectBrnCalendar } from './brn-calendar.token';
 
@@ -34,6 +34,8 @@ export class BrnCalendarCellButton<T> {
 	/** Access the date adapter */
 	protected readonly _dateAdapter = injectDateAdapter<T>();
 
+	private readonly _destroyRef = inject(DestroyRef);
+
 	/** Access the calendar component */
 	protected readonly _calendar = injectBrnCalendar<T>();
 
@@ -51,6 +53,12 @@ export class BrnCalendarCellButton<T> {
 	public readonly highlighted = computed(() =>
 		this._calendar.highlightDays().some((d) => this._dateAdapter.isSameDay(this.date(), d)),
 	);
+
+	constructor() {
+		this._calendar.registerCalendarCell(this);
+
+		this._destroyRef.onDestroy(() => this._calendar.unregisterCalendarCell(this));
+	}
 
 	/** Whether this date is focusable */
 	public readonly focusable = computed(() => this._dateAdapter.isSameDay(this._calendar.focusedDate(), this.date()));

@@ -7,6 +7,7 @@ import {
 	type Type,
 	type WritableSignal,
 } from '@angular/core';
+import type { BrnCalendarCellButton } from './brn-calendar-cell-button';
 import type { BrnCalendarHeader } from './brn-calendar-header';
 
 export interface BrnCalendarBase<T> {
@@ -26,6 +27,9 @@ export interface BrnCalendarBase<T> {
 	header: Signal<BrnCalendarHeader | undefined>;
 	days: Signal<T[]>;
 	highlightDays: InputSignal<T[]>;
+
+	unregisterCalendarCell(cell: BrnCalendarCellButton<T>): void;
+	registerCalendarCell(cell: BrnCalendarCellButton<T>): void;
 }
 
 export const BrnCalendarToken = new InjectionToken<BrnCalendarBase<unknown>>('BrnCalendarToken');

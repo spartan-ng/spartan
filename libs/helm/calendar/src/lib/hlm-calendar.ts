@@ -1,197 +1,146 @@
-import type { BooleanInput, NumberInput } from '@angular/cdk/coercion';
 import { NgTemplateOutlet } from '@angular/common';
-import {
-	booleanAttribute,
-	ChangeDetectionStrategy,
-	Component,
-	computed,
-	input,
-	model,
-	numberAttribute,
-	viewChild,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronLeft, lucideChevronRight } from '@ng-icons/lucide';
-import { BrnCalendar, BrnCalendarImports, injectBrnCalendarI18n, type Weekday } from '@spartan-ng/brain/calendar';
+import { BrnCalendar, BrnCalendarImports, injectBrnCalendarI18n } from '@spartan-ng/brain/calendar';
 import { injectDateAdapter } from '@spartan-ng/brain/date-time';
 import { buttonVariants } from '@spartan-ng/helm/button';
-import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmSelectImports } from '@spartan-ng/helm/select';
-import { hlm } from '@spartan-ng/helm/utils';
-import type { ClassValue } from 'clsx';
+import { classes, hlm } from '@spartan-ng/helm/utils';
 
 @Component({
 	selector: 'hlm-calendar',
-	imports: [BrnCalendarImports, NgIcon, HlmIcon, HlmSelectImports, NgTemplateOutlet],
+	imports: [BrnCalendarImports, NgIcon, HlmSelectImports, NgTemplateOutlet],
 	viewProviders: [provideIcons({ lucideChevronLeft, lucideChevronRight })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	hostDirectives: [
+		{
+			directive: BrnCalendar,
+			inputs: ['min', 'max', 'disabled', 'date', 'dateDisabled', 'weekStartsOn', 'highlightDays', 'defaultFocusedDate'],
+			outputs: ['dateChange'],
+		},
+	],
 	host: { 'data-slot': 'calendar' },
 	template: `
-		<div
-			brnCalendar
-			[min]="min()"
-			[max]="max()"
-			[disabled]="disabled()"
-			[(date)]="date"
-			[dateDisabled]="dateDisabled()"
-			[weekStartsOn]="weekStartsOn()"
-			[highlightDays]="highlightDays()"
-			[defaultFocusedDate]="defaultFocusedDate()"
-			[class]="_computedCalenderClass()"
-		>
-			<div class="inline-flex flex-col space-y-4">
-				<!-- Header -->
-				<div class="space-y-4">
-					<div class="relative flex items-center justify-center pt-1">
-						<div class="flex w-full items-center justify-center gap-1.5">
-							<ng-template #month>
-								<hlm-select brnCalendarMonthSelect>
-									<hlm-select-trigger size="sm" [class]="_selectClass">
-										<hlm-select-value />
-									</hlm-select-trigger>
-									<hlm-select-content *hlmSelectPortal class="max-h-80">
-										<hlm-select-group>
-											@for (month of _i18n.config().months(); track month) {
-												<hlm-select-item [value]="month">{{ month }}</hlm-select-item>
-											}
-										</hlm-select-group>
-									</hlm-select-content>
-								</hlm-select>
-							</ng-template>
-							<ng-template #year>
-								<hlm-select brnCalendarYearSelect>
-									<hlm-select-trigger size="sm" [class]="_selectClass">
-										<hlm-select-value />
-									</hlm-select-trigger>
-									<hlm-select-content *hlmSelectPortal class="max-h-80">
-										<hlm-select-group>
-											@for (year of _i18n.config().years(); track year) {
-												<hlm-select-item [value]="year">{{ year }}</hlm-select-item>
-											}
-										</hlm-select-group>
-									</hlm-select-content>
-								</hlm-select>
-							</ng-template>
-							@let heading = _heading();
-							@switch (captionLayout()) {
-								@case ('dropdown') {
-									<ng-container [ngTemplateOutlet]="month" />
-									<ng-container [ngTemplateOutlet]="year" />
-								}
-								@case ('dropdown-months') {
-									<ng-container [ngTemplateOutlet]="month" />
-									<div brnCalendarHeader class="text-sm font-medium">{{ heading.year }}</div>
-								}
-								@case ('dropdown-years') {
-									<div brnCalendarHeader class="text-sm font-medium">{{ heading.month }}</div>
-									<ng-container [ngTemplateOutlet]="year" />
-								}
-								@case ('label') {
-									<div brnCalendarHeader class="text-sm font-medium">{{ heading.header }}</div>
-								}
-							}
-						</div>
+		<div class="inline-flex flex-col gap-4">
+			<!-- Header -->
 
-						<div class="flex items-center space-x-1">
-							<button
-								brnCalendarPreviousButton
-								class="focus-visible:ring-ring hover:bg-accent hover:text-accent-foreground text-popover-foreground absolute left-1 inline-flex size-8 items-center justify-center rounded-md bg-transparent p-0 text-sm font-medium whitespace-nowrap transition-colors hover:opacity-100 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50"
-							>
-								<ng-icon hlm name="lucideChevronLeft" size="sm" />
-							</button>
+			<div class="flex w-full items-center justify-between gap-1.5">
+				<ng-template #month>
+					<hlm-select brnCalendarMonthSelect>
+						<hlm-select-trigger size="sm" [class]="_selectClass">
+							<hlm-select-value />
+						</hlm-select-trigger>
+						<hlm-select-content *hlmSelectPortal class="max-h-80">
+							<hlm-select-group>
+								@for (month of _i18n.config().months(); track month) {
+									<hlm-select-item [value]="month">{{ month }}</hlm-select-item>
+								}
+							</hlm-select-group>
+						</hlm-select-content>
+					</hlm-select>
+				</ng-template>
+				<ng-template #year>
+					<hlm-select brnCalendarYearSelect>
+						<hlm-select-trigger size="sm" [class]="_selectClass">
+							<hlm-select-value />
+						</hlm-select-trigger>
+						<hlm-select-content *hlmSelectPortal class="max-h-80">
+							<hlm-select-group>
+								@for (year of _i18n.config().years(); track year) {
+									<hlm-select-item [value]="year">{{ year }}</hlm-select-item>
+								}
+							</hlm-select-group>
+						</hlm-select-content>
+					</hlm-select>
+				</ng-template>
+				@let heading = _heading();
 
-							<button
-								brnCalendarNextButton
-								class="focus-visible:ring-ring hover:bg-accent hover:text-accent-foreground text-popover-foreground absolute right-1 inline-flex size-8 items-center justify-center rounded-md bg-transparent p-0 text-sm font-medium whitespace-nowrap transition-colors hover:opacity-100 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50"
-							>
-								<ng-icon hlm name="lucideChevronRight" size="sm" />
-							</button>
-						</div>
-					</div>
-				</div>
+				<button
+					brnCalendarPreviousButton
+					variant="ghost"
+					hlmBtn
+					class="size-(--cell-size) p-0 select-none aria-disabled:opacity-50"
+				>
+					<ng-icon name="lucideChevronLeft" />
+				</button>
 
-				<table class="w-full border-collapse space-y-1" brnCalendarGrid>
-					<thead>
-						<tr class="flex">
-							<th
-								*brnCalendarWeekday="let weekday"
-								scope="col"
-								class="text-muted-foreground w-8 rounded-md text-[0.8rem] font-normal"
-								[attr.aria-label]="_i18n.config().labelWeekday(weekday)"
-							>
-								{{ _i18n.config().formatWeekdayName(weekday) }}
-							</th>
-						</tr>
-					</thead>
-
-					<tbody role="rowgroup">
-						<tr *brnCalendarWeek="let week" class="mt-2 flex w-full">
-							@for (date of week; track _dateAdapter.getTime(date)) {
-								<td
-									brnCalendarCell
-									class="data-[selected]:data-[outside]:bg-accent/50 data-[selected]:bg-accent relative size-8 p-0 text-center text-sm focus-within:relative focus-within:z-20 first:data-[selected]:rounded-l-md last:data-[selected]:rounded-r-md [&:has([aria-selected].day-range-end)]:rounded-r-md"
-								>
-									<button brnCalendarCellButton [date]="date" [class]="_btnClass">
-										{{ _dateAdapter.getDate(date) }}
-									</button>
-								</td>
-							}
-						</tr>
-					</tbody>
-				</table>
+				@switch (captionLayout()) {
+					@case ('dropdown') {
+						<ng-container [ngTemplateOutlet]="month" />
+						<ng-container [ngTemplateOutlet]="year" />
+					}
+					@case ('dropdown-months') {
+						<ng-container [ngTemplateOutlet]="month" />
+						<div brnCalendarHeader class="text-sm font-medium">{{ heading.year }}</div>
+					}
+					@case ('dropdown-years') {
+						<div brnCalendarHeader class="text-sm font-medium">{{ heading.month }}</div>
+						<ng-container [ngTemplateOutlet]="year" />
+					}
+					@case ('label') {
+						<div brnCalendarHeader class="text-sm font-medium">{{ heading.header }}</div>
+					}
+				}
+				<button
+					brnCalendarNextButton
+					hlmBtn
+					variant="ghost"
+					class="size-(--cell-size) select-none aria-disabled:opacity-50"
+				>
+					<ng-icon name="lucideChevronRight" />
+				</button>
 			</div>
+
+			<table class="w-full border-collapse space-y-1" brnCalendarGrid>
+				<thead>
+					<tr class="flex">
+						<th
+							*brnCalendarWeekday="let weekday"
+							scope="col"
+							class="text-muted-foreground w-8 rounded-md text-[0.8rem] font-normal"
+							[attr.aria-label]="_i18n.config().labelWeekday(weekday)"
+						>
+							{{ _i18n.config().formatWeekdayName(weekday) }}
+						</th>
+					</tr>
+				</thead>
+
+				<tbody role="rowgroup">
+					<tr *brnCalendarWeek="let week" class="mt-2 flex w-full">
+						@for (date of week; track _dateAdapter.getTime(date)) {
+							<td
+								brnCalendarCell
+								class="group/day relative aspect-square h-full w-full rounded-(--cell-radius) p-0 text-center select-none [&:first-child[data-selected=true]_button]:rounded-l-(--cell-radius) [&:last-child[data-selected=true]_button]:rounded-r-(--cell-radius)"
+							>
+								<button brnCalendarCellButton [date]="date" [class]="_btnClass">
+									{{ _dateAdapter.getDate(date) }}
+								</button>
+							</td>
+						}
+					</tr>
+				</tbody>
+			</table>
 		</div>
 	`,
 })
 export class HlmCalendar<T> {
-	public readonly calendarClass = input<ClassValue>('');
-
-	protected readonly _computedCalenderClass = computed(() => hlm('rounded-md border p-3', this.calendarClass()));
-
 	/** Access the calendar i18n */
 	protected readonly _i18n = injectBrnCalendarI18n();
 
 	/** Access the date time adapter */
 	protected readonly _dateAdapter = injectDateAdapter<T>();
 
-	/** The days to highlight. */
-	public readonly highlightDays = input<T[]>([]);
-
-	/** The minimum date that can be selected.*/
-	public readonly min = input<T>();
-
-	/** The maximum date that can be selected. */
-	public readonly max = input<T>();
-
 	/** Show dropdowns to navigate between months or years. */
 	public readonly captionLayout = input<'dropdown' | 'label' | 'dropdown-months' | 'dropdown-years'>('label');
 
-	/** Determine if the date picker is disabled. */
-	public readonly disabled = input<boolean, BooleanInput>(false, {
-		transform: booleanAttribute,
-	});
-
-	/** The selected value. */
-	public readonly date = model<T>();
-
-	/** Whether a specific date is disabled. */
-	public readonly dateDisabled = input<(date: T) => boolean>(() => false);
-
-	/** The day the week starts on */
-	public readonly weekStartsOn = input<Weekday, NumberInput>(undefined, {
-		transform: (v: unknown) => numberAttribute(v) as Weekday,
-	});
-
-	/** The default focused date. */
-	public readonly defaultFocusedDate = input<T>();
-
 	/** Access the calendar directive */
-	private readonly _calendar = viewChild.required(BrnCalendar);
+	private readonly _calendar = inject(BrnCalendar);
 
 	/** Get the heading for the current month and year */
 	protected readonly _heading = computed(() => {
 		const config = this._i18n.config();
-		const date = this._calendar().focusedDate();
+		const date = this._calendar.focusedDate();
 
 		return {
 			header: config.formatHeader(this._dateAdapter.getMonth(date), this._dateAdapter.getYear(date)),
@@ -201,13 +150,8 @@ export class HlmCalendar<T> {
 	});
 
 	protected readonly _btnClass = hlm(
-		buttonVariants({ variant: 'ghost' }),
-		'size-8 p-0 font-normal aria-selected:opacity-100',
-		'data-[outside]:text-muted-foreground data-[outside]:aria-selected:bg-accent/50 data-[outside]:aria-selected:text-muted-foreground data-[outside]:opacity-50 data-[outside]:aria-selected:opacity-30',
-		'data-[today]:bg-accent data-[today]:text-accent-foreground',
-		'data-[selected]:bg-primary data-[selected]:text-primary-foreground data-[selected]:hover:bg-primary dark:hover:text-accent-foreground data-[selected]:focus:bg-primary data-[selected]:focus:text-primary-foreground',
-		'data-[disabled]:text-muted-foreground data-[disabled]:opacity-50',
-		'dark:hover:text-accent-foreground',
+		buttonVariants({ variant: 'ghost', size: 'icon' }),
+		'group-data-[focused=true]/day:border-ring group-data-[focused=true]/day:ring-ring/50 data-[range-end=true]:bg-primary data-[range-end=true]:text-primary-foreground data-[range-middle=true]:bg-muted data-[range-middle=true]:text-foreground data-[range-start=true]:bg-primary data-[range-start=true]:text-primary-foreground data-[selected-single=true]:bg-primary data-[selected-single=true]:text-primary-foreground dark:hover:text-foreground relative isolate z-10 flex aspect-square size-auto w-full min-w-(--cell-size) flex-col gap-1 border-0 leading-none font-normal group-data-[focused=true]/day:relative group-data-[focused=true]/day:z-10 group-data-[focused=true]/day:ring-[3px] data-[range-end=true]:rounded-(--cell-radius) data-[range-end=true]:rounded-r-(--cell-radius) data-[range-middle=true]:rounded-none data-[range-start=true]:rounded-(--cell-radius) data-[range-start=true]:rounded-l-(--cell-radius) [&>span]:text-xs [&>span]:opacity-70',
 		"data-[highlighted]:before:content-['']",
 		'data-[highlighted]:before:absolute',
 		'data-[highlighted]:before:bottom-1',
@@ -220,4 +164,11 @@ export class HlmCalendar<T> {
 	);
 
 	protected readonly _selectClass = 'gap-0 px-1.5 py-2 [&>ng-icon]:ml-1';
+
+	constructor() {
+		classes(
+			() =>
+				'spartan-calendar group/calendar bg-background block in-data-[slot=card-content]:bg-transparent in-data-[slot=popover-content]:bg-transparent',
+		);
+	}
 }

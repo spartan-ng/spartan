@@ -49,7 +49,11 @@ export const routeMeta: RouteMeta = {
 	],
 	template: `
 		<section spartanMainSection>
-			<spartan-section-intro name="Calendar" lead="A date field component that allows users to enter and edit date." />
+			<spartan-section-intro
+				name="Calendar"
+				lead="A date field component that allows users to enter and edit date."
+				showThemeToggle
+			/>
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>

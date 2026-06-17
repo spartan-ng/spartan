@@ -48,7 +48,7 @@ export const HLM_DATE_PICKER_VALUE_ACCESSOR = {
 			<hlm-popover-content class="w-fit p-0" *hlmPopoverPortal="let ctx">
 				<ng-content select="[hlmDatePickerHeader]" />
 				<hlm-calendar
-					calendarClass="rounded-none border-0"
+					class="rounded-none border-0"
 					[captionLayout]="captionLayout()"
 					[date]="_mutableDate()"
 					[defaultFocusedDate]="_mutableDate() ?? defaultFocusedDate()"

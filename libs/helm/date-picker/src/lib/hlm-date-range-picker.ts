@@ -53,7 +53,7 @@ export const HLM_DATE_RANGE_PICKER_VALUE_ACCESSOR = {
 			<hlm-popover-content class="w-fit p-0" *hlmPopoverPortal="let ctx">
 				<ng-content select="[hlmDatePickerHeader]" />
 				<hlm-calendar-range
-					calendarClass="border-0 rounded-none"
+					class="rounded-none border-0"
 					[startDate]="_start()"
 					[captionLayout]="captionLayout()"
 					[endDate]="_end()"

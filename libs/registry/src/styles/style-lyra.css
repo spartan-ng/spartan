@@ -257,11 +257,7 @@
 
 	/* MARK: Calendar */
 	.spartan-calendar {
-		@apply p-2 [--cell-size:--spacing(7)];
-	}
-
-	.spartan-calendar-dropdown-root {
-		@apply has-focus:border-ring border-input has-focus:ring-ring/50 rounded-none border has-focus:ring-1;
+		@apply p-2 [--cell-size:calc(var(--spacing)*7)];
 	}
 
 	.spartan-calendar-caption-label {

@@ -160,7 +160,7 @@ export class BrnSelect<T> implements BrnSelectBase<T>, ControlValueAccessor {
 
 		const value = this.keyManager.activeItem?.value();
 
-		if (value) {
+		if (value !== null && value !== undefined) {
 			this.select(value);
 		} else {
 			this.close();

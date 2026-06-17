@@ -175,7 +175,7 @@ export class BrnSelectMultiple<T> implements BrnSelectBase<T>, ControlValueAcces
 
 		const value = this.keyManager.activeItem?.value();
 
-		if (value) {
+		if (value !== null && value !== undefined) {
 			this.select(value);
 		} else {
 			this.close();

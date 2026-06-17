@@ -378,4 +378,23 @@ describe('select', () => {
 			cy.get('hlm-select-scroll-down').should('exist');
 		});
 	});
+
+	describe('falsy value', () => {
+		beforeEach(() => {
+			cy.visit('/iframe.html?id=select--falsy-value');
+			cy.injectAxe();
+		});
+
+		it('should select an option with a falsy value on enter keypress', () => {
+			cy.get('[brnselecttrigger]').click();
+
+			cy.realPress('ArrowDown');
+			cy.realPress('Enter');
+
+			// the falsy value is committed and the panel closes
+			cy.get('hlm-select-content').should('not.exist');
+			cy.get('[brnselecttrigger]').should('have.attr', 'aria-expanded', 'false');
+			cy.get('[data-testid="value"]').should('contain.text', 'false');
+		});
+	});
 });

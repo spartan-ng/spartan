@@ -36,7 +36,7 @@ import { classes, hlm } from '@spartan-ng/helm/utils';
 			<!-- Header -->
 			<div class="flex w-full items-center justify-between gap-1.5">
 				<ng-template #month>
-					<hlm-select brnCalendarMonthSelect>
+					<hlm-select brnCalendarMonthSelect class="order-1">
 						<hlm-select-trigger size="sm" [class]="_selectClass">
 							<hlm-select-value />
 						</hlm-select-trigger>
@@ -50,7 +50,7 @@ import { classes, hlm } from '@spartan-ng/helm/utils';
 					</hlm-select>
 				</ng-template>
 				<ng-template #year>
-					<hlm-select brnCalendarYearSelect>
+					<hlm-select brnCalendarYearSelect class="order-3">
 						<hlm-select-trigger size="sm" [class]="_selectClass">
 							<hlm-select-value />
 						</hlm-select-trigger>
@@ -69,9 +69,9 @@ import { classes, hlm } from '@spartan-ng/helm/utils';
 					brnCalendarPreviousButton
 					variant="ghost"
 					hlmBtn
-					class="size-(--cell-size) p-0 select-none aria-disabled:opacity-50"
+					class="order-first size-(--cell-size) p-0 select-none aria-disabled:opacity-50"
 				>
-					<ng-icon name="lucideChevronLeft" />
+					<ng-icon name="lucideChevronLeft" class="rtl:rotate-180" />
 				</button>
 
 				@switch (captionLayout()) {
@@ -81,23 +81,24 @@ import { classes, hlm } from '@spartan-ng/helm/utils';
 					}
 					@case ('dropdown-months') {
 						<ng-container [ngTemplateOutlet]="month" />
-						<div brnCalendarHeader class="text-sm font-medium">{{ heading.year }}</div>
+						<div brnCalendarHeader class="order-4 text-sm font-medium">{{ heading.year }}</div>
 					}
 					@case ('dropdown-years') {
-						<div brnCalendarHeader class="text-sm font-medium">{{ heading.month }}</div>
+						<div brnCalendarHeader class="order-2 text-sm font-medium">{{ heading.month }}</div>
 						<ng-container [ngTemplateOutlet]="year" />
 					}
 					@case ('label') {
-						<div brnCalendarHeader class="text-sm font-medium">{{ heading.header }}</div>
+						<div brnCalendarHeader class="order-5 text-sm font-medium">{{ heading.header }}</div>
 					}
 				}
+
 				<button
 					brnCalendarNextButton
 					hlmBtn
 					variant="ghost"
-					class="size-(--cell-size) select-none aria-disabled:opacity-50"
+					class="order-last size-(--cell-size) select-none aria-disabled:opacity-50"
 				>
-					<ng-icon name="lucideChevronRight" />
+					<ng-icon name="lucideChevronRight" class="rtl:rotate-180" />
 				</button>
 			</div>
 
@@ -120,7 +121,7 @@ import { classes, hlm } from '@spartan-ng/helm/utils';
 						@for (date of week; track _dateAdapter.getTime(date)) {
 							<td
 								brnCalendarCell
-								class="group/day has-[button[data-range-start=true]]:bg-muted has-[button[data-range-start=true]]:after:bg-muted has-[button[data-range-end=true]]:bg-muted has-[button[data-range-end=true]]:after:bg-muted relative isolate z-0 aspect-square h-full w-full rounded-(--cell-radius) p-0 text-center select-none has-[button[data-range-end=true]]:rounded-r-(--cell-radius) has-[button[data-range-end=true]]:after:absolute has-[button[data-range-end=true]]:after:inset-y-0 has-[button[data-range-end=true]]:after:left-0 has-[button[data-range-end=true]]:after:w-4 has-[button[data-range-start=true]]:rounded-l-(--cell-radius) has-[button[data-range-start=true]]:after:absolute has-[button[data-range-start=true]]:after:inset-y-0 has-[button[data-range-start=true]]:after:right-0 has-[button[data-range-start=true]]:after:w-4 [&:first-child[data-selected=true]_button]:rounded-l-(--cell-radius) [&:last-child[data-selected=true]_button]:rounded-r-(--cell-radius)"
+								class="group/day has-[button[data-range-start=true]]:bg-muted has-[button[data-range-start=true]]:after:bg-muted has-[button[data-range-end=true]]:bg-muted has-[button[data-range-end=true]]:after:bg-muted relative isolate z-0 aspect-square h-full w-full rounded-(--cell-radius) p-0 text-center select-none has-[button[data-range-end=true]]:rounded-e-(--cell-radius) has-[button[data-range-end=true]]:after:absolute has-[button[data-range-end=true]]:after:inset-y-0 has-[button[data-range-end=true]]:after:start-0 has-[button[data-range-end=true]]:after:w-4 has-[button[data-range-start=true]]:rounded-s-(--cell-radius) has-[button[data-range-start=true]]:after:absolute has-[button[data-range-start=true]]:after:inset-y-0 has-[button[data-range-start=true]]:after:end-0 has-[button[data-range-start=true]]:after:w-4 [&:first-child[data-selected=true]_button]:rounded-s-(--cell-radius) [&:last-child[data-selected=true]_button]:rounded-e-(--cell-radius)"
 							>
 								<button brnCalendarCellButton [date]="date" [class]="_btnClass">
 									{{ _dateAdapter.getDate(date) }}
@@ -160,11 +161,11 @@ export class HlmCalendarRange<T> {
 
 	protected readonly _btnClass = hlm(
 		buttonVariants({ variant: 'ghost', size: 'icon' }),
-		'group-data-[focused=true]/day:border-ring group-data-[focused=true]/day:ring-ring/50 data-[range-end=true]:bg-primary data-[range-end=true]:text-primary-foreground data-[range-middle=true]:bg-muted data-[range-middle=true]:text-foreground data-[range-start=true]:bg-primary data-[range-start=true]:text-primary-foreground data-[selected-single=true]:bg-primary data-[selected-single=true]:text-primary-foreground dark:hover:text-foreground relative isolate z-10 flex aspect-square size-auto w-full min-w-(--cell-size) flex-col gap-1 border-0 leading-none font-normal group-data-[focused=true]/day:relative group-data-[focused=true]/day:z-10 group-data-[focused=true]/day:ring-[3px] data-[range-end=true]:rounded-(--cell-radius) data-[range-end=true]:rounded-r-(--cell-radius) data-[range-middle=true]:rounded-none data-[range-start=true]:rounded-(--cell-radius) data-[range-start=true]:rounded-l-(--cell-radius) [&>span]:text-xs [&>span]:opacity-70',
+		'group-data-[focused=true]/day:border-ring group-data-[focused=true]/day:ring-ring/50 data-[range-end=true]:bg-primary data-[range-end=true]:text-primary-foreground data-[range-middle=true]:bg-muted data-[range-middle=true]:text-foreground data-[range-start=true]:bg-primary data-[range-start=true]:text-primary-foreground data-[selected-single=true]:bg-primary data-[selected-single=true]:text-primary-foreground dark:hover:text-foreground relative isolate z-10 flex aspect-square size-auto w-full min-w-(--cell-size) flex-col gap-1 border-0 leading-none font-normal group-data-[focused=true]/day:relative group-data-[focused=true]/day:z-10 group-data-[focused=true]/day:ring-[3px] data-[range-end=true]:rounded-(--cell-radius) data-[range-end=true]:rounded-e-(--cell-radius) data-[range-middle=true]:rounded-none data-[range-start=true]:rounded-(--cell-radius) data-[range-start=true]:rounded-s-(--cell-radius) [&>span]:text-xs [&>span]:opacity-70',
 		"data-[highlighted]:before:content-['']",
 		'data-[highlighted]:before:absolute',
 		'data-[highlighted]:before:bottom-1',
-		'data-[highlighted]:before:left-1/2',
+		'data-[highlighted]:before:start-1/2',
 		'data-[highlighted]:before:h-1',
 		'data-[highlighted]:before:w-1',
 		'data-[highlighted]:before:-translate-x-1/2',

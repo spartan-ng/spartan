@@ -150,9 +150,11 @@ export class BrnNavigationMenuContentService {
 	public updateAlign(align: MenuAlign) {
 		this._config = { ...this._config, align };
 
+		if (!this._config.attachTo) return;
+
 		const orientation = this._config.orientation;
 		const positions = this._getPositions(orientation);
-		this._positionStrategy = this._buildPositionStrategy(this._config.attachTo!, positions);
+		this._positionStrategy = this._buildPositionStrategy(this._config.attachTo, positions);
 
 		this._config = {
 			...this._config,

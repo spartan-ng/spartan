@@ -23,7 +23,7 @@ type RemoveGenerator = (
 // blocked by the package's `exports` map on nx 23+ (where the compiled file also moved to `dist/`).
 // Resolve the compiled generator by absolute path instead: that bypasses the `exports` gate and never
 // loads the crashing barrel. Lazy, so it only runs when a library actually has to be removed.
-async function loadRemoveGenerator(): Promise<RemoveGenerator> {
+function loadRemoveGenerator(): RemoveGenerator {
 	const workspaceRoot = dirname(require.resolve('@nx/workspace/package.json'));
 	const candidates = [
 		join(workspaceRoot, 'dist', 'src', 'generators', 'remove', 'remove.js'), // nx 23+
@@ -31,8 +31,10 @@ async function loadRemoveGenerator(): Promise<RemoveGenerator> {
 	];
 	for (const candidate of candidates) {
 		if (existsSync(candidate)) {
-			const mod = await import(candidate);
-			return mod.removeGenerator as RemoveGenerator;
+			// `require` (not `import()`) so an absolute filesystem path is loaded directly: it bypasses the
+			// package `exports` gate and, unlike dynamic import, accepts native Windows paths (C:\...) without
+			// a file:// URL. This generator already runs as CommonJS.
+			return (require(candidate) as { removeGenerator: RemoveGenerator }).removeGenerator;
 		}
 	}
 	throw new Error(
@@ -175,7 +177,7 @@ async function removeExistingLibraries(
 				throw new Error(`Could not find the project name for library: ${library} in project root path ${projectRoot}`);
 			}
 
-			const removeGenerator = await loadRemoveGenerator();
+			const removeGenerator = loadRemoveGenerator();
 			await removeGenerator(tree, {
 				projectName,
 				forceRemove: true,

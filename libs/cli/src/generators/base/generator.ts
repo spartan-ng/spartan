@@ -71,11 +71,13 @@ export function dedupeEntrypointGlobs(patterns: string[], recursiveGlobs: string
 	// The suffix each recursive glob covers in every subdirectory, e.g. '**/*.ts' -> '*.ts'.
 	const suffixes = recursiveGlobs.map((glob) => glob.replace(/^\*\*\//, ''));
 	const variantSeen = recursiveGlobs.map(() => false);
-	// A pattern is a scoped variant of recursiveGlobs[i] if it is that glob, or a sub-path glob ending in
-	// `/<suffix>` (so `*.ts` on its own is NOT a variant of `**/*.ts` and is left alone).
+	// A pattern is a scoped variant of recursiveGlobs[i] only if it is that glob itself, or a recursive
+	// sub-path glob (contains `/**/` and ends in `/<suffix>`) - exactly the shape nx prepends per entry
+	// point, e.g. `accordion/src/**/*.ts`. A flat `*.ts` or a custom `tools/*.ts` is NOT a variant and is
+	// left untouched, so user globs are never widened or dropped.
 	const variantIndex = (pattern: string) =>
 		recursiveGlobs.findIndex(
-			(recursive, i) => pattern === recursive || (pattern.includes('*') && pattern.endsWith(`/${suffixes[i]}`)),
+			(recursive, i) => pattern === recursive || (pattern.includes('/**/') && pattern.endsWith(`/${suffixes[i]}`)),
 		);
 
 	const result = patterns.filter((pattern) => {

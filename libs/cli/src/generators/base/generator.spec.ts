@@ -273,8 +273,13 @@ describe('dedupeEntrypointGlobs', () => {
 		]);
 	});
 
-	it('does not widen a root-only `*.ts` into a recursive glob', () => {
-		// `*.ts` matches only the root; it is not a sub-path variant of `**/*.ts`, so it is left untouched.
+	it('does not rewrite flat custom globs (only recursive `/**/` sub-paths are collapsed)', () => {
+		// `*.ts` matches only the root and `tools/*.ts` only that folder; neither is an nx entrypoint
+		// variant (no `/**/`), so both are preserved rather than widened to `**/*.ts`.
 		expect(dedupeEntrypointGlobs(['*.ts'], ['**/*.ts'])).toEqual(['*.ts']);
+		expect(dedupeEntrypointGlobs(['tools/*.ts', 'accordion/src/**/*.ts'], ['**/*.ts'])).toEqual([
+			'tools/*.ts',
+			'**/*.ts',
+		]);
 	});
 });

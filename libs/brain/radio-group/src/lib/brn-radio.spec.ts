@@ -43,9 +43,9 @@ describe('BrnRadioComponent', () => {
 		expect(getByText('after')).toHaveFocus();
 	});
 
-	it('should focus the first enabled radio when tabbing into a group with no selected enabled radio', async () => {
+	it('should focus the first enabled radio when tabbing into a reset group with a disabled first radio', async () => {
 		const user = userEvent.setup();
-		const { getAllByRole, getByText } = await render(
+		const { getAllByRole, getByText, rerender } = await render(
 			`
 			<button type="button">before</button>
 			<div brnRadioGroup [value]="value">
@@ -58,12 +58,22 @@ describe('BrnRadioComponent', () => {
 			{
 				imports: [BrnRadioGroupImports],
 				componentProperties: {
-					value: '',
+					value: '15.3.0',
 				},
 			},
 		);
 
 		const radioButtons = getAllByRole('radio') as HTMLInputElement[];
+		getByText('before').focus();
+		await user.tab();
+		expect(radioButtons[2]).toHaveFocus();
+
+		await rerender({
+			componentProperties: {
+				value: null,
+			},
+		});
+
 		getByText('before').focus();
 		await user.tab();
 		expect(radioButtons[1]).toHaveFocus();

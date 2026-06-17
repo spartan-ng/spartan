@@ -3911,7 +3911,13 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "ul[brnNavigationMenuList]",
       },
       "BrnNavigationMenuTrigger": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "align",
+            "required": false,
+            "type": "MenuAlign",
+          },
+        ],
         "models": [],
         "outputs": [],
         "selector": "button[brnNavigationMenuTrigger]",
@@ -3925,7 +3931,13 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "nav[hlmNavigationMenu]",
       },
       "HlmNavigationMenuContent": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "navOffset",
+            "required": false,
+            "type": "number",
+          },
+        ],
         "models": [],
         "outputs": [],
         "selector": "[hlmNavigationMenuContent],hlm-navigation-menu-content",

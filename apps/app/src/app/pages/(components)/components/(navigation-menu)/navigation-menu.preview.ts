@@ -1,25 +1,19 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { provideIcons } from '@ng-icons/core';
-import { lucideCheck, lucideChevronDown, lucideCircle, lucideInfo, lucideLink } from '@ng-icons/lucide';
-import { HlmIconImports } from '@spartan-ng/helm/icon';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { lucideCheck, lucideCircle, lucideInfo } from '@ng-icons/lucide';
 import { HlmNavigationMenuImports } from '@spartan-ng/helm/navigation-menu';
 
 @Component({
 	selector: 'spartan-navigation-menu-preview',
-	imports: [HlmNavigationMenuImports, HlmIconImports, RouterLink],
-	providers: [provideIcons({ lucideChevronDown, lucideLink, lucideCircle, lucideCheck, lucideInfo })],
+	imports: [HlmNavigationMenuImports, NgIcon, RouterLink],
+	providers: [provideIcons({ lucideCircle, lucideCheck, lucideInfo })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<nav hlmNavigationMenu>
 			<ul hlmNavigationMenuList class="flex-wrap">
 				<li hlmNavigationMenuItem>
-					<button hlmNavigationMenuTrigger>
-						Getting started
-						<ng-icon
-							name="lucideChevronDown"
-							class="relative top-px ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
-						/>
-					</button>
+					<button hlmNavigationMenuTrigger>Getting started</button>
 					<hlm-navigation-menu-content *hlmNavigationMenuPortal>
 						<ul class="w-96">
 							<li>
@@ -55,13 +49,7 @@ import { HlmNavigationMenuImports } from '@spartan-ng/helm/navigation-menu';
 
 				<!-- Components Menu -->
 				<li hlmNavigationMenuItem class="hidden md:flex">
-					<button hlmNavigationMenuTrigger>
-						Components
-						<ng-icon
-							name="lucideChevronDown"
-							class="relative top-px ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
-						/>
-					</button>
+					<button hlmNavigationMenuTrigger align="center">Components</button>
 					<hlm-navigation-menu-content *hlmNavigationMenuPortal>
 						<ul class="grid w-[400px] gap-2 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
 							@for (component of _components; track $index) {
@@ -79,25 +67,19 @@ import { HlmNavigationMenuImports } from '@spartan-ng/helm/navigation-menu';
 				</li>
 
 				<li hlmNavigationMenuItem>
-					<button hlmNavigationMenuTrigger>
-						With Icon
-						<ng-icon
-							name="lucideChevronDown"
-							class="relative top-px ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
-						/>
-					</button>
+					<button hlmNavigationMenuTrigger align="end">With Icon</button>
 					<hlm-navigation-menu-content *hlmNavigationMenuPortal>
-						<ul class="grid w-[200px]">
+						<ul>
 							<li>
-								<a hlmNavigationMenuLink href="#" class="flex-row items-center gap-2">
+								<a hlmNavigationMenuLink href="#">
 									<ng-icon name="lucideInfo" />
 									Backlog
 								</a>
-								<a hlmNavigationMenuLink href="#" class="flex-row items-center gap-2">
+								<a hlmNavigationMenuLink href="#">
 									<ng-icon name="lucideCircle" />
 									To Do
 								</a>
-								<a hlmNavigationMenuLink href="#" class="flex-row items-center gap-2">
+								<a hlmNavigationMenuLink href="#">
 									<ng-icon name="lucideCheck" />
 									Done
 								</a>

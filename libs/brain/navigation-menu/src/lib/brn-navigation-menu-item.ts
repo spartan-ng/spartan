@@ -12,6 +12,7 @@ import { injectBrnNavigationMenu } from './brn-navigation-menu.token';
 	host: {
 		'[id]': 'id()',
 		'[attr.data-disabled]': 'disabled() || null',
+		'[attr.data-active]': 'isActive() ? "true" : null',
 		'data-slot': 'navigation-menu-item',
 	},
 })

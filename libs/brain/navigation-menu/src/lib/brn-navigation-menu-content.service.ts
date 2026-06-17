@@ -19,7 +19,12 @@ import {
 	TemplateRef,
 	ViewContainerRef,
 } from '@angular/core';
-import { createHoverObservable, waitForElementAnimations } from '@spartan-ng/brain/core';
+import {
+	createHoverObservable,
+	createMenuPosition,
+	type MenuAlign,
+	waitForElementAnimations,
+} from '@spartan-ng/brain/core';
 import { BehaviorSubject, fromEvent, Observable, of, Subject } from 'rxjs';
 import { map, share, switchMap, takeUntil } from 'rxjs/operators';
 
@@ -27,6 +32,7 @@ export type BrnNavigationMenuContentOptions = Partial<
 	{
 		attachTo: ElementRef<HTMLElement>;
 		orientation: 'horizontal' | 'vertical';
+		align: MenuAlign;
 	} & OverlayConfig
 >;
 
@@ -141,6 +147,23 @@ export class BrnNavigationMenuContentService {
 		this._overlayRef?.setDirection(dir);
 	}
 
+	public updateAlign(align: MenuAlign) {
+		this._config = { ...this._config, align };
+
+		if (!this._config.attachTo) return;
+
+		const orientation = this._config.orientation;
+		const positions = this._getPositions(orientation);
+		this._positionStrategy = this._buildPositionStrategy(this._config.attachTo, positions);
+
+		this._config = {
+			...this._config,
+			positionStrategy: this._positionStrategy,
+		};
+
+		this._overlayRef?.updatePositionStrategy(this._positionStrategy);
+	}
+
 	public setContent(value: TemplateRef<unknown>, vcr: ViewContainerRef) {
 		this._content.set(new TemplatePortal<unknown>(value, vcr));
 
@@ -221,6 +244,11 @@ export class BrnNavigationMenuContentService {
 	}
 
 	private _getPositions(orientation?: 'horizontal' | 'vertical') {
+		const align = this._config.align;
+		if (align) {
+			const side = orientation === 'vertical' ? 'right' : 'bottom';
+			return createMenuPosition(align, side);
+		}
 		return orientation === 'vertical' ? verticalPositions : horizontalPositions;
 	}
 

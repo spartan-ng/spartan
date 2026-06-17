@@ -1,24 +1,18 @@
-import { Component, signal } from '@angular/core';
-import { provideIcons } from '@ng-icons/core';
-import { lucideCheck, lucideChevronDown, lucideCircle, lucideInfo, lucideLink } from '@ng-icons/lucide';
-import { HlmIconImports } from '@spartan-ng/helm/icon';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { lucideCheck, lucideCircle, lucideInfo } from '@ng-icons/lucide';
 import { HlmNavigationMenuImports } from '@spartan-ng/helm/navigation-menu';
 
 @Component({
 	selector: 'spartan-navigation-menu-controlled',
-	imports: [HlmNavigationMenuImports, HlmIconImports],
-	providers: [provideIcons({ lucideChevronDown, lucideLink, lucideCircle, lucideInfo, lucideCheck })],
+	imports: [HlmNavigationMenuImports, NgIcon],
+	providers: [provideIcons({ lucideCircle, lucideInfo, lucideCheck })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<nav hlmNavigationMenu [(value)]="_value">
 			<ul hlmNavigationMenuList class="flex-wrap">
 				<li hlmNavigationMenuItem id="home">
-					<button hlmNavigationMenuTrigger>
-						Home
-						<ng-icon
-							name="lucideChevronDown"
-							class="relative top-px ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
-						/>
-					</button>
+					<button hlmNavigationMenuTrigger>Home</button>
 					<hlm-navigation-menu-content *hlmNavigationMenuPortal>
 						<ul class="grid gap-2 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
 							<li class="row-span-3">
@@ -36,26 +30,32 @@ import { HlmNavigationMenuImports } from '@spartan-ng/helm/navigation-menu';
 
 							<li>
 								<a hlmNavigationMenuLink href="/documentation/introduction">
-									<div class="text-sm leading-none font-medium">Introduction</div>
-									<p class="text-muted-foreground line-clamp-2 text-sm leading-snug">
-										Re-usable components built using Radix UI and Tailwind CSS.
-									</p>
+									<div class="flex flex-col gap-1 text-sm">
+										<div class="text-sm leading-none font-medium">Introduction</div>
+										<p class="text-muted-foreground line-clamp-2 text-sm leading-snug">
+											Re-usable components built using Radix UI and Tailwind CSS.
+										</p>
+									</div>
 								</a>
 							</li>
 							<li>
 								<a hlmNavigationMenuLink href="/documentation/installation">
-									<div class="text-sm leading-none font-medium">Installation</div>
-									<p class="text-muted-foreground line-clamp-2 text-sm leading-snug">
-										How to install dependencies and structure your app.
-									</p>
+									<div class="flex flex-col gap-1 text-sm">
+										<div class="text-sm leading-none font-medium">Installation</div>
+										<p class="text-muted-foreground line-clamp-2 text-sm leading-snug">
+											How to install dependencies and structure your app.
+										</p>
+									</div>
 								</a>
 							</li>
 							<li>
 								<a hlmNavigationMenuLink href="/documentation/typography">
-									<div class="text-sm leading-none font-medium">Typography</div>
-									<p class="text-muted-foreground line-clamp-2 text-sm leading-snug">
-										Styles for headings, paragraphs, lists...etc
-									</p>
+									<div class="flex flex-col gap-1 text-sm">
+										<div class="text-sm leading-none font-medium">Typography</div>
+										<p class="text-muted-foreground line-clamp-2 text-sm leading-snug">
+											Styles for headings, paragraphs, lists...etc
+										</p>
+									</div>
 								</a>
 							</li>
 						</ul>
@@ -64,22 +64,18 @@ import { HlmNavigationMenuImports } from '@spartan-ng/helm/navigation-menu';
 
 				<!-- Components Menu -->
 				<li hlmNavigationMenuItem>
-					<button hlmNavigationMenuTrigger>
-						Components
-						<ng-icon
-							name="lucideChevronDown"
-							class="relative top-px ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
-						/>
-					</button>
+					<button hlmNavigationMenuTrigger>Components</button>
 					<hlm-navigation-menu-content *hlmNavigationMenuPortal>
 						<ul class="grid gap-2 sm:w-[400px] md:w-[500px] md:grid-cols-2 lg:w-[600px]">
 							@for (component of _components; track $index) {
 								<li>
 									<a hlmNavigationMenuLink [href]="component.href">
-										<div class="text-sm leading-none font-medium">{{ component.title }}</div>
-										<p class="text-muted-foreground line-clamp-2 text-sm leading-snug">
-											{{ component.description }}
-										</p>
+										<div class="flex flex-col gap-1 text-sm">
+											<div class="text-sm leading-none font-medium">{{ component.title }}</div>
+											<p class="text-muted-foreground line-clamp-2 text-sm leading-snug">
+												{{ component.description }}
+											</p>
+										</div>
 									</a>
 								</li>
 							}
@@ -92,27 +88,27 @@ import { HlmNavigationMenuImports } from '@spartan-ng/helm/navigation-menu';
 				</li>
 
 				<li hlmNavigationMenuItem class="hidden md:block">
-					<button hlmNavigationMenuTrigger>
-						List
-						<ng-icon
-							name="lucideChevronDown"
-							class="relative top-px ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
-						/>
-					</button>
+					<button hlmNavigationMenuTrigger>List</button>
 					<hlm-navigation-menu-content *hlmNavigationMenuPortal>
 						<ul class="grid w-[300px] gap-4">
 							<li>
-								<a hlmNavigationMenuLink href="/components" class="cursor-pointer">
-									<div class="font-medium">Components</div>
-									<div class="text-muted-foreground">Browse all components in the library.</div>
+								<a hlmNavigationMenuLink href="/components">
+									<div class="flex flex-col gap-1 text-sm">
+										<div class="font-medium">Components</div>
+										<div class="text-muted-foreground">Browse all components in the library.</div>
+									</div>
 								</a>
-								<a hlmNavigationMenuLink href="/documentation" class="cursor-pointer">
-									<div class="font-medium">Documentation</div>
-									<div class="text-muted-foreground">Learn how to use the library.</div>
+								<a hlmNavigationMenuLink href="/documentation">
+									<div class="flex flex-col gap-1 text-sm">
+										<div class="font-medium">Documentation</div>
+										<div class="text-muted-foreground">Learn how to use the library.</div>
+									</div>
 								</a>
-								<a hlmNavigationMenuLink href="#" class="cursor-pointer">
-									<div class="font-medium">Blog</div>
-									<div class="text-muted-foreground">Read our latest blog posts.</div>
+								<a hlmNavigationMenuLink href="#">
+									<div class="flex flex-col gap-1 text-sm">
+										<div class="font-medium">Blog</div>
+										<div class="text-muted-foreground">Read our latest blog posts.</div>
+									</div>
 								</a>
 							</li>
 						</ul>
@@ -120,44 +116,32 @@ import { HlmNavigationMenuImports } from '@spartan-ng/helm/navigation-menu';
 				</li>
 
 				<li hlmNavigationMenuItem class="hidden md:block">
-					<button hlmNavigationMenuTrigger>
-						Simple
-						<ng-icon
-							name="lucideChevronDown"
-							class="relative top-px ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
-						/>
-					</button>
+					<button hlmNavigationMenuTrigger>Simple</button>
 					<hlm-navigation-menu-content *hlmNavigationMenuPortal>
-						<ul class="grid w-[200px] gap-4">
+						<ul>
 							<li>
-								<a hlmNavigationMenuLink href="/components" class="cursor-pointer">Components</a>
-								<a hlmNavigationMenuLink href="/documentation" class="cursor-pointer">Documentation</a>
-								<a hlmNavigationMenuLink href="/blocks" class="cursor-pointer">Blocks</a>
+								<a hlmNavigationMenuLink href="/components">Components</a>
+								<a hlmNavigationMenuLink href="/documentation">Documentation</a>
+								<a hlmNavigationMenuLink href="/blocks">Blocks</a>
 							</li>
 						</ul>
 					</hlm-navigation-menu-content>
 				</li>
 
 				<li hlmNavigationMenuItem class="hidden md:block">
-					<button hlmNavigationMenuTrigger>
-						With Icon
-						<ng-icon
-							name="lucideChevronDown"
-							class="relative top-px ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
-						/>
-					</button>
+					<button hlmNavigationMenuTrigger>With Icon</button>
 					<hlm-navigation-menu-content *hlmNavigationMenuPortal>
-						<ul class="grid w-[200px] gap-4">
+						<ul>
 							<li>
-								<a hlmNavigationMenuLink href="#" class="cursor-pointer flex-row items-center gap-2">
+								<a hlmNavigationMenuLink href="#">
 									<ng-icon name="lucideInfo" />
 									Backlog
 								</a>
-								<a hlmNavigationMenuLink href="#" class="cursor-pointer flex-row items-center gap-2">
+								<a hlmNavigationMenuLink href="#">
 									<ng-icon name="lucideCircle" />
 									To Do
 								</a>
-								<a hlmNavigationMenuLink href="#" class="cursor-pointer flex-row items-center gap-2">
+								<a hlmNavigationMenuLink href="#">
 									<ng-icon name="lucideCheck" />
 									Done
 								</a>

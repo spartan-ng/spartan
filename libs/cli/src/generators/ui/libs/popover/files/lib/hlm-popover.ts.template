@@ -20,5 +20,6 @@ import { BrnPopover } from '@spartan-ng/brain/popover';
 			outputs: ['stateChanged', 'closed'],
 		},
 	],
+	host: { 'data-slot': 'popover' },
 })
 export class HlmPopover {}

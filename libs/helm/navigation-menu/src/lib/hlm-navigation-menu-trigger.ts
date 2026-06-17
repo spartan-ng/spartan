@@ -10,10 +10,8 @@ import { classes } from '@spartan-ng/helm/utils';
 	imports: [NgIcon],
 	providers: [provideIcons({ lucideChevronDown })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	hostDirectives: [BrnNavigationMenuTrigger],
-	host: {
-		'data-slot': 'navigation-menu-trigger',
-	},
+	hostDirectives: [{ directive: BrnNavigationMenuTrigger, inputs: ['align'] }],
+	host: { 'data-slot': 'navigation-menu-trigger' },
 	template: `
 		<ng-content />
 		<ng-icon name="lucideChevronDown" class="spartan-navigation-menu-trigger-icon" />

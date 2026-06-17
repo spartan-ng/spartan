@@ -1,14 +1,14 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { provideIcons } from '@ng-icons/core';
-import { lucideCheck, lucideChevronDown, lucideCircle, lucideInfo, lucideLink } from '@ng-icons/lucide';
-import { HlmIconImports } from '@spartan-ng/helm/icon';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { lucideCheck, lucideCircle, lucideInfo } from '@ng-icons/lucide';
 import { HlmNavigationMenuImports } from '@spartan-ng/helm/navigation-menu';
 
 @Component({
 	selector: 'spartan-navigation-menu-preview',
-	imports: [HlmNavigationMenuImports, HlmIconImports, RouterLink],
-	providers: [provideIcons({ lucideChevronDown, lucideLink, lucideCircle, lucideCheck, lucideInfo })],
+	imports: [HlmNavigationMenuImports, NgIcon, RouterLink],
+	providers: [provideIcons({ lucideCircle, lucideCheck, lucideInfo })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<nav hlmNavigationMenu>
 			<ul hlmNavigationMenuList class="flex-wrap">
@@ -49,7 +49,7 @@ import { HlmNavigationMenuImports } from '@spartan-ng/helm/navigation-menu';
 
 				<!-- Components Menu -->
 				<li hlmNavigationMenuItem class="hidden md:flex">
-					<button hlmNavigationMenuTrigger>Components</button>
+					<button hlmNavigationMenuTrigger align="center">Components</button>
 					<hlm-navigation-menu-content *hlmNavigationMenuPortal>
 						<ul class="grid w-[400px] gap-2 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
 							@for (component of _components; track $index) {
@@ -67,7 +67,7 @@ import { HlmNavigationMenuImports } from '@spartan-ng/helm/navigation-menu';
 				</li>
 
 				<li hlmNavigationMenuItem>
-					<button hlmNavigationMenuTrigger>With Icon</button>
+					<button hlmNavigationMenuTrigger align="end">With Icon</button>
 					<hlm-navigation-menu-content *hlmNavigationMenuPortal>
 						<ul>
 							<li>

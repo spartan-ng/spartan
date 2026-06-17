@@ -1,13 +1,13 @@
-import { Component } from '@angular/core';
-import { provideIcons } from '@ng-icons/core';
-import { lucideCheck, lucideCircle, lucideInfo, lucideLink } from '@ng-icons/lucide';
-import { HlmIconImports } from '@spartan-ng/helm/icon';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { lucideCheck, lucideCircle, lucideInfo } from '@ng-icons/lucide';
 import { HlmNavigationMenuImports } from '@spartan-ng/helm/navigation-menu';
 
 @Component({
 	selector: 'spartan-navigation-menu-vertical',
-	imports: [HlmNavigationMenuImports, HlmIconImports],
-	providers: [provideIcons({ lucideLink, lucideCircle, lucideCheck, lucideInfo })],
+	imports: [HlmNavigationMenuImports, NgIcon],
+	providers: [provideIcons({ lucideCircle, lucideCheck, lucideInfo })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<nav hlmNavigationMenu orientation="vertical">
 			<ul hlmNavigationMenuList class="w-35 flex-wrap">

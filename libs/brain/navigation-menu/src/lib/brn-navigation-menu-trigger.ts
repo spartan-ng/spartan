@@ -7,6 +7,7 @@ import {
 	effect,
 	ElementRef,
 	inject,
+	input,
 	NgZone,
 	OnDestroy,
 	OnInit,
@@ -16,7 +17,7 @@ import {
 } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { BrnButton } from '@spartan-ng/brain/button';
-import { createHoverObservable, isElement } from '@spartan-ng/brain/core';
+import { createHoverObservable, isElement, type MenuAlign } from '@spartan-ng/brain/core';
 import { fromEvent, merge, Observable, of, Subject } from 'rxjs';
 import {
 	debounceTime,
@@ -72,6 +73,8 @@ export class BrnNavigationMenuTrigger implements OnInit, OnDestroy, FocusableOpt
 	private readonly _zone = inject(NgZone);
 	private readonly _el = inject<ElementRef<HTMLElement>>(ElementRef);
 	private readonly _contentService = inject(BrnNavigationMenuContentService);
+
+	public readonly align = input<MenuAlign>('start');
 
 	protected readonly _id = `brn-navigation-menu-trigger-${++BrnNavigationMenuTrigger._id}`;
 
@@ -171,6 +174,13 @@ export class BrnNavigationMenuTrigger implements OnInit, OnDestroy, FocusableOpt
 		});
 
 		effect(() => {
+			const align = this.align();
+			untracked(() => {
+				this._contentService.updateAlign(align);
+			});
+		});
+
+		effect(() => {
 			const orientation = this._orientation();
 			untracked(() => {
 				this._contentService.updateOrientation(orientation);
@@ -186,7 +196,12 @@ export class BrnNavigationMenuTrigger implements OnInit, OnDestroy, FocusableOpt
 	}
 
 	public ngOnInit() {
-		this._contentService.setConfig({ attachTo: this._el, direction: this._dir(), orientation: this._orientation() });
+		this._contentService.setConfig({
+			attachTo: this._el,
+			direction: this._dir(),
+			orientation: this._orientation(),
+			align: this.align(),
+		});
 		this._showing$.pipe(takeUntil(this._destroy$)).subscribe((ev) => {
 			if (this._parentNavMenu) {
 				this._parentNavMenu.subNavVisible$.next(ev.visible);

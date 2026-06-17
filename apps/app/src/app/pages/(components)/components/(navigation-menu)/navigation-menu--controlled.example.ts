@@ -1,13 +1,13 @@
-import { Component, signal } from '@angular/core';
-import { provideIcons } from '@ng-icons/core';
-import { lucideCheck, lucideCircle, lucideInfo, lucideLink } from '@ng-icons/lucide';
-import { HlmIconImports } from '@spartan-ng/helm/icon';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { lucideCheck, lucideCircle, lucideInfo } from '@ng-icons/lucide';
 import { HlmNavigationMenuImports } from '@spartan-ng/helm/navigation-menu';
 
 @Component({
 	selector: 'spartan-navigation-menu-controlled',
-	imports: [HlmNavigationMenuImports, HlmIconImports],
-	providers: [provideIcons({ lucideLink, lucideCircle, lucideInfo, lucideCheck })],
+	imports: [HlmNavigationMenuImports, NgIcon],
+	providers: [provideIcons({ lucideCircle, lucideInfo, lucideCheck })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<nav hlmNavigationMenu [(value)]="_value">
 			<ul hlmNavigationMenuList class="flex-wrap">

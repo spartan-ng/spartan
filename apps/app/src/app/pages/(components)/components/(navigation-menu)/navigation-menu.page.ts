@@ -18,6 +18,7 @@ import { SectionIntro } from '../../../../shared/layout/section-intro';
 import { SectionSubHeading } from '../../../../shared/layout/section-sub-heading';
 import { Tabs } from '../../../../shared/layout/tabs';
 import { metaWith } from '../../../../shared/meta/meta.util';
+import { NavigationMenuAlign } from './navigation-menu--align.preview';
 import { NavigationMenuControlled } from './navigation-menu--controlled.example';
 import { NavigationMenuNested } from './navigation-menu--nested.example';
 import { NavigationMenuOpenOnClick } from './navigation-menu--open-on-click.example';
@@ -40,6 +41,7 @@ export const routeMeta: RouteMeta = {
 		SectionSubHeading,
 		Tabs,
 
+		NavigationMenuAlign,
 		NavigationMenuControlled,
 		NavigationMenuNested,
 		NavigationMenuOpenOnClick,
@@ -123,6 +125,19 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_openOnClickCode()" />
 			</spartan-tabs>
 
+			<h3 id="examples__align" spartanH4>Align</h3>
+			<p class="py-2">
+				Use the
+				<code class="${hlmCode}">align</code>
+				input to control how the content aligns relative to the trigger.
+			</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-navigation-menu-align />
+				</div>
+				<spartan-code secondTab [code]="_alignCode()" />
+			</spartan-tabs>
+
 			<spartan-header-rtl />
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanRtlCodePreview firstTab>
@@ -152,6 +167,7 @@ export default class NavigationMenuPage {
 	protected readonly _controlledCode = computed(() => this._snippets()['controlled']);
 	protected readonly _nestedCode = computed(() => this._snippets()['nested']);
 	protected readonly _openOnClickCode = computed(() => this._snippets()['openOnClick']);
+	protected readonly _alignCode = computed(() => this._snippets()['align']);
 	protected readonly _rtlCode = computed(() => this._snippets()['rtl']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;

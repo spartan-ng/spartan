@@ -775,3 +775,23 @@ class DynamicOptionsMultiSelectComponent implements OnInit {
 		]);
 	}
 }
+
+export const FalsyValue: Story = {
+	render: () => ({
+		props: { allowPayments: new FormControl<boolean | null>(null) },
+		template: /* HTML */ `
+			<div class="mb-3">
+				<pre data-testid="value">Form Control Value: {{ allowPayments.value | json }}</pre>
+			</div>
+			<hlm-select class="w-56" [formControl]="allowPayments">
+				<hlm-select-trigger>
+					<hlm-select-value placeholder="Select an option" />
+				</hlm-select-trigger>
+				<hlm-select-content *hlmSelectPortal>
+					<hlm-select-item [value]="true">Allowed</hlm-select-item>
+					<hlm-select-item [value]="false">Not allowed</hlm-select-item>
+				</hlm-select-content>
+			</hlm-select>
+		`,
+	}),
+};

@@ -1,6 +1,6 @@
 import { applicationGenerator, E2eTestRunner, UnitTestRunner } from '@nx/angular/generators';
 import type { Schema } from '@nx/angular/src/generators/library/schema';
-import { addDependenciesToPackageJson, joinPathFragments, readJson, type Tree } from '@nx/devkit';
+import { addDependenciesToPackageJson, joinPathFragments, readJson, type Tree, updateJson } from '@nx/devkit';
 import { createTreeWithEmptyWorkspace } from '@nx/devkit/testing';
 import { hlmBaseGenerator } from './generator';
 import { singleLibName } from './lib/single-lib-name';
@@ -168,5 +168,92 @@ describe('hlmBaseGenerator', () => {
 		const tsconfigAfterSecondRun = readJson(tree, 'tsconfig.base.json');
 
 		expect(tsconfigAfterSecondRun.compilerOptions.paths).toEqual(tsconfigAfterFirstRun.compilerOptions.paths);
+	});
+
+	it('should not exponentially grow tsconfig.lib.json include/exclude across many buildable entrypoints', async () => {
+		// Regression test: nx's `librarySecondaryEntryPointGenerator` re-prefixes every existing
+		// include/exclude glob for each entrypoint, doubling the arrays each time. With enough
+		// primitives (e.g. `migrate-helm-libraries` -> "all") the JSON serialization eventually
+		// throws `RangeError: Invalid string length`. The generator must keep these arrays bounded.
+		const { libraryGenerator } =
+			await vi.importActual<typeof import('@nx/angular/generators')>('@nx/angular/generators');
+
+		const directory = 'libs/test-ui';
+		const importAlias = '@spartan-ng/helm';
+
+		await libraryGenerator(tree, {
+			buildable: true,
+			name: singleLibName,
+			importPath: importAlias,
+			directory,
+			skipTests: true,
+			unitTestRunner: UnitTestRunner.None,
+		});
+
+		// Mirror what `initializeAngularEntrypoint` leaves behind: a recursive `**/*.ts` include
+		// that already covers every entrypoint subdirectory.
+		updateJson(tree, joinPathFragments(directory, 'tsconfig.lib.json'), (json) => {
+			json.include ??= [];
+			if (!json.include.includes('**/*.ts')) {
+				json.include.push('**/*.ts');
+			}
+			return json;
+		});
+
+		// 30+ primitives reproduces the failure: the doubling crosses the string-length ceiling.
+		const primitives = [
+			'accordion',
+			'alert',
+			'avatar',
+			'badge',
+			'button',
+			'card',
+			'checkbox',
+			'collapsible',
+			'command',
+			'dialog',
+			'icon',
+			'input',
+			'kbd',
+			'label',
+			'menubar',
+			'pagination',
+			'popover',
+			'progress',
+			'scroll-area',
+			'select',
+			'separator',
+			'sheet',
+			'skeleton',
+			'slider',
+			'sonner',
+			'spinner',
+			'switch',
+			'table',
+			'tabs',
+			'textarea',
+			'toggle',
+			'tooltip',
+		];
+
+		for (const name of primitives) {
+			await hlmBaseGenerator(tree, {
+				name,
+				directory,
+				buildable: true,
+				generateAs: 'entrypoint' as const,
+				importAlias,
+			});
+		}
+
+		const tsconfig = readJson(tree, joinPathFragments(directory, 'tsconfig.lib.json'));
+		// A correct result is a small, constant-sized set of globs - never one entry per primitive.
+		expect(tsconfig.include.length).toBeLessThan(10);
+		expect(tsconfig.exclude.length).toBeLessThan(10);
+		// The recursive include still covers every entrypoint's sources...
+		expect(tsconfig.include).toContain('**/*.ts');
+		// ...and the recursive excludes still keep every entrypoint's specs/tests out of the build.
+		expect(tsconfig.exclude).toContain('**/*.spec.ts');
+		expect(tsconfig.exclude).toContain('**/*.test.ts');
 	});
 });

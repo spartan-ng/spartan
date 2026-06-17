@@ -52,6 +52,46 @@ function setupAngularCliProject(tree: Tree, alias: string, targetLibDir: string)
 	addTsConfigPath(tree, alias, [`./${joinPathFragments(targetLibDir, 'src', 'index.ts').replace(/\\/g, '/')}`]);
 }
 
+// nx's `librarySecondaryEntryPointGenerator` appends an entrypoint-prefixed copy of every existing
+// include/exclude glob each time it runs (see `updateTsConfigIncludedFiles`). When many entrypoints
+// are generated into the same library - e.g. `migrate-helm-libraries` (or `ui`) with "all" selected -
+// these arrays double on every call until `JSON.stringify` throws `RangeError: Invalid string length`.
+//
+// The library already includes a recursive `**/*.ts` glob, which matches files in every entrypoint
+// subdirectory, so the prefixed copies are redundant. This collapses them back to a bounded, equivalent
+// set of recursive globs. It is idempotent, so it stays bounded no matter how many entrypoints are added.
+function dedupeEntrypointGlobs(patterns: string[], recursiveGlobs: string[]): string[] {
+	// The suffix each recursive glob already covers, e.g. '**/*.ts' -> '*.ts', '**/*.spec.ts' -> '*.spec.ts'.
+	const suffixes = recursiveGlobs.map((glob) => glob.replace(/^\*\*\//, ''));
+	// A glob is redundant if a recursive sibling already matches the same files in every subdirectory.
+	const isCoveredByRecursiveGlob = (pattern: string) =>
+		pattern.includes('*') && suffixes.some((suffix) => pattern === suffix || pattern.endsWith(`/${suffix}`));
+
+	const result = patterns.filter((pattern) => !isCoveredByRecursiveGlob(pattern));
+	for (const glob of recursiveGlobs) {
+		if (!result.includes(glob)) {
+			result.push(glob);
+		}
+	}
+	return result;
+}
+
+function normalizeEntrypointTsConfig(tree: Tree, libraryDir: string): void {
+	const tsConfigLibPath = joinPathFragments(libraryDir, 'tsconfig.lib.json');
+	if (!tree.exists(tsConfigLibPath)) {
+		return;
+	}
+	updateJson(tree, tsConfigLibPath, (json) => {
+		if (Array.isArray(json.include)) {
+			json.include = dedupeEntrypointGlobs(json.include, ['**/*.ts']);
+		}
+		if (Array.isArray(json.exclude)) {
+			json.exclude = dedupeEntrypointGlobs(json.exclude, ['**/*.spec.ts', '**/*.test.ts']);
+		}
+		return json;
+	});
+}
+
 async function generateEntrypointFiles(tree: Tree, alias: string, options: HlmBaseGeneratorSchema): Promise<string> {
 	const targetLibDir = `${options.directory}/${options.name}/src`;
 
@@ -62,6 +102,9 @@ async function generateEntrypointFiles(tree: Tree, alias: string, options: HlmBa
 			skipFormat: true,
 			skipModule: true,
 		});
+		// Collapse the redundant entrypoint-prefixed globs nx just appended so the include/exclude
+		// arrays stay bounded as more entrypoints are added. See `dedupeEntrypointGlobs`.
+		normalizeEntrypointTsConfig(tree, options.directory);
 	} else {
 		// Resolve the workspace's root tsconfig rather than assuming tsconfig.base.json - a standalone nx
 		// workspace registers paths in tsconfig.json (there is no base file).

@@ -49,6 +49,12 @@ function execEnv(): NodeJS.ProcessEnv {
 		NPM_CONFIG_REGISTRY: registryInfo().registry,
 		// Make create-nx-workspace/ng fully non-interactive (suppresses the git-provider prompt etc.).
 		CI: 'true',
+		// Disable the nx daemon. These are throwaway workspaces running a linear sequence of generators,
+		// so the daemon's cross-invocation graph cache buys little, and under the all-components cell (50+
+		// generator runs back-to-back) it intermittently crashes with "Failed to process project graph",
+		// failing the cell non-deterministically. Running daemonless is reliable and, because the slow
+		// daemon retries are gone, actually faster for that cell.
+		NX_DAEMON: 'false',
 		// The all-components cell generates 57 primitives and compiles them in one `ng build`, which
 		// exceeds the 4GB default heap. Raise it for all cells (harmless for the small ones).
 		NODE_OPTIONS: '--max-old-space-size=8192',

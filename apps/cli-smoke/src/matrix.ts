@@ -47,12 +47,29 @@ const nxStandaloneCells: SetupCell[] = [
 const angularCliCells: SetupCell[] = [{ id: 'acli', workspace: 'angular-cli' }];
 
 // Generate every supported primitive and build them all - broad per-component coverage the small default
-// set can't give, so a broken template in any single primitive surfaces here. Uses the angular-cli setup
-// on purpose: the components all land in src/ and `ng build` compiles the lot in one pass, with no nx
-// project graph to serialize (nx hits V8's max-string-length / OOM well before 57 generators). It is the
-// slowest cell; it fans out to its own runner so it does not hold up the others. Set `nightlyOnly: true`
-// to drop it from per-PR CI if it proves too slow.
-const allComponentsCells: SetupCell[] = [{ id: 'all-components', workspace: 'angular-cli', allComponents: true }];
+// set can't give, so a broken template in any single primitive surfaces here.
+//
+// - all-components (angular-cli): the components all land in src/ and `ng build` compiles the lot in one
+//   pass. The cheapest way to compile every primitive.
+// - all-components-nx-entry (nx, entrypoint, buildable): regression guard for the tsconfig.lib.json
+//   include/exclude explosion. nx's librarySecondaryEntryPointGenerator re-prefixed every existing glob
+//   for each entrypoint, doubling the arrays until `JSON.stringify` threw `RangeError: Invalid string
+//   length` (surfaced as `NX Invalid string length`) - which is why "all" failed on nx while a few
+//   worked. It was a fixable bug (see base/generator.ts dedupeEntrypointGlobs), not an inherent nx limit,
+//   so this now runs on nx. Entrypoint mode keeps all primitives in a single nx project, so there is no
+//   project graph to blow up either.
+//
+// These are the slowest cells; each fans out to its own runner so it does not hold up the others.
+const allComponentsCells: SetupCell[] = [
+	{ id: 'all-components', workspace: 'angular-cli', allComponents: true },
+	{
+		id: 'all-components-nx-entry',
+		workspace: 'nx',
+		generateAs: 'entrypoint',
+		buildable: true,
+		allComponents: true,
+	},
+];
 
 export const setupMatrix: SetupCell[] = [...nxCells, ...nxStandaloneCells, ...angularCliCells, ...allComponentsCells];
 

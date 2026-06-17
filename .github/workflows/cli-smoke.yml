@@ -42,6 +42,7 @@ jobs:
           - nx-standalone
           - acli
           - all-components
+          - all-components-nx-entry
     name: ${{ matrix.cell }}
     steps:
       - uses: actions/checkout@v6

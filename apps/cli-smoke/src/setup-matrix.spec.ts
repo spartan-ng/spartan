@@ -24,18 +24,24 @@ const affected = isSmokeAffected();
  * <os-tmp>/spartan-cli-smoke-workspaces/<cell-id> for inspection.
  */
 describe('CLI setup matrix', () => {
-	describe.each(setupMatrix)('$id', (cell) => {
-		it('scaffolds, generates, passes healthcheck, consumes components, and builds with themed styles', () => {
-			if (!affected) {
-				console.log(`[cli-smoke] ${cell.id}: skipped (nothing affecting the CLI changed).`);
-				return;
-			}
-			const ws = prepareWorkspace(cell);
-			runGenerators(ws);
-			assertHealthcheckClean(ws);
-			useGeneratedComponents(ws);
-			buildWorkspace(ws);
-			cleanupWorkspace(ws);
+	// A plain loop rather than `describe.each(setupMatrix)('$id', ...)`: the `$id` interpolation renders the
+	// cell id wrapped in quotes (e.g. `'nx-entry-buildable'`), so CI's `--testNamePattern="<id> "` (no quotes)
+	// matched nothing and every cell silently skipped. `describe(cell.id, ...)` produces a clean, unquoted
+	// name the per-cell pattern can anchor to.
+	for (const cell of setupMatrix) {
+		describe(cell.id, () => {
+			it('scaffolds, generates, passes healthcheck, consumes components, and builds with themed styles', () => {
+				if (!affected) {
+					console.log(`[cli-smoke] ${cell.id}: skipped (nothing affecting the CLI changed).`);
+					return;
+				}
+				const ws = prepareWorkspace(cell);
+				runGenerators(ws);
+				assertHealthcheckClean(ws);
+				useGeneratedComponents(ws);
+				buildWorkspace(ws);
+				cleanupWorkspace(ws);
+			});
 		});
-	});
+	}
 });

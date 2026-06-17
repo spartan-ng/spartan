@@ -2,6 +2,7 @@ import { setupMatrix } from './matrix';
 import { isSmokeAffected } from './support/affected';
 import {
 	assertHealthcheckClean,
+	assertMigrateHelmLibrariesLoads,
 	buildWorkspace,
 	cleanupWorkspace,
 	prepareWorkspace,
@@ -36,6 +37,9 @@ describe('CLI setup matrix', () => {
 					return;
 				}
 				const ws = prepareWorkspace(cell);
+				// Before generating anything: load migrate-helm-libraries as an installed package (it no-ops
+				// on an empty workspace). Guards its deep nx imports against a consumer's stricter exports map.
+				assertMigrateHelmLibrariesLoads(ws);
 				runGenerators(ws);
 				assertHealthcheckClean(ws);
 				useGeneratedComponents(ws);

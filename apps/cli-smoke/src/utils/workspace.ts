@@ -202,6 +202,23 @@ export function runGenerators(ws: CellWorkspace): void {
 	}
 }
 
+/**
+ * Run `migrate-helm-libraries` against a workspace that has no spartan libraries yet. With a
+ * components.json already written and nothing to migrate, the generator exits early with
+ * "No libraries to migrate" without prompting - but loading it still resolves its `@nx/workspace`
+ * (removeGenerator) and `@nx/devkit` deep imports in the *installed* CLI, where a stricter `exports`
+ * map would break module resolution at load. This is the only coverage that runs the headline
+ * command end-to-end as an installed package. nx-only: the generator's remove path is nx-specific.
+ */
+export function assertMigrateHelmLibrariesLoads(ws: CellWorkspace): void {
+	if (ws.cell.workspace !== 'nx') return;
+	const out = capture(`npx nx g @spartan-ng/cli:migrate-helm-libraries 2>&1`, ws.dir);
+	console.log(out);
+	if (!out.includes('No libraries to migrate')) {
+		throw new Error(`Expected migrate-helm-libraries to no-op on a workspace with no spartan libraries, got:\n${out}`);
+	}
+}
+
 /** Every supported primitive name, read from the CLI source so the list stays current as primitives are
  * added (the harness lives in the same repo as the CLI). */
 function readAllPrimitives(): string[] {

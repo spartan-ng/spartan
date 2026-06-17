@@ -21,7 +21,7 @@ export class HlmNavigationMenuTrigger {
 	constructor() {
 		classes(
 			() =>
-				'spartan-navigation-menu-trigger group group/navigation-menu-trigger inline-flex h-9 w-max items-center justify-center outline-none disabled:pointer-events-none',
+				'spartan-navigation-menu-trigger group/navigation-menu-trigger inline-flex h-9 w-max items-center justify-center outline-none disabled:pointer-events-none',
 		);
 	}
 }

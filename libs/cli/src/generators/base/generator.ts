@@ -60,22 +60,44 @@ function setupAngularCliProject(tree: Tree, alias: string, targetLibDir: string)
 // The library already includes a recursive `**/*.ts` glob, which matches files in every entrypoint
 // subdirectory, so the prefixed copies are redundant. This collapses them back to a bounded, equivalent
 // set of recursive globs. It is idempotent, so it stays bounded no matter how many entrypoints are added.
-function dedupeEntrypointGlobs(patterns: string[], recursiveGlobs: string[]): string[] {
-	// The suffix each recursive glob already covers, e.g. '**/*.ts' -> '*.ts', '**/*.spec.ts' -> '*.spec.ts'.
+// Collapses the entrypoint-prefixed globs nx accumulates back into their recursive equivalents, keeping
+// `tsconfig.lib.json` bounded. For each glob in `recursiveGlobs` (e.g. `**/*.ts`), any "scoped variant"
+// that it already covers - the recursive glob itself, or a sub-path form like `accordion/src/**/*.ts`
+// that ends in the same `*.ext` suffix - is dropped, and the single recursive glob is restored *only if*
+// such a variant was present. Patterns that aren't a scoped variant (literal files like `jest.config.ts`,
+// a root-only `*.ts`, or a custom glob) are preserved untouched, and no recursive glob is injected unless
+// it was already represented - so the function never widens or adds globs the tsconfig didn't already imply.
+export function dedupeEntrypointGlobs(patterns: string[], recursiveGlobs: string[]): string[] {
+	// The suffix each recursive glob covers in every subdirectory, e.g. '**/*.ts' -> '*.ts'.
 	const suffixes = recursiveGlobs.map((glob) => glob.replace(/^\*\*\//, ''));
-	// A glob is redundant if a recursive sibling already matches the same files in every subdirectory.
-	const isCoveredByRecursiveGlob = (pattern: string) =>
-		pattern.includes('*') && suffixes.some((suffix) => pattern === suffix || pattern.endsWith(`/${suffix}`));
+	const variantSeen = recursiveGlobs.map(() => false);
+	// A pattern is a scoped variant of recursiveGlobs[i] if it is that glob, or a sub-path glob ending in
+	// `/<suffix>` (so `*.ts` on its own is NOT a variant of `**/*.ts` and is left alone).
+	const variantIndex = (pattern: string) =>
+		recursiveGlobs.findIndex(
+			(recursive, i) => pattern === recursive || (pattern.includes('*') && pattern.endsWith(`/${suffixes[i]}`)),
+		);
 
-	const result = patterns.filter((pattern) => !isCoveredByRecursiveGlob(pattern));
-	for (const glob of recursiveGlobs) {
-		if (!result.includes(glob)) {
+	const result = patterns.filter((pattern) => {
+		const index = variantIndex(pattern);
+		if (index === -1) {
+			return true; // unrelated glob - keep as-is
+		}
+		variantSeen[index] = true;
+		return false; // redundant scoped variant - drop it
+	});
+	recursiveGlobs.forEach((glob, i) => {
+		if (variantSeen[i]) {
 			result.push(glob);
 		}
-	}
+	});
 	return result;
 }
 
+// Targets `tsconfig.lib.json` by convention: that's the file `initializeAngularEntrypoint` seeds and the
+// default build tsConfig for an @nx/angular library, which is also the file nx's secondary-entrypoint
+// generator inflates. A library whose build target points its tsConfig elsewhere isn't normalized here,
+// but the spartan generators never produce that shape.
 function normalizeEntrypointTsConfig(tree: Tree, libraryDir: string): void {
 	const tsConfigLibPath = joinPathFragments(libraryDir, 'tsconfig.lib.json');
 	if (!tree.exists(tsConfigLibPath)) {
@@ -96,6 +118,10 @@ async function generateEntrypointFiles(tree: Tree, alias: string, options: HlmBa
 	const targetLibDir = `${options.directory}/${options.name}/src`;
 
 	if (options.buildable) {
+		// Normalize before *and* after: if tsconfig.lib.json is already bloated from an earlier run, the
+		// nx generator would re-double the existing arrays and could throw "Invalid string length" before
+		// the post-call cleanup runs. Pre-normalizing makes a dirty workspace recover deterministically.
+		normalizeEntrypointTsConfig(tree, options.directory);
 		await librarySecondaryEntryPointGenerator(tree, {
 			name: options.name,
 			library: singleLibName,

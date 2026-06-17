@@ -2,7 +2,7 @@ import { applicationGenerator, E2eTestRunner, UnitTestRunner } from '@nx/angular
 import type { Schema } from '@nx/angular/src/generators/library/schema';
 import { addDependenciesToPackageJson, joinPathFragments, readJson, type Tree, updateJson } from '@nx/devkit';
 import { createTreeWithEmptyWorkspace } from '@nx/devkit/testing';
-import { hlmBaseGenerator } from './generator';
+import { dedupeEntrypointGlobs, hlmBaseGenerator } from './generator';
 import { singleLibName } from './lib/single-lib-name';
 
 // Mock buildDependencyArray and buildDevDependencyArray
@@ -190,13 +190,12 @@ describe('hlmBaseGenerator', () => {
 			unitTestRunner: UnitTestRunner.None,
 		});
 
-		// Mirror what `initializeAngularEntrypoint` leaves behind: a recursive `**/*.ts` include
-		// that already covers every entrypoint subdirectory.
+		// Seed include/exclude explicitly rather than relying on nx's library defaults: a recursive
+		// `**/*.ts` include (what `initializeAngularEntrypoint` adds) plus the standard spec/test excludes.
+		// This keeps the assertions about the normalized result independent of nx's default tsconfig.
 		updateJson(tree, joinPathFragments(directory, 'tsconfig.lib.json'), (json) => {
-			json.include ??= [];
-			if (!json.include.includes('**/*.ts')) {
-				json.include.push('**/*.ts');
-			}
+			json.include = ['src/**/*.ts', '**/*.ts'];
+			json.exclude = ['src/**/*.spec.ts', 'src/**/*.test.ts'];
 			return json;
 		});
 
@@ -255,5 +254,27 @@ describe('hlmBaseGenerator', () => {
 		// ...and the recursive excludes still keep every entrypoint's specs/tests out of the build.
 		expect(tsconfig.exclude).toContain('**/*.spec.ts');
 		expect(tsconfig.exclude).toContain('**/*.test.ts');
+	});
+});
+
+describe('dedupeEntrypointGlobs', () => {
+	it('collapses entrypoint-prefixed variants to a single recursive glob', () => {
+		const include = ['src/**/*.ts', '**/*.ts', 'accordion/src/**/*.ts', 'accordion/**/*.ts', 'alert/**/*.ts'];
+		expect(dedupeEntrypointGlobs(include, ['**/*.ts'])).toEqual(['**/*.ts']);
+	});
+
+	it('only restores a recursive glob when a variant was present (no unconditional injection)', () => {
+		// exclude with no spec/test globs at all: must stay as-is, not gain `**/*.spec.ts`/`**/*.test.ts`.
+		expect(dedupeEntrypointGlobs(['jest.config.ts'], ['**/*.spec.ts', '**/*.test.ts'])).toEqual(['jest.config.ts']);
+		// only spec variants present -> only the spec recursive glob is restored, test is not injected.
+		expect(dedupeEntrypointGlobs(['src/**/*.spec.ts', 'jest.config.ts'], ['**/*.spec.ts', '**/*.test.ts'])).toEqual([
+			'jest.config.ts',
+			'**/*.spec.ts',
+		]);
+	});
+
+	it('does not widen a root-only `*.ts` into a recursive glob', () => {
+		// `*.ts` matches only the root; it is not a sub-path variant of `**/*.ts`, so it is left untouched.
+		expect(dedupeEntrypointGlobs(['*.ts'], ['**/*.ts'])).toEqual(['*.ts']);
 	});
 });

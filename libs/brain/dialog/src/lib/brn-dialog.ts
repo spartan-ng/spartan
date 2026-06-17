@@ -2,7 +2,6 @@ import { Directionality } from '@angular/cdk/bidi';
 import type { BooleanInput } from '@angular/cdk/coercion';
 import { OverlayPositionBuilder, type ScrollStrategy, ScrollStrategyOptions } from '@angular/cdk/overlay';
 import {
-	afterNextRender,
 	booleanAttribute,
 	computed,
 	DestroyRef,
@@ -134,16 +133,14 @@ export class BrnDialog<TResult = unknown, TContext extends Record<string, unknow
 		this._syncPanelClass();
 		this._syncOverlayClass();
 
-		afterNextRender(() => {
-			effect(
-				() => {
-					const state = this.state();
-					if (state === 'open') untracked(() => this.open());
-					if (state === 'closed') untracked(() => this.close());
-				},
-				{ injector: this._injector },
-			);
-		});
+		effect(
+			() => {
+				const state = this.state();
+				if (state === 'open') untracked(() => this.open());
+				if (state === 'closed') untracked(() => this.close());
+			},
+			{ injector: this._injector },
+		);
 	}
 
 	public open(): void {

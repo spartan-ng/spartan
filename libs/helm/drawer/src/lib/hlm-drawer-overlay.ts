@@ -13,7 +13,7 @@ export class HlmDrawerOverlay {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	protected readonly _computedClass = computed(() =>
 		hlm(
-			'spartan-drawer-overlay transition-opacity duration-150 data-ending-style:opacity-0 data-starting-style:opacity-0',
+			'spartan-drawer-overlay transition-opacity duration-300 data-ending-style:opacity-0 data-starting-style:opacity-0',
 			this.userClass(),
 		),
 	);

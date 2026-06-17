@@ -142,6 +142,31 @@ describe('dialog--default', () => {
 			cy.findAllByText(/open dialog/i).should('have.focus');
 		});
 	});
+
+	describe('context menu', () => {
+		beforeEach(() => {
+			cy.visit('/iframe.html?id=dialog--context-menu');
+			cy.injectAxe();
+			cy.viewport(1000, 1000);
+		});
+
+		it('opens and renders dialog content when launched from a context menu item', () => {
+			cy.checkA11y('#storybook-root', {
+				rules: {
+					'page-has-heading-one': { enabled: false },
+					'landmark-one-main': { enabled: false },
+				},
+			});
+
+			cy.findByText(/right click here/i).realClick({ button: 'right' });
+			cy.findByRole('menu').should('be.visible');
+			cy.findByText(/^print$/i).realClick();
+
+			cy.findByRole('dialog', { name: /print this page/i }).should('be.visible');
+			cy.findByText(/are you sure you want to print this page/i).should('be.visible');
+			cy.findByRole('button', { name: /cancel/i }).should('be.visible');
+		});
+	});
 });
 
 describe('dialog--dynamic-component', () => {

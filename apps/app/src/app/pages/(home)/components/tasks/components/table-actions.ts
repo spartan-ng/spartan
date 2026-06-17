@@ -80,13 +80,7 @@ import { TasksExample } from '../tasks';
 				<input hlmInput class="h-8 w-full md:w-80" placeholder="Filter tasks..." (input)="taskFilterChange($event)" />
 
 				<!-- STATUS FILTER -->
-				<hlm-popover
-					[state]="_statusState()"
-					(stateChanged)="statusStateChanged($event)"
-					sideOffset="5"
-					closeDelay="100"
-					align="start"
-				>
+				<hlm-popover [state]="_statusState()" (stateChanged)="statusStateChanged($event)" sideOffset="5" align="start">
 					<button hlmBtn hlmPopoverTrigger variant="outline" size="sm" class="border-dashed">
 						<ng-icon hlm name="lucideCirclePlus" class="mr-2" size="sm" />
 						Status
@@ -125,7 +119,6 @@ import { TasksExample } from '../tasks';
 					[state]="_priorityState()"
 					(stateChanged)="priorityStateChanged($event)"
 					sideOffset="5"
-					closeDelay="100"
 					align="start"
 				>
 					<button hlmBtn hlmPopoverTrigger variant="outline" size="sm" class="border-dashed">

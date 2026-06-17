@@ -6,17 +6,7 @@ import { BrnPopover } from '@spartan-ng/brain/popover';
 	hostDirectives: [
 		{
 			directive: BrnPopover,
-			inputs: [
-				'align',
-				'autoFocus',
-				'attachTo',
-				'closeDelay',
-				'closeOnOutsidePointerEvents',
-				'offsetX',
-				'restoreFocus',
-				'sideOffset',
-				'state',
-			],
+			inputs: ['align', 'attachTo', 'autoFocus', 'closeOnOutsidePointerEvents', 'offsetX', 'sideOffset', 'state'],
 			outputs: ['stateChanged', 'closed'],
 		},
 	],

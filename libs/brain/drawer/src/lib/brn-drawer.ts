@@ -1,4 +1,4 @@
-import { Directive, effect, forwardRef, input, linkedSignal, untracked } from '@angular/core';
+import { Directive, forwardRef, input, linkedSignal } from '@angular/core';
 import { BrnDialog } from '@spartan-ng/brain/dialog';
 
 @Directive({
@@ -15,24 +15,16 @@ export class BrnDrawer extends BrnDialog {
 	public readonly direction = input<'bottom' | 'top' | 'left' | 'right'>('bottom');
 	public readonly directionState = linkedSignal(() => this.direction());
 
-	constructor() {
-		super();
-		effect(() => {
-			const direction = this.directionState();
-			untracked(() => {
-				if (direction === 'bottom') {
-					this.mutablePositionStrategy.set(this.positionBuilder.global().bottom());
-				}
-				if (direction === 'top') {
-					this.mutablePositionStrategy.set(this.positionBuilder.global().top());
-				}
-				if (direction === 'left') {
-					this.mutablePositionStrategy.set(this.positionBuilder.global().left());
-				}
-				if (direction === 'right') {
-					this.mutablePositionStrategy.set(this.positionBuilder.global().right());
-				}
-			});
-		});
+	protected override getPositionStrategy() {
+		switch (this.directionState()) {
+			case 'bottom':
+				return this._positionBuilder.global().bottom();
+			case 'top':
+				return this._positionBuilder.global().top();
+			case 'left':
+				return this._positionBuilder.global().left();
+			case 'right':
+				return this._positionBuilder.global().right();
+		}
 	}
 }

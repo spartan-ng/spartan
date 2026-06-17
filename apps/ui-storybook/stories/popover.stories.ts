@@ -31,12 +31,16 @@ type Story = StoryObj<BrnPopover>;
 
 export const Default: Story = {
 	render: ({ ...args }) => ({
-		props: args,
+		props: { ...args, outsideClicks: 0 },
 		template: `
-    <hlm-popover ${argsToTemplate(args)}>
-    <div class='flex flex-col items-center justify-center py-80'>
-        <button id='edit-profile' variant='outline' hlmPopoverTrigger hlmBtn>Open Popover</button>
-    </div>
+	    <hlm-popover ${argsToTemplate(args)}>
+	    <div class='flex flex-col items-center justify-center gap-4 py-80'>
+	        <div class='flex items-center gap-4'>
+	            <button id='edit-profile' variant='outline' hlmPopoverTrigger hlmBtn>Open Popover</button>
+	            <button id='outside-action' variant='outline' hlmBtn (click)='outsideClicks = outsideClicks + 1'>Outside Action</button>
+	        </div>
+	        <p id='outside-click-count'>Outside clicks: {{ outsideClicks }}</p>
+	    </div>
     <hlm-popover-content class='w-80 grid gap-4' *hlmPopoverPortal='let ctx'>
           <div class='space-y-2'>
             <h4 class='font-medium leading-none'>Dimensions</h4>

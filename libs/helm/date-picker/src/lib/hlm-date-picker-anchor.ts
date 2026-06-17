@@ -1,11 +1,11 @@
-import { Directive, effect, ElementRef, inject, input, untracked } from '@angular/core';
-import { BrnDialog } from '@spartan-ng/brain/dialog';
+import { Directive, effect, ElementRef, inject, input } from '@angular/core';
+import { BrnOverlay } from '@spartan-ng/brain/overlay';
 import { BrnPopover } from '@spartan-ng/brain/popover';
 
 @Directive({ selector: '[hlmDatePickerAnchor]' })
 export class HlmDatePickerAnchor {
 	private readonly _host = inject(ElementRef, { host: true });
-	private readonly _brnDialog = inject(BrnDialog, { optional: true });
+	private readonly _brnOverlay = inject(BrnOverlay, { optional: true });
 
 	public readonly hlmDatePickerAnchorFor = input<BrnPopover | undefined>(undefined, {
 		alias: 'hlmDatePickerAnchorFor',
@@ -13,16 +13,9 @@ export class HlmDatePickerAnchor {
 
 	constructor() {
 		effect(() => {
-			const brnDialog = this.hlmDatePickerAnchorFor();
-			untracked(() => {
-				if (!brnDialog) return;
-				brnDialog.mutableAttachTo.set(this._host.nativeElement);
-				brnDialog.mutableCloseOnOutsidePointerEvents.set(true);
-			});
+			this.hlmDatePickerAnchorFor()?.setOrigin(this._host.nativeElement);
 		});
 
-		if (!this._brnDialog) return;
-		this._brnDialog.mutableAttachTo.set(this._host.nativeElement);
-		this._brnDialog.mutableCloseOnOutsidePointerEvents.set(true);
+		this._brnOverlay?.setOrigin(this._host.nativeElement);
 	}
 }

@@ -1,29 +1,47 @@
-/**
- * Waits for all animations (including subtree) within the given element to finish.
- * Ignores animations canceled with an AbortError.
- */
-export async function waitForElementAnimations(el: HTMLElement): Promise<void> {
-	// Wait a tick to allow newly triggered animations to start
-	await new Promise<void>((resolve) => setTimeout(resolve, 0));
+const MAX_ANIMATION_WAIT_MS = 5_000;
+const ANIMATION_WAIT_BUFFER_MS = 50;
 
-	const animationFillMode = el.style.animationFillMode;
-	const animations = el.getAnimations({ subtree: true });
-	el.style.animationFillMode = 'forwards';
+export function getActiveElementAnimations(elements: readonly (HTMLElement | null | undefined)[]): Animation[] {
+	return elements
+		.filter((element): element is HTMLElement => !!element)
+		.flatMap((element) =>
+			typeof element.getAnimations === 'function'
+				? element.getAnimations({ subtree: true }).filter((animation) => animation.playState !== 'finished')
+				: [],
+		);
+}
 
-	await Promise.all(
-		animations.map((animation) =>
-			animation.finished.catch((err) => {
-				// Ignore AbortError from canceled animations (treated as "finished")
-				if (!(err instanceof Error && err.name === 'AbortError')) {
-					throw err;
-				}
+export async function waitForAnimations(animations: readonly Animation[]): Promise<void> {
+	if (!animations.length) return;
 
-				return animation;
+	let timeout: ReturnType<typeof setTimeout> | undefined;
+	const fallbackMs = getFallbackTimeout(animations);
+
+	try {
+		await Promise.race([
+			Promise.allSettled(animations.map((animation) => animation.finished)),
+			new Promise<void>((resolve) => {
+				timeout = setTimeout(resolve, fallbackMs);
 			}),
-		),
-	);
+		]);
+	} finally {
+		if (timeout) clearTimeout(timeout);
+	}
+}
 
-	setTimeout(() => {
-		if (el.style.animationFillMode === 'forwards') el.style.animationFillMode = animationFillMode;
-	});
+/**
+ * Waits for active animations, including subtree animations, within the given element to finish.
+ */
+export async function waitForElementAnimations(element: HTMLElement): Promise<void> {
+	await waitForAnimations(getActiveElementAnimations([element]));
+}
+
+function getFallbackTimeout(animations: readonly Animation[]): number {
+	const longestAnimation = animations.reduce((longest, animation) => {
+		const endTime = animation.effect?.getComputedTiming().endTime;
+		return typeof endTime === 'number' && Number.isFinite(endTime) ? Math.max(longest, endTime) : longest;
+	}, 0);
+
+	if (!longestAnimation) return MAX_ANIMATION_WAIT_MS;
+	return Math.min(longestAnimation + ANIMATION_WAIT_BUFFER_MS, MAX_ANIMATION_WAIT_MS);
 }

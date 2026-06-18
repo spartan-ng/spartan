@@ -71,7 +71,12 @@ function ensureAppTsConfigIncludes(tree: Tree, glob: string) {
 		return;
 	}
 	updateJson(tree, tsConfigAppPath, (json) => {
-		json.include = Array.isArray(json.include) ? json.include : [];
+		if (!Array.isArray(json.include)) {
+			// With no `include`, TypeScript implicitly compiles every `.ts` under the config dir. Seeding the
+			// array with just our glob would silently replace that with "only the generated libs", dropping the
+			// app's own `src` from the editor program. Preserve the implicit `src` coverage before appending.
+			json.include = ['src/**/*.ts'];
+		}
 		if (!json.include.includes(glob)) {
 			json.include.push(glob);
 		}

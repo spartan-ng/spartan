@@ -22,7 +22,7 @@ export function buildDependencyArray(tree: Tree, options: HlmBaseGeneratorSchema
 	if (dependencies['embla-carousel-angular']) {
 		const angularVersion = getInstalledPackageVersion(tree, '@angular/core', undefined, false);
 		const angularMajor = angularVersion ? major(angularVersion) : null;
-		if (angularMajor) {
+		if (angularMajor !== null) {
 			dependencies['embla-carousel-angular'] = `^${angularMajor}.0.0`;
 		}
 	}

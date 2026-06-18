@@ -180,6 +180,26 @@ describe('hlmBaseGenerator', () => {
 		expect(tsconfigApp.include).toContain('src/**/*.ts');
 	});
 
+	it('preserves implicit src coverage when tsconfig.app.json has no include key', async () => {
+		// A tsconfig.app.json with no `include` implicitly compiles every `.ts` under the config dir. Seeding
+		// the array with only the lib glob would drop the app's own `src` from the editor program, so the
+		// helper must restore the implicit `src` coverage alongside the generated libs.
+		writeJson(tree, 'tsconfig.app.json', { extends: './tsconfig.json', files: ['src/main.ts'] });
+
+		await hlmBaseGenerator(tree, {
+			name: 'button',
+			directory: 'libs/test-ui',
+			buildable: false,
+			generateAs: 'library' as const,
+			importAlias: '@spartan-ng/helm',
+			angularCli: true,
+		});
+
+		const tsconfigApp = readJson(tree, 'tsconfig.app.json');
+		expect(tsconfigApp.include).toContain('libs/test-ui/**/src/**/*.ts');
+		expect(tsconfigApp.include).toContain('src/**/*.ts');
+	});
+
 	it('does not duplicate the components include across multiple angular-cli generations', async () => {
 		writeJson(tree, 'tsconfig.app.json', { include: ['src/**/*.ts'] });
 		const base = {

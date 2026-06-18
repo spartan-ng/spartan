@@ -158,7 +158,7 @@ describe('hlmBaseGenerator', () => {
 		);
 	});
 
-	it('adds the components dir to tsconfig.app.json include for angular-cli projects', async () => {
+	it('adds the generated components source dirs to tsconfig.app.json include for angular-cli projects', async () => {
 		// Simulate an Angular CLI app layout: a root tsconfig.app.json that only includes `src`. The generated
 		// libs live under libs/test-ui (outside src), so without this they'd be orphaned in the editor.
 		writeJson(tree, 'tsconfig.app.json', { extends: './tsconfig.json', include: ['src/**/*.ts'] });
@@ -173,7 +173,9 @@ describe('hlmBaseGenerator', () => {
 		});
 
 		const tsconfigApp = readJson(tree, 'tsconfig.app.json');
-		expect(tsconfigApp.include).toContain('libs/test-ui/**/*.ts');
+		expect(tsconfigApp.include).toContain('libs/test-ui/**/src/**/*.ts');
+		// keep the generated source files in the app project without pulling in specs/stories/helpers under libs/test-ui
+		expect(tsconfigApp.include).not.toContain('libs/test-ui/**/*.ts');
 		// the app's own src glob is preserved
 		expect(tsconfigApp.include).toContain('src/**/*.ts');
 	});
@@ -192,7 +194,7 @@ describe('hlmBaseGenerator', () => {
 		await hlmBaseGenerator(tree, { ...base, name: 'card' });
 
 		const tsconfigApp = readJson(tree, 'tsconfig.app.json');
-		const globCount = tsconfigApp.include.filter((glob: string) => glob === 'libs/test-ui/**/*.ts').length;
+		const globCount = tsconfigApp.include.filter((glob: string) => glob === 'libs/test-ui/**/src/**/*.ts').length;
 		expect(globCount).toBe(1);
 	});
 

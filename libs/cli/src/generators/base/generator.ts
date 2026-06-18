@@ -55,10 +55,11 @@ function setupAngularCliProject(tree: Tree, alias: string, targetLibDir: string)
 	// default `src/**/*.ts` include. The app still *builds* (the Angular builder follows the path-mapped
 	// imports into the libs), but the TS language server treats the generated files as orphans compiled
 	// without the root `paths`, so cross-lib imports (`@spartan-ng/helm/utils`, ...) show as "cannot find
-	// module" in the editor. Add the components base dir to the include so the files belong to the app
-	// project and resolve in-editor.
+	// module" in the editor. Add the generated component source dirs to the include so the files belong to
+	// the app project and resolve in-editor, without pulling specs/stories/helpers under the components dir
+	// into the app program.
 	const componentsBaseDir = path.posix.dirname(targetLibDir.replace(/\\/g, '/'));
-	ensureAppTsConfigIncludes(tree, `${componentsBaseDir}/**/*.ts`);
+	ensureAppTsConfigIncludes(tree, `${componentsBaseDir}/**/src/**/*.ts`);
 }
 
 // Adds `glob` to the Angular CLI app's tsconfig.app.json `include` (idempotent). Targets tsconfig.app.json

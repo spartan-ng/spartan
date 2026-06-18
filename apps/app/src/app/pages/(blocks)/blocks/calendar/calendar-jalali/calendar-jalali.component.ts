@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { provideBrnCalendarI18n, type BrnCalendarI18n, type MonthLabels } from '@spartan-ng/brain/calendar';
+import { type BrnCalendarI18n, type MonthLabels, provideBrnCalendarI18n } from '@spartan-ng/brain/calendar';
 import { BrnJalaliDateAdapter, provideDateAdapter } from '@spartan-ng/brain/date-time';
 import { HlmCalendar } from '@spartan-ng/helm/calendar';
 
@@ -41,7 +41,7 @@ const JALALI_CALENDAR_I18N: BrnCalendarI18n = {
 	},
 	template: `
 		<div dir="rtl">
-			<hlm-calendar calendarClass="bg-background" />
+			<hlm-calendar class="bg-background" />
 		</div>
 	`,
 })

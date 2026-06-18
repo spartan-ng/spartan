@@ -2,16 +2,21 @@ import { Component, model } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { HlmCalendar } from '@spartan-ng/helm/calendar';
+import { HlmCardImports } from '@spartan-ng/helm/card';
 import { HlmSelectImports } from '@spartan-ng/helm/select';
 
 @Component({
 	selector: 'spartan-calendar-year-and-month',
-	imports: [HlmCalendar, HlmSelectImports, FormsModule],
+	imports: [HlmCalendar, HlmSelectImports, FormsModule, HlmCardImports],
 	host: {
 		class: 'flex flex-col gap-4',
 	},
 	template: `
-		<hlm-calendar [captionLayout]="_captionLayout()" />
+		<div hlmCard class="mx-auto w-fit p-0">
+			<div hlmCardContent class="p-0">
+				<hlm-calendar [captionLayout]="_captionLayout()" />
+			</div>
+		</div>
 
 		<hlm-select class="inline-block" [(ngModel)]="_captionLayout" [itemToString]="itemToString">
 			<hlm-select-trigger class="w-full">

@@ -1,5 +1,6 @@
+import type { BrnCalendar } from '@spartan-ng/brain/calendar';
 import { HlmCalendar } from '@spartan-ng/helm/calendar';
-import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';
+import { type Meta, moduleMetadata, type StoryObj } from '@storybook/angular';
 
 const meta: Meta<HlmCalendar<Date>> = {
 	title: 'Calendar',
@@ -24,7 +25,7 @@ const meta: Meta<HlmCalendar<Date>> = {
 
 export default meta;
 
-type Story = StoryObj<HlmCalendar<Date>>;
+type Story = StoryObj<BrnCalendar<Date>>;
 
 export const Default: Story = {
 	args: {

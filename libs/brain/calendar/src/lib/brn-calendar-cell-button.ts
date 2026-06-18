@@ -1,4 +1,4 @@
-import { computed, Directive, ElementRef, inject, input } from '@angular/core';
+import { computed, DestroyRef, Directive, ElementRef, inject, input } from '@angular/core';
 import { injectDateAdapter } from '@spartan-ng/brain/date-time';
 import { injectBrnCalendar } from './brn-calendar.token';
 
@@ -8,16 +8,16 @@ import { injectBrnCalendar } from './brn-calendar.token';
 		role: 'gridcell',
 		'[tabindex]': 'focusable() ? 0 : -1',
 		type: 'button',
-		'[attr.data-outside]': "!selected() && outside() && (!end() && !start())? '' : null",
-		'[attr.data-today]': "today() && !selected() ? '' : null",
-		'[attr.data-selected]': "selected() ? '' : null",
-		'[attr.data-disabled]': "disabled() ? '' : null",
-		'[attr.aria-selected]': "selected() ? 'true' : null",
-		'[attr.aria-disabled]': "disabled() ? 'true' : null",
-		'[attr.data-range-start]': 'start() ? "" : null',
-		'[attr.data-range-end]': 'end() ? "" : null',
-		'[attr.data-highlighted]': 'highlighted() ? "" : null',
-		'[attr.data-range-between]': 'betweenRange() ? "" : null',
+		'[attr.data-outside]': '!selected() && outside() && (!end() && !start())? true : null',
+		'[attr.data-today]': 'today() && !selected() ? true : null',
+		'[attr.data-selected-single]': 'selected() && !start() && !end() && !betweenRange() ? true : null',
+		'[attr.data-disabled]': 'disabled() ? true : null',
+		'[attr.aria-selected]': 'selected() ? true : null',
+		'[attr.aria-disabled]': 'disabled() ? true : null',
+		'[attr.data-range-start]': 'start() ? true : null',
+		'[attr.data-range-end]': 'end() ? true : null',
+		'[attr.data-highlighted]': 'highlighted() ? true : null',
+		'[attr.data-range-middle]': 'betweenRange() ? true : null',
 		'[disabled]': 'disabled()',
 		'(click)': '_calendar.selectDate(date())',
 		'(keydown.arrowLeft)': 'focusPrevious($event)',
@@ -33,6 +33,8 @@ import { injectBrnCalendar } from './brn-calendar.token';
 export class BrnCalendarCellButton<T> {
 	/** Access the date adapter */
 	protected readonly _dateAdapter = injectDateAdapter<T>();
+
+	private readonly _destroyRef = inject(DestroyRef);
 
 	/** Access the calendar component */
 	protected readonly _calendar = injectBrnCalendar<T>();
@@ -51,6 +53,12 @@ export class BrnCalendarCellButton<T> {
 	public readonly highlighted = computed(() =>
 		this._calendar.highlightDays().some((d) => this._dateAdapter.isSameDay(this.date(), d)),
 	);
+
+	constructor() {
+		this._calendar.registerCalendarCell(this);
+
+		this._destroyRef.onDestroy(() => this._calendar.unregisterCalendarCell(this));
+	}
 
 	/** Whether this date is focusable */
 	public readonly focusable = computed(() => this._dateAdapter.isSameDay(this._calendar.focusedDate(), this.date()));

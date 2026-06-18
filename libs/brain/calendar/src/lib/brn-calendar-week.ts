@@ -1,14 +1,14 @@
 import {
 	ChangeDetectorRef,
+	computed,
 	Directive,
+	effect,
 	type EmbeddedViewRef,
+	inject,
 	type OnDestroy,
 	TemplateRef,
-	ViewContainerRef,
-	computed,
-	effect,
-	inject,
 	untracked,
+	ViewContainerRef,
 } from '@angular/core';
 import { injectBrnCalendar } from './brn-calendar.token';
 

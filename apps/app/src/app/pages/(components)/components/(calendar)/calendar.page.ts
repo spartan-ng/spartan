@@ -4,6 +4,7 @@ import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/prim
 import { CalendarRangeExample } from '@spartan-ng/app/app/pages/(components)/components/(calendar)/calendar--range.example';
 import { CalendarYearAndMonthExample } from '@spartan-ng/app/app/pages/(components)/components/(calendar)/calendar--year-and-month.example';
 import { CodePreview } from '@spartan-ng/app/app/shared/code/code-preview';
+import { CodeRtlPreview } from '@spartan-ng/app/app/shared/code/code-rtl-preview';
 import { RtlHeader } from '@spartan-ng/app/app/shared/code/rtl-header';
 import { InstallTabs } from '@spartan-ng/app/app/shared/layout/install-tabs';
 import { MainSection } from '@spartan-ng/app/app/shared/layout/main-section';
@@ -20,6 +21,7 @@ import { Tabs } from '../../../../shared/layout/tabs';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { CalendarMultipleExample } from './calendar--multiple.example';
+import { CalendarRtl } from './calendar--rtl.preview';
 import { CalendarPreview, defaultImports, defaultSkeleton, i18nProviders, i18nRuntimeChange } from './calendar.preview';
 
 export const routeMeta: RouteMeta = {
@@ -42,13 +44,15 @@ export const routeMeta: RouteMeta = {
 		PageBottomNav,
 		PageBottomNavLink,
 		PageNav,
+		SectionSubSubHeading,
+		InstallTabs,
+		MainSection,
+		RtlHeader,
+		CodeRtlPreview,
 		CalendarMultipleExample,
 		CalendarRangeExample,
 		CalendarYearAndMonthExample,
-		MainSection,
-		InstallTabs,
-		SectionSubSubHeading,
-		RtlHeader,
+		CalendarRtl,
 	],
 	template: `
 		<section spartanMainSection>
@@ -160,6 +164,13 @@ export const routeMeta: RouteMeta = {
 				</a>
 			</p>
 
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanRtlCodePreview firstTab>
+					<spartan-calendar-rtl />
+				</div>
+				<spartan-code secondTab [code]="_rtlCode()" />
+			</spartan-tabs>
+
 			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="brain" />
 
@@ -180,6 +191,7 @@ export default class CardPage {
 	protected readonly _multipleCode = computed(() => this._snippets()['multiple']);
 	protected readonly _rangeCode = computed(() => this._snippets()['range']);
 	protected readonly _yearAndMonthCode = computed(() => this._snippets()['yearAndMonth']);
+	protected readonly _rtlCode = computed(() => this._snippets()['rtl']);
 	protected readonly _defaultImports = defaultImports;
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _i18nProviders = i18nProviders;

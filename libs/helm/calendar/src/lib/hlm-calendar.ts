@@ -24,11 +24,10 @@ import { classes, hlm } from '@spartan-ng/helm/utils';
 	template: `
 		<div class="inline-flex flex-col gap-4">
 			<!-- Header -->
-
 			<div class="flex w-full items-center justify-between gap-1.5">
 				<ng-template #month>
-					<hlm-select brnCalendarMonthSelect class="order-1">
-						<hlm-select-trigger size="sm" [class]="_selectClass">
+					<hlm-select brnCalendarMonthSelect>
+						<hlm-select-trigger size="sm" [class]="_monthSelectClass">
 							<hlm-select-value />
 						</hlm-select-trigger>
 						<hlm-select-content *hlmSelectPortal class="max-h-80">
@@ -41,8 +40,8 @@ import { classes, hlm } from '@spartan-ng/helm/utils';
 					</hlm-select>
 				</ng-template>
 				<ng-template #year>
-					<hlm-select brnCalendarYearSelect class="order-3">
-						<hlm-select-trigger size="sm" [class]="_selectClass">
+					<hlm-select brnCalendarYearSelect>
+						<hlm-select-trigger size="sm" [class]="_yearSelectClass">
 							<hlm-select-value />
 						</hlm-select-trigger>
 						<hlm-select-content *hlmSelectPortal class="max-h-80">
@@ -72,10 +71,10 @@ import { classes, hlm } from '@spartan-ng/helm/utils';
 					}
 					@case ('dropdown-months') {
 						<ng-container [ngTemplateOutlet]="month" />
-						<div brnCalendarHeader class="order-4 text-sm font-medium">{{ heading.year }}</div>
+						<div brnCalendarHeader class="order-4 text-sm font-medium rtl:order-2">{{ heading.year }}</div>
 					}
 					@case ('dropdown-years') {
-						<div brnCalendarHeader class="order-2 text-sm font-medium">{{ heading.month }}</div>
+						<div brnCalendarHeader class="order-2 text-sm font-medium rtl:order-4">{{ heading.month }}</div>
 						<ng-container [ngTemplateOutlet]="year" />
 					}
 					@case ('label') {
@@ -166,6 +165,8 @@ export class HlmCalendar<T> {
 	);
 
 	protected readonly _selectClass = 'gap-0 px-1.5 py-2 [&>ng-icon]:ms-1';
+	protected readonly _monthSelectClass = `${this._selectClass} order-1 rtl:order-3`;
+	protected readonly _yearSelectClass = `${this._selectClass} order-3 rtl:order-1`;
 
 	constructor() {
 		classes(

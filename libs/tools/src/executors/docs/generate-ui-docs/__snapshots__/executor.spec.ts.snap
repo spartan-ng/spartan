@@ -1203,6 +1203,133 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
       },
     },
   },
+  "chart": {
+    "helm": {
+      "HlmChartContainer": {
+        "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "config",
+            "required": true,
+            "type": "ChartConfig",
+          },
+          {
+            "name": "cursor",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-chart-container, [hlmChartContainer]",
+      },
+      "HlmChartLegendContent": {
+        "inputs": [
+          {
+            "name": "hideIcon",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "nameKey",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "verticalAlign",
+            "required": false,
+            "type": "'bottom' | 'top'",
+          },
+          {
+            "name": "userClass",
+            "required": false,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-chart-legend-content, [hlmChartLegendContent]",
+      },
+      "HlmChartStyle": {
+        "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-chart-style, [hlmChartStyle]",
+      },
+      "HlmChartTooltipContent": {
+        "inputs": [
+          {
+            "name": "hideLabel",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "hideIndicator",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "indicator",
+            "required": false,
+            "type": "'line' | 'dot' | 'dashed'",
+          },
+          {
+            "name": "nameKey",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "labelKey",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "labelFormatter",
+            "required": false,
+            "type": "(d: number | Date) => string",
+          },
+          {
+            "name": "payload",
+            "required": false,
+            "type": "Record<string, unknown>",
+          },
+          {
+            "name": "config",
+            "required": false,
+            "type": "ChartConfig",
+          },
+          {
+            "name": "userClass",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "color",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "x",
+            "required": false,
+            "type": "number | Date",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-chart-tooltip-content, [hlmChartTooltipContent]",
+      },
+    },
+  },
   "checkbox": {
     "brain": {
       "BrnCheckbox": {

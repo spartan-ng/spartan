@@ -34,6 +34,7 @@ export const components: Link[] = [
 	{ label: 'Calendar', url: '/calendar' },
 	{ label: 'Card', url: '/card' },
 	{ label: 'Carousel', url: '/carousel' },
+	{ label: 'Chart', url: '/chart', new: true },
 	{ label: 'Checkbox', url: '/checkbox' },
 	{ label: 'Collapsible', url: '/collapsible' },
 	{ label: 'Combobox', url: '/combobox' },

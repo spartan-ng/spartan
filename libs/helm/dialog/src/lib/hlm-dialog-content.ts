@@ -2,11 +2,11 @@ import type { BooleanInput } from '@angular/cdk/coercion';
 import type { ComponentType } from '@angular/cdk/portal';
 import { NgComponentOutlet } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
-import { provideIcons } from '@ng-icons/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideX } from '@ng-icons/lucide';
 import { BrnDialogRef, injectBrnDialogContext } from '@spartan-ng/brain/dialog';
 import { HlmButton } from '@spartan-ng/helm/button';
-import { HlmIconImports } from '@spartan-ng/helm/icon';
+
 import { classes } from '@spartan-ng/helm/utils';
 import { HlmDialogClose } from './hlm-dialog-close';
 
@@ -18,7 +18,7 @@ type HlmDialogContentContext = {
 
 @Component({
 	selector: 'hlm-dialog-content',
-	imports: [NgComponentOutlet, HlmIconImports, HlmButton, HlmDialogClose],
+	imports: [NgComponentOutlet, HlmButton, HlmDialogClose, NgIcon],
 	providers: [provideIcons({ lucideX })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
@@ -35,7 +35,7 @@ type HlmDialogContentContext = {
 		@if (showCloseButton()) {
 			<button hlmBtn variant="ghost" size="icon-sm" class="spartan-dialog-close" hlmDialogClose>
 				<span class="sr-only">close</span>
-				<ng-icon hlm size="sm" name="lucideX" />
+				<ng-icon name="lucideX" />
 			</button>
 		}
 	`,

@@ -1,7 +1,5 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
-import { provideIcons } from '@ng-icons/core';
-import { lucideTriangleAlert } from '@ng-icons/lucide';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { ScrollAreaHorizontalPreview } from '@spartan-ng/app/app/pages/(components)/components/(scroll-area)/scroll-area--horizontal.preview';
 import { ScrollAreaRtlPreview } from '@spartan-ng/app/app/pages/(components)/components/(scroll-area)/scroll-area--rtl.example';
@@ -52,7 +50,6 @@ export const routeMeta: RouteMeta = {
 		CodeRtlPreview,
 		ScrollAreaRtlPreview,
 	],
-	providers: [provideIcons({ lucideTriangleAlert })],
 	template: `
 		<section spartanMainSection>
 			<spartan-section-intro

@@ -93,7 +93,7 @@ changeDetection: ChangeDetectionStrategy.OnPush,
 						[attr.data-state]="this._brnSelectOption.checkedState()"
 					>
 						@if (this._brnSelectOption.selected()) {
-							<ng-icon hlm size="sm" aria-hidden="true" name="lucideCheck" />
+							<ng-icon aria-hidden="true" name="lucideCheck" />
 						}
 					</span>
 				\`,

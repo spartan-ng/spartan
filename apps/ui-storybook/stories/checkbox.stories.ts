@@ -8,7 +8,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HlmButton, HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmCheckbox, HlmCheckboxImports } from '@spartan-ng/helm/checkbox';
 import { HlmFieldImports } from '@spartan-ng/helm/field';
-import { HlmIcon } from '@spartan-ng/helm/icon';
+
 import { HlmLabel } from '@spartan-ng/helm/label';
 
 @Component({
@@ -81,7 +81,7 @@ const meta: Meta<HlmCheckbox> = {
 				HlmFieldImports,
 				HlmLabel,
 				NgIcon,
-				HlmIcon,
+
 				ReactiveFormsModule,
 				HlmButtonImports,
 				HlmCheckboxTester,

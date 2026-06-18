@@ -7,7 +7,6 @@ import { BrnDialogTrigger } from '@spartan-ng/brain/dialog';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmCommandImports } from '@spartan-ng/helm/command';
 import { HlmDialogImports } from '@spartan-ng/helm/dialog';
-import { HlmIconImports } from '@spartan-ng/helm/icon';
 import { HlmKbdImports } from '@spartan-ng/helm/kbd';
 
 type AlgoliaHits = {
@@ -81,7 +80,7 @@ type AlgoliaHits = {
 
 @Component({
 	selector: 'spartan-docs-dialog',
-	imports: [HlmButtonImports, HlmKbdImports, HlmDialogImports, HlmIconImports, HlmCommandImports, NgIcon, FormsModule],
+	imports: [HlmButtonImports, HlmKbdImports, HlmDialogImports, HlmCommandImports, NgIcon, FormsModule],
 	providers: [
 		provideIcons({
 			lucideSearch,
@@ -122,7 +121,7 @@ type AlgoliaHits = {
 									@if (item.type === 'lvl1' && item.hierarchy[item.type]) {
 										<button hlm-command-item (selected)="onSelect(item.url)" [value]="item.hierarchy['lvl1']">
 											<a [href]="item.url" class="flex w-full items-center gap-2">
-												<ng-icon hlm name="lucideArrowRight" size="sm" class="shrink-0" />
+												<ng-icon name="lucideArrowRight" class="shrink-0" />
 												<div class="flex flex-col items-start gap-0.5 text-left">
 													<span class="font-semibold">{{ item.hierarchy['lvl1'] }}</span>
 													@if (item.content) {
@@ -145,7 +144,7 @@ type AlgoliaHits = {
 									@if (['lvl2', 'lvl3', 'lvl4', 'lvl5', 'lvl6'].includes(item.type) && item.hierarchy[item.type]) {
 										<button hlm-command-item (selected)="onSelect(item.url)" [value]="item.hierarchy['lvl1']">
 											<a [href]="item.url" class="flex w-full items-center gap-2">
-												<ng-icon hlm name="lucideArrowRight" size="sm" class="shrink-0" />
+												<ng-icon name="lucideArrowRight" class="shrink-0" />
 												<div class="flex flex-col items-start gap-0.5 text-left">
 													<span class="font-semibold">{{ item.hierarchy[item.type] }}</span>
 													<span class="text-sm">{{ item.hierarchy['lvl1'] }}</span>
@@ -162,7 +161,7 @@ type AlgoliaHits = {
 											[value]="item.content ?? item.hierarchy['lvl1']"
 										>
 											<a [href]="item.url" class="flex w-full items-center gap-2">
-												<ng-icon hlm name="lucideArrowRight" size="sm" class="shrink-0" />
+												<ng-icon name="lucideArrowRight" class="shrink-0" />
 												<div class="flex flex-col items-start gap-0.5 text-left">
 													<span class="font-semibold">{{ item.content }}</span>
 													<span class="text-sm">{{ item.hierarchy['lvl1'] }}</span>

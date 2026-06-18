@@ -1,7 +1,5 @@
 import { Directionality } from '@angular/cdk/bidi';
 import { Component, computed, effect, inject, signal, untracked } from '@angular/core';
-import { provideIcons } from '@ng-icons/core';
-import { lucideArrowUpRight, lucideFolderCode } from '@ng-icons/lucide';
 import { TranslateService, Translations } from '@spartan-ng/app/app/shared/translate.service';
 import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
 import { HlmMenubarImports } from '@spartan-ng/helm/menubar';
@@ -9,7 +7,7 @@ import { HlmMenubarImports } from '@spartan-ng/helm/menubar';
 @Component({
 	selector: 'spartan-menubar-rtl',
 	imports: [HlmMenubarImports, HlmDropdownMenuImports],
-	providers: [provideIcons({ lucideFolderCode, lucideArrowUpRight }), Directionality],
+	providers: [Directionality],
 	host: {
 		'[dir]': '_dir()',
 	},

@@ -2,12 +2,11 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideBadgeCheck, lucideChevronRight } from '@ng-icons/lucide';
 import { HlmButton } from '@spartan-ng/helm/button';
-import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmItemImports } from '@spartan-ng/helm/item';
 
 @Component({
 	selector: 'spartan-item-demo',
-	imports: [HlmItemImports, HlmButton, HlmIcon, NgIcon],
+	imports: [HlmItemImports, HlmButton, NgIcon],
 	providers: [
 		provideIcons({
 			lucideBadgeCheck,
@@ -27,14 +26,14 @@ import { HlmItemImports } from '@spartan-ng/helm/item';
 			</div>
 		</div>
 		<a hlmItem variant="outline" size="sm">
-			<div hlmItemMedia>
-				<ng-icon hlm name="lucideBadgeCheck" size="20px" />
+			<div hlmItemMedia size="icon">
+				<ng-icon name="lucideBadgeCheck" />
 			</div>
 			<div hlmItemContent>
 				<div hlmItemTitle>Your profile has been verified.</div>
 			</div>
 			<div hlmItemActions>
-				<ng-icon hlm name="lucideChevronRight" size="sm" />
+				<ng-icon name="lucideChevronRight" />
 			</div>
 		</a>
 	`,

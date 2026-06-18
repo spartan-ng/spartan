@@ -1,6 +1,6 @@
 import { Component, computed, inject, ViewEncapsulation } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { provideIcons } from '@ng-icons/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
 	lucideBadgeCheck,
 	lucideBell,
@@ -27,19 +27,12 @@ import {
 import { HlmAvatarImports } from '@spartan-ng/helm/avatar';
 import { HlmCollapsibleImports } from '@spartan-ng/helm/collapsible';
 import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
-import { HlmIconImports } from '@spartan-ng/helm/icon';
+
 import { HlmSidebarImports, HlmSidebarService } from '@spartan-ng/helm/sidebar';
 
 @Component({
 	selector: 'spartan-sidebar-collapsable-icons',
-	imports: [
-		HlmSidebarImports,
-		HlmIconImports,
-		HlmCollapsibleImports,
-		RouterLink,
-		HlmAvatarImports,
-		HlmDropdownMenuImports,
-	],
+	imports: [HlmSidebarImports, HlmCollapsibleImports, RouterLink, HlmAvatarImports, HlmDropdownMenuImports, NgIcon],
 	providers: [
 		provideIcons({
 			lucideFrame,
@@ -77,13 +70,13 @@ import { HlmSidebarImports, HlmSidebarService } from '@spartan-ng/helm/sidebar';
 								<div
 									class="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg"
 								>
-									<ng-icon hlm size="sm" name="lucideGalleryVerticalEnd" />
+									<ng-icon name="lucideGalleryVerticalEnd" />
 								</div>
 								<div class="grid flex-1 text-left text-sm leading-tight">
 									<span class="truncate font-medium">Acme Inc</span>
 									<span class="truncate text-xs">Enterprise</span>
 								</div>
-								<ng-icon hlm name="lucideChevronsUpDown" class="ml-auto" />
+								<ng-icon name="lucideChevronsUpDown" class="ml-auto" />
 							</button>
 						</li>
 					</ul>

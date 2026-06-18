@@ -1,34 +1,10 @@
 import { Component, signal } from '@angular/core';
-import { provideIcons } from '@ng-icons/core';
-import {
-	lucideCalendar,
-	lucideCog,
-	lucideLayers,
-	lucidePlus,
-	lucideSearch,
-	lucideSmile,
-	lucideUser,
-	lucideX,
-} from '@ng-icons/lucide';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmCommandImports } from '@spartan-ng/helm/command';
 
 @Component({
 	selector: 'spartan-command-basic',
 	imports: [HlmCommandImports, HlmButtonImports],
-	providers: [
-		provideIcons({
-			lucideX,
-			lucideCalendar,
-			lucideSmile,
-			lucidePlus,
-			lucideUser,
-			lucideLayers,
-			lucideCog,
-			lucideSearch,
-		}),
-	],
-
 	template: `
 		<div class="mx-auto flex max-w-screen-sm items-center justify-center space-x-4 py-20 text-sm">
 			<button hlmBtn variant="outline" (click)="stateChanged('open')">Open Menu</button>

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { provideIcons } from '@ng-icons/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
 	lucideCalculator,
 	lucideCalendar,
@@ -12,11 +12,10 @@ import {
 } from '@ng-icons/lucide';
 import { HlmCard, HlmCardImports } from '@spartan-ng/helm/card';
 import { HlmCommandImports } from '@spartan-ng/helm/command';
-import { HlmIconImports } from '@spartan-ng/helm/icon';
 
 @Component({
 	selector: 'spartan-command-preview',
-	imports: [HlmCommandImports, HlmIconImports, HlmCardImports],
+	imports: [HlmCommandImports, HlmCardImports, NgIcon],
 	providers: [
 		provideIcons({
 			lucideSearch,

@@ -2,7 +2,6 @@ import { Component, signal } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucidePlus } from '@ng-icons/lucide';
 import { HlmButton } from '@spartan-ng/helm/button';
-import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmTooltip } from '@spartan-ng/helm/tooltip';
 import { argsToTemplate, type Meta, moduleMetadata, type StoryObj } from '@storybook/angular';
 
@@ -13,7 +12,7 @@ const meta: Meta<HlmTooltip> = {
 	argTypes: {},
 	decorators: [
 		moduleMetadata({
-			imports: [HlmButton, HlmTooltip, NgIcon, HlmIcon],
+			imports: [HlmButton, HlmTooltip, NgIcon],
 			providers: [provideIcons({ lucidePlus })],
 		}),
 	],
@@ -38,7 +37,7 @@ export const Default: Story = {
     <ng-template #tooltip>
 
     <span class='flex items-center'>
-      Add to library <ng-icon hlm class='ml-2' size='sm' name='lucidePlus'/>
+      Add to library <ng-icon  class='ml-2'  name='lucidePlus'/>
      </span>
 </ng-template>
   </hlm-tooltip>
@@ -49,7 +48,7 @@ export const Default: Story = {
 
 @Component({
 	selector: 'simple-tooltip-story',
-	imports: [HlmButton, HlmTooltip, NgIcon, HlmIcon],
+	imports: [HlmButton, HlmTooltip, NgIcon],
 	providers: [provideIcons({ lucidePlus })],
 	template: `
 		<div class="p-40">
@@ -60,7 +59,7 @@ export const Default: Story = {
 				hlmBtn
 				size="icon"
 			>
-				<ng-icon hlm name="lucidePlus" size="sm" />
+				<ng-icon name="lucidePlus" />
 			</button>
 		</div>
 	`,
@@ -80,7 +79,7 @@ export const Simple: Story = {
 
 @Component({
 	selector: 'disabled-tooltip-story',
-	imports: [HlmButton, HlmTooltip, NgIcon, HlmIcon],
+	imports: [HlmButton, HlmTooltip, NgIcon],
 	providers: [provideIcons({ lucidePlus })],
 	template: `
 		<div class="p-40">
@@ -96,7 +95,7 @@ export const Simple: Story = {
 			<ng-template #tooltip>
 				<span class="flex items-center">
 					Add to library
-					<ng-icon hlm class="ml-2" size="sm" name="lucidePlus" />
+					<ng-icon class="ml-2" name="lucidePlus" />
 				</span>
 			</ng-template>
 

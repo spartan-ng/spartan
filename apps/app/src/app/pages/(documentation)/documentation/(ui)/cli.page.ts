@@ -1,7 +1,5 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component } from '@angular/core';
-import { provideIcons } from '@ng-icons/core';
-import { lucideTriangleAlert } from '@ng-icons/lucide';
 import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
 import { MainSection } from '../../../../shared/layout/main-section';
 import { PackageInstallerTabs } from '../../../../shared/layout/package-installer-tabs';
@@ -31,7 +29,6 @@ export const routeMeta: RouteMeta = {
 		TabsCli,
 		PackageInstallerTabs,
 	],
-	providers: [provideIcons({ lucideTriangleAlert })],
 	template: `
 		<section spartanMainSection>
 			<spartan-section-intro name="CLI" lead="Add accessible UI primitives to any Angular project with one command." />

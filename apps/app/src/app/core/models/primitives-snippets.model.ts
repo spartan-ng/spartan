@@ -25,7 +25,6 @@ export type PrimitiveSnippet =
 	| 'empty'
 	| 'field'
 	| 'hover-card'
-	| 'icon'
 	| 'input'
 	| 'input-group'
 	| 'input-otp'

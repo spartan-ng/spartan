@@ -1,15 +1,14 @@
 import { Component } from '@angular/core';
-import { provideIcons } from '@ng-icons/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronDown, lucideCircle, lucideCircleCheck, lucideCircleHelp, lucideLink } from '@ng-icons/lucide';
 
-import { HlmIconImports } from '@spartan-ng/helm/icon';
 import { HlmNavigationMenuImports } from '@spartan-ng/helm/navigation-menu';
 import type { Meta, StoryObj } from '@storybook/angular';
 import { moduleMetadata } from '@storybook/angular';
 
 @Component({
 	selector: 'navigation-menu-example',
-	imports: [HlmNavigationMenuImports, HlmIconImports],
+	imports: [HlmNavigationMenuImports, NgIcon],
 	providers: [provideIcons({ lucideChevronDown, lucideLink, lucideCircle, lucideCircleHelp, lucideCircleCheck })],
 	template: `
 		<nav hlmNavigationMenu>
@@ -209,7 +208,7 @@ class NavigationMenuExample {
 
 @Component({
 	selector: 'navigation-menu-click-to-open-example',
-	imports: [HlmNavigationMenuImports, HlmIconImports],
+	imports: [HlmNavigationMenuImports],
 	providers: [provideIcons({ lucideChevronDown, lucideLink, lucideCircle, lucideCircleHelp, lucideCircleCheck })],
 	template: `
 		<nav hlmNavigationMenu openOn="click">

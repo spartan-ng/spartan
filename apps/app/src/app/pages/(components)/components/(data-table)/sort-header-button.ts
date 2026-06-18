@@ -2,16 +2,16 @@ import { Component, computed, input } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideArrowUpDown } from '@ng-icons/lucide';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
-import { HlmIconImports } from '@spartan-ng/helm/icon';
+
 import { type HeaderContext, injectFlexRenderContext } from '@tanstack/angular-table';
 
 @Component({
-	imports: [HlmButtonImports, NgIcon, HlmIconImports],
+	imports: [HlmButtonImports, NgIcon],
 	providers: [provideIcons({ lucideArrowUpDown })],
 	template: `
 		<button hlmBtn size="sm" variant="ghost" (click)="filterClick()" [class.capitalize]="header() === ''">
 			{{ _header() }}
-			<ng-icon hlm size="sm" name="lucideArrowUpDown" />
+			<ng-icon name="lucideArrowUpDown" />
 		</button>
 	`,
 })

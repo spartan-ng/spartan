@@ -1,7 +1,5 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component } from '@angular/core';
-import { provideIcons } from '@ng-icons/core';
-import { lucideRocket } from '@ng-icons/lucide';
 import { ApiDocsService } from '../../core/services/api-docs.service';
 import { metaWith } from '../../shared/meta/meta.util';
 import { ColorPalette } from './color-palette';
@@ -23,7 +21,7 @@ export const routeMeta: RouteMeta = {
 @Component({
 	selector: 'spartan-components',
 	imports: [ColorPalette],
-	providers: [provideIcons({ lucideRocket }), ApiDocsService],
+	providers: [ApiDocsService],
 	template: `
 		<section class="flex flex-col items-center gap-2 py-8 text-center md:py-16 lg:py-20 xl:gap-4">
 			<div class="mx-auto flex max-w-[64rem] flex-col items-center gap-4">

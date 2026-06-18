@@ -1,11 +1,11 @@
 import { NgIcon } from '@ng-icons/core';
 import { BrnPopover } from '@spartan-ng/brain/popover';
 import { HlmButton } from '@spartan-ng/helm/button';
-import { HlmIcon } from '@spartan-ng/helm/icon';
+
 import { HlmInput } from '@spartan-ng/helm/input';
 import { HlmLabel } from '@spartan-ng/helm/label';
 import { HlmPopoverImports } from '@spartan-ng/helm/popover';
-import { type Meta, type StoryObj, argsToTemplate, moduleMetadata } from '@storybook/angular';
+import { argsToTemplate, type Meta, moduleMetadata, type StoryObj } from '@storybook/angular';
 
 const meta: Meta<BrnPopover> = {
 	title: 'Popover',
@@ -21,7 +21,7 @@ const meta: Meta<BrnPopover> = {
 	},
 	decorators: [
 		moduleMetadata({
-			imports: [HlmPopoverImports, HlmButton, HlmLabel, HlmInput, NgIcon, HlmIcon],
+			imports: [HlmPopoverImports, HlmButton, HlmLabel, HlmInput, NgIcon],
 		}),
 	],
 };

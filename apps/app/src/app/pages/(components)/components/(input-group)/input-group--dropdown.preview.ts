@@ -1,13 +1,13 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { provideIcons } from '@ng-icons/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronDown, lucideEllipsis } from '@ng-icons/lucide';
 import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
-import { HlmIconImports } from '@spartan-ng/helm/icon';
+
 import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 
 @Component({
 	selector: 'spartan-input-group-dropdown-preview',
-	imports: [HlmInputGroupImports, HlmIconImports, HlmDropdownMenuImports],
+	imports: [HlmInputGroupImports, HlmDropdownMenuImports, NgIcon],
 	providers: [provideIcons({ lucideEllipsis, lucideChevronDown })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: { class: 'grid w-full max-w-sm gap-6' },

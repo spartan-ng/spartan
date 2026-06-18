@@ -1,12 +1,11 @@
 import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { tablerInfoCircle, tablerStar } from '@ng-icons/tabler-icons';
-import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 
 @Component({
 	selector: 'spartan-input-group-button-example',
-	imports: [HlmInputGroupImports, NgIcon, HlmIcon],
+	imports: [HlmInputGroupImports, NgIcon],
 	providers: [
 		provideIcons({
 			tablerInfoCircle,
@@ -18,7 +17,7 @@ import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 		<div hlmInputGroup class="[--radius:9999px]">
 			<div hlmInputGroupAddon>
 				<button hlmInputGroupButton variant="secondary" size="icon-xs">
-					<ng-icon hlm name="tablerInfoCircle" size="sm" />
+					<ng-icon name="tablerInfoCircle" />
 				</button>
 			</div>
 
@@ -26,7 +25,7 @@ import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 			<input hlmInputGroupInput id="input-secure-19" />
 			<div hlmInputGroupAddon align="inline-end">
 				<button hlmInputGroupButton size="icon-xs" (click)="_toggleFavorite()">
-					<ng-icon hlm name="tablerStar" size="sm" [class]="_favoriteClass()" />
+					<ng-icon name="tablerStar" [class]="_favoriteClass()" />
 				</button>
 			</div>
 		</div>

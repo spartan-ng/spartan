@@ -4,23 +4,13 @@ import { lucideMinus, lucidePlus } from '@ng-icons/lucide';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmButtonGroupImports } from '@spartan-ng/helm/button-group';
 import { HlmFieldImports } from '@spartan-ng/helm/field';
-import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmInput } from '@spartan-ng/helm/input';
 import { HlmRadioGroupImports } from '@spartan-ng/helm/radio-group';
 import { HlmSwitch } from '@spartan-ng/helm/switch';
 
 @Component({
 	selector: 'spartan-appearance-settings',
-	imports: [
-		HlmRadioGroupImports,
-		HlmFieldImports,
-		HlmButtonGroupImports,
-		HlmSwitch,
-		NgIcon,
-		HlmIcon,
-		HlmInput,
-		HlmButton,
-	],
+	imports: [HlmRadioGroupImports, HlmFieldImports, HlmButtonGroupImports, HlmSwitch, NgIcon, HlmInput, HlmButton],
 	providers: [provideIcons({ lucidePlus, lucideMinus })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
@@ -64,10 +54,10 @@ import { HlmSwitch } from '@spartan-ng/helm/switch';
 				<div hlmButtonGroup>
 					<input hlmInput class="h-8 !w-14 font-mono" [value]="_gpuCount()" />
 					<button hlmBtn variant="outline" size="icon-sm" (click)="_gpuCountDecrease()">
-						<ng-icon hlm name="lucideMinus" size="sm" />
+						<ng-icon name="lucideMinus" />
 					</button>
 					<button hlmBtn variant="outline" size="icon-sm" (click)="_gpuCountIncrease()">
-						<ng-icon hlm name="lucidePlus" size="sm" />
+						<ng-icon name="lucidePlus" />
 					</button>
 				</div>
 			</div>

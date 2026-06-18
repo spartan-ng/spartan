@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { provideIcons } from '@ng-icons/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
 	lucideBell,
 	lucideCalculator,
@@ -27,11 +27,10 @@ import {
 } from '@ng-icons/lucide';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmCommandImports } from '@spartan-ng/helm/command';
-import { HlmIconImports } from '@spartan-ng/helm/icon';
 
 @Component({
 	selector: 'spartan-command-scrollable',
-	imports: [HlmCommandImports, HlmIconImports, HlmButton],
+	imports: [HlmCommandImports, HlmButton, NgIcon],
 	providers: [
 		provideIcons({
 			lucideHouse,

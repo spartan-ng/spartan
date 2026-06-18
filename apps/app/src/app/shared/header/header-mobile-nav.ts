@@ -1,7 +1,5 @@
 import { Component, computed, signal, viewChild } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { provideIcons } from '@ng-icons/core';
-import { lucideMenu, lucideX } from '@ng-icons/lucide';
 import { pageNavs, sidenavItems } from '@spartan-ng/app/app/shared/components/navigation-items';
 import { SpartanNewMarker } from '@spartan-ng/app/app/shared/spartan-new-marker';
 import { BrnPopover } from '@spartan-ng/brain/popover';
@@ -13,7 +11,6 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
 @Component({
 	selector: 'spartan-mobile-nav',
 	imports: [HlmButton, NgScrollbarModule, RouterLink, HlmPopoverImports, HlmBadgeImports, SpartanNewMarker],
-	providers: [provideIcons({ lucideMenu, lucideX })],
 	template: `
 		<hlm-popover align="start" (closed)="_closePopover()" offsetX="-24" sideOffset="12">
 			<button

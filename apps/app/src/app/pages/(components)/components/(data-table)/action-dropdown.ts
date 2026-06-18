@@ -3,18 +3,18 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideEllipsis } from '@ng-icons/lucide';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
-import { HlmIconImports } from '@spartan-ng/helm/icon';
+
 import { type CellContext, injectFlexRenderContext } from '@tanstack/angular-table';
 import type { Payment } from './data-table.preview';
 
 @Component({
 	selector: 'spartan-action-dropdown',
-	imports: [HlmButtonImports, NgIcon, HlmIconImports, HlmDropdownMenuImports],
+	imports: [HlmButtonImports, NgIcon, HlmDropdownMenuImports],
 	providers: [provideIcons({ lucideEllipsis })],
 	template: `
 		<button hlmBtn variant="ghost" class="h-8 w-8 p-0" [hlmDropdownMenuTrigger]="ActionDropDownMenu">
 			<span class="sr-only">Open menu</span>
-			<ng-icon hlm size="sm" name="lucideEllipsis" />
+			<ng-icon name="lucideEllipsis" />
 		</button>
 
 		<ng-template #ActionDropDownMenu>

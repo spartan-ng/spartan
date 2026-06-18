@@ -16,6 +16,7 @@ export function buildDependencyArray(tree: Tree, options: HlmBaseGeneratorSchema
 
 	if (options.name === 'icon' || options.name === 'spinner') {
 		dependencies['@ng-icons/core'] = NG_ICONS_VERSION;
+		dependencies['@ng-icons/lucide'] = NG_ICONS_VERSION;
 	}
 	return dependencies;
 }

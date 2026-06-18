@@ -3,7 +3,7 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideSlash } from '@ng-icons/lucide';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmButtonGroup, HlmButtonGroupImports } from '@spartan-ng/helm/button-group';
-import { HlmIcon } from '@spartan-ng/helm/icon';
+
 import type { Meta } from '@storybook/angular';
 import { moduleMetadata } from '@storybook/angular';
 
@@ -13,7 +13,7 @@ const meta: Meta<HlmButtonGroup> = {
 	tags: ['autodocs'],
 	decorators: [
 		moduleMetadata({
-			imports: [HlmButtonGroupImports, HlmButton, NgIcon, HlmIcon, RouterTestingModule],
+			imports: [HlmButtonGroupImports, HlmButton, NgIcon, RouterTestingModule],
 			providers: [provideIcons({ lucideSlash })],
 		}),
 	],

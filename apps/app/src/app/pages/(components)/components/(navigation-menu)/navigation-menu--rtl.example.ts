@@ -1,15 +1,13 @@
 import { Directionality } from '@angular/cdk/bidi';
 import { Component, computed, effect, inject, untracked } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { provideIcons } from '@ng-icons/core';
-import { lucideCheck, lucideChevronDown, lucideCircle, lucideInfo, lucideLink } from '@ng-icons/lucide';
 import { TranslateService, Translations } from '@spartan-ng/app/app/shared/translate.service';
 import { HlmNavigationMenuImports } from '@spartan-ng/helm/navigation-menu';
 
 @Component({
 	selector: 'spartan-navigation-menu-rtl',
 	imports: [HlmNavigationMenuImports, RouterLink],
-	providers: [provideIcons({ lucideChevronDown, lucideLink, lucideCircle, lucideCheck, lucideInfo }), Directionality],
+	providers: [Directionality],
 	host: {
 		'[dir]': '_dir()',
 	},

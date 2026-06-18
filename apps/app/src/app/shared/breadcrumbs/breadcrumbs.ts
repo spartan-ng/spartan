@@ -1,16 +1,14 @@
-import { NgIcon } from '@ng-icons/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
 // breadcrumbs.component.ts
-import { Component, ViewEncapsulation, inject } from '@angular/core';
+import { Component, inject, ViewEncapsulation } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
-import { provideIcons } from '@ng-icons/core';
 import { lucideChevronRight } from '@ng-icons/lucide';
-import { HlmIcon } from '@spartan-ng/helm/icon';
 import { BreadcrumbSharedService } from './breadcrumb-shared.service';
 
 @Component({
 	selector: 'spartan-breadcrumbs',
-	imports: [RouterLink, NgIcon, HlmIcon],
+	imports: [RouterLink, NgIcon],
 	providers: [provideIcons({ lucideChevronRight })],
 	encapsulation: ViewEncapsulation.Emulated,
 	template: `
@@ -25,7 +23,7 @@ import { BreadcrumbSharedService } from './breadcrumb-shared.service';
 						{{ breadcrumbs[0].label }}
 					</a>
 					@for (breadcrumb of breadcrumbs.slice(1, breadcrumbs.length); track breadcrumb; let last = $last) {
-						<ng-icon hlm size="sm" name="lucideChevronRight" />
+						<ng-icon name="lucideChevronRight" />
 						<a
 							class="focus-visible:ring-ring rounded focus-visible:ring-2 focus-visible:outline-none"
 							[class]="last ? 'text-foreground' : 'text-muted-foreground'"

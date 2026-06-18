@@ -1,13 +1,12 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { provideIcons } from '@ng-icons/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
 import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 
 import { tablerBrandJavascript, tablerCopy, tablerCornerDownLeft, tablerRefresh } from '@ng-icons/tabler-icons';
-import { HlmIconImports } from '@spartan-ng/helm/icon';
 
 @Component({
 	selector: 'spartan-input-group-textarea-preview',
-	imports: [HlmInputGroupImports, HlmIconImports],
+	imports: [HlmInputGroupImports, NgIcon],
 	providers: [provideIcons({ tablerBrandJavascript, tablerCopy, tablerCornerDownLeft, tablerRefresh })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: { class: 'grid w-full max-w-sm gap-6' },

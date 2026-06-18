@@ -1,12 +1,11 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCalendar, lucideHouse, lucideInbox, lucideSearch, lucideSettings } from '@ng-icons/lucide';
-import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 
 @Component({
 	selector: 'spartan-first-sidebar',
-	imports: [HlmSidebarImports, NgIcon, HlmIcon],
+	imports: [HlmSidebarImports, NgIcon],
 	providers: [
 		provideIcons({
 			lucideHouse,
@@ -29,7 +28,7 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 								@for (item of _items; track item.title) {
 									<li hlmSidebarMenuItem>
 										<a hlmSidebarMenuButton>
-											<ng-icon hlm [name]="item.icon" />
+											<ng-icon [name]="item.icon" />
 											<span>{{ item.title }}</span>
 										</a>
 									</li>

@@ -20,12 +20,10 @@ import {
 	lucideSettings2,
 	lucideX,
 } from '@ng-icons/lucide';
-import { BrnCommandImports } from '@spartan-ng/brain/command';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmCheckboxImports } from '@spartan-ng/helm/checkbox';
 import { HlmCommandImports } from '@spartan-ng/helm/command';
 import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
-import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmInput } from '@spartan-ng/helm/input';
 import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 import { PriorityIconPipe } from '../pipes/priority-icon.pipe';
@@ -40,10 +38,8 @@ import { TasksExample } from '../tasks';
 		FormsModule,
 		HlmInput,
 		NgIcon,
-		HlmIcon,
 		HlmDropdownMenuImports,
 		HlmCommandImports,
-		BrnCommandImports,
 		HlmPopoverImports,
 		HlmCheckboxImports,
 		PriorityIconPipe,
@@ -82,7 +78,7 @@ import { TasksExample } from '../tasks';
 				<!-- STATUS FILTER -->
 				<hlm-popover [state]="_statusState()" (stateChanged)="statusStateChanged($event)" sideOffset="5" align="start">
 					<button hlmBtn hlmPopoverTrigger variant="outline" size="sm" class="border-dashed">
-						<ng-icon hlm name="lucideCirclePlus" class="mr-2" size="sm" />
+						<ng-icon name="lucideCirclePlus" class="mr-2" />
 						Status
 						@if (_statusFilter().length) {
 							<div data-orientation="vertical" role="none" class="bg-border mx-2 h-4 w-[1px] shrink-0"></div>
@@ -105,7 +101,7 @@ import { TasksExample } from '../tasks';
 									<button hlm-command-item [value]="status" (selected)="statusSelected(status)">
 										<hlm-checkbox class="mr-2" [checked]="isStatusSelected(status)" />
 
-										<ng-icon hlm [name]="status | statusIcon" class="text-muted-foreground mx-2" size="sm" />
+										<ng-icon [name]="status | statusIcon" class="text-muted-foreground mx-2" />
 										{{ status }}
 									</button>
 								}
@@ -122,7 +118,7 @@ import { TasksExample } from '../tasks';
 					align="start"
 				>
 					<button hlmBtn hlmPopoverTrigger variant="outline" size="sm" class="border-dashed">
-						<ng-icon hlm name="lucideCirclePlus" class="mr-2" size="sm" />
+						<ng-icon name="lucideCirclePlus" class="mr-2" />
 						Priority
 						@if (_priorityFilter().length) {
 							<div data-orientation="vertical" role="none" class="bg-border mx-2 h-4 w-[1px] shrink-0"></div>
@@ -145,7 +141,7 @@ import { TasksExample } from '../tasks';
 									<button hlm-command-item [value]="priority" (selected)="prioritySelected(priority)">
 										<hlm-checkbox class="mr-2" [checked]="isPrioritySelected(priority)" />
 
-										<ng-icon hlm [name]="priority | priorityIcon" class="text-muted-foreground mx-2" size="sm" />
+										<ng-icon [name]="priority | priorityIcon" class="text-muted-foreground mx-2" />
 										{{ priority }}
 									</button>
 								}
@@ -157,7 +153,7 @@ import { TasksExample } from '../tasks';
 				@if (_statusFilter().length || _priorityFilter().length) {
 					<button hlmBtn variant="ghost" size="sm" align="end" (click)="resetFilters()">
 						Reset
-						<ng-icon hlm name="lucideX" class="ml-2" size="sm" />
+						<ng-icon name="lucideX" class="ml-2" />
 					</button>
 				}
 			</div>
@@ -165,7 +161,7 @@ import { TasksExample } from '../tasks';
 			<!-- Column visibility -->
 			<button hlmBtn variant="outline" align="end" [hlmDropdownMenuTrigger]="menu">
 				Columns
-				<ng-icon hlm name="lucideChevronDown" class="ml-2" size="sm" />
+				<ng-icon name="lucideChevronDown" class="ml-2" />
 			</button>
 			<ng-template #menu>
 				<hlm-dropdown-menu class="w-32">

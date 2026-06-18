@@ -19,7 +19,7 @@ import { HlmEmptyImports } from '@spartan-ng/helm/empty';
 			</div>
 			<div hlmEmptyContent>
 				<button hlmBtn variant="outline">
-					<ng-icon hlm name="lucideRefreshCcw" />
+					<ng-icon name="lucideRefreshCcw" />
 					Refresh
 				</button>
 			</div>

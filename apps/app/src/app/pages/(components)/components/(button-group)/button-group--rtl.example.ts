@@ -1,6 +1,6 @@
 import { Directionality } from '@angular/cdk/bidi';
 import { Component, computed, effect, inject, signal, untracked } from '@angular/core';
-import { provideIcons } from '@ng-icons/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
 	lucideArchive,
 	lucideArrowLeft,
@@ -17,11 +17,10 @@ import { TranslateService, Translations } from '@spartan-ng/app/app/shared/trans
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmButtonGroupImports } from '@spartan-ng/helm/button-group';
 import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
-import { HlmIconImports } from '@spartan-ng/helm/icon';
 
 @Component({
 	selector: 'spartan-button-group-rtl-preview',
-	imports: [HlmIconImports, HlmButtonImports, HlmButtonGroupImports, HlmDropdownMenuImports],
+	imports: [HlmButtonImports, HlmButtonGroupImports, HlmDropdownMenuImports, NgIcon],
 	providers: [
 		provideIcons({
 			lucideArrowLeft,
@@ -68,26 +67,26 @@ import { HlmIconImports } from '@spartan-ng/helm/icon';
 			<hlm-dropdown-menu class="w-52" [dir]="_dir()">
 				<hlm-dropdown-menu-group>
 					<button hlmDropdownMenuItem>
-						<ng-icon hlm name="lucideMailCheck" size="sm" />
+						<ng-icon name="lucideMailCheck" />
 						<span>{{ _t().markAsRead }}</span>
 					</button>
 					<button hlmDropdownMenuItem>
-						<ng-icon hlm name="lucideArchive" size="sm" />
+						<ng-icon name="lucideArchive" />
 						<span>{{ _t().archive }}</span>
 					</button>
 				</hlm-dropdown-menu-group>
 				<hlm-dropdown-menu-separator />
 				<hlm-dropdown-menu-group>
 					<button hlmDropdownMenuItem>
-						<ng-icon hlm name="lucideClock" size="sm" />
+						<ng-icon name="lucideClock" />
 						<span>{{ _t().snooze }}</span>
 					</button>
 					<button hlmDropdownMenuItem>
-						<ng-icon hlm name="lucideCalendarPlus" size="sm" />
+						<ng-icon name="lucideCalendarPlus" />
 						<span>{{ _t().addToCalendar }}</span>
 					</button>
 					<button hlmDropdownMenuItem>
-						<ng-icon hlm name="lucideListFilterPlus" size="sm" />
+						<ng-icon name="lucideListFilterPlus" />
 						<span>{{ _t().addToList }}</span>
 					</button>
 					<button
@@ -98,10 +97,10 @@ import { HlmIconImports } from '@spartan-ng/helm/icon';
 						[hlmDropdownMenuTrigger]="submenu"
 					>
 						<div class="flex items-center gap-2">
-							<ng-icon hlm name="lucideTag" size="sm" />
+							<ng-icon name="lucideTag" />
 							<span>{{ _t().labelAs }}</span>
 						</div>
-						<ng-icon hlm name="lucideChevronRight" size="sm" class="rtl:rotate-180" />
+						<ng-icon name="lucideChevronRight" class="rtl:rotate-180" />
 					</button>
 				</hlm-dropdown-menu-group>
 				<hlm-dropdown-menu-separator />
@@ -111,7 +110,7 @@ import { HlmIconImports } from '@spartan-ng/helm/icon';
 						variant="destructive"
 						class="hover:bg-destructive/10 dark:hover:bg-destructive/40"
 					>
-						<ng-icon hlm name="lucideTrash" size="sm" />
+						<ng-icon name="lucideTrash" />
 						<span>{{ _t().delete }}</span>
 					</button>
 				</hlm-dropdown-menu-group>

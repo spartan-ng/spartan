@@ -1,25 +1,25 @@
 import { Component } from '@angular/core';
-import { provideIcons } from '@ng-icons/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideBot, lucideChevronDown } from '@ng-icons/lucide';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmButtonGroupImports } from '@spartan-ng/helm/button-group';
-import { HlmIconImports } from '@spartan-ng/helm/icon';
+
 import { HlmInputImports } from '@spartan-ng/helm/input';
 import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 
 @Component({
 	selector: 'spartan-button-group-popover',
-	imports: [HlmIconImports, HlmInputImports, HlmButtonImports, HlmButtonGroupImports, HlmPopoverImports],
+	imports: [HlmInputImports, HlmButtonImports, HlmButtonGroupImports, HlmPopoverImports, NgIcon],
 	providers: [provideIcons({ lucideChevronDown, lucideBot })],
 	template: `
 		<hlm-popover sideOffset="5" align="end">
 			<div hlmButtonGroup>
 				<button hlmBtn variant="outline">
-					<ng-icon hlm name="lucideBot" size="sm" />
+					<ng-icon name="lucideBot" />
 					Copilot
 				</button>
 				<button id="edit-profile" variant="outline" hlmPopoverTrigger hlmBtn variant="outline" size="icon">
-					<ng-icon hlm name="lucideChevronDown" size="sm" />
+					<ng-icon name="lucideChevronDown" />
 				</button>
 				<hlm-popover-content class="rounded-xl p-0 text-sm" *hlmPopoverPortal="let ctx">
 					<div class="border-input border-b px-4 py-3">

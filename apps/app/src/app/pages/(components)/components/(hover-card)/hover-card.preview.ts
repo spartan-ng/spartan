@@ -1,14 +1,13 @@
 import { Component } from '@angular/core';
-import { provideIcons } from '@ng-icons/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCalendar } from '@ng-icons/lucide';
 import { HlmAvatarImports } from '@spartan-ng/helm/avatar';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmHoverCardImports } from '@spartan-ng/helm/hover-card';
-import { HlmIconImports } from '@spartan-ng/helm/icon';
 
 @Component({
 	selector: 'spartan-hover-card-preview',
-	imports: [HlmHoverCardImports, HlmButtonImports, HlmIconImports, HlmAvatarImports],
+	imports: [HlmHoverCardImports, HlmButtonImports, HlmAvatarImports, NgIcon],
 	providers: [provideIcons({ lucideCalendar })],
 	template: `
 		<hlm-hover-card>
@@ -23,7 +22,7 @@ import { HlmIconImports } from '@spartan-ng/helm/icon';
 						<h4 class="text-sm font-semibold">&#64;analogjs</h4>
 						<p class="text-sm">The Angular meta-framework – build Angular applications faster.</p>
 						<div class="flex items-center pt-2">
-							<ng-icon hlm size="sm" name="lucideCalendar" class="mr-2 opacity-70" />
+							<ng-icon name="lucideCalendar" class="mr-2 opacity-70" />
 							<span class="text-muted-foreground text-xs">Joined December 2021</span>
 						</div>
 					</div>

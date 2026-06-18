@@ -79,7 +79,11 @@ export const versionHealthcheck: Healthcheck = {
 
 async function fetchLatestMetadata(dep: string): Promise<PackageJson | null> {
 	try {
-		const request = await fetch(`https://registry.npmjs.org/${dep}/latest`);
+		// Respect the project's configured npm registry rather than hardcoding npmjs. This keeps the check
+		// correct against private registries, and lets the cli-smoke local registry (which publishes the
+		// freshly built packages as "latest") match the installed version instead of flagging a false drift.
+		const registry = (process.env.npm_config_registry || 'https://registry.npmjs.org').replace(/\/$/, '');
+		const request = await fetch(`${registry}/${dep}/latest`);
 
 		if (!request.ok) {
 			return null;

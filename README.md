@@ -164,6 +164,7 @@ Our initial 300 contributors and sponsors are featured here and on the front pag
 145. [Joebeurg](https://github.com/Joebeurg)
 146. [mehrabix](https://github.com/mehrabix)
 147. [PatrickLarocque](https://github.com/PatrickLarocque)
+148. [Ban117](https://github.com/Ban117)
 
 [Become a spartan today!](https://github.com/sponsors/goetzrobin)
 

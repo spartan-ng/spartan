@@ -508,7 +508,8 @@
 			"@angular/core": ">=21.0.0 <23.0.0",
 			"tailwind-merge": "^3.3.1",
 			"@angular/common": ">=21.0.0 <23.0.0",
-			"clsx": "^2.1.1"
+			"clsx": "^2.1.1",
+			"@angular/cdk": ">=21.0.0 <23.0.0"
 		}
 	}
 }

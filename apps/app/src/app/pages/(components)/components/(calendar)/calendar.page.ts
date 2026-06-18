@@ -156,20 +156,19 @@ export const routeMeta: RouteMeta = {
 			</spartan-tabs>
 
 			<spartan-header-rtl />
-
-			<p class="${hlmP}">
-				For an RTL example please look at the
-				<a href="/blocks/calendar#calendar-12" target="_blank" rel="noreferrer" class="${link}">
-					Jalali (Persian) calendar.
-				</a>
-			</p>
-
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanRtlCodePreview firstTab>
 					<spartan-calendar-rtl />
 				</div>
 				<spartan-code secondTab [code]="_rtlCode()" />
 			</spartan-tabs>
+
+			<p class="${hlmP}">
+				For another RTL example please look at the
+				<a href="/blocks/calendar#calendar-12" target="_blank" rel="noreferrer" class="${link}">
+					Jalali (Persian) calendar.
+				</a>
+			</p>
 
 			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="brain" />

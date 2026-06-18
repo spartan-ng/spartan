@@ -9,8 +9,8 @@ import { CALENDAR_I18N } from '../(date-picker)/date-picker--rtl.preview';
 @Component({
 	selector: 'spartan-calendar-rtl',
 	imports: [HlmCalendar, HlmCardImports],
-	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [provideBrnCalendarI18n()],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	hostDirectives: [HlmCard],
 	host: {
 		'[dir]': '_dir()',

@@ -1242,8 +1242,24 @@
 	}
 
 	/* MARK: Chart */
+	.spartan-chart-container {
+		@apply flex aspect-video h-full w-full flex-col justify-center text-xs;
+	}
+
 	.spartan-chart-tooltip {
 		@apply bg-popover text-popover-foreground ring-foreground/5 dark:ring-foreground/10 gap-1.5 rounded-xl px-2.5 py-1.5 text-xs shadow-lg ring-1;
+	}
+
+	.spartan-chart-legend {
+		@apply flex items-center justify-center gap-4;
+	}
+
+	.spartan-chart-legend-top {
+		@apply pb-3;
+	}
+
+	.spartan-chart-legend-bottom {
+		@apply pt-3;
 	}
 
 	/* MARK: Hover Card */

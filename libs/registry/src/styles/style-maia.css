@@ -312,8 +312,24 @@
 	}
 
 	/* MARK: Chart */
+	.spartan-chart-container {
+		@apply flex aspect-video h-full w-full flex-col justify-center text-xs;
+	}
+
 	.spartan-chart-tooltip {
 		@apply border-border/50 bg-background gap-1.5 rounded-lg border px-2.5 py-1.5 text-xs shadow-xl;
+	}
+
+	.spartan-chart-legend {
+		@apply flex items-center justify-center gap-4;
+	}
+
+	.spartan-chart-legend-top {
+		@apply pb-3;
+	}
+
+	.spartan-chart-legend-bottom {
+		@apply pt-3;
 	}
 
 	/* MARK: Checkbox */

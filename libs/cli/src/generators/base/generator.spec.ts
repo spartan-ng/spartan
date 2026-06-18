@@ -134,7 +134,7 @@ describe('hlmBaseGenerator', () => {
 
 	it('should register the correct dependencies', async () => {
 		const options = {
-			name: 'icon',
+			name: 'spinner',
 
 			directory: 'libs/test-ui',
 			buildable: false,
@@ -211,7 +211,6 @@ describe('hlmBaseGenerator', () => {
 			'collapsible',
 			'command',
 			'dialog',
-			'icon',
 			'input',
 			'kbd',
 			'label',

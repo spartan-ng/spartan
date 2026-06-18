@@ -1,4 +1,4 @@
-import { BrnCalendar } from '@spartan-ng/brain/calendar';
+import type { BrnCalendar } from '@spartan-ng/brain/calendar';
 import { HlmCalendar } from '@spartan-ng/helm/calendar';
 import { type Meta, moduleMetadata, type StoryObj } from '@storybook/angular';
 

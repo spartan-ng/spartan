@@ -52,16 +52,87 @@ function setupAngularCliProject(tree: Tree, alias: string, targetLibDir: string)
 	addTsConfigPath(tree, alias, [`./${joinPathFragments(targetLibDir, 'src', 'index.ts').replace(/\\/g, '/')}`]);
 }
 
+// nx's `librarySecondaryEntryPointGenerator` appends an entrypoint-prefixed copy of every existing
+// include/exclude glob each time it runs (see `updateTsConfigIncludedFiles`). When many entrypoints
+// are generated into the same library - e.g. `migrate-helm-libraries` (or `ui`) with "all" selected -
+// these arrays double on every call until `JSON.stringify` throws `RangeError: Invalid string length`.
+//
+// The library already includes a recursive `**/*.ts` glob, which matches files in every entrypoint
+// subdirectory, so the prefixed copies are redundant. This collapses them back to a bounded, equivalent
+// set of recursive globs. It is idempotent, so it stays bounded no matter how many entrypoints are added.
+// Collapses the entrypoint-prefixed globs nx accumulates back into their recursive equivalents, keeping
+// `tsconfig.lib.json` bounded. For each glob in `recursiveGlobs` (e.g. `**/*.ts`), any "scoped variant"
+// that it already covers - the recursive glob itself, or a sub-path form like `accordion/src/**/*.ts`
+// that ends in the same `*.ext` suffix - is dropped, and the single recursive glob is restored *only if*
+// such a variant was present. Patterns that aren't a scoped variant (literal files like `jest.config.ts`,
+// a root-only `*.ts`, or a custom glob) are preserved untouched, and no recursive glob is injected unless
+// it was already represented - so the function never widens or adds globs the tsconfig didn't already imply.
+export function dedupeEntrypointGlobs(patterns: string[], recursiveGlobs: string[]): string[] {
+	// The suffix each recursive glob covers in every subdirectory, e.g. '**/*.ts' -> '*.ts'.
+	const suffixes = recursiveGlobs.map((glob) => glob.replace(/^\*\*\//, ''));
+	const variantSeen = recursiveGlobs.map(() => false);
+	// A pattern is a scoped variant of recursiveGlobs[i] only if it is that glob itself, or a recursive
+	// sub-path glob (contains `/**/` and ends in `/<suffix>`) - exactly the shape nx prepends per entry
+	// point, e.g. `accordion/src/**/*.ts`. A flat `*.ts` or a custom `tools/*.ts` is NOT a variant and is
+	// left untouched, so user globs are never widened or dropped.
+	const variantIndex = (pattern: string) =>
+		recursiveGlobs.findIndex(
+			(recursive, i) => pattern === recursive || (pattern.includes('/**/') && pattern.endsWith(`/${suffixes[i]}`)),
+		);
+
+	const result = patterns.filter((pattern) => {
+		const index = variantIndex(pattern);
+		if (index === -1) {
+			return true; // unrelated glob - keep as-is
+		}
+		variantSeen[index] = true;
+		return false; // redundant scoped variant - drop it
+	});
+	recursiveGlobs.forEach((glob, i) => {
+		if (variantSeen[i]) {
+			result.push(glob);
+		}
+	});
+	return result;
+}
+
+// Targets `tsconfig.lib.json` by convention: that's the file `initializeAngularEntrypoint` seeds and the
+// default build tsConfig for an @nx/angular library, which is also the file nx's secondary-entrypoint
+// generator inflates. A library whose build target points its tsConfig elsewhere isn't normalized here,
+// but the spartan generators never produce that shape.
+function normalizeEntrypointTsConfig(tree: Tree, libraryDir: string): void {
+	const tsConfigLibPath = joinPathFragments(libraryDir, 'tsconfig.lib.json');
+	if (!tree.exists(tsConfigLibPath)) {
+		return;
+	}
+	updateJson(tree, tsConfigLibPath, (json) => {
+		if (Array.isArray(json.include)) {
+			json.include = dedupeEntrypointGlobs(json.include, ['**/*.ts']);
+		}
+		if (Array.isArray(json.exclude)) {
+			json.exclude = dedupeEntrypointGlobs(json.exclude, ['**/*.spec.ts', '**/*.test.ts']);
+		}
+		return json;
+	});
+}
+
 async function generateEntrypointFiles(tree: Tree, alias: string, options: HlmBaseGeneratorSchema): Promise<string> {
 	const targetLibDir = `${options.directory}/${options.name}/src`;
 
 	if (options.buildable) {
+		// Normalize before *and* after: if tsconfig.lib.json is already bloated from an earlier run, the
+		// nx generator would re-double the existing arrays and could throw "Invalid string length" before
+		// the post-call cleanup runs. Pre-normalizing makes a dirty workspace recover deterministically.
+		normalizeEntrypointTsConfig(tree, options.directory);
 		await librarySecondaryEntryPointGenerator(tree, {
 			name: options.name,
 			library: singleLibName,
 			skipFormat: true,
 			skipModule: true,
 		});
+		// Collapse the redundant entrypoint-prefixed globs nx just appended so the include/exclude
+		// arrays stay bounded as more entrypoints are added. See `dedupeEntrypointGlobs`.
+		normalizeEntrypointTsConfig(tree, options.directory);
 	} else {
 		// Resolve the workspace's root tsconfig rather than assuming tsconfig.base.json - a standalone nx
 		// workspace registers paths in tsconfig.json (there is no base file).

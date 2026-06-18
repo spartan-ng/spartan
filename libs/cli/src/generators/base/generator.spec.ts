@@ -1,8 +1,8 @@
 import { applicationGenerator, E2eTestRunner, UnitTestRunner } from '@nx/angular/generators';
 import type { Schema } from '@nx/angular/src/generators/library/schema';
-import { addDependenciesToPackageJson, joinPathFragments, readJson, type Tree } from '@nx/devkit';
+import { addDependenciesToPackageJson, joinPathFragments, readJson, type Tree, updateJson } from '@nx/devkit';
 import { createTreeWithEmptyWorkspace } from '@nx/devkit/testing';
-import { hlmBaseGenerator } from './generator';
+import { dedupeEntrypointGlobs, hlmBaseGenerator } from './generator';
 import { singleLibName } from './lib/single-lib-name';
 
 // Mock buildDependencyArray and buildDevDependencyArray
@@ -168,5 +168,118 @@ describe('hlmBaseGenerator', () => {
 		const tsconfigAfterSecondRun = readJson(tree, 'tsconfig.base.json');
 
 		expect(tsconfigAfterSecondRun.compilerOptions.paths).toEqual(tsconfigAfterFirstRun.compilerOptions.paths);
+	});
+
+	it('should not exponentially grow tsconfig.lib.json include/exclude across many buildable entrypoints', async () => {
+		// Regression test: nx's `librarySecondaryEntryPointGenerator` re-prefixes every existing
+		// include/exclude glob for each entrypoint, doubling the arrays each time. With enough
+		// primitives (e.g. `migrate-helm-libraries` -> "all") the JSON serialization eventually
+		// throws `RangeError: Invalid string length`. The generator must keep these arrays bounded.
+		const { libraryGenerator } =
+			await vi.importActual<typeof import('@nx/angular/generators')>('@nx/angular/generators');
+
+		const directory = 'libs/test-ui';
+		const importAlias = '@spartan-ng/helm';
+
+		await libraryGenerator(tree, {
+			buildable: true,
+			name: singleLibName,
+			importPath: importAlias,
+			directory,
+			skipTests: true,
+			unitTestRunner: UnitTestRunner.None,
+		});
+
+		// Seed include/exclude explicitly rather than relying on nx's library defaults: a recursive
+		// `**/*.ts` include (what `initializeAngularEntrypoint` adds) plus the standard spec/test excludes.
+		// This keeps the assertions about the normalized result independent of nx's default tsconfig.
+		updateJson(tree, joinPathFragments(directory, 'tsconfig.lib.json'), (json) => {
+			json.include = ['src/**/*.ts', '**/*.ts'];
+			json.exclude = ['src/**/*.spec.ts', 'src/**/*.test.ts'];
+			return json;
+		});
+
+		// 30+ primitives reproduces the failure: the doubling crosses the string-length ceiling.
+		const primitives = [
+			'accordion',
+			'alert',
+			'avatar',
+			'badge',
+			'button',
+			'card',
+			'checkbox',
+			'collapsible',
+			'command',
+			'dialog',
+			'icon',
+			'input',
+			'kbd',
+			'label',
+			'menubar',
+			'pagination',
+			'popover',
+			'progress',
+			'scroll-area',
+			'select',
+			'separator',
+			'sheet',
+			'skeleton',
+			'slider',
+			'sonner',
+			'spinner',
+			'switch',
+			'table',
+			'tabs',
+			'textarea',
+			'toggle',
+			'tooltip',
+		];
+
+		for (const name of primitives) {
+			await hlmBaseGenerator(tree, {
+				name,
+				directory,
+				buildable: true,
+				generateAs: 'entrypoint' as const,
+				importAlias,
+			});
+		}
+
+		const tsconfig = readJson(tree, joinPathFragments(directory, 'tsconfig.lib.json'));
+		// A correct result is a small, constant-sized set of globs - never one entry per primitive.
+		expect(tsconfig.include.length).toBeLessThan(10);
+		expect(tsconfig.exclude.length).toBeLessThan(10);
+		// The recursive include still covers every entrypoint's sources...
+		expect(tsconfig.include).toContain('**/*.ts');
+		// ...and the recursive excludes still keep every entrypoint's specs/tests out of the build.
+		expect(tsconfig.exclude).toContain('**/*.spec.ts');
+		expect(tsconfig.exclude).toContain('**/*.test.ts');
+	});
+});
+
+describe('dedupeEntrypointGlobs', () => {
+	it('collapses entrypoint-prefixed variants to a single recursive glob', () => {
+		const include = ['src/**/*.ts', '**/*.ts', 'accordion/src/**/*.ts', 'accordion/**/*.ts', 'alert/**/*.ts'];
+		expect(dedupeEntrypointGlobs(include, ['**/*.ts'])).toEqual(['**/*.ts']);
+	});
+
+	it('only restores a recursive glob when a variant was present (no unconditional injection)', () => {
+		// exclude with no spec/test globs at all: must stay as-is, not gain `**/*.spec.ts`/`**/*.test.ts`.
+		expect(dedupeEntrypointGlobs(['jest.config.ts'], ['**/*.spec.ts', '**/*.test.ts'])).toEqual(['jest.config.ts']);
+		// only spec variants present -> only the spec recursive glob is restored, test is not injected.
+		expect(dedupeEntrypointGlobs(['src/**/*.spec.ts', 'jest.config.ts'], ['**/*.spec.ts', '**/*.test.ts'])).toEqual([
+			'jest.config.ts',
+			'**/*.spec.ts',
+		]);
+	});
+
+	it('does not rewrite flat custom globs (only recursive `/**/` sub-paths are collapsed)', () => {
+		// `*.ts` matches only the root and `tools/*.ts` only that folder; neither is an nx entrypoint
+		// variant (no `/**/`), so both are preserved rather than widened to `**/*.ts`.
+		expect(dedupeEntrypointGlobs(['*.ts'], ['**/*.ts'])).toEqual(['*.ts']);
+		expect(dedupeEntrypointGlobs(['tools/*.ts', 'accordion/src/**/*.ts'], ['**/*.ts'])).toEqual([
+			'tools/*.ts',
+			'**/*.ts',
+		]);
 	});
 });

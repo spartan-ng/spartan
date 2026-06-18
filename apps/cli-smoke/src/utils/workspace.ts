@@ -49,6 +49,12 @@ function execEnv(): NodeJS.ProcessEnv {
 		NPM_CONFIG_REGISTRY: registryInfo().registry,
 		// Make create-nx-workspace/ng fully non-interactive (suppresses the git-provider prompt etc.).
 		CI: 'true',
+		// Disable the nx daemon. These are throwaway workspaces running a linear sequence of generators,
+		// so the daemon's cross-invocation graph cache buys little, and under the all-components cell (50+
+		// generator runs back-to-back) it intermittently crashes with "Failed to process project graph",
+		// failing the cell non-deterministically. Running daemonless is reliable and, because the slow
+		// daemon retries are gone, actually faster for that cell.
+		NX_DAEMON: 'false',
 		// The all-components cell generates 57 primitives and compiles them in one `ng build`, which
 		// exceeds the 4GB default heap. Raise it for all cells (harmless for the small ones).
 		NODE_OPTIONS: '--max-old-space-size=8192',
@@ -193,6 +199,23 @@ export function runGenerators(ws: CellWorkspace): void {
 	const components = ws.cell.allComponents ? readAllPrimitives() : [...componentsUnderTest];
 	for (const component of components) {
 		run(`${gen} @spartan-ng/cli:ui ${component} --directory=${ws.componentsPath}${tags}`, ws.dir);
+	}
+}
+
+/**
+ * Run `migrate-helm-libraries` against a workspace that has no spartan libraries yet. With a
+ * components.json already written and nothing to migrate, the generator exits early with
+ * "No libraries to migrate" without prompting - but loading it still resolves its `@nx/workspace`
+ * (removeGenerator) and `@nx/devkit` deep imports in the *installed* CLI, where a stricter `exports`
+ * map would break module resolution at load. This is the only coverage that runs the headline
+ * command end-to-end as an installed package. nx-only: the generator's remove path is nx-specific.
+ */
+export function assertMigrateHelmLibrariesLoads(ws: CellWorkspace): void {
+	if (ws.cell.workspace !== 'nx') return;
+	const out = capture(`npx nx g @spartan-ng/cli:migrate-helm-libraries 2>&1`, ws.dir);
+	console.log(out);
+	if (!out.includes('No libraries to migrate')) {
+		throw new Error(`Expected migrate-helm-libraries to no-op on a workspace with no spartan libraries, got:\n${out}`);
 	}
 }
 

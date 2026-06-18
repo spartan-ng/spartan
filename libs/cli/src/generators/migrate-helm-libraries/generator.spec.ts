@@ -27,12 +27,12 @@ describe('migrate-helm-libraries generator', () => {
 		);
 	});
 
-	// Regression test for the `@nx/workspace` barrel import.
-	// Importing `removeGenerator` from the `@nx/workspace` entry point eagerly evaluates the
-	// barrel, which loads `convert-to-nx-project` -> `output.js`. On nx 22 that module crashes
-	// with "Cannot read properties of undefined (reading 'inverse')", so the generator threw
-	// before doing any work. Loading the generator and running it must not throw.
-	it('should run without crashing on the @nx/workspace barrel import', async () => {
+	// Regression test for resolving `@nx/workspace`'s `removeGenerator`. The package entry crashes on
+	// load ("Cannot read properties of undefined (reading 'inverse')") and the deep `src/` specifier is
+	// blocked by `exports` on nx 23+, so the generator must neither import it eagerly nor throw on load.
+	// Loading the generator and running it (here: nothing to migrate) must not throw. Resolving the
+	// generator itself when a library is removed is covered end-to-end by the cli-smoke suite.
+	it('should load and run without eagerly resolving the @nx/workspace remove generator', async () => {
 		const infoSpy = vi.spyOn(logger, 'info').mockImplementation(() => undefined);
 
 		await expect(

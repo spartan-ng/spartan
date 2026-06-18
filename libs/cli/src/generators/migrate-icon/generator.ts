@@ -1,7 +1,7 @@
 import { formatFiles, type Tree } from '@nx/devkit';
-import { applyChangesToString, ChangeType, type StringChange } from '@nx/devkit/src/utils/string-change';
 import { isImported } from '@schematics/angular/utility/ast-utils';
 import ts from 'typescript';
+import { applyChangesToString, ChangeType, type StringChange } from '../../utils/string-change';
 import { visitFiles } from '../../utils/visit-files';
 import type { MigrateIconGeneratorSchema } from './schema';
 

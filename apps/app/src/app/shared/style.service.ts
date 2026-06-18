@@ -8,7 +8,7 @@ import { Style } from '@spartan-ng/registry';
 export class StyleService {
 	private readonly _overlayContainer = inject(OverlayContainer);
 
-	public readonly style = signal<Style>('vega');
+	public readonly style = signal<Style>('nova');
 
 	constructor() {
 		// Keep the CDK overlay container class in sync with the active style so that

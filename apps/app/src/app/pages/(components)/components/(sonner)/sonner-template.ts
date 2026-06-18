@@ -15,3 +15,16 @@ import { HlmToasterImports } from '@spartan-ng/helm/sonner';
 })
 export class App {}
 `;
+
+export const appConfigCode = `
+import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { provideSpartanHlm } from '@spartan-ng/helm/utils';
+
+export const appConfig: ApplicationConfig = {
+  providers: [
+    provideZoneChangeDetection({ eventCoalescing: true }),
+    provideSpartanHlm(),
+    // ... other providers
+  ],
+};
+`;

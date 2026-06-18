@@ -18,7 +18,7 @@ import { metaWith } from '../../../../shared/meta/meta.util';
 import { SonnerDescriptionExample } from './sonner--description.example';
 import { SonnerPositionExample } from './sonner--position.example';
 import { SonnerTypesExample } from './sonner--types.example';
-import { defaultTemplate } from './sonner-template';
+import { appConfigCode, defaultTemplate } from './sonner-template';
 import { SonnerPreview, defaultImports, defaultSkeleton } from './sonner.preview';
 
 export const routeMeta: RouteMeta = {
@@ -68,6 +68,19 @@ export const routeMeta: RouteMeta = {
 			</p>
 
 			<spartan-code class="mt-6" fileName="src/app/app.ts" [code]="_defaultTemplate" />
+
+			<spartan-section-sub-heading id="angular-21-compatibility">Angular 21 Compatibility</spartan-section-sub-heading>
+			<p class="${hlmP}">
+				If you are using Angular 21+, the CDK overlay now defaults to using the
+				<code class="${hlmCode}">popover</code>
+				attribute, which causes overlay-based components (sheets, dialogs, etc.) to always render above
+				<code class="${hlmCode}">&lt;hlm-toaster&gt;</code>
+				. To fix this, add
+				<code class="${hlmCode}">provideSpartanHlm()</code>
+				to your application config:
+			</p>
+
+			<spartan-code class="mt-6" fileName="src/app/app.config.ts" [code]="_appConfigCode" />
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="mt-6 space-y-4">
@@ -122,4 +135,5 @@ export default class SonnerPage {
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
 	protected readonly _defaultTemplate = defaultTemplate;
+	protected readonly _appConfigCode = appConfigCode;
 }

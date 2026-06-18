@@ -21,10 +21,10 @@ export class CalendarPreview {
 	public selectedDate = new Date();
 
 	/** The minimum date */
-	public minDate = new Date(2023, 0, 1);
+	public minDate = new Date(new Date().setMonth(new Date().getMonth() - 2));
 
 	/** The maximum date */
-	public maxDate = new Date(2030, 11, 31);
+	public maxDate = new Date(new Date().setMonth(new Date().getMonth() + 2));
 }
 
 export const defaultImports = `

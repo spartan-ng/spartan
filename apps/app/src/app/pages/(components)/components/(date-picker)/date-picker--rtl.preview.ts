@@ -49,7 +49,7 @@ export const CALENDAR_I18N: Record<'en' | 'ar' | 'he', BrnCalendarI18n> = {
 		labelPrevious: () => 'الشهر السابق',
 		labelNext: () => 'الشهر التالي',
 		labelWeekday: (i) => ['الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'][i],
-		firstDayOfWeek: () => 6,
+		firstDayOfWeek: () => 0,
 	},
 	he: {
 		formatWeekdayName: (i) => ['א', 'ב', 'ג', 'ד', 'ה', 'ו', 'ש'][i],

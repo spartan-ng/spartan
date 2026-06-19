@@ -1,6 +1,6 @@
 import { Directionality } from '@angular/cdk/bidi';
 import {
-	afterNextRender,
+	afterRenderEffect,
 	contentChildren,
 	DestroyRef,
 	Directive,
@@ -11,6 +11,7 @@ import {
 	model,
 	NgZone,
 	output,
+	untracked,
 } from '@angular/core';
 import { BrnResizablePanel } from './brn-resizable-panel';
 
@@ -65,35 +66,62 @@ export class BrnResizableGroup {
 
 	/** Tears down the in-flight drag (document listeners, queued frame, cursor); null when idle. */
 	private _stopResize: (() => void) | null = null;
+	/** Panel order and sizes from the last layout applied to the rendered panels. */
+	private _knownPanels: readonly BrnResizablePanel[] = [];
+	private _appliedLayout: number[] = [];
 
 	constructor() {
 		// If the group is destroyed mid-drag, the document listeners would otherwise stay attached
 		// (document is never GC'd), pinning this directive and firing against a torn-down view.
 		inject(DestroyRef).onDestroy(() => this._stopResize?.());
 
-		afterNextRender(() => {
-			this._initializePanelSizes();
+		afterRenderEffect(() => {
+			// Track both membership and external model updates, but not the writes performed while reconciling them.
+			const panels = this.panels();
+			const layout = this.layout();
+			untracked(() => this._synchronizePanelSizes(panels, layout));
 		});
 	}
 
-	private _initializePanelSizes(): void {
-		const panels = this.panels();
+	private _synchronizePanelSizes(panels: readonly BrnResizablePanel[], currentLayout: number[]): void {
 		const totalPanels = panels.length;
 
-		if (totalPanels === 0) return;
+		if (totalPanels === 0) {
+			this._knownPanels = panels;
+			this._appliedLayout = [];
+			return;
+		}
 
-		const sizes: number[] = [];
+		const isInitialLayout = this._knownPanels.length === 0;
+		const hasCompleteExternalLayout =
+			!isInitialLayout &&
+			currentLayout.length === totalPanels &&
+			!this._layoutsEqual(currentLayout, this._appliedLayout);
 
-		panels.forEach((panel, index) => {
-			const defaultSize = panel.defaultSize() ?? this.layout()[index];
-			const size = defaultSize !== undefined ? defaultSize : 100 / totalPanels;
-			sizes.push(size);
-			panel.setSize(size);
-		});
+		let sizes: number[];
+		if (isInitialLayout) {
+			// Preserve the existing initialization contract: defaults take precedence over the input layout.
+			sizes = panels.map((panel, index) => panel.defaultSize() ?? currentLayout[index] ?? 100 / totalPanels);
+		} else if (hasCompleteExternalLayout) {
+			// A complete changed layout is explicit consumer intent for the current panel order.
+			sizes = [...currentLayout];
+		} else {
+			// Membership changed on its own: retain known panels by identity and initialize only new panels.
+			const previousSizes = new Map(this._knownPanels.map((panel, index) => [panel, this._appliedLayout[index]]));
+			sizes = panels.map((panel) => previousSizes.get(panel) ?? panel.defaultSize() ?? 100 / totalPanels);
+		}
 
-		if (this.layout().toString() !== sizes.toString()) {
+		panels.forEach((panel, index) => panel.setSize(sizes[index]));
+		this._knownPanels = panels;
+		this._appliedLayout = [...sizes];
+
+		if (!this._layoutsEqual(currentLayout, sizes)) {
 			this._setLayout(sizes);
 		}
+	}
+
+	private _layoutsEqual(first: readonly number[], second: readonly number[]): boolean {
+		return first.length === second.length && first.every((size, index) => size === second[index]);
 	}
 
 	public startResize(handleIndex: number, event: MouseEvent | TouchEvent): void {
@@ -233,6 +261,8 @@ export class BrnResizableGroup {
 				panel.setSize(size);
 			}
 		});
+		// Keyboard resizing writes to the public model directly, so capture the applied value here as well.
+		this._appliedLayout = [...sizes];
 	}
 
 	private _getEventPosition(event: MouseEvent | TouchEvent): number {
@@ -292,6 +322,7 @@ export class BrnResizableGroup {
 	}
 
 	private _setLayout(sizes: number[]): void {
+		this._appliedLayout = [...sizes];
 		this.layout.set(sizes);
 		this.layoutChanged.emit(sizes);
 	}

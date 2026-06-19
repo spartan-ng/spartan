@@ -22,7 +22,37 @@ class ResizableHost {
 	public readonly layout = signal<number[]>([50, 50]);
 }
 
-describe('BrnResizableGroup horizontal RTL resize', () => {
+@Component({
+	imports: [BrnResizableGroup, BrnResizablePanel, BrnResizableHandle],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<brn-resizable-group direction="vertical" [(layout)]="layout">
+			@if (showStart()) {
+				<brn-resizable-panel />
+				<brn-resizable-handle />
+			}
+			<brn-resizable-panel [defaultSize]="40" />
+			<brn-resizable-handle />
+			@if (showMiddle()) {
+				<brn-resizable-panel />
+				<brn-resizable-handle />
+			}
+			<brn-resizable-panel [defaultSize]="60" />
+			@if (showEnd()) {
+				<brn-resizable-handle />
+				<brn-resizable-panel [defaultSize]="25" />
+			}
+		</brn-resizable-group>
+	`,
+})
+class DynamicResizableHost {
+	public readonly layout = signal<number[]>([10, 90]);
+	public readonly showStart = signal(false);
+	public readonly showMiddle = signal(false);
+	public readonly showEnd = signal(false);
+}
+
+describe('BrnResizableGroup', () => {
 	let rafSpy: MockInstance;
 
 	beforeEach(() => {
@@ -117,5 +147,101 @@ describe('BrnResizableGroup horizontal RTL resize', () => {
 		expect(() =>
 			document.dispatchEvent(new MouseEvent('mousemove', { bubbles: true, clientX: 180, clientY: 0 })),
 		).not.toThrow();
+	});
+
+	it('initializes a panel added after the group has rendered', async () => {
+		const view = await render(DynamicResizableHost);
+		view.fixture.componentInstance.showEnd.set(true);
+		view.detectChanges();
+		await view.fixture.whenStable();
+
+		expect(view.fixture.componentInstance.layout()).toEqual([40, 60, 25]);
+
+		const handles = view.container.querySelectorAll<HTMLElement>('brn-resizable-handle');
+		handles[1].dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true }));
+		view.detectChanges();
+
+		expect(view.fixture.componentInstance.layout()).toEqual([40, 61, 24]);
+	});
+
+	it('keeps default sizes ahead of the initial layout values', async () => {
+		const view = await render(DynamicResizableHost);
+
+		expect(view.fixture.componentInstance.layout()).toEqual([40, 60]);
+	});
+
+	it('uses an equal share for a panel inserted at the beginning without a default size', async () => {
+		const view = await render(DynamicResizableHost);
+		view.fixture.componentInstance.showStart.set(true);
+		view.detectChanges();
+		await view.fixture.whenStable();
+
+		expect(view.fixture.componentInstance.layout()).toEqual([100 / 3, 40, 60]);
+	});
+
+	it('uses an equal share for a panel inserted in the middle without a default size', async () => {
+		const view = await render(DynamicResizableHost);
+		view.fixture.componentInstance.showMiddle.set(true);
+		view.detectChanges();
+		await view.fixture.whenStable();
+
+		expect(view.fixture.componentInstance.layout()).toEqual([40, 100 / 3, 60]);
+	});
+
+	it('preserves surviving panel sizes when a dynamic panel is removed', async () => {
+		const view = await render(DynamicResizableHost);
+		view.fixture.componentInstance.showMiddle.set(true);
+		view.detectChanges();
+		await view.fixture.whenStable();
+		expect(view.fixture.componentInstance.layout()).toEqual([40, 100 / 3, 60]);
+
+		view.fixture.componentInstance.showMiddle.set(false);
+		view.detectChanges();
+		await view.fixture.whenStable();
+
+		expect(view.fixture.componentInstance.layout()).toEqual([40, 60]);
+	});
+
+	it('preserves resized panel sizes when a new panel is added', async () => {
+		const view = await render(DynamicResizableHost);
+		const handle = view.container.querySelector<HTMLElement>('brn-resizable-handle') as HTMLElement;
+		handle.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true }));
+		view.detectChanges();
+		expect(view.fixture.componentInstance.layout()).toEqual([41, 59]);
+
+		view.fixture.componentInstance.showEnd.set(true);
+		view.detectChanges();
+		await view.fixture.whenStable();
+
+		expect(view.fixture.componentInstance.layout()).toEqual([41, 59, 25]);
+	});
+
+	it('honors a complete external layout supplied with a panel insertion', async () => {
+		const view = await render(DynamicResizableHost);
+		view.fixture.componentInstance.showMiddle.set(true);
+		view.fixture.componentInstance.layout.set([20, 30, 50]);
+		view.detectChanges();
+		await view.fixture.whenStable();
+
+		expect(view.fixture.componentInstance.layout()).toEqual([20, 30, 50]);
+		expect(
+			Array.from(view.container.querySelectorAll('[data-slot="resizable-panel"]'), (panel) =>
+				Number(panel.getAttribute('data-panel-size')),
+			),
+		).toEqual([20, 30, 50]);
+	});
+
+	it('applies an external layout update without a panel membership change', async () => {
+		const view = await render(DynamicResizableHost);
+		view.fixture.componentInstance.layout.set([35, 65]);
+		view.detectChanges();
+		await view.fixture.whenStable();
+
+		expect(view.fixture.componentInstance.layout()).toEqual([35, 65]);
+		expect(
+			Array.from(view.container.querySelectorAll('[data-slot="resizable-panel"]'), (panel) =>
+				Number(panel.getAttribute('data-panel-size')),
+			),
+		).toEqual([35, 65]);
 	});
 });

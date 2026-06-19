@@ -1,4 +1,4 @@
-import { Directive, ElementRef, afterEveryRender, afterNextRender, computed, inject, input, signal } from '@angular/core';
+import { DestroyRef, Directive, ElementRef, NgZone, afterNextRender, computed, inject, input, signal } from '@angular/core';
 import { measureDimensions } from '@spartan-ng/brain/core';
 import { injectBrnAccordionConfig, injectBrnAccordionItem } from './brn-accordion-token';
 
@@ -19,6 +19,12 @@ export class BrnAccordionContent {
 	private readonly _config = injectBrnAccordionConfig();
 	private readonly _item = injectBrnAccordionItem();
 	private readonly _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+	private readonly _destroyRef = inject(DestroyRef);
+	private readonly _ngZone = inject(NgZone);
+	private _resizeObserver: ResizeObserver | null = null;
+	private _mutationObserver: MutationObserver | null = null;
+	private readonly _observedElements = new Set<Element>();
+	private _measurementFrame = 0;
 
 	protected readonly _width = signal<number | null>(null);
 	protected readonly _height = signal<number | null>(null);
@@ -37,12 +43,11 @@ export class BrnAccordionContent {
 		if (!this._item) {
 			throw Error('Accordion Content can only be used inside an AccordionItem. Add brnAccordionItem to parent.');
 		}
-		// The fallback mutates display styles to measure hidden content, so keep it out of the recurring read phase.
 		afterNextRender({
-			mixedReadWrite: () => this._measureAndSetDimensions({ allowDisplayFallback: true }),
-		});
-		afterEveryRender({
-			read: () => this._measureAndSetDimensions(),
+			mixedReadWrite: () => {
+				this._measureAndSetDimensions({ allowDisplayFallback: true });
+				this._setupResizeObserver();
+			},
 		});
 	}
 
@@ -66,5 +71,60 @@ export class BrnAccordionContent {
 		if (height !== this._height()) {
 			this._height.set(height);
 		}
+	}
+
+	private _setupResizeObserver(): void {
+		if (typeof ResizeObserver === 'undefined') return;
+
+		const element = this._elementRef.nativeElement;
+
+		this._ngZone.runOutsideAngular(() => {
+			this._resizeObserver = new ResizeObserver(() => this._queueMeasurement());
+			this._observeContentElements();
+
+			if (typeof MutationObserver !== 'undefined') {
+				this._mutationObserver = new MutationObserver((records) => {
+					if (records.some((record) => record.target === element && record.type === 'childList')) {
+						this._observeContentElements();
+					}
+					this._queueMeasurement();
+				});
+				this._mutationObserver.observe(element, { childList: true, characterData: true, subtree: true });
+			}
+
+			this._destroyRef.onDestroy(() => {
+				this._resizeObserver?.disconnect();
+				this._mutationObserver?.disconnect();
+				if (this._measurementFrame) {
+					cancelAnimationFrame(this._measurementFrame);
+				}
+			});
+		});
+	}
+
+	private _observeContentElements(): void {
+		if (!this._resizeObserver) return;
+
+		for (const observedElement of this._observedElements) {
+			this._resizeObserver.unobserve(observedElement);
+		}
+		this._observedElements.clear();
+
+		const element = this._elementRef.nativeElement;
+		const elementsToObserve = element.children.length > 0 ? Array.from(element.children) : [element];
+
+		for (const elementToObserve of elementsToObserve) {
+			this._resizeObserver.observe(elementToObserve);
+			this._observedElements.add(elementToObserve);
+		}
+	}
+
+	private _queueMeasurement(): void {
+		if (this._measurementFrame) return;
+
+		this._measurementFrame = requestAnimationFrame(() => {
+			this._measurementFrame = 0;
+			this._ngZone.run(() => this._measureAndSetDimensions());
+		});
 	}
 }

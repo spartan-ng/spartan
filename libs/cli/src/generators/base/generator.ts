@@ -50,6 +50,38 @@ function isAlreadyInstalled(tree: Tree, alias: string): boolean {
 
 function setupAngularCliProject(tree: Tree, alias: string, targetLibDir: string) {
 	addTsConfigPath(tree, alias, [`./${joinPathFragments(targetLibDir, 'src', 'index.ts').replace(/\\/g, '/')}`]);
+
+	// The generated libraries live outside the app's `src`, so they aren't covered by tsconfig.app.json's
+	// default `src/**/*.ts` include. The app still *builds* (the Angular builder follows the path-mapped
+	// imports into the libs), but the TS language server treats the generated files as orphans compiled
+	// without the root `paths`, so cross-lib imports (`@spartan-ng/helm/utils`, ...) show as "cannot find
+	// module" in the editor. Add the generated component source dirs to the include so the files belong to
+	// the app project and resolve in-editor, without pulling specs/stories/helpers under the components dir
+	// into the app program.
+	const componentsBaseDir = path.posix.dirname(targetLibDir.replace(/\\/g, '/'));
+	ensureAppTsConfigIncludes(tree, `${componentsBaseDir}/**/src/**/*.ts`);
+}
+
+// Adds `glob` to the Angular CLI app's tsconfig.app.json `include` (idempotent). Targets tsconfig.app.json
+// by convention - the default build/typecheck tsconfig for an `ng new` app; a non-standard app tsconfig is
+// left untouched (the spartan angular-cli flow assumes the default layout).
+function ensureAppTsConfigIncludes(tree: Tree, glob: string) {
+	const tsConfigAppPath = 'tsconfig.app.json';
+	if (!tree.exists(tsConfigAppPath)) {
+		return;
+	}
+	updateJson(tree, tsConfigAppPath, (json) => {
+		if (!Array.isArray(json.include)) {
+			// With no `include`, TypeScript implicitly compiles every `.ts` under the config dir. Seeding the
+			// array with just our glob would silently replace that with "only the generated libs", dropping the
+			// app's own `src` from the editor program. Preserve the implicit `src` coverage before appending.
+			json.include = ['src/**/*.ts'];
+		}
+		if (!json.include.includes(glob)) {
+			json.include.push(glob);
+		}
+		return json;
+	});
 }
 
 // nx's `librarySecondaryEntryPointGenerator` appends an entrypoint-prefixed copy of every existing

@@ -10,7 +10,7 @@ import { classes } from '@spartan-ng/helm/utils';
 			align: 'start',
 			sideOffset: 6,
 		}),
-		provideBrnPopoverDefaultOptions({ role: null }),
+		provideBrnPopoverDefaultOptions({ role: null, closeOnOutsidePointerEvents: false }),
 	],
 	hostDirectives: [
 		{

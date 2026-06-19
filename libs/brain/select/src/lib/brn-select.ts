@@ -5,14 +5,17 @@ import {
 	booleanAttribute,
 	computed,
 	contentChildren,
+	DestroyRef,
 	Directive,
 	effect,
+	ElementRef,
 	forwardRef,
 	inject,
 	Injector,
 	input,
 	linkedSignal,
 	model,
+	NgZone,
 	signal,
 	untracked,
 } from '@angular/core';
@@ -45,6 +48,9 @@ export const BRN_SELECT_VALUE_ACCESSOR = {
 export class BrnSelect<T> implements BrnSelectBase<T>, ControlValueAccessor {
 	private readonly _injector = inject(Injector);
 	private readonly _fieldControl = inject(BrnFieldControl, { optional: true });
+	private readonly _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+	private readonly _destroyRef = inject(DestroyRef);
+	private readonly _ngZone = inject(NgZone);
 
 	private readonly _config = injectBrnSelectConfig<T>();
 
@@ -133,6 +139,31 @@ export class BrnSelect<T> implements BrnSelectBase<T>, ControlValueAccessor {
 				},
 				{ injector: this._injector },
 			);
+		});
+
+		afterNextRender(() => {
+			const handler = (event: PointerEvent) => {
+				if (this._disabled() || !this.isExpanded()) return;
+
+				const target = event.target as HTMLElement | null;
+				if (!target) return;
+
+				const nativeEl = this._elementRef.nativeElement;
+				const overlayId = this._brnPopover?.id();
+				const overlayEl = overlayId ? document.getElementById(overlayId) : null;
+
+				if (nativeEl?.contains(target)) return;
+				if (overlayEl?.contains(target)) return;
+
+				this._ngZone.run(() => {
+					if (this.isExpanded()) {
+						this._brnPopover?.close();
+					}
+				});
+			};
+
+			document.addEventListener('pointerdown', handler);
+			this._destroyRef.onDestroy(() => document.removeEventListener('pointerdown', handler));
 		});
 	}
 

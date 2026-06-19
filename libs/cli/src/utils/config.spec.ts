@@ -14,7 +14,7 @@ describe('getImportAlias', () => {
 	});
 
 	it('returns the configured alias from a valid config', async () => {
-		writeJson(tree, 'components.json', { importAlias: '@my-org/ui' });
+		writeJson(tree, 'components.json', { importAlias: '@my-org/ui', style: 'vega' });
 
 		await expect(getImportAlias(tree, false)).resolves.toBe('@my-org/ui');
 	});
@@ -22,7 +22,7 @@ describe('getImportAlias', () => {
 	// A present-but-invalid config must fail loudly rather than silently fall back to the default
 	// alias, which would run every migration against the wrong imports.
 	it('throws when the config exists but is invalid', async () => {
-		writeJson(tree, 'components.json', { importAlias: 123 });
+		writeJson(tree, 'components.json', { importAlias: 123, style: 'vega' });
 
 		await expect(getImportAlias(tree, false)).rejects.toThrow();
 	});

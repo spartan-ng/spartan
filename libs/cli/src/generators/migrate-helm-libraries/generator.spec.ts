@@ -41,6 +41,7 @@ describe('migrate-helm-libraries generator', () => {
 				generateAs: 'library',
 				buildable: true,
 				importAlias: '@spartan-ng/helm',
+				style: 'vega',
 			}),
 		).resolves.toBeUndefined();
 

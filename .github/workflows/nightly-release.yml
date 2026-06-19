@@ -136,8 +136,10 @@ jobs:
   release:
     needs:
       - check_date
+      - commitlint
       - build
       - format-and-lint
+      - cli-smoke
     if: ${{ needs.check_date.outputs.should_run != 'false' }}
 
     runs-on: ubuntu-latest

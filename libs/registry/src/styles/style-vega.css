@@ -265,10 +265,6 @@
 		@apply p-3 [--cell-radius:var(--radius-md)] [--cell-size:--spacing(8)];
 	}
 
-	&.spartan-calendar-dropdown-root {
-		@apply has-focus:border-ring border-input has-focus:ring-ring/50 border shadow-xs has-focus:ring-3;
-	}
-
 	&.spartan-calendar-caption-label {
 		@apply h-8 pr-1 pl-2;
 	}

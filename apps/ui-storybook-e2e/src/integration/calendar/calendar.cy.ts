@@ -30,7 +30,7 @@ describe('calendar', () => {
 					return element.textContent.trim() === '1' && !element.hasAttribute('data-outside');
 				})
 				.should('have.attr', 'aria-selected', 'true')
-				.should('have.attr', 'data-selected');
+				.should('have.attr', 'data-selected-single', 'true');
 		});
 
 		it('should select a date when clicked', () => {

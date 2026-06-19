@@ -52,7 +52,7 @@ export const Default: Story = {
 			</hlm-item>
 			<a hlmItem variant="outline" size="sm">
 				<hlm-item-media>
-					<ng-icon name="lucideBadgeCheck" class="text-[calc(var(--spacing)*5)]" />
+					<ng-icon name="lucideBadgeCheck" class="text-[length:--spacing(5)]" />
 				</hlm-item-media>
 				<hlm-item-content>
 					<hlm-item-title>Your profile has been verified.</hlm-item-title>

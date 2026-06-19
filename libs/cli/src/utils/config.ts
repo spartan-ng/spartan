@@ -9,6 +9,7 @@ const configPath = 'components.json';
 
 export const AngularCliConfigSchema = z.object({
 	componentsPath: z.string().optional().default('libs/ui'),
+	style: z.enum(STYLES).default('vega'),
 	importAlias: z
 		.string()
 		.optional()

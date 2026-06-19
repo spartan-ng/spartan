@@ -3,7 +3,7 @@ import { StackBlitzMetaService } from '../../core/services/stackblitz-meta.servi
 import {
 	type GeneratedProject,
 	isRunnableExample,
-	StackBlitzProjectBuilderService
+	StackBlitzProjectBuilderService,
 } from './stackblitz-project-builder.service';
 
 const EXAMPLE = `import { Component } from '@angular/core';

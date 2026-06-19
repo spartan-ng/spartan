@@ -9,8 +9,8 @@ import { HlmInputGroup, HlmInputGroupImports } from '@spartan-ng/helm/input-grou
 	selector: 'hlm-combobox-input',
 	imports: [HlmInputGroupImports, NgIcon, BrnComboboxImports, BrnComboboxPopoverTrigger],
 	providers: [provideIcons({ lucideChevronDown, lucideX })],
-	hostDirectives: [BrnComboboxAnchor, HlmInputGroup],
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	hostDirectives: [BrnComboboxAnchor, HlmInputGroup],
 	template: `
 		<input
 			brnComboboxInput

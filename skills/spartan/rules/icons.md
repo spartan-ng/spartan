@@ -35,7 +35,15 @@ export class ExampleComponent {}
 If an icon does not render, the usual cause is a missing `provideIcons` entry.
 
 For free-standing decorative icons you may set color with a semantic class
-(`class="text-muted-foreground"`), but still prefer the `size` input over `w-*`/`h-*`.
+(`class="text-muted-foreground"`).
+
+## Sizing
+
+`<ng-icon>` inherits its size from the font size of its parent. Use a Tailwind font-size utility to scale it, following the spacing scale:
+
+```html
+<ng-icon name="lucideChevronRight" class="text-[length:--spacing(4)]" />
+```
 
 ## Installing the icon component
 

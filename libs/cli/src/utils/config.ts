@@ -9,7 +9,7 @@ const configPath = 'components.json';
 
 export const AngularCliConfigSchema = z.object({
 	componentsPath: z.string().optional().default('libs/ui'),
-	style: z.enum(STYLES).default('vega'),
+	style: z.enum(STYLES).default('nova'),
 	importAlias: z
 		.string()
 		.optional()
@@ -21,7 +21,7 @@ export const NXConfigSchema = z.object({
 	componentsPath: z.string().optional().default('libs/ui'),
 	buildable: z.boolean().optional().default(true),
 	generateAs: z.enum(generateOptions).optional().default('library'),
-	style: z.enum(STYLES).default('vega'),
+	style: z.enum(STYLES).default('nova'),
 	importAlias: z
 		.string()
 		.optional()

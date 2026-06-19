@@ -1,4 +1,4 @@
-import type { RegistryItem } from '@spartan-ng/cli';
+import type { RegistryItem } from './schema/schema';
 
 export const THEMES: RegistryItem[] = [
 	{

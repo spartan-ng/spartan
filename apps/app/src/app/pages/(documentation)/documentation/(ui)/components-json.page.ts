@@ -65,6 +65,7 @@ export const routeMeta: RouteMeta = {
 	"importAlias": "@spartan-ng/helm",
 	"buildable": true,
 	"generateAs": "library" | "entrypoint"
+	"style": "vega" | "lyra" | "maia" | "mira" | "nova" | "luma"
 }'
 			/>
 

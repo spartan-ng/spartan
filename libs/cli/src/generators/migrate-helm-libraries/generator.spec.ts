@@ -23,6 +23,7 @@ describe('migrate-helm-libraries generator', () => {
 				importAlias: '@spartan-ng/helm',
 				generateAs: 'library',
 				buildable: true,
+				style: 'vega',
 			}),
 		);
 	});

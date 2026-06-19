@@ -3,7 +3,7 @@ import { StackBlitzMetaService } from '../../core/services/stackblitz-meta.servi
 import {
 	type GeneratedProject,
 	isRunnableExample,
-	StackBlitzProjectBuilderService,
+	StackBlitzProjectBuilderService
 } from './stackblitz-project-builder.service';
 
 const EXAMPLE = `import { Component } from '@angular/core';
@@ -22,7 +22,7 @@ const GENERATED: GeneratedProject = {
 		'libs/ui/button/src/index.ts': "export * from './lib/hlm-button';",
 		'libs/ui/button/src/lib/hlm-button.ts': 'export class HlmButton {}',
 		'libs/ui/utils/src/index.ts': 'export function hlm() {}',
-		'components.json': '{ "componentsPath": "libs/ui", "importAlias": "@spartan-ng/helm" }',
+		'components.json': '{ "componentsPath": "libs/ui", "importAlias": "@spartan-ng/helm", "style": "vega" }',
 	},
 	dependencies: {
 		'@spartan-ng/brain': '0.0.1-alpha.702',

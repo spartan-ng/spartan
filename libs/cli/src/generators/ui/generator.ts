@@ -1,4 +1,5 @@
 import { type GeneratorCallback, getProjects, runTasksInSerial, type Tree } from '@nx/devkit';
+import type { Style } from '@spartan-ng/registry';
 import { prompt } from 'enquirer';
 import { type Config, getOrCreateConfig } from '../../utils/config';
 import type { GenerateAs } from '../base/lib/generate-as';
@@ -58,6 +59,7 @@ export async function createPrimitiveLibraries(
 		buildable?: boolean;
 		generateAs?: GenerateAs;
 		importAlias?: string;
+		style?: Style;
 	},
 	config: Config,
 ) {
@@ -110,6 +112,7 @@ export async function createPrimitiveLibraries(
 				buildable: options.buildable ?? config.buildable,
 				generateAs: options.generateAs ?? config.generateAs ?? 'library',
 				importAlias: options.importAlias ?? config.importAlias ?? `@spartan-ng/helm`,
+				style: options.style ?? config.style,
 			} satisfies HlmBaseGeneratorSchema);
 		}),
 	);

@@ -1,4 +1,6 @@
 import { readJson, type Tree } from '@nx/devkit';
+import type { Style } from '@spartan-ng/registry';
+import { STYLES } from '@spartan-ng/registry';
 import { prompt } from 'enquirer';
 import z, { ZodError } from 'zod';
 import { type GenerateAs, generateOptions } from '../generators/base/lib/generate-as';
@@ -18,6 +20,7 @@ export const NXConfigSchema = z.object({
 	componentsPath: z.string().optional().default('libs/ui'),
 	buildable: z.boolean().optional().default(true),
 	generateAs: z.enum(generateOptions).optional().default('library'),
+	style: z.enum(STYLES).default('vega'),
 	importAlias: z
 		.string()
 		.optional()
@@ -117,18 +120,27 @@ export async function getOrCreateConfig(
 			initial: defaults?.importAlias ?? '@spartan-ng/helm',
 			skip: !!defaults?.importAlias,
 		},
+		{
+			type: 'select',
+			choices: STYLES,
+			message: 'Which design system style do you want to use?',
+			name: 'style',
+			initial: 0,
+			skip: !!defaults?.style, // Only relevant for Angular CLI projects, which generate components with styles by default
+		},
 	];
 
 	console.log('Configuration file not found, creating a new one...');
 
-	const { componentsPath, buildable, generateAs, importAlias } = (await prompt(questions)) as {
+	const { componentsPath, buildable, generateAs, importAlias, style } = (await prompt(questions)) as {
 		componentsPath: string;
 		buildable: boolean;
 		generateAs: GenerateAs;
 		importAlias: string;
+		style: Style;
 	};
 
-	const config = { componentsPath, buildable, generateAs, importAlias };
+	const config = { componentsPath, buildable, generateAs, importAlias, style };
 
 	tree.write(configPath, JSON.stringify(config, null, 2));
 

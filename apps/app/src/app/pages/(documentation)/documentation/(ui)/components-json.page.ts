@@ -64,8 +64,8 @@ export const routeMeta: RouteMeta = {
 	"componentsPath": "libs/ui",
 	"importAlias": "@spartan-ng/helm",
 	"buildable": true,
-	"generateAs": "library" | "entrypoint"
-	"style": "vega" | "lyra" | "maia" | "mira" | "nova" | "luma"
+	"generateAs": "library" | "entrypoint",
+	"style": "nova" | "vega" | "lyra" | "maia" | "mira" | "luma"
 }'
 			/>
 

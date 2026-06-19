@@ -4,7 +4,8 @@ import { createPrimitiveLibraries, createStyleMap, getOrCreateConfig, transformS
 import { copyFileSync, existsSync, readFileSync, rmSync } from 'node:fs';
 import { join } from 'node:path';
 
-const STYLES = ['vega', 'lyra', 'maia', 'mira', 'nova', 'luma'] as const;
+// todo remove this when the registry is build and published
+const STYLES = ['nova', 'vega', 'lyra', 'maia', 'mira', 'luma'] as const;
 type Style = (typeof STYLES)[number];
 
 function shouldIgnoreImport(importLine: string) {

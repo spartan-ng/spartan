@@ -91,6 +91,7 @@ export async function createPrimitiveLibraries(
 			directory: options.directory ?? config.componentsPath,
 			buildable: config.buildable,
 			importAlias: config.importAlias,
+			style: config.style,
 		});
 		tasks.push(task);
 	}

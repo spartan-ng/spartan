@@ -336,16 +336,17 @@ async function writeStackblitzProject(tree: Tree): Promise<void> {
 		angularCli: true,
 		componentsPath: 'libs/ui',
 		importAlias: '@spartan-ng/helm',
+		style: 'nova',
 	});
 
-	// The CLI base generator reads its style map from `libs/cli/src/generators/ui/style-vega.css`
+	// The CLI base generator reads its style map from `libs/cli/src/generators/ui/style-nova.css`
 	// on the real filesystem (that file is normally produced by the cli build's asset copy). When
 	// running from source it is absent, which would silently strip the spartan-* variant classes.
 	// Stage it from the registry source for the duration of the run, then clean up.
-	const cliVegaCss = join(__dirname, '../../../../cli/src/generators/ui/style-vega.css');
+	const cliVegaCss = join(__dirname, '../../../../cli/src/generators/ui/style-nova.css');
 	const stagedVegaCss = !existsSync(cliVegaCss);
 	if (stagedVegaCss) {
-		copyFileSync(join(__dirname, '../../../../registry/src/styles/style-vega.css'), cliVegaCss);
+		copyFileSync(join(__dirname, '../../../../registry/src/styles/style-nova.css'), cliVegaCss);
 	}
 	try {
 		await createPrimitiveLibraries(

@@ -1,4 +1,4 @@
-import { readJson, type Tree } from '@nx/devkit';
+import { readJson, type Tree, updateJson } from '@nx/devkit';
 
 import { prompt } from 'enquirer';
 import z, { ZodError } from 'zod';
@@ -9,7 +9,7 @@ const configPath = 'components.json';
 
 export const AngularCliConfigSchema = z.object({
 	componentsPath: z.string().optional().default('libs/ui'),
-	style: z.enum(STYLES).default('nova'),
+	style: z.enum(STYLES),
 	importAlias: z
 		.string()
 		.optional()
@@ -21,7 +21,7 @@ export const NXConfigSchema = z.object({
 	componentsPath: z.string().optional().default('libs/ui'),
 	buildable: z.boolean().optional().default(true),
 	generateAs: z.enum(generateOptions).optional().default('library'),
-	style: z.enum(STYLES).default('nova'),
+	style: z.enum(STYLES),
 	importAlias: z
 		.string()
 		.optional()
@@ -34,6 +34,22 @@ export type Config = z.infer<typeof NXConfigSchema>;
 const getConfig = async (tree: Tree, isAngularCli: boolean): Promise<Config> => {
 	const raw = await readJson(tree, configPath);
 	try {
+		if (!raw.style) {
+			const add = (
+				await prompt<{ confirmed: boolean }>({
+					type: 'confirm',
+					name: 'confirmed',
+					message: "A style is required in your components.json. We'll add the vega style for you.",
+					initial: true,
+				})
+			).confirmed;
+
+			if (add) {
+				updateJson(tree, configPath, (json) => ({ ...json, style: 'vega' }));
+				raw.style = 'vega';
+			}
+		}
+
 		if (isAngularCli) {
 			return AngularCliConfigSchema.parse(raw);
 		} else {

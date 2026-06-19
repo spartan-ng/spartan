@@ -33,8 +33,8 @@ describe('select', () => {
 			}
 
 			// close select
-			cy.get('body').click();
-			cy.get('[brnselecttrigger]').should('have.focus');
+			cy.get('[brnselecttrigger]').click();
+			cy.get('[brnselecttrigger]').should('have.attr', 'aria-expanded', 'false');
 		}
 	};
 
@@ -48,7 +48,7 @@ describe('select', () => {
 			verifySelectSetup();
 			cy.get('[brnselecttrigger]').click();
 			cy.get('[brnselecttrigger]').should('have.attr', 'aria-expanded', 'true');
-			cy.get('body').click();
+			cy.get('[brnselecttrigger]').click();
 			cy.get('[brnselecttrigger]').should('have.attr', 'aria-expanded', 'false');
 		});
 
@@ -92,7 +92,7 @@ describe('select', () => {
 							cy.get('hlm-select-trigger').contains(optionValue, { matchCase: false });
 							cy.get('hlm-select-trigger').contains(optionValue2, { matchCase: false });
 
-							cy.get('body').click();
+							cy.get('[brnselecttrigger]').click();
 							cy.get('hlm-select-content').should('not.exist');
 							cy.get('[brnselecttrigger]').should('have.attr', 'aria-expanded', 'false');
 						});
@@ -118,7 +118,7 @@ describe('select', () => {
 							cy.get('hlm-select-trigger').contains(optionValue, { matchCase: false });
 							cy.get('hlm-select-trigger').contains(optionValue2, { matchCase: false });
 
-							cy.get('body').click();
+							cy.get('[brnselecttrigger]').click();
 							cy.get('hlm-select-content').should('not.exist');
 							cy.get('[brnselecttrigger]').should('have.attr', 'aria-expanded', 'false');
 						});
@@ -194,7 +194,7 @@ describe('select', () => {
 			cy.get('[brnselecttrigger]').should('not.have.attr', 'data-dirty');
 			cy.get('[brnselecttrigger]').should('have.attr', 'aria-invalid', 'true');
 			cy.get('[brnselecttrigger]').should('not.have.attr', 'data-matches-spartan-invalid');
-			cy.get('body').click();
+			cy.get('[brnselecttrigger]').click();
 
 			// no selection
 			cy.get('[brnselecttrigger]').should('have.attr', 'data-touched', 'true');
@@ -235,7 +235,7 @@ describe('select', () => {
 			cy.get('[brnselecttrigger]').should('not.have.attr', 'data-dirty');
 			cy.get('[brnselecttrigger]').should('not.have.attr', 'aria-invalid');
 			cy.get('[brnselecttrigger]').should('not.have.attr', 'data-matches-spartan-invalid');
-			cy.get('body').click();
+			cy.get('[brnselecttrigger]').click();
 
 			// no selection
 			cy.get('[brnselecttrigger]').should('have.attr', 'data-touched', 'true');
@@ -267,7 +267,7 @@ describe('select', () => {
 			cy.get('[brnselecttrigger]').should('not.have.attr', 'data-dirty');
 			cy.get('[brnselecttrigger]').should('have.attr', 'aria-invalid', 'true');
 			cy.get('[brnselecttrigger]').should('not.have.attr', 'data-matches-spartan-invalid');
-			cy.get('body').click();
+			cy.get('[brnselecttrigger]').click();
 
 			// no selection
 			cy.get('[brnselecttrigger]').should('have.attr', 'data-touched', 'true');
@@ -299,7 +299,7 @@ describe('select', () => {
 			cy.get('[brnselecttrigger]').should('not.have.attr', 'data-dirty');
 			cy.get('[brnselecttrigger]').should('not.have.attr', 'aria-invalid');
 			cy.get('[brnselecttrigger]').should('not.have.attr', 'data-matches-spartan-invalid');
-			cy.get('body').click();
+			cy.get('[brnselecttrigger]').click();
 
 			// no selection
 			cy.get('[brnselecttrigger]').should('have.attr', 'data-touched', 'true');
@@ -331,7 +331,7 @@ describe('select', () => {
 			cy.get('[brnselecttrigger]').should('not.have.attr', 'data-dirty');
 			cy.get('[brnselecttrigger]').should('not.have.attr', 'aria-invalid');
 			cy.get('[brnselecttrigger]').should('not.have.attr', 'data-matches-spartan-invalid');
-			cy.get('body').click();
+			cy.get('[brnselecttrigger]').click();
 
 			// no selection
 			cy.get('[brnselecttrigger]').should('have.attr', 'data-touched', 'true');

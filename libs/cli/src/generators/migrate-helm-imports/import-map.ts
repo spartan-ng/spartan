@@ -24,7 +24,6 @@ export default {
 	'@spartan-ng/ui-formfield-helm': '@spartan-ng/helm/form-field',
 	'@spartan-ng/ui-hover-card-helm': '@spartan-ng/helm/hover-card',
 	'@spartan-ng/ui-hovercard-helm': '@spartan-ng/helm/hover-card',
-	'@spartan-ng/ui-icon-helm': '@spartan-ng/helm/icon',
 	'@spartan-ng/ui-input-helm': '@spartan-ng/helm/input',
 	'@spartan-ng/ui-input-otp-helm': '@spartan-ng/helm/input-otp',
 	'@spartan-ng/ui-inputotp-helm': '@spartan-ng/helm/input-otp',

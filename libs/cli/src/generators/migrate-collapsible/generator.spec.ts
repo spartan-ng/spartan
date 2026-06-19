@@ -64,7 +64,7 @@ describe('migrate-collapsible generator', () => {
 				import { NgModule } from '@angular/core';
 				import { NgIcon } from '@ng-icons/core';
 				import { BrnCollapsibleImports } from '@spartan-ng/brain/collapsible';
-				import { HlmIcon } from '@spartan-ng/helm/icon';
+				import { HlmIcon } from '@spartan-ng/ui-icon-helm';
 				import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 	
 				@NgModule({

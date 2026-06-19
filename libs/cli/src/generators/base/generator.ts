@@ -19,8 +19,9 @@ import { getTargetLibraryDirectory } from './lib/get-target-library-directory';
 import { initializeAngularLibrary } from './lib/initialize-angular-library';
 
 import { librarySecondaryEntryPointGenerator } from '@nx/angular/generators';
-import type { Style } from '@spartan-ng/registry';
+
 import { promises as fsPromises } from 'fs';
+import type { Style } from '../../utils/supported-styles';
 import { singleLibName } from './lib/single-lib-name';
 import { createStyleMap } from './lib/styles/create-style-map';
 import { transformStyle } from './lib/styles/transform';

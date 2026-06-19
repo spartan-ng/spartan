@@ -1,9 +1,9 @@
 import { readJson, type Tree } from '@nx/devkit';
-import type { Style } from '@spartan-ng/registry';
-import { STYLES } from '@spartan-ng/registry';
+
 import { prompt } from 'enquirer';
 import z, { ZodError } from 'zod';
 import { type GenerateAs, generateOptions } from '../generators/base/lib/generate-as';
+import { type Style, STYLES } from './supported-styles';
 
 const configPath = 'components.json';
 

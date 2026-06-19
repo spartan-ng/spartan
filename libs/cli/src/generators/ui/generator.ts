@@ -1,7 +1,8 @@
 import { type GeneratorCallback, getProjects, runTasksInSerial, type Tree } from '@nx/devkit';
-import type { Style } from '@spartan-ng/registry';
+
 import { prompt } from 'enquirer';
 import { type Config, getOrCreateConfig } from '../../utils/config';
+import type { Style } from '../../utils/supported-styles';
 import type { GenerateAs } from '../base/lib/generate-as';
 import { initializeAngularEntrypoint } from '../base/lib/initialize-angular-library';
 import { singleLibName } from '../base/lib/single-lib-name';

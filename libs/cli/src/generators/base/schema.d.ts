@@ -1,4 +1,4 @@
-import type { Style } from '@spartan-ng/registry';
+import type { Style } from '../../utils/supported-styles';
 import { type GenerateAs } from './lib/generate-as';
 
 export interface HlmBaseGeneratorSchema {

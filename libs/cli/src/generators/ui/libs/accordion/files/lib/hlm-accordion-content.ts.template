@@ -5,7 +5,7 @@ import { classes } from '<%- importAlias %>/utils';
 @Component({
 	selector: 'hlm-accordion-content',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	hostDirectives: [{ directive: BrnAccordionContent, inputs: ['style'] }],
+	hostDirectives: [BrnAccordionContent],
 	host: {
 		'data-slot': 'accordion-content',
 	},
@@ -21,7 +21,7 @@ export class HlmAccordionContent {
 	constructor() {
 		classes(
 			() =>
-				'spartan-accordion-content transition-all data-[state=closed]:h-0 data-[state=open]:h-(--brn-accordion-content-height)',
+				'spartan-accordion-content overflow-hidden data-[state=closed]:h-0 data-[state=open]:h-auto',
 		);
 	}
 }

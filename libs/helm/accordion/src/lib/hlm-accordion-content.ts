@@ -5,7 +5,7 @@ import { classes } from '@spartan-ng/helm/utils';
 @Component({
 	selector: 'hlm-accordion-content',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	hostDirectives: [{ directive: BrnAccordionContent, inputs: ['style'] }],
+	hostDirectives: [BrnAccordionContent],
 	host: {
 		'data-slot': 'accordion-content',
 	},
@@ -19,9 +19,6 @@ import { classes } from '@spartan-ng/helm/utils';
 })
 export class HlmAccordionContent {
 	constructor() {
-		classes(
-			() =>
-				'spartan-accordion-content transition-all data-[state=closed]:h-0 data-[state=open]:h-(--brn-accordion-content-height)',
-		);
+		classes(() => 'spartan-accordion-content overflow-hidden data-[state=closed]:h-0 data-[state=open]:h-auto');
 	}
 }

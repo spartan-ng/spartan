@@ -1,4 +1,4 @@
-import { Directive, ElementRef, afterEveryRender, computed, inject, input, signal } from '@angular/core';
+import { Directive, ElementRef, afterEveryRender, afterNextRender, computed, inject, input, signal } from '@angular/core';
 import { measureDimensions } from '@spartan-ng/brain/core';
 import { injectBrnAccordionConfig, injectBrnAccordionItem } from './brn-accordion-token';
 
@@ -37,19 +37,27 @@ export class BrnAccordionContent {
 		if (!this._item) {
 			throw Error('Accordion Content can only be used inside an AccordionItem. Add brnAccordionItem to parent.');
 		}
+		// The fallback mutates display styles to measure hidden content, so keep it out of the recurring read phase.
+		afterNextRender({
+			mixedReadWrite: () => this._measureAndSetDimensions({ allowDisplayFallback: true }),
+		});
 		afterEveryRender({
 			read: () => this._measureAndSetDimensions(),
 		});
 	}
 
-	private _measureAndSetDimensions(): void {
+	private _measureAndSetDimensions(options: { allowDisplayFallback?: boolean } = {}): void {
 		const element = this._elementRef.nativeElement;
 		let width = element.scrollWidth;
 		let height = element.scrollHeight;
 
 		if (width === 0 && height === 0) {
-			const elementToMeasure = (element.firstElementChild as HTMLElement | null) ?? element;
-			({ width, height } = measureDimensions(elementToMeasure, this._config.measurementDisplay));
+			if (options.allowDisplayFallback) {
+				const elementToMeasure = (element.firstElementChild as HTMLElement | null) ?? element;
+				({ width, height } = measureDimensions(elementToMeasure, this._config.measurementDisplay));
+			} else if (element.getClientRects().length === 0) {
+				return;
+			}
 		}
 
 		if (width !== this._width()) {

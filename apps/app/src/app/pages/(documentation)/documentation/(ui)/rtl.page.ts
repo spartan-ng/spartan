@@ -22,7 +22,7 @@ export const routeMeta: RouteMeta = {
 
 	template: `
 		<section spartanMainSection>
-			<spartan-section-intro name="RTL" lead="Right-to-left support for shadcn/ui components." />
+			<spartan-section-intro name="RTL" lead="Right-to-left support for spartan/ui components." />
 			<p class="${hlmP} mb-8">
 				spartan/ui components have first-class support for right-to-left (RTL) layouts. Text alignment, positioning, and
 				directional styles automatically adapt for languages like Arabic, Hebrew, and Persian.

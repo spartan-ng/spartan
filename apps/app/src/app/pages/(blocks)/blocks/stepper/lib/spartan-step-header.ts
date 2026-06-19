@@ -4,7 +4,6 @@ import { ChangeDetectionStrategy, Component, booleanAttribute, computed, input, 
 import { provideIcons } from '@ng-icons/core';
 import { lucideCheck, lucideCircleAlert, lucidePencil } from '@ng-icons/lucide';
 import { ButtonVariants, buttonVariants } from '@spartan-ng/helm/button';
-import { HlmIconImports } from '@spartan-ng/helm/icon';
 import { SpartanStepLabel } from './spartan-step-label';
 import { SpartanStepperLabelPosition } from './spartan-stepper';
 import { injectSpartanStepperConfig } from './stepper.token';
@@ -13,7 +12,7 @@ export type SpartanStepperIndicatorMode = 'number' | 'state' | 'icon';
 
 @Component({
 	selector: 'spartan-step-header',
-	imports: [NgTemplateOutlet, HlmIconImports],
+	imports: [NgTemplateOutlet],
 	providers: [provideIcons({ lucideCheck, lucideCircleAlert, lucidePencil })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
@@ -26,7 +25,7 @@ export type SpartanStepperIndicatorMode = 'number' | 'state' | 'icon';
 	template: `
 		<span aria-hidden="true" hlmBtn [class]="_indicatorClass()">
 			@if (_iconName(); as icon) {
-				<ng-icon hlm [name]="icon" size="sm" />
+				<ng-icon [name]="icon" size="sm" />
 			} @else {
 				<span>{{ index() + 1 }}</span>
 			}

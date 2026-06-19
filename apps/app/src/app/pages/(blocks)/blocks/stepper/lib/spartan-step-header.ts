@@ -1,7 +1,7 @@
 import { CdkStepHeader, StepState } from '@angular/cdk/stepper';
 import { NgTemplateOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component, booleanAttribute, computed, input, numberAttribute } from '@angular/core';
-import { provideIcons } from '@ng-icons/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCheck, lucideCircleAlert, lucidePencil } from '@ng-icons/lucide';
 import { ButtonVariants, buttonVariants } from '@spartan-ng/helm/button';
 import { SpartanStepLabel } from './spartan-step-label';
@@ -12,7 +12,7 @@ export type SpartanStepperIndicatorMode = 'number' | 'state' | 'icon';
 
 @Component({
 	selector: 'spartan-step-header',
-	imports: [NgTemplateOutlet],
+	imports: [NgTemplateOutlet, NgIcon],
 	providers: [provideIcons({ lucideCheck, lucideCircleAlert, lucidePencil })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {

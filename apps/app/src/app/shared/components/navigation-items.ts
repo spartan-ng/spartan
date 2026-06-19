@@ -104,6 +104,7 @@ export const sidenavItems: NavItem[] = [
 			{ label: 'Theming', url: '/theming' },
 			{ label: 'Dark Mode', url: '/dark-mode' },
 			{ label: 'CLI', url: '/cli' },
+			{ label: 'RTL', url: '/rtl' },
 			{ label: 'Typography', url: '/typography' },
 			{ label: 'Figma', url: '/figma' },
 			{ label: 'Version Support', url: '/version-support' },

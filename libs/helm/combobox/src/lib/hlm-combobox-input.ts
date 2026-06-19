@@ -2,58 +2,57 @@ import { BooleanInput } from '@angular/cdk/coercion';
 import { booleanAttribute, ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronDown, lucideX } from '@ng-icons/lucide';
-import { BrnComboboxImports, BrnComboboxPopoverTrigger } from '@spartan-ng/brain/combobox';
-import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
+import { BrnComboboxAnchor, BrnComboboxImports, BrnComboboxPopoverTrigger } from '@spartan-ng/brain/combobox';
+import { HlmInputGroup, HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 
 @Component({
 	selector: 'hlm-combobox-input',
 	imports: [HlmInputGroupImports, NgIcon, BrnComboboxImports, BrnComboboxPopoverTrigger],
 	providers: [provideIcons({ lucideChevronDown, lucideX })],
+	hostDirectives: [BrnComboboxAnchor, HlmInputGroup],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<hlm-input-group brnComboboxAnchor class="w-auto">
-			<input
-				brnComboboxInput
-				#comboboxInput="brnComboboxInput"
-				brnComboboxPopoverTrigger
-				hlmInputGroupInput
-				[id]="inputId()"
-				[placeholder]="placeholder()"
-				[forceInvalid]="forceInvalid()"
-				[aria-invalid]="ariaInvalidOverride()"
-			/>
+		<input
+			brnComboboxInput
+			#comboboxInput="brnComboboxInput"
+			brnComboboxPopoverTrigger
+			hlmInputGroupInput
+			[id]="inputId()"
+			[placeholder]="placeholder()"
+			[forceInvalid]="forceInvalid()"
+			[aria-invalid]="ariaInvalidOverride()"
+		/>
 
-			<hlm-input-group-addon align="inline-end">
-				@if (showTrigger()) {
-					<button
-						brnComboboxPopoverTrigger
-						hlmInputGroupButton
-						data-slot="input-group-button"
-						[disabled]="comboboxInput.disabled()"
-						size="icon-xs"
-						variant="ghost"
-						class="group-has-data-[slot=combobox-clear]/input-group:hidden data-pressed:bg-transparent"
-					>
-						<ng-icon name="lucideChevronDown" />
-					</button>
-				}
+		<hlm-input-group-addon align="inline-end">
+			@if (showTrigger()) {
+				<button
+					brnComboboxPopoverTrigger
+					hlmInputGroupButton
+					data-slot="input-group-button"
+					[disabled]="comboboxInput.disabled()"
+					size="icon-xs"
+					variant="ghost"
+					class="group-has-data-[slot=combobox-clear]/input-group:hidden data-pressed:bg-transparent"
+				>
+					<ng-icon name="lucideChevronDown" />
+				</button>
+			}
 
-				@if (showClear()) {
-					<button
-						*brnComboboxClear
-						hlmInputGroupButton
-						data-slot="combobox-clear"
-						[disabled]="comboboxInput.disabled()"
-						size="icon-xs"
-						variant="ghost"
-					>
-						<ng-icon name="lucideX" />
-					</button>
-				}
-			</hlm-input-group-addon>
+			@if (showClear()) {
+				<button
+					*brnComboboxClear
+					hlmInputGroupButton
+					data-slot="combobox-clear"
+					[disabled]="comboboxInput.disabled()"
+					size="icon-xs"
+					variant="ghost"
+				>
+					<ng-icon name="lucideX" />
+				</button>
+			}
+		</hlm-input-group-addon>
 
-			<ng-content />
-		</hlm-input-group>
+		<ng-content />
 	`,
 })
 export class HlmComboboxInput {

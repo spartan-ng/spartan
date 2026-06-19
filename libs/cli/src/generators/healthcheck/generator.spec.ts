@@ -116,7 +116,7 @@ import { HlmDatePickerModule } from '@spartan-ng/helm/datePicker';
 import { HlmDialogModule } from '@spartan-ng/helm/dialog';
 import { HlmFormFieldModule } from '@spartan-ng/helm/formField';
 import { HlmHoverCardModule } from '@spartan-ng/helm/hoverCard';
-import { HlmIconModule } from '@spartan-ng/ui-icon-helm';
+import { HlmIconModule } from '@spartan-ng/helm/icon';
 import { HlmInputModule } from '@spartan-ng/helm/input';
 import { HlmInputOtpModule } from '@spartan-ng/helm/inputOtp';
 import { HlmLabelModule } from '@spartan-ng/helm/label';

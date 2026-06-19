@@ -46,7 +46,7 @@ import {
 	HlmAccordionItemDirective,
 	HlmAccordionTriggerDirective,
 } from '@spartan-ng/helm/accordion';
-import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
+import { HlmIconDirective } from '@spartan-ng/helm/icon';
 
 @Component({
 	selector: 'spartan-accordion-preview',
@@ -131,7 +131,7 @@ import { BrnCommandImports } from '@spartan-ng/brain/command';
 import { BrnPopoverComponent, BrnPopoverContentDirective, BrnPopoverTriggerDirective } from '@spartan-ng/brain/popover';
 import { HlmButtonDirective } from '@spartan-ng/helm/button';
 import { HlmCommandImports } from '@spartan-ng/helm/command';
-import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
+import { HlmIconDirective } from '@spartan-ng/helm/icon';
 import { HlmPopoverContentDirective } from '@spartan-ng/helm/popover';
 
 type Framework = { label: string; value: string };

@@ -89,7 +89,7 @@ describe('migrate-menu generator', () => {
 					import { NgIcon } from '@ng-icons/core';
 					import { BrnContextMenuTrigger, BrnMenuTrigger } from '@spartan-ng/brain/menu';
 					import { HlmButton } from '@spartan-ng/helm/button';
-					import { HlmIcon } from '@spartan-ng/ui-icon-helm';
+					import { HlmIcon } from '@spartan-ng/helm/icon';
 					import {
 						HlmMenu,
 						HlmMenuGroup,

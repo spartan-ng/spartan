@@ -27,6 +27,6 @@ export class HlmSpinner {
 	public readonly ariaLabel = input<string>('Loading', { alias: 'aria-label' });
 
 	constructor() {
-		classes(() => 'inline-flex text-[calc(var(--spacing)*4)] motion-safe:animate-spin');
+		classes(() => 'inline-flex text-[length:--spacing(4)] motion-safe:animate-spin');
 	}
 }

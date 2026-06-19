@@ -1,4 +1,4 @@
-import { Directive, computed } from '@angular/core';
+import { Directive, computed, input } from '@angular/core';
 import { injectBrnAccordionItem } from './brn-accordion-token';
 
 @Directive({
@@ -9,6 +9,7 @@ import { injectBrnAccordionItem } from './brn-accordion-token';
 		role: 'region',
 		'[id]': 'id',
 		'[attr.inert]': '_inert()',
+		'[attr.style]': 'style()',
 	},
 })
 export class BrnAccordionContent {
@@ -19,6 +20,11 @@ export class BrnAccordionContent {
 	public readonly state = this._item?.state;
 	public readonly id = `brn-accordion-content-${this._item?.id}`;
 	public readonly ariaLabeledBy = `brn-accordion-trigger-${this._item?.id}`;
+	/**
+	 * The style to be applied to the host element.
+	 * @default 'overflow: hidden'
+	 */
+	public readonly style = input<string>('overflow: hidden');
 
 	constructor() {
 		if (!this._item) {

@@ -11,7 +11,6 @@ import { classes } from '@spartan-ng/helm/utils';
 	host: {
 		'data-slot': 'breadcrumb-ellipsis',
 		role: 'presentation',
-		'aria-hidden': 'true',
 	},
 	template: `
 		<ng-icon name="lucideEllipsis" />

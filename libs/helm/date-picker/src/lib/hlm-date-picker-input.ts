@@ -1,10 +1,10 @@
 import { BooleanInput } from '@angular/cdk/coercion';
 import {
-	afterNextRender,
 	booleanAttribute,
 	ChangeDetectionStrategy,
 	Component,
 	computed,
+	effect,
 	inject,
 	input,
 	linkedSignal,
@@ -139,7 +139,7 @@ export class HlmDatePickerInput<T> implements HlmDatePickerTriggerBase {
 	});
 
 	constructor() {
-		afterNextRender(() => {
+		effect(() => {
 			const popover = this._popover();
 			untracked(() => this._anchor.hlmDatePickerAnchorFor.set(popover));
 		});

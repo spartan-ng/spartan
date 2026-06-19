@@ -183,9 +183,8 @@ function writeComponentsJson(dir: string, cell: SetupCell, componentsPath: strin
 					buildable: cell.buildable,
 					generateAs: cell.generateAs,
 					importAlias: '@spartan-ng/helm',
-					style: 'vega',
 				}
-			: { componentsPath, importAlias: '@spartan-ng/helm', style: 'vega' };
+			: { componentsPath, importAlias: '@spartan-ng/helm' };
 	writeFileSync(join(dir, 'components.json'), `${JSON.stringify(config, null, 2)}\n`);
 }
 

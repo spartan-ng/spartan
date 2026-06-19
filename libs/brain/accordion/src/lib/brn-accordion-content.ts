@@ -1,16 +1,4 @@
-import { isPlatformBrowser } from '@angular/common';
-import {
-	DestroyRef,
-	Directive,
-	ElementRef,
-	NgZone,
-	PLATFORM_ID,
-	afterNextRender,
-	computed,
-	inject,
-	input,
-	signal,
-} from '@angular/core';
+import { Directive, ElementRef, afterEveryRender, computed, inject, input, signal } from '@angular/core';
 import { measureDimensions } from '@spartan-ng/brain/core';
 import { injectBrnAccordionConfig, injectBrnAccordionItem } from './brn-accordion-token';
 
@@ -30,10 +18,7 @@ import { injectBrnAccordionConfig, injectBrnAccordionItem } from './brn-accordio
 export class BrnAccordionContent {
 	private readonly _config = injectBrnAccordionConfig();
 	private readonly _item = injectBrnAccordionItem();
-	private readonly _elementRef = inject(ElementRef);
-	private readonly _destroyRef = inject(DestroyRef);
-	private readonly _ngZone = inject(NgZone);
-	private readonly _platformId = inject(PLATFORM_ID);
+	private readonly _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
 
 	protected readonly _width = signal<number | null>(null);
 	protected readonly _height = signal<number | null>(null);
@@ -52,45 +37,26 @@ export class BrnAccordionContent {
 		if (!this._item) {
 			throw Error('Accordion Content can only be used inside an AccordionItem. Add brnAccordionItem to parent.');
 		}
-		afterNextRender(() => {
-			const hasValidDimensions = this._measureAndSetDimensions();
-			if (!hasValidDimensions) {
-				this._setupVisibilityObserver();
-			}
+		afterEveryRender({
+			read: () => this._measureAndSetDimensions(),
 		});
 	}
 
-	private _measureAndSetDimensions(): boolean {
-		const content = this._elementRef.nativeElement.firstChild as HTMLElement | null;
-		if (!content) return false;
+	private _measureAndSetDimensions(): void {
+		const element = this._elementRef.nativeElement;
+		let width = element.scrollWidth;
+		let height = element.scrollHeight;
 
-		const { width, height } = measureDimensions(content, this._config.measurementDisplay);
-		this._width.set(width);
-		this._height.set(height);
+		if (width === 0 && height === 0) {
+			const elementToMeasure = (element.firstElementChild as HTMLElement | null) ?? element;
+			({ width, height } = measureDimensions(elementToMeasure, this._config.measurementDisplay));
+		}
 
-		return width > 0 && height > 0;
-	}
-
-	private _setupVisibilityObserver(): void {
-		if (!isPlatformBrowser(this._platformId)) return;
-		if (typeof IntersectionObserver === 'undefined') return;
-
-		this._ngZone.runOutsideAngular(() => {
-			const observer = new IntersectionObserver(
-				(entries) => {
-					if (entries[0].isIntersecting) {
-						this._ngZone.run(() => {
-							if (this._measureAndSetDimensions()) {
-								observer.disconnect();
-							}
-						});
-					}
-				},
-				{ root: null, threshold: 0 },
-			);
-
-			observer.observe(this._elementRef.nativeElement);
-			this._destroyRef.onDestroy(() => observer.disconnect());
-		});
+		if (width !== this._width()) {
+			this._width.set(width);
+		}
+		if (height !== this._height()) {
+			this._height.set(height);
+		}
 	}
 }

@@ -298,6 +298,75 @@ export const TestAriaValidWithIcon: Story = {
 	},
 };
 
+export const DynamicContent: Story = {
+	render: () => ({
+		moduleMetadata: {
+			imports: [AccordionDynamicContentStory],
+		},
+		template: `<accordion-dynamic-content />`,
+	}),
+};
+
+@Component({
+	selector: 'accordion-dynamic-content',
+	imports: [HlmAccordionImports, HlmButtonImports],
+	host: {
+		class: 'block w-[420px]',
+	},
+	template: `
+		<div class="mb-4 flex flex-wrap gap-2">
+			<button hlmBtn size="sm" (click)="addContent()">Add content</button>
+			<button hlmBtn size="sm" variant="secondary" (click)="toggle()">Toggle</button>
+			<button hlmBtn size="sm" variant="outline" (click)="resetContent()">Reset</button>
+		</div>
+
+		<hlm-accordion type="multiple">
+			<hlm-accordion-item [isOpened]="_isOpen()" (openedChange)="_isOpen.set($event)">
+				<hlm-accordion-trigger>Dynamic content</hlm-accordion-trigger>
+				<hlm-accordion-content>
+					<div class="space-y-3">
+						@for (item of _items(); track item.id) {
+							<p class="rounded-md border p-3 text-sm">
+								{{ item.text }}
+							</p>
+						}
+					</div>
+				</hlm-accordion-content>
+			</hlm-accordion-item>
+
+			<hlm-accordion-item>
+				<hlm-accordion-trigger>Stable sibling</hlm-accordion-trigger>
+				<hlm-accordion-content>
+					This panel gives you a second trigger to test toggling and focus behavior while the first panel changes.
+				</hlm-accordion-content>
+			</hlm-accordion-item>
+		</hlm-accordion>
+	`,
+})
+export class AccordionDynamicContentStory {
+	private _nextId = 2;
+	protected readonly _isOpen = signal(true);
+	protected readonly _items = signal([{ id: 1, text: 'Initial accordion content.' }]);
+
+	protected addContent(): void {
+		const id = this._nextId++;
+		this._items.update((items) => [
+			...items,
+			{ id, text: `Dynamically added content row ${id}. Toggle the panel and add more rows to test height updates.` },
+		]);
+	}
+
+	protected toggle(): void {
+		this._isOpen.update((isOpen) => !isOpen);
+	}
+
+	protected resetContent(): void {
+		this._nextId = 2;
+		this._isOpen.set(true);
+		this._items.set([{ id: 1, text: 'Initial accordion content.' }]);
+	}
+}
+
 // Button State Sync
 export const ButtonStateSync: Story = {
 	render: () => ({

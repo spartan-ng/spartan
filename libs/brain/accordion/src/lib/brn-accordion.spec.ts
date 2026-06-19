@@ -1,6 +1,6 @@
 import { FocusMonitor, type FocusOrigin } from '@angular/cdk/a11y';
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
-import { render, screen } from '@testing-library/angular';
+import { render, screen, waitFor } from '@testing-library/angular';
 import { config, type Observable, Subject } from 'rxjs';
 import { BrnAccordion } from './brn-accordion';
 import { BrnAccordionContent } from './brn-accordion-content';
@@ -93,6 +93,51 @@ class AccordionBlurDuringRenderSpec extends ProbeHost {}
 })
 class AccordionTriggerFocusDuringRenderSpec extends ProbeHost {}
 
+@Component({
+	imports: [BrnAccordion, BrnAccordionItem, BrnAccordionTrigger, BrnAccordionContent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<style>
+			[data-accordion-dynamic] [brnaccordionitem] {
+				display: flex;
+				flex-direction: column;
+			}
+
+			[data-accordion-dynamic] brn-accordion-content {
+				display: block;
+				overflow: hidden;
+			}
+
+			[data-accordion-dynamic] brn-accordion-content[data-state='closed'] {
+				height: 0;
+			}
+
+			[data-accordion-dynamic] brn-accordion-content[data-state='open'] {
+				height: var(--brn-accordion-content-height);
+			}
+		</style>
+
+		<div brnAccordion data-accordion-dynamic>
+			<div brnAccordionItem [isOpened]="isOpened()">
+				<h3>
+					<button brnAccordionTrigger data-testid="dynamic-trigger">Dynamic item</button>
+				</h3>
+				<brn-accordion-content data-testid="content">
+					<div>
+						@for (item of contentItems(); track item) {
+							<div style="height: 20px">Dynamic content</div>
+						}
+					</div>
+				</brn-accordion-content>
+			</div>
+		</div>
+	`,
+})
+class AccordionDynamicContentSpec {
+	public readonly isOpened = signal(true);
+	public readonly contentItems = signal([1]);
+}
+
 describe('BrnAccordion', () => {
 	// #1371: disabling a focused child blurs it during CD, so the FocusMonitor emits mid-render.
 	it('does not throw NG0600 when the focus monitor emits during change detection', async () => {
@@ -125,5 +170,37 @@ describe('BrnAccordion', () => {
 		});
 
 		expect(ng0600Errors(errors)).toEqual([]);
+	});
+
+	it('updates the measured height when open content changes size', async () => {
+		const { fixture } = await render(AccordionDynamicContentSpec);
+		const content = screen.getByTestId('content');
+
+		await waitFor(() => expect(content.style.getPropertyValue('--brn-accordion-content-height')).toBe('20px'));
+
+		fixture.componentInstance.contentItems.set([1, 2]);
+		await fixture.whenStable();
+
+		await waitFor(() => expect(content.style.getPropertyValue('--brn-accordion-content-height')).toBe('40px'));
+		await waitFor(() => expect(getComputedStyle(content).height).toBe('40px'));
+	});
+
+	it('updates the measured height when closed content changes size before opening', async () => {
+		const { fixture } = await render(AccordionDynamicContentSpec);
+		const content = screen.getByTestId('content');
+
+		fixture.componentInstance.isOpened.set(false);
+		await fixture.whenStable();
+		await waitFor(() => expect(getComputedStyle(content).height).toBe('0px'));
+
+		fixture.componentInstance.contentItems.set([1, 2]);
+		await fixture.whenStable();
+
+		await waitFor(() => expect(content.style.getPropertyValue('--brn-accordion-content-height')).toBe('40px'));
+
+		fixture.componentInstance.isOpened.set(true);
+		await fixture.whenStable();
+
+		await waitFor(() => expect(getComputedStyle(content).height).toBe('40px'));
 	});
 });

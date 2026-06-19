@@ -2,12 +2,11 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronDown } from '@ng-icons/lucide';
 import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
-import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 
 @Component({
 	selector: 'spartan-sidebar-header',
-	imports: [HlmSidebarImports, HlmDropdownMenuImports, NgIcon, HlmIcon],
+	imports: [HlmSidebarImports, HlmDropdownMenuImports, NgIcon],
 	providers: [
 		provideIcons({
 			lucideChevronDown,
@@ -23,7 +22,7 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 						<li hlmSidebarMenuItem>
 							<button hlmSidebarMenuButton [hlmDropdownMenuTrigger]="menu">
 								Select Workspace
-								<ng-icon hlm name="lucideChevronDown" class="ml-auto" />
+								<ng-icon name="lucideChevronDown" class="ml-auto" />
 							</button>
 							<ng-template #menu>
 								<hlm-dropdown-menu class="w-60">

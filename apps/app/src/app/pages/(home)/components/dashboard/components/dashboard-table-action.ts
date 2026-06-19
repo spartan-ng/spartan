@@ -3,13 +3,12 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import { tablerChevronDown, tablerColumns2, tablerPlus } from '@ng-icons/tabler-icons';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
-import { HlmIcon } from '@spartan-ng/helm/icon';
 import { DashboardTableSection } from './table-section';
 
 @Component({
 	selector: 'spartan-dashboard-table-actions',
 
-	imports: [HlmButton, NgIcon, HlmIcon, HlmDropdownMenuImports],
+	imports: [HlmButton, NgIcon, HlmDropdownMenuImports],
 	providers: [
 		provideIcons({
 			tablerChevronDown,
@@ -24,12 +23,12 @@ import { DashboardTableSection } from './table-section';
 	template: `
 		<div class="wip-table-search flex flex-col justify-between gap-2 sm:flex-row">
 			<button hlmBtn variant="outline" align="end" size="sm" [hlmDropdownMenuTrigger]="columns">
-				<ng-icon hlm name="tablerColumns2" size="sm" />
+				<ng-icon name="tablerColumns2" />
 				Customize Columns
-				<ng-icon hlm name="tablerChevronDown" size="sm" />
+				<ng-icon name="tablerChevronDown" />
 			</button>
 			<button hlmBtn variant="outline" align="end" size="sm">
-				<ng-icon hlm name="tablerPlus" size="sm" />
+				<ng-icon name="tablerPlus" />
 				Add section
 			</button>
 			<ng-template #columns>

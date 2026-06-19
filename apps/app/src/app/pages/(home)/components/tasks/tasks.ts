@@ -27,7 +27,6 @@ import {
 import { HlmAvatarImports } from '@spartan-ng/helm/avatar';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
-import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmLabel } from '@spartan-ng/helm/label';
 import { HlmSelectImports } from '@spartan-ng/helm/select';
 import { HlmTableImports } from '@spartan-ng/helm/table';
@@ -62,7 +61,6 @@ import { type Task, TASK_DATA } from './services/tasks.models';
 		HlmDropdownMenuImports,
 		HlmTableImports,
 		HlmButtonImports,
-		HlmIcon,
 		HlmSelectImports,
 		TableActions,
 		NgIcon,
@@ -240,7 +238,7 @@ import { type Task, TASK_DATA } from './services/tasks.models';
 							[disabled]="!table.getCanPreviousPage()"
 							(click)="table.firstPage()"
 						>
-							<ng-icon hlm name="lucideChevronsLeft" size="sm" />
+							<ng-icon name="lucideChevronsLeft" />
 						</button>
 						<button
 							size="icon-sm"
@@ -249,7 +247,7 @@ import { type Task, TASK_DATA } from './services/tasks.models';
 							[disabled]="!table.getCanPreviousPage()"
 							(click)="table.previousPage()"
 						>
-							<ng-icon hlm name="lucideChevronLeft" size="sm" />
+							<ng-icon name="lucideChevronLeft" />
 						</button>
 						<button
 							size="icon-sm"
@@ -258,7 +256,7 @@ import { type Task, TASK_DATA } from './services/tasks.models';
 							[disabled]="!table.getCanNextPage()"
 							(click)="table.nextPage()"
 						>
-							<ng-icon hlm name="lucideChevronRight" size="sm" />
+							<ng-icon name="lucideChevronRight" />
 						</button>
 						<button
 							size="icon-sm"
@@ -267,7 +265,7 @@ import { type Task, TASK_DATA } from './services/tasks.models';
 							[disabled]="!table.getCanNextPage()"
 							(click)="table.lastPage()"
 						>
-							<ng-icon hlm name="lucideChevronsRight" size="sm" />
+							<ng-icon name="lucideChevronsRight" />
 						</button>
 					</div>
 				</div>

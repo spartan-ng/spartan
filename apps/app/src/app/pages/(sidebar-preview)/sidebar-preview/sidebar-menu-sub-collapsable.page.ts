@@ -2,12 +2,12 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronRight } from '@ng-icons/lucide';
 import { HlmCollapsibleImports } from '@spartan-ng/helm/collapsible';
-import { HlmIcon } from '@spartan-ng/helm/icon';
+
 import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 
 @Component({
 	selector: 'spartan-sidebar-menu-sub-collapsable',
-	imports: [HlmSidebarImports, HlmCollapsibleImports, NgIcon, HlmIcon],
+	imports: [HlmSidebarImports, HlmCollapsibleImports, NgIcon],
 	providers: [provideIcons({ lucideChevronRight })],
 	encapsulation: ViewEncapsulation.None,
 	styleUrl: 'sidebar-default.css',

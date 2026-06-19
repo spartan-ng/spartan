@@ -2,8 +2,6 @@ import type { RouteMeta } from '@analogjs/router';
 import { injectLoad } from '@analogjs/router';
 import { Component, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { provideIcons } from '@ng-icons/core';
-import { lucideRocket } from '@ng-icons/lucide';
 import { ManualInstallService } from '@spartan-ng/app/app/core/services/manual-install.service';
 import { ApiDocsService } from '../../core/services/api-docs.service';
 import { PrimitiveSnippetsService } from '../../core/services/primitive-snippets.service';
@@ -26,7 +24,7 @@ export const routeMeta: RouteMeta = {
 @Component({
 	selector: 'spartan-components',
 	imports: [Page],
-	providers: [provideIcons({ lucideRocket }), ApiDocsService],
+	providers: [ApiDocsService],
 	host: {
 		class: '[--stable-height:78.75px]',
 	},

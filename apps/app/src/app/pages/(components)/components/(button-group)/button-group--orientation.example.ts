@@ -1,21 +1,20 @@
 import { Component } from '@angular/core';
-import { provideIcons } from '@ng-icons/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideMinus, lucidePlus } from '@ng-icons/lucide';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmButtonGroupImports } from '@spartan-ng/helm/button-group';
-import { HlmIconImports } from '@spartan-ng/helm/icon';
 
 @Component({
 	selector: 'spartan-button-group-orientation',
-	imports: [HlmIconImports, HlmButtonImports, HlmButtonGroupImports],
+	imports: [HlmButtonImports, HlmButtonGroupImports, NgIcon],
 	providers: [provideIcons({ lucidePlus, lucideMinus })],
 	template: `
 		<div hlmButtonGroup orientation="vertical" aria-label="Media controls" class="h-fit">
 			<button hlmBtn variant="outline" size="icon">
-				<ng-icon hlm name="lucidePlus" size="sm" />
+				<ng-icon name="lucidePlus" />
 			</button>
 			<button hlmBtn variant="outline" size="icon">
-				<ng-icon hlm name="lucideMinus" size="sm" />
+				<ng-icon name="lucideMinus" />
 			</button>
 		</div>
 	`,

@@ -1,7 +1,5 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component } from '@angular/core';
-import { provideIcons } from '@ng-icons/core';
-import { lucideChevronRight } from '@ng-icons/lucide';
 import { MainSection } from '../../../shared/layout/main-section';
 import { PageNav } from '../../../shared/layout/page-nav/page-nav';
 import { metaWith } from '../../../shared/meta/meta.util';
@@ -18,7 +16,7 @@ export const routeMeta: RouteMeta = {
 @Component({
 	selector: 'spartan-docs-intro',
 	imports: [MainSection, PageNav, PageNav],
-	providers: [provideIcons({ lucideChevronRight })],
+
 	template: `
 		<section spartanMainSection>Comming soon...</section>
 		<spartan-page-nav />

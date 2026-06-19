@@ -3,11 +3,10 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideArrowLeft, lucideArrowRight } from '@ng-icons/lucide';
 import { HlmButton } from '@spartan-ng/helm/button';
-import { HlmIcon } from '@spartan-ng/helm/icon';
 
 @Component({
 	selector: 'spartan-page-bottom-nav-link',
-	imports: [RouterLink, HlmButton, NgIcon, HlmIcon],
+	imports: [RouterLink, HlmButton, NgIcon],
 	providers: [provideIcons({ lucideArrowRight, lucideArrowLeft })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
@@ -19,11 +18,11 @@ import { HlmIcon } from '@spartan-ng/helm/icon';
 			[relativeTo]="_isAbsolute() ? undefined : _activatedRoute"
 		>
 			@if (direction() === 'previous') {
-				<ng-icon hlm size="sm" name="lucideArrowLeft" />
+				<ng-icon name="lucideArrowLeft" />
 			}
 			{{ label() }}
 			@if (direction() === 'next') {
-				<ng-icon hlm size="sm" name="lucideArrowRight" />
+				<ng-icon name="lucideArrowRight" />
 			}
 		</a>
 	`,

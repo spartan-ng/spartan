@@ -1,12 +1,11 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChartPie, lucideFrame, lucideLifeBuoy, lucideMap, lucideSend } from '@ng-icons/lucide';
-import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 
 @Component({
 	selector: 'spartan-sidebar-menu',
-	imports: [HlmSidebarImports, NgIcon, HlmIcon],
+	imports: [HlmSidebarImports, NgIcon],
 	providers: [
 		provideIcons({
 			lucideFrame,
@@ -29,7 +28,7 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 								@for (project of _projects; track project) {
 									<li hlmSidebarMenuItem>
 										<button hlmSidebarMenuButton>
-											<ng-icon hlm [name]="project.icon" />
+											<ng-icon [name]="project.icon" />
 											<span>{{ project.name }}</span>
 										</button>
 										<div hlmSidebarMenuBadge>{{ project.info }}</div>

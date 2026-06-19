@@ -3,8 +3,7 @@ import { Component, VERSION } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronRight, lucideExternalLink } from '@ng-icons/lucide';
 import { HlmBadgeImports } from '@spartan-ng/helm/badge';
-import { HlmButtonImports } from '@spartan-ng/helm/button';
-import { HlmIconImports } from '@spartan-ng/helm/icon';
+
 import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
 import { MainSection } from '../../../../shared/layout/main-section';
 import { PageBottomNav } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav';
@@ -29,9 +28,8 @@ export const routeMeta: RouteMeta = {
 		PageNav,
 		PageBottomNav,
 		PageBottomNavLink,
-		HlmButtonImports,
 		NgIcon,
-		HlmIconImports,
+
 		HlmBadgeImports,
 	],
 	providers: [provideIcons({ lucideChevronRight, lucideExternalLink })],
@@ -135,7 +133,7 @@ export const routeMeta: RouteMeta = {
 					class="${hlmCode} inline-flex items-center gap-1 underline"
 				>
 					discussion on GitHub
-					<ng-icon name="lucideExternalLink" hlm size="sm" />
+					<ng-icon name="lucideExternalLink" />
 				</a>
 				or join our
 				<a
@@ -144,7 +142,7 @@ export const routeMeta: RouteMeta = {
 					class="${hlmCode} inline-flex items-center gap-1 underline"
 				>
 					Discord community
-					<ng-icon name="lucideExternalLink" hlm size="sm" />
+					<ng-icon name="lucideExternalLink" />
 				</a>
 				to connect with the team and other users.
 			</p>

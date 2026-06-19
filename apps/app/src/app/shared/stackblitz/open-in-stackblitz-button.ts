@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component, computed, inject, input, signal } f
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideTriangleAlert, lucideZap } from '@ng-icons/lucide';
 import { HlmButton } from '@spartan-ng/helm/button';
-import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmTooltipImports } from '@spartan-ng/helm/tooltip';
 import type { GeneratedProject } from './stackblitz-project-builder.service';
 import { StackBlitzProjectBuilderService } from './stackblitz-project-builder.service';
@@ -14,21 +13,20 @@ import { StackBlitzService } from './stackblitz.service';
  */
 @Component({
 	selector: 'spartan-stackblitz-button',
-	imports: [HlmButton, NgIcon, HlmIcon, HlmTooltipImports],
+	imports: [HlmButton, NgIcon, HlmTooltipImports],
 	providers: [provideIcons({ lucideZap, lucideTriangleAlert })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<button
 			hlmBtn
 			variant="ghost"
-			size="icon"
-			class="size-6"
+			size="icon-xs"
 			type="button"
 			[hlmTooltip]="_tooltip()"
 			(click)="open()"
 			aria-label="Open in StackBlitz"
 		>
-			<ng-icon hlm size="xs" [name]="_failed() ? 'lucideTriangleAlert' : 'lucideZap'" />
+			<ng-icon [name]="_failed() ? 'lucideTriangleAlert' : 'lucideZap'" />
 		</button>
 	`,
 })

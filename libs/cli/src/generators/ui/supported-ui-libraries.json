@@ -228,14 +228,6 @@
 			"@spartan-ng/brain": "0.0.1-alpha.718"
 		}
 	},
-	"icon": {
-		"name": "icon",
-		"peerDependencies": {
-			"@ng-icons/core": ">=32.0.0 <34.0.0",
-			"@angular/core": ">=21.0.0 <23.0.0",
-			"@ng-icons/lucide": ">=32.0.0 <34.0.0"
-		}
-	},
 	"input": {
 		"name": "input",
 		"peerDependencies": {

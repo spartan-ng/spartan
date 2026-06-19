@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
-import { provideIcons } from '@ng-icons/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucidePlus } from '@ng-icons/lucide';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmButtonGroupImports } from '@spartan-ng/helm/button-group';
-import { HlmIconImports } from '@spartan-ng/helm/icon';
 
 @Component({
 	selector: 'spartan-button-group-size',
-	imports: [HlmIconImports, HlmButtonImports, HlmButtonGroupImports],
+	imports: [HlmButtonImports, HlmButtonGroupImports, NgIcon],
 	providers: [provideIcons({ lucidePlus })],
 	template: `
 		<div class="flex flex-col items-start gap-8">
@@ -16,7 +15,7 @@ import { HlmIconImports } from '@spartan-ng/helm/icon';
 				<button hlmBtn variant="outline" size="sm">Button</button>
 				<button hlmBtn variant="outline" size="sm">Group</button>
 				<button hlmBtn variant="outline" size="icon-sm">
-					<ng-icon hlm name="lucidePlus" size="sm" />
+					<ng-icon name="lucidePlus" />
 				</button>
 			</div>
 			<div hlmButtonGroup>
@@ -24,7 +23,7 @@ import { HlmIconImports } from '@spartan-ng/helm/icon';
 				<button hlmBtn variant="outline">Button</button>
 				<button hlmBtn variant="outline">Group</button>
 				<button hlmBtn variant="outline" size="icon">
-					<ng-icon hlm name="lucidePlus" size="sm" />
+					<ng-icon name="lucidePlus" />
 				</button>
 			</div>
 			<div hlmButtonGroup>
@@ -32,7 +31,7 @@ import { HlmIconImports } from '@spartan-ng/helm/icon';
 				<button hlmBtn variant="outline" size="lg">Button</button>
 				<button hlmBtn variant="outline" size="lg">Group</button>
 				<button hlmBtn variant="outline" size="icon-lg">
-					<ng-icon hlm name="lucidePlus" size="sm" />
+					<ng-icon name="lucidePlus" />
 				</button>
 			</div>
 		</div>

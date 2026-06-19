@@ -1,13 +1,13 @@
 import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
-import { provideIcons } from '@ng-icons/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
 import { tablerCheck, tablerCopy, tablerInfoCircle, tablerStar } from '@ng-icons/tabler-icons';
-import { HlmIconImports } from '@spartan-ng/helm/icon';
+
 import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 
 @Component({
 	selector: 'spartan-input-group-button-preview',
-	imports: [HlmInputGroupImports, HlmIconImports, HlmPopoverImports],
+	imports: [HlmInputGroupImports, HlmPopoverImports, NgIcon],
 	providers: [provideIcons({ tablerCheck, tablerCopy, tablerInfoCircle, tablerStar })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: { class: 'grid w-full max-w-sm gap-6' },

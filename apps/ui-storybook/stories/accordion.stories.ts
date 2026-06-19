@@ -4,7 +4,7 @@ import { lucideChevronDown } from '@ng-icons/lucide';
 import { BrnAccordion, BrnAccordionImports } from '@spartan-ng/brain/accordion';
 import { HlmAccordionImports } from '@spartan-ng/helm/accordion';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
-import { HlmIcon } from '@spartan-ng/helm/icon';
+
 import { HlmInput } from '@spartan-ng/helm/input';
 import type { Meta, StoryObj } from '@storybook/angular';
 import { moduleMetadata } from '@storybook/angular';
@@ -15,7 +15,7 @@ const meta: Meta<BrnAccordion> = {
 	tags: ['autodocs'],
 	decorators: [
 		moduleMetadata({
-			imports: [BrnAccordionImports, HlmAccordionImports, NgIcon, HlmIcon, HlmInput],
+			imports: [BrnAccordionImports, HlmAccordionImports, NgIcon, HlmInput],
 			providers: [provideIcons({ lucideChevronDown })],
 		}),
 	],

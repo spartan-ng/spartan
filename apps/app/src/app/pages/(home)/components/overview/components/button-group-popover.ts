@@ -3,24 +3,23 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideBot, lucideChevronDown } from '@ng-icons/lucide';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmButtonGroupImports } from '@spartan-ng/helm/button-group';
-import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 import { HlmTextarea } from '@spartan-ng/helm/textarea';
 
 @Component({
 	selector: 'spartan-button-group-popover',
-	imports: [HlmButtonGroupImports, HlmPopoverImports, HlmTextarea, HlmButton, NgIcon, HlmIcon],
+	imports: [HlmButtonGroupImports, HlmPopoverImports, HlmTextarea, HlmButton, NgIcon],
 	providers: [provideIcons({ lucideBot, lucideChevronDown })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<hlm-popover sideOffset="5" align="end">
 			<div hlmButtonGroup>
 				<button hlmBtn variant="outline" size="sm">
-					<ng-icon hlm name="lucideBot" size="sm" />
+					<ng-icon name="lucideBot" />
 					Copilot
 				</button>
 				<button id="edit-profile" variant="outline" hlmPopoverTrigger hlmBtn variant="outline" size="icon-sm">
-					<ng-icon hlm name="lucideChevronDown" size="sm" />
+					<ng-icon name="lucideChevronDown" />
 				</button>
 				<hlm-popover-content class="rounded-xl p-0 text-sm" *hlmPopoverPortal="let ctx">
 					<div class="border-input border-b px-4 py-3">

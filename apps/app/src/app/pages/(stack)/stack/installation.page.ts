@@ -5,7 +5,6 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronRight, lucideTriangleAlert } from '@ng-icons/lucide';
 import { HlmAlertImports } from '@spartan-ng/helm/alert';
 import { HlmButton } from '@spartan-ng/helm/button';
-import { HlmIcon } from '@spartan-ng/helm/icon';
 import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
 
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
@@ -38,7 +37,6 @@ export const routeMeta: RouteMeta = {
 		Tabs,
 		HlmAlertImports,
 		NgIcon,
-		HlmIcon,
 		HlmButton,
 		SectionSubSubHeading,
 	],
@@ -401,7 +399,7 @@ create table note (
 					hlmBtn
 				>
 					Check out the AnalogJs docs for more info
-					<ng-icon hlm name="lucideChevronRight" class="ml-2" size="sm" />
+					<ng-icon name="lucideChevronRight" class="ml-2" />
 				</a>
 			</div>
 

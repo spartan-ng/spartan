@@ -1,7 +1,5 @@
 import { RouteMeta } from '@analogjs/router';
 import { Component } from '@angular/core';
-import { provideIcons } from '@ng-icons/core';
-import { lucideGithub, lucideInfo } from '@ng-icons/lucide';
 import { Code } from '@spartan-ng/app/app/shared/code/code';
 import { CodePreview } from '@spartan-ng/app/app/shared/code/code-preview';
 import { MainSection } from '@spartan-ng/app/app/shared/layout/main-section';
@@ -62,7 +60,6 @@ export const routeMeta: RouteMeta = {
 		SignalFormSwitchDemo,
 		SignalFormComplexDemo,
 	],
-	providers: [provideIcons({ lucideInfo, lucideGithub })],
 	template: `
 		<section spartanMainSection>
 			<spartan-section-intro name="Signal Forms" lead="Build forms in Angular using Signal Forms." />

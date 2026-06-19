@@ -7,7 +7,6 @@ import { markedHighlight } from 'marked-highlight';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { lucideCheck, lucideClipboard } from '@ng-icons/lucide';
 import { HlmButton } from '@spartan-ng/helm/button';
-import { HlmIcon } from '@spartan-ng/helm/icon';
 import 'prismjs';
 import 'prismjs/components/prism-bash';
 import 'prismjs/components/prism-css';
@@ -61,7 +60,7 @@ marked.use(
 
 @Component({
 	selector: 'spartan-code',
-	imports: [HlmButton, NgIcon, HlmIcon, OpenInStackBlitzButton],
+	imports: [HlmButton, NgIcon, OpenInStackBlitzButton],
 	providers: [provideIcons({ lucideClipboard, lucideCheck })],
 	encapsulation: ViewEncapsulation.None,
 	host: {
@@ -137,8 +136,8 @@ marked.use(
 				<spartan-stackblitz-button [code]="_code" />
 			}
 			@if (!_disableCopy) {
-				<button (click)="copyToClipBoard()" hlmBtn variant="ghost" class="h-6 w-6">
-					<ng-icon hlm size="xs" [name]="_copied ? 'lucideCheck' : 'lucideClipboard'" />
+				<button (click)="copyToClipBoard()" hlmBtn variant="ghost" size="icon-xs">
+					<ng-icon [name]="_copied ? 'lucideCheck' : 'lucideClipboard'" />
 				</button>
 			}
 		</div>

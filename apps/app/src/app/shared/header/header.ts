@@ -6,7 +6,6 @@ import { lucideGithub, lucideTwitter } from '@ng-icons/lucide';
 import { DocsDialog } from '@spartan-ng/app/app/shared/header/docs-dialog';
 import { HeaderLayoutMode } from '@spartan-ng/app/app/shared/header/header-layout-mode';
 import { HlmButton } from '@spartan-ng/helm/button';
-import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmSeparatorImports } from '@spartan-ng/helm/separator';
 import { SpartanLogo } from '../spartan-logo';
 import { NavLink } from '../spartan-nav-link';
@@ -19,7 +18,6 @@ import { HeaderMobileNav } from './header-mobile-nav';
 		HlmButton,
 		RouterLink,
 		NgIcon,
-		HlmIcon,
 		NavLink,
 		HeaderMobileNav,
 		HeaderDarkMode,
@@ -58,11 +56,11 @@ import { HeaderMobileNav } from './header-mobile-nav';
 					<hlm-separator orientation="vertical" class="!h-4 !self-center" />
 					<a href="https://twitter.com/goetzrobin" target="_blank" size="sm" variant="ghost" hlmBtn>
 						<span class="sr-only">Twitter</span>
-						<ng-icon hlm name="lucideTwitter" size="sm" />
+						<ng-icon name="lucideTwitter" />
 					</a>
 					<hlm-separator orientation="vertical" class="!h-4 !self-center" />
 					<a href="https://github.com/spartan-ng/spartan" target="_blank" size="sm" variant="ghost" hlmBtn>
-						<ng-icon hlm name="lucideGithub" size="sm" />
+						<ng-icon name="lucideGithub" />
 						<span class="text-muted-foreground text-xs">{{ _stars() }}</span>
 					</a>
 					<hlm-separator orientation="vertical" class="!h-4 !self-center" />

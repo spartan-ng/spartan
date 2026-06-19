@@ -7,7 +7,7 @@ import { PackageInstallerTabs } from '@spartan-ng/app/app/shared/layout/package-
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { HlmAlert, HlmAlertDescription, HlmAlertTitle } from '@spartan-ng/helm/alert';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
-import { HlmIconImports } from '@spartan-ng/helm/icon';
+
 import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { MainSection } from '../../../../shared/layout/main-section';
@@ -44,7 +44,7 @@ export const routeMeta: RouteMeta = {
 		Code,
 		HlmButtonImports,
 		NgIcon,
-		HlmIconImports,
+
 		RouterLink,
 		TabsCli,
 		SectionSubSubHeading,
@@ -104,7 +104,7 @@ export const routeMeta: RouteMeta = {
 			<div class="my-2 flex items-center justify-end">
 				<a routerLink="/components" variant="outline" size="sm" hlmBtn outline="">
 					Check out the Components
-					<ng-icon hlm name="lucideChevronRight" class="ml-2" size="sm" />
+					<ng-icon name="lucideChevronRight" class="ml-2" />
 				</a>
 			</div>
 
@@ -153,7 +153,7 @@ export const routeMeta: RouteMeta = {
 			<div class="my-2 flex items-center justify-end">
 				<a routerLink="/documentation/cli" variant="outline" size="sm" hlmBtn outline="">
 					CLI documentation
-					<ng-icon hlm name="lucideChevronRight" class="ml-2" size="sm" />
+					<ng-icon name="lucideChevronRight" class="ml-2" />
 				</a>
 			</div>
 
@@ -190,7 +190,7 @@ export const routeMeta: RouteMeta = {
 			<div class="my-2 flex items-center justify-end">
 				<a routerLink="/documentation/cli" variant="outline" size="sm" hlmBtn outline="">
 					CLI documentation
-					<ng-icon hlm name="lucideChevronRight" class="ml-2" size="sm" />
+					<ng-icon name="lucideChevronRight" class="ml-2" />
 				</a>
 			</div>
 

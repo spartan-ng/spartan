@@ -4,8 +4,8 @@ import * as lucide from '@ng-icons/lucide';
 
 import { HlmButton, HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmDropdownMenu, HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
-import { HlmIcon, HlmIconImports } from '@spartan-ng/helm/icon';
-import { type Meta, type StoryObj, argsToTemplate, moduleMetadata } from '@storybook/angular';
+
+import { argsToTemplate, type Meta, moduleMetadata, type StoryObj } from '@storybook/angular';
 
 const meta: Meta<HlmDropdownMenu> = {
 	title: 'Dropdown Menu',
@@ -25,7 +25,7 @@ const meta: Meta<HlmDropdownMenu> = {
 	decorators: [
 		moduleMetadata({
 			providers: [provideIcons(lucide)],
-			imports: [HlmDropdownMenuImports, HlmButton, NgIcon, HlmIcon],
+			imports: [HlmDropdownMenuImports, HlmButton, NgIcon],
 		}),
 	],
 };
@@ -46,25 +46,25 @@ export const Default: Story = {
         <hlm-dropdown-menu-separator />
         <hlm-dropdown-menu-group>
           <button hlmDropdownMenuItem>
-            <ng-icon hlm name='lucideUser' size="sm" />
+            <ng-icon name='lucideUser' />
             <span>Profile</span>
             <hlm-dropdown-menu-shortcut>⇧⌘P</hlm-dropdown-menu-shortcut>
           </button>
 
           <button hlmDropdownMenuItem>
-            <ng-icon hlm name='lucideCreditCard' size="sm" />
+            <ng-icon name='lucideCreditCard' />
             <span>Billing</span>
             <hlm-dropdown-menu-shortcut>⌘B</hlm-dropdown-menu-shortcut>
           </button>
 
           <button hlmDropdownMenuItem>
-            <ng-icon hlm name='lucideSettings' size="sm" />
+            <ng-icon name='lucideSettings' />
             <span>Settings</span>
             <hlm-dropdown-menu-shortcut>⌘S</hlm-dropdown-menu-shortcut>
           </button>
 
           <button hlmDropdownMenuItem>
-            <ng-icon hlm name='lucideKeyboard' size="sm" />
+            <ng-icon name='lucideKeyboard' />
             <span>Keyboard Shortcuts</span>
             <hlm-dropdown-menu-shortcut>⌘K</hlm-dropdown-menu-shortcut>
           </button>
@@ -74,19 +74,19 @@ export const Default: Story = {
 
         <hlm-dropdown-menu-group>
           <button hlmDropdownMenuItem>
-            <ng-icon hlm name='lucideUsers' size="sm" />
+            <ng-icon name='lucideUsers' />
             <span>Team</span>
             <hlm-dropdown-menu-shortcut>⌘B</hlm-dropdown-menu-shortcut>
           </button>
 
           <button hlmDropdownMenuItem [hlmDropdownMenuSubTrigger]='invite' side="right" align="start">
-            <ng-icon hlm name='lucideUserPlus' size="sm" />
+            <ng-icon name='lucideUserPlus' />
             <span>Invite Users</span>
             <hlm-dropdown-menu-item-sub-indicator />
           </button>
 
           <button hlmDropdownMenuItem>
-            <ng-icon hlm name='lucidePlus' size="sm" />
+            <ng-icon name='lucidePlus' />
             <span>New Team</span>
             <hlm-dropdown-menu-shortcut>⌘+T</hlm-dropdown-menu-shortcut>
           </button>
@@ -96,17 +96,17 @@ export const Default: Story = {
 
         <hlm-dropdown-menu-group>
           <button hlmDropdownMenuItem [disabled]='false'>
-            <ng-icon hlm name='lucideGithub' size="sm" />
+            <ng-icon name='lucideGithub' />
             <span>Github</span>
           </button>
 
           <button hlmDropdownMenuItem [disabled]='true'>
-            <ng-icon hlm name='lucideLifeBuoy' size="sm" />
+            <ng-icon name='lucideLifeBuoy' />
             <span>Support</span>
           </button>
 
           <button hlmDropdownMenuItem disabled>
-            <ng-icon hlm name='lucideCloud' size="sm" />
+            <ng-icon name='lucideCloud' />
             <span>API</span>
           </button>
         </hlm-dropdown-menu-group>
@@ -114,7 +114,7 @@ export const Default: Story = {
         <hlm-dropdown-menu-separator />
 
         <button hlmDropdownMenuItem>
-          <ng-icon hlm name='lucideLogOut' size="sm" />
+          <ng-icon name='lucideLogOut' />
           <span>Logout</span>
           <hlm-dropdown-menu-shortcut>⇧⌘Q</hlm-dropdown-menu-shortcut>
         </button>
@@ -125,17 +125,17 @@ export const Default: Story = {
     <ng-template #invite>
       <hlm-dropdown-menu-sub>
         <button hlmDropdownMenuItem>
-          <ng-icon hlm name='lucideMail' size="sm" />
+          <ng-icon name='lucideMail' />
           Email
         </button>
 
         <button hlmDropdownMenuItem>
-          <ng-icon hlm name='lucideMessageSquare' size="sm" />
+          <ng-icon name='lucideMessageSquare' />
           Message
         </button>
         <hlm-dropdown-menu-separator />
         <button hlmDropdownMenuItem>
-          <ng-icon hlm name='lucideCirclePlus' size="sm" />
+          <ng-icon name='lucideCirclePlus' />
           <span>More</span>
         </button>
       </hlm-dropdown-menu-sub>
@@ -146,7 +146,7 @@ export const Default: Story = {
 
 @Component({
 	selector: 'stateful-dropdown-story',
-	imports: [HlmDropdownMenuImports, HlmButtonImports, HlmIconImports],
+	imports: [HlmDropdownMenuImports, HlmButtonImports],
 	template: `
 		<div class="flex w-full items-center justify-center pt-[20%]">
 			<button hlmBtn variant="outline" align="center" [hlmDropdownMenuTrigger]="menu">Open</button>
@@ -193,7 +193,7 @@ export const Default: Story = {
 				<hlm-dropdown-menu-separator />
 
 				<button hlmDropdownMenuItem (triggered)="reset()">
-					<ng-icon hlm name="lucideUndo2" size="sm" />
+					<ng-icon name="lucideUndo2" />
 					Reset
 				</button>
 			</hlm-dropdown-menu>

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { provideIcons } from '@ng-icons/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
 	lucideCheck,
 	lucideChevronDown,
@@ -13,11 +13,10 @@ import {
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmButtonGroupImports } from '@spartan-ng/helm/button-group';
 import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
-import { HlmIconImports } from '@spartan-ng/helm/icon';
 
 @Component({
 	selector: 'spartan-button-group-dropdown-menu',
-	imports: [HlmIconImports, HlmButtonImports, HlmButtonGroupImports, HlmDropdownMenuImports],
+	imports: [HlmButtonImports, HlmButtonGroupImports, HlmDropdownMenuImports, NgIcon],
 	providers: [
 		provideIcons({
 			lucideChevronDown,
@@ -34,34 +33,34 @@ import { HlmIconImports } from '@spartan-ng/helm/icon';
 		<div hlmButtonGroup>
 			<button hlmBtn variant="outline">Follow</button>
 			<button hlmBtn variant="outline" size="icon" [hlmDropdownMenuTrigger]="menu" align="end">
-				<ng-icon hlm name="lucideChevronDown" size="sm" />
+				<ng-icon name="lucideChevronDown" />
 			</button>
 		</div>
 		<ng-template #menu>
 			<hlm-dropdown-menu class="w-[49] [--radius:1rem]">
 				<hlm-dropdown-menu-group>
 					<button hlmDropdownMenuItem>
-						<ng-icon hlm name="lucideVolumeOff" size="sm" />
+						<ng-icon name="lucideVolumeOff" />
 						<span>Muted Conversation</span>
 					</button>
 					<button hlmDropdownMenuItem>
-						<ng-icon hlm name="lucideCheck" size="sm" />
+						<ng-icon name="lucideCheck" />
 						<span>Mark as Read</span>
 					</button>
 					<button hlmDropdownMenuItem>
-						<ng-icon hlm name="lucideTriangleAlert" size="sm" />
+						<ng-icon name="lucideTriangleAlert" />
 						<span>Report Conversation</span>
 					</button>
 					<button hlmDropdownMenuItem>
-						<ng-icon hlm name="lucideUserRoundX" size="sm" />
+						<ng-icon name="lucideUserRoundX" />
 						<span>Block User</span>
 					</button>
 					<button hlmDropdownMenuItem>
-						<ng-icon hlm name="lucideShare" size="sm" />
+						<ng-icon name="lucideShare" />
 						<span>Share Conversation</span>
 					</button>
 					<button hlmDropdownMenuItem>
-						<ng-icon hlm name="lucideCopy" size="sm" />
+						<ng-icon name="lucideCopy" />
 						<span>Copy Conversation</span>
 					</button>
 				</hlm-dropdown-menu-group>
@@ -72,7 +71,7 @@ import { HlmIconImports } from '@spartan-ng/helm/icon';
 						variant="destructive"
 						class="hover:bg-destructive/10 dark:hover:bg-destructive/40"
 					>
-						<ng-icon hlm name="lucideTrash" size="sm" class="!text-destructive" />
+						<ng-icon name="lucideTrash" class="!text-destructive" />
 						<span>Delete Conversation</span>
 					</button>
 				</hlm-dropdown-menu-group>

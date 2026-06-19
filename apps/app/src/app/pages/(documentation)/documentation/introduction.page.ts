@@ -5,7 +5,7 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronRight } from '@ng-icons/lucide';
 import { HlmAccordionImports } from '@spartan-ng/helm/accordion';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
-import { HlmIconImports } from '@spartan-ng/helm/icon';
+
 import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
 import { MainSection } from '../../../shared/layout/main-section';
 import { PageBottomNavPlaceholder } from '../../../shared/layout/page-bottom-nav-placeholder';
@@ -40,7 +40,6 @@ export const routeMeta: RouteMeta = {
 		PageBottomNavPlaceholder,
 		HlmButtonImports,
 		NgIcon,
-		HlmIconImports,
 	],
 	providers: [provideIcons({ lucideChevronRight })],
 	template: `
@@ -101,7 +100,7 @@ export const routeMeta: RouteMeta = {
 			<div class="mt-6 flex items-center justify-end">
 				<a routerLink="/documentation/installation" variant="secondary" size="sm" hlmBtn outline="">
 					Get started with spartan/ui
-					<ng-icon hlm name="lucideChevronRight" class="ml-2" size="sm" />
+					<ng-icon name="lucideChevronRight" class="ml-2" />
 				</a>
 			</div>
 
@@ -130,7 +129,7 @@ export const routeMeta: RouteMeta = {
 			<div class="mt-6 flex items-center justify-end">
 				<a routerLink="/stack" variant="secondary" size="sm" hlmBtn outline="">
 					Explore spartan/stack
-					<ng-icon hlm name="lucideChevronRight" class="ml-2" size="sm" />
+					<ng-icon name="lucideChevronRight" class="ml-2" />
 				</a>
 			</div>
 

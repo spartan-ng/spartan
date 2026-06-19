@@ -15,7 +15,7 @@ import { tabBtn, tabContent } from '@spartan-ng/app/app/shared/layout/tabs';
 import { BrnTabs, BrnTabsContent, BrnTabsList, BrnTabsTrigger } from '@spartan-ng/brain/tabs';
 import { HlmAccordionImports } from '@spartan-ng/helm/accordion';
 import { HlmButton } from '@spartan-ng/helm/button';
-import { HlmIcon } from '@spartan-ng/helm/icon';
+
 import { HlmTabsImports } from '@spartan-ng/helm/tabs';
 import { Style, STYLES } from '@spartan-ng/registry';
 
@@ -34,7 +34,7 @@ const cliBtn =
 		HlmTabsImports,
 		NgIcon,
 		HlmButton,
-		HlmIcon,
+
 		TitleCasePipe,
 		HlmAccordionImports,
 	],
@@ -74,8 +74,8 @@ const cliBtn =
 							<button class="${cliBtn}" brnTabsTrigger="nx">Nx Plugin</button>
 						</div>
 
-						<button (click)="copyCli()" hlmBtn variant="ghost" class="ml-auto h-6 w-6">
-							<ng-icon hlm size="xs" [name]="_cliCopied ? 'lucideCheck' : 'lucideClipboard'" />
+						<button (click)="copyCli()" hlmBtn variant="ghost" size="icon-xs" class="ml-auto">
+							<ng-icon [name]="_cliCopied ? 'lucideCheck' : 'lucideClipboard'" />
 						</button>
 					</div>
 
@@ -146,8 +146,8 @@ const cliBtn =
 												}
 											</div>
 
-											<button (click)="copyComponent()" hlmBtn variant="ghost" class="ml-auto h-6 w-6">
-												<ng-icon hlm size="xs" [name]="_componentCopied ? 'lucideCheck' : 'lucideClipboard'" />
+											<button (click)="copyComponent()" hlmBtn variant="ghost" class="ml-auto h-6 w-6" size="icon-xs">
+												<ng-icon [name]="_componentCopied ? 'lucideCheck' : 'lucideClipboard'" />
 											</button>
 										</div>
 

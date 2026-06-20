@@ -298,7 +298,7 @@ function writeStackblitzMeta(tree: Tree): void {
  * real app: the `libs/ui/<component>/src/lib/...` folder structure, the tsconfig path aliases,
  * and the exact dependency set. The StackBlitz builder writes these verbatim.
  *
- * Note: the CLI base generator currently hardcodes the vega style map, so this output is vega
+ * Note: the CLI base generator currently hardcodes the nova style map, so this output is nova
  * (the default theme) - matching what real CLI users get today.
  */
 async function writeStackblitzProject(tree: Tree): Promise<void> {
@@ -346,10 +346,10 @@ async function writeStackblitzProject(tree: Tree): Promise<void> {
 	// on the real filesystem (that file is normally produced by the cli build's asset copy). When
 	// running from source it is absent, which would silently strip the spartan-* variant classes.
 	// Stage it from the registry source for the duration of the run, then clean up.
-	const cliVegaCss = join(__dirname, '../../../../cli/src/generators/ui/style-nova.css');
-	const stagedVegaCss = !existsSync(cliVegaCss);
-	if (stagedVegaCss) {
-		copyFileSync(join(__dirname, '../../../../registry/src/styles/style-nova.css'), cliVegaCss);
+	const cliNovaCss = join(__dirname, '../../../../cli/src/generators/ui/style-nova.css');
+	const stagedNovaCss = !existsSync(cliNovaCss);
+	if (stagedNovaCss) {
+		copyFileSync(join(__dirname, '../../../../registry/src/styles/style-nova.css'), cliNovaCss);
 	}
 	try {
 		await createPrimitiveLibraries(
@@ -366,7 +366,7 @@ async function writeStackblitzProject(tree: Tree): Promise<void> {
 			config,
 		);
 	} finally {
-		if (stagedVegaCss) rmSync(cliVegaCss, { force: true });
+		if (stagedNovaCss) rmSync(cliNovaCss, { force: true });
 	}
 
 	// Capture the real generated component files (libs/ui/**) + components.json. package.json

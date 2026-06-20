@@ -326,7 +326,10 @@ async function writeStackblitzProject(tree: Tree): Promise<void> {
 		),
 	);
 	cli.write('tsconfig.json', JSON.stringify({ compilerOptions: { paths: {} } }, null, 2));
-	cli.write('components.json', JSON.stringify({ componentsPath: 'libs/ui', importAlias: '@spartan-ng/helm' }, null, 2));
+	cli.write(
+		'components.json',
+		JSON.stringify({ componentsPath: 'libs/ui', importAlias: '@spartan-ng/helm', style: 'nova' }, null, 2),
+	);
 
 	const supported = JSON.parse(
 		readFileSync(join(__dirname, '../../../../cli/src/generators/ui/supported-ui-libraries.json'), 'utf-8'),

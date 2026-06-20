@@ -28,7 +28,7 @@ import { transformStyle } from './lib/styles/transform';
 import type { HlmBaseGeneratorSchema } from './schema';
 import { FALLBACK_ANGULAR_CDK_VERSION } from './versions';
 
-const styleMapCache = new Map<string, Record<Style, string>>();
+const styleMapCache = new Map<Style, Record<string, string>>();
 
 async function getStyleMap(style: Style) {
 	if (styleMapCache.has(style)) {

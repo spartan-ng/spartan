@@ -25,7 +25,7 @@ export type SpartanStepperIndicatorMode = 'number' | 'state' | 'icon';
 	template: `
 		<span aria-hidden="true" hlmBtn [class]="_indicatorClass()">
 			@if (_iconName(); as icon) {
-				<ng-icon [name]="icon" size="sm" />
+				<ng-icon [name]="icon" />
 			} @else {
 				<span>{{ index() + 1 }}</span>
 			}

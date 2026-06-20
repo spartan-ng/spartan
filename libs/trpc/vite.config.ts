@@ -1,20 +1,22 @@
 /// <reference types="vitest" />
 
+import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'vite';
+
+const root = fileURLToPath(new URL('./src', import.meta.url));
+const cacheDir = fileURLToPath(new URL('../../node_modules/.vitest/libs-trpc', import.meta.url));
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
 	return {
-		root: 'src',
+		root,
+		cacheDir,
 		test: {
 			passWithNoTests: true,
 			globals: true,
 			environment: 'jsdom',
-			setupFiles: ['src/test-setup.ts'],
+			setupFiles: ['test-setup.ts'],
 			include: ['**/*.spec.ts'],
-			cache: {
-				dir: '../../node_modules/.vitest',
-			},
 		},
 		define: {
 			'import.meta.vitest': mode !== 'production',

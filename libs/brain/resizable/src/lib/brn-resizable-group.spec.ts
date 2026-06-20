@@ -81,6 +81,11 @@ describe('BrnResizableGroup', () => {
 
 	const firstPanelSize = () =>
 		Number(document.querySelector('[data-slot="resizable-panel"]')?.getAttribute('data-panel-size'));
+	const expectLayout = (actual: readonly number[], expected: readonly number[]) => {
+		expect(actual).toHaveLength(expected.length);
+		expected.forEach((size, index) => expect(actual[index]).toBeCloseTo(size));
+		expect(actual.reduce((total, size) => total + size, 0)).toBeCloseTo(100);
+	};
 
 	it('grows the first panel when dragging the handle right in LTR', async () => {
 		const { handle, detectChanges } = await setup();
@@ -155,13 +160,13 @@ describe('BrnResizableGroup', () => {
 		view.detectChanges();
 		await view.fixture.whenStable();
 
-		expect(view.fixture.componentInstance.layout()).toEqual([40, 60, 25]);
+		expectLayout(view.fixture.componentInstance.layout(), [30, 45, 25]);
 
 		const handles = view.container.querySelectorAll<HTMLElement>('brn-resizable-handle');
 		handles[1].dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true }));
 		view.detectChanges();
 
-		expect(view.fixture.componentInstance.layout()).toEqual([40, 61, 24]);
+		expectLayout(view.fixture.componentInstance.layout(), [30, 46, 24]);
 	});
 
 	it('keeps default sizes ahead of the initial layout values', async () => {
@@ -176,7 +181,13 @@ describe('BrnResizableGroup', () => {
 		view.detectChanges();
 		await view.fixture.whenStable();
 
-		expect(view.fixture.componentInstance.layout()).toEqual([100 / 3, 40, 60]);
+		expectLayout(view.fixture.componentInstance.layout(), [100 / 3, (40 * 2) / 3, 40]);
+
+		const handles = view.container.querySelectorAll<HTMLElement>('brn-resizable-handle');
+		handles[1].dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true }));
+		view.detectChanges();
+
+		expectLayout(view.fixture.componentInstance.layout(), [100 / 3, (40 * 2) / 3 + 1, 39]);
 	});
 
 	it('uses an equal share for a panel inserted in the middle without a default size', async () => {
@@ -185,7 +196,7 @@ describe('BrnResizableGroup', () => {
 		view.detectChanges();
 		await view.fixture.whenStable();
 
-		expect(view.fixture.componentInstance.layout()).toEqual([40, 100 / 3, 60]);
+		expectLayout(view.fixture.componentInstance.layout(), [(40 * 2) / 3, 100 / 3, 40]);
 	});
 
 	it('preserves surviving panel sizes when a dynamic panel is removed', async () => {
@@ -193,16 +204,16 @@ describe('BrnResizableGroup', () => {
 		view.fixture.componentInstance.showMiddle.set(true);
 		view.detectChanges();
 		await view.fixture.whenStable();
-		expect(view.fixture.componentInstance.layout()).toEqual([40, 100 / 3, 60]);
+		expectLayout(view.fixture.componentInstance.layout(), [(40 * 2) / 3, 100 / 3, 40]);
 
 		view.fixture.componentInstance.showMiddle.set(false);
 		view.detectChanges();
 		await view.fixture.whenStable();
 
-		expect(view.fixture.componentInstance.layout()).toEqual([40, 60]);
+		expectLayout(view.fixture.componentInstance.layout(), [40, 60]);
 	});
 
-	it('preserves resized panel sizes when a new panel is added', async () => {
+	it('preserves resized panel proportions when a new panel is added', async () => {
 		const view = await render(DynamicResizableHost);
 		const handle = view.container.querySelector<HTMLElement>('brn-resizable-handle') as HTMLElement;
 		handle.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true }));
@@ -213,7 +224,7 @@ describe('BrnResizableGroup', () => {
 		view.detectChanges();
 		await view.fixture.whenStable();
 
-		expect(view.fixture.componentInstance.layout()).toEqual([41, 59, 25]);
+		expectLayout(view.fixture.componentInstance.layout(), [30.75, 44.25, 25]);
 	});
 
 	it('honors a complete external layout supplied with a panel insertion', async () => {

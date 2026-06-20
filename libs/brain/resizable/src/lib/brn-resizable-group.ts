@@ -106,9 +106,28 @@ export class BrnResizableGroup {
 			// A complete changed layout is explicit consumer intent for the current panel order.
 			sizes = [...currentLayout];
 		} else {
-			// Membership changed on its own: retain known panels by identity and initialize only new panels.
+			// Membership changed on its own: reserve new panel sizes, then preserve the relative proportions
+			// of known panels within the remaining space.
 			const previousSizes = new Map(this._knownPanels.map((panel, index) => [panel, this._appliedLayout[index]]));
-			sizes = panels.map((panel) => previousSizes.get(panel) ?? panel.defaultSize() ?? 100 / totalPanels);
+			const newPanelSizes = new Map(
+				panels
+					.filter((panel) => !previousSizes.has(panel))
+					.map((panel) => [panel, panel.defaultSize() ?? 100 / totalPanels]),
+			);
+			const newPanelsTotal = Array.from(newPanelSizes.values()).reduce((total, size) => total + size, 0);
+			const previousPanelsTotal = panels.reduce((total, panel) => total + (previousSizes.get(panel) ?? 0), 0);
+
+			if (newPanelsTotal <= 100 && previousPanelsTotal > 0) {
+				const remainingSize = 100 - newPanelsTotal;
+				sizes = panels.map(
+					(panel) =>
+						newPanelSizes.get(panel) ?? ((previousSizes.get(panel) ?? 0) / previousPanelsTotal) * remainingSize,
+				);
+			} else {
+				const rawSizes = panels.map((panel) => newPanelSizes.get(panel) ?? previousSizes.get(panel) ?? 0);
+				const totalSize = rawSizes.reduce((total, size) => total + size, 0);
+				sizes = totalSize > 0 ? rawSizes.map((size) => (size / totalSize) * 100) : rawSizes;
+			}
 		}
 
 		panels.forEach((panel, index) => panel.setSize(sizes[index]));

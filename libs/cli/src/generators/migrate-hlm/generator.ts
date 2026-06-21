@@ -1,5 +1,5 @@
 import { formatFiles, readJson, type Tree } from '@nx/devkit';
-import { getOrCreateConfig } from '../../utils/config';
+import { loadOrInitConfig } from '../../utils/config';
 import { visitFiles } from '../../utils/visit-files';
 import type { SupportedLibraries } from '../base/lib/supported-libs';
 import { createPrimitiveLibraries } from '../ui/generator';
@@ -37,7 +37,7 @@ async function ensureHelmUtilsInstalled(tree: Tree, angularCli: boolean) {
 		const supportedLibraries = (await import('../ui/supported-ui-libraries.json').then(
 			(m) => m.default,
 		)) as SupportedLibraries;
-		const config = await getOrCreateConfig(tree, { angularCli });
+		const config = await loadOrInitConfig(tree, { angularCli });
 
 		await createPrimitiveLibraries(
 			{

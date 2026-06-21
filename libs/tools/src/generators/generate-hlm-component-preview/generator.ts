@@ -1,12 +1,15 @@
 import { formatFiles, joinPathFragments, logger, type Tree, visitNotIgnoredFiles } from '@nx/devkit';
 import { createTree } from '@nx/devkit/testing';
-import { createPrimitiveLibraries, createStyleMap, getOrCreateConfig, transformStyle } from '@spartan-ng/cli';
+import {
+	createPrimitiveLibraries,
+	createStyleMap,
+	loadOrInitConfig,
+	type Style,
+	STYLES,
+	transformStyle,
+} from '@spartan-ng/cli';
 import { copyFileSync, existsSync, readFileSync, rmSync } from 'node:fs';
 import { join } from 'node:path';
-
-// todo remove this when the registry is build and published
-const STYLES = ['nova', 'vega', 'lyra', 'maia', 'mira', 'luma'] as const;
-type Style = (typeof STYLES)[number];
 
 function shouldIgnoreImport(importLine: string) {
 	const match = importLine.match(/from\s+['"](.*)['"]/);
@@ -335,7 +338,7 @@ async function writeStackblitzProject(tree: Tree): Promise<void> {
 		readFileSync(join(__dirname, '../../../../cli/src/generators/ui/supported-ui-libraries.json'), 'utf-8'),
 	);
 	const names = Object.keys(supported);
-	const config = await getOrCreateConfig(cli, {
+	const config = await loadOrInitConfig(cli, {
 		angularCli: true,
 		componentsPath: 'libs/ui',
 		importAlias: '@spartan-ng/helm',

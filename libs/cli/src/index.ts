@@ -5,4 +5,5 @@ export * from './generators/migrate-brain-imports/generator';
 // path) so the tools build does not pull CLI sources outside its rootDir (TS6059). The tools test
 // env polyfills TextDecoder for the @nx/angular graph this transitively loads.
 export { createPrimitiveLibraries } from './generators/ui/generator';
-export { getOrCreateConfig } from './utils/config';
+export { loadOrInitConfig } from './utils/config';
+export { STYLES, type Style } from './utils/supported-styles';

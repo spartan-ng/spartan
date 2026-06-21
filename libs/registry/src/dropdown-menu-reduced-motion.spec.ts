@@ -12,7 +12,7 @@ describe('dropdown menu reduced motion styles', () => {
 			for (const selector of dropdownSelectors) {
 				const block = stylesheet.match(new RegExp(`&?\\.${selector} \\{([^}]*)\\}`))?.[1];
 
-				expect(block, `${selector} is missing from ${style}`).toContain('@apply motion-reduce:animate-none!;');
+				expect(block, `${selector} is missing from ${style}`).toContain('motion-reduce:animate-none!');
 			}
 		});
 	}

@@ -1,7 +1,7 @@
 import { type GeneratorCallback, getProjects, runTasksInSerial, type Tree } from '@nx/devkit';
 
 import { prompt } from 'enquirer';
-import { type Config, getOrCreateConfig } from '../../utils/config';
+import { backfillStyleInComponentsJson, type Config, loadOrInitConfig } from '../../utils/config';
 import type { Style } from '../../utils/supported-styles';
 import type { GenerateAs } from '../base/lib/generate-as';
 import { initializeAngularEntrypoint } from '../base/lib/initialize-angular-library';
@@ -15,9 +15,10 @@ type PrimitiveResponse = Primitive | 'all';
 
 export default async function hlmUIGenerator(tree: Tree, options: HlmUIGeneratorSchema & { angularCli?: boolean }) {
 	const tasks: GeneratorCallback[] = [];
-	const config = await getOrCreateConfig(tree, {
+	await backfillStyleInComponentsJson(tree);
+	const config = await loadOrInitConfig(tree, {
 		componentsPath: options.directory,
-		angularCli: options.angularCli,
+		angularCli: options.angularCli ?? true,
 	});
 
 	const availablePrimitives: PrimitiveDefinitions = await import('./supported-ui-libraries.json').then(
@@ -89,7 +90,7 @@ export async function createPrimitiveLibraries(
 		const task = await initializeAngularEntrypoint(tree, {
 			tags: options.tags,
 			directory: options.directory ?? config.componentsPath,
-			buildable: config.buildable,
+			buildable: config.buildable ?? true,
 			importAlias: config.importAlias,
 			style: config.style,
 		});
@@ -111,7 +112,7 @@ export async function createPrimitiveLibraries(
 				tags: options.tags,
 				rootProject: options.rootProject,
 				angularCli: options.angularCli,
-				buildable: options.buildable ?? config.buildable,
+				buildable: options.buildable ?? config.buildable ?? true,
 				generateAs: options.generateAs ?? config.generateAs ?? 'library',
 				importAlias: options.importAlias ?? config.importAlias ?? `@spartan-ng/helm`,
 				style: options.style ?? config.style,

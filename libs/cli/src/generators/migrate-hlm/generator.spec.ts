@@ -3,7 +3,7 @@ import type { Tree } from '@nx/devkit';
 import { createTreeWithEmptyWorkspace } from '@nx/devkit/testing';
 import { migrateHlmGenerator } from './generator';
 
-import { getOrCreateConfig } from '../../utils/config';
+import { loadOrInitConfig } from '../../utils/config';
 import { createPrimitiveLibraries } from '../ui/generator';
 
 // patch some imports to avoid running the actual code
@@ -24,7 +24,7 @@ vi.mock('../ui/generator', () => ({
 	createPrimitiveLibraries: vi.fn(),
 }));
 vi.mock('../../utils/config', () => ({
-	getOrCreateConfig: vi.fn().mockResolvedValue({}),
+	loadOrInitConfig: vi.fn().mockResolvedValue({}),
 }));
 
 describe('migrate-hlm', () => {
@@ -166,7 +166,7 @@ describe('migrate-hlm', () => {
 
 			await migrateHlmGenerator(tree, { skipFormat: true, angularCli: false });
 
-			expect(getOrCreateConfig).toHaveBeenCalled();
+			expect(loadOrInitConfig).toHaveBeenCalled();
 			expect(createPrimitiveLibraries).toHaveBeenCalledWith(
 				{ primitives: ['utils'] },
 				expect.any(Array),

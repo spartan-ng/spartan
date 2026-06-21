@@ -4,6 +4,7 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronDown, lucideX } from '@ng-icons/lucide';
 import { BrnComboboxAnchor, BrnComboboxImports, BrnComboboxPopoverTrigger } from '@spartan-ng/brain/combobox';
 import { HlmInputGroup, HlmInputGroupImports } from '@spartan-ng/helm/input-group';
+import { classes } from '@spartan-ng/helm/utils';
 
 @Component({
 	selector: 'hlm-combobox-input',
@@ -70,4 +71,8 @@ export class HlmComboboxInput {
 		transform: (v: BooleanInput) => (v === '' || v === undefined ? undefined : booleanAttribute(v)),
 		alias: 'aria-invalid',
 	});
+
+	constructor() {
+		classes(() => 'w-auto');
+	}
 }

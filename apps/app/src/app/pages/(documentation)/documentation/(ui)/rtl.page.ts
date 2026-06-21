@@ -17,9 +17,8 @@ export const routeMeta: RouteMeta = {
 };
 
 @Component({
-	selector: 'spartan-docs-intro',
+	selector: 'spartan-docs-rtl',
 	imports: [MainSection, SectionIntro, CardRtl, CodeRtlPreview, SectionSubHeading, PageBottomNav, PageBottomNavLink],
-
 	template: `
 		<section spartanMainSection>
 			<spartan-section-intro name="RTL" lead="Right-to-left support for spartan/ui components." />
@@ -75,4 +74,4 @@ export const routeMeta: RouteMeta = {
 		</spartan-page-bottom-nav>
 	`,
 })
-export default class DocsIntroPage {}
+export default class DocsRtlPage {}

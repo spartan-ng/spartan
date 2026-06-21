@@ -52,6 +52,14 @@ describe('select', () => {
 			cy.get('[brnselecttrigger]').should('have.attr', 'aria-expanded', 'false');
 		});
 
+		it('click outside should close the content', () => {
+			verifySelectSetup();
+			cy.get('[brnselecttrigger]').click();
+			cy.get('[brnselecttrigger]').should('have.attr', 'aria-expanded', 'true');
+			cy.get('body').click();
+			cy.get('[brnselecttrigger]').should('have.attr', 'aria-expanded', 'false');
+		});
+
 		it('should close after selecting an option in single mode', () => {
 			verifySelectSetup();
 			cy.get('[brnselecttrigger]').click();

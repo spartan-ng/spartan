@@ -16,6 +16,7 @@ import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 				brnComboboxInput
 				#comboboxInput="brnComboboxInput"
 				brnComboboxPopoverTrigger
+				[closeOnTriggerClick]="false"
 				hlmInputGroupInput
 				[id]="inputId()"
 				[placeholder]="placeholder()"

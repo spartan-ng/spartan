@@ -1,5 +1,6 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
+import { injectComponentDocs } from '@spartan-ng/app/app/core/services/component-docs';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { hlmCode, hlmH4 } from '@spartan-ng/helm/typography';
 import { CodePreview } from '../../../../shared/code/code-preview';
@@ -86,6 +87,10 @@ imports: [
 	`,
 })
 export default class <%= pageComponentName %> {
+	constructor() {
+		injectComponentDocs();
+	}
+
 	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('<%= name %>');
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
 	protected readonly _imports = defaultImports;

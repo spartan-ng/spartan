@@ -1,5 +1,6 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
+import { injectComponentDocs } from '@spartan-ng/app/app/core/services/component-docs';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { CommandGroups } from '@spartan-ng/app/app/pages/(components)/components/(command)/command--groups.example';
 import { CommandRtl } from '@spartan-ng/app/app/pages/(components)/components/(command)/command--rtl.example';
@@ -129,6 +130,10 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class CommandPage {
+	constructor() {
+		injectComponentDocs();
+	}
+
 	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('command');
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
 	protected readonly _commandBasicCode = computed(() => this._snippets()['basic']);

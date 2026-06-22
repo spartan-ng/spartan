@@ -1,5 +1,6 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
+import { injectComponentDocs } from '@spartan-ng/app/app/core/services/component-docs';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { InstallTabs } from '@spartan-ng/app/app/shared/layout/install-tabs';
 import { Code } from '../../../../shared/code/code';
@@ -70,7 +71,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
-			<spartan-install-tabs primitive="resizable" [showOnlyVega]="false" />
+			<spartan-install-tabs primitive="resizable" />
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="mt-6 space-y-4">
@@ -140,6 +141,10 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class ResizablePage {
+	constructor() {
+		injectComponentDocs();
+	}
+
 	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('resizable');
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
 	protected readonly _verticalCode = computed(() => this._snippets()['vertical']);

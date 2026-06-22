@@ -1,6 +1,7 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { injectComponentDocs } from '@spartan-ng/app/app/core/services/component-docs';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { DataTableRtl } from '@spartan-ng/app/app/pages/(components)/components/(data-table)/data-table--rtl.preview';
 import { CodeRtlPreview } from '@spartan-ng/app/app/shared/code/code-rtl-preview';
@@ -75,7 +76,7 @@ export const routeMeta: RouteMeta = {
 				directives.
 			</p>
 
-			<spartan-install-tabs primitive="table" [showOnlyVega]="false">
+			<spartan-install-tabs primitive="table">
 				<p class="${hlmP}">
 					Add the
 					<a class="${link}" routerLink="/components/table">Table</a>
@@ -155,6 +156,10 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class DataTablePage {
+	constructor() {
+		injectComponentDocs();
+	}
+
 	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('data-table');
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
 	protected readonly _rtlCode = computed(() => this._snippets()['rtl']);

@@ -1,5 +1,6 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
+import { injectComponentDocs } from '@spartan-ng/app/app/core/services/component-docs';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { SliderRtlPreview } from '@spartan-ng/app/app/pages/(components)/components/(slider)/slider--rtl.example';
 import { CodeRtlPreview } from '@spartan-ng/app/app/shared/code/code-rtl-preview';
@@ -82,7 +83,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
-			<spartan-install-tabs primitive="slider" [showOnlyVega]="false" />
+			<spartan-install-tabs primitive="slider" />
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="mt-6 space-y-4">
@@ -224,6 +225,10 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class SliderPage {
+	constructor() {
+		injectComponentDocs();
+	}
+
 	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('slider');
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
 	protected readonly _rtlCode = computed(() => this._snippets()['rtl']);

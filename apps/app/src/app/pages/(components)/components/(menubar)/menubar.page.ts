@@ -1,6 +1,7 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { injectComponentDocs } from '@spartan-ng/app/app/core/services/component-docs';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { MenubarRtl } from '@spartan-ng/app/app/pages/(components)/components/(menubar)/menubar--rtl.preview';
 import { CodeRtlPreview } from '@spartan-ng/app/app/shared/code/code-rtl-preview';
@@ -78,7 +79,7 @@ export const routeMeta: RouteMeta = {
 				.
 			</p>
 
-			<spartan-install-tabs primitive="menubar" [showOnlyVega]="false" />
+			<spartan-install-tabs primitive="menubar" />
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="mt-6 space-y-4">
@@ -115,6 +116,10 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class MenubarPage {
+	constructor() {
+		injectComponentDocs();
+	}
+
 	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('menubar');
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
 	protected readonly _iconsCode = computed(() => this._snippets()['icons']);

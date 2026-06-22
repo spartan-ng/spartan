@@ -1,5 +1,6 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
+import { injectComponentDocs } from '@spartan-ng/app/app/core/services/component-docs';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { ItemAvatarPreview } from '@spartan-ng/app/app/pages/(components)/components/(item)/item--avatar.preview';
 import { ItemDropdownPreview } from '@spartan-ng/app/app/pages/(components)/components/(item)/item--dropdown.preview';
@@ -84,7 +85,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
-			<spartan-install-tabs primitive="item" [showOnlyVega]="false" />
+			<spartan-install-tabs primitive="item" />
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="mt-6 space-y-4">
@@ -237,6 +238,10 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class ItemPage {
+	constructor() {
+		injectComponentDocs();
+	}
+
 	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('item');
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
 	protected readonly _avatarCode = computed(() => this._snippets()['avatar']);

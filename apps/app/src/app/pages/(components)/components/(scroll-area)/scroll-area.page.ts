@@ -1,5 +1,6 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
+import { injectComponentDocs } from '@spartan-ng/app/app/core/services/component-docs';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { ScrollAreaHorizontalPreview } from '@spartan-ng/app/app/pages/(components)/components/(scroll-area)/scroll-area--horizontal.preview';
 import { ScrollAreaRtlPreview } from '@spartan-ng/app/app/pages/(components)/components/(scroll-area)/scroll-area--rtl.example';
@@ -76,7 +77,7 @@ export const routeMeta: RouteMeta = {
 				.
 			</p>
 
-			<spartan-install-tabs primitive="scroll-area" [showOnlyVega]="false" />
+			<spartan-install-tabs primitive="scroll-area" />
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="mt-6 space-y-4">
@@ -115,6 +116,10 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class ScrollAreaPage {
+	constructor() {
+		injectComponentDocs();
+	}
+
 	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('scroll-area');
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
 	protected readonly _horizontalCode = computed(() => this._snippets()['horizontal']);

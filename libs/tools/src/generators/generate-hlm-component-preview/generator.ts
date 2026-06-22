@@ -10,6 +10,7 @@ import {
 } from '@spartan-ng/cli';
 import { copyFileSync, existsSync, readFileSync, rmSync } from 'node:fs';
 import { join } from 'node:path';
+import { writePerComponentData } from '../../write-per-component-data';
 
 function shouldIgnoreImport(importLine: string) {
 	const match = importLine.match(/from\s+['"](.*)['"]/);
@@ -208,8 +209,8 @@ export async function generateHlmComponentManualInstallation(tree: Tree): Promis
 		}
 	}
 
-	const outputPath = 'apps/app/src/public/data/manual-install-snippets.json';
-	tree.write(outputPath, JSON.stringify(result, null, 2));
+	const outputDir = 'apps/app/src/public/data/manual-install-snippets';
+	writePerComponentData(result, outputDir, (filePath, content) => tree.write(filePath, content));
 
 	// The StackBlitz artifacts need the real workspace (brain version, the CLI generator's source).
 	// Skip them when running against a synthetic tree, e.g. the unit test's empty workspace.
@@ -219,7 +220,7 @@ export async function generateHlmComponentManualInstallation(tree: Tree): Promis
 	}
 
 	await formatFiles(tree);
-	logger.info(`Snippets generated at ${outputPath}`);
+	logger.info(`Snippets generated at ${outputDir}`);
 }
 
 /**

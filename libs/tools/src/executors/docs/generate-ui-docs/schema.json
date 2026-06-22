@@ -7,11 +7,7 @@
 	"properties": {
 		"outputDir": {
 			"type": "string",
-			"description": "Directory where the output JSON file will be written, relative to workspace root"
-		},
-		"outputFile": {
-			"type": "string",
-			"description": "Name of the output JSON file"
+			"description": "Directory where the per-component ui-api JSON files will be written, relative to workspace root"
 		},
 		"brainDir": {
 			"type": "string",
@@ -22,5 +18,5 @@
 			"description": "Directory containing helm components, relative to workspace root"
 		}
 	},
-	"required": ["outputDir", "outputFile", "brainDir", "helmDir"]
+	"required": ["outputDir", "brainDir", "helmDir"]
 }

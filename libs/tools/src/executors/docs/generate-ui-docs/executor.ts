@@ -2,6 +2,7 @@ import type { ExecutorContext } from '@nx/devkit';
 import fs from 'fs';
 import path from 'path';
 import { CallExpression, ObjectLiteralExpression, Project, PropertyAssignment } from 'ts-morph';
+import { writePerComponentData } from '../../../write-per-component-data';
 import type { GenerateUiDocsExecutorSchema } from './schema';
 
 export default async function runExecutor(options: GenerateUiDocsExecutorSchema, context: ExecutorContext) {
@@ -26,8 +27,9 @@ export default async function runExecutor(options: GenerateUiDocsExecutorSchema,
 
 	const extractedData = extractInputsOutputs(project, context.root);
 
-	const outputPath = path.join(outputDir, options.outputFile);
-	await fs.promises.writeFile(outputPath, JSON.stringify(extractedData, null, 2));
+	const perComponentDir = path.join(outputDir, 'ui-api');
+	fs.mkdirSync(perComponentDir, { recursive: true });
+	writePerComponentData(extractedData, perComponentDir, (filePath, content) => fs.writeFileSync(filePath, content));
 
 	return { success: true };
 }

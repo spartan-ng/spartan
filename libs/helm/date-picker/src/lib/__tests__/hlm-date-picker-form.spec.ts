@@ -1,8 +1,9 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, viewChild } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HlmFieldImports } from '@spartan-ng/helm/field';
 import { HlmDatePickerImports } from '../../index';
+import { HlmDatePicker } from '../hlm-date-picker';
 
 @Component({
 	selector: 'hlm-date-picker-host',
@@ -26,6 +27,25 @@ class HlmDatePickerHost {
 	public readonly form = new FormGroup({
 		date: new FormControl<Date | null>(null, { validators: [Validators.required] }),
 	});
+}
+
+@Component({
+	selector: 'hlm-date-picker-dropdown-host',
+	imports: [ReactiveFormsModule, HlmDatePickerImports],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<form [formGroup]="form">
+			<hlm-date-picker captionLayout="dropdown" formControlName="date">
+				<hlm-date-picker-trigger buttonId="date">Pick date</hlm-date-picker-trigger>
+			</hlm-date-picker>
+		</form>
+	`,
+})
+class HlmDatePickerDropdownHost {
+	public readonly form = new FormGroup({
+		date: new FormControl<Date | null>(null, { validators: [Validators.required] }),
+	});
+	public readonly datePicker = viewChild.required(HlmDatePicker);
 }
 
 describe('HlmDatePicker form integration', () => {
@@ -56,5 +76,37 @@ describe('HlmDatePicker form integration', () => {
 		const describedBy = button?.getAttribute('aria-describedby') ?? '';
 		expect(describedBy.split(' ')).toContain(description!.id);
 		expect(describedBy.split(' ')).toContain(error!.id);
+	});
+
+	it('does not mark the calendar month/year selects as invalid when the date picker is invalid', async () => {
+		const dropdownFixture = TestBed.createComponent(HlmDatePickerDropdownHost);
+		dropdownFixture.detectChanges();
+		await dropdownFixture.whenStable();
+
+		const host = dropdownFixture.componentInstance;
+		host.form.markAllAsTouched();
+		host.form.get('date')?.updateValueAndValidity();
+		dropdownFixture.detectChanges();
+
+		const datePicker = host.datePicker();
+		datePicker.open();
+		dropdownFixture.detectChanges();
+		await dropdownFixture.whenStable();
+
+		const trigger: HTMLButtonElement | null = dropdownFixture.nativeElement.querySelector(
+			'hlm-date-picker-trigger button',
+		);
+		expect(trigger?.getAttribute('aria-invalid')).toBe('true');
+
+		const overlay = document.querySelector('.cdk-overlay-container');
+		const selectTriggers = overlay ? Array.from(overlay.querySelectorAll('[data-slot="select-trigger"]')) : [];
+		expect(selectTriggers.length).toBeGreaterThan(0);
+		for (const selectTrigger of selectTriggers) {
+			expect(selectTrigger.getAttribute('aria-invalid')).toBeNull();
+			expect(selectTrigger.getAttribute('data-matches-spartan-invalid')).toBeNull();
+		}
+
+		datePicker.close();
+		document.querySelectorAll('.cdk-overlay-container').forEach((el) => el.remove());
 	});
 });

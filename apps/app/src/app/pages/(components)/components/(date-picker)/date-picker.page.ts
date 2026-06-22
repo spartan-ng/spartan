@@ -183,7 +183,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_formatCode()" />
 			</spartan-tabs>
 
-			<h3 id="input_picker" spartanH4>Input Picker</h3>
+			<h3 id="input-picker" spartanH4>Input Picker</h3>
 			<p class="${hlmP} mb-6">
 				Use
 				<code class="${hlmCode}">hlm-date-picker-input</code>

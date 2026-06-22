@@ -30,6 +30,10 @@
 			if (localStorage.layout) {
 				document.documentElement.classList.add('layout-' + localStorage.layout);
 			}
+			const logoVariant = ['default', 'legacy'].includes(localStorage.logoVariant)
+				? localStorage.logoVariant
+				: 'default';
+			document.documentElement.classList.add('logo-' + logoVariant);
 			if (window.navigator.userAgent.toUpperCase().includes('MAC')) {
 				document.documentElement.style.setProperty('--is-mac', 'true');
 			}

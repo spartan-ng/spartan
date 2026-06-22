@@ -420,7 +420,7 @@
 	}
 
 	.spartan-command-item {
-		@apply data-selected:bg-muted data-selected:text-foreground relative flex min-h-7 cursor-default items-center gap-2 rounded-md px-2.5 py-1.5 text-xs/relaxed outline-hidden select-none in-data-[slot=dialog-content]:rounded-md [&_ng-icon:not([class*='text-'])]:text-[length:--spacing(3.5)];
+		@apply data-selected:bg-accent data-selected:text-accent-foreground relative flex min-h-7 cursor-default items-center gap-2 rounded-md px-2.5 py-1.5 text-xs/relaxed outline-hidden select-none in-data-[slot=dialog-content]:rounded-md [&_ng-icon:not([class*='text-'])]:text-[length:--spacing(3.5)];
 	}
 
 	.spartan-command-shortcut {

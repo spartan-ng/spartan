@@ -12,8 +12,13 @@ const EXIT_MS = 150;
 	imports: [HlmTooltip],
 	providers: [Directionality],
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	// Center the trigger so the overlay never renders under the headless browser's
+	// resting cursor (0,0); otherwise the panel receives a real mouseenter, sets the
+	// directive's hovered flag, and a synthetic mouseleave on the trigger is ignored.
 	template: `
-		<button hlmTooltip="tip" [showDelay]="0" [hideDelay]="0">trigger</button>
+		<div style="position: fixed; inset: 0; display: flex; align-items: center; justify-content: center">
+			<button hlmTooltip="tip" [showDelay]="0" [hideDelay]="0">trigger</button>
+		</div>
 	`,
 })
 class TooltipAnimationHost {}

@@ -25,6 +25,13 @@ export interface SetupCell {
 	allComponents?: boolean;
 	/** Excluded from the per-PR CI matrix (too slow); runs only in the nightly full run. */
 	nightlyOnly?: boolean;
+	/**
+	 * Component style the CLI generates with (written into components.json). Defaults to 'vega' when
+	 * omitted - the style every non-style cell uses. The style decides which Tailwind classes the
+	 * generator pulls from the registry to replace the `spartan-*` placeholders; the dedicated
+	 * `style-*` cells below vary it to verify that replacement for every supported style.
+	 */
+	style?: string;
 }
 
 const nxCells: SetupCell[] = (['library', 'entrypoint'] as GenerateAs[]).flatMap((generateAs) =>
@@ -71,7 +78,28 @@ const allComponentsCells: SetupCell[] = [
 	},
 ];
 
-export const setupMatrix: SetupCell[] = [...nxCells, ...nxStandaloneCells, ...angularCliCells, ...allComponentsCells];
+// Style coverage: scaffold -> generate -> build once per supported style and assert the CLI replaced the
+// `spartan-*` placeholders with THAT style's registry classes (see assertStyleClassesApplied). The six
+// styles are split across the two workspace types so both the angular-cli and the nx generator path are
+// exercised while no style runs more than once: vega (the default) is covered by the cells above, and the
+// remaining five alternate between angular-cli and nx (entrypoint + buildable - the nx shape most sensitive
+// to the style transform). Keep in sync with libs/registry/src/styles/style.ts (STYLES) when a style is
+// added or removed.
+const styleCells: SetupCell[] = [
+	{ id: 'style-acli-nova', workspace: 'angular-cli', style: 'nova' },
+	{ id: 'style-nx-lyra', workspace: 'nx', generateAs: 'entrypoint', buildable: true, style: 'lyra' },
+	{ id: 'style-acli-maia', workspace: 'angular-cli', style: 'maia' },
+	{ id: 'style-nx-mira', workspace: 'nx', generateAs: 'entrypoint', buildable: true, style: 'mira' },
+	{ id: 'style-acli-luma', workspace: 'angular-cli', style: 'luma' },
+];
+
+export const setupMatrix: SetupCell[] = [
+	...nxCells,
+	...nxStandaloneCells,
+	...angularCliCells,
+	...allComponentsCells,
+	...styleCells,
+];
 
 /**
  * Default components generated in every cell. `button` is a standalone primitive; `card` exercises a

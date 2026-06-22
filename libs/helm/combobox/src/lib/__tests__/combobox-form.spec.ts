@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmFieldImports } from '@spartan-ng/helm/field';
 import { HlmComboboxImports } from '../../index';
 
@@ -19,7 +18,7 @@ const frameworks: Framework[] = [
 @Component({
 	// eslint-disable-next-line @angular-eslint/component-selector
 	selector: 'combobox-field-test',
-	imports: [ReactiveFormsModule, HlmFieldImports, HlmButtonImports, HlmComboboxImports],
+	imports: [ReactiveFormsModule, HlmFieldImports, HlmComboboxImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<form [formGroup]="form">

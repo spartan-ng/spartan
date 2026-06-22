@@ -1,6 +1,6 @@
 import { UnitTestRunner } from '@nx/angular/generators';
 import type { Schema } from '@nx/angular/src/generators/library/schema';
-import { type Tree, joinPathFragments, readNxJson, updateJson } from '@nx/devkit';
+import { joinPathFragments, readNxJson, type Tree, updateJson } from '@nx/devkit';
 import * as path from 'path';
 import { type ObjectLiteralExpression, Project, SyntaxKind } from 'ts-morph';
 import type { HlmBaseGeneratorSchema } from '../schema';
@@ -126,7 +126,7 @@ const defaultSchema: Partial<Schema> = {
 
 export async function initializeAngularEntrypoint(
 	tree: Tree,
-	options: Pick<HlmBaseGeneratorSchema, 'directory' | 'buildable' | 'tags' | 'importAlias'>,
+	options: Pick<HlmBaseGeneratorSchema, 'directory' | 'buildable' | 'tags' | 'importAlias' | 'style'>,
 ) {
 	const { libraryGenerator } = await import('@nx/angular/generators');
 	const dir = joinPathFragments(options.directory);

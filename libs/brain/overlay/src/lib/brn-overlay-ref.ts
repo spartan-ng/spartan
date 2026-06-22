@@ -63,14 +63,28 @@ export class BrnOverlayRef<OverlayResult = unknown> {
 		);
 	}
 
-	public dismiss(reason: BrnOverlayDismissReason): boolean {
+	public dismiss(reason: BrnOverlayDismissReason, target?: EventTarget | null): boolean {
 		const options = this.initialOptions;
 		if (!this.open || options.disableClose) return false;
 		if (reason === 'backdrop' && !options.closeOnBackdropClick) return false;
-		if (reason === 'outside' && !options.closeOnOutsidePointerEvents) return false;
+		if (reason === 'outside') {
+			if (!options.closeOnOutsidePointerEvents) return false;
+			// The trigger lives outside the overlay panel, so CDK reports clicks on it as "outside".
+			// Treat them as inside the widget and let the trigger's own handler toggle instead - this
+			// avoids a close/re-open race that flickers the open/close animation.
+			if (this._isWithinOrigin(target)) return false;
+		}
 
 		this.close();
 		return true;
+	}
+
+	/** Whether the event target sits within the overlay's origin (its trigger/anchor element). */
+	private _isWithinOrigin(target?: EventTarget | null): boolean {
+		const origin = this.initialOptions.attachTo;
+		if (!origin || !(target instanceof Node)) return false;
+		const element = origin instanceof Element ? origin : 'nativeElement' in origin ? origin.nativeElement : null;
+		return element instanceof Element && element.contains(target);
 	}
 
 	public reopen(): void {

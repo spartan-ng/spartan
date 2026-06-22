@@ -19,16 +19,18 @@ import { getTargetLibraryDirectory } from './lib/get-target-library-directory';
 import { initializeAngularLibrary } from './lib/initialize-angular-library';
 
 import { librarySecondaryEntryPointGenerator } from '@nx/angular/generators';
+
 import { promises as fsPromises } from 'fs';
+import type { Style } from '../../utils/supported-styles';
 import { singleLibName } from './lib/single-lib-name';
 import { createStyleMap } from './lib/styles/create-style-map';
 import { transformStyle } from './lib/styles/transform';
 import type { HlmBaseGeneratorSchema } from './schema';
 import { FALLBACK_ANGULAR_CDK_VERSION } from './versions';
 
-const styleMapCache = new Map<string, Record<string, string>>();
+const styleMapCache = new Map<Style, Record<string, string>>();
 
-async function getStyleMap(style: string) {
+async function getStyleMap(style: Style) {
 	if (styleMapCache.has(style)) {
 		return styleMapCache.get(style)!;
 	}
@@ -221,8 +223,7 @@ export async function hlmBaseGenerator(tree: Tree, options: HlmBaseGeneratorSche
 		generateLibraryFiles(tree, targetLibDir, options);
 	}
 
-	// TODO: add style to component.json
-	const styleMap = await getStyleMap('vega');
+	const styleMap = await getStyleMap(options.style);
 	const generatedFiles: string[] = [];
 
 	visitNotIgnoredFiles(tree, filesPath, (filePath) => {

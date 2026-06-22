@@ -31,6 +31,7 @@ describe('healthcheck generator', () => {
 			buildable: true,
 			generateAs: 'entrypoint',
 			importAlias: '@spartan-ng/helm',
+			style: 'vega',
 		});
 
 		writeJson(tree, 'package.json', {
@@ -470,6 +471,7 @@ describe('healthcheck generator prompt', () => {
 			buildable: true,
 			generateAs: 'entrypoint',
 			importAlias: '@spartan-ng/helm',
+			style: 'vega',
 		});
 
 		writeJson(tree, 'package.json', {

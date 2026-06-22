@@ -14,6 +14,7 @@ import { Tabs } from '../../../../shared/layout/tabs';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
 
+import { ResizableDynamicPreview } from '@spartan-ng/app/app/pages/(components)/components/(resizable)/resizable--dynamic.preview';
 import { ResizableHandlePreview } from '@spartan-ng/app/app/pages/(components)/components/(resizable)/resizable--handle.preview';
 import { ResizableRtlPreview } from '@spartan-ng/app/app/pages/(components)/components/(resizable)/resizable--rtl.example';
 import { ResizableVerticalPreview } from '@spartan-ng/app/app/pages/(components)/components/(resizable)/resizable--vertical.preview';
@@ -47,6 +48,7 @@ export const routeMeta: RouteMeta = {
 		SectionSubSubHeading,
 		ResizableVerticalPreview,
 		ResizableHandlePreview,
+		ResizableDynamicPreview,
 		HlmP,
 		HlmCode,
 		RtlHeader,
@@ -106,6 +108,15 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_handleCode()" />
 			</spartan-tabs>
 
+			<h3 id="examples__dynamic-panels" spartanH4>Dynamic panels</h3>
+			<p hlmP>Panels can be added or removed after the resizable group has rendered.</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-resizable-dynamic-preview />
+				</div>
+				<spartan-code secondTab [code]="_dynamicCode()" />
+			</spartan-tabs>
+
 			<spartan-header-rtl />
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanRtlCodePreview firstTab>
@@ -133,6 +144,7 @@ export default class ResizablePage {
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
 	protected readonly _verticalCode = computed(() => this._snippets()['vertical']);
 	protected readonly _handleCode = computed(() => this._snippets()['handle']);
+	protected readonly _dynamicCode = computed(() => this._snippets()['dynamic']);
 	protected readonly _rtlCode = computed(() => this._snippets()['rtl']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;

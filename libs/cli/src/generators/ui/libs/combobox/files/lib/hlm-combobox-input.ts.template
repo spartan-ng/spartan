@@ -16,6 +16,7 @@ import { HlmInputGroupImports } from '<%- importAlias %>/input-group';
 				brnComboboxInput
 				#comboboxInput="brnComboboxInput"
 				brnComboboxPopoverTrigger
+				[closeOnTriggerClick]="false"
 				hlmInputGroupInput
 				[id]="inputId()"
 				[placeholder]="placeholder()"

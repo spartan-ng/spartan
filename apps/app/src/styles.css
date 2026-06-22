@@ -1,14 +1,34 @@
-@layer theme, base, components, utilities;
+/* Layer order, lowest priority (left) -> highest (right). Layers are resolved BEFORE specificity and
+   source order, so THIS line - not selector weight, not import order - is what decides which style wins.
+   - spartan-nova-baseline : nova only. Nova is the global baseline (it is the default style and matches
+       shadcn's default look), so it sits below the other styles and they override it cleanly. Must stay
+       ABOVE `base`: Tailwind's preflight reset lives in `base`, and because layers beat specificity, a
+       baseline rule below `base` would be clobbered by preflight's `*` reset.
+   - spartan-themes : the other five skins (vega, lyra, maia, mira, luma). They beat nova at the layer
+       rung, so a `.style-lyra` island overrides the nova baseline regardless of specificity ties or
+       import order.
+   `theme` is Tailwind's own layer (do not rename - Tailwind emits into it). */
+@layer theme, base, spartan-nova-baseline, spartan-themes, components, utilities;
 
-@import '../../../libs/registry/src/styles/style-vega.css' layer(base);
-@import '../../../libs/registry/src/styles/style-nova.css' layer(base);
-@import '../../../libs/registry/src/styles/style-lyra.css' layer(base);
-@import '../../../libs/registry/src/styles/style-maia.css' layer(base);
-@import '../../../libs/registry/src/styles/style-mira.css' layer(base);
-@import '../../../libs/registry/src/styles/style-luma.css' layer(base);
+/* nova = global baseline (the default style) -> its own low-priority layer (see above). The body carries
+   `.style-nova` permanently so the baseline actually matches; islands set their own `.style-THEME`. */
+@import '../../../libs/registry/src/styles/style-nova.css' layer(spartan-nova-baseline);
+
+/* every other style -> one layer above nova; they override the baseline when applied as an island */
+@import '../../../libs/registry/src/styles/style-vega.css' layer(spartan-themes);
+@import '../../../libs/registry/src/styles/style-lyra.css' layer(spartan-themes);
+@import '../../../libs/registry/src/styles/style-maia.css' layer(spartan-themes);
+@import '../../../libs/registry/src/styles/style-mira.css' layer(spartan-themes);
+@import '../../../libs/registry/src/styles/style-luma.css' layer(spartan-themes);
 
 @import 'tailwindcss/theme.css' layer(theme);
 @import 'tailwindcss/preflight.css' layer(base);
+/* Utilities stay UNLAYERED on purpose - do NOT wrap this in layer(utilities). Angular component styles
+   such as ng-icon's `:host { display: inline-block }` are unlayered, and unlayered rules beat every named
+   layer at the cascade's layer rung (before specificity is even considered). The accordion shows a single
+   chevron by putting the `hidden` utility on the inactive <ng-icon>; layered utilities would lose to
+   ng-icon's unlayered host display and BOTH chevrons would render. Unlayered, `hidden` wins on specificity
+   instead - which is what we want. */
 @import 'tailwindcss/utilities.css';
 
 @import '@fontsource/geist-mono/latin';
@@ -17,12 +37,6 @@
 @import '@fontsource-variable/noto-sans-arabic';
 
 @import '../../../libs/brain/hlm-tailwind-preset.css';
-
-@custom-variant style-vega (&:where(.style-vega *));
-@custom-variant style-nova (&:where(.style-nova *));
-@custom-variant style-lyra (&:where(.style-lyra *));
-@custom-variant style-maia (&:where(.style-maia *));
-@custom-variant style-mira (&:where(.style-mira *));
 
 @custom-variant fixed (&:is(.layout-fixed *));
 
@@ -41,8 +55,8 @@
 	color-scheme: light;
 	--font-sans: 'Geist', sans-serif;
 	--font-mono: 'Geist Mono', monospace;
-	--font-ar: 'Noto Sans Arabic", "Noto Sans Arabic Fallback';
-	--font-he: 'Noto Sans Hebrew","Noto Sans Hebrew Fallback';
+	--font-ar: 'Noto Sans Arabic', 'Noto Sans Arabic Fallback';
+	--font-he: 'Noto Sans Hebrew', 'Noto Sans Hebrew Fallback';
 	--radius: 0.625rem;
 	--background: oklch(1 0 0);
 	--foreground: oklch(0.145 0 0);
@@ -114,6 +128,43 @@
 	body {
 		@apply bg-background text-foreground;
 	}
+}
+
+/* Docs-app only leak patches. This app loads every style at once with NOVA as the global baseline (see
+   the spartan-nova-baseline layer above); the body permanently carries `.style-nova`, so nova's rules
+   reach every island. For classes nova defines but another style does not, nova's baseline leaks into
+   that style's island - so we restore the island style's intended look here, in its own language.
+   Kept OUT of the registry style-*.css files on purpose: the CLI copies those into consumer projects,
+   which only ever load a single style and so never hit the leak. Left unlayered so they win over the
+   nova baseline from anywhere; their position is not load-bearing. */
+
+/* Lyra is square: it omits the rounding/gap rules nova defines, so nova's rounding leaks in. */
+.style-lyra .spartan-button-group-orientation-horizontal {
+	@apply [&>[data-slot]:not(:has(~[data-slot]))]:rounded-e-none!;
+}
+.style-lyra .spartan-button-group-orientation-vertical {
+	@apply [&>[data-slot]:not(:has(~[data-slot]))]:rounded-b-none!;
+}
+.style-lyra .spartan-carousel-previous {
+	@apply rounded-none;
+}
+.style-lyra .spartan-carousel-next {
+	@apply rounded-none;
+}
+.style-lyra .spartan-dialog-footer {
+	@apply gap-2;
+}
+
+/* `spartan-alert-dialog-footer` is nova-only: nova styles it as a muted, bordered, rounded panel
+   (bg-muted/50 -mx-4 -mb-4 rounded-b-xl border-t p-4); every other style leaves the footer plain - this
+   mirrors shadcn, where only the nova style adds that treatment. As the baseline, nova would push that
+   panel into all the other islands, so reset it back to plain there. */
+.style-vega .spartan-alert-dialog-footer,
+.style-lyra .spartan-alert-dialog-footer,
+.style-maia .spartan-alert-dialog-footer,
+.style-mira .spartan-alert-dialog-footer,
+.style-luma .spartan-alert-dialog-footer {
+	@apply m-0 rounded-none border-0 bg-transparent p-0;
 }
 
 [hidden]:where(:not([hidden='until-found'])) {

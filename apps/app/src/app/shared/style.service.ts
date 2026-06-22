@@ -1,5 +1,5 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
-import { computed, effect, inject, Injectable, signal } from '@angular/core';
+import { effect, inject, Injectable, signal } from '@angular/core';
 import { Style } from '@spartan-ng/registry';
 
 @Injectable({
@@ -8,8 +8,7 @@ import { Style } from '@spartan-ng/registry';
 export class StyleService {
 	private readonly _overlayContainer = inject(OverlayContainer);
 
-	public readonly style = signal<Style>('vega');
-	public readonly isNotVega = computed(() => this.style() !== 'vega');
+	public readonly style = signal<Style>('nova');
 
 	constructor() {
 		// Keep the CDK overlay container class in sync with the active style so that
@@ -17,10 +16,9 @@ export class StyleService {
 		effect(() => {
 			const el = this._overlayContainer.getContainerElement();
 			for (const cls of Array.from(el.classList)) {
-				if (cls.startsWith('style-') || cls === 'not-style-vega') el.classList.remove(cls);
+				if (cls.startsWith('style-')) el.classList.remove(cls);
 			}
 			el.classList.add(`style-${this.style()}`);
-			if (this.isNotVega()) el.classList.add('not-style-vega');
 		});
 	}
 }

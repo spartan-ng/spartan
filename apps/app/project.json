@@ -77,7 +77,6 @@
 			"cache": false,
 			"options": {
 				"outputDir": "apps/app/src/public/data",
-				"outputFile": "ui-api.json",
 				"brainDir": "libs/brain",
 				"helmDir": "libs/helm"
 			}

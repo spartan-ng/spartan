@@ -1,10 +1,15 @@
 import { workspaceRoot } from '@nx/devkit';
-import { readFileSync } from 'node:fs';
+import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 function readGeneratedJson() {
-	const file = join(workspaceRoot, 'dist/extracted-metadata/ui-api.json');
-	return JSON.parse(readFileSync(file, 'utf8'));
+	// Reassemble the per-component ui-api files into one object for the snapshot.
+	const dir = join(workspaceRoot, 'dist/extracted-metadata/ui-api');
+	const merged: Record<string, unknown> = {};
+	for (const file of readdirSync(dir).sort()) {
+		Object.assign(merged, JSON.parse(readFileSync(join(dir, file), 'utf8')));
+	}
+	return merged;
 }
 
 /**

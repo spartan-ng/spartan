@@ -1,6 +1,7 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { injectComponentDocs } from '@spartan-ng/app/app/core/services/component-docs';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { DatePickerFormRangeExample } from '@spartan-ng/app/app/pages/(components)/components/(date-picker)/date-picker--form-range.example';
 import { DatePickerRangeExample } from '@spartan-ng/app/app/pages/(components)/components/(date-picker)/date-picker--range.example';
@@ -83,7 +84,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
-			<spartan-install-tabs primitive="date-picker" [showOnlyVega]="false">
+			<spartan-install-tabs primitive="date-picker">
 				<p class="${hlmP} mb-6">
 					The Date Picker component is built with the
 					<a routerLink="/components/popover" hlmBtn variant="link" class="${link}">Popover</a>
@@ -292,6 +293,10 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class CardPage {
+	constructor() {
+		injectComponentDocs();
+	}
+
 	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('date-picker');
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
 	protected readonly _configCode = computed(() => this._snippets()['config']);

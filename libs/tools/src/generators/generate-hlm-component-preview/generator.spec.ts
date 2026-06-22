@@ -45,7 +45,7 @@ export class ButtonGroupComponent {}
 	it('generates merged imports for Angular components', async () => {
 		await generateHlmComponentManualInstallation(tree);
 
-		const outputPath = 'apps/app/src/public/data/manual-install-snippets.json';
+		const outputPath = 'apps/app/src/public/data/manual-install-snippets/button.json';
 		expect(tree.exists(outputPath)).toBe(true);
 
 		const raw = tree.read(outputPath, 'utf-8');
@@ -72,7 +72,7 @@ export function localUtil() {}
 
 		await generateHlmComponentManualInstallation(tree);
 
-		const raw = tree.read('apps/app/src/public/data/manual-install-snippets.json', 'utf-8');
+		const raw = tree.read('apps/app/src/public/data/manual-install-snippets/button.json', 'utf-8');
 		const data = JSON.parse(raw);
 
 		// './utils' should NOT appear in the merged imports
@@ -90,7 +90,7 @@ export class HlmButtonComp {}
 
 		await generateHlmComponentManualInstallation(tree);
 
-		const raw = tree.read('apps/app/src/public/data/manual-install-snippets.json', 'utf-8');
+		const raw = tree.read('apps/app/src/public/data/manual-install-snippets/button.json', 'utf-8');
 		const data = JSON.parse(raw);
 
 		expect(data.button['vega']).toContain('@spartan-ng/helm/button');

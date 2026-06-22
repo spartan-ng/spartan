@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideExternalLink } from '@ng-icons/lucide';
+import { injectComponentDocs } from '@spartan-ng/app/app/core/services/component-docs';
 import { Code } from '@spartan-ng/app/app/shared/code/code';
 import { RtlHeader } from '@spartan-ng/app/app/shared/code/rtl-header';
 import { InstallTabs } from '@spartan-ng/app/app/shared/layout/install-tabs';
@@ -87,7 +88,7 @@ export const routeMeta: RouteMeta = {
 			<spartan-sidebar-preview name="sidebar-collapsable-icons" caption="A sidebar that collapses to icons." />
 
 			<div>
-				<spartan-install-tabs primitive="sidebar" [showOnlyVega]="false" />
+				<spartan-install-tabs primitive="sidebar" />
 
 				<spartan-section-sub-heading id="add-colors">
 					Add the following colors to your CSS file
@@ -756,6 +757,10 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class SidebarPageComponent {
+	constructor() {
+		injectComponentDocs();
+	}
+
 	protected readonly _cssCode = cssCode;
 
 	protected readonly _usageLayout = usageLayout;

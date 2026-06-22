@@ -102,6 +102,7 @@ export const sidenavItems: NavItem[] = [
 			{ label: 'Installation', url: '/installation' },
 			{ label: 'components.json', url: '/components-json' },
 			{ label: 'Theming', url: '/theming' },
+			{ label: 'Styles', url: '/styles', new: true },
 			{ label: 'Dark Mode', url: '/dark-mode' },
 			{ label: 'CLI', url: '/cli' },
 			{ label: 'RTL', url: '/rtl' },

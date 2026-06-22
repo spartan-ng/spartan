@@ -94,6 +94,7 @@ export default defineConfig(({ command, mode }) => {
 					routes: async () => {
 						const staticRoutes = [
 							'/',
+							'/colors',
 
 							'/documentation/introduction',
 							'/documentation/changelog',
@@ -109,9 +110,19 @@ export default defineConfig(({ command, mode }) => {
 							'/documentation/version-support',
 							'/documentation/health-checks',
 							'/documentation/update-guide',
+							'/documentation/mcp',
+							'/documentation/skills',
+							'/documentation/rtl',
 
 							'/blocks/sidebar',
 							'/blocks/calendar',
+							'/blocks/login',
+							'/blocks/signup',
+							'/blocks/stepper',
+
+							'/forms',
+							'/forms/reactive-forms',
+							'/forms/signal-forms',
 
 							'/stack/overview',
 							'/stack/technologies',

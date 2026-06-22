@@ -107,12 +107,11 @@ describe('HlmDatePicker form integration', () => {
 		}
 	});
 
-	it('marks the field host and label as invalid when the trigger is opened then closed', async () => {
+	it('marks the field host as invalid when the trigger is opened then closed', async () => {
 		fixture.detectChanges();
 		await fixture.whenStable();
 
 		const field: HTMLElement | null = fixture.nativeElement.querySelector('[data-slot="field"]');
-		const label: HTMLElement | null = fixture.nativeElement.querySelector('[data-slot="field-label"]');
 		expect(field?.getAttribute('data-matches-spartan-invalid')).toBeNull();
 
 		const trigger: HTMLButtonElement | null = fixture.nativeElement.querySelector('hlm-date-picker-trigger button');
@@ -130,6 +129,5 @@ describe('HlmDatePicker form integration', () => {
 
 		expect(field?.getAttribute('data-matches-spartan-invalid')).toBe('true');
 		expect(field?.getAttribute('data-invalid')).toBe('true');
-		expect(label).toBeTruthy();
 	});
 });

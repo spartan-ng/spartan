@@ -96,22 +96,26 @@ type AlgoliaHits = {
 			<button
 				hlmDialogTrigger
 				hlmBtn
-				variant="secondary"
-				class="bg-surface text-foreground dark:bg-card relative h-8 w-full justify-start pl-3 font-medium shadow-none sm:pr-12 md:w-48 lg:w-60 xl:w-64"
+				variant="outline"
+				class="bg-input/30 border-input/30 text-muted-foreground hover:bg-input/50 hover:text-muted-foreground relative h-8 w-full justify-start gap-2 pl-2.5 font-normal shadow-none active:translate-y-px sm:pr-12 md:w-48 lg:w-60 xl:w-64"
 			>
+				<ng-icon name="lucideSearch" class="shrink-0 opacity-50" />
 				<span class="hidden lg:inline-flex">Search documentation...</span>
 				<span class="inline-flex lg:hidden">Search...</span>
 				<div class="absolute top-1.5 right-1.5 hidden gap-1 sm:flex">
 					<kbd hlmKbdGroup>
-						<kbd hlmKbd class="hidden border [html[style*='--is-mac']_&]:inline">⌘</kbd>
-						<kbd hlmKbd class="border [html[style*='--is-mac']_&]:hidden">Ctrl</kbd>
-						<kbd hlmKbd class="border">K</kbd>
+						<kbd hlmKbd class="hidden [html[style*='--is-mac']_&]:inline-flex">⌘</kbd>
+						<kbd hlmKbd class="[html[style*='--is-mac']_&]:hidden">Ctrl</kbd>
+						<kbd hlmKbd>K</kbd>
 					</kbd>
 				</div>
 			</button>
 
-			<hlm-dialog-content class="border-ring/50 rounded-xl! border-4 p-1 [&>button]:hidden" *hlmDialogPortal="let ctx">
-				<hlm-command class="min-h-[400px] pb-10 md:min-w-[450px]" [(search)]="_searchVal">
+			<hlm-dialog-content
+				class="border-ring/50 rounded-xl! border-4 p-1 sm:max-w-lg [&>button]:hidden"
+				*hlmDialogPortal="let ctx"
+			>
+				<hlm-command class="min-h-[400px] w-full pb-10" [(search)]="_searchVal">
 					<hlm-command-input placeholder="Type a command or search..." />
 					<hlm-command-list class="max-h-[400px] pt-1">
 						@for (item of _values(); track item.objectID) {
@@ -120,12 +124,12 @@ type AlgoliaHits = {
 									<!-- lvl1 -->
 									@if (item.type === 'lvl1' && item.hierarchy[item.type]) {
 										<button hlm-command-item (selected)="onSelect(item.url)" [value]="item.hierarchy['lvl1']">
-											<a [href]="item.url" class="flex w-full items-center gap-2">
+											<a [href]="item.url" class="flex w-full min-w-0 items-center gap-2">
 												<ng-icon name="lucideArrowRight" class="shrink-0" />
-												<div class="flex flex-col items-start gap-0.5 text-left">
-													<span class="font-semibold">{{ item.hierarchy['lvl1'] }}</span>
+												<div class="flex min-w-0 flex-col items-start gap-0.5 text-left">
+													<span class="w-full truncate font-semibold">{{ cleanLabel(item.hierarchy['lvl1']) }}</span>
 													@if (item.content) {
-														<span class="text-sm">{{ item['content'] }}</span>
+														<span class="w-full truncate text-sm">{{ item['content'] }}</span>
 													}
 												</div>
 											</a>
@@ -135,19 +139,19 @@ type AlgoliaHits = {
 									<!-- askAI -->
 									@if (item.type === 'askAI') {
 										<button hlm-command-item (selected)="onSelect(item.url)" [value]="item.hierarchy['lvl1']">
-											<a [href]="item.url" class="flex w-full items-center gap-2">
-												{{ item.hierarchy['lvl1'] }}
+											<a [href]="item.url" class="flex w-full min-w-0 items-center gap-2">
+												{{ cleanLabel(item.hierarchy['lvl1']) }}
 											</a>
 										</button>
 									}
 
 									@if (['lvl2', 'lvl3', 'lvl4', 'lvl5', 'lvl6'].includes(item.type) && item.hierarchy[item.type]) {
 										<button hlm-command-item (selected)="onSelect(item.url)" [value]="item.hierarchy['lvl1']">
-											<a [href]="item.url" class="flex w-full items-center gap-2">
+											<a [href]="item.url" class="flex w-full min-w-0 items-center gap-2">
 												<ng-icon name="lucideArrowRight" class="shrink-0" />
-												<div class="flex flex-col items-start gap-0.5 text-left">
-													<span class="font-semibold">{{ item.hierarchy[item.type] }}</span>
-													<span class="text-sm">{{ item.hierarchy['lvl1'] }}</span>
+												<div class="flex min-w-0 flex-col items-start gap-0.5 text-left">
+													<span class="w-full truncate font-semibold">{{ item.hierarchy[item.type] }}</span>
+													<span class="w-full truncate text-sm">{{ cleanLabel(item.hierarchy['lvl1']) }}</span>
 												</div>
 											</a>
 										</button>
@@ -160,11 +164,11 @@ type AlgoliaHits = {
 											(selected)="onSelect(item.url)"
 											[value]="item.content ?? item.hierarchy['lvl1']"
 										>
-											<a [href]="item.url" class="flex w-full items-center gap-2">
+											<a [href]="item.url" class="flex w-full min-w-0 items-center gap-2">
 												<ng-icon name="lucideArrowRight" class="shrink-0" />
-												<div class="flex flex-col items-start gap-0.5 text-left">
-													<span class="font-semibold">{{ item.content }}</span>
-													<span class="text-sm">{{ item.hierarchy['lvl1'] }}</span>
+												<div class="flex min-w-0 flex-col items-start gap-0.5 text-left">
+													<span class="w-full truncate font-semibold">{{ item.content }}</span>
+													<span class="w-full truncate text-sm">{{ cleanLabel(item.hierarchy['lvl1']) }}</span>
 												</div>
 											</a>
 										</button>
@@ -186,6 +190,16 @@ type AlgoliaHits = {
 						</kbd>
 						<span>Go to Page</span>
 					</div>
+					<a
+						href="https://www.algolia.com/"
+						target="_blank"
+						rel="noopener noreferrer"
+						aria-label="Search by Algolia"
+						class="ms-auto inline-flex items-center gap-1.5 opacity-80 transition-opacity hover:opacity-100"
+					>
+						<span>Search by</span>
+						<img src="/assets/algolia-logo.svg" alt="Algolia" class="h-3.5 w-auto" />
+					</a>
 				</div>
 			</hlm-dialog-content>
 		</hlm-dialog>
@@ -208,7 +222,14 @@ export class DocsDialog {
 						isPageNotFound = value.toLowerCase().includes('page not found');
 					}
 				}
-				return url.hash !== '#spartan-main' && url.pathname !== '/' && !isPageNotFound;
+				return (
+					url.hash !== '#spartan-main' &&
+					url.pathname !== '/' &&
+					!isPageNotFound &&
+					// iframe-only preview routes are indexed by the crawler but should not surface in search
+					!url.pathname.startsWith('/sidebar-preview') &&
+					!url.pathname.startsWith('/blocks-preview')
+				);
 			})
 			.map((h) => {
 				const u = new URL(h.url);
@@ -288,5 +309,10 @@ export class DocsDialog {
 
 	protected onSelect(url: string): void {
 		window.location.href = url;
+	}
+
+	/** Strip the "spartan -" / "spartan/ui -" title prefix so results read cleanly in the search palette. */
+	protected cleanLabel(value: string | undefined): string {
+		return (value ?? '').replace(/^spartan(\/ui)?\s*-\s*/i, '');
 	}
 }

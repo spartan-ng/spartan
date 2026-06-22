@@ -4,6 +4,7 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideSearch, lucideX } from '@ng-icons/lucide';
 import { BrnAutocompleteAnchor, BrnAutocompleteClear, BrnAutocompleteInput } from '@spartan-ng/brain/autocomplete';
 import { HlmInputGroup, HlmInputGroupImports } from '@spartan-ng/helm/input-group';
+import { classes } from '@spartan-ng/helm/utils';
 
 @Component({
 	selector: 'hlm-autocomplete-input',
@@ -63,4 +64,8 @@ export class HlmAutocompleteInput {
 		transform: (v: BooleanInput) => (v === '' || v === undefined ? undefined : booleanAttribute(v)),
 		alias: 'aria-invalid',
 	});
+
+	constructor() {
+		classes(() => 'w-auto');
+	}
 }

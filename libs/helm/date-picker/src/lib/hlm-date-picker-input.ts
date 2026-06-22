@@ -5,15 +5,14 @@ import {
 	Component,
 	computed,
 	effect,
+	ElementRef,
 	inject,
 	input,
 	linkedSignal,
-	untracked,
 } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCalendar, lucideX } from '@ng-icons/lucide';
 import { HlmInputGroup, HlmInputGroupImports } from '@spartan-ng/helm/input-group';
-import { HlmDatePickerAnchor } from './hlm-date-picker-anchor';
 import { HlmDatePickerTriggerBase, provideHlmDatePickerTrigger } from './hlm-date-picker-trigger.token';
 import { injectHlmDatePicker, injectHlmDatePickerConfig } from './hlm-date-picker.token';
 
@@ -22,7 +21,7 @@ import { injectHlmDatePicker, injectHlmDatePickerConfig } from './hlm-date-picke
 	imports: [HlmInputGroupImports, NgIcon],
 	providers: [provideIcons({ lucideCalendar, lucideX }), provideHlmDatePickerTrigger(HlmDatePickerInput)],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	hostDirectives: [HlmInputGroup, { directive: HlmDatePickerAnchor, inputs: ['hlmDatePickerAnchorFor'] }],
+	hostDirectives: [HlmInputGroup],
 	template: `
 		<input
 			hlmInputGroupInput
@@ -64,7 +63,7 @@ import { injectHlmDatePicker, injectHlmDatePickerConfig } from './hlm-date-picke
 })
 export class HlmDatePickerInput<T> implements HlmDatePickerTriggerBase {
 	private static _nextId = 0;
-	private readonly _anchor = inject(HlmDatePickerAnchor);
+	private readonly _host = inject(ElementRef);
 	private readonly _datePicker = injectHlmDatePicker<T>();
 	private readonly _config = injectHlmDatePickerConfig<T>();
 
@@ -139,10 +138,7 @@ export class HlmDatePickerInput<T> implements HlmDatePickerTriggerBase {
 	});
 
 	constructor() {
-		effect(() => {
-			const popover = this._popover();
-			untracked(() => this._anchor.hlmDatePickerAnchorFor.set(popover));
-		});
+		effect(() => this._popover()?.setOrigin(this._host.nativeElement));
 	}
 
 	protected _handleInputChange(event: Event) {

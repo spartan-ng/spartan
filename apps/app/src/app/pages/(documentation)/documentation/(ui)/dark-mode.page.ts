@@ -57,7 +57,7 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="cli" label="CLI" />
-				<spartan-page-bottom-nav-link direction="previous" href="theming" label="Theming" />
+				<spartan-page-bottom-nav-link direction="previous" href="styles" label="Styles" />
 			</spartan-page-bottom-nav>
 		</section>
 	`,

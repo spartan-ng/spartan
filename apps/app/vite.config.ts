@@ -113,6 +113,7 @@ export default defineConfig(({ command, mode }) => {
 							'/documentation/mcp',
 							'/documentation/skills',
 							'/documentation/rtl',
+							'/documentation/styles',
 
 							'/blocks/sidebar',
 							'/blocks/calendar',

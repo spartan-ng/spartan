@@ -29,7 +29,7 @@ const aboutLink = 'h-6 underline text-sm px-0.5';
 			<spartan-section-sub-heading first id="about" class="pt-6">About</spartan-section-sub-heading>
 
 			<p class="${hlmP}">
-				<a hlmBtn variant="link" class="${aboutLink}" href="https://spartan.ng">spartan.ng</a>
+				<a hlmBtn variant="link" class="${aboutLink}" href="https://www.spartan.ng">spartan.ng</a>
 				is a project by
 				<a hlmBtn variant="link" class="${aboutLink}" href="https://twitter.com/goetzrobin">goetzrobin</a>
 				.

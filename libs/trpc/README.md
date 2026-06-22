@@ -2,4 +2,4 @@
 
 Spartan tRPC integration
 
-Learn more at [spartan.ng](https://spartan.ng)
+Learn more at [spartan.ng](https://www.spartan.ng)

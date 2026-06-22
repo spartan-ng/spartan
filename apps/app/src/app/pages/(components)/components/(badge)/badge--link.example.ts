@@ -12,7 +12,7 @@ import { HlmBadgeImports } from '@spartan-ng/helm/badge';
 	template: `
 		<div class="flex gap-2">
 			<a hlmBadge routerLink=".">Angular Route</a>
-			<a hlmBadge variant="secondary" href="https://spartan.ng" target="_blank" rel="noopener noreferrer">
+			<a hlmBadge variant="secondary" href="https://www.spartan.ng" target="_blank" rel="noopener noreferrer">
 				External Link
 				<ng-icon name="lucideArrowUpRight" />
 			</a>

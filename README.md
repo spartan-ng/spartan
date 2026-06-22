@@ -1,6 +1,6 @@
 # spartan
 
-<a href="https://spartan.ng" target="_blank">
+<a href="https://www.spartan.ng" target="_blank">
 <img alt="A spartan shield" width="200px" src="./spartan.svg" title="Spartan logo"/>
 </a>
 
@@ -15,7 +15,7 @@ spartan/stack and spartan/ui libraries.
 
 All of spartan is an MIT-licensed open source project with its ongoing development made possible by contributors and sponsors.
 
-Our initial 300 contributors and sponsors are featured here and on the front page of [spartan.ng](https://spartan.ng)
+Our initial 300 contributors and sponsors are featured here and on the front page of [spartan.ng](https://www.spartan.ng)
 
 1. [goetzrobin](https://github.com/goetzrobin)
 2. [elite-benni](https://github.com/elite-benni)

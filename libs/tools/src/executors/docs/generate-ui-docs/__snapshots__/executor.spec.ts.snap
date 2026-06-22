@@ -1658,7 +1658,13 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[brnComboboxPlaceholder]",
       },
       "BrnComboboxPopoverTrigger": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "closeOnTriggerClick",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
         "models": [],
         "outputs": [],
         "selector": "[brnComboboxPopoverTrigger]",

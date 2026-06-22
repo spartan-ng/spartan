@@ -23,6 +23,7 @@ describe('migrate-helm-libraries generator', () => {
 				importAlias: '@spartan-ng/helm',
 				generateAs: 'library',
 				buildable: true,
+				style: 'vega',
 			}),
 		);
 	});
@@ -40,6 +41,7 @@ describe('migrate-helm-libraries generator', () => {
 				generateAs: 'library',
 				buildable: true,
 				importAlias: '@spartan-ng/helm',
+				style: 'vega',
 			}),
 		).resolves.toBeUndefined();
 

@@ -149,7 +149,7 @@ export const routeMeta: RouteMeta = {
 			</ol>
 
 			<spartan-page-bottom-nav>
-				<spartan-page-bottom-nav-link href="typography" label="Typography" />
+				<spartan-page-bottom-nav-link href="rtl" label="RTL" />
 				<spartan-page-bottom-nav-link direction="previous" href="dark-mode" label="Dark Mode" />
 			</spartan-page-bottom-nav>
 		</section>

@@ -1,12 +1,18 @@
-import { readJson, type Tree } from '@nx/devkit';
+import { readJson, type Tree, updateJson } from '@nx/devkit';
+
 import { prompt } from 'enquirer';
 import z, { ZodError } from 'zod';
 import { type GenerateAs, generateOptions } from '../generators/base/lib/generate-as';
+import { type Style, STYLES } from './supported-styles';
 
 const configPath = 'components.json';
 
+// Default style used when components.json does not set one.
+const FALLBACK_STYLE: Style = 'vega';
+
 export const AngularCliConfigSchema = z.object({
 	componentsPath: z.string().optional().default('libs/ui'),
+	style: z.enum(STYLES).optional().default(FALLBACK_STYLE),
 	importAlias: z
 		.string()
 		.optional()
@@ -18,6 +24,7 @@ export const NXConfigSchema = z.object({
 	componentsPath: z.string().optional().default('libs/ui'),
 	buildable: z.boolean().optional().default(true),
 	generateAs: z.enum(generateOptions).optional().default('library'),
+	style: z.enum(STYLES).optional().default(FALLBACK_STYLE),
 	importAlias: z
 		.string()
 		.optional()
@@ -25,7 +32,9 @@ export const NXConfigSchema = z.object({
 		.refine((val) => !val.endsWith('/'), { message: 'importAlias should not end with a slash' }),
 });
 
-export type Config = z.infer<typeof NXConfigSchema>;
+// buildable and generateAs only exist for NX configs; an Angular CLI config omits them.
+export type Config = z.infer<typeof AngularCliConfigSchema> &
+	Partial<Pick<z.infer<typeof NXConfigSchema>, 'buildable' | 'generateAs'>>;
 
 const getConfig = async (tree: Tree, isAngularCli: boolean): Promise<Config> => {
 	const raw = await readJson(tree, configPath);
@@ -73,7 +82,18 @@ export async function getImportAlias(tree: Tree, isAngularCli: boolean): Promise
 	return config.importAlias;
 }
 
-export async function getOrCreateConfig(
+// Add the default "style" to components.json when it is missing.
+export async function backfillStyleInComponentsJson(tree: Tree): Promise<void> {
+	if (!tree.exists(configPath)) return;
+
+	const raw = await readJson(tree, configPath);
+	if (raw.style) return;
+
+	updateJson(tree, configPath, (json) => ({ ...json, style: FALLBACK_STYLE }));
+	console.log(`No "style" in components.json - added "${FALLBACK_STYLE}".`);
+}
+
+export async function loadOrInitConfig(
 	tree: Tree,
 	defaults?: Partial<Config> & { angularCli: boolean },
 ): Promise<Config> {
@@ -117,18 +137,27 @@ export async function getOrCreateConfig(
 			initial: defaults?.importAlias ?? '@spartan-ng/helm',
 			skip: !!defaults?.importAlias,
 		},
+		{
+			type: 'select',
+			choices: STYLES,
+			message: 'Which design system style do you want to use?',
+			name: 'style',
+			initial: 0,
+			skip: !!defaults?.style, // Skip when a style was already provided by the caller.
+		},
 	];
 
 	console.log('Configuration file not found, creating a new one...');
 
-	const { componentsPath, buildable, generateAs, importAlias } = (await prompt(questions)) as {
+	const { componentsPath, buildable, generateAs, importAlias, style } = (await prompt(questions)) as {
 		componentsPath: string;
 		buildable: boolean;
 		generateAs: GenerateAs;
 		importAlias: string;
+		style: Style;
 	};
 
-	const config = { componentsPath, buildable, generateAs, importAlias };
+	const config = { componentsPath, buildable, generateAs, importAlias, style };
 
 	tree.write(configPath, JSON.stringify(config, null, 2));
 

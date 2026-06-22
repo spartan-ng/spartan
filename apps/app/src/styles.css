@@ -135,3 +135,37 @@
 [data-lang='he'] {
 	font-family: var(--font-he);
 }
+
+/*
+ * Match the date-picker trigger/input width to each style's single-month
+ * calendar so the popover lines up flush with the control. The calendar grid is
+ * 7 cells of `--cell-size` plus its horizontal padding, all on the Tailwind
+ * spacing scale (`--cell-size: --spacing(n)`, `p-n`). We mirror that exact
+ * formula with the same `var(--spacing)` unit, so the control tracks the
+ * calendar (and scales with it) instead of carrying a hard-coded pixel width.
+ * Pinning the width also stops the input from reflowing when its clear button
+ * appears. These live in the docs app because the registry control is
+ * intentionally width-agnostic. The input variant is `w-full`, so it is scoped
+ * under `.style-*` to win on specificity.
+ */
+.spartan-date-picker-trigger,
+.style-vega hlm-date-picker-input,
+.style-maia hlm-date-picker-input,
+.style-luma hlm-date-picker-input {
+	/* vega, maia, luma: --cell-size 8, p-3 */
+	width: calc(7 * 8 * var(--spacing) + 2 * 3 * var(--spacing));
+}
+
+.style-mira .spartan-date-picker-trigger,
+.style-mira hlm-date-picker-input {
+	/* --cell-size 6, p-3 */
+	width: calc(7 * 6 * var(--spacing) + 2 * 3 * var(--spacing));
+}
+
+.style-lyra .spartan-date-picker-trigger,
+.style-lyra hlm-date-picker-input,
+.style-nova .spartan-date-picker-trigger,
+.style-nova hlm-date-picker-input {
+	/* --cell-size 7, p-2 */
+	width: calc(7 * 7 * var(--spacing) + 2 * 2 * var(--spacing));
+}

@@ -135,3 +135,28 @@
 [data-lang='he'] {
 	font-family: var(--font-he);
 }
+
+/*
+ * Match the date-picker trigger width to each style's single-month calendar so
+ * the popover lines up flush with the trigger. The calendar grid is 7 cells of
+ * `--cell-size` plus its horizontal padding, all on the Tailwind spacing scale
+ * (`--cell-size: --spacing(n)`, `p-n`). We mirror that exact formula with the
+ * same `var(--spacing)` unit, so the trigger tracks the calendar (and scales
+ * with it) instead of carrying a hard-coded pixel width. These live in the docs
+ * app because the registry trigger is intentionally width-agnostic.
+ */
+.spartan-date-picker-trigger {
+	/* vega, maia, luma: --cell-size 8, p-3 */
+	width: calc(7 * 8 * var(--spacing) + 2 * 3 * var(--spacing));
+}
+
+.style-mira .spartan-date-picker-trigger {
+	/* --cell-size 6, p-3 */
+	width: calc(7 * 6 * var(--spacing) + 2 * 3 * var(--spacing));
+}
+
+.style-lyra .spartan-date-picker-trigger,
+.style-nova .spartan-date-picker-trigger {
+	/* --cell-size 7, p-2 */
+	width: calc(7 * 7 * var(--spacing) + 2 * 2 * var(--spacing));
+}

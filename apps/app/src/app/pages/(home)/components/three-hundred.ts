@@ -73,7 +73,7 @@ export class ThreeHundred {
 		'dongphuong0905',
 		'DominikPieper',
 		'brandonroberts',
-		'izikd-',
+		'izikd',
 		'ryancraigmartin',
 		'gaetanBloch',
 		'gergobergo',

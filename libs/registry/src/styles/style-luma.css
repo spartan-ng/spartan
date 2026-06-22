@@ -288,7 +288,7 @@
 	}
 
 	.spartan-combobox-status {
-		@apply text-muted-foreground gap-2 py-2 text-sm;
+		@apply text-muted-foreground gap-2 px-4.5 py-2 text-sm;
 	}
 
 	/* MARK: Input Group */
@@ -532,7 +532,7 @@
 	}
 
 	.spartan-autocomplete-status {
-		@apply text-muted-foreground gap-2 py-2 text-sm;
+		@apply text-muted-foreground gap-2 px-4.5 py-2 text-sm;
 	}
 
 	/* MARK: Avatar */

@@ -104,7 +104,7 @@
 	}
 
 	.spartan-autocomplete-status {
-		@apply text-muted-foreground gap-2 py-2 text-sm;
+		@apply text-muted-foreground gap-2 px-4 py-2 text-sm;
 	}
 
 	/* MARK: Avatar */
@@ -379,7 +379,7 @@
 	}
 
 	.spartan-combobox-status {
-		@apply text-muted-foreground gap-2 py-2 text-sm;
+		@apply text-muted-foreground gap-2 px-4 py-2 text-sm;
 	}
 
 	/* MARK: Command */

@@ -42,12 +42,7 @@ export const HLM_DATE_RANGE_PICKER_VALUE_ACCESSOR = {
 	hostDirectives: [BrnFieldControl],
 	host: { class: 'block' },
 	template: `
-		<hlm-popover
-			sideOffset="5"
-			[state]="_popoverState()"
-			(stateChanged)="_popoverState.set($event)"
-			(closed)="_onClose(); _onTouched?.()"
-		>
+		<hlm-popover sideOffset="5" [state]="_popoverState()" (stateChanged)="_onStateChange($event)">
 			<ng-content />
 
 			<hlm-popover-content class="w-fit p-0" *hlmPopoverPortal="let ctx">
@@ -129,6 +124,14 @@ export class HlmDateRangePicker<T> implements HlmDatePickerBase<T>, ControlValue
 
 	protected _onChange?: ChangeFn<[T, T] | null>;
 	protected _onTouched?: TouchFn;
+
+	protected _onStateChange(state: BrnOverlayState) {
+		this._popoverState.set(state);
+		if (state === 'closed') {
+			this._onClose();
+			this._onTouched?.();
+		}
+	}
 
 	protected _handleStartDayChange(value: T | undefined) {
 		this._start.set(value);

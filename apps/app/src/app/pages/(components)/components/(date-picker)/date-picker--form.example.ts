@@ -16,7 +16,13 @@ import { HlmFieldImports } from '@spartan-ng/helm/field';
 			<hlm-field-group>
 				<hlm-field>
 					<label for="date-birthday" hlmFieldLabel>Date of birth</label>
-					<hlm-date-picker [min]="minDate" [max]="maxDate" formControlName="birthday" [autoCloseOnSelect]="true">
+					<hlm-date-picker
+						[min]="minDate"
+						[max]="maxDate"
+						captionLayout="dropdown"
+						formControlName="birthday"
+						[autoCloseOnSelect]="true"
+					>
 						<hlm-date-picker-trigger buttonId="date-birthday">Pick a date</hlm-date-picker-trigger>
 					</hlm-date-picker>
 					<hlm-field-description>Your date of birth is used to calculate your age.</hlm-field-description>

@@ -141,9 +141,8 @@ const lead = 'text-foreground max-w-3xl text-base text-balance sm:text-lg';
 			<div class="mx-auto space-y-12 text-center md:max-w-[64rem]">
 				<spartan-three-hundred class="mt-12" />
 				<p class="${lead} mx-auto max-w-[42rem]">
-					spartan is MIT-licensed and free forever. Sponsoring funds ongoing maintenance, new components, and the people
-					who keep it moving. Contribute code, share insights, or sponsor the project - let's build something
-					extraordinary together!
+					This project is MIT-licensed and free forever. Sponsoring funds ongoing maintenance, new components, and the
+					people who keep it moving!
 				</p>
 				<div class="flex flex-col items-center justify-center gap-3 sm:flex-row">
 					<a hlmBtn size="lg" target="_blank" rel="noreferrer" href="https://github.com/sponsors/goetzrobin">

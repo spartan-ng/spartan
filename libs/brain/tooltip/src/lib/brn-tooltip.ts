@@ -29,6 +29,7 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 import { Directionality } from '@angular/cdk/bidi';
+import { waitForElementAnimations } from '@spartan-ng/brain/core';
 import { of, Subject, Subscription, timer } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { BrnTooltipContent } from './brn-tooltip-content';
@@ -66,6 +67,8 @@ export class BrnTooltip {
 	private _overlayRef: OverlayRef | undefined = undefined;
 	private _ariaEffectRef: ReturnType<typeof effect> | undefined = undefined;
 	private _positionChangeSub: Subscription | undefined = undefined;
+	/** Bumped on every close/show so a pending exit-animation teardown can detect it was superseded. */
+	private _closeGeneration = 0;
 
 	public readonly tooltipDisabled = input<boolean, boolean>(false, { transform: booleanAttribute });
 	public readonly mutableTooltipDisabled = linkedSignal(this.tooltipDisabled);
@@ -211,7 +214,18 @@ export class BrnTooltip {
 	}
 
 	private _show(): void {
-		if (this._componentRef || !this._tooltipText() || this.mutableTooltipDisabled()) {
+		if (!this._tooltipText() || this.mutableTooltipDisabled()) {
+			return;
+		}
+
+		// Already attached: revive only if it is mid-close (exit animation playing). Cancel the
+		// pending teardown and flip it back open instead of letting it fade out and detach.
+		if (this._componentRef) {
+			if (this._componentRef.instance.state() === 'closed') {
+				this._closeGeneration++;
+				this._componentRef.instance.state.set('open');
+				this.show.emit();
+			}
 			return;
 		}
 
@@ -220,7 +234,7 @@ export class BrnTooltip {
 		this._componentRef?.onDestroy(() => {
 			this._componentRef = undefined;
 		});
-		this._componentRef?.instance.state.set('opened');
+		this._componentRef?.instance.state.set('open');
 		this._componentRef?.instance.setProps(
 			this._tooltipText(),
 			this.position(),
@@ -266,13 +280,35 @@ export class BrnTooltip {
 
 	private _hide(): void {
 		if (!this._componentRef || this._tooltipHovered) return;
+		// Already closing (exit animation in flight): nothing to do.
+		if (this._componentRef.instance.state() === 'closed') return;
+		this._componentRef.instance.state.set('closed');
+		this.hide.emit();
+		this._scheduleDetach(this._componentRef);
+	}
+
+	/**
+	 * Keep the content mounted until its `data-[state=closed]` exit animation finishes, then tear it
+	 * down. A re-show (revive) bumps `_closeGeneration`, which cancels the pending detach.
+	 */
+	private _scheduleDetach(componentRef: ComponentRef<BrnTooltipContent>): void {
+		const generation = ++this._closeGeneration;
+		const content = componentRef.location.nativeElement as HTMLElement;
+		afterNextRender(
+			() => {
+				void waitForElementAnimations(content).then(() => {
+					if (generation === this._closeGeneration) this._detach();
+				});
+			},
+			{ injector: this._injector },
+		);
+	}
+
+	private _detach(): void {
 		this._clearAriaDescribedBy();
 		this._positionChangeSub?.unsubscribe();
 		this._positionChangeSub = undefined;
-
 		this._renderer.removeAttribute(this._elementRef.nativeElement, 'aria-describedby');
-		this._componentRef.instance.state.set('closed');
-		this.hide.emit();
 		this._overlayRef?.detach();
 	}
 

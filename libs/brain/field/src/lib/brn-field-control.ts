@@ -39,7 +39,8 @@ export class BrnFieldControl implements OnInit, DoCheck {
 	}
 
 	ngOnInit(): void {
-		this.ngControl = this._injector.get(NgControl, null);
+		// `self` prevents descendants (e.g. calendar selects) from inheriting an ancestor's NgControl.
+		this.ngControl = this._injector.get(NgControl, null, { optional: true, self: true });
 
 		// Try to sync the tracker eagerly.
 		this._syncTracker();

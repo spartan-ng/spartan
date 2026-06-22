@@ -120,7 +120,7 @@ export const routeMeta: RouteMeta = {
 
 			<p class="${hlmP}">
 				Available styles:
-				@for (style of styles; track style; let last = $last) {
+				@for (style of _styles; track style; let last = $last) {
 					<code class="${hlmCode}">{{ style }}</code>
 					@if (!last) {
 						,

@@ -13,6 +13,18 @@ const flush = async () => {
 	await new Promise((resolve) => setTimeout(resolve, 0));
 };
 
+/**
+ * Reproduces a real outside-dismiss interaction. CDK's `OverlayOutsideClickDispatcher` records the
+ * target on `pointerdown` and only emits the outside-pointer event on the following `click` (it uses
+ * both so a drag that starts inside the overlay does not dismiss). Firing `click` alone leaves the
+ * recorded pointerdown target null - a degenerate state that does not match how the app drives the
+ * dismiss path - so both events are required to exercise `dismiss('outside')`.
+ */
+const pointerClick = (target: Element) => {
+	fireEvent.pointerDown(target);
+	fireEvent.click(target);
+};
+
 @Component({
 	selector: 'hlm-popover-overlay-host',
 	imports: [HlmPopover, HlmPopoverContent, HlmPopoverPortal, HlmPopoverTrigger],
@@ -90,12 +102,48 @@ describe('HlmPopover overlay behaviour', () => {
 		await flush();
 		expect(popover.stateComputed()).toBe('open');
 
-		fireEvent.pointerDown(document.body);
-		fireEvent.click(document.body);
+		pointerClick(document.body);
 		view.detectChanges();
 		await flush();
 
 		expect(popover.stateComputed()).toBe('open');
+	});
+
+	it('dismisses on a true outside pointer event', async () => {
+		const view = await render(PopoverOverlayHost);
+		const popover = popoverOf(view);
+		const trigger = view.container.querySelector('button[hlmPopoverTrigger]') as HTMLButtonElement;
+
+		pointerClick(trigger);
+		view.detectChanges();
+		await flush();
+		expect(popover.stateComputed()).toBe('open');
+
+		pointerClick(document.body);
+		view.detectChanges();
+		await flush();
+
+		expect(popover.stateComputed()).toBe('closed');
+	});
+
+	it('closes without re-opening when an open trigger is clicked (no outside-dismiss race)', async () => {
+		const view = await render(PopoverOverlayHost);
+		const popover = popoverOf(view);
+		const trigger = view.container.querySelector('button[hlmPopoverTrigger]') as HTMLButtonElement;
+
+		pointerClick(trigger);
+		view.detectChanges();
+		await flush();
+		expect(popover.stateComputed()).toBe('open');
+
+		// CDK reports the click on the trigger as "outside" the panel. If the overlay dismissed on it,
+		// it would close and then the trigger's own toggle would re-open it - leaving it open and
+		// flickering the animation. Treating the origin as inside lets the toggle close it cleanly.
+		pointerClick(trigger);
+		view.detectChanges();
+		await flush();
+
+		expect(popover.stateComputed()).toBe('closed');
 	});
 
 	it('assigns a unique overlay id per instance (no duplicate-id collision)', async () => {

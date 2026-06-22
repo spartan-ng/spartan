@@ -5,9 +5,9 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://opensource.org/licenses/MIT)
 [![Discord](https://img.shields.io/discord/1145806472172380160?style=flat-square&label=discord&logo=discord&logoColor=white&color=7289DA)](https://discord.gg/EqHnxQ4uQr)
 
-[Website](https://spartan.ng) • [Documentation](https://www.spartan.ng/documentation/installation) • [Components](https://www.spartan.ng/components) • [GitHub](https://github.com/spartan-ng/spartan)
+[Website](https://www.spartan.ng) • [Documentation](https://www.spartan.ng/documentation/installation) • [Components](https://www.spartan.ng/components) • [GitHub](https://github.com/spartan-ng/spartan)
 
-> Accessible, unstyled UI primitives for Angular. The behavior half of [spartan/ui](https://spartan.ng).
+> Accessible, unstyled UI primitives for Angular. The behavior half of [spartan/ui](https://www.spartan.ng).
 
 `@spartan-ng/brain` is a fully tree-shakable collection of headless Angular primitives - keyboard navigation, focus management, ARIA wiring, and state - with zero opinions about styling. Pair it with [`helm`](https://www.spartan.ng/documentation/installation) styles (copied into your codebase by the [spartan CLI](https://www.npmjs.com/package/@spartan-ng/cli)) for the full shadcn-style experience, or bring your own design system.
 

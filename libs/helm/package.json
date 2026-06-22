@@ -1,6 +1,7 @@
 {
 	"name": "@spartan-ng/helm",
-	"version": "0.0.1-alpha.550",
+	"version": "0.0.0",
+	"private": true,
 	"sideEffects": false,
 	"peerDependencies": {
 		"@angular/cdk": ">=21.0.0 <23.0.0",

@@ -7,16 +7,9 @@ import * as process from 'node:process';
 import type { NpmPublishExecutorSchema } from './schema';
 
 export default async function runExecutor(_options: NpmPublishExecutorSchema, context: ExecutorContext) {
-	const tag = process.env.TAG;
-
-	if (!tag) {
-		console.error(
-			'npm-publish: the TAG environment variable is not set; skipping publish. Set TAG (e.g. "nightly" or "latest") to publish.',
-		);
-		return {
-			success: false,
-		};
-	}
+	// semantic-release passes the channel as TAG: "beta"/"alpha" on prerelease branches, and an
+	// empty string on the stable (main) channel, which maps to the default "latest" dist-tag.
+	const tag = process.env.TAG?.trim() || 'latest';
 
 	if (!/^[A-Za-z0-9._-]+$/.test(tag)) {
 		throw new Error(

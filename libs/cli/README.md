@@ -3,7 +3,7 @@
 [![npm version](https://img.shields.io/npm/v/@spartan-ng/cli.svg?style=flat-square)](https://www.npmjs.com/package/@spartan-ng/cli)
 [![npm downloads](https://img.shields.io/npm/dm/@spartan-ng/cli.svg?style=flat-square)](https://www.npmjs.com/package/@spartan-ng/cli)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://opensource.org/licenses/MIT)
-[![Discord](https://img.shields.io/discord/1145806472172380160?style=flat-square&label=discord&logo=discord&logoColor=white&color=7289DA)](https://discord.gg/EqHnxQ4uQr)
+[![Discord](https://dcbadge.limes.pink/api/server/EqHnxQ4uQr?style=flat-square)](https://discord.gg/EqHnxQ4uQr)
 
 [Website](https://www.spartan.ng) • [Documentation](https://www.spartan.ng/documentation/cli) • [Components](https://www.spartan.ng/components) • [GitHub](https://github.com/spartan-ng/spartan)
 

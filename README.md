@@ -4,12 +4,31 @@
 <img alt="A spartan shield" width="200px" src="./spartan.svg" title="Spartan logo"/>
 </a>
 
-[![Discord server](https://dcbadge.limes.pink/api/server/EqHnxQ4uQr?style=flat-square)](https://discord.gg/EqHnxQ4uQr) [![Twitter](https://img.shields.io/twitter/follow/goetzrobin?color=%23DD0031&style=flat-square)](https://twitter.com/goetzrobin)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://opensource.org/licenses/MIT) [![Discord server](https://dcbadge.limes.pink/api/server/EqHnxQ4uQr?style=flat-square)](https://discord.gg/EqHnxQ4uQr)
 
-Welcome to the spartan mono-repo. This Nx repository holds both the
-spartan/stack and spartan/ui libraries.
+[Website](https://www.spartan.ng) • [Documentation](https://www.spartan.ng/documentation/introduction) • [Components](https://www.spartan.ng/components) • [Blocks](https://www.spartan.ng/blocks) • [GitHub](https://github.com/spartan-ng/spartan)
 
-##### Important: This is a work in progress, and we update the README as major development efforts are started.
+> Cutting-edge tools that power Angular full-stack development - accessible, un-styled UI primitives with copy-paste, shadcn-style styles, plus an opinionated full-stack setup. Build like a spartan.
+
+Welcome to the spartan mono-repo. This Nx repository is home to **spartan/ui** - accessible,
+un-styled UI primitives for Angular with copy-paste, shadcn-style helm styles - and the **spartan/stack**,
+an opinionated full-stack setup built on AnalogJs.
+
+spartan/ui is **1.0** and stable: production-ready, [semantically versioned](https://semver.org), and
+shipping more than 55 components. Install it from npm with
+[`@spartan-ng/brain`](https://www.npmjs.com/package/@spartan-ng/brain) and the
+[`@spartan-ng/cli`](https://www.npmjs.com/package/@spartan-ng/cli), or explore everything at
+[spartan.ng](https://www.spartan.ng).
+
+## Packages
+
+| Package                             | Description                                                                    |                                                        |
+| ----------------------------------- | ------------------------------------------------------------------------------ | ------------------------------------------------------ |
+| [`@spartan-ng/brain`](./libs/brain) | Headless, accessible UI primitives for Angular - the behavior half of spartan. | [npm](https://www.npmjs.com/package/@spartan-ng/brain) |
+| [`@spartan-ng/cli`](./libs/cli)     | Nx plugin & Angular schematics that add spartan/ui to any workspace in one go. | [npm](https://www.npmjs.com/package/@spartan-ng/cli)   |
+| [`@spartan-ng/mcp`](./libs/mcp)     | Model Context Protocol server giving AI assistants up-to-date spartan docs.    | [npm](https://www.npmjs.com/package/@spartan-ng/mcp)   |
+
+The styled **helm** components aren't published as a package on purpose - the [CLI](./libs/cli) copies them straight into your project so you own and customize every line.
 
 ## The 300 spartans
 
@@ -46,7 +65,7 @@ Our initial 300 contributors and sponsors are featured here and on the front pag
 27. [dongphuong0905](https://github.com/dongphuong0905)
 28. [DominikPieper](https://github.com/DominikPieper)
 29. [brandonroberts](https://github.com/brandonroberts)
-30. [izikd-](https://github.com/izikd-)
+30. [izikd](https://github.com/izikd)
 31. [ryancraigmartin](https://github.com/ryancraigmartin)
 32. [gaetanBloch](https://github.com/gaetanBloch)
 33. [gergobergo](https://github.com/gergobergo)
@@ -81,93 +100,96 @@ Our initial 300 contributors and sponsors are featured here and on the front pag
 62. [hirenchauhan2](https://github.com/hirenchauhan2)
 63. [Roguyt](https://github.com/Roguyt)
 64. [tsironis13](https://github.com/tsironis13)
-65. [0xfraso](https://github.com/0xfraso)
-66. [guillermoecharri](https://github.com/guillermoecharri)
-67. [ValentinFunk](https://github.com/ValentinFunk)
-68. [Femi236](https://github.com/Femi236)
-69. [dineshkp](https://github.com/dineshkp)
-70. [robingenz](https://github.com/robingenz)
-71. [Balastrong](https://github.com/Balastrong)
-72. [OlegSuncrown](https://github.com/OlegSuncrown)
-73. [stewones](https://github.com/stewones)
-74. [shinkhouse](https://github.com/shinkhouse)
-75. [donaldxdonald](https://github.com/donaldxdonald)
-76. [BenoitPE](https://github.com/BenoitPE)
-77. [MerlinMoos](https://github.com/MerlinMoos)
-78. [miljan-code](https://www.github.com/miljan-code)
-79. [Georg632](https://www.github.com/Georg632)
-80. [hillin](https://www.github.com/hillin)
-81. [Besbash](https://www.github.com/Besbash)
-82. [davidedammino](https://www.github.com/davidedammino)
-83. [marcindz88](https://www.github.com/marcindz88)
-84. [thyco](https://www.github.com/thyco)
-85. [hitro11](https://www.github.com/hitro11)
-86. [GODrums](https://www.github.com/GODrums)
-87. [samsonkumawong](https://www.github.com/samsonkumawong)
-88. [PR4SAN](https://www.github.com/PR4SAN)
-89. [JeevanMahesha](https://www.github.com/JeevanMahesha)
-90. [dlhck](https://www.github.com/dlhck)
-91. [tomer953](https://www.github.com/tomer953)
-92. [drdreo](https://www.github.com/drdreo)
-93. [OlegSuncrown](https://www.github.com/OlegSuncrown)
-94. [tlandenberger](https://www.github.com/tlandenberger)
-95. [yackinn](https://www.github.com/yackinn)
-96. [OmerGronich](https://www.github.com/OmerGronich)
-97. [kubalinio](https://www.github.com/kubalinio)
-98. [AlexHladin](https://www.github.com/AlexHladin)
-99. [CO97](https://www.github.com/CO97)
-100. [MatanShushan](https://www.github.com/MatanShushan)
-101. [maxhov](https://www.github.com/maxhov)
-102. [josueggh](https://www.github.com/josueggh)
-103. [namdien177](https://www.github.com/namdien177)
-104. [zelenchuk](https://www.github.com/zelenchuk)
-105. [a-malacarne](https://www.github.com/a-malacarne)
-106. [YasinKuralay](https://www.github.com/YasinKuralay)
-107. [nico13051995](https://www.github.com/nico13051995)
-108. [francotalarico](https://www.github.com/francotalarico)
-109. [koenigderluegner](https://www.github.com/koenigderluegner)
-110. [Turtl3e](https://www.github.com/Turtl3e)
-111. [minhnguyen120898](https://www.github.com/minhnguyen120898)
-112. [liam-langstaff](https://github.com/liam-langstaff)
-113. [dw-0](https://github.com/dw-0)
-114. [Khumozin](https://github.com/Khumozin)
-115. [abiramcodes](https://github.com/abiramcodes)
-116. [garygrossgarten](https://github.com/garygrossgarten)
-117. [Oussemasahbeni](https://github.com/Oussemasahbeni)
-118. [benpsnyder](https://github.com/benpsnyder)
-119. [dhwani1806](https://github.com/dhwani1806)
-120. [elite-lucas](https://github.com/elite-lucas)
-121. [esteecodes](https://github.com/esteecodes)
-122. [felhag](https://github.com/felhag)
-123. [notsufferbutbutter](https://github.com/notsufferbutbutter)
-124. [vlrjuan](https://github.com/vlrjuan)
-125. [Dafnik](https://github.com/Dafnik)
-126. [hassantayyab](https://github.com/hassantayyab)
-127. [mathwizard](https://github.com/mathwizard)
-128. [RaminGe](https://github.com/RaminGe)
-129. [abos-gergo](https://github.com/abos-gergo)
-130. [jpsullivan](https://github.com/jpsullivan)
-131. [ayangabryl](https://github.com/ayangabryl)
-132. [s-froghyar](https://github.com/s-froghyar)
-133. [aziz-zina](https://github.com/aziz-zina)
-134. [avihayAsus](https://github.com/avihayAsus)
-135. [multignite](https://github.com/multignite)
-136. [sefatanam](https://github.com/sefatanam)
-137. [LinboLen](https://github.com/LinboLen)
-138. [Oneill19](https://github.com/Oneill19)
-139. [homj](https://github.com/homj)
-140. [Musta-Pollo](https://github.com/Musta-Pollo)
-141. [mitja-kurath](https://github.com/mitja-kurath)
-142. [alisterpineda](https://github.com/alisterpineda)
-143. [amitshalev2](https://github.com/amitshalev2)
-144. [SOG-web](https://github.com/SOG-web)
-145. [Joebeurg](https://github.com/Joebeurg)
-146. [mehrabix](https://github.com/mehrabix)
-147. [PatrickLarocque](https://github.com/PatrickLarocque)
-148. [Ban117](https://github.com/Ban117)
-149. [gerasidev](https://github.com/gerasidev)
+65. [guillermoecharri](https://github.com/guillermoecharri)
+66. [ValentinFunk](https://github.com/ValentinFunk)
+67. [Femi236](https://github.com/Femi236)
+68. [dineshkp](https://github.com/dineshkp)
+69. [robingenz](https://github.com/robingenz)
+70. [Balastrong](https://github.com/Balastrong)
+71. [OlegSuncrown](https://github.com/OlegSuncrown)
+72. [stewones](https://github.com/stewones)
+73. [shinkhouse](https://github.com/shinkhouse)
+74. [donaldxdonald](https://github.com/donaldxdonald)
+75. [BenoitPE](https://github.com/BenoitPE)
+76. [MerlinMoos](https://github.com/MerlinMoos)
+77. [Georg632](https://www.github.com/Georg632)
+78. [hillin](https://www.github.com/hillin)
+79. [Besbash](https://www.github.com/Besbash)
+80. [davidedammino](https://www.github.com/davidedammino)
+81. [marcindz88](https://www.github.com/marcindz88)
+82. [thyco](https://www.github.com/thyco)
+83. [hitro11](https://www.github.com/hitro11)
+84. [GODrums](https://www.github.com/GODrums)
+85. [samsonkumawong](https://www.github.com/samsonkumawong)
+86. [PR4SAN](https://www.github.com/PR4SAN)
+87. [JeevanMahesha](https://www.github.com/JeevanMahesha)
+88. [dlhck](https://www.github.com/dlhck)
+89. [tomer953](https://www.github.com/tomer953)
+90. [drdreo](https://www.github.com/drdreo)
+91. [tlandenberger](https://www.github.com/tlandenberger)
+92. [yackinn](https://www.github.com/yackinn)
+93. [OmerGronich](https://www.github.com/OmerGronich)
+94. [kubalinio](https://www.github.com/kubalinio)
+95. [AlexHladin](https://www.github.com/AlexHladin)
+96. [CO97](https://www.github.com/CO97)
+97. [MatanShushan](https://www.github.com/MatanShushan)
+98. [maxhov](https://www.github.com/maxhov)
+99. [josueggh](https://www.github.com/josueggh)
+100. [namdien177](https://www.github.com/namdien177)
+101. [zelenchuk](https://www.github.com/zelenchuk)
+102. [a-malacarne](https://www.github.com/a-malacarne)
+103. [YasinKuralay](https://www.github.com/YasinKuralay)
+104. [nico13051995](https://www.github.com/nico13051995)
+105. [francotalarico](https://www.github.com/francotalarico)
+106. [koenigderluegner](https://www.github.com/koenigderluegner)
+107. [Turtl3e](https://www.github.com/Turtl3e)
+108. [minhnguyen120898](https://www.github.com/minhnguyen120898)
+109. [liam-langstaff](https://github.com/liam-langstaff)
+110. [dw-0](https://github.com/dw-0)
+111. [Khumozin](https://github.com/Khumozin)
+112. [abiramcodes](https://github.com/abiramcodes)
+113. [garygrossgarten](https://github.com/garygrossgarten)
+114. [Oussemasahbeni](https://github.com/Oussemasahbeni)
+115. [benpsnyder](https://github.com/benpsnyder)
+116. [dhwani1806](https://github.com/dhwani1806)
+117. [elite-lucas](https://github.com/elite-lucas)
+118. [esteecodes](https://github.com/esteecodes)
+119. [felhag](https://github.com/felhag)
+120. [notsufferbutbutter](https://github.com/notsufferbutbutter)
+121. [vlrjuan](https://github.com/vlrjuan)
+122. [Dafnik](https://github.com/Dafnik)
+123. [hassantayyab](https://github.com/hassantayyab)
+124. [mathwizard](https://github.com/mathwizard)
+125. [RaminGe](https://github.com/RaminGe)
+126. [abos-gergo](https://github.com/abos-gergo)
+127. [jpsullivan](https://github.com/jpsullivan)
+128. [ayangabryl](https://github.com/ayangabryl)
+129. [s-froghyar](https://github.com/s-froghyar)
+130. [aziz-zina](https://github.com/aziz-zina)
+131. [avihayAsus](https://github.com/avihayAsus)
+132. [multignite](https://github.com/multignite)
+133. [sefatanam](https://github.com/sefatanam)
+134. [LinboLen](https://github.com/LinboLen)
+135. [Oneill19](https://github.com/Oneill19)
+136. [homj](https://github.com/homj)
+137. [Musta-Pollo](https://github.com/Musta-Pollo)
+138. [mitja-kurath](https://github.com/mitja-kurath)
+139. [alisterpineda](https://github.com/alisterpineda)
+140. [amitshalev2](https://github.com/amitshalev2)
+141. [SOG-web](https://github.com/SOG-web)
+142. [Joebeurg](https://github.com/Joebeurg)
+143. [mehrabix](https://github.com/mehrabix)
+144. [PatrickLarocque](https://github.com/PatrickLarocque)
+145. [Ban117](https://github.com/Ban117)
+146. [gerasidev](https://github.com/gerasidev)
 
-[Become a spartan today!](https://github.com/sponsors/goetzrobin)
+### Sponsor spartan
+
+spartan is MIT-licensed and free, forever. But free to use isn't free to build - countless hours of late-night, hard-fought work hold this phalanx together, and they keep the components shipping and the docs current.
+
+If spartan saves your company or team time, consider returning the favor. Sponsoring keeps spartan actively maintained, the roadmap moving, and the open-source work of the 300 sustainable. No spartan holds the line alone - every shield in the wall counts.
+
+**[Become a spartan today! →](https://github.com/sponsors/goetzrobin)**
 
 ## Zerops: The Strategic Alliance
 
@@ -182,7 +204,7 @@ spartan.ng has formed a powerful alliance with Zerops, a developer-first cloud p
 Through their strategic support, Zerops has enabled:
 
 - Dedicated resources for our core development team
-- Accelerated component development on our path to v1
+- Accelerated component development on our path to v1 and beyond
 - Creation of production-ready templates and starter kits
 - Long-term sustainability for the entire project
 
@@ -192,16 +214,16 @@ Zerops eliminates deployment complexity so developers can focus on building grea
 
 ## spartan/ui
 
-spartan/ui is our effort to port the incredible shadcn/ui project over to the Angular ecosystem.
+spartan/ui brings the [shadcn/ui](https://ui.shadcn.com) philosophy to Angular: accessible, un-styled primitives - inspired by [Radix](https://www.radix-ui.com) and built on the Angular CDK and other proven community solutions - paired with beautiful, copy-paste shadcn-style styles that you own.
 
-The idea is to create un-styled primitives similar to Radix with the help of the Angular CDK and other proven community solutions
-And then add the beautiful shadcn styles with primitives (and components where necessary).
+Each primitive is made up of two halves:
 
-You can find all UI primitives in the `libs/ui` folder.
+- a headless **`brain`** library in [`libs/brain`](./libs/brain) that provides the behavior, accessibility, and state - published to npm as [`@spartan-ng/brain`](https://www.npmjs.com/package/@spartan-ng/brain).
+- a **`helm`** library in [`libs/helm`](./libs/helm) that adds the styles, copied straight into your project by the CLI so you can edit them freely.
 
-Each primitive is made up off an un-styled `brain` library, which provides all functionality and a `helm` library, which adds the styles.
+[`libs/cli`](./libs/cli) holds the Nx plugin & Angular CLI code that adds spartan/ui to any Nx or Angular workspace in a single command - published as [`@spartan-ng/cli`](https://www.npmjs.com/package/@spartan-ng/cli).
 
-There's also a `libs/cli` folder, which contains the Nx-plugin & Angular CLI code that allows users to add spartan/ui to their Nx or Angular workspace in a simple way.
+[`libs/mcp`](./libs/mcp) is a [Model Context Protocol](https://modelcontextprotocol.io) server - published as [`@spartan-ng/mcp`](https://www.npmjs.com/package/@spartan-ng/mcp) - that gives AI assistants up-to-date spartan docs, components, and blocks.
 
 The `skills/spartan` folder contains the spartan agent skill - procedural knowledge that teaches AI coding assistants how to build spartan/ui correctly. Users install it with `npx skills add spartan-ng/spartan`. See [the Skills docs](https://www.spartan.ng/documentation/skills).
 
@@ -217,7 +239,7 @@ A storybook project is set up and is the primary way to develop UI components. Y
 pnpm run storybook
 ```
 
-At the root of each primitive's folder, e.g. `libs/ui/accordion` you will find a stories file, e.g, `accordion.stories.ts`.
+At the root of each primitive's folder, e.g. `libs/brain/accordion`, you will find a stories file, e.g. `accordion.stories.ts`.
 
 Use these files to add stories and drive development of the primitives.
 
@@ -254,8 +276,6 @@ https://www.spartan.ng/stack/overview
 
 In the `apps` folder of this repository, you can also find an example application of the spartan stack.
 It also serves as the documentation page for this project.
-
-For now. The goal is to move the docs to Astro.
 
 Follow the directions below to get it up and running:
 
@@ -313,7 +333,23 @@ create table
 
 Run `pnpm nx graph` to see a diagram of the dependencies of the projects.
 
-## Further help
+## Documentation
 
-Reach out to me on [Twitter](https://twitter.com/goetzrobin/) or [GitHub](https://github.com/goetzrobin) if you run into
-any issues.
+- [Introduction](https://www.spartan.ng/documentation/introduction)
+- [Installation](https://www.spartan.ng/documentation/installation)
+- [CLI](https://www.spartan.ng/documentation/cli)
+- [Theming](https://www.spartan.ng/documentation/theming)
+- [Components](https://www.spartan.ng/components)
+- [Blocks](https://www.spartan.ng/blocks)
+
+## Community
+
+- [Discord](https://discord.gg/EqHnxQ4uQr)
+- [GitHub](https://github.com/spartan-ng/spartan)
+- [Sponsor the project](https://github.com/sponsors/goetzrobin)
+
+Run into an issue or have a question? Open an issue on [GitHub](https://github.com/spartan-ng/spartan/issues) or say hi in [Discord](https://discord.gg/EqHnxQ4uQr).
+
+## License
+
+MIT © [goetzrobin](https://github.com/goetzrobin) and the [spartan contributors](https://github.com/spartan-ng/spartan/graphs/contributors)

@@ -42,12 +42,7 @@ export const HLM_DATE_PICKER_MUTLI_VALUE_ACCESSOR = {
 	hostDirectives: [BrnFieldControl],
 	host: { class: 'block' },
 	template: `
-		<hlm-popover
-			sideOffset="5"
-			[state]="_popoverState()"
-			(stateChanged)="_popoverState.set($event)"
-			(closed)="_onTouched?.()"
-		>
+		<hlm-popover sideOffset="5" [state]="_popoverState()" (stateChanged)="_onStateChange($event)">
 			<ng-content />
 
 			<hlm-popover-content class="w-fit p-0" *hlmPopoverPortal="let ctx">
@@ -135,6 +130,11 @@ export class HlmDatePickerMulti<T> implements HlmDatePickerBase<T>, ControlValue
 
 	protected _onChange?: ChangeFn<T[]>;
 	protected _onTouched?: TouchFn;
+
+	protected _onStateChange(state: BrnOverlayState) {
+		this._popoverState.set(state);
+		if (state === 'closed') this._onTouched?.();
+	}
 
 	protected _handleChange(value: T[] | undefined) {
 		if (value === undefined) return;

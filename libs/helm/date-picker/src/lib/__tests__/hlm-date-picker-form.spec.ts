@@ -14,7 +14,7 @@ import { HlmDatePicker } from '../hlm-date-picker';
 			<div hlmField>
 				<!-- eslint-disable-next-line @angular-eslint/template/label-has-associated-control -->
 				<label hlmFieldLabel>Date *</label>
-				<hlm-date-picker formControlName="date">
+				<hlm-date-picker captionLayout="dropdown" formControlName="date">
 					<hlm-date-picker-trigger>Pick date</hlm-date-picker-trigger>
 				</hlm-date-picker>
 				<p hlmFieldDescription>Pick a date for the event.</p>
@@ -105,8 +105,31 @@ describe('HlmDatePicker form integration', () => {
 			expect(selectTrigger.getAttribute('aria-invalid')).toBeNull();
 			expect(selectTrigger.getAttribute('data-matches-spartan-invalid')).toBeNull();
 		}
+	});
 
-		datePicker.close();
-		document.querySelectorAll('.cdk-overlay-container').forEach((el) => el.remove());
+	it('marks the field host and label as invalid when the trigger is opened then closed', async () => {
+		fixture.detectChanges();
+		await fixture.whenStable();
+
+		const field: HTMLElement | null = fixture.nativeElement.querySelector('[data-slot="field"]');
+		const label: HTMLElement | null = fixture.nativeElement.querySelector('[data-slot="field-label"]');
+		expect(field?.getAttribute('data-matches-spartan-invalid')).toBeNull();
+
+		const trigger: HTMLButtonElement | null = fixture.nativeElement.querySelector('hlm-date-picker-trigger button');
+		trigger?.click();
+		fixture.detectChanges();
+		await fixture.whenStable();
+
+		trigger?.click();
+		fixture.detectChanges();
+		await fixture.whenStable();
+
+		const host = fixture.componentInstance as HlmDatePickerHost;
+		expect(host.form.get('date')?.touched).toBe(true);
+		expect(host.form.invalid).toBe(true);
+
+		expect(field?.getAttribute('data-matches-spartan-invalid')).toBe('true');
+		expect(field?.getAttribute('data-invalid')).toBe('true');
+		expect(label).toBeTruthy();
 	});
 });

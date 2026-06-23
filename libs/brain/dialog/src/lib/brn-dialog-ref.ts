@@ -143,8 +143,9 @@ export class BrnDialogRef<DialogResult = unknown> {
 	private _setDataState(state: BrnDialogState): void {
 		this._cdkDialogRef.overlayRef.overlayElement.setAttribute('data-state', state);
 		this._cdkDialogRef.overlayRef.backdropElement?.setAttribute('data-state', state);
-		for (const el of this._cdkDialogRef.overlayRef.overlayElement.querySelectorAll<HTMLElement>('[data-slot]')) {
-			el.setAttribute('data-state', state);
+		const contentElements = this._cdkDialogRef.overlayRef.overlayElement.querySelectorAll('[data-slot]');
+		for (let i = 0; i < contentElements.length; i++) {
+			contentElements[i].setAttribute('data-state', state);
 		}
 	}
 }

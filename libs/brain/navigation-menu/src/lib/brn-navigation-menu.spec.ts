@@ -88,7 +88,13 @@ class NavigationMenuSpec {
 class NestedNavigationMenuSpec {}
 
 function key(target: HTMLElement, init: Partial<KeyboardEventInit> & { key: string }) {
-	target.dispatchEvent(new KeyboardEvent('keydown', { bubbles: true, cancelable: true, ...init }));
+	const event = new KeyboardEvent('keydown', { bubbles: true, cancelable: true, ...init });
+	// Browsers ignore `keyCode` from the constructor, but the CDK key manager reads it; pin it
+	// explicitly so a test can exercise the path a real keypress would take.
+	if (init.keyCode !== undefined) {
+		Object.defineProperty(event, 'keyCode', { value: init.keyCode });
+	}
+	target.dispatchEvent(event);
 }
 
 describe('BrnNavigationMenu', () => {
@@ -200,6 +206,31 @@ describe('BrnNavigationMenu', () => {
 
 			trigger.focus();
 			key(trigger, { key: 'ArrowRight' });
+
+			expect(document.activeElement).toBe(screen.getByTestId('c1-link1'));
+		});
+
+		// Regression: a real keypress carries a keyCode that the nav's CDK key manager reads to move
+		// to the next trigger. Entry into the content must stop propagation so it does not get
+		// overridden (synthetic events default keyCode to 0, hiding the conflict).
+		it('does not fall through to the key manager when ArrowDown carries a keyCode', async () => {
+			await setup('horizontal');
+			const trigger = screen.getByTestId('trigger1');
+			await open('item1', 'content1');
+
+			trigger.focus();
+			key(trigger, { key: 'ArrowDown', keyCode: 40 });
+
+			expect(document.activeElement).toBe(screen.getByTestId('c1-link1'));
+		});
+
+		it('does not fall through to the key manager when ArrowRight carries a keyCode (vertical)', async () => {
+			await setup('vertical');
+			const trigger = screen.getByTestId('trigger1');
+			await open('item1', 'content1');
+
+			trigger.focus();
+			key(trigger, { key: 'ArrowRight', keyCode: 39 });
 
 			expect(document.activeElement).toBe(screen.getByTestId('c1-link1'));
 		});

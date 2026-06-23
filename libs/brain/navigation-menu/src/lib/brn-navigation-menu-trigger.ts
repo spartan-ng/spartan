@@ -263,6 +263,9 @@ export class BrnNavigationMenuTrigger implements OnInit, OnDestroy, FocusableOpt
 		if (orientation === 'vertical' && dir && this._dir() !== dir) return;
 
 		e.preventDefault();
+		// Stop the event from reaching the nav's CDK key manager, which would otherwise
+		// read event.keyCode and move focus to the next trigger, overriding the entry.
+		e.stopPropagation();
 		this._focusFirstContent();
 	}
 

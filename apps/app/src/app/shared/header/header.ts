@@ -1,15 +1,18 @@
 import { httpResource } from '@angular/common/http';
-import { Component, computed } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { lucideGithub } from '@ng-icons/lucide';
+import { lucideGithub, lucideRepeat } from '@ng-icons/lucide';
 import { tablerBrandDiscord } from '@ng-icons/tabler-icons';
 import { DocsDialog } from '@spartan-ng/app/app/shared/header/docs-dialog';
 import { HeaderLayoutMode } from '@spartan-ng/app/app/shared/header/header-layout-mode';
 import { HlmButton } from '@spartan-ng/helm/button';
+import { HlmContextMenuImports } from '@spartan-ng/helm/context-menu';
+import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
 import { HlmSeparatorImports } from '@spartan-ng/helm/separator';
 import { SpartanLogo } from '../spartan-logo';
 import { NavLink } from '../spartan-nav-link';
+import { ThemeService } from '../theme.service';
 import { HeaderDarkMode } from './header-dark-mode';
 import { HeaderMobileNav } from './header-mobile-nav';
 
@@ -25,10 +28,12 @@ import { HeaderMobileNav } from './header-mobile-nav';
 		SpartanLogo,
 		HlmSeparatorImports,
 		HeaderLayoutMode,
+		HlmContextMenuImports,
+		HlmDropdownMenuImports,
 
 		DocsDialog,
 	],
-	providers: [provideIcons({ tablerBrandDiscord, lucideGithub })],
+	providers: [provideIcons({ tablerBrandDiscord, lucideGithub, lucideRepeat })],
 	host: {
 		class: 'backdrop-blur-sm sticky top-0 z-50 w-full',
 	},
@@ -37,10 +42,29 @@ import { HeaderMobileNav } from './header-mobile-nav';
 			<div
 				class="3xl:fixed:container A composable, themeable and customizable sidebar component. flex h-(--header-height) items-center gap-2"
 			>
-				<a hlmBtn variant="ghost" class="hidden p-1.5 lg:flex" routerLink="/">
-					<spartan-logo class="w-14" />
+				<a
+					hlmBtn
+					variant="ghost"
+					class="hidden h-fit p-1.5 lg:flex"
+					routerLink="/"
+					[hlmContextMenuTrigger]="logoMenu"
+					align="start"
+					side="bottom"
+				>
+					<spartan-logo class="w-10" />
 					<span class="sr-only">spartan</span>
 				</a>
+
+				<ng-template #logoMenu>
+					<hlm-dropdown-menu class="w-52">
+						<hlm-dropdown-menu-group>
+							<button hlmDropdownMenuItem (click)="_toggleLogoVariant()">
+								<ng-icon name="lucideRepeat" />
+								{{ _logoVariant() === 'legacy' ? 'Switch to new logo' : 'Switch to legacy logo' }}
+							</button>
+						</hlm-dropdown-menu-group>
+					</hlm-dropdown-menu>
+				</ng-template>
 
 				<spartan-mobile-nav class="lg:hidden" />
 
@@ -87,6 +111,13 @@ import { HeaderMobileNav } from './header-mobile-nav';
 	`,
 })
 export class Header {
+	private readonly _themeService = inject(ThemeService);
+	protected readonly _logoVariant = this._themeService.logoVariant;
+
+	protected _toggleLogoVariant(): void {
+		this._themeService.toggleLogoVariant();
+	}
+
 	private readonly _githubInfo = httpResource<{ stars: number }>(() => '/api/github-info');
 
 	protected readonly _stars = computed(() => {

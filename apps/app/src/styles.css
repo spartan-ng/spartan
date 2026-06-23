@@ -40,6 +40,8 @@
 
 @custom-variant fixed (&:is(.layout-fixed *));
 
+@custom-variant logo-legacy (&:is(.logo-legacy *));
+
 @theme inline {
 	--font-ar: var(--font-ar);
 	--font-he: var(--font-he);

@@ -3,11 +3,11 @@
 [![npm version](https://img.shields.io/npm/v/@spartan-ng/cli.svg?style=flat-square)](https://www.npmjs.com/package/@spartan-ng/cli)
 [![npm downloads](https://img.shields.io/npm/dm/@spartan-ng/cli.svg?style=flat-square)](https://www.npmjs.com/package/@spartan-ng/cli)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://opensource.org/licenses/MIT)
-[![Discord](https://img.shields.io/discord/1145806472172380160?style=flat-square&label=discord&logo=discord&logoColor=white&color=7289DA)](https://discord.gg/EqHnxQ4uQr)
+[![Discord](https://dcbadge.limes.pink/api/server/EqHnxQ4uQr?style=flat-square)](https://discord.gg/EqHnxQ4uQr)
 
-[Website](https://spartan.ng) • [Documentation](https://www.spartan.ng/documentation/cli) • [Components](https://www.spartan.ng/components) • [GitHub](https://github.com/spartan-ng/spartan)
+[Website](https://www.spartan.ng) • [Documentation](https://www.spartan.ng/documentation/cli) • [Components](https://www.spartan.ng/components) • [GitHub](https://github.com/spartan-ng/spartan)
 
-> The official CLI for [spartan/ui](https://spartan.ng). Add accessible, beautifully styled Angular components to any project with one command.
+> The official CLI for [spartan/ui](https://www.spartan.ng). Add accessible, beautifully styled Angular components to any project with one command.
 
 `@spartan-ng/cli` is an [Nx plugin](https://nx.dev) and [Angular schematic](https://angular.io/guide/schematics) that wires up the spartan/ui two-layer architecture for you: the **brain** primitives are installed from npm and the **helm** styles are copied into your codebase where you own them. Works with both Angular CLI projects and Nx workspaces - no extra configuration required.
 

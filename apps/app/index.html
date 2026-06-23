@@ -30,13 +30,17 @@
 			if (localStorage.layout) {
 				document.documentElement.classList.add('layout-' + localStorage.layout);
 			}
+			const logoVariant = ['default', 'legacy'].includes(localStorage.logoVariant)
+				? localStorage.logoVariant
+				: 'default';
+			document.documentElement.classList.add('logo-' + logoVariant);
 			if (window.navigator.userAgent.toUpperCase().includes('MAC')) {
 				document.documentElement.style.setProperty('--is-mac', 'true');
 			}
 		</script>
 	</head>
 	<body
-		class="text-foreground group/body style-vega overscroll-none font-sans antialiased [--footer-height:calc(var(--spacing)*14)] [--header-height:calc(var(--spacing)*14)] [--stable-height:78.75px] xl:[--footer-height:calc(var(--spacing)*24)]"
+		class="style-nova text-foreground group/body overscroll-none font-sans antialiased [--footer-height:calc(var(--spacing)*14)] [--header-height:calc(var(--spacing)*14)] [--stable-height:78.75px] xl:[--footer-height:calc(var(--spacing)*24)]"
 	>
 		<script>
 			if (localStorage.theme !== 'default' && document && document.body)

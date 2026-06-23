@@ -47,9 +47,8 @@ export class SidebarPreview {
 		const root = this._iframe()?.nativeElement.contentDocument?.documentElement;
 		if (root === null || root === undefined) return;
 		for (const cls of Array.from(root.classList)) {
-			if (cls.startsWith('style-') || cls === 'not-style-vega') root.classList.remove(cls);
+			if (cls.startsWith('style-')) root.classList.remove(cls);
 		}
 		root.classList.add(`style-${this._styleService.style()}`);
-		if (this._styleService.isNotVega()) root.classList.add('not-style-vega');
 	}
 }

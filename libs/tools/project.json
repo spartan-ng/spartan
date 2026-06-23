@@ -45,7 +45,6 @@
 			"executor": "@spartan-ng/tools:generate-ui-docs",
 			"options": {
 				"outputDir": "dist/extracted-metadata",
-				"outputFile": "ui-api.json",
 				"brainDir": "libs/brain",
 				"helmDir": "libs/helm"
 			}

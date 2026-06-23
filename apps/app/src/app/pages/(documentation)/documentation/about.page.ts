@@ -29,10 +29,11 @@ const aboutLink = 'h-6 underline text-sm px-0.5';
 			<spartan-section-sub-heading first id="about" class="pt-6">About</spartan-section-sub-heading>
 
 			<p class="${hlmP}">
-				<a hlmBtn variant="link" class="${aboutLink}" href="https://spartan.ng">spartan.ng</a>
+				<a hlmBtn variant="link" class="${aboutLink}" href="https://www.spartan.ng">spartan.ng</a>
 				is a project by
-				<a hlmBtn variant="link" class="${aboutLink}" href="https://twitter.com/goetzrobin">goetzrobin</a>
-				.
+				<a hlmBtn variant="link" class="${aboutLink}" href="https://github.com/goetzrobin">goetzrobin</a>
+				and a growing community of contributors. Come say hi in our
+				<a hlmBtn variant="link" class="${aboutLink}" href="https://discord.gg/EqHnxQ4uQr" target="_blank">Discord.</a>
 			</p>
 
 			<spartan-section-sub-heading id="credits">Credits</spartan-section-sub-heading>
@@ -57,14 +58,6 @@ const aboutLink = 'h-6 underline text-sm px-0.5';
 
 			<p class="${hlmP}">Other incredible projects we build upon:</p>
 			<ul class="${hlmUl}">
-				<li>
-					<a class="${aboutLink}" hlmBtn href="https://ui.shadcn.com" target="_blank" variant="link">shadcn/ui</a>
-					- Design system and copy-paste philosophy that inspired spartan/ui.
-				</li>
-				<li>
-					<a class="${aboutLink}" hlmBtn href="https://radix-ui.com" target="_blank" variant="link">Radix UI</a>
-					- Patterns and architecture for accessible, unstyled primitives.
-				</li>
 				<li>
 					<a class="${aboutLink}" hlmBtn href="https://material.angular.io" target="_blank" variant="link">
 						Angular Material CDK
@@ -96,11 +89,57 @@ const aboutLink = 'h-6 underline text-sm px-0.5';
 				</li>
 			</ul>
 
+			<spartan-section-sub-heading id="maintainers">Core maintainers</spartan-section-sub-heading>
+
+			<p class="${hlmP}">
+				spartan is built and maintained by a small, dedicated core team who pour countless hours into the project:
+				<a hlmBtn variant="link" class="${aboutLink}" href="https://github.com/MerlinMoos" target="_blank">Merlin,</a>
+				<a hlmBtn variant="link" class="${aboutLink}" href="https://github.com/marcjulian" target="_blank">Marc,</a>
+				<a hlmBtn variant="link" class="${aboutLink}" href="https://github.com/ashley-hunter" target="_blank">
+					Ashley,
+				</a>
+				<a hlmBtn variant="link" class="${aboutLink}" href="https://github.com/elite-benni" target="_blank">Benni,</a>
+				<a hlmBtn variant="link" class="${aboutLink}" href="https://github.com/thatsamsonkid" target="_blank">Sammy,</a>
+				and
+				<a hlmBtn variant="link" class="${aboutLink}" href="https://github.com/toniskobic" target="_blank">Toni</a>
+				- alongside the
+				<a
+					hlmBtn
+					variant="link"
+					class="${aboutLink}"
+					href="https://github.com/spartan-ng/spartan/graphs/contributors"
+					target="_blank"
+				>
+					100+ contributors
+				</a>
+				who keep spartan moving.
+			</p>
+
+			<p class="${hlmP}">
+				Special thanks to
+				<a hlmBtn variant="link" class="${aboutLink}" href="https://zerops.io" target="_blank">Zerops</a>
+				, whose support funds dedicated development time. A true developer first platform for this new age of AI-powered
+				software engineering!
+			</p>
+
+			<spartan-section-sub-heading id="support">Support spartan</spartan-section-sub-heading>
+
+			<p class="${hlmP}">
+				spartan is MIT-licensed and free, forever - but free to use isn't free to build. Countless hours of hard-fought
+				work hold this phalanx together. If spartan benefits your company or team, consider returning the favor:
+				sponsoring keeps spartan actively maintained and its open-source work sustainable. No spartan holds the line
+				alone - every shield in the wall counts.
+			</p>
+			<div class="my-6 flex flex-wrap items-center gap-3">
+				<a hlmBtn href="https://github.com/sponsors/goetzrobin" target="_blank">Sponsor spartan</a>
+				<a hlmBtn variant="outline" href="https://discord.gg/EqHnxQ4uQr" target="_blank">Join us on Discord</a>
+			</div>
+
 			<spartan-section-sub-heading id="license">License</spartan-section-sub-heading>
 
 			<p class="${hlmP}">
 				MIT &copy; {{ currentYear }} -
-				<a hlmBtn variant="link" class="px-0.5 text-sm underline" href="https://twitter.com/goetzrobin">goetzrobin</a>
+				<a hlmBtn variant="link" class="px-0.5 text-sm underline" href="https://github.com/goetzrobin">goetzrobin</a>
 			</p>
 
 			<spartan-page-bottom-nav>

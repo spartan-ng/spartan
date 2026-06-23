@@ -1,11 +1,8 @@
 {
-	"name": "registry",
-	"version": "0.0.1",
-	"private": true,
-	"type": "commonjs",
-	"main": "./src/index.js",
-	"types": "./src/index.d.ts",
+	"name": "@spartan-ng/registry",
+	"version": "0.0.1-alpha.550",
+	"sideEffects": false,
 	"dependencies": {
-		"tslib": "^2.3.0"
+		"zod": "^3.25.76"
 	}
 }

@@ -1,6 +1,7 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { injectComponentDocs } from '@spartan-ng/app/app/core/services/component-docs';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { DatePickerFormRangeExample } from '@spartan-ng/app/app/pages/(components)/components/(date-picker)/date-picker--form-range.example';
 import { DatePickerRangeExample } from '@spartan-ng/app/app/pages/(components)/components/(date-picker)/date-picker--range.example';
@@ -83,7 +84,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
-			<spartan-install-tabs primitive="date-picker" [showOnlyVega]="false">
+			<spartan-install-tabs primitive="date-picker">
 				<p class="${hlmP} mb-6">
 					The Date Picker component is built with the
 					<a routerLink="/components/popover" hlmBtn variant="link" class="${link}">Popover</a>
@@ -100,7 +101,7 @@ export const routeMeta: RouteMeta = {
 			</div>
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
-			<h3 id="examples__custom_config" spartanH4>Custom Configs</h3>
+			<h3 id="custom-config" spartanH4>Custom Configs</h3>
 
 			<p class="${hlmP} mb-6">
 				Use
@@ -131,7 +132,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_configCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__multiple_selecton" spartanH4>Multiple Selection</h3>
+			<h3 id="multiple-selecton" spartanH4>Multiple Selection</h3>
 
 			<p class="${hlmP} mb-6">
 				Use
@@ -150,7 +151,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_multiCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__range" spartanH4>Range Picker</h3>
+			<h3 id="range" spartanH4>Range Picker</h3>
 
 			<p class="${hlmP} mb-6">
 				Use
@@ -169,7 +170,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_rangeCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__format_date" spartanH4>Format Date</h3>
+			<h3 id="format-date" spartanH4>Format Date</h3>
 
 			<p class="${hlmP} mb-6">
 				Use
@@ -183,7 +184,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_formatCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__input_picker" spartanH4>Input Picker</h3>
+			<h3 id="input-picker" spartanH4>Input Picker</h3>
 			<p class="${hlmP} mb-6">
 				Use
 				<code class="${hlmCode}">hlm-date-picker-input</code>
@@ -204,7 +205,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_inputCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__date_and_time_picker" spartanH4>Date and Time picker</h3>
+			<h3 id="date-and-time-picker" spartanH4>Date and Time picker</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-date-and-time-picker />
@@ -212,7 +213,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_dateTimeCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__form" spartanH4>Form</h3>
+			<h3 id="form" spartanH4>Form</h3>
 			<p class="${hlmP} mb-6">
 				Sync the date to a form by adding
 				<code class="${hlmCode}">formControlName</code>
@@ -227,7 +228,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_formCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__form_input" spartanH4>Form with Input Picker</h3>
+			<h3 id="form-input" spartanH4>Form with Input Picker</h3>
 			<p class="${hlmP} mb-6">
 				Combine
 				<code class="${hlmCode}">formControlName</code>
@@ -242,7 +243,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_formInputCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__form_multiple_selection" spartanH4>Form Multiple Selection</h3>
+			<h3 id="form-multiple-selection" spartanH4>Form Multiple Selection</h3>
 			<p class="${hlmP} mb-6">
 				Sync the dates to a form by adding
 				<code class="${hlmCode}">formControlName</code>
@@ -257,7 +258,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_formMultiCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__form_range" spartanH4>Form Range Picker</h3>
+			<h3 id="form-range" spartanH4>Form Range Picker</h3>
 			<p class="${hlmP} mb-6">
 				Sync the dates to a form by adding
 				<code class="${hlmCode}">formControlName</code>
@@ -292,6 +293,10 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class CardPage {
+	constructor() {
+		injectComponentDocs();
+	}
+
 	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('date-picker');
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
 	protected readonly _configCode = computed(() => this._snippets()['config']);

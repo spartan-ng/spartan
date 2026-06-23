@@ -1,5 +1,6 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
+import { injectComponentDocs } from '@spartan-ng/app/app/core/services/component-docs';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { ButtonRtlPreview } from '@spartan-ng/app/app/pages/(components)/components/(button)/button--rtl.example';
 import { cursorCode } from '@spartan-ng/app/app/pages/(components)/components/(button)/button-cursor';
@@ -89,7 +90,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
-			<spartan-install-tabs primitive="button" [showOnlyVega]="false" />
+			<spartan-install-tabs primitive="button" />
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="mt-6 space-y-4">
@@ -262,6 +263,10 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class ButtonPage {
+	constructor() {
+		injectComponentDocs();
+	}
+
 	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('button');
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
 	protected readonly _secondaryCode = computed(() => this._snippets()['secondary']);

@@ -3,6 +3,7 @@ import { isSmokeAffected } from './support/affected';
 import {
 	assertHealthcheckClean,
 	assertMigrateHelmLibrariesLoads,
+	assertStyleClassesApplied,
 	buildWorkspace,
 	cleanupWorkspace,
 	prepareWorkspace,
@@ -31,7 +32,7 @@ describe('CLI setup matrix', () => {
 	// name the per-cell pattern can anchor to.
 	for (const cell of setupMatrix) {
 		describe(cell.id, () => {
-			it('scaffolds, generates, passes healthcheck, consumes components, and builds with themed styles', () => {
+			it('scaffolds, generates, passes healthcheck, applies the style classes, consumes components, and builds with themed styles', () => {
 				if (!affected) {
 					console.log(`[cli-smoke] ${cell.id}: skipped (nothing affecting the CLI changed).`);
 					return;
@@ -42,6 +43,9 @@ describe('CLI setup matrix', () => {
 				assertMigrateHelmLibrariesLoads(ws);
 				runGenerators(ws);
 				assertHealthcheckClean(ws);
+				// Verify the configured style's registry classes replaced the spartan-* placeholders before we
+				// build (the build's themed-CSS check is style-blind - those vars come from the theme).
+				assertStyleClassesApplied(ws);
 				useGeneratedComponents(ws);
 				buildWorkspace(ws);
 				cleanupWorkspace(ws);

@@ -1,4 +1,4 @@
-import { afterNextRender, Directive, ElementRef, inject, signal } from '@angular/core';
+import { afterNextRender, computed, Directive, ElementRef, inject, signal } from '@angular/core';
 import { injectBrnSelectBase } from './brn-select.token';
 
 // We use 8px and 15ms to create a smooth scrolling effect.
@@ -8,6 +8,7 @@ const SCROLLBY_PIXEL = 8;
 @Directive({
 	selector: '[brnSelectContent]',
 	host: {
+		'[attr.data-state]': '_dataState()',
 		'[style.--brn-select-width.px]': '_selectWidth()',
 		'(scroll)': 'handleScroll()',
 	},
@@ -26,6 +27,8 @@ export class BrnSelectContent {
 	private readonly _scrollDown = signal(false);
 
 	public readonly showScrollDown = this._scrollDown.asReadonly();
+
+	protected readonly _dataState = computed<'open' | 'closed'>(() => (this._select.isExpanded() ? 'open' : 'closed'));
 
 	constructor() {
 		afterNextRender(() => {

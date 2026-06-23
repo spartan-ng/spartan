@@ -43,6 +43,13 @@ jobs:
           - acli
           - all-components
           - all-components-nx-entry
+          # Style coverage: one cell per non-default style, split across angular-cli and nx. Keep in sync
+          # with the style-* cells in matrix.ts.
+          - style-acli-nova
+          - style-nx-lyra
+          - style-acli-maia
+          - style-nx-mira
+          - style-acli-luma
     name: ${{ matrix.cell }}
     steps:
       - uses: actions/checkout@v6

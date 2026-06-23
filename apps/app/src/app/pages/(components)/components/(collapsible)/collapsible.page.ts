@@ -1,5 +1,6 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
+import { injectComponentDocs } from '@spartan-ng/app/app/core/services/component-docs';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { CollapsibleAnimatedExample } from '@spartan-ng/app/app/pages/(components)/components/(collapsible)/collapsible--animated.example';
 import { CodeRtlPreview } from '@spartan-ng/app/app/shared/code/code-rtl-preview';
@@ -18,6 +19,7 @@ import { SectionSubHeading } from '../../../../shared/layout/section-sub-heading
 import { Tabs } from '../../../../shared/layout/tabs';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
+import { CollapsibleDynamic } from './collapsible--dynamic.example';
 import { CollapsibleRtl } from './collapsible--rtl.preview';
 import { CollapsibleSettingsPanel } from './collapsible--settings-panel.preview';
 import { CollapsiblePreview, defaultImports, defaultSkeleton } from './collapsible.preview';
@@ -49,6 +51,7 @@ export const routeMeta: RouteMeta = {
 		CollapsiblePreview,
 		CollapsibleAnimatedExample,
 		CollapsibleSettingsPanel,
+		CollapsibleDynamic,
 		CollapsibleRtl,
 	],
 	template: `
@@ -66,7 +69,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
-			<spartan-install-tabs primitive="collapsible" [showOnlyVega]="true" />
+			<spartan-install-tabs primitive="collapsible" />
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="mt-6 space-y-4">
@@ -97,6 +100,19 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_settingsPanelCode()" />
 			</spartan-tabs>
 
+			<h3 id="dynamic" spartanH4>Dynamic content</h3>
+			<p class="py-2">
+				Animate the height with the
+				<code class="${hlmCode}">--brn-collapsible-content-height</code>
+				variable. Rows added while the panel is open are measured as they change, so it animates to fit its new height.
+			</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-collapsible-dynamic />
+				</div>
+				<spartan-code secondTab [code]="_dynamicCode()" />
+			</spartan-tabs>
+
 			<spartan-header-rtl />
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanRtlCodePreview firstTab>
@@ -120,10 +136,15 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class CollapsiblePage {
+	constructor() {
+		injectComponentDocs();
+	}
+
 	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('collapsible');
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
 	protected readonly _animatedCode = computed(() => this._snippets()['animated']);
 	protected readonly _settingsPanelCode = computed(() => this._snippets()['settingsPanel']);
+	protected readonly _dynamicCode = computed(() => this._snippets()['dynamic']);
 	protected readonly _rtlCode = computed(() => this._snippets()['rtl']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;

@@ -1,5 +1,6 @@
 import { type Tree, formatFiles, joinPathFragments, logger } from '@nx/devkit';
 import ts from 'typescript';
+import { writePerComponentData } from '../../write-per-component-data';
 import { getVariableNameFromFilename } from './getVarNameFromFileName';
 
 function readFileAsSourceFile(tree: Tree, filePath: string): ts.SourceFile | null {
@@ -220,9 +221,9 @@ export async function extractPrimitiveCodeGenerator(tree: Tree): Promise<void> {
 		}
 	}
 
-	const outputPath = 'apps/app/src/public/data/primitives-snippets.json';
-	tree.write(outputPath, JSON.stringify(allPrimitivesSnippets, null, 2));
-	logger.info(`Generated primitives snippets at: ${outputPath}`);
+	const outputDir = 'apps/app/src/public/data/primitives-snippets';
+	writePerComponentData(allPrimitivesSnippets, outputDir, (filePath, content) => tree.write(filePath, content));
+	logger.info(`Generated primitives snippets at: ${outputDir}`);
 
 	const siblingsPath = 'apps/app/src/public/data/stackblitz-example-files.json';
 	tree.write(siblingsPath, JSON.stringify(siblingFiles, null, 2));

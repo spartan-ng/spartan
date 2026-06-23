@@ -1,5 +1,6 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
+import { injectComponentDocs } from '@spartan-ng/app/app/core/services/component-docs';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { CodeRtlPreview } from '@spartan-ng/app/app/shared/code/code-rtl-preview';
 import { RtlHeader } from '@spartan-ng/app/app/shared/code/rtl-header';
@@ -118,6 +119,10 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class SeparatorPage {
+	constructor() {
+		injectComponentDocs();
+	}
+
 	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('separator');
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
 	protected readonly _verticalCode = computed(() => this._snippets()['vertical']);

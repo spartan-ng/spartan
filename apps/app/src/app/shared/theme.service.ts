@@ -22,6 +22,9 @@ export type Theme = (typeof AppThemes)[number];
 export const Layouts = ['full', 'fixed'] as const;
 export type Layout = (typeof Layouts)[number];
 
+export const LogoVariants = ['default', 'legacy'] as const;
+export type LogoVariant = (typeof LogoVariants)[number];
+
 @Injectable({
 	providedIn: 'root',
 })
@@ -36,9 +39,11 @@ export class ThemeService {
 	private readonly _systemPrefersDark = signal<boolean>(false);
 	private readonly _theme = signal<Theme>('default');
 	private readonly _layout = signal<Layout>('fixed');
+	private readonly _logoVariant = signal<LogoVariant>('default');
 
 	public readonly theme = this._theme.asReadonly();
 	public readonly layout = this._layout.asReadonly();
+	public readonly logoVariant = this._logoVariant.asReadonly();
 
 	constructor() {
 		if (!isPlatformBrowser(this._platformId)) return;
@@ -60,6 +65,10 @@ export class ThemeService {
 		this._destroyRef.onDestroy(() => this._query.removeEventListener('change', handleChange));
 		this._theme.set((localStorage.getItem('theme') as Theme) ?? 'default');
 		this._layout.set((localStorage.getItem('layout') as Layout) ?? 'fixed');
+		const storedLogoVariant = localStorage.getItem('logoVariant');
+		this._logoVariant.set(
+			LogoVariants.includes(storedLogoVariant as LogoVariant) ? (storedLogoVariant as LogoVariant) : 'default',
+		);
 
 		effect(() => {
 			const mode = this._darkMode();
@@ -86,6 +95,17 @@ export class ThemeService {
 			if (newTheme !== 'default') {
 				this._document.body.classList.add(`theme-${newTheme}`);
 			}
+		});
+
+		effect(() => {
+			const newVariant = this._logoVariant();
+			const oldVariant = this._document.documentElement.className.match(/logo-(\w+)/)?.[1];
+
+			if (oldVariant) {
+				this._document.documentElement.classList.remove(`logo-${oldVariant}`);
+			}
+
+			this._document.documentElement.classList.add(`logo-${newVariant}`);
 		});
 
 		effect(() => {
@@ -121,5 +141,18 @@ export class ThemeService {
 	public setLayout(layout: Layout): void {
 		localStorage.setItem('layout', layout);
 		this._layout.set(layout);
+	}
+
+	public setLogoVariant(variant: LogoVariant): void {
+		if (variant === 'default') {
+			localStorage.removeItem('logoVariant');
+		} else {
+			localStorage.setItem('logoVariant', variant);
+		}
+		this._logoVariant.set(variant);
+	}
+
+	public toggleLogoVariant(): void {
+		this.setLogoVariant(this._logoVariant() === 'legacy' ? 'default' : 'legacy');
 	}
 }

@@ -33,8 +33,18 @@ and builds with themed styles**, but they do not run the app or assert runtime b
 - `all-components` - generates **every** supported primitive into an Angular CLI app and builds them all
   in one `ng build`; the slowest cell, but fans out to its own runner. Set `nightlyOnly: true` in
   `src/matrix.ts` to drop it from per-PR CI if it proves too slow.
+- `style-acli-<style>` / `style-nx-<style>` - one cell per supported **style**, split across angular-cli
+  and nx so both generator paths are exercised: `nova`/`maia`/`luma` on angular-cli, `lyra`/`mira` on nx
+  (`vega` is the default the other cells already use). Each generates with that style and asserts the CLI
+  replaced the `spartan-*` placeholders with **that style's** registry classes - no leftover
+  non-allowlisted placeholders, and at least one class unique to the style (derived from
+  `libs/registry/src/styles`, never hardcoded) reaches the output. The standard build's themed-CSS check is
+  style-blind (those vars come from the `--theme`, not the style), so these cells are the only coverage that
+  the per-style class replacement works.
 
-Tailwind is fixed at v4. Add or remove combinations in `src/matrix.ts`.
+Tailwind is fixed at v4. Add or remove combinations in `src/matrix.ts`. When a style is added to or removed
+from `libs/registry/src/styles/style.ts`, update the `styleCells` list in `src/matrix.ts` (and the matching
+`style-*` entries in `.github/workflows/cli-smoke.yml`).
 
 ## Running
 

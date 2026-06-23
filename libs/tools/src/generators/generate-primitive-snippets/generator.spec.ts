@@ -11,7 +11,7 @@ describe('extractPrimitiveCodeGenerator', () => {
 		tree = createTreeWithEmptyWorkspace();
 	});
 
-	it('should produce a single JSON file with all snippets', async () => {
+	it('should produce a per-component JSON file with snippets', async () => {
 		// Arrange
 		tree.write(
 			`${componentsBasePath}/button/button.preview.ts`,
@@ -30,14 +30,11 @@ describe('extractPrimitiveCodeGenerator', () => {
 		await extractPrimitiveCodeGenerator(tree);
 
 		// Assert
-		const outputPath = 'apps/app/src/public/data/primitives-snippets.json';
-		expect(tree.exists(outputPath)).toBe(true);
+		const button = readJson(tree, 'apps/app/src/public/data/primitives-snippets/button.json');
+		expect(button['button']['default']).toContain('spartan-button-preview');
 
-		const snippets = readJson(tree, outputPath);
-		expect(snippets['button']).toBeDefined();
-		expect(snippets['button']['default']).toContain('spartan-button-preview');
-		expect(snippets['accordion']).toBeDefined();
-		expect(snippets['accordion']['default']).toContain('spartan-accordion-preview');
+		const accordion = readJson(tree, 'apps/app/src/public/data/primitives-snippets/accordion.json');
+		expect(accordion['accordion']['default']).toContain('spartan-accordion-preview');
 	});
 
 	it('should handle multiple examples for a single primitive', async () => {
@@ -59,15 +56,13 @@ describe('extractPrimitiveCodeGenerator', () => {
 		await extractPrimitiveCodeGenerator(tree);
 
 		// Assert
-		const outputPath = 'apps/app/src/public/data/primitives-snippets.json';
-		const snippets = readJson(tree, outputPath);
+		const toggle = readJson(tree, 'apps/app/src/public/data/primitives-snippets/toggle.json');
 
-		expect(snippets['toggle']).toBeDefined();
-		expect(snippets['toggle']['default']).toContain('spartan-toggle-preview');
-		expect(snippets['toggle']['disabled']).toContain('spartan-toggle-disabled');
+		expect(toggle['toggle']['default']).toContain('spartan-toggle-preview');
+		expect(toggle['toggle']['disabled']).toContain('spartan-toggle-disabled');
 	});
 
-	it('should an empty json file if no primitives are found', async () => {
+	it('should not write any files if no primitives are found', async () => {
 		// Arrange
 		tree.write(`${componentsBasePath}/empty/some-other-file.ts`, 'const a = 1;');
 
@@ -75,9 +70,6 @@ describe('extractPrimitiveCodeGenerator', () => {
 		await extractPrimitiveCodeGenerator(tree);
 
 		// Assert
-		const outputPath = 'apps/app/src/public/data/primitives-snippets.json';
-		const snippets = readJson(tree, outputPath);
-		expect(tree.exists(outputPath)).toBe(true);
-		expect(Object.keys(snippets).length).toBe(0);
+		expect(tree.children('apps/app/src/public/data/primitives-snippets').length).toBe(0);
 	});
 });

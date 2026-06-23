@@ -1,4 +1,5 @@
 import type { RouteMeta } from '@analogjs/router';
+import { injectComponentDocs } from '@spartan-ng/app/app/core/services/component-docs';
 import { InstallTabs } from '@spartan-ng/app/app/shared/layout/install-tabs';
 
 import { Component, computed, inject } from '@angular/core';
@@ -21,6 +22,7 @@ import { metaWith } from '../../../../shared/meta/meta.util';
 import { AccordionBorders } from './accordion--borders.example';
 import { AccordionCard } from './accordion--card.example';
 import { AccordionDisabled } from './accordion--disabled.example';
+import { AccordionDynamic } from './accordion--dynamic.example';
 import { AccordionMultiple } from './accordion--multiple.example';
 import { AccordionRtl } from './accordion--rtl.example';
 import { AccordionPreview, defaultImports, defaultSkeleton } from './accordion.preview';
@@ -58,6 +60,7 @@ export const routeMeta: RouteMeta = {
 		AccordionBorders,
 		AccordionCard,
 		AccordionDisabled,
+		AccordionDynamic,
 		AccordionRtl,
 	],
 	template: `
@@ -75,7 +78,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
-			<spartan-install-tabs primitive="accordion" [showOnlyVega]="false" />
+			<spartan-install-tabs primitive="accordion" />
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="mt-6 space-y-4">
@@ -136,6 +139,19 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_bordersCode()" />
 			</spartan-tabs>
 
+			<h3 id="examples__dynamic" spartanH4>Dynamic content</h3>
+			<p class="${hlmP}">
+				Content added or removed with
+				<code class="${hlmCode}">&#64;if</code>
+				(or any async data) is measured as it changes, so the panel animates to fit its new height while it stays open.
+			</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-accordion-dynamic />
+				</div>
+				<spartan-code secondTab [code]="_dynamicCode()" />
+			</spartan-tabs>
+
 			<h3 id="examples__card" spartanH4>Card</h3>
 			<p class="${hlmP}">
 				Wrap the
@@ -174,12 +190,17 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class AccordionPage {
+	constructor() {
+		injectComponentDocs();
+	}
+
 	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('accordion');
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
 	protected readonly _multipleCode = computed(() => this._snippets()['multiple']);
 	protected readonly _disabledCode = computed(() => this._snippets()['disabled']);
 	protected readonly _bordersCode = computed(() => this._snippets()['borders']);
 	protected readonly _cardCode = computed(() => this._snippets()['card']);
+	protected readonly _dynamicCode = computed(() => this._snippets()['dynamic']);
 	protected readonly _rtlCode = computed(() => this._snippets()['rtl']);
 	protected readonly _imports = defaultImports;
 	protected readonly _skeleton = defaultSkeleton;

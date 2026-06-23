@@ -1,10 +1,12 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
+import { injectComponentDocs } from '@spartan-ng/app/app/core/services/component-docs';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { PopoverRtlPreview } from '@spartan-ng/app/app/pages/(components)/components/(popover)/popover--rtl.example';
 import { CodeRtlPreview } from '@spartan-ng/app/app/shared/code/code-rtl-preview';
 import { RtlHeader } from '@spartan-ng/app/app/shared/code/rtl-header';
 import { InstallTabs } from '@spartan-ng/app/app/shared/layout/install-tabs';
+import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
 import { MainSection } from '../../../../shared/layout/main-section';
@@ -34,6 +36,7 @@ export const routeMeta: RouteMeta = {
 		Code,
 		SectionIntro,
 		SectionSubHeading,
+		SectionSubSubHeading,
 		Tabs,
 
 		CodePreview,
@@ -62,7 +65,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
-			<spartan-install-tabs primitive="popover" [showOnlyVega]="false" />
+			<spartan-install-tabs primitive="popover" />
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="mt-6 space-y-4">
@@ -110,6 +113,10 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class PopoverPage {
+	constructor() {
+		injectComponentDocs();
+	}
+
 	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('popover');
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
 	protected readonly _basicCode = computed(() => this._snippets()['basic']);

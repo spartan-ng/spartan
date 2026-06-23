@@ -1,11 +1,16 @@
 import { formatFiles, joinPathFragments, logger, type Tree, visitNotIgnoredFiles } from '@nx/devkit';
 import { createTree } from '@nx/devkit/testing';
-import { createPrimitiveLibraries, createStyleMap, getOrCreateConfig, transformStyle } from '@spartan-ng/cli';
+import {
+	createPrimitiveLibraries,
+	createStyleMap,
+	loadOrInitConfig,
+	type Style,
+	STYLES,
+	transformStyle,
+} from '@spartan-ng/cli';
 import { copyFileSync, existsSync, readFileSync, rmSync } from 'node:fs';
 import { join } from 'node:path';
-
-const STYLES = ['vega', 'lyra', 'maia', 'mira', 'nova', 'luma'] as const;
-type Style = (typeof STYLES)[number];
+import { writePerComponentData } from '../../write-per-component-data';
 
 function shouldIgnoreImport(importLine: string) {
 	const match = importLine.match(/from\s+['"](.*)['"]/);
@@ -204,8 +209,8 @@ export async function generateHlmComponentManualInstallation(tree: Tree): Promis
 		}
 	}
 
-	const outputPath = 'apps/app/src/public/data/manual-install-snippets.json';
-	tree.write(outputPath, JSON.stringify(result, null, 2));
+	const outputDir = 'apps/app/src/public/data/manual-install-snippets';
+	writePerComponentData(result, outputDir, (filePath, content) => tree.write(filePath, content));
 
 	// The StackBlitz artifacts need the real workspace (brain version, the CLI generator's source).
 	// Skip them when running against a synthetic tree, e.g. the unit test's empty workspace.
@@ -215,7 +220,7 @@ export async function generateHlmComponentManualInstallation(tree: Tree): Promis
 	}
 
 	await formatFiles(tree);
-	logger.info(`Snippets generated at ${outputPath}`);
+	logger.info(`Snippets generated at ${outputDir}`);
 }
 
 /**
@@ -297,7 +302,7 @@ function writeStackblitzMeta(tree: Tree): void {
  * real app: the `libs/ui/<component>/src/lib/...` folder structure, the tsconfig path aliases,
  * and the exact dependency set. The StackBlitz builder writes these verbatim.
  *
- * Note: the CLI base generator currently hardcodes the vega style map, so this output is vega
+ * Note: the CLI base generator currently hardcodes the nova style map, so this output is nova
  * (the default theme) - matching what real CLI users get today.
  */
 async function writeStackblitzProject(tree: Tree): Promise<void> {
@@ -325,26 +330,30 @@ async function writeStackblitzProject(tree: Tree): Promise<void> {
 		),
 	);
 	cli.write('tsconfig.json', JSON.stringify({ compilerOptions: { paths: {} } }, null, 2));
-	cli.write('components.json', JSON.stringify({ componentsPath: 'libs/ui', importAlias: '@spartan-ng/helm' }, null, 2));
+	cli.write(
+		'components.json',
+		JSON.stringify({ componentsPath: 'libs/ui', importAlias: '@spartan-ng/helm', style: 'nova' }, null, 2),
+	);
 
 	const supported = JSON.parse(
 		readFileSync(join(__dirname, '../../../../cli/src/generators/ui/supported-ui-libraries.json'), 'utf-8'),
 	);
 	const names = Object.keys(supported);
-	const config = await getOrCreateConfig(cli, {
+	const config = await loadOrInitConfig(cli, {
 		angularCli: true,
 		componentsPath: 'libs/ui',
 		importAlias: '@spartan-ng/helm',
+		style: 'nova',
 	});
 
-	// The CLI base generator reads its style map from `libs/cli/src/generators/ui/style-vega.css`
+	// The CLI base generator reads its style map from `libs/cli/src/generators/ui/style-nova.css`
 	// on the real filesystem (that file is normally produced by the cli build's asset copy). When
 	// running from source it is absent, which would silently strip the spartan-* variant classes.
 	// Stage it from the registry source for the duration of the run, then clean up.
-	const cliVegaCss = join(__dirname, '../../../../cli/src/generators/ui/style-vega.css');
-	const stagedVegaCss = !existsSync(cliVegaCss);
-	if (stagedVegaCss) {
-		copyFileSync(join(__dirname, '../../../../registry/src/styles/style-vega.css'), cliVegaCss);
+	const cliNovaCss = join(__dirname, '../../../../cli/src/generators/ui/style-nova.css');
+	const stagedNovaCss = !existsSync(cliNovaCss);
+	if (stagedNovaCss) {
+		copyFileSync(join(__dirname, '../../../../registry/src/styles/style-nova.css'), cliNovaCss);
 	}
 	try {
 		await createPrimitiveLibraries(
@@ -361,7 +370,7 @@ async function writeStackblitzProject(tree: Tree): Promise<void> {
 			config,
 		);
 	} finally {
-		if (stagedVegaCss) rmSync(cliVegaCss, { force: true });
+		if (stagedNovaCss) rmSync(cliNovaCss, { force: true });
 	}
 
 	// Capture the real generated component files (libs/ui/**) + components.json. package.json

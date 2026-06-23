@@ -1,3 +1,4 @@
+import type { Style } from '../../utils/supported-styles';
 import { type GenerateAs } from './lib/generate-as';
 
 export interface HlmBaseGeneratorSchema {
@@ -10,4 +11,5 @@ export interface HlmBaseGeneratorSchema {
 	buildable: boolean;
 	generateAs: GenerateAs;
 	importAlias: string;
+	style: Style;
 }

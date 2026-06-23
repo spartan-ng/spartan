@@ -17,6 +17,7 @@ describe('info generator', () => {
 			buildable: true,
 			generateAs: 'entrypoint',
 			importAlias: '@spartan-ng/helm',
+			style: 'vega',
 		});
 
 		writeJson(tree, 'package.json', {

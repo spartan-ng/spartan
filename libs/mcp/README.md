@@ -1,8 +1,15 @@
 # @spartan-ng/mcp
 
-A [Model Context Protocol](https://modelcontextprotocol.io) (MCP) server that exposes the [Spartan](https://www.spartan.ng) Angular UI ecosystem - documentation, components, and blocks - as tools, resources, and prompts for MCP clients such as Claude Desktop, Cursor, and other AI assistants.
+[![npm version](https://img.shields.io/npm/v/@spartan-ng/mcp.svg?style=flat-square)](https://www.npmjs.com/package/@spartan-ng/mcp)
+[![npm downloads](https://img.shields.io/npm/dm/@spartan-ng/mcp.svg?style=flat-square)](https://www.npmjs.com/package/@spartan-ng/mcp)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://opensource.org/licenses/MIT)
+[![Discord](https://dcbadge.limes.pink/api/server/EqHnxQ4uQr?style=flat-square)](https://discord.gg/EqHnxQ4uQr)
 
-The server fetches content live from the public Spartan UI site and caches it on disk per version, so assistants can answer questions about Spartan components with up-to-date API tables and code examples.
+[Website](https://www.spartan.ng) • [Documentation](https://www.spartan.ng/documentation/mcp) • [Components](https://www.spartan.ng/components) • [GitHub](https://github.com/spartan-ng/spartan)
+
+> The official [Model Context Protocol](https://modelcontextprotocol.io) server for [spartan/ui](https://www.spartan.ng). Give your AI assistant up-to-date Spartan documentation, components, and blocks.
+
+`@spartan-ng/mcp` exposes the [Spartan](https://www.spartan.ng) Angular UI ecosystem - documentation, components, and blocks - as tools, resources, and prompts for MCP clients such as Claude Desktop, Cursor, and other AI assistants. It fetches content live from the public Spartan site and caches it on disk per version, so assistants can answer questions about Spartan components with current API tables and code examples.
 
 ## What it provides
 
@@ -13,7 +20,7 @@ The server fetches content live from the public Spartan UI site and caches it on
 - **Health** - check availability of the Spartan docs site and surface the Spartan CLI health-check commands.
 - **Caching** - version-aware on-disk cache with status, clear, rebuild, switch-version, and list-versions tools.
 
-## Usage
+## Installation
 
 ### With `npx` (no install)
 
@@ -147,3 +154,21 @@ This library was generated with [Nx](https://nx.dev).
 - Build: `nx build mcp`
 - Test: `nx test mcp`
 - Lint: `nx lint mcp`
+
+## Documentation
+
+- [MCP server guide](https://www.spartan.ng/documentation/mcp)
+- [Installation guide](https://www.spartan.ng/documentation/installation)
+- [CLI documentation](https://www.spartan.ng/documentation/cli)
+- [Components](https://www.spartan.ng/components)
+
+## Community
+
+- [Discord](https://discord.gg/EqHnxQ4uQr)
+- [GitHub](https://github.com/spartan-ng/spartan)
+- [Twitter / X](https://twitter.com/goetzrobin)
+- [Sponsor the project](https://github.com/sponsors/goetzrobin)
+
+## License
+
+MIT © [goetzrobin](https://github.com/goetzrobin) and the [spartan contributors](https://github.com/spartan-ng/spartan/graphs/contributors)

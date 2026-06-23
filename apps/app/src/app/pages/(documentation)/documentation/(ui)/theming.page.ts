@@ -564,7 +564,7 @@ export const routeMeta: RouteMeta = {
 			/>
 
 			<spartan-page-bottom-nav>
-				<spartan-page-bottom-nav-link href="dark-mode" label="Dark Mode" />
+				<spartan-page-bottom-nav-link href="styles" label="Styles" />
 				<spartan-page-bottom-nav-link direction="previous" href="components-json" label="components.json" />
 			</spartan-page-bottom-nav>
 		</section>

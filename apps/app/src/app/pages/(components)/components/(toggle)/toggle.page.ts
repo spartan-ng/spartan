@@ -1,5 +1,6 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
+import { injectComponentDocs } from '@spartan-ng/app/app/core/services/component-docs';
 import { InstallTabs } from '@spartan-ng/app/app/shared/layout/install-tabs';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
@@ -65,7 +66,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
-			<spartan-install-tabs primitive="toggle" [showOnlyVega]="false" />
+			<spartan-install-tabs primitive="toggle" />
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="mt-6 space-y-4">
@@ -127,6 +128,10 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class TogglePage {
+	constructor() {
+		injectComponentDocs();
+	}
+
 	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('toggle');
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
 	protected readonly _disabledCode = computed(() => this._snippets()['disabled']);

@@ -154,6 +154,35 @@ export const routeMeta: RouteMeta = {
 				) — this follows the spacing scale.
 			</p>
 
+			<spartan-section-sub-heading id="field-error-placement">Field error placement</spartan-section-sub-heading>
+
+			<p class="${hlmP}">
+				The styles drive field layout with container queries (
+				<code class="${hlmCode}">@container/field-group</code>
+				) and
+				<code class="${hlmCode}">:has()</code>
+				selectors on
+				<code class="${hlmCode}">HlmFieldSet</code>
+				. Chrome has a layout bug with this combination: rendering
+				<code class="${hlmCode}">HlmFieldError</code>
+				<em>inside</em>
+				a
+				<code class="${hlmCode}">fieldset</code>
+				collapses the checkboxes or radios to zero size when the error toggles. Render the error as a sibling of the
+				<code class="${hlmCode}">fieldset</code>
+				instead.
+			</p>
+
+			<div class="mt-6" hlmAlert>
+				<div hlmAlertDescription>
+					<p>
+						See
+						<a class="font-medium underline" href="/components/field">Field → Validation and Errors</a>
+						for the correct structure.
+					</p>
+				</div>
+			</div>
+
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="dark-mode" label="Dark Mode" />
 				<spartan-page-bottom-nav-link direction="previous" href="theming" label="Theming" />

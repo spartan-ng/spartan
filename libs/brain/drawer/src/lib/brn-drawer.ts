@@ -12,11 +12,11 @@ import { BrnDialog } from '@spartan-ng/brain/dialog';
 	],
 })
 export class BrnDrawer extends BrnDialog {
-	public readonly direction = input<'bottom' | 'top' | 'left' | 'right'>('bottom');
-	public readonly directionState = linkedSignal(() => this.direction());
+	public readonly directionInput = input<'bottom' | 'top' | 'left' | 'right'>('bottom', { alias: 'direction' });
+	public readonly direction = linkedSignal(this.directionInput);
 
 	protected override getPositionStrategy() {
-		switch (this.directionState()) {
+		switch (this.direction()) {
 			case 'bottom':
 				return this._positionBuilder.global().bottom();
 			case 'top':

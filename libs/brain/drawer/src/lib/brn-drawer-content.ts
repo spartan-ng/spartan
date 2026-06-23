@@ -15,5 +15,5 @@ import { BrnDrawer } from './brn-drawer';
 	],
 })
 export class BrnDrawerContent<T extends Record<string, unknown>> extends BrnDialogContent<T> implements ExposesSide {
-	public readonly side = inject(BrnDrawer).directionState;
+	public readonly side = inject(BrnDrawer).direction;
 }

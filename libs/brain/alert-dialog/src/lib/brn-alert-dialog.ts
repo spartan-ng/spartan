@@ -3,7 +3,6 @@ import { BrnDialog, type BrnDialogDefaultOptions, provideBrnDialogDefaultOptions
 
 export const BRN_ALERT_DIALOG_DEFAULT_OPTIONS: Partial<BrnDialogDefaultOptions> = {
 	disableClose: true,
-	closeOnOutsidePointerEvents: false,
 	role: 'alertdialog',
 };
 

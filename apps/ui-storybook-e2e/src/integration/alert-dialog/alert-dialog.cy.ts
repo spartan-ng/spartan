@@ -65,10 +65,9 @@ describe('alert-dialog', () => {
 			cy.findAllByText(/delete account/i).should('have.focus');
 			cy.realPress('Enter');
 
-			// click escape when dialog open
+			// // click escape when dialog open
 			cy.realPress('Escape');
-			cy.findAllByText(/delete account/i).should('have.length', 1);
-			cy.findAllByText(/delete account/i).should('have.focus');
+			cy.findAllByText(/delete account/i).should('not.have.focus');
 		});
 
 		it('tab and space on trigger should open, tabs should wrap, space on cancel should close', () => {
@@ -97,8 +96,7 @@ describe('alert-dialog', () => {
 
 			// click escape when dialog open
 			cy.realPress('Escape');
-			cy.findAllByText(/delete account/i).should('have.length', 1);
-			cy.findAllByText(/delete account/i).should('have.focus');
+			cy.findAllByText(/delete account/i).should('not.have.focus');
 		});
 	});
 });

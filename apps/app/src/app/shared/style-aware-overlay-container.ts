@@ -40,8 +40,10 @@ export class StyleAwareOverlayContainer extends OverlayContainer {
 	}
 
 	override ngOnDestroy(): void {
-		this._document.removeEventListener('pointerdown', this._track, true);
-		this._document.removeEventListener('keydown', this._track, true);
+		if (this._platform.isBrowser) {
+			this._document.removeEventListener('pointerdown', this._track, true);
+			this._document.removeEventListener('keydown', this._track, true);
+		}
 		super.ngOnDestroy();
 	}
 

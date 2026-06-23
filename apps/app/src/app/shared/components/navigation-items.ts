@@ -47,7 +47,6 @@ export const components: Link[] = [
 	{ label: 'Empty', url: '/empty' },
 	{ label: 'Field', url: '/field' },
 	{ label: 'Hover Card', url: '/hover-card' },
-	{ label: 'Icon', url: '/icon' },
 	{ label: 'Input Group', url: '/input-group' },
 	{ label: 'Input OTP', url: '/input-otp' },
 	{ label: 'Input', url: '/input' },

@@ -6,11 +6,10 @@ import { TranslateService, Translations } from '@spartan-ng/app/app/shared/trans
 import { HlmAvatarImports } from '@spartan-ng/helm/avatar';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmHoverCardImports } from '@spartan-ng/helm/hover-card';
-import { HlmIconImports } from '@spartan-ng/helm/icon';
 
 @Component({
 	selector: 'spartan-hover-card-rtl-preview',
-	imports: [HlmHoverCardImports, HlmButtonImports, HlmIconImports, HlmAvatarImports, NgIcon],
+	imports: [HlmHoverCardImports, HlmButtonImports, HlmAvatarImports, NgIcon],
 	providers: [Directionality, provideIcons({ lucideCalendar })],
 	host: {
 		class: 'flex w-full justify-center',
@@ -29,7 +28,7 @@ import { HlmIconImports } from '@spartan-ng/helm/icon';
 						<h4 class="text-sm font-semibold">&#64;analogjs</h4>
 						<p class="text-sm">{{ _t()['description'] }}</p>
 						<div class="flex items-center pt-2">
-							<ng-icon hlm size="sm" name="lucideCalendar" class="me-2 opacity-70" />
+							<ng-icon name="lucideCalendar" class="me-2 opacity-70" />
 							<span class="text-muted-foreground text-xs">{{ _t()['joined'] }}</span>
 						</div>
 					</div>

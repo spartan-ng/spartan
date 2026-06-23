@@ -39,7 +39,6 @@ export type Primitives =
 	| 'empty'
 	| 'field'
 	| 'hover-card'
-	| 'icon'
 	| 'input'
 	| 'input-group'
 	| 'input-otp'

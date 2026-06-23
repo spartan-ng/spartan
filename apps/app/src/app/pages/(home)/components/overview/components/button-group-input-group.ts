@@ -3,19 +3,18 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideAudioLines, lucidePlus } from '@ng-icons/lucide';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmButtonGroupImports } from '@spartan-ng/helm/button-group';
-import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 
 @Component({
 	selector: 'spartan-button-group-input-group',
-	imports: [HlmButtonGroupImports, HlmInputGroupImports, HlmButton, HlmIcon, NgIcon],
+	imports: [HlmButtonGroupImports, HlmInputGroupImports, HlmButton, NgIcon],
 	providers: [provideIcons({ lucidePlus, lucideAudioLines })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div hlmButtonGroup class="w-full [--radius:9999rem]">
 			<div hlmButtonGroup>
 				<button hlmBtn variant="outline" size="icon">
-					<ng-icon hlm name="lucidePlus" size="sm" />
+					<ng-icon name="lucidePlus" />
 				</button>
 			</div>
 			<div hlmButtonGroup class="flex-1">
@@ -29,7 +28,7 @@ import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 							[attr.data-active]="_enableVoiceMode()"
 							(click)="_enableVoiceMode.set(!_enableVoiceMode())"
 						>
-							<ng-icon hlm name="lucideAudioLines" size="sm" />
+							<ng-icon name="lucideAudioLines" />
 						</button>
 					</div>
 				</div>

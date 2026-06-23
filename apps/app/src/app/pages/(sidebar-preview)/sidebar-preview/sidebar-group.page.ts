@@ -1,12 +1,11 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideLifeBuoy, lucideSend } from '@ng-icons/lucide';
-import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 
 @Component({
 	selector: 'spartan-sidebar-group',
-	imports: [HlmSidebarImports, NgIcon, HlmIcon],
+	imports: [HlmSidebarImports, NgIcon],
 	providers: [
 		provideIcons({
 			lucideLifeBuoy,
@@ -25,13 +24,13 @@ import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 							<ul hlmSidebarMenu>
 								<li hlmSidebarMenuItem>
 									<a hlmSidebarMenuButton>
-										<ng-icon hlm name="lucideLifeBuoy" />
+										<ng-icon name="lucideLifeBuoy" />
 										<span>Support</span>
 									</a>
 								</li>
 								<li hlmSidebarMenuItem>
 									<a hlmSidebarMenuButton>
-										<ng-icon hlm name="lucideSend" />
+										<ng-icon name="lucideSend" />
 										<span>Feedback</span>
 									</a>
 								</li>

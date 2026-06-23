@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { provideIcons } from '@ng-icons/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCheck } from '@ng-icons/lucide';
 import { BrnDialogRef, injectBrnDialogContext, provideBrnDialogDefaultOptions } from '@spartan-ng/brain/dialog';
 import { HlmButton, HlmButtonImports } from '@spartan-ng/helm/button';
@@ -17,7 +17,7 @@ const meta: Meta<HlmDialog> = {
 	tags: ['autodocs'],
 	decorators: [
 		moduleMetadata({
-			imports: [HlmDialogImports, HlmLabel, HlmButton, HlmInput],
+			imports: [HlmDialogImports, HlmLabel, HlmButton, HlmInput, NgIcon],
 		}),
 	],
 };

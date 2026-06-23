@@ -4,18 +4,17 @@ import { lucideEllipsis } from '@ng-icons/lucide';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmDialogImports } from '@spartan-ng/helm/dialog';
 import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
-import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmLabel } from '@spartan-ng/helm/label';
 import { HlmSwitch } from '@spartan-ng/helm/switch';
 
 @Component({
 	selector: 'spartan-preset-actions',
-	imports: [HlmDropdownMenuImports, HlmDialogImports, HlmButton, HlmIcon, NgIcon, HlmSwitch, HlmLabel],
+	imports: [HlmDropdownMenuImports, HlmDialogImports, HlmButton, NgIcon, HlmSwitch, HlmLabel],
 	providers: [provideIcons({ lucideEllipsis })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<button hlmBtn variant="secondary" align="end" [hlmDropdownMenuTrigger]="menu" size="icon">
-			<ng-icon hlm name="lucideEllipsis" size="sm" />
+			<ng-icon name="lucideEllipsis" />
 		</button>
 		<ng-template #menu>
 			<hlm-dropdown-menu class="w-56">

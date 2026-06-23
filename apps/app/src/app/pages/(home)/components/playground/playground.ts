@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { tablerBrowserPlus, tablerEdit, tablerMessageCheck, tablerRotate } from '@ng-icons/tabler-icons';
 import { HlmButton } from '@spartan-ng/helm/button';
-import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmLabel } from '@spartan-ng/helm/label';
 import { HlmSeparator } from '@spartan-ng/helm/separator';
 import { HlmTabsImports } from '@spartan-ng/helm/tabs';
@@ -31,7 +30,6 @@ import { PRESETS_DATA } from './data/presets';
 		CodeViewer,
 		HlmSeparator,
 		HlmTabsImports,
-		HlmIcon,
 		NgIcon,
 		HlmTextarea,
 		HlmButton,
@@ -133,13 +131,13 @@ import { PRESETS_DATA } from './data/presets';
 						<span hlmLabel>Mode</span>
 						<hlm-tabs-list aria-label="tabs example" class="w-full">
 							<button hlmTabsTrigger="complete">
-								<ng-icon hlm name="tablerMessageCheck" size="sm" />
+								<ng-icon name="tablerMessageCheck" />
 							</button>
 							<button hlmTabsTrigger="insert">
-								<ng-icon hlm name="tablerBrowserPlus" size="sm" />
+								<ng-icon name="tablerBrowserPlus" />
 							</button>
 							<button hlmTabsTrigger="edit">
-								<ng-icon hlm name="tablerEdit" size="sm" />
+								<ng-icon name="tablerEdit" />
 							</button>
 						</hlm-tabs-list>
 					</div>

@@ -52,7 +52,7 @@ export const Default: Story = {
 			</hlm-item>
 			<a hlmItem variant="outline" size="sm">
 				<hlm-item-media>
-					<ng-icon name="lucideBadgeCheck" class="text-[calc(var(--spacing)*5)]" />
+					<ng-icon name="lucideBadgeCheck" class="text-[length:--spacing(5)]" />
 				</hlm-item-media>
 				<hlm-item-content>
 					<hlm-item-title>Your profile has been verified.</hlm-item-title>
@@ -364,7 +364,7 @@ export const Link: Story = {
 					<p hlmItemDescription>Learn how to get started with our components.</p>
 				</div>
 				<div hlmItemActions>
-					<ng-icon hlm name="lucideChevronRight" size="sm" />
+					<ng-icon name="lucideChevronRight" />
 				</div>
 			</a>
 			<a hlmItem variant="outline" href="#" target="_blank" rel="noopener noreferrer">
@@ -373,7 +373,7 @@ export const Link: Story = {
 					<p hlmItemDescription>Opens in a new tab with security attributes.</p>
 				</div>
 				<div hlmItemActions>
-					<ng-icon hlm name="lucideExternalLink" size="sm" />
+					<ng-icon name="lucideExternalLink" />
 				</div>
 			</a>
 		</div>
@@ -395,14 +395,14 @@ export const Size: Story = {
 				</div>
 			</div>
 			<a hlmItem variant="outline" size="sm" href="#">
-				<div hlmItemMedia>
-					<ng-icon hlm name="lucideBadgeCheck" size="20px" />
+				<div hlmItemMedia variant="icon">
+					<ng-icon  name="lucideBadgeCheck"  />
 				</div>
 				<div hlmItemContent>
 					<div hlmItemTitle>Your profile has been verified.</div>
 				</div>
 				<div hlmItemActions>
-					<ng-icon hlm name="lucideChevronRight" size="sm" />
+					<ng-icon name="lucideChevronRight" />
 				</div>
 			</a>
 		</div>

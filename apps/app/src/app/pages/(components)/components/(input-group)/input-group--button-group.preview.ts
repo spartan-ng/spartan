@@ -1,14 +1,14 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { provideIcons } from '@ng-icons/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideLink2 } from '@ng-icons/lucide';
 import { HlmButtonGroupImports } from '@spartan-ng/helm/button-group';
-import { HlmIconImports } from '@spartan-ng/helm/icon';
+
 import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 import { HlmLabelImports } from '@spartan-ng/helm/label';
 
 @Component({
 	selector: 'spartan-input-group-button-group-preview',
-	imports: [HlmInputGroupImports, HlmButtonGroupImports, HlmLabelImports, HlmIconImports],
+	imports: [HlmInputGroupImports, HlmButtonGroupImports, HlmLabelImports, NgIcon],
 	providers: [provideIcons({ lucideLink2 })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: { class: 'grid w-full max-w-sm gap-6' },

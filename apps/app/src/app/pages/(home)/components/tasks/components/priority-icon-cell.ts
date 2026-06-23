@@ -7,15 +7,13 @@ import {
 	lucideChevronUp,
 	lucideCircleHelp,
 } from '@ng-icons/lucide';
-import type { Task } from '../services/tasks.models';
-
-import { HlmIcon } from '@spartan-ng/helm/icon';
 import { type CellContext, injectFlexRenderContext } from '@tanstack/angular-table';
 import { PriorityIconPipe } from '../pipes/priority-icon.pipe';
+import type { Task } from '../services/tasks.models';
 
 @Component({
 	selector: 'spartan-priority-icon-cell',
-	imports: [PriorityIconPipe, NgIcon, HlmIcon],
+	imports: [PriorityIconPipe, NgIcon],
 	providers: [
 		provideIcons({
 			lucideChevronDown,
@@ -27,7 +25,7 @@ import { PriorityIconPipe } from '../pipes/priority-icon.pipe';
 	],
 	template: `
 		<div class="flex items-center">
-			<ng-icon hlm class="text-muted-foreground mr-2" size="sm" [name]="_element.priority | priorityIcon" />
+			<ng-icon class="text-muted-foreground mr-2" [name]="_element.priority | priorityIcon" />
 			{{ _element.priority }}
 		</div>
 	`,

@@ -10,7 +10,7 @@ import { HlmDatePickerImports } from '@spartan-ng/helm/date-picker';
 import { HlmFieldImports } from '@spartan-ng/helm/field';
 import { DateTime } from 'luxon';
 
-const CALENDAR_I18N: Record<'en' | 'ar' | 'he', BrnCalendarI18n> = {
+export const CALENDAR_I18N: Record<'en' | 'ar' | 'he', BrnCalendarI18n> = {
 	en: {
 		formatWeekdayName: (i) => ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'][i],
 		months: () => ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'] as MonthLabels,
@@ -49,7 +49,7 @@ const CALENDAR_I18N: Record<'en' | 'ar' | 'he', BrnCalendarI18n> = {
 		labelPrevious: () => 'الشهر السابق',
 		labelNext: () => 'الشهر التالي',
 		labelWeekday: (i) => ['الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'][i],
-		firstDayOfWeek: () => 6,
+		firstDayOfWeek: () => 0,
 	},
 	he: {
 		formatWeekdayName: (i) => ['א', 'ב', 'ג', 'ד', 'ה', 'ו', 'ש'][i],

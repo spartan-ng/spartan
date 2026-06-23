@@ -1,13 +1,12 @@
 import { Component, signal } from '@angular/core';
-import { provideIcons } from '@ng-icons/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideUndo2 } from '@ng-icons/lucide';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
-import { HlmIconImports } from '@spartan-ng/helm/icon';
 
 @Component({
 	selector: 'spartan-dropdown-with-state',
-	imports: [HlmDropdownMenuImports, HlmButtonImports, HlmIconImports],
+	imports: [HlmDropdownMenuImports, HlmButtonImports, NgIcon],
 	providers: [provideIcons({ lucideUndo2 })],
 	template: `
 		<div class="flex w-full items-center justify-center pt-[20%]">
@@ -55,7 +54,7 @@ import { HlmIconImports } from '@spartan-ng/helm/icon';
 				<hlm-dropdown-menu-separator />
 
 				<button hlmDropdownMenuItem (triggered)="reset()">
-					<ng-icon hlm name="lucideUndo2" size="sm" />
+					<ng-icon name="lucideUndo2" />
 					Reset
 				</button>
 			</hlm-dropdown-menu>

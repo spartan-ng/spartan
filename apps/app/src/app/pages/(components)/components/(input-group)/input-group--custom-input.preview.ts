@@ -1,13 +1,10 @@
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { provideIcons } from '@ng-icons/core';
-import { lucideLink2 } from '@ng-icons/lucide';
 import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 
 @Component({
 	selector: 'spartan-input-group-custom-input-preview',
 	imports: [HlmInputGroupImports, CdkTextareaAutosize],
-	providers: [provideIcons({ lucideLink2 })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: { class: 'grid w-full max-w-sm gap-6' },
 	template: `

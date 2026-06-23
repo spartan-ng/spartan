@@ -1049,185 +1049,36 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
       "HlmCalendar": {
         "inputs": [
           {
-            "name": "calendarClass",
-            "required": false,
-            "type": "ClassValue",
-          },
-          {
-            "name": "highlightDays",
-            "required": false,
-            "type": "T[]",
-          },
-          {
-            "name": "min",
-            "required": false,
-            "type": "T",
-          },
-          {
-            "name": "max",
-            "required": false,
-            "type": "T",
-          },
-          {
             "name": "captionLayout",
             "required": false,
             "type": "'dropdown' | 'label' | 'dropdown-months' | 'dropdown-years'",
           },
-          {
-            "name": "disabled",
-            "required": false,
-            "type": "boolean",
-          },
-          {
-            "name": "dateDisabled",
-            "required": false,
-            "type": "(date: T) => boolean",
-          },
-          {
-            "name": "weekStartsOn",
-            "required": false,
-            "type": "Weekday",
-          },
-          {
-            "name": "defaultFocusedDate",
-            "required": false,
-            "type": "T",
-          },
         ],
-        "models": [
-          {
-            "name": "date",
-            "type": "T",
-          },
-        ],
+        "models": [],
         "outputs": [],
         "selector": "hlm-calendar",
       },
       "HlmCalendarMulti": {
         "inputs": [
           {
-            "name": "calendarClass",
-            "required": false,
-            "type": "ClassValue",
-          },
-          {
-            "name": "highlightDays",
-            "required": false,
-            "type": "T[]",
-          },
-          {
-            "name": "min",
-            "required": false,
-            "type": "T",
-          },
-          {
-            "name": "max",
-            "required": false,
-            "type": "T",
-          },
-          {
             "name": "captionLayout",
             "required": false,
             "type": "'dropdown' | 'label' | 'dropdown-months' | 'dropdown-years'",
           },
-          {
-            "name": "minSelection",
-            "required": false,
-            "type": "number",
-          },
-          {
-            "name": "maxSelection",
-            "required": false,
-            "type": "number",
-          },
-          {
-            "name": "disabled",
-            "required": false,
-            "type": "boolean",
-          },
-          {
-            "name": "dateDisabled",
-            "required": false,
-            "type": "(date: T) => boolean",
-          },
-          {
-            "name": "weekStartsOn",
-            "required": false,
-            "type": "Weekday",
-          },
-          {
-            "name": "defaultFocusedDate",
-            "required": false,
-            "type": "T",
-          },
         ],
-        "models": [
-          {
-            "name": "date",
-            "type": "T[]",
-          },
-        ],
+        "models": [],
         "outputs": [],
         "selector": "hlm-calendar-multi",
       },
       "HlmCalendarRange": {
         "inputs": [
           {
-            "name": "calendarClass",
-            "required": false,
-            "type": "ClassValue",
-          },
-          {
-            "name": "highlightDays",
-            "required": false,
-            "type": "T[]",
-          },
-          {
-            "name": "min",
-            "required": false,
-            "type": "T",
-          },
-          {
-            "name": "max",
-            "required": false,
-            "type": "T",
-          },
-          {
             "name": "captionLayout",
             "required": false,
             "type": "'dropdown' | 'label' | 'dropdown-months' | 'dropdown-years'",
           },
-          {
-            "name": "disabled",
-            "required": false,
-            "type": "boolean",
-          },
-          {
-            "name": "dateDisabled",
-            "required": false,
-            "type": "(date: T) => boolean",
-          },
-          {
-            "name": "weekStartsOn",
-            "required": false,
-            "type": "Weekday",
-          },
-          {
-            "name": "defaultFocusedDate",
-            "required": false,
-            "type": "T",
-          },
         ],
-        "models": [
-          {
-            "name": "startDate",
-            "type": "T",
-          },
-          {
-            "name": "endDate",
-            "type": "T",
-          },
-        ],
+        "models": [],
         "outputs": [],
         "selector": "hlm-calendar-range",
       },
@@ -3379,22 +3230,6 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "models": [],
         "outputs": [],
         "selector": "[hlmHoverCardTrigger]",
-      },
-    },
-  },
-  "icon": {
-    "helm": {
-      "HlmIcon": {
-        "inputs": [
-          {
-            "name": "size",
-            "required": false,
-            "type": "IconSize",
-          },
-        ],
-        "models": [],
-        "outputs": [],
-        "selector": "ng-icon[hlmIcon], ng-icon[hlm]",
       },
     },
   },

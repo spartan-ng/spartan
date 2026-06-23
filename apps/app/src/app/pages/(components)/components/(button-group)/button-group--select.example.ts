@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
-import { provideIcons } from '@ng-icons/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideArrowRight } from '@ng-icons/lucide';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmButtonGroupImports } from '@spartan-ng/helm/button-group';
-import { HlmIconImports } from '@spartan-ng/helm/icon';
+
 import { HlmInputImports } from '@spartan-ng/helm/input';
 import { HlmSelectImports } from '@spartan-ng/helm/select';
 
 @Component({
 	selector: 'spartan-button-group-select',
-	imports: [HlmIconImports, HlmInputImports, HlmButtonImports, HlmSelectImports, HlmButtonGroupImports],
+	imports: [HlmInputImports, HlmButtonImports, HlmSelectImports, HlmButtonGroupImports, NgIcon],
 	providers: [provideIcons({ lucideArrowRight })],
 	template: `
 		<div hlmButtonGroup>
@@ -35,7 +35,7 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 			</div>
 			<div hlmButtonGroup>
 				<button hlmBtn variant="outline" size="icon">
-					<ng-icon hlm name="lucideArrowRight" size="sm" />
+					<ng-icon name="lucideArrowRight" />
 				</button>
 			</div>
 		</div>

@@ -3,11 +3,9 @@ import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import * as lucide from '@ng-icons/lucide';
 import { BrnCommand, BrnCommandImports } from '@spartan-ng/brain/command';
-import { BrnDialogImports } from '@spartan-ng/brain/dialog';
-import { HlmButton, HlmButtonImports } from '@spartan-ng/helm/button';
+import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmCommandImports } from '@spartan-ng/helm/command';
-import { HlmDialogImports } from '@spartan-ng/helm/dialog';
-import { HlmIcon, HlmIconImports } from '@spartan-ng/helm/icon';
+
 import { HlmCode } from '@spartan-ng/helm/typography';
 import type { Meta, StoryObj } from '@storybook/angular';
 import { moduleMetadata } from '@storybook/angular';
@@ -19,7 +17,7 @@ const meta: Meta<BrnCommand> = {
 	decorators: [
 		moduleMetadata({
 			providers: [provideIcons(lucide)],
-			imports: [BrnCommandImports, HlmCommandImports, NgIcon, HlmIcon, HlmButton],
+			imports: [BrnCommandImports, HlmCommandImports, NgIcon, HlmButton],
 		}),
 	],
 };
@@ -83,15 +81,7 @@ export const Default: Story = {
 
 @Component({
 	selector: 'command-dialog-component',
-	imports: [
-		BrnCommandImports,
-		HlmCommandImports,
-		BrnDialogImports,
-		HlmDialogImports,
-		HlmIconImports,
-		HlmButtonImports,
-		HlmCode,
-	],
+	imports: [HlmCommandImports, HlmCode],
 	host: {
 		'(window:keydown)': 'onKeyDown($event)',
 	},
@@ -189,7 +179,7 @@ export const Dialog: Story = {
 
 @Component({
 	selector: 'command-dynamic-component',
-	imports: [BrnCommandImports, HlmCommandImports, BrnDialogImports, NgIcon, HlmIcon, HlmButton, FormsModule],
+	imports: [HlmCommandImports, NgIcon, FormsModule],
 	template: `
 		<hlm-command [search]="search()">
 			<hlm-command-input placeholder="Type a command or search..." />
@@ -233,7 +223,7 @@ export const DynamicOptions: Story = {
 
 @Component({
 	selector: 'command-reactive-form-component',
-	imports: [BrnCommandImports, HlmCommandImports, NgIcon, HlmIcon, HlmButton, FormsModule, ReactiveFormsModule],
+	imports: [HlmCommandImports, NgIcon, FormsModule, ReactiveFormsModule],
 	template: `
 		<hlm-command [formControl]="searchControl">
 			<hlm-command-input placeholder="Type a command or search..." />
@@ -278,7 +268,7 @@ export const ReactiveForm: Story = {
 
 @Component({
 	selector: 'command-bound-value-component',
-	imports: [BrnCommandImports, HlmCommandImports, NgIcon, HlmIcon, HlmButton],
+	imports: [HlmCommandImports, NgIcon],
 	template: `
 		<hlm-command [search]="search()">
 			<hlm-command-input placeholder="Type a command or search..." />

@@ -1,14 +1,14 @@
 import { Component, input, signal } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCheck, lucideClipboard } from '@ng-icons/lucide';
-import { HlmIconImports } from '@spartan-ng/helm/icon';
+
 import { Color as ColorType } from './colors';
 import { ColorFormat } from './format-color';
 
 @Component({
 	// eslint-disable-next-line @angular-eslint/component-selector
 	selector: 'button[spartanColor]',
-	imports: [NgIcon, HlmIconImports],
+	imports: [NgIcon],
 	providers: [
 		provideIcons({
 			lucideCheck,
@@ -26,9 +26,9 @@ import { ColorFormat } from './format-color';
 		@let col = color();
 
 		@if (this._isCopied()) {
-			<ng-icon hlm name="lucideCheck" class="icon group-hover:opacity-100" size="sm" />
+			<ng-icon name="lucideCheck" class="icon group-hover:opacity-100" />
 		} @else {
-			<ng-icon hlm name="lucideClipboard" class="icon group-hover:opacity-100" size="sm" />
+			<ng-icon name="lucideClipboard" class="icon group-hover:opacity-100" />
 		}
 
 		<div

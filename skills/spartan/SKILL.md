@@ -79,7 +79,7 @@ Read the rule file before doing the related work:
 - **`rules/composition.md`** - items belong inside their group; dialogs/sheets need a title;
   full Card composition; tabs triggers inside `hlm-tabs-list`; avatar always has a fallback;
   use `Alert`/`Empty`/`Skeleton`/`Badge`/`Separator`/`Spinner` instead of custom markup.
-- **`rules/icons.md`** - icons are `<ng-icon hlm name="lucide...">`; register with `provideIcons`;
+- **`rules/icons.md`** - icons are `<ng-icon name="lucide...">`; register with `provideIcons`;
   no manual sizing classes inside components - use the `size` input.
 - **`rules/brain-vs-helm.md`** - the two-layer model (one headless library, Brain, plus the styled
   Helm layer); when to reach for Brain directly vs Helm, and how composition works via directives.
@@ -97,9 +97,9 @@ Read the rule file before doing the related work:
 <!-- Buttons: use variant/size inputs, not custom classes -->
 <button hlmBtn variant="destructive" size="lg">Delete</button>
 
-<!-- Icon in a button: ng-icon + hlm, no sizing classes -->
+<!-- Icon in a button: ng-icon -->
 <button hlmBtn size="icon" variant="ghost">
-	<ng-icon hlm name="lucideTrash" size="sm" />
+	<ng-icon name="lucideTrash" />
 </button>
 
 <!-- Loading state: compose a spinner, there is no isLoading input -->

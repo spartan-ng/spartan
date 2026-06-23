@@ -9,7 +9,6 @@ import {
 import { TableHeadSortButton } from '@spartan-ng/app/app/pages/(components)/components/(data-table)/sort-header-button';
 import { HlmBadge } from '@spartan-ng/helm/badge';
 import { HlmButton } from '@spartan-ng/helm/button';
-import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmLabel } from '@spartan-ng/helm/label';
 import { HlmSelectImports } from '@spartan-ng/helm/select';
 import { HlmTableImports } from '@spartan-ng/helm/table';
@@ -53,7 +52,6 @@ import { TypeCell } from './type-cell';
 		HlmBadge,
 		FlexRender,
 		NgIcon,
-		HlmIcon,
 		HlmLabel,
 		DashboardTableActions,
 	],
@@ -165,7 +163,7 @@ import { TypeCell } from './type-cell';
 								[disabled]="!table.getCanPreviousPage()"
 								(click)="table.firstPage()"
 							>
-								<ng-icon hlm name="tablerChevronsLeft" size="sm" />
+								<ng-icon name="tablerChevronsLeft" />
 							</button>
 							<button
 								size="icon-sm"
@@ -174,7 +172,7 @@ import { TypeCell } from './type-cell';
 								[disabled]="!table.getCanPreviousPage()"
 								(click)="table.previousPage()"
 							>
-								<ng-icon hlm name="tablerChevronLeft" size="sm" />
+								<ng-icon name="tablerChevronLeft" />
 							</button>
 							<button
 								size="icon-sm"
@@ -183,7 +181,7 @@ import { TypeCell } from './type-cell';
 								[disabled]="!table.getCanNextPage()"
 								(click)="table.nextPage()"
 							>
-								<ng-icon hlm name="tablerChevronRight" size="sm" />
+								<ng-icon name="tablerChevronRight" />
 							</button>
 							<button
 								size="icon-sm"
@@ -192,7 +190,7 @@ import { TypeCell } from './type-cell';
 								[disabled]="!table.getCanNextPage()"
 								(click)="table.lastPage()"
 							>
-								<ng-icon hlm name="tablerChevronsRight" size="sm" />
+								<ng-icon name="tablerChevronsRight" />
 							</button>
 						</div>
 					</div>

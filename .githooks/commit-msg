@@ -1,3 +1,58 @@
 #!/bin/sh
 
-pnpx commitlint -e
+# 1. Conventional Commits format/scope check.
+pnpx commitlint -e || exit 1
+
+# 2. Guard semantic-release: only changes to a published lib may use a
+#    release-triggering type. semantic-release computes the version from commit
+#    TYPES across the whole branch and never looks at which files changed, so a
+#    `feat`/`fix` touching only apps/app (the docs app, never published) would
+#    still bump brain/cli/mcp. Block that here.
+#
+#    Release-relevant paths = the libs whose source ships in a published package:
+#    brain, cli, mcp (published), helm + registry (bundled into the cli registry).
+RELEASE_PATHS='^libs/(brain|cli|helm|mcp|registry)/'
+
+changed=$(git diff --cached --name-only --diff-filter=ACMRTD)
+[ -z "$changed" ] && exit 0
+
+# Touches a published lib -> any type is fine.
+if printf '%s\n' "$changed" | grep -qE "$RELEASE_PATHS"; then
+	exit 0
+fi
+
+header=$(sed -n '1p' "$1")
+type=$(printf '%s' "$header" | sed -E 's/^([a-zA-Z]+).*/\1/')
+
+# A breaking change publishes a major regardless of type (`type!:` or a
+# `BREAKING CHANGE:` footer), so treat it as release-triggering too.
+breaking=0
+printf '%s' "$header" | grep -qE '^[a-zA-Z]+(\([^)]+\))?!:' && breaking=1
+grep -qE '^BREAKING[ -]CHANGE:' "$1" && breaking=1
+
+case "$type" in
+	feat | fix | perf | refactor | revert)
+		releasing=1
+		;;
+	*)
+		releasing=0
+		;;
+esac
+
+if [ "$breaking" -eq 1 ] || [ "$releasing" -eq 1 ]; then
+	marker="'$type'"
+	[ "$breaking" -eq 1 ] && marker="$marker (breaking change)"
+	echo "✖ commit-msg: this commit touches no published lib"
+	echo "  (libs/brain|cli|helm|mcp|registry) but uses a release-triggering"
+	echo "  type/marker: $marker."
+	echo
+	echo "  semantic-release would publish a new brain/cli/mcp version from it."
+	echo "  Use a non-releasing type for docs-app/tooling-only changes, e.g.:"
+	echo "    docs, chore, style, test, ci, build"
+	echo
+	echo "  If this really should ship in a package, include the lib change in"
+	echo "  the same commit."
+	exit 1
+fi
+
+exit 0

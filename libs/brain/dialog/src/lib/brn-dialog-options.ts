@@ -18,7 +18,6 @@ export type BrnDialogOptions = {
 	autoFocus: boolean | AutoFocusTarget | (Record<never, never> & string);
 	backdropClass: string | string[];
 	direction?: Direction;
-	closeOnBackdropClick: boolean;
 	closeOnOutsidePointerEvents: boolean;
 	disableClose: boolean;
 	hasBackdrop: boolean;

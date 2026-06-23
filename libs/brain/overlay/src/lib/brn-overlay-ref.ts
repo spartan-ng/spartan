@@ -66,7 +66,6 @@ export class BrnOverlayRef<OverlayResult = unknown> {
 	public dismiss(reason: BrnOverlayDismissReason, target?: EventTarget | null): boolean {
 		const options = this.initialOptions;
 		if (!this.open || options.disableClose) return false;
-		if (reason === 'backdrop' && !options.closeOnBackdropClick) return false;
 		if (reason === 'outside') {
 			if (!options.closeOnOutsidePointerEvents) return false;
 			// The trigger lives outside the overlay panel, so CDK reports clicks on it as "outside".

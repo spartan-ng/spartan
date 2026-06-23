@@ -8,7 +8,6 @@ const createDefaultOptions = (): BrnOverlayDefaultOptions => ({
 	attachTo: null,
 	autoFocus: false,
 	backdropClass: '',
-	closeOnBackdropClick: true,
 	closeOnOutsidePointerEvents: false,
 	disableClose: false,
 	hasBackdrop: false,

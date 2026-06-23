@@ -74,7 +74,6 @@ export class BrnDialogRef<DialogResult = unknown> {
 	public dismiss(reason: BrnDialogDismissReason): boolean {
 		const options = this.initialOptions;
 		if (!this.open || options.disableClose) return false;
-		if (reason === 'backdrop' && !options.closeOnBackdropClick) return false;
 		if (reason === 'outside' && !options.closeOnOutsidePointerEvents) return false;
 
 		this.close();

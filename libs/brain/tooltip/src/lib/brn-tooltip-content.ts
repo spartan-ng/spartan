@@ -28,7 +28,7 @@ let uniqueId = 0;
 })
 export class BrnTooltipContent {
 	public readonly id = input<string>(`brn-tooltip-${++uniqueId}`);
-	public readonly state = signal<'closed' | 'opened'>('closed');
+	public readonly state = signal<'closed' | 'open' | 'instant-open'>('closed');
 
 	protected readonly _tooltipClass = signal<ClassValue>('');
 	protected readonly _arrowClass = signal<ClassValue>('');

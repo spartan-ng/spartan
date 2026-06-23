@@ -29,9 +29,11 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 import { Directionality } from '@angular/cdk/bidi';
+import { waitForElementAnimations } from '@spartan-ng/brain/core';
 import { of, Subject, Subscription, timer } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { BrnTooltipContent } from './brn-tooltip-content';
+import { BrnTooltipGroup } from './brn-tooltip-group';
 import {
 	BRN_TOOLTIP_FALLBACK_POSITIONS,
 	BRN_TOOLTIP_POSITIONS_MAP,
@@ -44,6 +46,8 @@ import { injectBrnTooltipDefaultOptions } from './brn-tooltip.token';
 interface DelayConfig {
 	isShow: boolean;
 	delay: number;
+	/** Snapshotted at request time: open instantly (no enter animation) because the group window was open. */
+	instant: boolean;
 }
 
 @Directive({ selector: '[brnTooltip]', exportAs: 'brnTooltip' })
@@ -58,6 +62,7 @@ export class BrnTooltip {
 	private readonly _overlayPositionBuilder = inject(OverlayPositionBuilder);
 	private readonly _renderer = inject(Renderer2);
 	private readonly _dir = inject(Directionality);
+	private readonly _group = inject(BrnTooltipGroup, { optional: true });
 
 	private _tooltipHovered = false;
 	private _listenersRefs: (() => void)[] = [];
@@ -66,6 +71,10 @@ export class BrnTooltip {
 	private _overlayRef: OverlayRef | undefined = undefined;
 	private _ariaEffectRef: ReturnType<typeof effect> | undefined = undefined;
 	private _positionChangeSub: Subscription | undefined = undefined;
+	/** Bumped on every close/show so a pending exit-animation teardown can detect it was superseded. */
+	private _closeGeneration = 0;
+	/** The position currently applied to the content - the CDK-resolved one after a flip, not the raw input. */
+	private _activePosition: BrnTooltipPosition | undefined = undefined;
 
 	public readonly tooltipDisabled = input<boolean, boolean>(false, { transform: booleanAttribute });
 	public readonly mutableTooltipDisabled = linkedSignal(this.tooltipDisabled);
@@ -167,11 +176,18 @@ export class BrnTooltip {
 	private _initHoverListeners(): void {
 		this._listenersRefs = [
 			...this._listenersRefs,
-			this._renderer.listen(this._elementRef.nativeElement, 'mouseenter', () => this.delay(true, this.showDelay())),
+			this._renderer.listen(this._elementRef.nativeElement, 'mouseenter', () => this._requestShow()),
 			this._renderer.listen(this._elementRef.nativeElement, 'mouseleave', () => this.delay(false, this.hideDelay())),
-			this._renderer.listen(this._elementRef.nativeElement, 'focus', () => this.delay(true, this.showDelay())),
+			this._renderer.listen(this._elementRef.nativeElement, 'focus', () => this._requestShow()),
 			this._renderer.listen(this._elementRef.nativeElement, 'blur', () => this.delay(false, this.hideDelay())),
 		];
+	}
+
+	/** Snapshot the group skip decision once, so the delay and the instant-open state agree even if a
+	 *  sibling flips the window during the show delay. */
+	private _requestShow(): void {
+		const skip = !!this._group && !this._group.isOpenDelayed();
+		this.delay(true, skip ? 0 : this.showDelay(), skip);
 	}
 
 	private _initScrollListener(): void {
@@ -188,8 +204,8 @@ export class BrnTooltip {
 		this._listenersRefs = [];
 	}
 
-	private delay(isShow: boolean, delay = -1): void {
-		this._delaySubject?.next({ isShow, delay });
+	private delay(isShow: boolean, delay = -1, instant = false): void {
+		this._delaySubject?.next({ isShow, delay, instant });
 	}
 
 	private _setupDelayMechanism(): void {
@@ -203,15 +219,34 @@ export class BrnTooltip {
 			)
 			.subscribe((config) => {
 				if (config.isShow) {
-					this._show();
+					this._show(config.instant);
 				} else {
 					this._hide();
 				}
 			});
 	}
 
-	private _show(): void {
-		if (this._componentRef || !this._tooltipText() || this.mutableTooltipDisabled()) {
+	private _show(instant = false): void {
+		if (!this._tooltipText() || this.mutableTooltipDisabled()) {
+			return;
+		}
+
+		// 'instant-open' suppresses the enter animation. Decided with the delay at request time so a sibling
+		// flipping the group window mid-delay can't desync the animation from the wait that actually happened.
+		const openState = instant ? 'instant-open' : 'open';
+
+		// Already attached: revive only if it is mid-close (exit animation playing). Cancel the
+		// pending teardown and flip it back open instead of letting it fade out and detach.
+		if (this._componentRef) {
+			if (this._componentRef.instance.state() === 'closed') {
+				this._closeGeneration++;
+				this._componentRef.instance.state.set(openState);
+				// Re-apply props so a programmatic text change during the close is reflected on revive.
+				// Keep the live (possibly flipped) position rather than resetting to the raw input.
+				this._applyContentProps(this._componentRef.instance, this._activePosition ?? this.position());
+				this._group?.onOpen();
+				this.show.emit();
+			}
 			return;
 		}
 
@@ -220,14 +255,11 @@ export class BrnTooltip {
 		this._componentRef?.onDestroy(() => {
 			this._componentRef = undefined;
 		});
-		this._componentRef?.instance.state.set('opened');
-		this._componentRef?.instance.setProps(
-			this._tooltipText(),
-			this.position(),
-			this._config.tooltipContentClasses,
-			this._config.arrowClasses(this.position()),
-			this._config.svgClasses,
-		);
+		this._componentRef?.instance.state.set(openState);
+		this._group?.onOpen();
+		if (this._componentRef) {
+			this._applyContentProps(this._componentRef.instance, this.position());
+		}
 
 		// Subscribe to position changes for the lifetime of the tooltip so that
 		// arrow direction and CSS classes stay in sync when the CDK flips the
@@ -240,13 +272,7 @@ export class BrnTooltip {
 				.subscribe((change) => {
 					const resolved = resolveTooltipPosition(change.connectionPair);
 					if (resolved) {
-						compRef.instance.setProps(
-							null,
-							resolved,
-							this._config.tooltipContentClasses,
-							this._config.arrowClasses(resolved),
-							this._config.svgClasses,
-						);
+						this._applyContentProps(compRef.instance, resolved, null);
 					}
 				});
 		}
@@ -264,15 +290,55 @@ export class BrnTooltip {
 		this.show.emit();
 	}
 
+	/** Apply text + position (and the position-derived classes) to the content, recording the position as
+	 *  active. Pass `text = null` for a position-only update that keeps the content's existing text. */
+	private _applyContentProps(
+		content: BrnTooltipContent,
+		position: BrnTooltipPosition,
+		text: BrnTooltipType = this._tooltipText(),
+	): void {
+		this._activePosition = position;
+		content.setProps(
+			text,
+			position,
+			this._config.tooltipContentClasses,
+			this._config.arrowClasses(position),
+			this._config.svgClasses,
+		);
+	}
+
 	private _hide(): void {
 		if (!this._componentRef || this._tooltipHovered) return;
+		// Already closing (exit animation in flight): nothing to do.
+		if (this._componentRef.instance.state() === 'closed') return;
+		this._componentRef.instance.state.set('closed');
+		this._group?.onClose();
+		this.hide.emit();
+		this._scheduleDetach(this._componentRef);
+	}
+
+	/**
+	 * Keep the content mounted until its `data-[state=closed]` exit animation finishes, then tear it
+	 * down. A re-show (revive) bumps `_closeGeneration`, which cancels the pending detach.
+	 */
+	private _scheduleDetach(componentRef: ComponentRef<BrnTooltipContent>): void {
+		const generation = ++this._closeGeneration;
+		const content = componentRef.location.nativeElement as HTMLElement;
+		afterNextRender(
+			() => {
+				void waitForElementAnimations(content).then(() => {
+					if (generation === this._closeGeneration) this._detach();
+				});
+			},
+			{ injector: this._injector },
+		);
+	}
+
+	private _detach(): void {
 		this._clearAriaDescribedBy();
 		this._positionChangeSub?.unsubscribe();
 		this._positionChangeSub = undefined;
-
 		this._renderer.removeAttribute(this._elementRef.nativeElement, 'aria-describedby');
-		this._componentRef.instance.state.set('closed');
-		this.hide.emit();
 		this._overlayRef?.detach();
 	}
 

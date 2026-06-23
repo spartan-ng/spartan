@@ -34,6 +34,11 @@
 				? localStorage.logoVariant
 				: 'default';
 			document.documentElement.classList.add('logo-' + logoVariant);
+			// Match the favicon to the stored variant before paint (the static <link> defaults to the new mark).
+			// Mapping kept in sync with ThemeService's logo-variant effect.
+			if (logoVariant === 'legacy') {
+				document.querySelector('link[rel="icon"]')?.setAttribute('href', '/assets/spartan-legacy.svg');
+			}
 			if (window.navigator.userAgent.toUpperCase().includes('MAC')) {
 				document.documentElement.style.setProperty('--is-mac', 'true');
 			}

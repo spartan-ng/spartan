@@ -82,9 +82,7 @@ export class BrnOverlay<TResult = unknown, TContext extends Record<string, unkno
 		this._defaultOptions.closeOnOutsidePointerEvents,
 		{ transform: booleanAttribute },
 	);
-	public readonly closeOnBackdropClick = input<boolean, BooleanInput>(this._defaultOptions.closeOnBackdropClick, {
-		transform: booleanAttribute,
-	});
+
 	public readonly attachTo = input<BrnOverlayOptions['attachTo']>(this._defaultOptions.attachTo);
 	public readonly attachPositions = input<BrnOverlayOptions['attachPositions']>(this._defaultOptions.attachPositions);
 	public readonly disableClose = input<boolean, BooleanInput>(this._defaultOptions.disableClose, {
@@ -102,7 +100,6 @@ export class BrnOverlay<TResult = unknown, TContext extends Record<string, unkno
 		positionStrategy: this.getPositionStrategy(),
 		scrollStrategy: this.getScrollStrategy(),
 		closeOnOutsidePointerEvents: this.closeOnOutsidePointerEvents(),
-		closeOnBackdropClick: this.getCloseOnBackdropClick(),
 		attachTo: this.getAttachTo(),
 		attachPositions: this.getAttachPositions(),
 		disableClose: this.disableClose(),
@@ -208,10 +205,6 @@ export class BrnOverlay<TResult = unknown, TContext extends Record<string, unkno
 
 	protected getPositionStrategy(): BrnOverlayOptions['positionStrategy'] {
 		return this.positionStrategy();
-	}
-
-	protected getCloseOnBackdropClick(): boolean {
-		return this.closeOnBackdropClick();
 	}
 
 	private getScrollStrategy(): ScrollStrategy | null | undefined {

@@ -40,7 +40,7 @@ export class HlmSidebarService {
 		this.restoreStateFromCookie();
 
 		afterNextRender(() => {
-			if (!this._window) return;
+			if (!this._window || typeof this._window.matchMedia !== 'function') return;
 
 			// Initialize MediaQueryList
 			this._mediaQuery = this._window.matchMedia(`(max-width: ${this._config.mobileBreakpoint})`);

@@ -55,12 +55,26 @@ import { HeaderMobileNav } from './header-mobile-nav';
 				<div class="ml-auto flex items-center gap-2 md:flex-1 md:justify-end">
 					<spartan-docs-dialog class="hidden w-full flex-1 md:flex md:w-auto md:flex-none" />
 					<hlm-separator orientation="vertical" class="!h-4 !self-center" />
-					<a href="https://discord.gg/EqHnxQ4uQr" target="_blank" size="sm" variant="ghost" hlmBtn>
+					<a
+						href="https://discord.gg/EqHnxQ4uQr"
+						target="_blank"
+						rel="noopener noreferrer"
+						size="sm"
+						variant="ghost"
+						hlmBtn
+					>
 						<span class="sr-only">Discord</span>
 						<ng-icon name="tablerBrandDiscord" />
 					</a>
 					<hlm-separator orientation="vertical" class="!h-4 !self-center" />
-					<a href="https://github.com/spartan-ng/spartan" target="_blank" size="sm" variant="ghost" hlmBtn>
+					<a
+						href="https://github.com/spartan-ng/spartan"
+						target="_blank"
+						rel="noopener noreferrer"
+						size="sm"
+						variant="ghost"
+						hlmBtn
+					>
 						<ng-icon name="lucideGithub" />
 						<span class="text-muted-foreground text-xs">{{ _stars() }}</span>
 					</a>

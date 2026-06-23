@@ -122,8 +122,8 @@ describe('dropdown-menu', () => {
 			// moving the mouse onto a parent sibling closes the submenu; focus follows the pointer into the
 			// parent menu, so the dropdown must stay open rather than collapse.
 			cy.findByText(/bottom item/i).realHover();
+			cy.findAllByRole('menu').should('have.length', 1);
 			cy.findByText(/open/i).should('have.attr', 'aria-expanded', 'true');
-			cy.findByRole('menu').should('exist');
 		});
 	});
 });

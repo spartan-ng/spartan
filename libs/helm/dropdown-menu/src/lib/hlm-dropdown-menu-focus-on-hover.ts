@@ -25,6 +25,8 @@ export class HlmDropdownMenuFocusOnHover {
 	private readonly _inputModality = inject(InputModalityDetector);
 
 	protected _focusOnHover(): void {
+		// Only skip synthetic hovers from touch taps; every real hover (mouse, or keyboard-then-hover,
+		// which leaves the modality as 'keyboard') should move focus to keep a single highlight.
 		if (this._inputModality.mostRecentModality === 'touch' || this._cdkMenuItem.disabled) {
 			return;
 		}

@@ -1,33 +1,27 @@
-import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideEllipsis } from '@ng-icons/lucide';
-import { hlm } from '<%- importAlias %>/utils';
-import type { ClassValue } from 'clsx';
+import { classes } from '<%- importAlias %>/utils';
 
 @Component({
 	selector: 'hlm-breadcrumb-ellipsis',
 	imports: [NgIcon],
 	providers: [provideIcons({ lucideEllipsis })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: {
+		'data-slot': 'breadcrumb-ellipsis',
+		role: 'presentation',
+	},
 	template: `
-		<span
-			class="spartan-breadcrumb-ellipsis"
-			data-slot="breadcrumb-ellipsis"
-			role="presentation"
-			aria-hidden="true"
-			[class]="_computedClass()"
-		>
-			<ng-icon name="lucideEllipsis" />
-			<span class="sr-only">{{ srOnlyText() }}</span>
-		</span>
+		<ng-icon name="lucideEllipsis" />
+		<span class="sr-only">{{ srOnlyText() }}</span>
 	`,
 })
 export class HlmBreadcrumbEllipsis {
-	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	/** Screen reader only text for the ellipsis */
 	public readonly srOnlyText = input<string>('More');
 
-	protected readonly _computedClass = computed(() =>
-		hlm('spartan-breadcrumb-ellipsis flex items-center justify-center', this.userClass()),
-	);
+	constructor() {
+		classes(() => 'spartan-breadcrumb-ellipsis flex items-center justify-center');
+	}
 }

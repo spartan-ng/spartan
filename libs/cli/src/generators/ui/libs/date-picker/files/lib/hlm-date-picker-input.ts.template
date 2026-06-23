@@ -1,61 +1,69 @@
 import { BooleanInput } from '@angular/cdk/coercion';
-import { booleanAttribute, ChangeDetectionStrategy, Component, computed, input, linkedSignal } from '@angular/core';
+import {
+	booleanAttribute,
+	ChangeDetectionStrategy,
+	Component,
+	computed,
+	effect,
+	ElementRef,
+	inject,
+	input,
+	linkedSignal,
+} from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCalendar, lucideX } from '@ng-icons/lucide';
-import { HlmButtonImports } from '<%- importAlias %>/button';
-import { HlmInputGroupImports } from '<%- importAlias %>/input-group';
-import { HlmDatePickerAnchor } from './hlm-date-picker-anchor';
+import { HlmInputGroup, HlmInputGroupImports } from '<%- importAlias %>/input-group';
 import { HlmDatePickerTriggerBase, provideHlmDatePickerTrigger } from './hlm-date-picker-trigger.token';
 import { injectHlmDatePicker, injectHlmDatePickerConfig } from './hlm-date-picker.token';
 
 @Component({
 	selector: 'hlm-date-picker-input',
-	imports: [HlmInputGroupImports, HlmButtonImports, HlmDatePickerAnchor, NgIcon],
+	imports: [HlmInputGroupImports, NgIcon],
 	providers: [provideIcons({ lucideCalendar, lucideX }), provideHlmDatePickerTrigger(HlmDatePickerInput)],
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	hostDirectives: [HlmInputGroup],
 	template: `
-		<hlm-input-group hlmDatePickerAnchor [hlmDatePickerAnchorFor]="_popover()">
-			<input
-				hlmInputGroupInput
-				[value]="_inputValue()"
-				[id]="inputId()"
-				[placeholder]="placeholder()"
-				[disabled]="_disabled()"
-				[forceInvalid]="forceInvalid()"
-				(click)="_handleClick()"
-				(keydown.arrowDown)="_open()"
-				(keydown.enter)="_handleEnter($event)"
-				(input)="_handleInputChange($event)"
-				(blur)="_commitDate()"
-			/>
-			<hlm-input-group-addon align="inline-end">
-				@if (_showClearButton()) {
-					<button
-						hlmInputGroupButton
-						size="icon-xs"
-						variant="ghost"
-						[attr.aria-label]="clearAriaLabel()"
-						(click)="_clear()"
-						[disabled]="_disabled()"
-					>
-						<ng-icon name="lucideX" />
-					</button>
-				}
+		<input
+			hlmInputGroupInput
+			[value]="_inputValue()"
+			[id]="inputId()"
+			[placeholder]="placeholder()"
+			[disabled]="_disabled()"
+			[forceInvalid]="forceInvalid()"
+			(click)="_handleClick()"
+			(keydown.arrowDown)="_open()"
+			(keydown.enter)="_handleEnter($event)"
+			(input)="_handleInputChange($event)"
+			(blur)="_commitDate()"
+		/>
+		<hlm-input-group-addon align="inline-end">
+			@if (_showClearButton()) {
 				<button
 					hlmInputGroupButton
 					size="icon-xs"
-					[attr.aria-label]="calendarAriaLabel()"
-					(click)="_popover().open()"
+					variant="ghost"
+					[attr.aria-label]="clearAriaLabel()"
+					(click)="_clear()"
 					[disabled]="_disabled()"
 				>
-					<ng-icon name="lucideCalendar" />
+					<ng-icon name="lucideX" />
 				</button>
-			</hlm-input-group-addon>
-		</hlm-input-group>
+			}
+			<button
+				hlmInputGroupButton
+				size="icon-xs"
+				[attr.aria-label]="calendarAriaLabel()"
+				(click)="_popover().open()"
+				[disabled]="_disabled()"
+			>
+				<ng-icon name="lucideCalendar" />
+			</button>
+		</hlm-input-group-addon>
 	`,
 })
 export class HlmDatePickerInput<T> implements HlmDatePickerTriggerBase {
 	private static _nextId = 0;
+	private readonly _host = inject(ElementRef);
 	private readonly _datePicker = injectHlmDatePicker<T>();
 	private readonly _config = injectHlmDatePickerConfig<T>();
 
@@ -128,6 +136,10 @@ export class HlmDatePickerInput<T> implements HlmDatePickerTriggerBase {
 			return previous.value;
 		},
 	});
+
+	constructor() {
+		effect(() => this._popover()?.setOrigin(this._host.nativeElement));
+	}
 
 	protected _handleInputChange(event: Event) {
 		const text = (event.target as HTMLInputElement).value;

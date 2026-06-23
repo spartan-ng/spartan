@@ -89,7 +89,7 @@ export class BrnDrawerHandle {
 	protected _onPointerDown(event: PointerEvent): void {
 		if (!this._brnDialogRef || !this._brnDrawer || this._isDragging) return;
 
-		this._direction = this._brnDrawer.directionState();
+		this._direction = this._brnDrawer.direction();
 		this._drawerEl = this._element.nativeElement.closest('[data-vaul-drawer-direction]');
 		if (!this._drawerEl) return;
 

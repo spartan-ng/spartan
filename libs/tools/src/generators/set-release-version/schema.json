@@ -1,8 +1,8 @@
 {
 	"$schema": "http://json-schema.org/draft-07/schema",
-	"$id": "ReplaceCliVersionGenerator",
-	"title": "Replace CLI version",
-	"description": "Sets the version of the @spartan-ng/cli package in libs/cli/package.json.",
+	"$id": "SetReleaseVersionGenerator",
+	"title": "Set release version",
+	"description": "Sets the version of the published @spartan-ng packages (brain, cli, mcp) in lockstep.",
 	"type": "object",
 	"properties": {
 		"newVersion": {

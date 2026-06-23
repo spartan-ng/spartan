@@ -1,19 +1,9 @@
 {
 	"generators": {
-		"replace-cli-version": {
-			"factory": "./src/generators/replace-cli-version/generator",
-			"schema": "./src/generators/replace-cli-version/schema.json",
-			"description": "Updates the CLI's version"
-		},
-		"replace-mcp-version": {
-			"factory": "./src/generators/replace-mcp-version/generator",
-			"schema": "./src/generators/replace-mcp-version/schema.json",
-			"description": "Updates the MCP server's version"
-		},
-		"replace-ui-version": {
-			"factory": "./src/generators/replace-ui-version/generator",
-			"schema": "./src/generators/replace-ui-version/schema.json",
-			"description": "Replaces version for all UI libs and their references in the CLI"
+		"set-release-version": {
+			"factory": "./src/generators/set-release-version/generator",
+			"schema": "./src/generators/set-release-version/schema.json",
+			"description": "Sets the published @spartan-ng package versions (brain, cli, mcp) in lockstep"
 		},
 		"hlm-to-cli-generator": {
 			"factory": "./src/generators/hlm-to-cli-generator/generator",

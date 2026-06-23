@@ -55,7 +55,6 @@ export default {
 					'libs/brain/package.json',
 					'libs/cli/package.json',
 					'libs/mcp/package.json',
-					'libs/cli/src/generators/base/versions.ts',
 					'libs/cli/src/generators/ui/**',
 					'CHANGELOG.md',
 				],

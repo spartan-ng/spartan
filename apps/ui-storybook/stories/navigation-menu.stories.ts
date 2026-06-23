@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { lucideChevronDown, lucideCircle, lucideCircleCheck, lucideCircleHelp, lucideLink } from '@ng-icons/lucide';
+import { lucideCircle, lucideCircleCheck, lucideCircleHelp, lucideLink } from '@ng-icons/lucide';
 
 import { HlmNavigationMenuImports } from '@spartan-ng/helm/navigation-menu';
 import type { Meta, StoryObj } from '@storybook/angular';
@@ -9,18 +9,12 @@ import { moduleMetadata } from '@storybook/angular';
 @Component({
 	selector: 'navigation-menu-example',
 	imports: [HlmNavigationMenuImports, NgIcon],
-	providers: [provideIcons({ lucideChevronDown, lucideLink, lucideCircle, lucideCircleHelp, lucideCircleCheck })],
+	providers: [provideIcons({ lucideLink, lucideCircle, lucideCircleHelp, lucideCircleCheck })],
 	template: `
 		<nav hlmNavigationMenu>
 			<ul hlmNavigationMenuList class="flex-wrap">
 				<li hlmNavigationMenuItem>
-					<button hlmNavigationMenuTrigger>
-						Home
-						<ng-icon
-							name="lucideChevronDown"
-							class="relative top-px ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
-						/>
-					</button>
+					<button hlmNavigationMenuTrigger>Home</button>
 					<hlm-navigation-menu-content *hlmNavigationMenuPortal>
 						<ul class="grid gap-2 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
 							<li class="row-span-3">
@@ -66,13 +60,7 @@ import { moduleMetadata } from '@storybook/angular';
 
 				<!-- Components Menu -->
 				<li hlmNavigationMenuItem>
-					<button hlmNavigationMenuTrigger>
-						Components
-						<ng-icon
-							name="lucideChevronDown"
-							class="relative top-px ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
-						/>
-					</button>
+					<button hlmNavigationMenuTrigger>Components</button>
 					<hlm-navigation-menu-content *hlmNavigationMenuPortal>
 						<ul class="grid gap-2 sm:w-[400px] md:w-[500px] md:grid-cols-2 lg:w-[600px]">
 							@for (component of components; track $index) {
@@ -94,13 +82,7 @@ import { moduleMetadata } from '@storybook/angular';
 				</li>
 
 				<li hlmNavigationMenuItem class="hidden md:block">
-					<button hlmNavigationMenuTrigger>
-						List
-						<ng-icon
-							name="lucideChevronDown"
-							class="relative top-px ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
-						/>
-					</button>
+					<button hlmNavigationMenuTrigger>List</button>
 					<hlm-navigation-menu-content *hlmNavigationMenuPortal>
 						<ul class="grid w-[300px] gap-4">
 							<li>
@@ -122,13 +104,7 @@ import { moduleMetadata } from '@storybook/angular';
 				</li>
 
 				<li hlmNavigationMenuItem class="hidden md:block">
-					<button hlmNavigationMenuTrigger>
-						Simple
-						<ng-icon
-							name="lucideChevronDown"
-							class="relative top-px ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
-						/>
-					</button>
+					<button hlmNavigationMenuTrigger>Simple</button>
 					<hlm-navigation-menu-content *hlmNavigationMenuPortal>
 						<ul class="grid w-[200px] gap-4">
 							<li>
@@ -141,13 +117,7 @@ import { moduleMetadata } from '@storybook/angular';
 				</li>
 
 				<li hlmNavigationMenuItem class="hidden md:block">
-					<button hlmNavigationMenuTrigger>
-						With Icon
-						<ng-icon
-							name="lucideChevronDown"
-							class="relative top-px ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
-						/>
-					</button>
+					<button hlmNavigationMenuTrigger>With Icon</button>
 					<hlm-navigation-menu-content *hlmNavigationMenuPortal>
 						<ul class="grid w-[200px] gap-4">
 							<li>
@@ -209,18 +179,12 @@ class NavigationMenuExample {
 @Component({
 	selector: 'navigation-menu-click-to-open-example',
 	imports: [HlmNavigationMenuImports],
-	providers: [provideIcons({ lucideChevronDown, lucideLink, lucideCircle, lucideCircleHelp, lucideCircleCheck })],
+	providers: [provideIcons({ lucideLink, lucideCircle, lucideCircleHelp, lucideCircleCheck })],
 	template: `
 		<nav hlmNavigationMenu openOn="click">
 			<ul hlmNavigationMenuList class="flex-wrap">
 				<li hlmNavigationMenuItem>
-					<button hlmNavigationMenuTrigger>
-						Home
-						<ng-icon
-							name="lucideChevronDown"
-							class="relative top-px ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
-						/>
-					</button>
+					<button hlmNavigationMenuTrigger>Home</button>
 					<hlm-navigation-menu-content *hlmNavigationMenuPortal>
 						<ul class="grid gap-2 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
 							<li class="row-span-3">
@@ -266,13 +230,7 @@ class NavigationMenuExample {
 
 				<!-- Components Menu -->
 				<li hlmNavigationMenuItem>
-					<button hlmNavigationMenuTrigger>
-						Components
-						<ng-icon
-							name="lucideChevronDown"
-							class="relative top-px ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
-						/>
-					</button>
+					<button hlmNavigationMenuTrigger>Components</button>
 					<hlm-navigation-menu-content *hlmNavigationMenuPortal>
 						<ul class="grid gap-2 sm:w-[400px] md:w-[500px] md:grid-cols-2 lg:w-[600px]">
 							@for (component of components; track $index) {
@@ -294,13 +252,7 @@ class NavigationMenuExample {
 				</li>
 
 				<li hlmNavigationMenuItem class="hidden md:block">
-					<button hlmNavigationMenuTrigger>
-						List
-						<ng-icon
-							name="lucideChevronDown"
-							class="relative top-px ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
-						/>
-					</button>
+					<button hlmNavigationMenuTrigger>List</button>
 					<hlm-navigation-menu-content *hlmNavigationMenuPortal>
 						<ul class="grid w-[300px] gap-4">
 							<li>
@@ -322,13 +274,7 @@ class NavigationMenuExample {
 				</li>
 
 				<li hlmNavigationMenuItem class="hidden md:block">
-					<button hlmNavigationMenuTrigger>
-						Simple
-						<ng-icon
-							name="lucideChevronDown"
-							class="relative top-px ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
-						/>
-					</button>
+					<button hlmNavigationMenuTrigger>Simple</button>
 					<hlm-navigation-menu-content *hlmNavigationMenuPortal>
 						<ul class="grid w-[200px] gap-4">
 							<li>
@@ -341,13 +287,7 @@ class NavigationMenuExample {
 				</li>
 
 				<li hlmNavigationMenuItem class="hidden md:block">
-					<button hlmNavigationMenuTrigger>
-						With Icon
-						<ng-icon
-							name="lucideChevronDown"
-							class="relative top-px ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
-						/>
-					</button>
+					<button hlmNavigationMenuTrigger>With Icon</button>
 					<hlm-navigation-menu-content *hlmNavigationMenuPortal>
 						<ul class="grid w-[200px] gap-4">
 							<li>

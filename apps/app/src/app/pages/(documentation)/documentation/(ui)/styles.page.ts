@@ -177,7 +177,7 @@ export const routeMeta: RouteMeta = {
 				<div hlmAlertDescription>
 					<p>
 						See
-						<a class="font-medium underline" href="/components/field">Field → Validation and Errors</a>
+						<a class="font-medium underline" routerLink="/components/field">Field → Validation and Errors</a>
 						for the correct structure.
 					</p>
 				</div>

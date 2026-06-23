@@ -2849,6 +2849,12 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "outputs": [],
         "selector": "hlm-dropdown-menu-checkbox-indicator",
       },
+      "HlmDropdownMenuFocusOnHover": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmDropdownMenuFocusOnHover]",
+      },
       "HlmDropdownMenuGroup": {
         "inputs": [],
         "models": [],

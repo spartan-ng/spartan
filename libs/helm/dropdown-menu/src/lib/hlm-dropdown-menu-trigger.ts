@@ -1,6 +1,5 @@
 import { CdkMenuTrigger } from '@angular/cdk/menu';
 import { computed, Directive, effect, inject, input } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { createMenuPosition, type MenuAlign, type MenuSide } from '@spartan-ng/brain/core';
 import { injectHlmDropdownMenuConfig } from './hlm-dropdown-menu-token';
 
@@ -25,17 +24,9 @@ export class HlmDropdownMenuTrigger {
 	private readonly _menuPosition = computed(() => createMenuPosition(this.align(), this.side()));
 
 	constructor() {
-		// once the trigger opens we wait until the next tick and then grab the last position
-		// used to position the menu. we store this in our trigger which the brnMenu directive has
-		// access to through DI
-		this._cdkTrigger.opened.pipe(takeUntilDestroyed()).subscribe(() =>
-			setTimeout(
-				() =>
-					// eslint-disable-next-line
-					((this._cdkTrigger as any)._spartanLastPosition = // eslint-disable-next-line
-						(this._cdkTrigger as any).overlayRef._positionStrategy._lastPosition),
-			),
-		);
+		// CDK sets transform-origin on the menu content from the resolved position; the content reads it to
+		// animate from the anchored corner and to derive its data-side
+		this._cdkTrigger.transformOriginSelector = '[data-slot="dropdown-menu"]';
 
 		effect(() => {
 			this._cdkTrigger.menuPosition = this._menuPosition();

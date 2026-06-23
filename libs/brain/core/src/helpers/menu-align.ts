@@ -3,6 +3,16 @@ import type { ConnectedPosition } from '@angular/cdk/overlay';
 export type MenuAlign = 'start' | 'center' | 'end';
 export type MenuSide = 'top' | 'bottom' | 'left' | 'right';
 
+const OPPOSITE_SIDE: Record<string, MenuSide> = { top: 'bottom', bottom: 'top', left: 'right', right: 'left' };
+
+// derive data-side from the transform-origin CDK sets on the content. the anchored corner faces the
+// trigger, so the side is its opposite (root reads the vertical axis, submenu the horizontal). CDK's
+// origin is rtl-aware, so the derived side is too.
+export const deriveMenuSideFromTransformOrigin = (transformOrigin: string, isRoot: boolean): MenuSide => {
+	const [x, y] = transformOrigin.trim().split(/\s+/);
+	return OPPOSITE_SIDE[isRoot ? y : x] ?? (isRoot ? 'bottom' : 'right');
+};
+
 export const createMenuPosition = (align: MenuAlign, side: MenuSide): ConnectedPosition[] => {
 	const verticalAlign = align === 'start' ? 'top' : align === 'end' ? 'bottom' : 'center';
 

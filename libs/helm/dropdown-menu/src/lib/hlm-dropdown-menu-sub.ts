@@ -1,7 +1,7 @@
 import { CdkMenu } from '@angular/cdk/menu';
 import { Directive, ElementRef, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { deriveMenuSideFromTransformOrigin } from '@spartan-ng/brain/core';
+import { deriveMenuSideFromTransformOrigin, MENU_SIDE, type MenuSide } from '@spartan-ng/brain/core';
 import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
@@ -16,9 +16,11 @@ import { classes } from '@spartan-ng/helm/utils';
 export class HlmDropdownMenuSub {
 	private readonly _host = inject(CdkMenu);
 	private readonly _elementRef = inject(ElementRef<HTMLElement>);
+	// The sub-trigger provides its configured side; CDK parents this content's injector under it.
+	private readonly _menuSide = inject(MENU_SIDE, { optional: true });
 
 	protected readonly _state = signal('open');
-	protected readonly _side = signal('top');
+	protected readonly _side = signal<MenuSide>(this._menuSide?.side() ?? 'right');
 
 	constructor() {
 		this.setSideFromTransformOrigin();
@@ -30,14 +32,10 @@ export class HlmDropdownMenuSub {
 	}
 
 	private setSideFromTransformOrigin() {
-		// peek() is undefined only before this menu is pushed onto the stack, which tells us root vs submenu
-		const isRoot = this._host.menuStack.peek() === undefined;
+		const side = this._menuSide?.side() ?? 'right';
 		// CDK sets transform-origin on this element synchronously on attach; read it next tick and derive side
 		setTimeout(() => {
-			const transformOrigin = this._elementRef.nativeElement.style.transformOrigin;
-			if (transformOrigin) {
-				this._side.set(deriveMenuSideFromTransformOrigin(transformOrigin, isRoot));
-			}
+			this._side.set(deriveMenuSideFromTransformOrigin(this._elementRef.nativeElement.style.transformOrigin, side));
 		});
 	}
 }

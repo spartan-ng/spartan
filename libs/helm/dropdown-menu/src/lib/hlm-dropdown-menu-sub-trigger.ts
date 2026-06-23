@@ -1,11 +1,12 @@
 import { CdkMenuTrigger } from '@angular/cdk/menu';
-import { computed, Directive, effect, inject, input } from '@angular/core';
-import { createMenuPosition, type MenuAlign, type MenuSide } from '@spartan-ng/brain/core';
+import { computed, Directive, effect, forwardRef, inject, input } from '@angular/core';
+import { createMenuPosition, MENU_SIDE, type MenuAlign, type MenuSide } from '@spartan-ng/brain/core';
 import { classes } from '@spartan-ng/helm/utils';
 import { injectHlmDropdownMenuConfig } from './hlm-dropdown-menu-token';
 
 @Directive({
 	selector: '[hlmDropdownMenuSubTrigger]',
+	providers: [{ provide: MENU_SIDE, useExisting: forwardRef(() => HlmDropdownMenuSubTrigger) }],
 	hostDirectives: [
 		{
 			directive: CdkMenuTrigger,

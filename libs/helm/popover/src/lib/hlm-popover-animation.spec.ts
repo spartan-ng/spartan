@@ -73,6 +73,31 @@ describe('HlmPopover animation-aware teardown', () => {
 		expect(panel()).toBeNull();
 	});
 
+	it('pins the exit animation to its final frame so it cannot snap back before disposal', async () => {
+		const view = await render(PopoverAnimationHost);
+		const popover = popoverOf(view);
+
+		popover.open();
+		view.detectChanges();
+		await flush();
+
+		popover.close();
+		view.detectChanges();
+		await flush();
+		await flush();
+
+		// The exit animation defaults to fill-mode none; the overlay must hold it forwards.
+		const animations = panel()?.getAnimations() ?? [];
+		expect(animations.length).toBeGreaterThan(0);
+		for (const animation of animations) {
+			expect(animation.effect?.getComputedTiming().fill).toBe('forwards');
+		}
+
+		// Pinned or not, the panel still disposes once the animation completes.
+		await wait(EXIT_MS + 120);
+		expect(panel()).toBeNull();
+	});
+
 	it('cancels the pending teardown when reopened mid-animation', async () => {
 		const view = await render(PopoverAnimationHost);
 		const popover = popoverOf(view);

@@ -21,6 +21,8 @@ if printf '%s\n' "$changed" | grep -qE "$RELEASE_PATHS"; then
 	exit 0
 fi
 
+# The release-triggering set below mirrors release.config.mjs (conventionalcommits preset
+# defaults + the refactor->patch releaseRule). Keep the two in sync if those rules change.
 header=$(sed -n '1p' "$1")
 type=$(printf '%s' "$header" | sed -E 's/^([a-zA-Z]+).*/\1/')
 

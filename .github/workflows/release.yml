@@ -25,6 +25,11 @@ on:
         type: boolean
         default: true
 
+# Read-only by default; the release job opts into the write scopes it needs. Without this, jobs
+# inherit the repository's default token scopes, so verify would run with more access than it uses.
+permissions:
+  contents: read
+
 concurrency:
   group: release-${{ github.ref }}
   cancel-in-progress: false

@@ -132,43 +132,6 @@
 	}
 }
 
-/* Docs-app only leak patches. This app loads every style at once with NOVA as the global baseline (see
-   the spartan-nova-baseline layer above); the body permanently carries `.style-nova`, so nova's rules
-   reach every island. For classes nova defines but another style does not, nova's baseline leaks into
-   that style's island - so we restore the island style's intended look here, in its own language.
-   Kept OUT of the registry style-*.css files on purpose: the CLI copies those into consumer projects,
-   which only ever load a single style and so never hit the leak. Left unlayered so they win over the
-   nova baseline from anywhere; their position is not load-bearing. */
-
-/* Lyra is square: it omits the rounding/gap rules nova defines, so nova's rounding leaks in. */
-.style-lyra .spartan-button-group-orientation-horizontal {
-	@apply [&>[data-slot]:not(:has(~[data-slot]))]:rounded-e-none!;
-}
-.style-lyra .spartan-button-group-orientation-vertical {
-	@apply [&>[data-slot]:not(:has(~[data-slot]))]:rounded-b-none!;
-}
-.style-lyra .spartan-carousel-previous {
-	@apply rounded-none;
-}
-.style-lyra .spartan-carousel-next {
-	@apply rounded-none;
-}
-.style-lyra .spartan-dialog-footer {
-	@apply gap-2;
-}
-
-/* `spartan-alert-dialog-footer` is nova-only: nova styles it as a muted, bordered, rounded panel
-   (bg-muted/50 -mx-4 -mb-4 rounded-b-xl border-t p-4); every other style leaves the footer plain - this
-   mirrors shadcn, where only the nova style adds that treatment. As the baseline, nova would push that
-   panel into all the other islands, so reset it back to plain there. */
-.style-vega .spartan-alert-dialog-footer,
-.style-lyra .spartan-alert-dialog-footer,
-.style-maia .spartan-alert-dialog-footer,
-.style-mira .spartan-alert-dialog-footer,
-.style-luma .spartan-alert-dialog-footer {
-	@apply m-0 rounded-none border-0 bg-transparent p-0;
-}
-
 [hidden]:where(:not([hidden='until-found'])) {
 	display: none !important;
 }

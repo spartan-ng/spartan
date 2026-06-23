@@ -1,4 +1,34 @@
-.style-nova {
+/* =============================================================================================
+ * DONUT @scope - DOCS-ONLY CONTAINMENT. READ BEFORE EDITING.
+ * =============================================================================================
+ * Why this looks weird: nova (the default style) is the page-wide baseline in the docs app - its
+ * <body> permanently carries `.style-nova`. The docs render every OTHER style as a nested preview
+ * "island" (`<div class="style-vega">`, etc.) inside that body. Plain `.style-nova .spartan-*`
+ * rules cascade THROUGH those islands, so for any property nova sets but the island's style does
+ * not, nova "leaks" into the island and the preview no longer matches a real single-style project.
+ *
+ * The donut fixes that structurally instead of per-property: `@scope (.style-nova) to (<every other
+ * style>)` applies nova within `.style-nova` but STOPS at any other style's island - nova reaches
+ * the docs chrome but never another style's island. Each island is fully self-contained, with zero
+ * per-property "reset" patches.
+ *
+ * Only nova carries this: nova is the ONLY style ever used as the page-wide baseline. The other five
+ * are only ever islands, already contained by their own `.style-X` selector, so they stay plain.
+ *
+ * It does NOT reach consumer projects. The CLI does not copy this file; `createStyleMap`
+ * (libs/cli/.../create-style-map.ts) harvests each `.spartan-* { @apply ... }` rule and inlines the
+ * utilities directly into the generated components - it ignores the wrapper entirely, whether it is
+ * `.style-nova {` or this `@scope`. So no `@scope`, and no extra browser-support requirement, ever
+ * ships to a single-style consumer.
+ *
+ * Authored here (not in the docs app) ON PURPOSE: feeding nova into a `@scope` from the docs via
+ * `@import` does not survive the dev build (the whole baseline silently drops and the docs render
+ * unstyled). Wrapping nova's own rules directly avoids any `@import`, so it works in dev and prod.
+ *
+ * MAINTENANCE: keep the `to (...)` list in sync with `STYLES` in ./style.ts - it must name every
+ * style EXCEPT nova. The closing `}` for this block is at the very end of the file.
+ * ============================================================================================= */
+@scope (.style-nova) to (.style-vega, .style-lyra, .style-maia, .style-mira, .style-luma) {
 	.spartan-rtl-flip {
 		@apply rtl:rotate-180;
 	}

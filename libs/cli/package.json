@@ -3,8 +3,9 @@
 	"version": "0.0.1-alpha.720",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/spartan-ng/spartan"
+		"url": "https://github.com/spartan-ng/spartan.git"
 	},
+	"license": "MIT",
 	"type": "commonjs",
 	"dependencies": {
 		"@angular/core": ">=21.0.0",

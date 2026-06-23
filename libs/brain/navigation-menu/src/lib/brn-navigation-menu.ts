@@ -169,6 +169,22 @@ export class BrnNavigationMenu implements OnDestroy {
 		this._keyManager().setActiveItem(item);
 	}
 
+	/** Focuses the sibling trigger/link `delta` steps from `current`, skipping disabled ones. @internal */
+	public focusSibling(current: FocusableOption, delta: 1 | -1): boolean {
+		const items = this._triggersAndLinks();
+		const idx = items.indexOf(current);
+		if (idx === -1) return false;
+
+		for (let i = idx + delta; i >= 0 && i < items.length; i += delta) {
+			const candidate = items[i];
+			if (!candidate.disabled) {
+				this._keyManager().setActiveItem(candidate);
+				return true;
+			}
+		}
+		return false;
+	}
+
 	protected handleKeydown(event: KeyboardEvent) {
 		this._keyManager().onKeydown(event);
 	}

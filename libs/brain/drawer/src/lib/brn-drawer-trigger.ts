@@ -13,7 +13,7 @@ export class BrnDrawerTrigger extends BrnDialogTrigger {
 	override open() {
 		const direction = this.direction();
 		if (this._drawer && direction) {
-			this._drawer.directionState.set(direction);
+			this._drawer.direction.set(direction);
 		}
 		super.open();
 	}

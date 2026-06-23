@@ -130,6 +130,13 @@ export class BrnOverlayRef<OverlayResult = unknown> {
 		if (generation !== this._closeGeneration || this._phase() !== 'closing') return;
 
 		const exitAnimations = this._getActiveAnimations().filter((animation) => !animationsBeforeClose.has(animation));
+		// Pin each exit animation to its final frame. tw-animate-css uses `animation-fill-mode: none`,
+		// so a finished exit reverts the element to its visible pre-animation state in the gap before
+		// we dispose it - that one-frame snap-back is what flickers.
+		for (const animation of exitAnimations) {
+			const target = (animation.effect as KeyframeEffect | null)?.target;
+			if (target instanceof HTMLElement) target.style.setProperty('animation-fill-mode', 'forwards');
+		}
 		await waitForAnimations(exitAnimations);
 
 		if (generation === this._closeGeneration && this._phase() === 'closing') {

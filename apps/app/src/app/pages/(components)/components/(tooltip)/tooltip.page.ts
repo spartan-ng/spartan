@@ -22,6 +22,7 @@ import { SectionSubHeading } from '../../../../shared/layout/section-sub-heading
 import { Tabs } from '../../../../shared/layout/tabs';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
+import { TooltipGroup } from './tooltip--group.example';
 import { TooltipSimple } from './tooltip--simple.example';
 import { defaultImports, defaultSkeleton, TooltipPreview } from './tooltip.preview';
 
@@ -52,6 +53,7 @@ export const routeMeta: RouteMeta = {
 		TooltipSimple,
 		SectionSubSubHeading,
 		TooltipSimple,
+		TooltipGroup,
 		TooltipPosition,
 		TooltipSimple,
 		TooltipDisabled,
@@ -92,6 +94,20 @@ export const routeMeta: RouteMeta = {
 					<spartan-tooltip-simple />
 				</div>
 				<spartan-code secondTab [code]="_simpleCode()" />
+			</spartan-tabs>
+
+			<h3 id="examples__group" spartanH4>Group</h3>
+			<p class="text-muted-foreground mt-2 mb-4 text-sm">
+				Provide
+				<code>provideBrnTooltipGroup</code>
+				on a wrapping component so that once one tooltip opens, the others in the group open instantly until the
+				skip-delay window elapses.
+			</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-tooltip-group />
+				</div>
+				<spartan-code secondTab [code]="_groupCode()" />
 			</spartan-tabs>
 
 			<h3 id="examples__position" spartanH4>Positions</h3>
@@ -156,6 +172,7 @@ export default class TooltipPage {
 	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('tooltip');
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
 	protected readonly _simpleCode = computed(() => this._snippets()['simple']);
+	protected readonly _groupCode = computed(() => this._snippets()['group']);
 	protected readonly _positionCode = computed(() => this._snippets()['position']);
 	protected readonly _templateCode = computed(() => this._snippets()['template']);
 	protected readonly _disabledCode = computed(() => this._snippets()['disabled']);

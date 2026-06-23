@@ -63,7 +63,7 @@ export class HlmDatePickerTrigger implements HlmDatePickerTriggerBase {
 
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	protected readonly _computedClass = computed(() =>
-		hlm('spartan-date-picker-trigger w-64 justify-between', this.userClass()),
+		hlm('spartan-date-picker-trigger justify-between', this.userClass()),
 	);
 
 	protected readonly _isPlaceholder = computed(() => !this._datePicker.hasDate());

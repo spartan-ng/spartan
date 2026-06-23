@@ -38,7 +38,12 @@ jobs:
   # Gate the release on the publishable artifacts being sound. semantic-release pushes the tag +
   # release commit BEFORE it publishes to npm, so a failure mid-release would leave a dangling tag;
   # validating up front avoids that half-released state. Skipped for dry-run previews.
-  verify:
+  #
+  # Verification fans out into two jobs that run in parallel: verify-libs (lint + build + unit test)
+  # and verify-smoke (the CLI smoke matrix, one runner per cell). The verify aggregator gates the
+  # release on both. This mirrors .github/workflows/cli-smoke.yml so the release isn't bottlenecked
+  # on the smoke cells running serially in a single runner (~20 min -> roughly the slowest cell).
+  verify-libs:
     if: ${{ !(github.event_name == 'workflow_dispatch' && inputs.dry-run) }}
     runs-on: ubuntu-latest
     steps:
@@ -61,8 +66,65 @@ jobs:
         run: pnpm nx run-many -t build -p brain cli mcp --parallel=1
       - name: Unit test publishable libs
         run: pnpm nx run-many -t test -p brain cli mcp --parallel=3
-      - name: CLI smoke
-        run: pnpm nx run cli-smoke:smoke
+
+  # One runner per smoke cell, so wall-clock is the slowest single cell rather than the sum of all of
+  # them. Deliberately no git-diff gate and no nx-set-shas: a release must verify every cell. Without
+  # NX_BASE/NX_HEAD, isSmokeAffected() runs rather than skips (apps/cli-smoke/src/support/affected.ts).
+  # Keep the cell list in sync with apps/cli-smoke/src/matrix.ts and .github/workflows/cli-smoke.yml.
+  verify-smoke:
+    if: ${{ !(github.event_name == 'workflow_dispatch' && inputs.dry-run) }}
+    runs-on: ubuntu-latest
+    strategy:
+      # Don't cancel the other cells when one fails - we want the full picture of which setups broke.
+      fail-fast: false
+      matrix:
+        cell:
+          - nx-lib-buildable
+          - nx-lib-nonbuildable
+          - nx-entry-buildable
+          - nx-entry-nonbuildable
+          - nx-standalone
+          - acli
+          - all-components
+          - all-components-nx-entry
+          - style-acli-nova
+          - style-nx-lyra
+          - style-acli-maia
+          - style-nx-mira
+          - style-acli-luma
+    name: smoke (${{ matrix.cell }})
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - uses: ./.github/actions/setup
+      # --testNamePattern matches against the full test name, so the trailing space anchors the
+      # pattern to this exact cell.
+      - name: smoke (${{ matrix.cell }})
+        run: pnpm nx run cli-smoke:smoke --testNamePattern="${{ matrix.cell }} "
+
+  # Single gate the release depends on: green only when both verify jobs passed (or were skipped for a
+  # dry-run preview). always() so it still reports a status when the matrix fans out or is skipped.
+  verify:
+    needs: [verify-libs, verify-smoke]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Require verify-libs and verify-smoke to pass
+        run: |
+          libs="${{ needs.verify-libs.result }}"
+          smoke="${{ needs.verify-smoke.result }}"
+          echo "verify-libs:  $libs"
+          echo "verify-smoke: $smoke"
+          for result in "$libs" "$smoke"; do
+            case "$result" in
+              success | skipped) ;; # passed, or skipped for a dry-run preview
+              *)
+                echo "::error::verify dependency result was '$result'"
+                exit 1
+                ;;
+            esac
+          done
 
   release:
     needs: [verify]

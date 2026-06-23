@@ -58,7 +58,11 @@ export default {
 					'libs/cli/src/generators/ui/**',
 					'CHANGELOG.md',
 				],
-				message: 'chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}',
+				// Keep the release notes OUT of the commit message: @semantic-release/git passes it as a
+				// single `git commit -m` argument, and the first release's notes (thousands of commits)
+				// blow past the OS arg limit -> `spawn E2BIG`. The full changelog still lands in
+				// CHANGELOG.md (committed as an asset above) and in the GitHub Release.
+				message: 'chore(release): ${nextRelease.version} [skip ci]',
 			},
 		],
 		'@semantic-release/github',

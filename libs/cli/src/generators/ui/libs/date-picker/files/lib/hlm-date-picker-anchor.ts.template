@@ -1,4 +1,4 @@
-import { Directive, effect, ElementRef, inject, input } from '@angular/core';
+import { Directive, effect, ElementRef, inject, input, linkedSignal } from '@angular/core';
 import { BrnOverlay } from '@spartan-ng/brain/overlay';
 import { BrnPopover } from '@spartan-ng/brain/popover';
 
@@ -7,9 +7,11 @@ export class HlmDatePickerAnchor {
 	private readonly _host = inject(ElementRef, { host: true });
 	private readonly _brnOverlay = inject(BrnOverlay, { optional: true });
 
-	public readonly hlmDatePickerAnchorFor = input<BrnPopover | undefined>(undefined, {
+	public readonly hlmDatePickerAnchorForInput = input<BrnPopover | undefined>(undefined, {
 		alias: 'hlmDatePickerAnchorFor',
 	});
+
+	public readonly hlmDatePickerAnchorFor = linkedSignal(this.hlmDatePickerAnchorForInput);
 
 	constructor() {
 		effect(() => {

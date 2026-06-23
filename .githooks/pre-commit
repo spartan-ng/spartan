@@ -1,3 +1,17 @@
 #!/bin/sh
 
+# Keep the CLI's hlm templates in sync with the helm sources they're generated from: a helm change
+# committed without regenerating leaves them stale. Only run when this commit touches helm (the
+# generator is multi-second and can add/remove files).
+regen=0
+if git diff --cached --name-only --diff-filter=ACMRTD | grep -qE '^libs/helm/'; then
+	pnpm nx g @spartan-ng/tools:hlm-to-cli-generator
+	regen=1
+fi
+
 pnpm nx format:write
+
+# Stage the generated templates AFTER format:write so they're committed formatted.
+if [ "$regen" -eq 1 ]; then
+	git add libs/cli/src/generators/ui
+fi

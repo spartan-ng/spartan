@@ -2,6 +2,7 @@ import { type BooleanInput } from '@angular/cdk/coercion';
 import { CdkMenuItem, CdkMenuItemCheckbox, CdkMenuItemSelectable } from '@angular/cdk/menu';
 import { Directive, booleanAttribute, inject, input } from '@angular/core';
 import { classes } from '@spartan-ng/helm/utils';
+import { HlmDropdownMenuFocusOnHover } from './hlm-dropdown-menu-focus-on-hover';
 
 /** @internal. Use HlmDropdownMenuCheckbox instead. */
 @Directive({
@@ -28,6 +29,7 @@ export class HlmDropdownMenuCheckboxCdk extends CdkMenuItemCheckbox {
 			inputs: ['cdkMenuItemDisabled: disabled', 'cdkMenuItemChecked: checked', 'keepOpen'],
 			outputs: ['cdkMenuItemTriggered: triggered'],
 		},
+		HlmDropdownMenuFocusOnHover,
 	],
 	host: {
 		'data-slot': 'dropdown-menu-checkbox-item',

@@ -6,12 +6,7 @@ import { booleanAttribute, Component, input } from '@angular/core';
 		class: 'flex items-center justify-center',
 	},
 	template: `
-		<svg
-			class="logo-legacy:hidden max-h-10 w-full"
-			viewBox="0 0 873 923"
-			fill="none"
-			xmlns="http://www.w3.org/2000/svg"
-		>
+		<svg class="logo-legacy:hidden max-h-6 w-full" viewBox="0 0 873 923" fill="none" xmlns="http://www.w3.org/2000/svg">
 			<path
 				d="M351.019 572.876L436.247 619.524L521.474 572.876L480.551 498.463L559.034 431.269L436.247 22.0439L313.459 431.269L391.942 498.463L351.019 572.876Z"
 				[attr.fill]="flat() ? '#DD0031' : 'url(#paint0_linear_1019_272)'"

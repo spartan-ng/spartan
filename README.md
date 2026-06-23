@@ -1,7 +1,7 @@
 # spartan
 
 <a href="https://www.spartan.ng" target="_blank">
-<img alt="A spartan shield" width="200px" src="./spartan.svg" title="Spartan logo"/>
+<img alt="A spartan shield" width="100px" src="./spartan.svg" title="Spartan logo"/>
 </a>
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://opensource.org/licenses/MIT) [![Discord server](https://dcbadge.limes.pink/api/server/EqHnxQ4uQr?style=flat-square)](https://discord.gg/EqHnxQ4uQr)

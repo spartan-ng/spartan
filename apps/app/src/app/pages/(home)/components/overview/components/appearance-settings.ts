@@ -52,7 +52,7 @@ import { HlmSwitch } from '@spartan-ng/helm/switch';
 					<p hlmFieldDescription>You can add more later.</p>
 				</div>
 				<div hlmButtonGroup>
-					<input hlmInput class="h-8 !w-14 font-mono" [value]="_gpuCount()" />
+					<input hlmInput class="h-7 !w-14 font-mono" [value]="_gpuCount()" />
 					<button hlmBtn variant="outline" size="icon-sm" (click)="_gpuCountDecrease()">
 						<ng-icon name="lucideMinus" />
 					</button>

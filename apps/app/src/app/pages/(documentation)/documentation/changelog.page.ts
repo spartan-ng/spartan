@@ -35,9 +35,104 @@ export const routeMeta: RouteMeta = {
 	template: `
 		<section spartanMainSection>
 			<spartan-section-intro name="Changelog" lead="Latest updates and announcements." />
-			<spartan-section-sub-heading id="initial-alpha" first class="pt-6">
-				August 2023 - Initial Alpha release
-			</spartan-section-sub-heading>
+			<spartan-section-sub-heading id="v1" first class="pt-6">June 2026 - spartan/ui v1.0</spartan-section-sub-heading>
+			<p class="${hlmP}">
+				After a long and deliberate alpha,
+				<code class="${hlmCode}">spartan/ui</code>
+				is now
+				<strong>1.0</strong>
+				. What started as 30 primitives has grown into a stable, production-ready library of accessible Angular
+				components - built on signals, ready for zoneless, and compatible with server-side rendering out of the box.
+			</p>
+
+			<p class="${hlmP}">Here's a quick overview of what 1.0 means:</p>
+			<ul class="${hlmUl}">
+				<li>
+					<a class="font-medium hover:underline" routerLink="." fragment="v1__stable">Production-ready and stable</a>
+					- a committed, semver-versioned API you can build on.
+				</li>
+				<li>
+					<a class="font-medium hover:underline" routerLink="." fragment="v1__architecture">Built for modern Angular</a>
+					- signals throughout, zoneless-ready, and SSR compatible.
+				</li>
+				<li>
+					<a class="font-medium hover:underline" routerLink="." fragment="v1__components">More than 55 components</a>
+					- nearly double the initial 30, including Data Table, Sidebar, Calendar, and Date Picker.
+				</li>
+				<li>
+					<a class="font-medium hover:underline" routerLink="." fragment="v1__blocks">Blocks</a>
+					- ready-made layouts for authentication, sidebars, and steppers.
+				</li>
+			</ul>
+
+			<h3 id="v1__stable" spartanH4>Production-ready and stable</h3>
+			<p class="${hlmP}">
+				spartan/ui spent a long time in alpha so we could refine its APIs in the open. With 1.0 those APIs are stable:
+				we follow semantic versioning, so you can depend on
+				<code class="${hlmCode}">spartan/ui/brain</code>
+				and upgrade with confidence. The copy-in
+				<code class="${hlmCode}">spartan/ui/helm</code>
+				layer stays yours to own and customize - exactly as before.
+			</p>
+
+			<h3 id="v1__architecture" spartanH4>Built for modern Angular</h3>
+			<p class="${hlmP}">
+				Every primitive is built on Angular signals and standalone components. spartan is zoneless-ready and
+				server-side-rendering compatible out of the box, so it fits cleanly into today's Angular applications without
+				extra setup. You get maintained accessibility - ARIA, keyboard navigation, and focus management - through
+				<code class="${hlmCode}">spartan/ui/brain</code>
+				, with full styling control through
+				<code class="${hlmCode}">spartan/ui/helm</code>
+				.
+			</p>
+
+			<h3 id="v1__components" spartanH4>More than 55 components</h3>
+			<p class="${hlmP}">
+				The initial alpha shipped with 30 primitives. 1.0 ships with more than 55, including many of the most requested
+				additions:
+			</p>
+			<ul class="${hlmUl}">
+				<li><a class="font-medium hover:underline" routerLink="/components/data-table">Data Table</a></li>
+				<li><a class="font-medium hover:underline" routerLink="/components/sidebar">Sidebar</a></li>
+				<li><a class="font-medium hover:underline" routerLink="/components/calendar">Calendar</a></li>
+				<li><a class="font-medium hover:underline" routerLink="/components/date-picker">Date Picker</a></li>
+				<li><a class="font-medium hover:underline" routerLink="/components/carousel">Carousel</a></li>
+				<li><a class="font-medium hover:underline" routerLink="/components/autocomplete">Autocomplete</a></li>
+				<li><a class="font-medium hover:underline" routerLink="/components/pagination">Pagination</a></li>
+				<li><a class="font-medium hover:underline" routerLink="/components/breadcrumb">Breadcrumb</a></li>
+			</ul>
+			<p class="${hlmP}">
+				Browse the full set on the
+				<a class="font-medium hover:underline" routerLink="/components">components page</a>
+				.
+			</p>
+
+			<h3 id="v1__blocks" spartanH4>Blocks</h3>
+			<p class="${hlmP}">
+				Blocks are ready-made, fully responsive layouts built from spartan components. 1.0 includes authentication
+				pages, sidebar layouts, and multi-step steppers you can drop into your app and customize. Explore them on the
+				<a class="font-medium hover:underline" routerLink="/blocks">blocks page</a>
+				.
+			</p>
+
+			<h3 id="v1__getting_started" spartanH4>Getting started</h3>
+			<p class="${hlmP}">New to spartan? There's never been a better time to start.</p>
+			<div class="m-10 flex items-center justify-center">
+				<a hlmBtn size="lg" routerLink="/documentation/installation">Get started with spartan/ui</a>
+			</div>
+
+			<h3 id="v1__support" spartanH4>Support spartan</h3>
+			<p class="${hlmP}">
+				spartan is MIT-licensed and built in the open. If it saves you time, consider sponsoring its development -
+				sponsorships fund ongoing maintenance, new components, and keeping spartan free for the whole Angular community.
+			</p>
+			<div class="m-10 flex items-center justify-center">
+				<a hlmBtn size="lg" target="_blank" rel="noreferrer" href="https://github.com/sponsors/goetzrobin">
+					Sponsor spartan
+				</a>
+			</div>
+
+			<spartan-section-sub-heading id="initial-alpha">August 2023 - Initial Alpha release</spartan-section-sub-heading>
 
 			<p class="${hlmP}">
 				<code class="${hlmCode}">spartan/ui</code>

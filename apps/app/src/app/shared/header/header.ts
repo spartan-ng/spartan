@@ -2,7 +2,8 @@ import { httpResource } from '@angular/common/http';
 import { Component, computed } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { lucideGithub, lucideTwitter } from '@ng-icons/lucide';
+import { lucideGithub } from '@ng-icons/lucide';
+import { tablerBrandDiscord } from '@ng-icons/tabler-icons';
 import { DocsDialog } from '@spartan-ng/app/app/shared/header/docs-dialog';
 import { HeaderLayoutMode } from '@spartan-ng/app/app/shared/header/header-layout-mode';
 import { HlmButton } from '@spartan-ng/helm/button';
@@ -27,7 +28,7 @@ import { HeaderMobileNav } from './header-mobile-nav';
 
 		DocsDialog,
 	],
-	providers: [provideIcons({ lucideTwitter, lucideGithub })],
+	providers: [provideIcons({ tablerBrandDiscord, lucideGithub })],
 	host: {
 		class: 'backdrop-blur-sm sticky top-0 z-50 w-full',
 	},
@@ -54,12 +55,26 @@ import { HeaderMobileNav } from './header-mobile-nav';
 				<div class="ml-auto flex items-center gap-2 md:flex-1 md:justify-end">
 					<spartan-docs-dialog class="hidden w-full flex-1 md:flex md:w-auto md:flex-none" />
 					<hlm-separator orientation="vertical" class="!h-4 !self-center" />
-					<a href="https://twitter.com/goetzrobin" target="_blank" size="sm" variant="ghost" hlmBtn>
-						<span class="sr-only">Twitter</span>
-						<ng-icon name="lucideTwitter" />
+					<a
+						href="https://discord.gg/EqHnxQ4uQr"
+						target="_blank"
+						rel="noopener noreferrer"
+						size="sm"
+						variant="ghost"
+						hlmBtn
+					>
+						<span class="sr-only">Discord</span>
+						<ng-icon name="tablerBrandDiscord" />
 					</a>
 					<hlm-separator orientation="vertical" class="!h-4 !self-center" />
-					<a href="https://github.com/spartan-ng/spartan" target="_blank" size="sm" variant="ghost" hlmBtn>
+					<a
+						href="https://github.com/spartan-ng/spartan"
+						target="_blank"
+						rel="noopener noreferrer"
+						size="sm"
+						variant="ghost"
+						hlmBtn
+					>
 						<ng-icon name="lucideGithub" />
 						<span class="text-muted-foreground text-xs">{{ _stars() }}</span>
 					</a>

@@ -127,7 +127,10 @@ const lead = 'text-foreground max-w-3xl text-base text-balance sm:text-lg';
 			</hlm-tabs>
 		</section>
 
-		<section id="the-300" class="space-y-6 py-8 [contain-intrinsic-size:auto_900px] [content-visibility:auto] md:py-12">
+		<section
+			id="the-300"
+			class="scroll-mt-24 space-y-6 py-8 [contain-intrinsic-size:auto_900px] [content-visibility:auto] md:py-12"
+		>
 			<div class="${container} max-w-[58rem]">
 				<h2 class="${subHeading}">Built By The 300</h2>
 				<p class="${lead} max-w-[42rem]">
@@ -138,11 +141,24 @@ const lead = 'text-foreground max-w-3xl text-base text-balance sm:text-lg';
 			<div class="mx-auto space-y-12 text-center md:max-w-[64rem]">
 				<spartan-three-hundred class="mt-12" />
 				<p class="${lead} mx-auto max-w-[42rem]">
-					Contribute code, share insights, or sponsor on GitHub. Let's build something extraordinary together!
+					This project is MIT-licensed and free forever. Sponsoring funds ongoing maintenance, new components, and the
+					people who keep it moving!
 				</p>
-				<a hlmBtn size="lg" target="_blank" rel="noreferrer" href="https://github.com/spartan-ng/spartan">
-					Claim your spot in the 300 today!
-				</a>
+				<div class="flex flex-col items-center justify-center gap-3 sm:flex-row">
+					<a hlmBtn size="lg" target="_blank" rel="noreferrer" href="https://github.com/sponsors/goetzrobin">
+						Sponsor spartan
+					</a>
+					<a
+						hlmBtn
+						size="lg"
+						variant="outline"
+						target="_blank"
+						rel="noreferrer"
+						href="https://github.com/spartan-ng/spartan"
+					>
+						Claim your spot in the 300 today!
+					</a>
+				</div>
 			</div>
 		</section>
 	`,

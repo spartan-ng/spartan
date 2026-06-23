@@ -1,4 +1,4 @@
-import { createStyleMap, STYLES } from '@spartan-ng/cli';
+import { createStyleMap, STYLE_PLACEHOLDER_ALLOWLIST, STYLES } from '@spartan-ng/cli';
 import { execSync } from 'node:child_process';
 import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
@@ -302,11 +302,6 @@ export function assertHealthcheckClean(ws: CellWorkspace): void {
 	}
 }
 
-// Mirror of the transform's ALLOWLIST (libs/cli .../styles/transform-style-map.ts): the only `spartan-*`
-// tokens the generator intentionally leaves in the output. Anything else remaining means a placeholder the
-// style map should have replaced was not replaced.
-const STYLE_ALLOWLIST = new Set(['spartan-menu-target', 'spartan-logical-sides', 'spartan-invalid']);
-
 /** Build a style's class map from the registry CSS exactly as the CLI does, so the expected classes are
  *  derived (never hardcoded) and stay correct as the registry styles change. */
 function registryStyleMap(style: string): Record<string, string> {
@@ -315,6 +310,18 @@ function registryStyleMap(style: string): Record<string, string> {
 		'utf-8',
 	);
 	return createStyleMap(css);
+}
+
+/** Every registry placeholder selector across all styles (minus the allowlist), so a leftover survives the
+ *  check even when the cell's own style is the one that dropped the selector. */
+function allStylePlaceholders(): Set<string> {
+	const placeholders = new Set<string>();
+	for (const style of STYLES) {
+		for (const selector of Object.keys(registryStyleMap(style))) {
+			if (!STYLE_PLACEHOLDER_ALLOWLIST.has(selector)) placeholders.add(selector);
+		}
+	}
+	return placeholders;
 }
 
 /** Selectors of the generated components (so the differential below only considers classes that can
@@ -376,7 +383,7 @@ export function assertStyleClassesApplied(ws: CellWorkspace): void {
 	const source = readGeneratedSource(ws);
 	const styleMap = registryStyleMap(style);
 
-	const placeholders = new Set(Object.keys(styleMap).filter((selector) => !STYLE_ALLOWLIST.has(selector)));
+	const placeholders = allStylePlaceholders();
 	const leftover = [...new Set(Array.from(source.matchAll(/\bspartan-[\w-]+\b/g), (m) => m[0]))].filter((token) =>
 		placeholders.has(token),
 	);
@@ -388,7 +395,14 @@ export function assertStyleClassesApplied(ws: CellWorkspace): void {
 	}
 
 	const distinctive = distinctiveTokens(styleMap, style, generatedComponentSelectors(ws));
-	if (distinctive.size > 0 && ![...distinctive].some((token) => containsClass(source, token))) {
+	if (distinctive.size === 0) {
+		console.warn(
+			`[${ws.cell.id}] style "${style}" has no classes distinctive from the other styles for the ` +
+				`generated components - the style-identity assertion is skipped for this cell.`,
+		);
+		return;
+	}
+	if (![...distinctive].some((token) => containsClass(source, token))) {
 		throw new Error(
 			`[${ws.cell.id}] none of style "${style}"'s distinctive registry classes reached the generated ` +
 				`output - the generator may have applied the wrong style's classes.`,

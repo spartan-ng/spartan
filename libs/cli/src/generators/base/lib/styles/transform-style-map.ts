@@ -11,7 +11,8 @@ import {
 import { type StyleMap } from './create-style-map';
 import type { TransformerStyle } from './transform';
 
-const ALLOWLIST = new Set(['spartan-menu-target', 'spartan-logical-sides', 'spartan-invalid']);
+/** `spartan-*` tokens the transform intentionally leaves in place (everything else is a replaced placeholder). */
+export const STYLE_PLACEHOLDER_ALLOWLIST = new Set(['spartan-menu-target', 'spartan-logical-sides', 'spartan-invalid']);
 
 function isStringLiteralLike(node: Node): node is StringLiteral | NoSubstitutionTemplateLiteral {
 	return Node.isStringLiteral(node) || Node.isNoSubstitutionTemplateLiteral(node);
@@ -181,7 +182,7 @@ function extractSpartanClasses(str: string) {
 function removeSpartanClasses(str: string) {
 	return str
 		.replace(/\bspartan-[\w-]+\b/g, (match) => {
-			if (ALLOWLIST.has(match)) return match;
+			if (STYLE_PLACEHOLDER_ALLOWLIST.has(match)) return match;
 			return '';
 		})
 		.replace(/\s+/g, ' ')
@@ -317,7 +318,7 @@ function removeCnClasses(str: string) {
 	return str
 		.replace(/\bspartan-[\w-]+\b/g, (match) => {
 			// Preserve allowlisted classes
-			if (ALLOWLIST.has(match)) {
+			if (STYLE_PLACEHOLDER_ALLOWLIST.has(match)) {
 				return match;
 			}
 			return '';

@@ -41,7 +41,7 @@ describe('alert-dialog', () => {
 			cy.findAllByText(/delete account/i).should('have.focus');
 		});
 
-		it('tab and enter on trigger should open, enter on cancel should close, escape should close', () => {
+		it('tab and enter on trigger should open, enter on cancel should close, escape should not close', () => {
 			cy.checkA11y('#storybook-root', {
 				rules: {
 					'page-has-heading-one': { enabled: false },
@@ -65,8 +65,9 @@ describe('alert-dialog', () => {
 			cy.findAllByText(/delete account/i).should('have.focus');
 			cy.realPress('Enter');
 
-			// // click escape when dialog open
+			// escape is disabled for alert dialogs, so it should stay open
 			cy.realPress('Escape');
+			cy.findAllByText(/delete account/i).should('have.length', 2);
 			cy.findAllByText(/delete account/i).should('not.have.focus');
 		});
 
@@ -94,8 +95,9 @@ describe('alert-dialog', () => {
 			cy.findAllByText(/delete account/i).should('have.focus');
 			cy.realPress('Space');
 
-			// click escape when dialog open
+			// escape is disabled for alert dialogs, so it should stay open
 			cy.realPress('Escape');
+			cy.findAllByText(/delete account/i).should('have.length', 2);
 			cy.findAllByText(/delete account/i).should('not.have.focus');
 		});
 	});

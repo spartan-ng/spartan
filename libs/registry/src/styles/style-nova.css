@@ -77,7 +77,7 @@
 
 	/* MARK: Alert Dialog */
 	.spartan-alert-dialog-overlay {
-		@apply data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 bg-black/10 duration-100 supports-backdrop-filter:backdrop-blur-xs;
+		@apply data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 isolate bg-black/10 duration-100 supports-backdrop-filter:backdrop-blur-xs;
 	}
 
 	.spartan-alert-dialog-content {
@@ -467,7 +467,7 @@
 
 	/* MARK: Dialog */
 	.spartan-dialog-overlay {
-		@apply data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 bg-black/10 duration-100 supports-backdrop-filter:backdrop-blur-xs;
+		@apply data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 isolate bg-black/10 duration-100 supports-backdrop-filter:backdrop-blur-xs;
 	}
 
 	.spartan-dialog-content {
@@ -950,7 +950,7 @@
 
 	/* MARK: Sheet */
 	.spartan-sheet-overlay {
-		@apply bg-black/10 supports-backdrop-filter:backdrop-blur-xs;
+		@apply data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 isolate bg-black/10 duration-100 supports-backdrop-filter:backdrop-blur-xs;
 	}
 
 	.spartan-sheet-content {

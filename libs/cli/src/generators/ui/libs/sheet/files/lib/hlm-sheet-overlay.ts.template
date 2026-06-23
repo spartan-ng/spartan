@@ -11,12 +11,7 @@ import type { ClassValue } from 'clsx';
 export class HlmSheetOverlay {
 	private readonly _classSettable = injectCustomClassSettable({ optional: true, host: true });
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	protected readonly _computedClass = computed(() =>
-		hlm(
-			'spartan-sheet-overlay transition-opacity duration-150 data-ending-style:opacity-0 data-starting-style:opacity-0',
-			this.userClass(),
-		),
-	);
+	protected readonly _computedClass = computed(() => hlm('spartan-sheet-overlay', this.userClass()));
 
 	constructor() {
 		effect(() => {

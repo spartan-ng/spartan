@@ -1,6 +1,6 @@
 {
 	"name": "@spartan-ng/mcp",
-	"version": "0.0.1-alpha.720",
+	"version": "0.0.1-alpha.721",
 	"description": "Model Context Protocol server exposing Spartan Angular UI documentation, components, and blocks as AI-consumable tools.",
 	"keywords": [
 		"mcp",

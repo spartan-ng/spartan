@@ -69,6 +69,8 @@ export class BrnTooltip {
 	private _positionChangeSub: Subscription | undefined = undefined;
 	/** Bumped on every close/show so a pending exit-animation teardown can detect it was superseded. */
 	private _closeGeneration = 0;
+	/** The position currently applied to the content - the CDK-resolved one after a flip, not the raw input. */
+	private _activePosition: BrnTooltipPosition | undefined = undefined;
 
 	public readonly tooltipDisabled = input<boolean, boolean>(false, { transform: booleanAttribute });
 	public readonly mutableTooltipDisabled = linkedSignal(this.tooltipDisabled);
@@ -224,6 +226,9 @@ export class BrnTooltip {
 			if (this._componentRef.instance.state() === 'closed') {
 				this._closeGeneration++;
 				this._componentRef.instance.state.set('open');
+				// Re-apply props so a programmatic text change during the close is reflected on revive.
+				// Keep the live (possibly flipped) position rather than resetting to the raw input.
+				this._applyContentProps(this._componentRef.instance, this._activePosition ?? this.position());
 				this.show.emit();
 			}
 			return;
@@ -235,13 +240,9 @@ export class BrnTooltip {
 			this._componentRef = undefined;
 		});
 		this._componentRef?.instance.state.set('open');
-		this._componentRef?.instance.setProps(
-			this._tooltipText(),
-			this.position(),
-			this._config.tooltipContentClasses,
-			this._config.arrowClasses(this.position()),
-			this._config.svgClasses,
-		);
+		if (this._componentRef) {
+			this._applyContentProps(this._componentRef.instance, this.position());
+		}
 
 		// Subscribe to position changes for the lifetime of the tooltip so that
 		// arrow direction and CSS classes stay in sync when the CDK flips the
@@ -254,13 +255,7 @@ export class BrnTooltip {
 				.subscribe((change) => {
 					const resolved = resolveTooltipPosition(change.connectionPair);
 					if (resolved) {
-						compRef.instance.setProps(
-							null,
-							resolved,
-							this._config.tooltipContentClasses,
-							this._config.arrowClasses(resolved),
-							this._config.svgClasses,
-						);
+						this._applyContentProps(compRef.instance, resolved, null);
 					}
 				});
 		}
@@ -276,6 +271,23 @@ export class BrnTooltip {
 			});
 		});
 		this.show.emit();
+	}
+
+	/** Apply text + position (and the position-derived classes) to the content, recording the position as
+	 *  active. Pass `text = null` for a position-only update that keeps the content's existing text. */
+	private _applyContentProps(
+		content: BrnTooltipContent,
+		position: BrnTooltipPosition,
+		text: BrnTooltipType = this._tooltipText(),
+	): void {
+		this._activePosition = position;
+		content.setProps(
+			text,
+			position,
+			this._config.tooltipContentClasses,
+			this._config.arrowClasses(position),
+			this._config.svgClasses,
+		);
 	}
 
 	private _hide(): void {

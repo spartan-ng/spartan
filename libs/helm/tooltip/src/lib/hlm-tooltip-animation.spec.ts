@@ -1,5 +1,5 @@
 import { Directionality } from '@angular/cdk/bidi';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { fireEvent, render, screen, waitFor } from '@testing-library/angular';
 import { HlmTooltip } from './hlm-tooltip';
 
@@ -22,6 +22,21 @@ const EXIT_MS = 150;
 	`,
 })
 class TooltipAnimationHost {}
+
+@Component({
+	selector: 'hlm-tooltip-dynamic-host',
+	imports: [HlmTooltip],
+	providers: [Directionality],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<div style="position: fixed; inset: 0; display: flex; align-items: center; justify-content: center">
+			<button [hlmTooltip]="tip()" [showDelay]="0" [hideDelay]="0">trigger</button>
+		</div>
+	`,
+})
+class TooltipDynamicHost {
+	public readonly tip = signal('first');
+}
 
 const triggerEl = () => screen.getByText('trigger');
 const tooltipEl = () => document.querySelector('[role="tooltip"]');
@@ -78,6 +93,24 @@ describe('HlmTooltip animation-aware teardown', () => {
 		await wait(EXIT_MS + 120);
 		expect(tooltipEl()).toBeTruthy();
 		expect(tooltipState()).toBe('open');
+	});
+
+	it('reflects a programmatic text change when revived mid-animation', async () => {
+		const { fixture } = await render(TooltipDynamicHost);
+
+		fireEvent.mouseEnter(triggerEl());
+		await waitFor(() => expect(tooltipEl()?.textContent).toContain('first'));
+
+		fireEvent.mouseLeave(triggerEl());
+		await waitFor(() => expect(tooltipState()).toBe('closed'));
+
+		// Mutate the bound text while the exit animation is in flight, then re-hover to revive.
+		fixture.componentInstance.tip.set('second');
+		fixture.detectChanges();
+		fireEvent.mouseEnter(triggerEl());
+
+		await waitFor(() => expect(tooltipState()).toBe('open'));
+		expect(tooltipEl()?.textContent).toContain('second');
 	});
 });
 

@@ -10,9 +10,18 @@ import { Header } from './shared/header/header';
 		class: 'bg-background relative z-10 flex min-h-svh flex-col',
 	},
 	template: `
-		<div
-			class="pointer-events-none fixed top-0 left-0 z-40 h-[1380px] w-[560px] -translate-y-[350px] -rotate-45 bg-radial-(--spotlight-gradient)"
-		></div>
+		<svg class="pointer-events-none fixed inset-0 z-40 h-full w-full" width="100%" height="100%" aria-hidden="true">
+			<defs>
+				<radialGradient id="spartan-spotlight" cx="0.5502" cy="0.3146" r="0.686">
+					<stop offset="0" stop-color="#d9d9d9" stop-opacity="0.078" />
+					<stop offset="0.5" stop-color="#8c8c8c" stop-opacity="0.02" />
+					<stop offset="0.8" stop-color="#737373" stop-opacity="0" />
+				</radialGradient>
+			</defs>
+			<g transform="translate(0 -350) rotate(-45 280 690)">
+				<rect x="0" y="0" width="560" height="1380" fill="url(#spartan-spotlight)" />
+			</g>
+		</svg>
 		<spartan-header id="spartan-header" />
 		<main class="flex flex-1 flex-col" id="spartan-main">
 			<router-outlet />

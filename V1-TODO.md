@@ -69,11 +69,12 @@ Channel model: `main → latest`, `beta → beta`, `alpha → alpha`.
 > (failing unit/e2e/build) can ever reach a release branch — making the in-workflow `verify` gate a
 > fail-fast backstop rather than the only line of defense.
 
-### 4. (Optional but recommended) Require PRs on `main` + add a GitHub App to bypass
+### 4. (Required) Add a GitHub App for the release token
 
-Only needed if you want to **require pull requests or status checks** on `main`. Under today's rules
-(no-delete/no-force-push only) the default `GITHUB_TOKEN` can already push the release commit + tag,
-so you can skip this and revisit later.
+`release.yml` always mints its token via `actions/create-github-app-token` from `APP_ID` /
+`APP_PRIVATE_KEY`, so the App must exist or the release job fails at the first step. It also doubles
+as the bypass actor once you **require pull requests or status checks** on `main` (the default
+`GITHUB_TOKEN` cannot be a bypass actor).
 
 - [x] Create a GitHub App in the org with **Contents: Read & write** (add **Pull requests** + **Issues:
       Read & write** if you keep semantic-release's release comments). No webhook.

@@ -66,7 +66,7 @@ Our initial 300 contributors and sponsors are featured here and on the front pag
 28. [dongphuong0905](https://github.com/dongphuong0905)
 29. [DominikPieper](https://github.com/DominikPieper)
 30. [brandonroberts](https://github.com/brandonroberts)
-31. [izikd-](https://github.com/izikd-)
+31. [izikd](https://github.com/izikd)
 32. [ryancraigmartin](https://github.com/ryancraigmartin)
 33. [gaetanBloch](https://github.com/gaetanBloch)
 34. [gergobergo](https://github.com/gergobergo)

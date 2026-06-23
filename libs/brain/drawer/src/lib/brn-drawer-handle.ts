@@ -98,6 +98,7 @@ export class BrnDrawerHandle {
 		this._dragStartTime = Date.now();
 
 		this._drawerEl.style.transition = 'none';
+		this._drawerEl.style.animation = 'none';
 		this._drawerEl.style.willChange = 'transform';
 
 		this._scrollableAncestors = this._findScrollableAncestors(event.target as HTMLElement);
@@ -278,9 +279,12 @@ export class BrnDrawerHandle {
 			this._resetTimeout = null;
 			if (this._drawerEl) {
 				this._drawerEl.style.transition = '';
+				this._drawerEl.style.animation = '';
 				this._drawerEl.style.willChange = '';
 			}
-			if (this._backdropEl) this._backdropEl.style.transition = '';
+			if (this._backdropEl) {
+				this._backdropEl.style.transition = '';
+			}
 		}, 500);
 	}
 

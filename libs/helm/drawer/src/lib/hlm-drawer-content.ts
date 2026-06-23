@@ -23,6 +23,19 @@ export class HlmDrawerContent {
 	public readonly state = this._stateProvider.state ?? signal('closed');
 
 	constructor() {
-		classes(() => ['spartan-drawer-content', 'group/drawer-content']);
+		classes(() => [
+			'spartan-drawer-content',
+			'group/drawer-content',
+			'data-[state=open]:animate-in',
+			'data-[state=closed]:animate-out',
+			'data-[vaul-drawer-direction=bottom]:data-[state=closed]:slide-out-to-bottom',
+			'data-[vaul-drawer-direction=bottom]:data-[state=open]:slide-in-from-bottom',
+			'data-[vaul-drawer-direction=top]:data-[state=closed]:slide-out-to-top',
+			'data-[vaul-drawer-direction=top]:data-[state=open]:slide-in-from-top',
+			'data-[vaul-drawer-direction=left]:data-[state=closed]:slide-out-to-left',
+			'data-[vaul-drawer-direction=left]:data-[state=open]:slide-in-from-left',
+			'data-[vaul-drawer-direction=right]:data-[state=closed]:slide-out-to-right',
+			'data-[vaul-drawer-direction=right]:data-[state=open]:slide-in-from-right',
+		]);
 	}
 }

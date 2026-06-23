@@ -279,6 +279,7 @@ export class BrnDrawerHandle {
 			if (this._drawerEl) {
 				this._drawerEl.style.transition = '';
 				this._drawerEl.style.willChange = '';
+				this._drawerEl.style.animation = '';
 			}
 			if (this._backdropEl) this._backdropEl.style.transition = '';
 		}, 500);
@@ -298,7 +299,6 @@ export class BrnDrawerHandle {
 		const prop = this._isVertical ? 'translateY' : 'translateX';
 		this._drawerEl.style.transition = CLOSE_TRANSITION;
 		this._drawerEl.style.transform = `${prop}(${targetClose}px)`;
-		this._drawerEl.style.animation = 'none';
 		if (this._backdropEl) {
 			this._backdropEl.style.transition = OVERLAY_TRANSITION;
 			this._backdropEl.style.opacity = '0';

@@ -16,6 +16,10 @@ describe('AppComponent', () => {
 				dispatchEvent: vitest.fn(),
 			})),
 		});
+		Object.defineProperty(globalThis, 'localStorage', {
+			writable: true,
+			value: { getItem: vitest.fn(), setItem: vitest.fn() },
+		});
 
 		await TestBed.configureTestingModule({
 			providers: [provideRouter([]), provideHttpClient()],

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, ElementRef, inject, input, Renderer2 } from '@angular/core';
 import { classes } from '@spartan-ng/helm/utils';
 import type { ChartConfig } from './chart-config';
 import { CHART_CONTEXT, type ChartContext } from './chart-context';
@@ -24,9 +24,6 @@ import { CHART_CONTEXT, type ChartContext } from './chart-context';
 	},
 	template: `
 		<ng-content />
-		<style>
-			{{ generatedStyles() }}
-		</style>
 	`,
 })
 export class HlmChartContainer {
@@ -34,10 +31,12 @@ export class HlmChartContainer {
 	public readonly config = input.required<ChartConfig>();
 
 	private readonly _fallbackId = Math.random().toString(36).substring(2, 9);
+	private readonly _renderer = inject(Renderer2);
+	private readonly _elementRef = inject(ElementRef);
 
 	public readonly chartId = computed(() => `chart-${this.id() ?? this._fallbackId}`);
 
-	public readonly generatedStyles = computed(() => {
+	private readonly generatedStyles = computed(() => {
 		const config = this.config();
 		const colorConfig = Object.entries(config).filter(([, cfg]) => cfg.theme || cfg.color);
 		if (colorConfig.length === 0) return '';
@@ -62,5 +61,17 @@ ${colorConfig
 
 	constructor() {
 		classes(() => 'flex aspect-video h-full w-full flex-col justify-center text-xs');
+		effect(() => {
+			const css = this.generatedStyles();
+			if (!css) return;
+			const existing = this._elementRef.nativeElement.querySelector('style[data-chart-styles]');
+			if (existing) existing.textContent = css;
+			else {
+				const style = this._renderer.createElement('style');
+				style.setAttribute('data-chart-styles', '');
+				style.textContent = css;
+				this._renderer.appendChild(this._elementRef.nativeElement, style);
+			}
+		});
 	}
 }

@@ -20,6 +20,7 @@ import { CHART_CONTEXT, type ChartContext } from './chart-context';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'data-slot': 'chart-container',
+		'[attr.data-chart]': 'chartId()',
 	},
 	template: `
 		<ng-content />
@@ -32,7 +33,9 @@ export class HlmChartContainer {
 	public readonly id = input<string>();
 	public readonly config = input.required<ChartConfig>();
 
-	public readonly chartId = computed(() => `chart-${this.id() || Math.random().toString(36).substring(2, 9)}`);
+	private readonly _fallbackId = Math.random().toString(36).substring(2, 9);
+
+	public readonly chartId = computed(() => `chart-${this.id() ?? this._fallbackId}`);
 
 	public readonly generatedStyles = computed(() => {
 		const config = this.config();

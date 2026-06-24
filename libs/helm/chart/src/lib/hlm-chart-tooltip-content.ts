@@ -66,12 +66,12 @@ export class HlmChartTooltipContent {
 		const payload = this.payload();
 		const config = this.config();
 		return payload.map((item) => {
-			const key = this.nameKey() || item.seriesName || item.name;
-			const itemConfig = config[key];
+			const configKey = this.nameKey() || item.seriesName || item.name;
+			const itemConfig = config[configKey];
 			const indicatorColor = itemConfig?.color || item.color;
 			const label = itemConfig?.label || item.seriesName || item.name;
 			const formattedValue = typeof item.value === 'number' ? item.value.toLocaleString() : String(item.value);
-			return { key, label, value: item.value, formattedValue, indicatorColor };
+			return { key: item.seriesName || item.name, label, value: item.value, formattedValue, indicatorColor };
 		});
 	});
 

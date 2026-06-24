@@ -41,6 +41,8 @@ export class ChartDonutPreview {
 		other: { label: 'Other', color: 'var(--chart-5)' },
 	} satisfies ChartConfig;
 
+	private readonly _total = 925;
+
 	public readonly chartOptions: EChartsCoreOption = {
 		tooltip: { trigger: 'item' },
 		legend: { show: false },
@@ -63,5 +65,16 @@ export class ChartDonutPreview {
 				],
 			},
 		],
+		graphic: {
+			type: 'text',
+			left: 'center',
+			top: 'center',
+			style: {
+				text: `${this._total.toLocaleString()}`,
+				fontSize: 24,
+				fontWeight: 700,
+				fill: 'currentColor',
+			},
+		},
 	};
 }

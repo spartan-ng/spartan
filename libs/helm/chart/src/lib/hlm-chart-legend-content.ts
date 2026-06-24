@@ -11,9 +11,11 @@ import { CHART_CONTEXT } from './chart-context';
 	},
 	template: `
 		<div [class]="_computedClass()">
-			@for (item of legendItems(); track item.key) {
+			@for (item of legendItems(); track item.originalKey) {
 				<div class="[&>svg]:text-muted-foreground flex items-center gap-1.5 [&>svg]:h-3 [&>svg]:w-3">
-					<div class="h-2 w-2 shrink-0 rounded-xs" [style.backgroundColor]="item.color"></div>
+					@if (!hideIcon()) {
+						<div class="h-2 w-2 shrink-0 rounded-xs" [style.backgroundColor]="item.color"></div>
+					}
 					<span>{{ item.label }}</span>
 				</div>
 			}
@@ -31,6 +33,7 @@ export class HlmChartLegendContent {
 	public readonly legendItems = computed(() => {
 		const config = this._chartContext.config;
 		return Object.entries(config).map(([key, value]) => ({
+			originalKey: key,
 			key: this.nameKey() || key,
 			color: value.color || value.theme?.light,
 			label: value.label || key,

@@ -1,16 +1,13 @@
 import { HlmChartContainer } from './lib/hlm-chart-container';
 import { HlmChartTooltipContent } from './lib/hlm-chart-tooltip-content';
 import { HlmChartLegendContent } from './lib/hlm-chart-legend-content';
-import { HlmChartStyle } from './lib/hlm-chart-style';
 
 export * from './lib/hlm-chart-container';
 export * from './lib/hlm-chart-tooltip-content';
 export * from './lib/hlm-chart-legend-content';
-export * from './lib/hlm-chart-style';
 
 export const HlmChartImports = [
 	HlmChartContainer,
 	HlmChartTooltipContent,
 	HlmChartLegendContent,
-	HlmChartStyle,
 ] as const;

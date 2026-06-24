@@ -66,7 +66,7 @@ import type { EChartsCoreOption } from 'echarts';
 `;
 
 export const defaultSkeleton = `
-<hlm-chart-container [config]="chartConfig">
+<hlm-chart-container [config]="chartConfig" class="min-h-[200px] w-full">
   <div echarts [options]="chartOptions" class="h-full w-full"></div>
 </hlm-chart-container>
 `;

@@ -28,11 +28,8 @@ export function addChartEmphasis<T extends Record<string, any>>(series: T): T {
 	if (itemColor !== undefined) {
 		emph['itemStyle'] = { color: itemColor };
 	}
-	const existingBlur = series['blur'] as Record<string, any> | undefined;
 	return {
 		...series,
-		focus: 'series',
 		emphasis: emph,
-		blur: { ...existingBlur, opacity: 0.2 },
 	};
 }

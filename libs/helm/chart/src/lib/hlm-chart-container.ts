@@ -89,15 +89,15 @@ ${colorConfig
 		this._styleEl = this._renderer.createElement('style');
 		this._styleEl.setAttribute('data-chart-styles', '');
 		this._renderer.appendChild(this._elementRef.nativeElement, this._styleEl);
+		// effect must be in constructor (injection context) in Angular v21.
+		effect(() => {
+			this._styleEl.textContent = this._generatedStyles();
+		});
 	}
 
 	ngOnInit() {
 		// Inputs are available in ngOnInit. Populate style before ECharts initializes
 		// in ngAfterViewInit so var(--color-*) resolves.
 		this._styleEl.textContent = this._generatedStyles();
-		// Keep effect for reactive updates if config changes.
-		effect(() => {
-			this._styleEl.textContent = this._generatedStyles();
-		});
 	}
 }

@@ -2,7 +2,15 @@ import { Component, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { lucideBell, lucideChevronRight, lucideCreditCard, lucideImage, lucideMail, lucideMenu, lucidePlus, lucideSearch, lucideSettings, lucideUser } from '@ng-icons/lucide';
+import {
+	lucideBell,
+	lucideChevronRight,
+	lucideCreditCard,
+	lucideImage,
+	lucideMail,
+	lucideSettings,
+	lucideUser,
+} from '@ng-icons/lucide';
 import { HlmBadge } from '@spartan-ng/helm/badge';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmCardImports } from '@spartan-ng/helm/card';
@@ -10,7 +18,17 @@ import { HlmCardImports } from '@spartan-ng/helm/card';
 @Component({
 	selector: 'spartan-preview-page',
 	imports: [HlmButton, HlmBadge, HlmCardImports, NgIcon],
-	providers: [provideIcons({ lucideBell, lucideChevronRight, lucideCreditCard, lucideImage, lucideMail, lucideMenu, lucidePlus, lucideSearch, lucideSettings, lucideUser })],
+	providers: [
+		provideIcons({
+			lucideBell,
+			lucideChevronRight,
+			lucideCreditCard,
+			lucideImage,
+			lucideMail,
+			lucideSettings,
+			lucideUser,
+		}),
+	],
 	host: {
 		class: 'block min-h-screen p-4',
 	},
@@ -19,7 +37,9 @@ import { HlmCardImports } from '@spartan-ng/helm/card';
 			<div class="flex items-center justify-between">
 				<div>
 					<h1 class="text-foreground text-2xl font-bold">Dashboard</h1>
-					<p class="text-muted-foreground text-sm">{{ _item() === 'preview-01' ? 'Welcome back, user' : 'Manage your account settings' }}</p>
+					<p class="text-muted-foreground text-sm">
+						{{ _item() === 'preview-01' ? 'Welcome back, user' : 'Manage your account settings' }}
+					</p>
 				</div>
 				<div class="flex items-center gap-2">
 					<button hlmBtn size="icon" variant="outline">

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, type SafeHtml } from '@angular/platform-browser';
 import { hlm } from '@spartan-ng/helm/utils';
 import type { ChartConfig } from './chart-config';
 
@@ -102,7 +102,15 @@ export class HlmChartTooltipContent {
 			const label = itemConfig?.label || item.seriesName || item.name;
 			const name = item.seriesName || item.name;
 			const formattedValue = typeof item.value === 'number' ? item.value.toLocaleString() : String(item.value);
-			return { key: name, name, label, value: item.value, formattedValue, indicatorColor };
+			return {
+				key: name,
+				name,
+				label,
+				value: item.value,
+				formattedValue,
+				indicatorColor,
+				formattedHtml: null as SafeHtml | null,
+			};
 		});
 	});
 

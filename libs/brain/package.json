@@ -1,6 +1,6 @@
 {
 	"name": "@spartan-ng/brain",
-	"version": "1.0.1-alpha.1",
+	"version": "1.0.1-beta.1",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/spartan-ng/spartan.git"

@@ -229,7 +229,7 @@ export const routeMeta: RouteMeta = {
 			<h3 id="bar-label" spartanH4>Bar Chart - Label</h3>
 			<p class="${hlmP}">
 				A bar chart with data labels using
-				<code class="${hlmCode}">label: { show: true }</code>
+				<code class="${hlmCode}">label: {{ '{' }} show: true {{ '}' }}</code>
 				.
 			</p>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
@@ -346,7 +346,7 @@ export const routeMeta: RouteMeta = {
 			<h3 id="radar-legend" spartanH4>Radar Chart - Legend</h3>
 			<p class="${hlmP}">
 				A radar chart with a visible legend using
-				<code class="${hlmCode}">legend: { show: true }</code>
+				<code class="${hlmCode}">legend: {{ '{' }} show: true {{ '}' }}</code>
 				.
 			</p>
 			<spartan-tabs firstTab="Preview" secondTab="Code">

@@ -1198,6 +1198,112 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
       },
     },
   },
+  "chart": {
+    "helm": {
+      "HlmChartContainer": {
+        "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "config",
+            "required": true,
+            "type": "ChartConfig",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-chart-container, [hlmChartContainer]",
+      },
+      "HlmChartLegendContent": {
+        "inputs": [
+          {
+            "name": "hideIcon",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "nameKey",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "verticalAlign",
+            "required": false,
+            "type": "'bottom' | 'top'",
+          },
+          {
+            "name": "userClass",
+            "required": false,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-chart-legend-content, [hlmChartLegendContent]",
+      },
+      "HlmChartStyle": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-chart-style, [hlmChartStyle]",
+      },
+      "HlmChartTooltipContent": {
+        "inputs": [
+          {
+            "name": "hideLabel",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "hideIndicator",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "indicator",
+            "required": false,
+            "type": "'line' | 'dot' | 'dashed'",
+          },
+          {
+            "name": "nameKey",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "labelKey",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "payload",
+            "required": false,
+            "type": "Array<{ name: string; value: number; color: string; seriesName?: string }>",
+          },
+          {
+            "name": "config",
+            "required": false,
+            "type": "ChartConfig",
+          },
+          {
+            "name": "userClass",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "label",
+            "required": false,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-chart-tooltip-content, [hlmChartTooltipContent]",
+      },
+    },
+  },
   "checkbox": {
     "brain": {
       "BrnCheckbox": {

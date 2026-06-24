@@ -46,7 +46,7 @@ export class HlmChartContainer implements OnInit {
 
 	public readonly chartId = computed(() => `chart-${this.id() ?? this._fallbackId}`);
 
-	private readonly generatedStyles = computed(() => {
+	private readonly _generatedStyles = computed(() => {
 		const config = this.config();
 		const colorConfig = Object.entries(config).filter(([, cfg]) => cfg.theme || cfg.color);
 		if (colorConfig.length === 0) return '';
@@ -69,7 +69,7 @@ ${colorConfig
 			.join('\n');
 	});
 
-	private _styleEl!: HTMLStyleElement;
+	private readonly _styleEl!: HTMLStyleElement;
 
 	constructor() {
 		classes(() => 'flex aspect-video h-full w-full flex-col justify-center text-xs');
@@ -81,10 +81,10 @@ ${colorConfig
 	ngOnInit() {
 		// Inputs are available in ngOnInit. Populate style before ECharts initializes
 		// in ngAfterViewInit so var(--color-*) resolves.
-		this._styleEl.textContent = this.generatedStyles();
+		this._styleEl.textContent = this._generatedStyles();
 		// Keep effect for reactive updates if config changes.
 		effect(() => {
-			this._styleEl.textContent = this.generatedStyles();
+			this._styleEl.textContent = this._generatedStyles();
 		});
 	}
 }

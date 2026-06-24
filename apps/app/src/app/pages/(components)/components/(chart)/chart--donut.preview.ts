@@ -2,7 +2,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { Component, inject, PLATFORM_ID } from '@angular/core';
 import { HlmCardImports } from '@spartan-ng/helm/card';
 import type { ChartConfig } from '@spartan-ng/helm/chart';
-import { addChartEmphasis, HlmChartImports, resolveCssVar } from '@spartan-ng/helm/chart';
+import { HlmChartImports, resolveCssVar } from '@spartan-ng/helm/chart';
 import type { EChartsCoreOption } from 'echarts';
 import { NgxEchartsDirective } from 'ngx-echarts';
 
@@ -54,7 +54,7 @@ export class ChartDonutPreview {
 		},
 		legend: { show: false },
 		series: [
-			addChartEmphasis({
+			{
 				name: 'Visitors',
 				type: 'pie',
 				radius: ['45%', '75%'],
@@ -70,7 +70,7 @@ export class ChartDonutPreview {
 					{ value: 173, name: 'edge', itemStyle: { color: resolveCssVar('--chart-4') } },
 					{ value: 90, name: 'other', itemStyle: { color: resolveCssVar('--chart-5') } },
 				],
-			}),
+			},
 		],
 		graphic: {
 			type: 'text',

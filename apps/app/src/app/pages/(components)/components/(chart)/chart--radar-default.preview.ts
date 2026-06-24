@@ -2,7 +2,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { Component, inject, PLATFORM_ID } from '@angular/core';
 import { HlmCardImports } from '@spartan-ng/helm/card';
 import type { ChartConfig } from '@spartan-ng/helm/chart';
-import { addChartEmphasis, HlmChartImports, resolveCssVar } from '@spartan-ng/helm/chart';
+import { HlmChartImports, resolveCssVar } from '@spartan-ng/helm/chart';
 import type { EChartsCoreOption } from 'echarts';
 import { NgxEchartsDirective } from 'ngx-echarts';
 
@@ -61,7 +61,7 @@ export class ChartRadarDefaultPreview {
 			splitArea: { areaStyle: { color: [resolveCssVar('--muted'), 'transparent'] } },
 		},
 		series: [
-			addChartEmphasis({
+			{
 				name: 'Visitors',
 				type: 'radar',
 				data: [{ value: [186, 305, 237, 73, 209, 214], name: 'Desktop' }],
@@ -69,7 +69,7 @@ export class ChartRadarDefaultPreview {
 				lineStyle: { color: resolveCssVar('--chart-1'), width: 2 },
 				itemStyle: { color: resolveCssVar('--chart-1') },
 				areaStyle: { color: resolveCssVar('--chart-1'), opacity: 0.2 },
-			}),
+			},
 		],
 	};
 }

@@ -21,6 +21,11 @@ export default defineEventHandler((event) => {
 		config: {
 			style: config.style,
 			baseColor: config.baseColor,
+			theme: config.theme,
+			chartColor: config.chartColor,
+			font: config.font,
+			fontHeading: config.fontHeading,
+			radius: config.radius,
 			iconLibrary: config.iconLibrary,
 			menuAccent: config.menuAccent,
 			menuColor: config.menuColor,

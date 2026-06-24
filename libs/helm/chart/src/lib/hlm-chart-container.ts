@@ -1,4 +1,13 @@
-import { ChangeDetectionStrategy, Component, computed, effect, ElementRef, inject, input, Renderer2 } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	computed,
+	effect,
+	ElementRef,
+	inject,
+	input,
+	Renderer2,
+} from '@angular/core';
 import { classes } from '@spartan-ng/helm/utils';
 import type { ChartConfig } from './chart-config';
 import { CHART_CONTEXT, type ChartContext } from './chart-context';
@@ -59,19 +68,18 @@ ${colorConfig
 			.join('\n');
 	});
 
+	private _styleEl!: HTMLStyleElement;
+
 	constructor() {
 		classes(() => 'flex aspect-video h-full w-full flex-col justify-center text-xs');
+		// Inject style synchronously BEFORE ECharts initializes so var(--color-*) resolves.
+		this._styleEl = this._renderer.createElement('style');
+		this._styleEl.setAttribute('data-chart-styles', '');
+		this._styleEl.textContent = this.generatedStyles();
+		this._renderer.appendChild(this._elementRef.nativeElement, this._styleEl);
+		// Keep effect for reactive updates if config changes.
 		effect(() => {
-			const css = this.generatedStyles();
-			if (!css) return;
-			const existing = this._elementRef.nativeElement.querySelector('style[data-chart-styles]');
-			if (existing) existing.textContent = css;
-			else {
-				const style = this._renderer.createElement('style');
-				style.setAttribute('data-chart-styles', '');
-				style.textContent = css;
-				this._renderer.appendChild(this._elementRef.nativeElement, style);
-			}
+			this._styleEl.textContent = this.generatedStyles();
 		});
 	}
 }

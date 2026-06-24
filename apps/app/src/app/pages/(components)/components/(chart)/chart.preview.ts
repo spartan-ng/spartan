@@ -30,7 +30,7 @@ export class ChartPreview {
 	public readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 
 	public readonly chartConfig = {
-		desktop: { label: 'Desktop', color: '#2563eb' },
+		desktop: { label: 'Desktop', color: 'var(--chart-1)' },
 	} satisfies ChartConfig;
 
 	public readonly chartOptions: EChartsCoreOption = {

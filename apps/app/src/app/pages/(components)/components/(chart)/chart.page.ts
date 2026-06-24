@@ -15,11 +15,17 @@ import { SectionSubHeading } from '../../../../shared/layout/section-sub-heading
 import { Tabs } from '../../../../shared/layout/tabs';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
+import { ChartAreaStackedPreview } from './chart--area-stacked.preview';
 import { ChartAreaPreview } from './chart--area.preview';
+import { ChartBarHorizontalPreview } from './chart--bar-horizontal.preview';
+import { ChartBarStackedPreview } from './chart--bar-stacked.preview';
 import { ChartBarPreview } from './chart--bar.preview';
 import { ChartDonutPreview } from './chart--donut.preview';
+import { ChartLineDotsPreview } from './chart--line-dots.preview';
 import { ChartLinePreview } from './chart--line.preview';
+import { ChartPieLegendPreview } from './chart--pie-legend.preview';
 import { ChartPiePreview } from './chart--pie.preview';
+import { ChartRadarDefaultPreview } from './chart--radar-default.preview';
 import { ChartPreview, defaultImports, defaultSkeleton } from './chart.preview';
 
 export const routeMeta: RouteMeta = {
@@ -44,10 +50,16 @@ export const routeMeta: RouteMeta = {
 		PageBottomNavLink,
 		SectionSubSubHeading,
 		ChartAreaPreview,
+		ChartAreaStackedPreview,
 		ChartBarPreview,
+		ChartBarHorizontalPreview,
+		ChartBarStackedPreview,
 		ChartDonutPreview,
 		ChartLinePreview,
+		ChartLineDotsPreview,
 		ChartPiePreview,
+		ChartPieLegendPreview,
+		ChartRadarDefaultPreview,
 		ChartPreview,
 	],
 	template: `
@@ -140,6 +152,84 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_donutCode()" />
 			</spartan-tabs>
 
+			<h3 id="bar-horizontal" spartanH4>Bar Chart - Horizontal</h3>
+			<p class="${hlmP}">
+				A horizontal bar chart using
+				<code class="${hlmCode}">type: 'bar'</code>
+				with swapped axes.
+			</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-chart-bar-horizontal-preview />
+				</div>
+				<spartan-code secondTab [code]="_barHorizontalCode()" />
+			</spartan-tabs>
+
+			<h3 id="bar-stacked" spartanH4>Bar Chart - Stacked</h3>
+			<p class="${hlmP}">
+				A stacked bar chart using
+				<code class="${hlmCode}">stack</code>
+				with a legend.
+			</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-chart-bar-stacked-preview />
+				</div>
+				<spartan-code secondTab [code]="_barStackedCode()" />
+			</spartan-tabs>
+
+			<h3 id="line-dots" spartanH4>Line Chart - Dots</h3>
+			<p class="${hlmP}">
+				A line chart with dot markers using
+				<code class="${hlmCode}">symbol: 'circle'</code>
+				.
+			</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-chart-line-dots-preview />
+				</div>
+				<spartan-code secondTab [code]="_lineDotsCode()" />
+			</spartan-tabs>
+
+			<h3 id="area-stacked" spartanH4>Area Chart - Stacked</h3>
+			<p class="${hlmP}">
+				A stacked area chart using
+				<code class="${hlmCode}">stack</code>
+				with gradient fills.
+			</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-chart-area-stacked-preview />
+				</div>
+				<spartan-code secondTab [code]="_areaStackedCode()" />
+			</spartan-tabs>
+
+			<h3 id="pie-legend" spartanH4>Pie Chart - Legend</h3>
+			<p class="${hlmP}">
+				A pie chart with a visible legend using
+				<code class="${hlmCode}">type: 'pie'</code>
+				.
+			</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-chart-pie-legend-preview />
+				</div>
+				<spartan-code secondTab [code]="_pieLegendCode()" />
+			</spartan-tabs>
+
+			<h3 id="radar" spartanH4>Radar Chart</h3>
+			<p class="${hlmP}">
+				A radar chart using
+				<code class="${hlmCode}">type: 'radar'</code>
+				with multiple indicators.
+			</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-chart-radar-default-preview />
+				</div>
+				<spartan-code secondTab [code]="_radarDefaultCode()" />
+			</spartan-tabs>
+
 			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="helm" />
 
@@ -159,6 +249,12 @@ export default class ChartPage {
 	protected readonly _areaCode = computed(() => this._snippets()['area']);
 	protected readonly _pieCode = computed(() => this._snippets()['pie']);
 	protected readonly _donutCode = computed(() => this._snippets()['donut']);
+	protected readonly _barHorizontalCode = computed(() => this._snippets()['barHorizontal']);
+	protected readonly _barStackedCode = computed(() => this._snippets()['barStacked']);
+	protected readonly _lineDotsCode = computed(() => this._snippets()['lineDots']);
+	protected readonly _areaStackedCode = computed(() => this._snippets()['areaStacked']);
+	protected readonly _pieLegendCode = computed(() => this._snippets()['pieLegend']);
+	protected readonly _radarDefaultCode = computed(() => this._snippets()['radarDefault']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
 }

@@ -8,8 +8,4 @@ export * from './lib/hlm-chart-container';
 export * from './lib/hlm-chart-legend-content';
 export * from './lib/hlm-chart-tooltip-content';
 
-export const HlmChartImports = [
-	HlmChartContainer,
-	HlmChartLegendContent,
-	HlmChartTooltipContent,
-] as const;
+export const HlmChartImports = [HlmChartContainer, HlmChartLegendContent, HlmChartTooltipContent] as const;

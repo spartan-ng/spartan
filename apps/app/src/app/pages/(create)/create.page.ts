@@ -1,5 +1,5 @@
 import type { RouteMeta } from '@analogjs/router';
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
 import { fromEvent } from 'rxjs';
@@ -34,7 +34,6 @@ export const routeMeta: RouteMeta = {
 })
 export default class CreatePage {
 	private readonly _ds = inject(DesignSystemService);
-	private readonly _actionMenuOpen = signal(false);
 
 	constructor() {
 		fromEvent<KeyboardEvent>(document, 'keydown')

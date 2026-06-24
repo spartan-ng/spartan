@@ -96,7 +96,12 @@ export function encodePreset(config: Partial<DesignSystemConfig>): string {
 }
 
 export function isPresetCode(value: string): boolean {
-	return value.startsWith(PRESET_SENTINEL) && value.length > 1;
+	if (!value.startsWith(PRESET_SENTINEL) || value.length <= 1) return false;
+	const payload = value.slice(1);
+	for (const c of payload) {
+		if (!BASE62.includes(c)) return false;
+	}
+	return true;
 }
 
 export function decodePreset(code: string): Partial<DesignSystemConfig> | null {

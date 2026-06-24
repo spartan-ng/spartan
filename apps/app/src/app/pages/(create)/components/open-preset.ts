@@ -2,6 +2,7 @@ import { Component, input, output, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCheck, lucideX } from '@ng-icons/lucide';
+import type { BrnDialogState } from '@spartan-ng/brain/dialog';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmDialogImports } from '@spartan-ng/helm/dialog';
 import { HlmInput } from '@spartan-ng/helm/input';
@@ -53,8 +54,8 @@ import { isPresetCode } from '@spartan-ng/registry';
 	`,
 })
 export class OpenPresetDialog {
-	public readonly open = input(false);
-	public readonly openChange = output<boolean>();
+	public readonly open = input<BrnDialogState>('closed');
+	public readonly openChange = output<BrnDialogState>();
 	public readonly apply = output<string>();
 
 	protected readonly _inputValue = signal('');

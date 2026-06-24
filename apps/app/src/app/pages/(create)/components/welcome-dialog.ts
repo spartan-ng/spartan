@@ -1,4 +1,5 @@
 import { Component, signal } from '@angular/core';
+import type { BrnDialogState } from '@spartan-ng/brain/dialog';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmDialogImports } from '@spartan-ng/helm/dialog';
 
@@ -33,7 +34,9 @@ const STORAGE_KEY = 'spartan-create-welcome-dismissed';
 	`,
 })
 export class WelcomeDialog {
-	protected readonly _open = signal(typeof localStorage !== 'undefined' ? !localStorage.getItem(STORAGE_KEY) : false);
+	protected readonly _open = signal<BrnDialogState>(
+		typeof localStorage !== 'undefined' && !localStorage.getItem(STORAGE_KEY) ? 'open' : 'closed',
+	);
 
 	protected _dismiss(ctx: { close: () => void }): void {
 		if (typeof localStorage !== 'undefined') {

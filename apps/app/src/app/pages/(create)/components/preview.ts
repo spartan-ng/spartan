@@ -1,4 +1,5 @@
-import { Component, computed, effect, inject, signal } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Component, PLATFORM_ID, computed, effect, inject, signal } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideLayoutDashboard, lucideMonitor, lucideMoon, lucideSun } from '@ng-icons/lucide';
@@ -56,6 +57,7 @@ import { DesignSystemService } from '../lib/design-system.service';
 export class Preview {
 	private readonly _ds = inject(DesignSystemService);
 	private readonly _sanitizer = inject(DomSanitizer);
+	private readonly _platformId = inject(PLATFORM_ID);
 
 	protected readonly _previewItem = signal('preview-01');
 
@@ -70,6 +72,7 @@ export class Preview {
 	});
 
 	constructor() {
+		if (!isPlatformBrowser(this._platformId)) return;
 		effect(() => {
 			const iframe = document.querySelector<HTMLIFrameElement>('iframe');
 			if (!iframe?.contentWindow) return;
@@ -93,7 +96,7 @@ export class Preview {
 						darkMode: this._ds.darkMode(),
 					},
 				},
-				'*',
+				window.location.origin,
 			);
 		});
 	}

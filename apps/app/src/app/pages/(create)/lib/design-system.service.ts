@@ -2,10 +2,15 @@ import { Injectable, computed, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
+	BASE_COLORS,
 	COLOR_THEMES,
 	DEFAULT_CONFIG,
 	FONTS,
+	ICON_LIBRARIES,
+	MENU_ACCENTS,
+	MENU_COLORS,
 	RADII,
+	STYLES,
 	THEMES,
 	decodePreset,
 	encodePreset,
@@ -80,6 +85,7 @@ export class DesignSystemService {
 	private _historyIndex = -1;
 
 	constructor() {
+		this._pushHistory(DEFAULT_CONFIG);
 		this._route.queryParams
 			.pipe(
 				takeUntilDestroyed(),
@@ -88,7 +94,6 @@ export class DesignSystemService {
 			.subscribe((config) => {
 				if (config) {
 					this._state.set(config);
-					this._pushHistory(config);
 				}
 			});
 	}
@@ -100,22 +105,35 @@ export class DesignSystemService {
 			if (decoded) {
 				return { ...DEFAULT_CONFIG, ...decoded };
 			}
+			return null;
 		}
 
 		const hasAnyDsParam = DS_PARAMS.some((p) => params[p] !== undefined);
 		if (!hasAnyDsParam) return null;
 
+		const style = params['style'] as DesignSystemConfig['style'];
+		const baseColor = params['baseColor'] as DesignSystemConfig['baseColor'];
+		const theme = params['theme'] as DesignSystemConfig['theme'];
+		const chartColor = params['chartColor'] as DesignSystemConfig['chartColor'];
+		const iconLibrary = params['iconLibrary'] as DesignSystemConfig['iconLibrary'];
+		const font = params['font'] as DesignSystemConfig['font'];
+		const fontHeading = params['fontHeading'] as DesignSystemConfig['fontHeading'];
+		const radius = params['radius'] as DesignSystemConfig['radius'];
+		const menuAccent = params['menuAccent'] as DesignSystemConfig['menuAccent'];
+		const menuColor = params['menuColor'] as DesignSystemConfig['menuColor'];
+
 		return {
-			style: (params['style'] as DesignSystemConfig['style']) ?? DEFAULT_CONFIG.style,
-			baseColor: (params['baseColor'] as DesignSystemConfig['baseColor']) ?? DEFAULT_CONFIG.baseColor,
-			theme: (params['theme'] as DesignSystemConfig['theme']) ?? DEFAULT_CONFIG.theme,
-			chartColor: (params['chartColor'] as DesignSystemConfig['chartColor']) ?? DEFAULT_CONFIG.chartColor,
-			iconLibrary: (params['iconLibrary'] as DesignSystemConfig['iconLibrary']) ?? DEFAULT_CONFIG.iconLibrary,
-			font: (params['font'] as DesignSystemConfig['font']) ?? DEFAULT_CONFIG.font,
-			fontHeading: (params['fontHeading'] as DesignSystemConfig['fontHeading']) ?? DEFAULT_CONFIG.fontHeading,
-			radius: (params['radius'] as DesignSystemConfig['radius']) ?? DEFAULT_CONFIG.radius,
-			menuAccent: (params['menuAccent'] as DesignSystemConfig['menuAccent']) ?? DEFAULT_CONFIG.menuAccent,
-			menuColor: (params['menuColor'] as DesignSystemConfig['menuColor']) ?? DEFAULT_CONFIG.menuColor,
+			style: STYLES.includes(style as never) ? style : DEFAULT_CONFIG.style,
+			baseColor: BASE_COLORS.includes(baseColor as never) ? baseColor : DEFAULT_CONFIG.baseColor,
+			theme: THEMES.includes(theme as never) ? theme : DEFAULT_CONFIG.theme,
+			chartColor: THEMES.includes(chartColor as never) ? chartColor : DEFAULT_CONFIG.chartColor,
+			iconLibrary: ICON_LIBRARIES.includes(iconLibrary as never) ? iconLibrary : DEFAULT_CONFIG.iconLibrary,
+			font: FONTS.includes(font as never) ? font : DEFAULT_CONFIG.font,
+			fontHeading:
+				fontHeading === 'inherit' || FONTS.includes(fontHeading as never) ? fontHeading : DEFAULT_CONFIG.fontHeading,
+			radius: RADII.some((r) => r.name === radius) ? radius : DEFAULT_CONFIG.radius,
+			menuAccent: MENU_ACCENTS.includes(menuAccent as never) ? menuAccent : DEFAULT_CONFIG.menuAccent,
+			menuColor: MENU_COLORS.includes(menuColor as never) ? menuColor : DEFAULT_CONFIG.menuColor,
 		};
 	}
 

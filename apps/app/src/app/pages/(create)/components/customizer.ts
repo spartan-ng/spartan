@@ -15,11 +15,13 @@ import {
 	lucideUpload,
 	lucideX,
 } from '@ng-icons/lucide';
+import type { BrnDialogState } from '@spartan-ng/brain/dialog';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmCardImports } from '@spartan-ng/helm/card';
 import { HlmSeparatorImports } from '@spartan-ng/helm/separator';
 import {
 	BASE_COLORS,
+	BASE_THEMES,
 	COLOR_THEMES,
 	DesignSystemConfig,
 	FONT_DEFINITIONS,
@@ -71,6 +73,9 @@ import { ProjectForm } from './project-form';
 			<div class="flex items-center justify-between border-b p-4">
 				<h2 class="text-sm font-semibold">Customize</h2>
 				<div class="flex items-center gap-1">
+					<button hlmBtn variant="ghost" size="icon-xs" (click)="_openPresetOpen.set('open')" title="Open Preset (O)">
+						<ng-icon name="lucideUpload" size="14" />
+					</button>
 					<button
 						hlmBtn
 						variant="ghost"
@@ -91,7 +96,7 @@ import { ProjectForm } from './project-form';
 					>
 						<ng-icon name="lucideRotateCw" size="14" />
 					</button>
-					<spartan-main-menu />
+					<spartan-main-menu (actionMenu)="_actionMenuOpen.set('open')" />
 				</div>
 			</div>
 
@@ -315,7 +320,7 @@ import { ProjectForm } from './project-form';
 			</div>
 
 			<div class="flex min-w-0 flex-col gap-2 p-6 pt-0 md:flex-col">
-				<button hlmBtn size="sm" class="w-full" (click)="_openProjectForm.set(true)">
+				<button hlmBtn size="sm" class="w-full" (click)="_openProjectForm.set('open')">
 					<ng-icon name="lucideFileCode" class="mr-2" size="14" />
 					Get Code
 				</button>
@@ -336,16 +341,16 @@ export class Customizer {
 
 	protected readonly _styles = STYLES;
 	protected readonly _baseColors = BASE_COLORS;
-	protected readonly _baseThemes = BASE_COLORS;
+	protected readonly _baseThemes = BASE_THEMES;
 	protected readonly _colorThemes = COLOR_THEMES;
 	protected readonly _iconLibraries = ICON_LIBRARIES;
 	protected readonly _fonts = FONT_DEFINITIONS;
 	protected readonly _menuAccents = MENU_ACCENTS;
 	protected readonly _menuColors = MENU_COLORS;
 
-	protected readonly _openPresetOpen = signal(false);
-	protected readonly _openProjectForm = signal(false);
-	protected readonly _actionMenuOpen = signal(false);
+	protected readonly _openPresetOpen = signal<BrnDialogState>('closed');
+	protected readonly _openProjectForm = signal<BrnDialogState>('closed');
+	protected readonly _actionMenuOpen = signal<BrnDialogState>('closed');
 
 	protected readonly _bodyFontLabel = computed(() => {
 		const font = this._ds.state().font;

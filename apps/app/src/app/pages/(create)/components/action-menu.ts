@@ -10,6 +10,7 @@ import {
 	lucideUndo2,
 	lucideUpload,
 } from '@ng-icons/lucide';
+import type { BrnDialogState } from '@spartan-ng/brain/dialog';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmCommandImports } from '@spartan-ng/helm/command';
 import { DesignSystemService } from '../lib/design-system.service';
@@ -65,31 +66,31 @@ import { DesignSystemService } from '../lib/design-system.service';
 export class ActionMenu {
 	protected readonly _ds = inject(DesignSystemService);
 
-	public readonly open = input(false);
-	public readonly openChange = output<boolean>();
+	public readonly open = input<BrnDialogState>('closed');
+	public readonly openChange = output<BrnDialogState>();
 
 	protected _randomize(): void {
 		this._ds.randomize();
-		this.openChange.emit(false);
+		this.openChange.emit('closed');
 	}
 
 	protected _reset(): void {
 		this._ds.reset();
-		this.openChange.emit(false);
+		this.openChange.emit('closed');
 	}
 
 	protected _toggleDark(): void {
 		this._ds.darkMode.set(!this._ds.darkMode());
-		this.openChange.emit(false);
+		this.openChange.emit('closed');
 	}
 
 	protected _undo(): void {
 		this._ds.undo();
-		this.openChange.emit(false);
+		this.openChange.emit('closed');
 	}
 
 	protected _redo(): void {
 		this._ds.redo();
-		this.openChange.emit(false);
+		this.openChange.emit('closed');
 	}
 }

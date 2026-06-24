@@ -1,6 +1,7 @@
 import { Component, computed, inject, input, output, signal } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCheck, lucideCopy, lucideTerminal } from '@ng-icons/lucide';
+import type { BrnDialogState } from '@spartan-ng/brain/dialog';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmDialogImports } from '@spartan-ng/helm/dialog';
 import { HlmLabel } from '@spartan-ng/helm/label';
@@ -99,8 +100,8 @@ import { DesignSystemService } from '../lib/design-system.service';
 export class ProjectForm {
 	protected readonly _ds = inject(DesignSystemService);
 
-	public readonly open = input(false);
-	public readonly openChange = output<boolean>();
+	public readonly open = input<BrnDialogState>('closed');
+	public readonly openChange = output<BrnDialogState>();
 
 	protected readonly _template = signal('angular');
 	protected readonly _copied = signal(false);
@@ -124,8 +125,12 @@ export class ProjectForm {
 		return `/* spartan design system - ${style}/${baseColor} */\n\n@import "tailwindcss";\n@import "@spartan-ng/helm";\n\n@layer base {\n  :root {\n    --font-sans: 'Geist', sans-serif;\n    --font-mono: 'Geist Mono', monospace;\n    --radius: 0.625rem;\n  }\n}\n`;
 	});
 
-	protected _copy(text: string): void {
-		navigator.clipboard.writeText(text);
+	protected async _copy(text: string): Promise<void> {
+		try {
+			await navigator.clipboard.writeText(text);
+		} catch {
+			// Clipboard not available (e.g., insecure context, prerendering)
+		}
 		this._copied.set(true);
 		setTimeout(() => this._copied.set(false), 2000);
 	}

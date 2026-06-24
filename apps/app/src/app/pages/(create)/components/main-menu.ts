@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, output } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
 	lucideMenu,
@@ -38,6 +38,11 @@ import { DesignSystemService } from '../lib/design-system.service';
 			</button>
 			<div *hlmPopoverPortal="let ctx" hlmPopoverContent class="w-56 p-1">
 				<div class="space-y-0.5">
+					<button hlmBtn variant="ghost" size="sm" class="w-full justify-start gap-2" (click)="_commands(ctx)">
+						<ng-icon name="lucideMenu" size="14" />
+						<span class="flex-1 text-left">Commands</span>
+					</button>
+					<div hlmPopoverSeparator></div>
 					<button hlmBtn variant="ghost" size="sm" class="w-full justify-start gap-2" (click)="_undo(ctx)">
 						<ng-icon name="lucideUndo2" size="14" />
 						<span class="flex-1 text-left">Undo</span>
@@ -72,6 +77,13 @@ import { DesignSystemService } from '../lib/design-system.service';
 })
 export class MainMenu {
 	protected readonly _ds = inject(DesignSystemService);
+
+	public readonly actionMenu = output<void>();
+
+	protected _commands(ctx: { close: () => void }): void {
+		this.actionMenu.emit();
+		ctx.close();
+	}
 
 	protected _undo(ctx: { close: () => void }): void {
 		this._ds.undo();

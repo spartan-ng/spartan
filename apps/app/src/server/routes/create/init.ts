@@ -1,4 +1,4 @@
-import { DEFAULT_CONFIG, decodePreset, type DesignSystemConfig } from '@spartan-ng/registry';
+import { DEFAULT_CONFIG, decodePreset, isPresetCode, type DesignSystemConfig } from '@spartan-ng/registry';
 import { defineEventHandler, getQuery } from 'h3';
 
 export default defineEventHandler((event) => {
@@ -12,6 +12,8 @@ export default defineEventHandler((event) => {
 			config = { ...DEFAULT_CONFIG, ...decoded };
 		}
 	}
+
+	const validPresetCode = presetCode && isPresetCode(presetCode) ? presetCode : null;
 
 	return {
 		name: `${config.style}-${config.baseColor}`,
@@ -60,6 +62,6 @@ export default defineEventHandler((event) => {
 			},
 		},
 		dependencies: ['class-variance-authority', 'clsx', 'tailwind-merge', 'tw-animate-css'],
-		docs: `To use this preset, run:\n\nnpx spartan init --preset ${presetCode ?? 'b0'}\n\nOr apply to an existing project:\n\nnpx spartan apply --preset ${presetCode ?? 'b0'}`,
+		docs: `To use this preset, run:\n\nnpx spartan init --preset ${validPresetCode ?? 'b0'}\n\nOr apply to an existing project:\n\nnpx spartan apply --preset ${validPresetCode ?? 'b0'}`,
 	};
 });

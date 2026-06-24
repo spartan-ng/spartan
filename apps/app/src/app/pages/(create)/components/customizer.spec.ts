@@ -5,6 +5,23 @@ import { vitest } from 'vitest';
 import { Customizer } from './customizer';
 
 describe('Customizer', () => {
+	let originalMatchMedia: PropertyDescriptor | undefined;
+	let originalScrollIntoView: typeof Element.prototype.scrollIntoView | undefined;
+
+	beforeAll(() => {
+		originalMatchMedia = Object.getOwnPropertyDescriptor(window, 'matchMedia');
+		originalScrollIntoView = Element.prototype.scrollIntoView;
+	});
+
+	afterAll(() => {
+		if (originalMatchMedia) {
+			Object.defineProperty(window, 'matchMedia', originalMatchMedia);
+		}
+		if (originalScrollIntoView) {
+			Element.prototype.scrollIntoView = originalScrollIntoView;
+		}
+	});
+
 	beforeEach(async () => {
 		Object.defineProperty(window, 'matchMedia', {
 			writable: true,

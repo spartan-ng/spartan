@@ -64,7 +64,7 @@ export class ChartRadarDefaultPreview {
 			{
 				name: 'Visitors',
 				type: 'radar',
-				data: [{ value: [186, 305, 237, 273, 209, 214], name: 'Desktop' }],
+				data: [{ value: [186, 305, 237, 73, 209, 214], name: 'Desktop' }],
 				symbol: 'none',
 				lineStyle: { color: 'var(--color-desktop)', width: 2 },
 				itemStyle: { color: 'var(--color-desktop)' },

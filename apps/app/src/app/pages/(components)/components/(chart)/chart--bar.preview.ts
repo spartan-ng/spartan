@@ -2,7 +2,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { Component, inject, PLATFORM_ID } from '@angular/core';
 import { HlmCardImports } from '@spartan-ng/helm/card';
 import type { ChartConfig } from '@spartan-ng/helm/chart';
-import { HlmChartImports, resolveCssVar } from '@spartan-ng/helm/chart';
+import { addChartEmphasis, HlmChartImports, resolveCssVar } from '@spartan-ng/helm/chart';
 import type { EChartsCoreOption } from 'echarts';
 import { NgxEchartsDirective } from 'ngx-echarts';
 
@@ -72,18 +72,18 @@ export class ChartBarPreview {
 			axisTick: { show: false },
 		},
 		series: [
-			{
+			addChartEmphasis({
 				name: 'desktop',
 				type: 'bar',
 				data: barChartData.map((d) => d.desktop),
 				itemStyle: { color: resolveCssVar('--chart-1'), borderRadius: [4, 4, 0, 0] },
-			},
-			{
+			}),
+			addChartEmphasis({
 				name: 'mobile',
 				type: 'bar',
 				data: barChartData.map((d) => d.mobile),
 				itemStyle: { color: resolveCssVar('--chart-2'), borderRadius: [4, 4, 0, 0] },
-			},
+			}),
 		],
 	};
 }

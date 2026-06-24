@@ -2,7 +2,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { Component, inject, PLATFORM_ID } from '@angular/core';
 import { HlmCardImports } from '@spartan-ng/helm/card';
 import type { ChartConfig } from '@spartan-ng/helm/chart';
-import { HlmChartImports, resolveCssVar } from '@spartan-ng/helm/chart';
+import { addChartEmphasis, HlmChartImports, resolveCssVar } from '@spartan-ng/helm/chart';
 import type { EChartsCoreOption } from 'echarts';
 import { NgxEchartsDirective } from 'ngx-echarts';
 
@@ -73,7 +73,7 @@ export class ChartLineStepPreview {
 			splitLine: { lineStyle: { color: resolveCssVar('--border') } },
 		},
 		series: [
-			{
+			addChartEmphasis({
 				name: 'desktop',
 				type: 'line',
 				data: chartData.map((d) => d.desktop),
@@ -94,7 +94,7 @@ export class ChartLineStepPreview {
 					},
 					opacity: 0.2,
 				},
-			},
+			}),
 		],
 	};
 }

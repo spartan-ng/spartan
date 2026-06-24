@@ -1,7 +1,7 @@
 import { isPlatformBrowser } from '@angular/common';
 import { Component, inject, PLATFORM_ID } from '@angular/core';
 import type { ChartConfig } from '@spartan-ng/helm/chart';
-import { HlmChartImports, resolveCssVar } from '@spartan-ng/helm/chart';
+import { addChartEmphasis, HlmChartImports, resolveCssVar } from '@spartan-ng/helm/chart';
 import type { EChartsCoreOption } from 'echarts';
 import { NgxEchartsDirective } from 'ngx-echarts';
 
@@ -58,11 +58,11 @@ export class ChartPreview {
 			axisLabel: { color: resolveCssVar('--muted-foreground'), fontSize: 12 },
 		},
 		series: [
-			{
+			addChartEmphasis({
 				type: 'bar',
 				data: chartData.map((d) => d.desktop),
 				itemStyle: { color: resolveCssVar('--chart-1'), borderRadius: [4, 4, 0, 0] },
-			},
+			}),
 		],
 	};
 }

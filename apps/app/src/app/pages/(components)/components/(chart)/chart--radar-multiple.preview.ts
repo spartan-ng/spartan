@@ -2,7 +2,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { Component, inject, PLATFORM_ID } from '@angular/core';
 import { HlmCardImports } from '@spartan-ng/helm/card';
 import type { ChartConfig } from '@spartan-ng/helm/chart';
-import { HlmChartImports, resolveCssVar } from '@spartan-ng/helm/chart';
+import { addChartEmphasis, HlmChartImports, resolveCssVar } from '@spartan-ng/helm/chart';
 import type { EChartsCoreOption } from 'echarts';
 import { NgxEchartsDirective } from 'ngx-echarts';
 
@@ -74,7 +74,7 @@ export class ChartRadarMultiplePreview {
 			splitArea: { areaStyle: { color: [resolveCssVar('--muted'), 'transparent'] } },
 		},
 		series: [
-			{
+			addChartEmphasis({
 				name: 'Desktop',
 				type: 'radar',
 				data: [{ value: chartData.map((d) => d.desktop), name: 'Desktop' }],
@@ -82,8 +82,8 @@ export class ChartRadarMultiplePreview {
 				lineStyle: { color: resolveCssVar('--chart-1'), width: 2 },
 				itemStyle: { color: resolveCssVar('--chart-1') },
 				areaStyle: { color: resolveCssVar('--chart-1'), opacity: 0.2 },
-			},
-			{
+			}),
+			addChartEmphasis({
 				name: 'Mobile',
 				type: 'radar',
 				data: [{ value: chartData.map((d) => d.mobile), name: 'Mobile' }],
@@ -91,7 +91,7 @@ export class ChartRadarMultiplePreview {
 				lineStyle: { color: resolveCssVar('--chart-2'), width: 2 },
 				itemStyle: { color: resolveCssVar('--chart-2') },
 				areaStyle: { color: resolveCssVar('--chart-2'), opacity: 0.2 },
-			},
+			}),
 		],
 	};
 }

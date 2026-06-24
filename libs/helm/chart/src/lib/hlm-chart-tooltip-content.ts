@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { hlm } from '@spartan-ng/helm/utils';
 import type { ChartConfig } from './chart-config';
 
@@ -10,40 +11,54 @@ import type { ChartConfig } from './chart-config';
 	},
 	template: `
 		<div [class]="_computedTooltipClass()">
-			@if (!_nestLabel() && _tooltipLabel()) {
-				<div class="font-medium">{{ _tooltipLabel() }}</div>
+			@if (!_nestLabel() && _tooltipLabelSafe()) {
+				@if (_tooltipLabelSafe()!.trusted) {
+					<div class="font-medium" [innerHTML]="_tooltipLabelSafe()!.trusted"></div>
+				} @else {
+					<div class="font-medium">{{ _tooltipLabelSafe()!.plain }}</div>
+				}
 			}
 			<div class="grid gap-1.5">
-				@for (item of payloadItems(); track item.key) {
-					<div
-						[class]="
-							hlm(
-								'[&>svg]:text-muted-foreground flex w-full flex-wrap items-stretch gap-2 [&>svg]:h-2.5 [&>svg]:w-2.5',
-								indicator() === 'dot' && 'items-center'
-							)
-						"
-					>
-						@if (!hideIndicator()) {
-							<div
-								[class]="_indicatorClass()"
-								[style.--color-bg]="item.indicatorColor"
-								[style.--color-border]="item.indicatorColor"
-							></div>
-						}
-						<div [class]="hlm('flex flex-1 justify-between leading-none', _nestLabel() ? 'items-end' : 'items-center')">
-							<div class="grid gap-1.5">
-								@if (_nestLabel()) {
-									<div class="font-medium">{{ _tooltipLabel() }}</div>
-								}
-								<span class="text-muted-foreground">{{ item.label }}</span>
-							</div>
-							@if (item.value !== null && item.value !== undefined) {
-								<span class="text-foreground font-mono font-medium tabular-nums">
-									{{ item.formattedValue }}
-								</span>
+				@for (item of _enrichedPayload(); track item.key; let i = $index) {
+					@if (item.formattedHtml) {
+						<div [innerHTML]="item.formattedHtml"></div>
+					} @else {
+						<div
+							[class]="
+								hlm(
+									'[&>svg]:text-muted-foreground flex w-full flex-wrap items-stretch gap-2 [&>svg]:h-2.5 [&>svg]:w-2.5',
+									indicator() === 'dot' && 'items-center'
+								)
+							"
+						>
+							@if (!hideIndicator()) {
+								<div
+									[class]="_indicatorClass()"
+									[style.--color-bg]="item.indicatorColor"
+									[style.--color-border]="item.indicatorColor"
+								></div>
 							}
+							<div
+								[class]="hlm('flex flex-1 justify-between leading-none', _nestLabel() ? 'items-end' : 'items-center')"
+							>
+								<div class="grid gap-1.5">
+									@if (_nestLabel()) {
+										@if (_tooltipLabelSafe()!.trusted) {
+											<div class="font-medium" [innerHTML]="_tooltipLabelSafe()!.trusted"></div>
+										} @else {
+											<div class="font-medium">{{ _tooltipLabelSafe()!.plain }}</div>
+										}
+									}
+									<span class="text-muted-foreground">{{ item.label }}</span>
+								</div>
+								@if (item.value !== null && item.value !== undefined) {
+									<span class="text-foreground font-mono font-medium tabular-nums">
+										{{ item.formattedValue }}
+									</span>
+								}
+							</div>
 						</div>
-					</div>
+					}
 				}
 			</div>
 		</div>
@@ -59,6 +74,10 @@ export class HlmChartTooltipContent {
 	public readonly config = input<ChartConfig>({});
 	public readonly userClass = input<string>();
 	public readonly label = input<string>();
+	public readonly formatter = input<(value: number | string, name: string, index: number, payload: any) => string>();
+	public readonly labelFormatter = input<(value: string, payload: any[]) => string>();
+
+	private readonly _sanitizer = inject(DomSanitizer);
 
 	public readonly hlm = hlm;
 
@@ -70,22 +89,45 @@ export class HlmChartTooltipContent {
 			const itemConfig = config[configKey];
 			const indicatorColor = itemConfig?.color || item.color;
 			const label = itemConfig?.label || item.seriesName || item.name;
+			const name = item.seriesName || item.name;
 			const formattedValue = typeof item.value === 'number' ? item.value.toLocaleString() : String(item.value);
-			return { key: item.seriesName || item.name, label, value: item.value, formattedValue, indicatorColor };
+			return { key: name, name, label, value: item.value, formattedValue, indicatorColor };
+		});
+	});
+
+	protected readonly _enrichedPayload = computed(() => {
+		const items = this.payloadItems();
+		const formatterFn = this.formatter();
+		if (!formatterFn) return items;
+		const rawPayload = this.payload();
+		return items.map((item, index) => {
+			const raw = rawPayload[index];
+			const html = formatterFn(item.value, item.name, index, raw);
+			return html ? { ...item, formattedHtml: this._sanitizer.bypassSecurityTrustHtml(html) } : item;
 		});
 	});
 
 	protected readonly _nestLabel = computed(() => this.payload().length === 1 && this.indicator() !== 'dot');
 
-	protected readonly _tooltipLabel = computed(() => {
+	protected readonly _tooltipLabelSafe = computed(() => {
 		if (this.hideLabel() || !this.payload().length) return null;
 		const label = this.label();
+		const rawPayload = this.payload();
+		let resolvedLabel: string | null = null;
 		if (label) {
 			const config = this.config();
 			const labelConfig = config[label];
-			return labelConfig?.label || label;
+			resolvedLabel = (labelConfig?.label as string) ?? label;
 		}
-		return null;
+		if (resolvedLabel === null) return null;
+		const labelFormatterFn = this.labelFormatter();
+		if (labelFormatterFn) {
+			const html = labelFormatterFn(resolvedLabel, rawPayload);
+			return html
+				? { plain: resolvedLabel, trusted: this._sanitizer.bypassSecurityTrustHtml(html) }
+				: { plain: resolvedLabel, trusted: null };
+		}
+		return { plain: resolvedLabel, trusted: null };
 	});
 
 	protected readonly _computedTooltipClass = computed(() =>

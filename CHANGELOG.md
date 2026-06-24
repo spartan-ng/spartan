@@ -1,3 +1,23 @@
+## <small>1.0.1 (2026-06-24)</small>
+
+- Merge pull request #1563 from spartan-ng/beta ([c94bf48](https://github.com/spartan-ng/spartan/commit/c94bf48)), closes [#1563](https://github.com/spartan-ng/spartan/issues/1563)
+- chore(release): 1.0.1-beta.1 [skip ci] ([a091048](https://github.com/spartan-ng/spartan/commit/a091048))
+- fix: stop CDK backdrop fade doubling the overlay open animation (#1562) ([393d0fc](https://github.com/spartan-ng/spartan/commit/393d0fc)), closes [#1562](https://github.com/spartan-ng/spartan/issues/1562) [#1560](https://github.com/spartan-ng/spartan/issues/1560) [#1555](https://github.com/spartan-ng/spartan/issues/1555)
+- ci: publish releases on push to main/beta/alpha (#1559) ([5e5ddea](https://github.com/spartan-ng/spartan/commit/5e5ddea)), closes [#1559](https://github.com/spartan-ng/spartan/issues/1559)
+- build: keep helm @spartan-ng/brain peer in sync with releases (#1561) ([bb18cbf](https://github.com/spartan-ng/spartan/commit/bb18cbf)), closes [#1561](https://github.com/spartan-ng/spartan/issues/1561)
+
+## <small>1.0.1-beta.1 (2026-06-24)</small>
+
+- fix: stop CDK backdrop fade doubling the overlay open animation (#1562) ([393d0fc](https://github.com/spartan-ng/spartan/commit/393d0fc)), closes [#1562](https://github.com/spartan-ng/spartan/issues/1562) [#1560](https://github.com/spartan-ng/spartan/issues/1560) [#1555](https://github.com/spartan-ng/spartan/issues/1555)
+- ci: publish releases on push to main/beta/alpha (#1559) ([5e5ddea](https://github.com/spartan-ng/spartan/commit/5e5ddea)), closes [#1559](https://github.com/spartan-ng/spartan/issues/1559)
+- build: keep helm @spartan-ng/brain peer in sync with releases (#1561) ([bb18cbf](https://github.com/spartan-ng/spartan/commit/bb18cbf)), closes [#1561](https://github.com/spartan-ng/spartan/issues/1561)
+
+## <small>1.0.1-alpha.1 (2026-06-24)</small>
+
+- fix: stop CDK backdrop fade doubling the overlay open animation (#1560) ([75f1789](https://github.com/spartan-ng/spartan/commit/75f1789)), closes [#1560](https://github.com/spartan-ng/spartan/issues/1560) [#1555](https://github.com/spartan-ng/spartan/issues/1555)
+- ci: publish releases on push to main/beta/alpha (#1559) ([5e5ddea](https://github.com/spartan-ng/spartan/commit/5e5ddea)), closes [#1559](https://github.com/spartan-ng/spartan/issues/1559)
+- build: keep helm @spartan-ng/brain peer in sync with releases (#1561) ([bb18cbf](https://github.com/spartan-ng/spartan/commit/bb18cbf)), closes [#1561](https://github.com/spartan-ng/spartan/issues/1561)
+
 ## 1.0.0 (2026-06-24)
 
 - fix: 300 mobile responsiveness (#487) ([5ea2c87](https://github.com/spartan-ng/spartan/commit/5ea2c87)), closes [#487](https://github.com/spartan-ng/spartan/issues/487)

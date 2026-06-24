@@ -23,5 +23,13 @@ export function resolveCssVar(name: string): string {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function addChartEmphasis<T extends Record<string, any>>(series: T): T {
-	return series;
+	const emph: Record<string, any> = { ...series['emphasis'], focus: 'none' };
+	const itemColor = series['itemStyle']?.color;
+	if (itemColor !== undefined) {
+		emph['itemStyle'] = { color: itemColor };
+	}
+	return {
+		...series,
+		emphasis: emph,
+	};
 }

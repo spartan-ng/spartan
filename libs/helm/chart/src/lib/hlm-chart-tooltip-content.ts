@@ -1,10 +1,12 @@
 import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
 import { DomSanitizer, type SafeHtml } from '@angular/platform-browser';
+import { NgIcon } from '@ng-icons/core';
 import { hlm } from '@spartan-ng/helm/utils';
 import type { ChartConfig } from './chart-config';
 
 @Component({
 	selector: 'hlm-chart-tooltip-content, [hlmChartTooltipContent]',
+	imports: [NgIcon],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'data-slot': 'chart-tooltip-content',
@@ -32,11 +34,15 @@ import type { ChartConfig } from './chart-config';
 							"
 						>
 							@if (!hideIndicator()) {
-								<div
-									[class]="_indicatorClass()"
-									[style.--color-bg]="item.indicatorColor"
-									[style.--color-border]="item.indicatorColor"
-								></div>
+								@if (item.icon) {
+									<ng-icon [name]="item.icon" class="h-2.5 w-2.5 shrink-0" />
+								} @else {
+									<div
+										[class]="_indicatorClass()"
+										[style.--color-bg]="item.indicatorColor"
+										[style.--color-border]="item.indicatorColor"
+									></div>
+								}
 							}
 							<div
 								[class]="hlm('flex flex-1 justify-between leading-none', _nestLabel() ? 'items-end' : 'items-center')"
@@ -109,6 +115,7 @@ export class HlmChartTooltipContent {
 				value: item.value,
 				formattedValue,
 				indicatorColor,
+				icon: itemConfig?.icon || null,
 				formattedHtml: null as SafeHtml | null,
 			};
 		});

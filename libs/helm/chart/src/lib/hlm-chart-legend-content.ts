@@ -1,10 +1,12 @@
 import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
+import { NgIcon } from '@ng-icons/core';
 import { hlm } from '@spartan-ng/helm/utils';
 import type { ChartContext } from './chart-context';
 import { CHART_CONTEXT } from './chart-context';
 
 @Component({
 	selector: 'hlm-chart-legend-content, [hlmChartLegendContent]',
+	imports: [NgIcon],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'data-slot': 'chart-legend-content',
@@ -14,7 +16,11 @@ import { CHART_CONTEXT } from './chart-context';
 			@for (item of legendItems(); track item.originalKey) {
 				<div class="[&>svg]:text-muted-foreground flex items-center gap-1.5 [&>svg]:h-3 [&>svg]:w-3">
 					@if (!hideIcon()) {
-						<div class="h-2 w-2 shrink-0 rounded-xs" [style.backgroundColor]="item.color"></div>
+						@if (item.icon) {
+							<ng-icon [name]="item.icon" class="h-3 w-3 shrink-0" />
+						} @else {
+							<div class="h-2 w-2 shrink-0 rounded-xs" [style.backgroundColor]="item.color"></div>
+						}
 					}
 					<span>{{ item.label }}</span>
 				</div>
@@ -37,6 +43,7 @@ export class HlmChartLegendContent {
 			key: this.nameKey() || key,
 			color: value.color || value.theme?.light,
 			label: value.label || key,
+			icon: value.icon || null,
 		}));
 	});
 

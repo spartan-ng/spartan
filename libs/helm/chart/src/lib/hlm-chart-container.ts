@@ -46,6 +46,7 @@ import { CHART_CONTEXT, type ChartContext, resolveCssVar } from './chart-context
 export class HlmChartContainer implements OnInit {
 	public readonly id = input<string>();
 	public readonly config = input.required<ChartConfig>();
+	public readonly aspect = input<'video' | 'square' | 'auto'>('video');
 
 	private readonly _fallbackId = Math.random().toString(36).substring(2, 9);
 	private readonly _renderer = inject(Renderer2);
@@ -79,7 +80,12 @@ ${colorConfig
 	private readonly _styleEl!: HTMLStyleElement;
 
 	constructor() {
-		classes(() => 'flex aspect-video h-full w-full flex-col justify-center text-xs');
+		classes(
+			() =>
+				'flex h-full w-full flex-col justify-center text-xs' +
+				(this.aspect() === 'video' ? ' aspect-video' : '') +
+				(this.aspect() === 'square' ? ' aspect-square' : ''),
+		);
 		this._styleEl = this._renderer.createElement('style');
 		this._styleEl.setAttribute('data-chart-styles', '');
 		this._renderer.appendChild(this._elementRef.nativeElement, this._styleEl);

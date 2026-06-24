@@ -55,7 +55,7 @@ import { DesignSystemService } from '../lib/design-system.service';
 	`,
 })
 export class Preview {
-	private readonly _ds = inject(DesignSystemService);
+	protected readonly _ds = inject(DesignSystemService);
 	private readonly _sanitizer = inject(DomSanitizer);
 	private readonly _platformId = inject(PLATFORM_ID);
 

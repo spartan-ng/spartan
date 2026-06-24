@@ -38,8 +38,10 @@ export class HlmMenubarTrigger {
 
 	constructor() {
 		// CDK sets transform-origin on the menu content (a shared hlm-dropdown-menu) from the resolved
-		// position; the content reads it to animate from the anchored corner and to derive its data-side
-		this._cdkTrigger.transformOriginSelector = '[data-slot="dropdown-menu"]';
+		// position; the content reads it to animate from the anchored corner and to derive its data-side.
+		// Cast tolerates @angular/cdk < 21.2 (we still support >=21.0), where the property is absent and
+		// the assignment is a harmless no-op.
+		(this._cdkTrigger as { transformOriginSelector?: string }).transformOriginSelector = '[data-slot="dropdown-menu"]';
 
 		effect(() => {
 			this._cdkTrigger.menuPosition = this._menuPosition();

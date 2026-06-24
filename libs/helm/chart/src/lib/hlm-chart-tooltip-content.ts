@@ -74,8 +74,19 @@ export class HlmChartTooltipContent {
 	public readonly config = input<ChartConfig>({});
 	public readonly userClass = input<string>();
 	public readonly label = input<string>();
-	public readonly formatter = input<(value: number | string, name: string, index: number, payload: { name: string; value: number; color: string; seriesName?: string }) => string>();
-	public readonly labelFormatter = input<(value: string, payload: Array<{ name: string; value: number; color: string; seriesName?: string }>) => string>();
+	public readonly formatter =
+		input<
+			(
+				value: number | string,
+				name: string,
+				index: number,
+				payload: { name: string; value: number; color: string; seriesName?: string },
+			) => string
+		>();
+	public readonly labelFormatter =
+		input<
+			(value: string, payload: Array<{ name: string; value: number; color: string; seriesName?: string }>) => string
+		>();
 
 	private readonly _sanitizer = inject(DomSanitizer);
 

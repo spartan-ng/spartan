@@ -15,21 +15,26 @@ import { SectionSubHeading } from '../../../../shared/layout/section-sub-heading
 import { Tabs } from '../../../../shared/layout/tabs';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
+import { ChartAreaGradientPreview } from './chart--area-gradient.preview';
 import { ChartAreaStackedPreview } from './chart--area-stacked.preview';
 import { ChartAreaPreview } from './chart--area.preview';
 import { ChartBarHorizontalPreview } from './chart--bar-horizontal.preview';
+import { ChartBarLabelPreview } from './chart--bar-label.preview';
 import { ChartBarMixedPreview } from './chart--bar-mixed.preview';
 import { ChartBarNegativePreview } from './chart--bar-negative.preview';
 import { ChartBarStackedPreview } from './chart--bar-stacked.preview';
 import { ChartBarPreview } from './chart--bar.preview';
 import { ChartDonutPreview } from './chart--donut.preview';
+import { ChartLineDotsColorsPreview } from './chart--line-dots-colors.preview';
 import { ChartLineDotsPreview } from './chart--line-dots.preview';
 import { ChartLineStepPreview } from './chart--line-step.preview';
 import { ChartLinePreview } from './chart--line.preview';
+import { ChartPieDonutTextPreview } from './chart--pie-donut-text.preview';
 import { ChartPieLabelPreview } from './chart--pie-label.preview';
 import { ChartPieLegendPreview } from './chart--pie-legend.preview';
 import { ChartPiePreview } from './chart--pie.preview';
 import { ChartRadarDefaultPreview } from './chart--radar-default.preview';
+import { ChartRadarLegendPreview } from './chart--radar-legend.preview';
 import { ChartRadarMultiplePreview } from './chart--radar-multiple.preview';
 import { ChartTooltipAdvancedPreview } from './chart--tooltip-advanced.preview';
 import { ChartPreview, defaultImports, defaultSkeleton } from './chart.preview';
@@ -55,21 +60,26 @@ export const routeMeta: RouteMeta = {
 		PageBottomNav,
 		PageBottomNavLink,
 		SectionSubSubHeading,
+		ChartAreaGradientPreview,
 		ChartAreaPreview,
 		ChartAreaStackedPreview,
 		ChartBarPreview,
+		ChartBarLabelPreview,
 		ChartBarHorizontalPreview,
 		ChartBarMixedPreview,
 		ChartBarNegativePreview,
 		ChartBarStackedPreview,
 		ChartDonutPreview,
+		ChartLineDotsColorsPreview,
 		ChartLineDotsPreview,
 		ChartLinePreview,
 		ChartLineStepPreview,
+		ChartPieDonutTextPreview,
 		ChartPieLegendPreview,
 		ChartPieLabelPreview,
 		ChartPiePreview,
 		ChartRadarDefaultPreview,
+		ChartRadarLegendPreview,
 		ChartRadarMultiplePreview,
 		ChartTooltipAdvancedPreview,
 		ChartPreview,
@@ -216,6 +226,45 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_barNegativeCode()" />
 			</spartan-tabs>
 
+			<h3 id="bar-label" spartanH4>Bar Chart - Label</h3>
+			<p class="${hlmP}">
+				A bar chart with data labels using
+				<code class="${hlmCode}">label: { show: true }</code>
+				.
+			</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-chart-bar-label-preview />
+				</div>
+				<spartan-code secondTab [code]="_barLabelCode()" />
+			</spartan-tabs>
+
+			<h3 id="line-dots-colors" spartanH4>Line Chart - Dots Colors</h3>
+			<p class="${hlmP}">
+				A line chart with colored dot markers using
+				<code class="${hlmCode}">symbol: 'circle'</code>
+				per series.
+			</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-chart-line-dots-colors-preview />
+				</div>
+				<spartan-code secondTab [code]="_lineDotsColorsCode()" />
+			</spartan-tabs>
+
+			<h3 id="area-gradient" spartanH4>Area Chart - Gradient</h3>
+			<p class="${hlmP}">
+				An area chart with a two-tone gradient fill using
+				<code class="${hlmCode}">areaStyle</code>
+				.
+			</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-chart-area-gradient-preview />
+				</div>
+				<spartan-code secondTab [code]="_areaGradientCode()" />
+			</spartan-tabs>
+
 			<h3 id="line-step" spartanH4>Line Chart - Step</h3>
 			<p class="${hlmP}">
 				A step line chart using
@@ -281,6 +330,32 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_pieLabelCode()" />
 			</spartan-tabs>
 
+			<h3 id="pie-donut-text" spartanH4>Pie Chart - Donut with Text</h3>
+			<p class="${hlmP}">
+				A donut chart with a formatted center label using
+				<code class="${hlmCode}">graphic</code>
+				.
+			</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-chart-pie-donut-text-preview />
+				</div>
+				<spartan-code secondTab [code]="_pieDonutTextCode()" />
+			</spartan-tabs>
+
+			<h3 id="radar-legend" spartanH4>Radar Chart - Legend</h3>
+			<p class="${hlmP}">
+				A radar chart with a visible legend using
+				<code class="${hlmCode}">legend: { show: true }</code>
+				.
+			</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-chart-radar-legend-preview />
+				</div>
+				<spartan-code secondTab [code]="_radarLegendCode()" />
+			</spartan-tabs>
+
 			<h3 id="radar" spartanH4>Radar Chart</h3>
 			<p class="${hlmP}">
 				A radar chart using
@@ -343,6 +418,11 @@ export default class ChartPage {
 	protected readonly _barStackedCode = computed(() => this._snippets()['barStacked']);
 	protected readonly _barMixedCode = computed(() => this._snippets()['barMixed']);
 	protected readonly _barNegativeCode = computed(() => this._snippets()['barNegative']);
+	protected readonly _barLabelCode = computed(() => this._snippets()['barLabel']);
+	protected readonly _lineDotsColorsCode = computed(() => this._snippets()['lineDotsColors']);
+	protected readonly _areaGradientCode = computed(() => this._snippets()['areaGradient']);
+	protected readonly _pieDonutTextCode = computed(() => this._snippets()['pieDonutText']);
+	protected readonly _radarLegendCode = computed(() => this._snippets()['radarLegend']);
 	protected readonly _lineStepCode = computed(() => this._snippets()['lineStep']);
 	protected readonly _lineDotsCode = computed(() => this._snippets()['lineDots']);
 	protected readonly _areaStackedCode = computed(() => this._snippets()['areaStacked']);

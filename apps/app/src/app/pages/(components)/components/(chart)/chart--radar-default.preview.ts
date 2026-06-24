@@ -2,7 +2,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { Component, inject, PLATFORM_ID } from '@angular/core';
 import { HlmCardImports } from '@spartan-ng/helm/card';
 import type { ChartConfig } from '@spartan-ng/helm/chart';
-import { HlmChartImports } from '@spartan-ng/helm/chart';
+import { HlmChartImports, resolveCssVar } from '@spartan-ng/helm/chart';
 import type { EChartsCoreOption } from 'echarts';
 import { NgxEchartsDirective } from 'ngx-echarts';
 
@@ -56,9 +56,9 @@ export class ChartRadarDefaultPreview {
 				{ name: 'May', max: 350 },
 				{ name: 'June', max: 350 },
 			],
-			axisName: { color: 'var(--muted-foreground)', fontSize: 12 },
-			splitLine: { lineStyle: { color: 'var(--border)' } },
-			splitArea: { areaStyle: { color: ['var(--muted)', 'transparent'] } },
+			axisName: { color: resolveCssVar('--muted-foreground'), fontSize: 12 },
+			splitLine: { lineStyle: { color: resolveCssVar('--border') } },
+			splitArea: { areaStyle: { color: [resolveCssVar('--muted'), 'transparent'] } },
 		},
 		series: [
 			{
@@ -66,9 +66,9 @@ export class ChartRadarDefaultPreview {
 				type: 'radar',
 				data: [{ value: [186, 305, 237, 73, 209, 214], name: 'Desktop' }],
 				symbol: 'none',
-				lineStyle: { color: 'var(--color-desktop)', width: 2 },
-				itemStyle: { color: 'var(--color-desktop)' },
-				areaStyle: { color: 'var(--color-desktop)', opacity: 0.2 },
+				lineStyle: { color: resolveCssVar('--chart-1'), width: 2 },
+				itemStyle: { color: resolveCssVar('--chart-1') },
+				areaStyle: { color: resolveCssVar('--chart-1'), opacity: 0.2 },
 			},
 		],
 	};

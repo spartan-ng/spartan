@@ -2,7 +2,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { Component, inject, PLATFORM_ID } from '@angular/core';
 import { HlmCardImports } from '@spartan-ng/helm/card';
 import type { ChartConfig } from '@spartan-ng/helm/chart';
-import { HlmChartImports } from '@spartan-ng/helm/chart';
+import { HlmChartImports, resolveCssVar } from '@spartan-ng/helm/chart';
 import type { EChartsCoreOption } from 'echarts';
 import { NgxEchartsDirective } from 'ngx-echarts';
 
@@ -64,11 +64,11 @@ export class ChartDonutPreview {
 				emphasis: { label: { show: true, fontSize: 14, fontWeight: 'bold' } },
 				labelLine: { show: false },
 				data: [
-					{ value: 275, name: 'chrome', itemStyle: { color: 'var(--color-chrome)' } },
-					{ value: 200, name: 'safari', itemStyle: { color: 'var(--color-safari)' } },
-					{ value: 187, name: 'firefox', itemStyle: { color: 'var(--color-firefox)' } },
-					{ value: 173, name: 'edge', itemStyle: { color: 'var(--color-edge)' } },
-					{ value: 90, name: 'other', itemStyle: { color: 'var(--color-other)' } },
+					{ value: 275, name: 'chrome', itemStyle: { color: resolveCssVar('--chart-1') } },
+					{ value: 200, name: 'safari', itemStyle: { color: resolveCssVar('--chart-2') } },
+					{ value: 187, name: 'firefox', itemStyle: { color: resolveCssVar('--chart-3') } },
+					{ value: 173, name: 'edge', itemStyle: { color: resolveCssVar('--chart-4') } },
+					{ value: 90, name: 'other', itemStyle: { color: resolveCssVar('--chart-5') } },
 				],
 			},
 		],

@@ -2,7 +2,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { Component, inject, PLATFORM_ID } from '@angular/core';
 import { HlmCardImports } from '@spartan-ng/helm/card';
 import type { ChartConfig } from '@spartan-ng/helm/chart';
-import { HlmChartImports } from '@spartan-ng/helm/chart';
+import { HlmChartImports, resolveCssVar } from '@spartan-ng/helm/chart';
 import type { EChartsCoreOption } from 'echarts';
 import { NgxEchartsDirective } from 'ngx-echarts';
 
@@ -62,7 +62,7 @@ export class ChartPieLabelPreview {
 				itemStyle: { borderRadius: 4, borderColor: 'transparent', borderWidth: 2 },
 				label: {
 					show: true,
-					color: 'var(--foreground)',
+					color: resolveCssVar('--foreground'),
 					fontSize: 12,
 					formatter: '{b}: {d}%',
 				},
@@ -71,11 +71,11 @@ export class ChartPieLabelPreview {
 					itemStyle: { shadowBlur: 10, shadowOffsetX: 0, shadowColor: 'rgba(0,0,0,0.5)' },
 				},
 				data: [
-					{ value: 275, name: 'Chrome', itemStyle: { color: 'var(--color-chrome)' } },
-					{ value: 200, name: 'Safari', itemStyle: { color: 'var(--color-safari)' } },
-					{ value: 187, name: 'Firefox', itemStyle: { color: 'var(--color-firefox)' } },
-					{ value: 173, name: 'Edge', itemStyle: { color: 'var(--color-edge)' } },
-					{ value: 90, name: 'Other', itemStyle: { color: 'var(--color-other)' } },
+					{ value: 275, name: 'Chrome', itemStyle: { color: resolveCssVar('--chart-1') } },
+					{ value: 200, name: 'Safari', itemStyle: { color: resolveCssVar('--chart-2') } },
+					{ value: 187, name: 'Firefox', itemStyle: { color: resolveCssVar('--chart-3') } },
+					{ value: 173, name: 'Edge', itemStyle: { color: resolveCssVar('--chart-4') } },
+					{ value: 90, name: 'Other', itemStyle: { color: resolveCssVar('--chart-5') } },
 				],
 			},
 		],

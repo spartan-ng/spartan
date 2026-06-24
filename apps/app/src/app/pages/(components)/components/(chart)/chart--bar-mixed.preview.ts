@@ -2,7 +2,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { Component, inject, PLATFORM_ID } from '@angular/core';
 import { HlmCardImports } from '@spartan-ng/helm/card';
 import type { ChartConfig } from '@spartan-ng/helm/chart';
-import { HlmChartImports } from '@spartan-ng/helm/chart';
+import { HlmChartImports, resolveCssVar } from '@spartan-ng/helm/chart';
 import type { EChartsCoreOption } from 'echarts';
 import { NgxEchartsDirective } from 'ngx-echarts';
 
@@ -64,15 +64,15 @@ export class ChartBarMixedPreview {
 		grid: { left: 0, right: 0, bottom: 0, top: 8, containLabel: true },
 		xAxis: {
 			type: 'value',
-			axisLabel: { color: 'var(--muted-foreground)', fontSize: 12 },
+			axisLabel: { color: resolveCssVar('--muted-foreground'), fontSize: 12 },
 			axisLine: { show: false },
 			axisTick: { show: false },
-			splitLine: { lineStyle: { color: 'var(--border)' } },
+			splitLine: { lineStyle: { color: resolveCssVar('--border') } },
 		},
 		yAxis: {
 			type: 'category',
 			data: chartData.map((d) => d.browser),
-			axisLabel: { color: 'var(--muted-foreground)', fontSize: 12 },
+			axisLabel: { color: resolveCssVar('--muted-foreground'), fontSize: 12 },
 			axisLine: { show: false },
 			axisTick: { show: false },
 		},
@@ -81,11 +81,11 @@ export class ChartBarMixedPreview {
 				name: 'visitors',
 				type: 'bar',
 				data: [
-					{ value: chartData[0].visitors, itemStyle: { color: 'var(--color-chrome)' } },
-					{ value: chartData[1].visitors, itemStyle: { color: 'var(--color-safari)' } },
-					{ value: chartData[2].visitors, itemStyle: { color: 'var(--color-firefox)' } },
-					{ value: chartData[3].visitors, itemStyle: { color: 'var(--color-edge)' } },
-					{ value: chartData[4].visitors, itemStyle: { color: 'var(--color-other)' } },
+					{ value: chartData[0].visitors, itemStyle: { color: resolveCssVar('--chart-1') } },
+					{ value: chartData[1].visitors, itemStyle: { color: resolveCssVar('--chart-2') } },
+					{ value: chartData[2].visitors, itemStyle: { color: resolveCssVar('--chart-3') } },
+					{ value: chartData[3].visitors, itemStyle: { color: resolveCssVar('--chart-4') } },
+					{ value: chartData[4].visitors, itemStyle: { color: resolveCssVar('--chart-5') } },
 				],
 				itemStyle: { borderRadius: [0, 4, 4, 0] },
 			},

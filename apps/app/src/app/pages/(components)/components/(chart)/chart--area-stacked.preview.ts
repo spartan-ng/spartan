@@ -2,7 +2,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { Component, inject, PLATFORM_ID } from '@angular/core';
 import { HlmCardImports } from '@spartan-ng/helm/card';
 import type { ChartConfig } from '@spartan-ng/helm/chart';
-import { HlmChartImports } from '@spartan-ng/helm/chart';
+import { HlmChartImports, resolveCssVar } from '@spartan-ng/helm/chart';
 import type { EChartsCoreOption } from 'echarts';
 import { NgxEchartsDirective } from 'ngx-echarts';
 
@@ -68,11 +68,11 @@ export class ChartAreaStackedPreview {
 			axisLine: { show: false },
 			axisTick: { show: false },
 			boundaryGap: false,
-			axisLabel: { color: 'var(--muted-foreground)', fontSize: 12 },
+			axisLabel: { color: resolveCssVar('--muted-foreground'), fontSize: 12 },
 		},
 		yAxis: {
 			type: 'value',
-			splitLine: { lineStyle: { color: 'var(--border)' } },
+			splitLine: { lineStyle: { color: resolveCssVar('--border') } },
 			axisLine: { show: false },
 			axisTick: { show: false },
 		},
@@ -83,8 +83,8 @@ export class ChartAreaStackedPreview {
 				data: chartData.map((d) => d.mobile),
 				smooth: true,
 				stack: 'total',
-				lineStyle: { color: 'var(--color-mobile)', width: 2 },
-				itemStyle: { color: 'var(--color-mobile)' },
+				lineStyle: { color: resolveCssVar('--chart-2'), width: 2 },
+				itemStyle: { color: resolveCssVar('--chart-2') },
 				areaStyle: {
 					color: {
 						type: 'linear',
@@ -93,7 +93,7 @@ export class ChartAreaStackedPreview {
 						x2: 0,
 						y2: 1,
 						colorStops: [
-							{ offset: 0, color: 'var(--color-mobile)' },
+							{ offset: 0, color: resolveCssVar('--chart-2') },
 							{ offset: 1, color: 'transparent' },
 						],
 					},
@@ -106,8 +106,8 @@ export class ChartAreaStackedPreview {
 				data: chartData.map((d) => d.desktop),
 				smooth: true,
 				stack: 'total',
-				lineStyle: { color: 'var(--color-desktop)', width: 2 },
-				itemStyle: { color: 'var(--color-desktop)' },
+				lineStyle: { color: resolveCssVar('--chart-1'), width: 2 },
+				itemStyle: { color: resolveCssVar('--chart-1') },
 				areaStyle: {
 					color: {
 						type: 'linear',
@@ -116,7 +116,7 @@ export class ChartAreaStackedPreview {
 						x2: 0,
 						y2: 1,
 						colorStops: [
-							{ offset: 0, color: 'var(--color-desktop)' },
+							{ offset: 0, color: resolveCssVar('--chart-1') },
 							{ offset: 1, color: 'transparent' },
 						],
 					},

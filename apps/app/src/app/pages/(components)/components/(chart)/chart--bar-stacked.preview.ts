@@ -2,7 +2,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { Component, inject, PLATFORM_ID } from '@angular/core';
 import { HlmCardImports } from '@spartan-ng/helm/card';
 import type { ChartConfig } from '@spartan-ng/helm/chart';
-import { HlmChartImports } from '@spartan-ng/helm/chart';
+import { HlmChartImports, resolveCssVar } from '@spartan-ng/helm/chart';
 import type { EChartsCoreOption } from 'echarts';
 import { NgxEchartsDirective } from 'ngx-echarts';
 
@@ -63,11 +63,11 @@ export class ChartBarStackedPreview {
 			data: chartData.map((d) => d.month.slice(0, 3)),
 			axisLine: { show: false },
 			axisTick: { show: false },
-			axisLabel: { color: 'var(--muted-foreground)', fontSize: 12 },
+			axisLabel: { color: resolveCssVar('--muted-foreground'), fontSize: 12 },
 		},
 		yAxis: {
 			type: 'value',
-			splitLine: { lineStyle: { color: 'var(--border)' } },
+			splitLine: { lineStyle: { color: resolveCssVar('--border') } },
 			axisLine: { show: false },
 			axisTick: { show: false },
 		},
@@ -77,14 +77,14 @@ export class ChartBarStackedPreview {
 				type: 'bar',
 				stack: 'total',
 				data: chartData.map((d) => d.desktop),
-				itemStyle: { color: 'var(--color-desktop)', borderRadius: [0, 0, 4, 4] },
+				itemStyle: { color: resolveCssVar('--chart-1'), borderRadius: [0, 0, 4, 4] },
 			},
 			{
 				name: 'mobile',
 				type: 'bar',
 				stack: 'total',
 				data: chartData.map((d) => d.mobile),
-				itemStyle: { color: 'var(--color-mobile)', borderRadius: [4, 4, 0, 0] },
+				itemStyle: { color: resolveCssVar('--chart-2'), borderRadius: [4, 4, 0, 0] },
 			},
 		],
 	};

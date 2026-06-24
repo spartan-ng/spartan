@@ -2,7 +2,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { Component, inject, PLATFORM_ID } from '@angular/core';
 import { HlmCardImports } from '@spartan-ng/helm/card';
 import type { ChartConfig } from '@spartan-ng/helm/chart';
-import { HlmChartImports } from '@spartan-ng/helm/chart';
+import { HlmChartImports, resolveCssVar } from '@spartan-ng/helm/chart';
 import type { EChartsCoreOption } from 'echarts';
 import { NgxEchartsDirective } from 'ngx-echarts';
 
@@ -60,16 +60,16 @@ export class ChartBarNegativePreview {
 		xAxis: {
 			type: 'category',
 			data: chartData.map((d) => d.month.slice(0, 3)),
-			axisLabel: { color: 'var(--muted-foreground)', fontSize: 12 },
+			axisLabel: { color: resolveCssVar('--muted-foreground'), fontSize: 12 },
 			axisLine: { show: false },
 			axisTick: { show: false },
 		},
 		yAxis: {
 			type: 'value',
-			axisLabel: { color: 'var(--muted-foreground)', fontSize: 12 },
+			axisLabel: { color: resolveCssVar('--muted-foreground'), fontSize: 12 },
 			axisLine: { show: false },
 			axisTick: { show: false },
-			splitLine: { lineStyle: { color: 'var(--border)' } },
+			splitLine: { lineStyle: { color: resolveCssVar('--border') } },
 		},
 		series: [
 			{
@@ -78,14 +78,14 @@ export class ChartBarNegativePreview {
 				data: chartData.map((d) => ({
 					value: d.visitors,
 					itemStyle: {
-						color: d.visitors > 0 ? 'var(--chart-1)' : 'var(--chart-2)',
+						color: d.visitors > 0 ? resolveCssVar('--chart-1') : resolveCssVar('--chart-2'),
 						borderRadius: [4, 4, 0, 0],
 					},
 				})),
 				label: {
 					show: true,
 					position: 'top',
-					color: 'var(--muted-foreground)',
+					color: resolveCssVar('--muted-foreground'),
 					fontSize: 12,
 					formatter: (params: { name: string }) => params.name,
 				},

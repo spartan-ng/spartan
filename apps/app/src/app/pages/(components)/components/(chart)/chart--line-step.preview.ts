@@ -2,7 +2,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { Component, inject, PLATFORM_ID } from '@angular/core';
 import { HlmCardImports } from '@spartan-ng/helm/card';
 import type { ChartConfig } from '@spartan-ng/helm/chart';
-import { HlmChartImports } from '@spartan-ng/helm/chart';
+import { HlmChartImports, resolveCssVar } from '@spartan-ng/helm/chart';
 import type { EChartsCoreOption } from 'echarts';
 import { NgxEchartsDirective } from 'ngx-echarts';
 
@@ -60,17 +60,17 @@ export class ChartLineStepPreview {
 		xAxis: {
 			type: 'category',
 			data: chartData.map((d) => d.month.slice(0, 3)),
-			axisLabel: { color: 'var(--muted-foreground)', fontSize: 12 },
+			axisLabel: { color: resolveCssVar('--muted-foreground'), fontSize: 12 },
 			axisLine: { show: false },
 			axisTick: { show: false },
 			boundaryGap: false,
 		},
 		yAxis: {
 			type: 'value',
-			axisLabel: { color: 'var(--muted-foreground)', fontSize: 12 },
+			axisLabel: { color: resolveCssVar('--muted-foreground'), fontSize: 12 },
 			axisLine: { show: false },
 			axisTick: { show: false },
-			splitLine: { lineStyle: { color: 'var(--border)' } },
+			splitLine: { lineStyle: { color: resolveCssVar('--border') } },
 		},
 		series: [
 			{
@@ -78,8 +78,8 @@ export class ChartLineStepPreview {
 				type: 'line',
 				data: chartData.map((d) => d.desktop),
 				step: 'start',
-				lineStyle: { color: 'var(--color-desktop)', width: 2 },
-				itemStyle: { color: 'var(--color-desktop)' },
+				lineStyle: { color: resolveCssVar('--chart-1'), width: 2 },
+				itemStyle: { color: resolveCssVar('--chart-1') },
 				areaStyle: {
 					color: {
 						type: 'linear',
@@ -88,7 +88,7 @@ export class ChartLineStepPreview {
 						x2: 0,
 						y2: 1,
 						colorStops: [
-							{ offset: 0, color: 'var(--color-desktop)' },
+							{ offset: 0, color: resolveCssVar('--chart-1') },
 							{ offset: 1, color: 'transparent' },
 						],
 					},

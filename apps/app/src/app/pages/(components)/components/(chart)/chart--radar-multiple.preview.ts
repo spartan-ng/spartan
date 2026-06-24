@@ -2,7 +2,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { Component, inject, PLATFORM_ID } from '@angular/core';
 import { HlmCardImports } from '@spartan-ng/helm/card';
 import type { ChartConfig } from '@spartan-ng/helm/chart';
-import { HlmChartImports } from '@spartan-ng/helm/chart';
+import { HlmChartImports, resolveCssVar } from '@spartan-ng/helm/chart';
 import type { EChartsCoreOption } from 'echarts';
 import { NgxEchartsDirective } from 'ngx-echarts';
 
@@ -69,9 +69,9 @@ export class ChartRadarMultiplePreview {
 				{ name: 'May', max: 350 },
 				{ name: 'June', max: 350 },
 			],
-			axisName: { color: 'var(--muted-foreground)', fontSize: 12 },
-			splitLine: { lineStyle: { color: 'var(--border)' } },
-			splitArea: { areaStyle: { color: ['var(--muted)', 'transparent'] } },
+			axisName: { color: resolveCssVar('--muted-foreground'), fontSize: 12 },
+			splitLine: { lineStyle: { color: resolveCssVar('--border') } },
+			splitArea: { areaStyle: { color: [resolveCssVar('--muted'), 'transparent'] } },
 		},
 		series: [
 			{
@@ -79,18 +79,18 @@ export class ChartRadarMultiplePreview {
 				type: 'radar',
 				data: [{ value: chartData.map((d) => d.desktop), name: 'Desktop' }],
 				symbol: 'none',
-				lineStyle: { color: 'var(--color-desktop)', width: 2 },
-				itemStyle: { color: 'var(--color-desktop)' },
-				areaStyle: { color: 'var(--color-desktop)', opacity: 0.2 },
+				lineStyle: { color: resolveCssVar('--chart-1'), width: 2 },
+				itemStyle: { color: resolveCssVar('--chart-1') },
+				areaStyle: { color: resolveCssVar('--chart-1'), opacity: 0.2 },
 			},
 			{
 				name: 'Mobile',
 				type: 'radar',
 				data: [{ value: chartData.map((d) => d.mobile), name: 'Mobile' }],
 				symbol: 'none',
-				lineStyle: { color: 'var(--color-mobile)', width: 2 },
-				itemStyle: { color: 'var(--color-mobile)' },
-				areaStyle: { color: 'var(--color-mobile)', opacity: 0.2 },
+				lineStyle: { color: resolveCssVar('--chart-2'), width: 2 },
+				itemStyle: { color: resolveCssVar('--chart-2') },
+				areaStyle: { color: resolveCssVar('--chart-2'), opacity: 0.2 },
 			},
 		],
 	};

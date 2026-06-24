@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { classes } from '@spartan-ng/helm/utils';
 import type { ChartConfig } from './chart-config';
-import { CHART_CONTEXT, type ChartContext } from './chart-context';
+import { CHART_CONTEXT, type ChartContext, resolveCssVar } from './chart-context';
 
 @Component({
 	selector: 'hlm-chart-container, [hlmChartContainer]',
@@ -23,6 +23,13 @@ import { CHART_CONTEXT, type ChartContext } from './chart-context';
 				return {
 					id: host.chartId(),
 					config: host.config(),
+					resolveColor: (key: string) => {
+						const cfg = host.config()[key];
+						if (!cfg) return '';
+						const colorExpr = cfg.theme?.light ?? cfg.color ?? '';
+						const cssVarMatch = colorExpr.match(/var\(--([^)]+)\)/);
+						return cssVarMatch ? resolveCssVar(`--${cssVarMatch[1]}`) : colorExpr;
+					},
 				} satisfies ChartContext;
 			},
 		},

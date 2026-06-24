@@ -53,6 +53,7 @@ export class ChartAreaPreview {
 	public readonly chartOptions: EChartsCoreOption = {
 		tooltip: {
 			trigger: 'axis',
+			axisPointer: { type: 'none' },
 			backgroundColor: 'var(--background)',
 			borderColor: 'var(--border)',
 			borderWidth: 1,

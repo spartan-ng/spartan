@@ -14,7 +14,7 @@ import { isPresetCode } from '@spartan-ng/registry';
 	imports: [FormsModule, HlmButton, HlmDialogImports, HlmInput, HlmLabel, NgIcon],
 	providers: [provideIcons({ lucideCheck, lucideX })],
 	template: `
-		<hlm-dialog [state]="open()" (stateChange)="openChange.emit($event)">
+		<hlm-dialog [state]="open()" (stateChanged)="openChange.emit($event)">
 			<hlm-dialog-content class="sm:max-w-md" *hlmDialogPortal="let ctx">
 				<hlm-dialog-header>
 					<h3 hlmDialogTitle>Open Preset</h3>

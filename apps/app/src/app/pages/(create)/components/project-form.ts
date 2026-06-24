@@ -14,7 +14,7 @@ import { DesignSystemService } from '../lib/design-system.service';
 	imports: [HlmButton, HlmDialogImports, HlmLabel, HlmSwitch, HlmTabsImports, NgIcon],
 	providers: [provideIcons({ lucideCheck, lucideCopy, lucideTerminal })],
 	template: `
-		<hlm-dialog [state]="open()" (stateChange)="openChange.emit($event)">
+		<hlm-dialog [state]="open()" (stateChanged)="openChange.emit($event)">
 			<hlm-dialog-content class="sm:max-w-lg" *hlmDialogPortal="let ctx">
 				<hlm-dialog-header>
 					<h3 hlmDialogTitle>Get Code</h3>

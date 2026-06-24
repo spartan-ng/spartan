@@ -9,7 +9,7 @@ const STORAGE_KEY = 'spartan-create-welcome-dismissed';
 	selector: 'spartan-welcome-dialog',
 	imports: [HlmButton, HlmDialogImports],
 	template: `
-		<hlm-dialog [state]="_open()" (stateChange)="_open.set($event)">
+		<hlm-dialog [state]="_open()" (stateChanged)="_open.set($event)">
 			<hlm-dialog-content class="sm:max-w-md" *hlmDialogPortal="let ctx">
 				<hlm-dialog-header>
 					<h3 hlmDialogTitle>Build your own spartan</h3>

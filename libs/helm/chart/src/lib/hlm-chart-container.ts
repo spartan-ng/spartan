@@ -6,6 +6,7 @@ import {
 	ElementRef,
 	inject,
 	input,
+	OnInit,
 	Renderer2,
 } from '@angular/core';
 import { classes } from '@spartan-ng/helm/utils';
@@ -35,7 +36,7 @@ import { CHART_CONTEXT, type ChartContext } from './chart-context';
 		<ng-content />
 	`,
 })
-export class HlmChartContainer {
+export class HlmChartContainer implements OnInit {
 	public readonly id = input<string>();
 	public readonly config = input.required<ChartConfig>();
 
@@ -72,11 +73,15 @@ ${colorConfig
 
 	constructor() {
 		classes(() => 'flex aspect-video h-full w-full flex-col justify-center text-xs');
-		// Inject style synchronously BEFORE ECharts initializes so var(--color-*) resolves.
 		this._styleEl = this._renderer.createElement('style');
 		this._styleEl.setAttribute('data-chart-styles', '');
-		this._styleEl.textContent = this.generatedStyles();
 		this._renderer.appendChild(this._elementRef.nativeElement, this._styleEl);
+	}
+
+	ngOnInit() {
+		// Inputs are available in ngOnInit. Populate style before ECharts initializes
+		// in ngAfterViewInit so var(--color-*) resolves.
+		this._styleEl.textContent = this.generatedStyles();
 		// Keep effect for reactive updates if config changes.
 		effect(() => {
 			this._styleEl.textContent = this.generatedStyles();

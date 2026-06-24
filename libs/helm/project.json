@@ -4,14 +4,6 @@
 	"sourceRoot": "libs/helm/src",
 	"prefix": "hlm",
 	"projectType": "library",
-	"release": {
-		"version": {
-			"currentVersionResolver": "git-tag",
-			"fallbackCurrentVersionResolver": "disk",
-			"preserveLocalDependencyProtocols": false,
-			"manifestRootsToUpdate": ["dist/{projectRoot}"]
-		}
-	},
 	"tags": ["scope:helm"],
 	"targets": {
 		"build": {
@@ -38,12 +30,6 @@
 		},
 		"lint": {
 			"executor": "@nx/eslint:lint"
-		},
-		"release": {
-			"executor": "@spartan-ng/tools:build-update-publish",
-			"options": {
-				"libName": "helm"
-			}
 		}
 	}
 }

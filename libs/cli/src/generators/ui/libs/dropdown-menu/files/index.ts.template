@@ -17,6 +17,7 @@ import { HlmDropdownMenuTrigger } from './lib/hlm-dropdown-menu-trigger';
 export * from './lib/hlm-dropdown-menu';
 export * from './lib/hlm-dropdown-menu-checkbox';
 export * from './lib/hlm-dropdown-menu-checkbox-indicator';
+export * from './lib/hlm-dropdown-menu-focus-on-hover';
 export * from './lib/hlm-dropdown-menu-group';
 export * from './lib/hlm-dropdown-menu-item';
 export * from './lib/hlm-dropdown-menu-item-sub-indicator';

@@ -66,7 +66,6 @@ export class BrnOverlayRef<OverlayResult = unknown> {
 	public dismiss(reason: BrnOverlayDismissReason, target?: EventTarget | null): boolean {
 		const options = this.initialOptions;
 		if (!this.open || options.disableClose) return false;
-		if (reason === 'backdrop' && !options.closeOnBackdropClick) return false;
 		if (reason === 'outside') {
 			if (!options.closeOnOutsidePointerEvents) return false;
 			// The trigger lives outside the overlay panel, so CDK reports clicks on it as "outside".
@@ -130,6 +129,12 @@ export class BrnOverlayRef<OverlayResult = unknown> {
 		if (generation !== this._closeGeneration || this._phase() !== 'closing') return;
 
 		const exitAnimations = this._getActiveAnimations().filter((animation) => !animationsBeforeClose.has(animation));
+		// Pin each exit animation to its final frame. tw-animate-css uses `animation-fill-mode: none`,
+		// so a finished exit reverts the element to its visible state in the gap before we dispose it -
+		// that one-frame snap-back is the flicker. updateTiming pins only the animations we await.
+		for (const animation of exitAnimations) {
+			animation.effect?.updateTiming({ fill: 'forwards' });
+		}
 		await waitForAnimations(exitAnimations);
 
 		if (generation === this._closeGeneration && this._phase() === 'closing') {

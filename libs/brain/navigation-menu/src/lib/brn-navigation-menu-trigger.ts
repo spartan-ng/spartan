@@ -34,6 +34,7 @@ import { BrnNavigationMenuContentService } from './brn-navigation-menu-content.s
 import { BrnNavigationMenuItem } from './brn-navigation-menu-item';
 import { provideBrnNavigationMenuFocusable } from './brn-navigation-menu-item-focusable.token';
 import { injectBrnNavigationMenuItem } from './brn-navigation-menu-item.token';
+import { focusFirst, getTabbableCandidates } from './brn-navigation-menu-tabbable';
 import { injectBrnNavigationMenu } from './brn-navigation-menu.token';
 
 interface TriggerEvent {
@@ -54,11 +55,14 @@ interface TriggerEvent {
 	host: {
 		'(keydown.escape)': 'onEscape($event)',
 		'(keydown.tab)': 'onTab($event)',
+		'(keydown.arrowDown)': 'onEntryKey($event, "horizontal")',
+		'(keydown.arrowRight)': 'onEntryKey($event, "vertical", "ltr")',
+		'(keydown.arrowLeft)': 'onEntryKey($event, "vertical", "rtl")',
 		'(focus)': 'handleFocus()',
 		'[id]': '_id',
 		'[attr.data-state]': '_state()',
 		'[attr.aria-expanded]': '_isActive()',
-		'[attr.aria-controls]': '_contentId',
+		'[attr.aria-controls]': '_ariaControls()',
 		'data-slot': 'navigation-menu-trigger',
 	},
 })
@@ -81,6 +85,9 @@ export class BrnNavigationMenuTrigger implements OnInit, OnDestroy, FocusableOpt
 	private readonly _parentNavMenu = this._navigationMenu.parentNavMenu;
 
 	protected readonly _isActive = this._navigationMenuItem.isActive;
+
+	// Only reference the content panel while it is open, matching Radix's aria-controls behaviour.
+	protected readonly _ariaControls = computed(() => (this._isActive() ? this._contentId : null));
 
 	protected readonly _contentId = this._contentService.id;
 
@@ -221,6 +228,8 @@ export class BrnNavigationMenuTrigger implements OnInit, OnDestroy, FocusableOpt
 			this._el.nativeElement.focus();
 			this._deactivate();
 		});
+
+		this._contentService.tabPressed$.pipe(takeUntil(this._destroy$)).subscribe((e) => this._handleContentTab(e));
 	}
 
 	public ngOnDestroy() {
@@ -243,12 +252,71 @@ export class BrnNavigationMenuTrigger implements OnInit, OnDestroy, FocusableOpt
 
 		if (contentEl && !hasModifierKey(e as KeyboardEvent)) {
 			e.preventDefault();
-			contentEl.focus();
+			this._focusFirstContent();
 		}
+	}
+
+	/** Arrow-key entry into the open content: ArrowDown (horizontal) or ArrowRight/Left (vertical, dir-aware). */
+	protected onEntryKey(e: Event, orientation: 'horizontal' | 'vertical', dir?: 'ltr' | 'rtl') {
+		if (!this._navigationMenuItem.isActive()) return;
+		if (this._orientation() !== orientation) return;
+		if (orientation === 'vertical' && dir && this._dir() !== dir) return;
+
+		e.preventDefault();
+		// Stop the event from reaching the nav's CDK key manager, which would otherwise
+		// read event.keyCode and move focus to the next trigger, overriding the entry.
+		e.stopPropagation();
+		this._focusFirstContent();
 	}
 
 	protected onEscape(e: Event) {
 		e.preventDefault();
+		this._deactivate();
+	}
+
+	private _focusFirstContent() {
+		const contentEl = this._contentService.contentEl();
+		if (!contentEl) return;
+
+		const candidates = getTabbableCandidates(contentEl);
+		if (candidates.length) {
+			focusFirst(candidates);
+		} else {
+			contentEl.focus();
+		}
+	}
+
+	/** Keeps keyboard focus inside the menu when tabbing across the content edges (issue #1484). */
+	private _handleContentTab(event: KeyboardEvent) {
+		const contentEl = this._contentService.contentEl();
+		if (!contentEl) return;
+
+		const candidates = getTabbableCandidates(contentEl);
+		const focused = document.activeElement as HTMLElement | null;
+		const index = focused ? candidates.indexOf(focused) : -1;
+
+		if (event.shiftKey) {
+			const previous = index > 0 ? candidates.slice(0, index).reverse() : [];
+			if (previous.length && focusFirst(previous)) {
+				event.preventDefault();
+				return;
+			}
+			// at the first item or on the content container - return to the trigger, keep content open
+			event.preventDefault();
+			this._el.nativeElement.focus();
+			return;
+		}
+
+		const next = index >= 0 ? candidates.slice(index + 1) : candidates;
+		if (next.length && focusFirst(next)) {
+			event.preventDefault();
+			return;
+		}
+
+		// past the last item - hand focus to the next top-level item and close the panel
+		if (this._navigationMenu.focusSibling(this, 1)) {
+			event.preventDefault();
+		}
 		this._deactivate();
 	}
 

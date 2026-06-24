@@ -19,6 +19,7 @@ import { Tabs } from '../../../../shared/layout/tabs';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { SheetClosePreview } from './sheet--close.preview';
+import { SheetFromDropdownPreview } from './sheet--from-dropdown.preview';
 import { SheetNoClose } from './sheet--no-close.preview';
 import { SheetRtl } from './sheet--rtl.preview';
 import { SheetSidePreview } from './sheet--side.preview';
@@ -58,6 +59,7 @@ export const routeMeta: RouteMeta = {
 		SheetClosePreview,
 		SheetNoClose,
 		SheetRtl,
+		SheetFromDropdownPreview,
 	],
 	template: `
 		<section spartanMainSection>
@@ -121,6 +123,23 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_closeCode()" />
 			</spartan-tabs>
 
+			<h3 id="examples__from_dropdown" spartanH4>Open From Dropdown</h3>
+			<p class="${hlmP} mb-6">
+				Declare the
+				<code class="${hlmCode}">hlm-sheet</code>
+				outside of the dropdown's
+				<code class="${hlmCode}">ng-template</code>
+				and open it from a menu item with
+				<code class="${hlmCode}">sheet.open()</code>
+				. Nesting the sheet inside the template destroys it when the dropdown closes, which breaks the open animation.
+			</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-sheet-from-dropdown-preview />
+				</div>
+				<spartan-code secondTab [code]="_fromDropdownCode()" />
+			</spartan-tabs>
+
 			<spartan-header-rtl />
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanRtlCodePreview firstTab>
@@ -155,6 +174,7 @@ export default class LabelPage {
 	protected readonly _closeCode = computed(() => this._snippets()['close']);
 	protected readonly _sizeCode = computed(() => this._snippets()['size']);
 	protected readonly _rtlCode = computed(() => this._snippets()['rtl']);
+	protected readonly _fromDropdownCode = computed(() => this._snippets()['fromDropdown']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
 }

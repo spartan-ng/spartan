@@ -1,10 +1,11 @@
 {
 	"name": "@spartan-ng/brain",
-	"version": "0.0.1-alpha.720",
+	"version": "1.0.0",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/spartan-ng/spartan"
+		"url": "https://github.com/spartan-ng/spartan.git"
 	},
+	"license": "MIT",
 	"sideEffects": false,
 	"exports": {
 		"./hlm-tailwind-preset.css": "./hlm-tailwind-preset.css"
@@ -24,5 +25,8 @@
 		"luxon": {
 			"optional": true
 		}
+	},
+	"publishConfig": {
+		"access": "public"
 	}
 }

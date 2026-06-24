@@ -224,3 +224,36 @@ export const Stateful: Story = {
 		template: '<stateful-dropdown-story/>',
 	}),
 };
+
+// Minimal, deterministic submenu layout used by the issue #1333 regression e2e: a sub-trigger with a
+// plain sibling item directly below it, so a test can hover/click the sub-trigger and then move to the
+// sibling to assert the parent dropdown stays open.
+export const Submenu: Story = {
+	render: () => ({
+		moduleMetadata: {
+			imports: [HlmDropdownMenuImports, HlmButton, NgIcon],
+			providers: [provideIcons(lucide)],
+		},
+		template: `
+    <div class='flex w-full justify-center pt-[20%]'>
+      <button hlmBtn variant='outline' [hlmDropdownMenuTrigger]='menu'>Open</button>
+    </div>
+    <ng-template #menu>
+      <hlm-dropdown-menu class='w-56'>
+        <button hlmDropdownMenuItem>Top Item</button>
+        <button hlmDropdownMenuItem [hlmDropdownMenuSubTrigger]='sub' side='right' align='start'>
+          <span>Submenu Trigger</span>
+          <hlm-dropdown-menu-item-sub-indicator />
+        </button>
+        <button hlmDropdownMenuItem>Bottom Item</button>
+      </hlm-dropdown-menu>
+    </ng-template>
+    <ng-template #sub>
+      <hlm-dropdown-menu-sub>
+        <button hlmDropdownMenuItem>Sub Item One</button>
+        <button hlmDropdownMenuItem>Sub Item Two</button>
+      </hlm-dropdown-menu-sub>
+    </ng-template>
+    `,
+	}),
+};

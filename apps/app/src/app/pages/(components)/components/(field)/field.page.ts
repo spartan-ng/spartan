@@ -325,6 +325,19 @@ export const routeMeta: RouteMeta = {
 					<code class="${hlmCode} mr-0.5">FieldContent</code>
 					to keep error messages aligned with the field.
 				</li>
+				<li class="mt-2">
+					For checkbox or radio groups wrapped in a
+					<code class="${hlmCode} mr-0.5">fieldset</code>
+					, render
+					<code class="${hlmCode} mr-0.5">FieldError</code>
+					as a sibling of the
+					<code class="${hlmCode} mr-0.5">fieldset</code>
+					, not inside it. Because
+					<code class="${hlmCode} mr-0.5">FieldGroup</code>
+					is a container-query context, an error nested in the
+					<code class="${hlmCode} mr-0.5">fieldset</code>
+					triggers a Chrome layout bug that collapses the controls on toggle.
+				</li>
 			</ul>
 			<spartan-code [code]="_validationAndErrorCode" />
 

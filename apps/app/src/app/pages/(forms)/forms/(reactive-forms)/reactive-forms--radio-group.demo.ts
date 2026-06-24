@@ -37,10 +37,10 @@ import { HlmRadioGroupImports } from '@spartan-ng/helm/radio-group';
 									</label>
 								}
 							</hlm-radio-group>
-							@if (form.controls.plan.invalid && form.controls.plan.touched) {
-								<hlm-field-error>You must select a subscription plan to continue.</hlm-field-error>
-							}
 						</fieldset>
+						@if (form.controls.plan.invalid && form.controls.plan.touched) {
+							<hlm-field-error>You must select a subscription plan to continue.</hlm-field-error>
+						}
 					</hlm-field-group>
 				</form>
 			</div>
@@ -128,10 +128,10 @@ import { HlmRadioGroupImports } from '@spartan-ng/helm/radio-group';
 									</label>
 								}
 							</hlm-radio-group>
-							@if (form.controls.plan.invalid && form.controls.plan.touched) {
-								<hlm-field-error>You must select a subscription plan to continue.</hlm-field-error>
-							}
 						</fieldset>
+						@if (form.controls.plan.invalid && form.controls.plan.touched) {
+							<hlm-field-error>You must select a subscription plan to continue.</hlm-field-error>
+						}
 					</hlm-field-group>
 				</form>
 			</div>

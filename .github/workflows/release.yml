@@ -10,14 +10,14 @@ name: release
 # next version on any branch without publishing anything.
 
 on:
-  # TODO(v1 cutover): re-enable after the first manual 1.0.0 release is verified, so every merge to
-  # a release branch publishes automatically. Kept off for now so merging this PR does not auto-fire
-  # a release on the merge commit — the first release is driven manually via workflow_dispatch.
-  # push:
-  #   branches:
-  #     - main
-  #     - beta
-  #     - alpha
+  # Every merge to a release branch publishes automatically (1.0.0 was cut manually via
+  # workflow_dispatch; ongoing releases are push-driven). Non-releasing commit types
+  # (ci/docs/chore/...) compute "no release" and publish nothing, so this is safe to leave on.
+  push:
+    branches:
+      - main
+      - beta
+      - alpha
   workflow_dispatch:
     inputs:
       dry-run:

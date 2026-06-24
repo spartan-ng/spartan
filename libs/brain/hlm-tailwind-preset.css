@@ -1,6 +1,22 @@
 @import '@angular/cdk/overlay-prebuilt.css';
 @import 'tw-animate-css';
 
+/* CDK fades the backdrop with its own opacity transition, and the spartan overlay class fades it again
+   with a tw-animate keyframe - two fades that visibly double up on iOS (#1555). Neutralize CDK's so the
+   spartan keyframe is the sole animator. Kept UNLAYERED so it reliably beats CDK's runtime
+   `@layer cdk-overlay` (unlayered wins over any layer; a custom `@layer` here gets dropped by Tailwind).
+   The vars let consumers re-enable/tune the CDK fade without `!important`, e.g.
+   `:root { --spartan-overlay-backdrop-transition: opacity 200ms ease; }`.
+   Note: the spartan keyframe itself doesn't smoothly interpolate on Safari/iOS - upstream tw-animate-css#59
+   (the `blur()` in its keyframes) - so on iOS the backdrop appears in one step rather than a smooth fade.
+   Tracked upstream; out of scope for this double-fade fix.
+   Scoped off `.cdk-overlay-transparent-backdrop` so CDK's invisible click-catcher backdrops (menus,
+   popovers) keep their own `opacity: 0` and aren't forced visible. */
+.cdk-overlay-backdrop:not(.cdk-overlay-transparent-backdrop) {
+	opacity: var(--spartan-overlay-backdrop-opacity, 1);
+	transition: var(--spartan-overlay-backdrop-transition, none);
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @custom-variant data-open {

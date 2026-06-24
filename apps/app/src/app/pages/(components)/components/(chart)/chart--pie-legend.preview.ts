@@ -38,10 +38,17 @@ export class ChartPieLegendPreview {
 	} satisfies ChartConfig;
 
 	public readonly chartOptions: EChartsCoreOption = {
-		tooltip: { trigger: 'item' },
+		tooltip: {
+			trigger: 'item',
+			backgroundColor: 'var(--background)',
+			borderColor: 'var(--border)',
+			borderWidth: 1,
+			textStyle: { color: 'var(--foreground)', fontSize: 12 },
+			extraCssText: 'box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px -1px rgba(0,0,0,0.1); border-radius: 0.5rem;',
+		},
 		legend: {
 			show: true,
-			fontSize: 12,
+			textStyle: { color: 'var(--muted-foreground)', fontSize: 12 },
 			bottom: 0,
 			left: 'center',
 		},

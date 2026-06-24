@@ -48,7 +48,14 @@ export class ChartBarPreview {
 	} satisfies ChartConfig;
 
 	public readonly chartOptions: EChartsCoreOption = {
-		tooltip: { trigger: 'axis' },
+		tooltip: {
+			trigger: 'axis',
+			backgroundColor: 'var(--background)',
+			borderColor: 'var(--border)',
+			borderWidth: 1,
+			textStyle: { color: 'var(--foreground)', fontSize: 12 },
+			extraCssText: 'box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px -1px rgba(0,0,0,0.1); border-radius: 0.5rem;',
+		},
 		legend: { show: false },
 		grid: { left: 0, right: 0, bottom: 0, top: 8, containLabel: true },
 		xAxis: {
@@ -56,7 +63,7 @@ export class ChartBarPreview {
 			data: barChartData.map((d) => d.month.slice(0, 3)),
 			axisLine: { show: false },
 			axisTick: { show: false },
-			axisLabel: { fontSize: 12 },
+			axisLabel: { color: 'var(--muted-foreground)', fontSize: 12 },
 		},
 		yAxis: {
 			type: 'value',

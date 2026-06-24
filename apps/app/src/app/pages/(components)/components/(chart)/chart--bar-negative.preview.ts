@@ -7,22 +7,22 @@ import type { EChartsCoreOption } from 'echarts';
 import { NgxEchartsDirective } from 'ngx-echarts';
 
 const chartData = [
-	{ month: 'January', desktop: 186 },
-	{ month: 'February', desktop: 305 },
-	{ month: 'March', desktop: 237 },
-	{ month: 'April', desktop: 73 },
-	{ month: 'May', desktop: 209 },
-	{ month: 'June', desktop: 214 },
+	{ month: 'January', visitors: 186 },
+	{ month: 'February', visitors: 205 },
+	{ month: 'March', visitors: -207 },
+	{ month: 'April', visitors: 173 },
+	{ month: 'May', visitors: -209 },
+	{ month: 'June', visitors: 214 },
 ];
 
 @Component({
-	selector: 'spartan-chart-bar-horizontal-preview',
+	selector: 'spartan-chart-bar-negative-preview',
 	imports: [HlmCardImports, HlmChartImports, NgxEchartsDirective],
 	host: { class: 'w-full max-w-md' },
 	template: `
 		<hlm-card class="w-full">
 			<hlm-card-header>
-				<h3 hlmCardTitle>Bar Chart - Horizontal</h3>
+				<h3 hlmCardTitle>Bar Chart - Negative</h3>
 				<p hlmCardDescription>January - June 2024</p>
 			</hlm-card-header>
 			<hlm-card-content>
@@ -39,17 +39,16 @@ const chartData = [
 		</hlm-card>
 	`,
 })
-export class ChartBarHorizontalPreview {
+export class ChartBarNegativePreview {
 	public readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 
 	public readonly chartConfig = {
-		desktop: { label: 'Desktop', color: 'var(--chart-1)' },
+		visitors: { label: 'Visitors' },
 	} satisfies ChartConfig;
 
 	public readonly chartOptions: EChartsCoreOption = {
 		tooltip: {
 			trigger: 'axis',
-			axisPointer: { type: 'shadow' },
 			backgroundColor: 'var(--background)',
 			borderColor: 'var(--border)',
 			borderWidth: 1,
@@ -59,24 +58,37 @@ export class ChartBarHorizontalPreview {
 		legend: { show: false },
 		grid: { left: 0, right: 0, bottom: 0, top: 8, containLabel: true },
 		xAxis: {
+			type: 'category',
+			data: chartData.map((d) => d.month.slice(0, 3)),
+			axisLabel: { color: 'var(--muted-foreground)', fontSize: 12 },
+			axisLine: { show: false },
+			axisTick: { show: false },
+		},
+		yAxis: {
 			type: 'value',
+			axisLabel: { color: 'var(--muted-foreground)', fontSize: 12 },
 			axisLine: { show: false },
 			axisTick: { show: false },
 			splitLine: { lineStyle: { color: 'var(--border)' } },
 		},
-		yAxis: {
-			type: 'category',
-			data: chartData.map((d) => d.month.slice(0, 3)),
-			axisLine: { show: false },
-			axisTick: { show: false },
-			axisLabel: { color: 'var(--muted-foreground)', fontSize: 12 },
-		},
 		series: [
 			{
-				name: 'desktop',
+				name: 'visitors',
 				type: 'bar',
-				data: chartData.map((d) => d.desktop),
-				itemStyle: { color: 'var(--color-desktop)', borderRadius: [0, 4, 4, 0] },
+				data: chartData.map((d) => ({
+					value: d.visitors,
+					itemStyle: {
+						color: d.visitors > 0 ? 'var(--chart-1)' : 'var(--chart-2)',
+						borderRadius: [4, 4, 0, 0],
+					},
+				})),
+				label: {
+					show: true,
+					position: 'top',
+					color: 'var(--muted-foreground)',
+					fontSize: 12,
+					formatter: (params: { name: string }) => params.name,
+				},
 			},
 		],
 	};

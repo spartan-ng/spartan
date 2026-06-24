@@ -18,14 +18,20 @@ import { metaWith } from '../../../../shared/meta/meta.util';
 import { ChartAreaStackedPreview } from './chart--area-stacked.preview';
 import { ChartAreaPreview } from './chart--area.preview';
 import { ChartBarHorizontalPreview } from './chart--bar-horizontal.preview';
+import { ChartBarMixedPreview } from './chart--bar-mixed.preview';
+import { ChartBarNegativePreview } from './chart--bar-negative.preview';
 import { ChartBarStackedPreview } from './chart--bar-stacked.preview';
 import { ChartBarPreview } from './chart--bar.preview';
 import { ChartDonutPreview } from './chart--donut.preview';
 import { ChartLineDotsPreview } from './chart--line-dots.preview';
+import { ChartLineStepPreview } from './chart--line-step.preview';
 import { ChartLinePreview } from './chart--line.preview';
+import { ChartPieLabelPreview } from './chart--pie-label.preview';
 import { ChartPieLegendPreview } from './chart--pie-legend.preview';
 import { ChartPiePreview } from './chart--pie.preview';
 import { ChartRadarDefaultPreview } from './chart--radar-default.preview';
+import { ChartRadarMultiplePreview } from './chart--radar-multiple.preview';
+import { ChartTooltipAdvancedPreview } from './chart--tooltip-advanced.preview';
 import { ChartPreview, defaultImports, defaultSkeleton } from './chart.preview';
 
 export const routeMeta: RouteMeta = {
@@ -53,13 +59,19 @@ export const routeMeta: RouteMeta = {
 		ChartAreaStackedPreview,
 		ChartBarPreview,
 		ChartBarHorizontalPreview,
+		ChartBarMixedPreview,
+		ChartBarNegativePreview,
 		ChartBarStackedPreview,
 		ChartDonutPreview,
-		ChartLinePreview,
 		ChartLineDotsPreview,
-		ChartPiePreview,
+		ChartLinePreview,
+		ChartLineStepPreview,
 		ChartPieLegendPreview,
+		ChartPieLabelPreview,
+		ChartPiePreview,
 		ChartRadarDefaultPreview,
+		ChartRadarMultiplePreview,
+		ChartTooltipAdvancedPreview,
 		ChartPreview,
 	],
 	template: `
@@ -178,6 +190,45 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_barStackedCode()" />
 			</spartan-tabs>
 
+			<h3 id="bar-mixed" spartanH4>Bar Chart - Mixed</h3>
+			<p class="${hlmP}">
+				A mixed bar chart using
+				<code class="${hlmCode}">type: 'bar'</code>
+				with per-item colors.
+			</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-chart-bar-mixed-preview />
+				</div>
+				<spartan-code secondTab [code]="_barMixedCode()" />
+			</spartan-tabs>
+
+			<h3 id="bar-negative" spartanH4>Bar Chart - Negative</h3>
+			<p class="${hlmP}">
+				A bar chart with negative values using
+				<code class="${hlmCode}">type: 'bar'</code>
+				.
+			</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-chart-bar-negative-preview />
+				</div>
+				<spartan-code secondTab [code]="_barNegativeCode()" />
+			</spartan-tabs>
+
+			<h3 id="line-step" spartanH4>Line Chart - Step</h3>
+			<p class="${hlmP}">
+				A step line chart using
+				<code class="${hlmCode}">step: 'start'</code>
+				.
+			</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-chart-line-step-preview />
+				</div>
+				<spartan-code secondTab [code]="_lineStepCode()" />
+			</spartan-tabs>
+
 			<h3 id="line-dots" spartanH4>Line Chart - Dots</h3>
 			<p class="${hlmP}">
 				A line chart with dot markers using
@@ -217,6 +268,19 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_pieLegendCode()" />
 			</spartan-tabs>
 
+			<h3 id="pie-label" spartanH4>Pie Chart - Label</h3>
+			<p class="${hlmP}">
+				A pie chart with visible labels using
+				<code class="${hlmCode}">type: 'pie'</code>
+				.
+			</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-chart-pie-label-preview />
+				</div>
+				<spartan-code secondTab [code]="_pieLabelCode()" />
+			</spartan-tabs>
+
 			<h3 id="radar" spartanH4>Radar Chart</h3>
 			<p class="${hlmP}">
 				A radar chart using
@@ -228,6 +292,32 @@ export const routeMeta: RouteMeta = {
 					<spartan-chart-radar-default-preview />
 				</div>
 				<spartan-code secondTab [code]="_radarDefaultCode()" />
+			</spartan-tabs>
+
+			<h3 id="radar-multiple" spartanH4>Radar Chart - Multiple</h3>
+			<p class="${hlmP}">
+				A radar chart with multiple series using
+				<code class="${hlmCode}">type: 'radar'</code>
+				.
+			</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-chart-radar-multiple-preview />
+				</div>
+				<spartan-code secondTab [code]="_radarMultipleCode()" />
+			</spartan-tabs>
+
+			<h3 id="tooltip-advanced" spartanH4>Tooltip - Advanced</h3>
+			<p class="${hlmP}">
+				A custom tooltip using ECharts
+				<code class="${hlmCode}">formatter</code>
+				with totals.
+			</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-chart-tooltip-advanced-preview />
+				</div>
+				<spartan-code secondTab [code]="_tooltipAdvancedCode()" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
@@ -251,10 +341,16 @@ export default class ChartPage {
 	protected readonly _donutCode = computed(() => this._snippets()['donut']);
 	protected readonly _barHorizontalCode = computed(() => this._snippets()['barHorizontal']);
 	protected readonly _barStackedCode = computed(() => this._snippets()['barStacked']);
+	protected readonly _barMixedCode = computed(() => this._snippets()['barMixed']);
+	protected readonly _barNegativeCode = computed(() => this._snippets()['barNegative']);
+	protected readonly _lineStepCode = computed(() => this._snippets()['lineStep']);
 	protected readonly _lineDotsCode = computed(() => this._snippets()['lineDots']);
 	protected readonly _areaStackedCode = computed(() => this._snippets()['areaStacked']);
 	protected readonly _pieLegendCode = computed(() => this._snippets()['pieLegend']);
+	protected readonly _pieLabelCode = computed(() => this._snippets()['pieLabel']);
 	protected readonly _radarDefaultCode = computed(() => this._snippets()['radarDefault']);
+	protected readonly _radarMultipleCode = computed(() => this._snippets()['radarMultiple']);
+	protected readonly _tooltipAdvancedCode = computed(() => this._snippets()['tooltipAdvanced']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
 }

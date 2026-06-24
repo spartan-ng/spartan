@@ -7,14 +7,14 @@ import type { EChartsCoreOption } from 'echarts';
 import { NgxEchartsDirective } from 'ngx-echarts';
 
 @Component({
-	selector: 'spartan-chart-radar-default-preview',
+	selector: 'spartan-chart-pie-label-preview',
 	imports: [HlmCardImports, HlmChartImports, NgxEchartsDirective],
 	host: { class: 'w-full max-w-md' },
 	template: `
 		<hlm-card class="flex w-full flex-col">
-			<hlm-card-header class="items-center pb-4">
-				<h3 hlmCardTitle>Radar Chart</h3>
-				<p hlmCardDescription>Showing total visitors for the last 6 months</p>
+			<hlm-card-header class="items-center pb-0">
+				<h3 hlmCardTitle>Pie Chart - Label</h3>
+				<p hlmCardDescription>January - June 2024</p>
 			</hlm-card-header>
 			<hlm-card-content class="flex-1 pb-0">
 				@if (isBrowser) {
@@ -25,16 +25,21 @@ import { NgxEchartsDirective } from 'ngx-echarts';
 			</hlm-card-content>
 			<hlm-card-footer class="flex-col gap-2">
 				<div class="flex items-center gap-2 leading-none font-medium">Trending up by 5.2% this month</div>
-				<div class="text-muted-foreground leading-none">January - June 2024</div>
+				<div class="text-muted-foreground leading-none">Showing total visitors for the last 6 months</div>
 			</hlm-card-footer>
 		</hlm-card>
 	`,
 })
-export class ChartRadarDefaultPreview {
+export class ChartPieLabelPreview {
 	public readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 
 	public readonly chartConfig = {
-		desktop: { label: 'Desktop', color: 'var(--chart-1)' },
+		visitors: { label: 'Visitors' },
+		chrome: { label: 'Chrome', color: 'var(--chart-1)' },
+		safari: { label: 'Safari', color: 'var(--chart-2)' },
+		firefox: { label: 'Firefox', color: 'var(--chart-3)' },
+		edge: { label: 'Edge', color: 'var(--chart-4)' },
+		other: { label: 'Other', color: 'var(--chart-5)' },
 	} satisfies ChartConfig;
 
 	public readonly chartOptions: EChartsCoreOption = {
@@ -47,28 +52,31 @@ export class ChartRadarDefaultPreview {
 			extraCssText: 'box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px -1px rgba(0,0,0,0.1); border-radius: 0.5rem;',
 		},
 		legend: { show: false },
-		radar: {
-			indicator: [
-				{ name: 'January', max: 350 },
-				{ name: 'February', max: 350 },
-				{ name: 'March', max: 350 },
-				{ name: 'April', max: 350 },
-				{ name: 'May', max: 350 },
-				{ name: 'June', max: 350 },
-			],
-			axisName: { color: 'var(--muted-foreground)', fontSize: 12 },
-			splitLine: { lineStyle: { color: 'var(--border)' } },
-			splitArea: { areaStyle: { color: ['var(--muted)', 'transparent'] } },
-		},
 		series: [
 			{
 				name: 'Visitors',
-				type: 'radar',
-				data: [{ value: [186, 305, 237, 273, 209, 214], name: 'Desktop' }],
-				symbol: 'none',
-				lineStyle: { color: 'var(--color-desktop)', width: 2 },
-				itemStyle: { color: 'var(--color-desktop)' },
-				areaStyle: { color: 'var(--color-desktop)', opacity: 0.2 },
+				type: 'pie',
+				radius: ['0%', '70%'],
+				center: ['50%', '50%'],
+				avoidLabelOverlap: false,
+				itemStyle: { borderRadius: 4, borderColor: 'transparent', borderWidth: 2 },
+				label: {
+					show: true,
+					color: 'var(--foreground)',
+					fontSize: 12,
+					formatter: '{b}: {d}%',
+				},
+				emphasis: {
+					label: { show: true, fontSize: 14, fontWeight: 'bold' },
+					itemStyle: { shadowBlur: 10, shadowOffsetX: 0, shadowColor: 'rgba(0,0,0,0.5)' },
+				},
+				data: [
+					{ value: 275, name: 'Chrome', itemStyle: { color: 'var(--color-chrome)' } },
+					{ value: 200, name: 'Safari', itemStyle: { color: 'var(--color-safari)' } },
+					{ value: 187, name: 'Firefox', itemStyle: { color: 'var(--color-firefox)' } },
+					{ value: 173, name: 'Edge', itemStyle: { color: 'var(--color-edge)' } },
+					{ value: 90, name: 'Other', itemStyle: { color: 'var(--color-other)' } },
+				],
 			},
 		],
 	};

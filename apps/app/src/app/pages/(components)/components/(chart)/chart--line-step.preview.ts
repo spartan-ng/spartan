@@ -16,13 +16,13 @@ const chartData = [
 ];
 
 @Component({
-	selector: 'spartan-chart-bar-horizontal-preview',
+	selector: 'spartan-chart-line-step-preview',
 	imports: [HlmCardImports, HlmChartImports, NgxEchartsDirective],
 	host: { class: 'w-full max-w-md' },
 	template: `
 		<hlm-card class="w-full">
 			<hlm-card-header>
-				<h3 hlmCardTitle>Bar Chart - Horizontal</h3>
+				<h3 hlmCardTitle>Line Chart - Step</h3>
 				<p hlmCardDescription>January - June 2024</p>
 			</hlm-card-header>
 			<hlm-card-content>
@@ -39,7 +39,7 @@ const chartData = [
 		</hlm-card>
 	`,
 })
-export class ChartBarHorizontalPreview {
+export class ChartLineStepPreview {
 	public readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 
 	public readonly chartConfig = {
@@ -49,7 +49,6 @@ export class ChartBarHorizontalPreview {
 	public readonly chartOptions: EChartsCoreOption = {
 		tooltip: {
 			trigger: 'axis',
-			axisPointer: { type: 'shadow' },
 			backgroundColor: 'var(--background)',
 			borderColor: 'var(--border)',
 			borderWidth: 1,
@@ -59,24 +58,42 @@ export class ChartBarHorizontalPreview {
 		legend: { show: false },
 		grid: { left: 0, right: 0, bottom: 0, top: 8, containLabel: true },
 		xAxis: {
+			type: 'category',
+			data: chartData.map((d) => d.month.slice(0, 3)),
+			axisLabel: { color: 'var(--muted-foreground)', fontSize: 12 },
+			axisLine: { show: false },
+			axisTick: { show: false },
+			boundaryGap: false,
+		},
+		yAxis: {
 			type: 'value',
+			axisLabel: { color: 'var(--muted-foreground)', fontSize: 12 },
 			axisLine: { show: false },
 			axisTick: { show: false },
 			splitLine: { lineStyle: { color: 'var(--border)' } },
 		},
-		yAxis: {
-			type: 'category',
-			data: chartData.map((d) => d.month.slice(0, 3)),
-			axisLine: { show: false },
-			axisTick: { show: false },
-			axisLabel: { color: 'var(--muted-foreground)', fontSize: 12 },
-		},
 		series: [
 			{
 				name: 'desktop',
-				type: 'bar',
+				type: 'line',
 				data: chartData.map((d) => d.desktop),
-				itemStyle: { color: 'var(--color-desktop)', borderRadius: [0, 4, 4, 0] },
+				step: 'start',
+				lineStyle: { color: 'var(--color-desktop)', width: 2 },
+				itemStyle: { color: 'var(--color-desktop)' },
+				areaStyle: {
+					color: {
+						type: 'linear',
+						x: 0,
+						y: 0,
+						x2: 0,
+						y2: 1,
+						colorStops: [
+							{ offset: 0, color: 'var(--color-desktop)' },
+							{ offset: 1, color: 'transparent' },
+						],
+					},
+					opacity: 0.2,
+				},
 			},
 		],
 	};

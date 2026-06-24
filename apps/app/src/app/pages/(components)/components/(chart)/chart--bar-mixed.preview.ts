@@ -7,22 +7,21 @@ import type { EChartsCoreOption } from 'echarts';
 import { NgxEchartsDirective } from 'ngx-echarts';
 
 const chartData = [
-	{ month: 'January', desktop: 186 },
-	{ month: 'February', desktop: 305 },
-	{ month: 'March', desktop: 237 },
-	{ month: 'April', desktop: 73 },
-	{ month: 'May', desktop: 209 },
-	{ month: 'June', desktop: 214 },
+	{ browser: 'Chrome', visitors: 275 },
+	{ browser: 'Safari', visitors: 200 },
+	{ browser: 'Firefox', visitors: 187 },
+	{ browser: 'Edge', visitors: 173 },
+	{ browser: 'Other', visitors: 90 },
 ];
 
 @Component({
-	selector: 'spartan-chart-bar-horizontal-preview',
+	selector: 'spartan-chart-bar-mixed-preview',
 	imports: [HlmCardImports, HlmChartImports, NgxEchartsDirective],
 	host: { class: 'w-full max-w-md' },
 	template: `
 		<hlm-card class="w-full">
 			<hlm-card-header>
-				<h3 hlmCardTitle>Bar Chart - Horizontal</h3>
+				<h3 hlmCardTitle>Bar Chart - Mixed</h3>
 				<p hlmCardDescription>January - June 2024</p>
 			</hlm-card-header>
 			<hlm-card-content>
@@ -39,11 +38,16 @@ const chartData = [
 		</hlm-card>
 	`,
 })
-export class ChartBarHorizontalPreview {
+export class ChartBarMixedPreview {
 	public readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 
 	public readonly chartConfig = {
-		desktop: { label: 'Desktop', color: 'var(--chart-1)' },
+		visitors: { label: 'Visitors' },
+		chrome: { label: 'Chrome', color: 'var(--chart-1)' },
+		safari: { label: 'Safari', color: 'var(--chart-2)' },
+		firefox: { label: 'Firefox', color: 'var(--chart-3)' },
+		edge: { label: 'Edge', color: 'var(--chart-4)' },
+		other: { label: 'Other', color: 'var(--chart-5)' },
 	} satisfies ChartConfig;
 
 	public readonly chartOptions: EChartsCoreOption = {
@@ -60,23 +64,30 @@ export class ChartBarHorizontalPreview {
 		grid: { left: 0, right: 0, bottom: 0, top: 8, containLabel: true },
 		xAxis: {
 			type: 'value',
+			axisLabel: { color: 'var(--muted-foreground)', fontSize: 12 },
 			axisLine: { show: false },
 			axisTick: { show: false },
 			splitLine: { lineStyle: { color: 'var(--border)' } },
 		},
 		yAxis: {
 			type: 'category',
-			data: chartData.map((d) => d.month.slice(0, 3)),
+			data: chartData.map((d) => d.browser),
+			axisLabel: { color: 'var(--muted-foreground)', fontSize: 12 },
 			axisLine: { show: false },
 			axisTick: { show: false },
-			axisLabel: { color: 'var(--muted-foreground)', fontSize: 12 },
 		},
 		series: [
 			{
-				name: 'desktop',
+				name: 'visitors',
 				type: 'bar',
-				data: chartData.map((d) => d.desktop),
-				itemStyle: { color: 'var(--color-desktop)', borderRadius: [0, 4, 4, 0] },
+				data: [
+					{ value: chartData[0].visitors, itemStyle: { color: 'var(--color-chrome)' } },
+					{ value: chartData[1].visitors, itemStyle: { color: 'var(--color-safari)' } },
+					{ value: chartData[2].visitors, itemStyle: { color: 'var(--color-firefox)' } },
+					{ value: chartData[3].visitors, itemStyle: { color: 'var(--color-edge)' } },
+					{ value: chartData[4].visitors, itemStyle: { color: 'var(--color-other)' } },
+				],
+				itemStyle: { borderRadius: [0, 4, 4, 0] },
 			},
 		],
 	};

@@ -104,18 +104,20 @@ active would fire a real release on the merge commit. So for the first cutover:
 - [x] Merge `release.yml` with the **`push:` trigger temporarily removed** (dispatch-only). _Why: lets
       the workflow land on `main` without auto-publishing._ (Done on `chore/semantic-release-v1`: the
       `push:` block is commented out; re-enabled in step 7 after the first release.)
-- [ ] Dry-run: `gh workflow run release.yml --ref main -f dry-run=true` then `gh run watch`. _Why:
+- [x] Dry-run: `gh workflow run release.yml --ref main -f dry-run=true` then `gh run watch`. _Why:
       confirm it computes **1.0.0** and the right files/notes before anything is published._
-- [ ] Real release: `gh workflow run release.yml --ref main -f dry-run=false`. _Why: publishes 1.0.0 to
+- [x] Real release: `gh workflow run release.yml --ref main -f dry-run=false`. _Why: publishes 1.0.0 to
       npm `latest`, commits the version bump + changelog, and cuts the GitHub Release._
-- [ ] Verify: `@spartan-ng/*@1.0.0` on npm, a `v1.0.0` tag, and a GitHub Release.
+- [x] Verify: `@spartan-ng/*@1.0.0` on npm, a `v1.0.0` tag, and a GitHub Release. _Done: npm
+      brain/cli/mcp@1.0.0, tag `v1.0.0`, and the GitHub Release (created manually — semantic-release's
+      release-body POST 422'd on the >125k-char first-release changelog; future releases are small)._
 
 > Why this sequence: it lets you preview the computed version with zero risk before the irreversible
 > npm publish.
 
 ### 7. Enable ongoing automation
 
-- [ ] Follow-up PR that **re-adds `push: [main, beta, alpha]`** to `release.yml`.
+- [x] Follow-up PR that **re-adds `push: [main, beta, alpha]`** to `release.yml`.
 
 > Why: after the verified first release, every merge to a release branch should publish automatically —
 > that's the whole point of the channel model.

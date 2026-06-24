@@ -49,7 +49,7 @@ export class ChartBarHorizontalPreview {
 	public readonly chartOptions: EChartsCoreOption = {
 		tooltip: {
 			trigger: 'axis',
-			axisPointer: { type: 'shadow' },
+			axisPointer: { type: 'none' },
 			backgroundColor: 'var(--background)',
 			borderColor: 'var(--border)',
 			borderWidth: 1,

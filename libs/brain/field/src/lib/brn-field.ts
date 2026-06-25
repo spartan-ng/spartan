@@ -68,4 +68,14 @@ export class BrnField {
 		if (this._labelable()) return;
 		this._labelable.set(labelable);
 	}
+
+	public unregisterFieldControl(fieldControl: BrnFieldControl) {
+		if (this._brnFieldControl() !== fieldControl) return;
+		this._brnFieldControl.set(null);
+	}
+
+	public unregisterLabelable(labelable: BrnLabelable) {
+		if (this._labelable() !== labelable) return;
+		this._labelable.set(null);
+	}
 }

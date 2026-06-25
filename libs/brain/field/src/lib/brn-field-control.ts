@@ -13,6 +13,8 @@ export class BrnFieldControl implements OnInit, DoCheck {
 	private readonly _field = inject(BrnField, { optional: true });
 	private readonly _destroyRef = inject(DestroyRef);
 
+	private _labelable: BrnLabelable | null = null;
+
 	private readonly _stateTracker = signal<StateTracker | null>(null);
 	/** Sentinel value to differentiate "never checked" from "control is null". */
 	private _lastControl: AbstractControl | null = null;
@@ -31,6 +33,10 @@ export class BrnFieldControl implements OnInit, DoCheck {
 
 	constructor() {
 		this._destroyRef.onDestroy(() => {
+			this._field?.unregisterFieldControl(this);
+			if (this._labelable) {
+				this._field?.unregisterLabelable(this._labelable);
+			}
 			this._stateTracker()?.destroy();
 		});
 	}
@@ -54,9 +60,9 @@ export class BrnFieldControl implements OnInit, DoCheck {
 			});
 		}
 
-		const labelable = this._injector.get(BrnLabelable, null);
-		if (labelable) {
-			this._field?.registerLabelable(labelable);
+		this._labelable = this._injector.get(BrnLabelable, null);
+		if (this._labelable) {
+			this._field?.registerLabelable(this._labelable);
 		}
 	}
 
@@ -69,7 +75,7 @@ export class BrnFieldControl implements OnInit, DoCheck {
 
 	/** @returns true if the control reference changed */
 	private _syncTracker(): void {
-		if (!this.ngControl || this._field?.brnFieldControl() !== this) return;
+		if (!this.ngControl || (this._field && this._field.brnFieldControl() !== this)) return;
 		const currentControl = this.ngControl.control ?? null;
 		if (currentControl === this._lastControl) return;
 		this._lastControl = currentControl;

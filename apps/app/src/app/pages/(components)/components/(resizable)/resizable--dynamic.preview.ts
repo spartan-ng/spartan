@@ -1,10 +1,11 @@
-import { Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmResizableImports } from '@spartan-ng/helm/resizable';
 
 @Component({
 	selector: 'spartan-resizable-dynamic-preview',
 	imports: [HlmResizableImports, HlmButton],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div class="flex flex-col gap-4">
 			<button hlmBtn class="self-start" variant="outline" (click)="showPanel.update((visible) => !visible)">

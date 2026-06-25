@@ -7,7 +7,7 @@ import { HlmInputImports } from '@spartan-ng/helm/input';
 	selector: 'spartan-input-badge',
 	imports: [HlmInputImports, HlmFieldImports, HlmBadgeImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	host: { class: 'min-w-sm' },
+	host: { class: 'min-w-xs sm:min-w-sm' },
 	template: `
 		<hlm-field>
 			<label hlmFieldLabel for="input-badge">

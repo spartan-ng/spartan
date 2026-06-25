@@ -7,7 +7,7 @@ import { HlmInputImports } from '@spartan-ng/helm/input';
 	selector: 'spartan-input-rtl',
 	imports: [HlmInputImports, HlmFieldImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	host: { class: 'min-w-sm' },
+	host: { class: 'min-w-xs sm:min-w-sm' },
 	template: `
 		<hlm-field [dir]="_dir()">
 			<label hlmFieldLabel for="input-rtl-api-key">{{ _t()['apiKey'] }}</label>

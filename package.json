@@ -207,12 +207,6 @@
 		"yarn": "please-use-pnpm"
 	},
 	"engineStrict": true,
-	"pnpm": {
-		"overrides": {
-			"form-data": ">=4.0.5",
-			"handlebars": ">=4.7.9"
-		}
-	},
 	"nx": {
 		"includedScripts": []
 	},

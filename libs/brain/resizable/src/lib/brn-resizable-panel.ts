@@ -66,7 +66,10 @@ export class BrnResizablePanel {
 	 * share (e.g. 50/50) and then snapping to the configured size. Example: `"25 1 0"` means
 	 * 25% width (or height in vertical layout).
 	 */
-	protected readonly _flex = computed(() => `${this._panelSize() ?? this.defaultSize()} 1 0`);
+	protected readonly _flex = computed(() => {
+		const size = this._panelSize() ?? this.defaultSize() ?? 100;
+		return `${size} 1 0`;
+	});
 	/**
 	 * Sets the size of the panel.
 	 * @param size New size (percentage of container space).

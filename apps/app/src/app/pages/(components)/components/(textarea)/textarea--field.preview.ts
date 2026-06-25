@@ -6,7 +6,7 @@ import { HlmTextareaImports } from '@spartan-ng/helm/textarea';
 	selector: 'spartan-textarea-field',
 	imports: [HlmTextareaImports, HlmFieldImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	host: { class: 'min-w-sm' },
+	host: { class: 'min-w-xs sm:min-w-sm' },
 	template: `
 		<hlm-field>
 			<label hlmFieldLabel for="textarea-message">Message</label>

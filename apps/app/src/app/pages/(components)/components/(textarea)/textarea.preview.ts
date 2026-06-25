@@ -5,7 +5,7 @@ import { HlmTextareaImports } from '@spartan-ng/helm/textarea';
 	selector: 'spartan-textarea-preview',
 	imports: [HlmTextareaImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	host: { class: 'min-w-sm' },
+	host: { class: 'min-w-xs sm:min-w-sm' },
 	template: `
 		<textarea hlmTextarea placeholder="Type your message here."></textarea>
 	`,

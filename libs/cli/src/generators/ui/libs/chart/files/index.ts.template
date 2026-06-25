@@ -1,3 +1,5 @@
+export { type ChartConfig, type ChartContext, resolveCssVar, THEMES } from '@spartan-ng/brain/chart';
+
 import { HlmChartContainer } from './lib/hlm-chart-container';
 import { HlmChartTooltipContent } from './lib/hlm-chart-tooltip-content';
 import { HlmChartLegendContent } from './lib/hlm-chart-legend-content';

@@ -1,4 +1,4 @@
-import { computed, DestroyRef, Directive, DoCheck, effect, inject, Injector, OnInit, signal } from '@angular/core';
+import { computed, DestroyRef, Directive, DoCheck, inject, Injector, OnInit, signal } from '@angular/core';
 import { type AbstractControl, FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { createStateTracker, ErrorStateMatcher, type StateTracker } from '@spartan-ng/brain/forms';
 import { BrnField } from './brn-field';
@@ -13,7 +13,6 @@ export class BrnFieldControl implements OnInit, DoCheck {
 	private readonly _field = inject(BrnField, { optional: true });
 	private readonly _destroyRef = inject(DestroyRef);
 
-	private _idEffectRef?: ReturnType<typeof effect>;
 	private readonly _stateTracker = signal<StateTracker | null>(null);
 	/** Sentinel value to differentiate "never checked" from "control is null". */
 	private _lastControl: AbstractControl | null = null;
@@ -32,7 +31,6 @@ export class BrnFieldControl implements OnInit, DoCheck {
 
 	constructor() {
 		this._destroyRef.onDestroy(() => {
-			this._idEffectRef?.destroy();
 			this._stateTracker()?.destroy();
 		});
 	}

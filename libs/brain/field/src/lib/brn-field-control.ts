@@ -38,11 +38,8 @@ export class BrnFieldControl implements OnInit, DoCheck {
 	}
 
 	ngOnInit(): void {
-		// `self` prevents descendants (e.g. calendar selects) from inheriting an ancestor's NgControl.
-		this.ngControl = this._injector.get(NgControl, null, { optional: true, self: true });
+		this.ngControl = this._injector.get(NgControl, null);
 
-		// Only register with BrnField when this control has its own NgControl, otherwise descendant
-		// field controls rendered in portals (e.g. calendar selects) overwrite the real control's registration.
 		if (this.ngControl) {
 			this._field?.registerFieldControl(this);
 		}
@@ -61,12 +58,7 @@ export class BrnFieldControl implements OnInit, DoCheck {
 
 		const labelable = this._injector.get(BrnLabelable, null);
 		if (labelable) {
-			this._idEffectRef = effect(
-				() => {
-					this.id.set(labelable.labelableId());
-				},
-				{ injector: this._injector },
-			);
+			this._field?.registerLabelable(labelable);
 		}
 	}
 
@@ -79,7 +71,7 @@ export class BrnFieldControl implements OnInit, DoCheck {
 
 	/** @returns true if the control reference changed */
 	private _syncTracker(): void {
-		if (!this.ngControl) return;
+		if (!this.ngControl || this._field?.brnFieldControl() !== this) return;
 		const currentControl = this.ngControl.control ?? null;
 		if (currentControl === this._lastControl) return;
 		this._lastControl = currentControl;

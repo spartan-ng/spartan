@@ -53,16 +53,19 @@ export class BrnField {
 		return this._brnFieldControl()?.controlState()?.touched ?? null;
 	});
 
-	public readonly labelableId = computed(() => this._brnFieldControl()?.id?.() ?? this._labelable()?.labelableId());
+	public readonly labelableId = computed(() => this._labelable()?.labelableId());
 
+	public readonly brnFieldControl = this._brnFieldControl.asReadonly();
 	public readonly errors = computed(() => this._brnFieldControl()?.errors() ?? null);
 	public readonly controlState = computed(() => this._brnFieldControl()?.controlState() ?? null);
 
 	public registerFieldControl(fieldControl: BrnFieldControl) {
+		if (this._brnFieldControl()) return;
 		this._brnFieldControl.set(fieldControl);
 	}
 
 	public registerLabelable(labelable: BrnLabelable) {
+		if (this._labelable()) return;
 		this._labelable.set(labelable);
 	}
 }

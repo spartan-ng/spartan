@@ -21,11 +21,26 @@ function withFileContents(tree: Tree, item: RegistryItem): RegistryItem {
 	});
 }
 
+function deleteRegistryJsonFiles(tree: Tree, path: string) {
+	if (tree.isFile(path)) {
+		if (path.endsWith('.json')) {
+			tree.delete(path);
+		}
+		return;
+	}
+
+	for (const child of tree.children(path)) {
+		deleteRegistryJsonFiles(tree, joinPathFragments(path, child));
+	}
+}
+
 export default async function registryBuildGenerator(tree: Tree, options: SpartanRegistryBuildSchema) {
 	const output = options.output ?? 'public/r';
 	const items = options.registry
 		? registrySchema.parse(readJson(tree, options.registry)).items.map((item) => withFileContents(tree, item))
 		: await createFirstPartyRegistryItems();
+
+	deleteRegistryJsonFiles(tree, output);
 
 	for (const item of items) {
 		tree.write(joinPathFragments(output, `${item.name}.json`), JSON.stringify(registryItemSchema.parse(item), null, 2));

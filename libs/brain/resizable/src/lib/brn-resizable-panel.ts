@@ -55,16 +55,18 @@ export class BrnResizablePanel {
 	public readonly collapsible = input<boolean, BooleanInput>(true, { transform: booleanAttribute });
 
 	/** Reactive signal holding the current size of the panel. */
-	protected readonly _panelSize = signal<number>(100);
+	protected readonly _panelSize = signal<number | undefined>(undefined);
 
 	/**
 	 * CSS flex style for this panel, derived from its current size.
 	 * Format: `"flex-grow flex-shrink flex-basis"`.
 	 *
-	 * Example: `"25 1 0"` means 25% width (or height in vertical layout).
+	 * Before the group synchronizes the layout, falls back to {@link defaultSize} so the panel
+	 * paints at its intended size on the very first render instead of briefly flexing to an equal
+	 * share (e.g. 50/50) and then snapping to the configured size. Example: `"25 1 0"` means
+	 * 25% width (or height in vertical layout).
 	 */
-	protected readonly _flex = computed(() => `${this._panelSize()} 1 0`);
-
+	protected readonly _flex = computed(() => `${this._panelSize() ?? this.defaultSize()} 1 0`);
 	/**
 	 * Sets the size of the panel.
 	 * @param size New size (percentage of container space).

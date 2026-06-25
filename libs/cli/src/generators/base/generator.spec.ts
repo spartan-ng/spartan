@@ -9,7 +9,7 @@ import {
 	writeJson,
 } from '@nx/devkit';
 import { createTreeWithEmptyWorkspace } from '@nx/devkit/testing';
-import { dedupeEntrypointGlobs, hlmBaseGenerator } from './generator';
+import { dedupeEntrypointGlobs, hlmBaseGenerator, hlmRegistryItemGenerator } from './generator';
 import { singleLibName } from './lib/single-lib-name';
 
 // Mock buildDependencyArray and buildDevDependencyArray
@@ -156,6 +156,35 @@ describe('hlmBaseGenerator', () => {
 			{ '@angular/core': '^17.0.0' },
 			{ '@types/node': '^20.0.0' },
 		);
+	});
+
+	it('installs registry item files through the library scaffold', async () => {
+		await hlmRegistryItemGenerator(
+			tree,
+			{
+				name: 'button',
+				directory: 'libs/test-ui',
+				buildable: true,
+				generateAs: 'library' as const,
+				importAlias: '@ui',
+				style: 'vega',
+			},
+			{
+				name: 'button',
+				type: 'registry:ui',
+				dependencies: ['clsx@^2.1.1'],
+				files: [
+					{
+						path: 'index.ts.template',
+						target: 'index.ts',
+						type: 'registry:ui',
+						content: "import { classes } from '<%- importAlias %>/utils';\nexport { classes };",
+					},
+				],
+			},
+		);
+
+		expect(tree.read('libs/test-ui/button/src/index.ts', 'utf-8')).toContain("from '@ui/utils'");
 	});
 
 	it('adds the generated components source dirs to tsconfig.app.json include for angular-cli projects', async () => {

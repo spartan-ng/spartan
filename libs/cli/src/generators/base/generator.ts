@@ -21,6 +21,8 @@ import { initializeAngularLibrary } from './lib/initialize-angular-library';
 import { librarySecondaryEntryPointGenerator } from '@nx/angular/generators';
 
 import { promises as fsPromises } from 'fs';
+import type { RegistryItem } from '../../registry';
+import { renderSpartanTemplateTokens, targetPathForRegistryFile } from '../../registry';
 import type { Style } from '../../utils/supported-styles';
 import { singleLibName } from './lib/single-lib-name';
 import { createStyleMap } from './lib/styles/create-style-map';
@@ -30,7 +32,7 @@ import { FALLBACK_ANGULAR_CDK_VERSION } from './versions';
 
 const styleMapCache = new Map<Style, Record<string, string>>();
 
-async function getStyleMap(style: Style) {
+export async function getStyleMap(style: Style) {
 	if (styleMapCache.has(style)) {
 		return styleMapCache.get(style)!;
 	}
@@ -45,12 +47,12 @@ async function getStyleMap(style: Style) {
 	}
 }
 
-function isAlreadyInstalled(tree: Tree, alias: string): boolean {
+export function isAlreadyInstalled(tree: Tree, alias: string): boolean {
 	const existingPaths = readTsConfigPathsFromTree(tree);
 	return alias in existingPaths;
 }
 
-function setupAngularCliProject(tree: Tree, alias: string, targetLibDir: string) {
+export function setupAngularCliProject(tree: Tree, alias: string, targetLibDir: string) {
 	addTsConfigPath(tree, alias, [`./${joinPathFragments(targetLibDir, 'src', 'index.ts').replace(/\\/g, '/')}`]);
 
 	// The generated libraries live outside the app's `src`, so they aren't covered by tsconfig.app.json's
@@ -134,7 +136,7 @@ export function dedupeEntrypointGlobs(patterns: string[], recursiveGlobs: string
 // default build tsConfig for an @nx/angular library, which is also the file nx's secondary-entrypoint
 // generator inflates. A library whose build target points its tsConfig elsewhere isn't normalized here,
 // but the spartan generators never produce that shape.
-function normalizeEntrypointTsConfig(tree: Tree, libraryDir: string): void {
+export function normalizeEntrypointTsConfig(tree: Tree, libraryDir: string): void {
 	const tsConfigLibPath = joinPathFragments(libraryDir, 'tsconfig.lib.json');
 	if (!tree.exists(tsConfigLibPath)) {
 		return;
@@ -198,6 +200,126 @@ function registerDependencies(tree: Tree, options: HlmBaseGeneratorSchema): Gene
 	const dependencies = buildDependencyArray(tree, options, cdkVersion);
 	const devDependencies = buildDevDependencyArray();
 	return addDependenciesToPackageJson(tree, dependencies, devDependencies);
+}
+
+function registerRegistryDependencies(
+	tree: Tree,
+	options: HlmBaseGeneratorSchema,
+	item: Pick<RegistryItem, 'dependencies' | 'devDependencies'>,
+): GeneratorCallback {
+	const parseDependency = (dependency: string): [string, string] => {
+		const atIndex = dependency.startsWith('@') ? dependency.indexOf('@', 1) : dependency.indexOf('@');
+		if (atIndex > 0) {
+			return [dependency.slice(0, atIndex), dependency.slice(atIndex + 1)];
+		}
+		return [dependency, 'latest'];
+	};
+	const cdkVersion = getInstalledPackageVersion(tree, '@angular/cdk', FALLBACK_ANGULAR_CDK_VERSION, true);
+	const dependencies = buildDependencyArray(
+		tree,
+		{
+			...options,
+			peerDependencies: Object.fromEntries((item.dependencies ?? []).map(parseDependency)),
+		},
+		cdkVersion,
+	);
+	const devDependencies = {
+		...buildDevDependencyArray(),
+		...Object.fromEntries((item.devDependencies ?? []).map(parseDependency)),
+	};
+	return addDependenciesToPackageJson(tree, dependencies, devDependencies);
+}
+
+async function createRegistryEntrypointScaffold(
+	tree: Tree,
+	alias: string,
+	options: HlmBaseGeneratorSchema,
+): Promise<string> {
+	const targetLibDir = `${options.directory}/${options.name}/src`;
+
+	if (options.buildable) {
+		normalizeEntrypointTsConfig(tree, options.directory!);
+		await librarySecondaryEntryPointGenerator(tree, {
+			name: options.name,
+			library: singleLibName,
+			skipFormat: true,
+			skipModule: true,
+		});
+		normalizeEntrypointTsConfig(tree, options.directory!);
+	} else {
+		updateJson(tree, getRootTsConfigPathInTree(tree), (json) => {
+			json.compilerOptions ||= {};
+			json.compilerOptions.paths ||= {};
+			json.compilerOptions.paths[alias] = [`./${joinPathFragments(targetLibDir, 'index.ts').replace(/\\/g, '/')}`];
+			return json;
+		});
+	}
+
+	return targetLibDir;
+}
+
+function writeRegistryItemFiles(tree: Tree, filesPath: string, item: RegistryItem, options: HlmBaseGeneratorSchema) {
+	for (const file of item.files ?? []) {
+		if (!file.content) {
+			continue;
+		}
+
+		const targetPath = joinPathFragments(filesPath, targetPathForRegistryFile(file, options.name));
+		if (!options.overwrite && tree.exists(targetPath)) {
+			continue;
+		}
+
+		const content = renderSpartanTemplateTokens(file.content, { importAlias: options.importAlias });
+		tree.write(targetPath, content);
+	}
+}
+
+export async function hlmRegistryItemGenerator(tree: Tree, options: HlmBaseGeneratorSchema, item: RegistryItem) {
+	const tasks: GeneratorCallback[] = [];
+	const targetLibDir = getTargetLibraryDirectory(options, tree);
+	const tsConfigAlias = `${options.importAlias}/${options.name}`;
+
+	if (options.dryRun) {
+		console.log(`Would install ${tsConfigAlias} from registry item ${item.name}.`);
+		return runTasksInSerial(...tasks);
+	}
+
+	if (!options.overwrite && isAlreadyInstalled(tree, tsConfigAlias)) {
+		console.log(`Skipping ${tsConfigAlias}. It's already installed!`);
+		return runTasksInSerial(...tasks);
+	}
+
+	if (options.angularCli) {
+		setupAngularCliProject(tree, tsConfigAlias, targetLibDir);
+	} else if (options.generateAs === 'library') {
+		tasks.push(await initializeAngularLibrary(tree, options));
+	}
+
+	const filesPath =
+		options.generateAs === 'entrypoint'
+			? await createRegistryEntrypointScaffold(tree, tsConfigAlias, options)
+			: joinPathFragments(targetLibDir, 'src');
+
+	if (options.generateAs !== 'entrypoint') {
+		const deletePath = joinPathFragments(options.directory!, options.name, 'src', 'lib', options.name);
+		deleteFiles(tree, deletePath);
+	}
+
+	writeRegistryItemFiles(tree, filesPath, item, options);
+
+	const styleMap = await getStyleMap(options.style);
+	const generatedFiles: string[] = [];
+	visitNotIgnoredFiles(tree, filesPath, (filePath) => generatedFiles.push(filePath));
+
+	for (const filePath of generatedFiles) {
+		const content = tree.read(filePath, 'utf-8');
+		if (!content) continue;
+		tree.write(filePath, await transformStyle(content, { styleMap }));
+	}
+
+	tasks.push(registerRegistryDependencies(tree, options, item));
+
+	return runTasksInSerial(...tasks);
 }
 
 export async function hlmBaseGenerator(tree: Tree, options: HlmBaseGeneratorSchema) {

@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { HlmCardImports } from '@spartan-ng/helm/card';
 import { HlmCarouselImports } from '@spartan-ng/helm/carousel';
 
 @Component({
 	selector: 'spartan-carousel-sizes',
 	imports: [HlmCarouselImports, HlmCardImports],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: { class: 'flex w-full items-center justify-center p-4' },
 	template: `
 		<hlm-carousel class="w-full max-w-48 sm:max-w-xs md:max-w-sm">

@@ -11,6 +11,7 @@ export const primitiveDependencies: Record<Primitive, Primitive[]> = {
 	breadcrumb: ['utils'],
 	button: ['utils'],
 	'button-group': ['utils', 'button'],
+	chart: ['utils'],
 	calendar: ['utils', 'button', 'select'],
 	card: ['utils'],
 	carousel: ['utils', 'button'],

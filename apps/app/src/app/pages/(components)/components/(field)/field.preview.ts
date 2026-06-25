@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmCheckboxImports } from '@spartan-ng/helm/checkbox';
 import { HlmFieldImports } from '@spartan-ng/helm/field';
@@ -16,7 +15,6 @@ import { HlmTextareaImports } from '@spartan-ng/helm/textarea';
 		HlmInputImports,
 		HlmFieldImports,
 		HlmSelectImports,
-		ReactiveFormsModule,
 	],
 	host: {
 		class: 'w-full max-w-md',
@@ -115,9 +113,7 @@ import { HlmTextareaImports } from '@spartan-ng/helm/textarea';
 		</form>
 	`,
 })
-export class FieldPreview {
-	public control = new FormControl('', Validators.required);
-}
+export class FieldPreview {}
 
 export const defaultImports = `
 import { HlmFieldImports } from "@spartan-ng/helm/field";

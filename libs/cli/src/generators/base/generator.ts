@@ -32,12 +32,39 @@ import { FALLBACK_ANGULAR_CDK_VERSION } from './versions';
 
 const styleMapCache = new Map<Style, Record<string, string>>();
 
+const STYLE_FILE_CANDIDATES = [
+	'src/styles.css',
+	'src/styles.scss',
+	'src/styles.less',
+	'src/tailwind.css',
+	'src/global.css',
+	'styles.css',
+];
+
+const TAILWIND_JSON_CONFIG_CANDIDATES = ['tailwind.config.json'];
+
 export async function getStyleMap(style: Style) {
 	if (styleMapCache.has(style)) {
 		return styleMapCache.get(style)!;
 	}
 	try {
-		const cssPath = path.join(__dirname, '..', 'ui', `style-${style}.css`);
+		const cssPaths = [
+			path.join(__dirname, '..', 'ui', `style-${style}.css`),
+			path.join(__dirname, '..', '..', '..', '..', 'registry', 'src', 'styles', `style-${style}.css`),
+		];
+		let cssPath: string | null = null;
+		for (const candidate of cssPaths) {
+			try {
+				await fsPromises.access(candidate);
+				cssPath = candidate;
+				break;
+			} catch {
+				// Try the next built/source asset location.
+			}
+		}
+		if (!cssPath) {
+			return {};
+		}
 		const css = await fsPromises.readFile(cssPath, 'utf-8');
 		const styleMap = createStyleMap(css);
 		styleMapCache.set(style, styleMap);
@@ -45,6 +72,174 @@ export async function getStyleMap(style: Style) {
 	} catch {
 		return {};
 	}
+}
+
+async function getStyleMapForRegistryItem(item: RegistryItem, style: Style) {
+	return item.styleMaps?.[style] ?? (await getStyleMap(style));
+}
+
+function detectStyleFile(tree: Tree): string | null {
+	return STYLE_FILE_CANDIDATES.find((candidate) => tree.exists(candidate)) ?? null;
+}
+
+function setMarkedBlock(content: string, marker: string, block: string) {
+	const start = `/* spartan-registry:${marker}:start */`;
+	const end = `/* spartan-registry:${marker}:end */`;
+	const nextBlock = `${start}\n${block.trim()}\n${end}`;
+	const pattern = new RegExp(`${escapeRegExp(start)}[\\s\\S]*?${escapeRegExp(end)}`);
+
+	if (pattern.test(content)) {
+		return content.replace(pattern, nextBlock);
+	}
+
+	return `${content.trimEnd()}\n\n${nextBlock}\n`;
+}
+
+function escapeRegExp(value: string) {
+	return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+function serializeCssVars(cssVars: NonNullable<RegistryItem['cssVars']>) {
+	const blocks: string[] = [];
+
+	if (cssVars.theme && Object.keys(cssVars.theme).length) {
+		blocks.push(`@theme {\n${serializeDeclarations(cssVars.theme)}\n}`);
+	}
+
+	if (cssVars.light && Object.keys(cssVars.light).length) {
+		blocks.push(`:root {\n${serializeCssCustomProperties(cssVars.light)}\n}`);
+	}
+
+	if (cssVars.dark && Object.keys(cssVars.dark).length) {
+		blocks.push(`.dark {\n${serializeCssCustomProperties(cssVars.dark)}\n}`);
+	}
+
+	return blocks.join('\n\n');
+}
+
+function serializeCssCustomProperties(values: Record<string, string>) {
+	return Object.entries(values)
+		.map(([key, value]) => `\t${key.startsWith('--') ? key : `--${key}`}: ${value};`)
+		.join('\n');
+}
+
+function serializeDeclarations(values: Record<string, string>) {
+	return Object.entries(values)
+		.map(([key, value]) => `\t${key}: ${value};`)
+		.join('\n');
+}
+
+function serializeCss(css: NonNullable<RegistryItem['css']>) {
+	return Object.entries(css)
+		.map(([selector, value]) => serializeCssRule(selector, value))
+		.filter(Boolean)
+		.join('\n\n');
+}
+
+function serializeCssRule(selector: string, value: unknown, indent = ''): string {
+	if (!value || typeof value !== 'object' || Array.isArray(value)) {
+		return '';
+	}
+
+	const declarations: string[] = [];
+	const nested: string[] = [];
+
+	for (const [key, childValue] of Object.entries(value)) {
+		if (typeof childValue === 'string') {
+			declarations.push(`${indent}\t${key}: ${childValue};`);
+			continue;
+		}
+
+		if (Array.isArray(childValue)) {
+			declarations.push(
+				`${indent}\t${key}: ${childValue.map((entry) => (typeof entry === 'string' ? entry : '')).join(' ')};`,
+			);
+			continue;
+		}
+
+		if (childValue && typeof childValue === 'object') {
+			if (key.startsWith('@')) {
+				const nestedRule = serializeCssRule(selector, childValue, `${indent}\t`);
+				if (nestedRule) {
+					nested.push(`${indent}${key} {\n${nestedRule}\n${indent}}`);
+				}
+				continue;
+			}
+
+			nested.push(
+				serializeCssRule(key.includes('&') ? key.replaceAll('&', selector) : `${selector} ${key}`, childValue, indent),
+			);
+		}
+	}
+
+	const rule = declarations.length ? `${indent}${selector} {\n${declarations.join('\n')}\n${indent}}` : '';
+	return [rule, ...nested].filter(Boolean).join('\n\n');
+}
+
+function applyRegistryStylesToStylesheet(tree: Tree, item: RegistryItem) {
+	if (!item.cssVars && !item.css) {
+		return;
+	}
+
+	const styleFile = detectStyleFile(tree);
+	if (!styleFile) {
+		return;
+	}
+
+	let content = tree.read(styleFile, 'utf-8') ?? '';
+
+	if (item.cssVars) {
+		const cssVars = serializeCssVars(item.cssVars);
+		if (cssVars) {
+			content = setMarkedBlock(content, `${item.name}:css-vars`, cssVars);
+		}
+	}
+
+	if (item.css) {
+		const css = serializeCss(item.css);
+		if (css) {
+			content = setMarkedBlock(content, `${item.name}:css`, css);
+		}
+	}
+
+	tree.write(styleFile, content);
+}
+
+function mergeObjects(target: Record<string, unknown>, source: Record<string, unknown>): Record<string, unknown> {
+	for (const [key, value] of Object.entries(source)) {
+		if (
+			value &&
+			typeof value === 'object' &&
+			!Array.isArray(value) &&
+			target[key] &&
+			typeof target[key] === 'object' &&
+			!Array.isArray(target[key])
+		) {
+			target[key] = mergeObjects(target[key] as Record<string, unknown>, value as Record<string, unknown>);
+		} else {
+			target[key] = value;
+		}
+	}
+	return target;
+}
+
+function applyRegistryTailwindConfig(tree: Tree, item: RegistryItem) {
+	const config = item.tailwind?.config;
+	if (!config) {
+		return;
+	}
+
+	const configPath = TAILWIND_JSON_CONFIG_CANDIDATES.find((candidate) => tree.exists(candidate));
+	if (!configPath) {
+		return;
+	}
+
+	updateJson(tree, configPath, (json) => mergeObjects(json, config as Record<string, unknown>));
+}
+
+function applyRegistryGlobalStyles(tree: Tree, item: RegistryItem) {
+	applyRegistryStylesToStylesheet(tree, item);
+	applyRegistryTailwindConfig(tree, item);
 }
 
 export function isAlreadyInstalled(tree: Tree, alias: string): boolean {
@@ -307,7 +502,7 @@ export async function hlmRegistryItemGenerator(tree: Tree, options: HlmBaseGener
 
 	writeRegistryItemFiles(tree, filesPath, item, options);
 
-	const styleMap = await getStyleMap(options.style);
+	const styleMap = await getStyleMapForRegistryItem(item, options.style);
 	const generatedFiles: string[] = [];
 	visitNotIgnoredFiles(tree, filesPath, (filePath) => generatedFiles.push(filePath));
 
@@ -316,6 +511,8 @@ export async function hlmRegistryItemGenerator(tree: Tree, options: HlmBaseGener
 		if (!content) continue;
 		tree.write(filePath, await transformStyle(content, { styleMap }));
 	}
+
+	applyRegistryGlobalStyles(tree, item);
 
 	tasks.push(registerRegistryDependencies(tree, options, item));
 

@@ -187,6 +187,122 @@ describe('hlmBaseGenerator', () => {
 		expect(tree.read('libs/test-ui/button/src/index.ts', 'utf-8')).toContain("from '@ui/utils'");
 	});
 
+	it('transforms registry item files with registry-provided style maps', async () => {
+		await hlmRegistryItemGenerator(
+			tree,
+			{
+				name: 'button',
+				directory: 'libs/test-ui',
+				buildable: true,
+				generateAs: 'library' as const,
+				importAlias: '@ui',
+				style: 'vega',
+			},
+			{
+				name: 'button',
+				type: 'registry:ui',
+				styleMaps: {
+					vega: {
+						'spartan-button': 'registry-button-class',
+					},
+				},
+				files: [
+					{
+						path: 'index.ts.template',
+						target: 'index.ts',
+						type: 'registry:ui',
+						content: "import { hlm } from '@ui/utils';\nexport const button = hlm('spartan-button');",
+					},
+				],
+			},
+		);
+
+		const content = tree.read('libs/test-ui/button/src/index.ts', 'utf-8');
+		expect(content).toContain('registry-button-class');
+	});
+
+	it('falls back to the local style map for legacy registry items without style maps', async () => {
+		await hlmRegistryItemGenerator(
+			tree,
+			{
+				name: 'button',
+				directory: 'libs/test-ui',
+				buildable: true,
+				generateAs: 'library' as const,
+				importAlias: '@ui',
+				style: 'vega',
+			},
+			{
+				name: 'button',
+				type: 'registry:ui',
+				files: [
+					{
+						path: 'index.ts.template',
+						target: 'index.ts',
+						type: 'registry:ui',
+						content: "import { hlm } from '@ui/utils';\nexport const button = hlm('spartan-button');",
+					},
+				],
+			},
+		);
+
+		const content = tree.read('libs/test-ui/button/src/index.ts', 'utf-8');
+		expect(content).not.toContain('spartan-button');
+	});
+
+	it('applies registry css metadata idempotently and merges JSON tailwind config', async () => {
+		tree.write('src/styles.css', '@import "tailwindcss";\n');
+		writeJson(tree, 'tailwind.config.json', { theme: { extend: { spacing: { sm: '1rem' } } } });
+
+		const item = {
+			name: 'button',
+			type: 'registry:ui' as const,
+			cssVars: {
+				light: { background: 'oklch(1 0 0)' },
+				dark: { background: 'oklch(0 0 0)' },
+			},
+			css: {
+				'.acme-button': {
+					color: 'red',
+					'&:hover': { color: 'blue' },
+					'@media (min-width: 768px)': { color: 'green' },
+				},
+			},
+			tailwind: { config: { theme: { extend: { colors: { acme: 'red' } } } } },
+			files: [
+				{
+					path: 'index.ts.template',
+					target: 'index.ts',
+					type: 'registry:ui' as const,
+					content: 'export {};',
+				},
+			],
+		};
+
+		const options = {
+			name: 'button',
+			directory: 'libs/test-ui',
+			buildable: true,
+			generateAs: 'library' as const,
+			importAlias: '@ui',
+			style: 'vega' as const,
+			overwrite: true,
+		};
+
+		await hlmRegistryItemGenerator(tree, options, item);
+		await hlmRegistryItemGenerator(tree, options, item);
+
+		const styles = tree.read('src/styles.css', 'utf-8') ?? '';
+		expect(styles.match(/spartan-registry:button:css-vars:start/g)?.length).toBe(1);
+		expect(styles.match(/spartan-registry:button:css:start/g)?.length).toBe(1);
+		expect(styles).toContain('--background: oklch(1 0 0);');
+		expect(styles).toContain('.acme-button:hover');
+
+		const tailwindConfig = readJson(tree, 'tailwind.config.json');
+		expect(tailwindConfig.theme.extend.spacing.sm).toBe('1rem');
+		expect(tailwindConfig.theme.extend.colors.acme).toBe('red');
+	});
+
 	it('adds the generated components source dirs to tsconfig.app.json include for angular-cli projects', async () => {
 		// Simulate an Angular CLI app layout: a root tsconfig.app.json that only includes `src`. The generated
 		// libs live under libs/test-ui (outside src), so without this they'd be orphaned in the editor.

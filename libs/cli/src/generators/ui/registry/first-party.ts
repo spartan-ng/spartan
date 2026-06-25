@@ -1,6 +1,8 @@
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import type { RegistryItem, RegistryItemFile } from '../../../registry';
+import { STYLES } from '../../../utils/supported-styles';
+import { createStyleMap } from '../../base/lib/styles/create-style-map';
 import { primitiveDependencies } from '../primitive-deps';
 import type { Primitive } from '../primitives';
 import supportedUiLibraries from '../supported-ui-libraries.json';
@@ -10,6 +12,42 @@ const removeHelmKeys = (obj: Record<string, string>) =>
 
 function dependencyToString([pkg, version]: [string, string]) {
 	return `${pkg}@${version}`;
+}
+
+let firstPartyStyleMaps: RegistryItem['styleMaps'];
+
+async function readFirstPartyStyleCss(style: string) {
+	const candidates = [
+		path.join(__dirname, '..', `style-${style}.css`),
+		path.join(__dirname, '..', '..', '..', '..', '..', 'registry', 'src', 'styles', `style-${style}.css`),
+	];
+
+	for (const candidate of candidates) {
+		try {
+			return await fs.readFile(candidate, 'utf-8');
+		} catch {
+			// Try the next source/built asset location.
+		}
+	}
+
+	throw new Error(`Unable to locate Spartan style CSS for "${style}".`);
+}
+
+async function createFirstPartyStyleMaps(): Promise<NonNullable<RegistryItem['styleMaps']>> {
+	if (firstPartyStyleMaps) {
+		return firstPartyStyleMaps;
+	}
+
+	firstPartyStyleMaps = Object.fromEntries(
+		await Promise.all(
+			STYLES.map(async (style) => {
+				const css = await readFirstPartyStyleCss(style);
+				return [style, createStyleMap(css)] as const;
+			}),
+		),
+	);
+
+	return firstPartyStyleMaps;
 }
 
 async function collectTemplateFiles(dir: string, root = dir): Promise<RegistryItemFile[]> {
@@ -53,6 +91,7 @@ export async function createFirstPartyRegistryItem(name: string): Promise<Regist
 		dependencies,
 		devDependencies: [],
 		registryDependencies,
+		styleMaps: await createFirstPartyStyleMaps(),
 		files: await collectTemplateFiles(filesDir),
 	};
 }

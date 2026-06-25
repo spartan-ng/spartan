@@ -120,6 +120,7 @@ export async function resolveRegistryItems(
 		tailwind: mergeObjects(payload.map((item) => item.tailwind)),
 		cssVars: mergeObjects(payload.map((item) => item.cssVars)),
 		css: mergeObjects(payload.map((item) => item.css)),
+		styleMaps: mergeObjects(payload.map((item) => item.styleMaps)),
 		docs: docs || undefined,
 	});
 

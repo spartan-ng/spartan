@@ -1,6 +1,7 @@
 import { promises as fs } from 'node:fs';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
+import { registryItemSchema } from '../schema/schema';
 import { buildUrlAndHeadersForRegistryItem } from './config';
 import { parseRegistryAndItemFromString } from './parser';
 import { resolveRegistryItemList, resolveRegistryItems } from './resolver';
@@ -58,5 +59,57 @@ describe('registry utilities', () => {
 		const tree = await resolveRegistryItems([file]);
 
 		expect(tree.files?.[0]?.target).toBe('index.ts');
+	});
+
+	it('validates style maps', () => {
+		expect(
+			registryItemSchema.safeParse({
+				name: 'button',
+				type: 'registry:ui',
+				styleMaps: {
+					nova: {
+						'spartan-button': 'inline-flex',
+					},
+				},
+			}).success,
+		).toBe(true);
+
+		expect(
+			registryItemSchema.safeParse({
+				name: 'button',
+				type: 'registry:ui',
+				styleMaps: {
+					nova: {
+						button: 'inline-flex',
+					},
+				},
+			}).success,
+		).toBe(false);
+	});
+
+	it('merges style maps across registry dependencies with dependents winning', async () => {
+		const tree = await resolveRegistryItems(
+			['button'],
+			{},
+			{
+				builtinItemFactory: async (name) => ({
+					name,
+					type: 'registry:ui',
+					registryDependencies: name === 'button' ? ['utils'] : [],
+					styleMaps: {
+						nova: {
+							'spartan-shared': name === 'button' ? 'button-value' : 'utils-value',
+							[`spartan-${name}`]: name,
+						},
+					},
+				}),
+			},
+		);
+
+		expect(tree.styleMaps?.nova).toEqual({
+			'spartan-utils': 'utils',
+			'spartan-button': 'button',
+			'spartan-shared': 'button-value',
+		});
 	});
 });

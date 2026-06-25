@@ -128,6 +128,11 @@ const cssValueSchema: z.ZodType = z.lazy(() =>
 
 export const registryItemCssSchema = z.record(z.string(), cssValueSchema);
 
+export const registryItemStyleMapsSchema = z.record(
+	z.string(),
+	z.record(z.string().startsWith('spartan-'), z.string()),
+);
+
 // Font metadata schema for registry:font items.
 export const registryItemFontSchema = z.object({
 	family: z.string(),
@@ -153,6 +158,7 @@ export const registryItemCommonSchema = z.object({
 	tailwind: registryItemTailwindSchema.optional(),
 	cssVars: registryItemCssVarsSchema.optional(),
 	css: registryItemCssSchema.optional(),
+	styleMaps: registryItemStyleMapsSchema.optional(),
 	meta: z.record(z.string(), z.any()).optional(),
 	docs: z.string().optional(),
 	categories: z.array(z.string()).optional(),
@@ -221,6 +227,7 @@ export const registryResolvedItemsTreeSchema = z.object({
 	tailwind: registryItemTailwindSchema.optional(),
 	cssVars: registryItemCssVarsSchema.optional(),
 	css: registryItemCssSchema.optional(),
+	styleMaps: registryItemStyleMapsSchema.optional(),
 	docs: z.string().optional(),
 });
 

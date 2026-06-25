@@ -52,7 +52,10 @@ export default async function registryBuildGenerator(tree: Tree, options: Sparta
 			registrySchema.parse({
 				name: 'spartan',
 				homepage: 'https://www.spartan.ng',
-				items: items.map(({ files: _files, ...item }) => item),
+				items: items.map(
+					({ files: _files, styleMaps: _styleMaps, css: _css, cssVars: _cssVars, tailwind: _tailwind, ...item }) =>
+						item,
+				),
 			}),
 			null,
 			2,

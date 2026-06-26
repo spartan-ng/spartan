@@ -1,4 +1,5 @@
-import { computed, Directive } from '@angular/core';
+import { BooleanInput } from '@angular/cdk/coercion';
+import { booleanAttribute, computed, Directive, input } from '@angular/core';
 import { injectBrnComboboxBase } from './brn-combobox.token';
 
 @Directive({
@@ -31,7 +32,11 @@ export class BrnComboboxTrigger<T> {
 	protected readonly _ariaInvalid = computed(() => this._combobox.controlState?.()?.invalid);
 	protected readonly _dirty = computed(() => this._combobox.controlState?.()?.dirty);
 	protected readonly _touched = computed(() => this._combobox.controlState?.()?.touched);
-	protected readonly _spartanInvalid = computed(() => this._combobox.controlState?.()?.spartanInvalid);
+	protected readonly _spartanInvalid = computed(
+		() => this.forceInvalid() || this._combobox.controlState?.()?.spartanInvalid,
+	);
+
+	public readonly forceInvalid = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
 	/** Listen for keydown events */
 	protected onKeyDown(event: KeyboardEvent): void {

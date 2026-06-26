@@ -57,6 +57,28 @@ describe('HlmTooltip touch interactions', () => {
 		await waitFor(() => expect(tooltipEl()).toBeNull());
 	});
 
+	it('dismisses on a touch pointercancel on the trigger (interrupted touch sequence)', async () => {
+		await render(TooltipTouchHost);
+
+		fireEvent.pointerDown(triggerEl(), { pointerType: 'touch' });
+		await waitFor(() => expect(tooltipEl()).toBeTruthy());
+
+		fireEvent.pointerCancel(triggerEl(), { pointerType: 'touch' });
+		await waitFor(() => expect(tooltipEl()).toBeNull());
+	});
+
+	it('ignores a mouse pointercancel on the trigger (only touch cancels)', async () => {
+		await render(TooltipTouchHost);
+
+		fireEvent.pointerDown(triggerEl(), { pointerType: 'touch' });
+		await waitFor(() => expect(tooltipEl()).toBeTruthy());
+
+		fireEvent.pointerCancel(triggerEl(), { pointerType: 'mouse' });
+
+		await wait(50);
+		expect(tooltipEl()).toBeTruthy();
+	});
+
 	it('stays open when a touch pointerdown lands inside the tooltip', async () => {
 		await render(TooltipTouchHost);
 

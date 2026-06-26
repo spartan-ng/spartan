@@ -90,6 +90,7 @@ export class BrnFieldControl implements OnInit, DoCheck {
 			return this._field.brnFieldControl() !== this;
 		}
 
-		return !!this._injector.get(BrnFieldControl, null, { skipSelf: true });
+		const parent = this._injector.get(BrnFieldControl, null, { skipSelf: true });
+		return !!parent?.ngControl && parent.ngControl === this.ngControl;
 	}
 }

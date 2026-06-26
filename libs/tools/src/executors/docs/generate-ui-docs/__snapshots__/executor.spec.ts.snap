@@ -1222,7 +1222,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "outputs": [],
         "selector": "hlm-chart-container, [hlmChartContainer]",
       },
-"HlmChartTooltipContent": {
+      "HlmChartTooltipContent": {
         "inputs": [
           {
             "name": "hideLabel",

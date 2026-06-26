@@ -197,9 +197,12 @@ export class BrnTooltip {
 		const visualViewport = this._document.defaultView?.visualViewport;
 		if (!visualViewport) return { x: 0, y: 0 };
 
-		// While pinch-zoomed the delta reflects the zoom, not a collapsed toolbar; the rect and the
-		// overlay both live in layout pixels that zoom together, so no compensation is needed.
-		if (Math.abs(visualViewport.scale - 1) > 0.01) return { x: 0, y: 0 };
+		// Only the collapsing-toolbar case is a pure height/width change with the viewport top-left still
+		// pinned (scale 1, offset 0). Pinch-zoom (scale != 1) and the software keyboard (offset != 0)
+		// shrink the visual viewport for unrelated reasons, so the delta below would shift the tooltip
+		// wrongly - bail and let CDK position normally.
+		const pinnedToTopLeft = Math.abs(visualViewport.offsetTop) < 1 && Math.abs(visualViewport.offsetLeft) < 1;
+		if (Math.abs(visualViewport.scale - 1) > 0.01 || !pinnedToTopLeft) return { x: 0, y: 0 };
 
 		const docEl = this._document.documentElement;
 		const anchorsFromBottom = position.overlayY === 'bottom';
@@ -215,6 +218,30 @@ export class BrnTooltip {
 		this._initScrollListener();
 		this._initHoverListeners();
 		this._initTouchListeners();
+		this._initVisualViewportListener();
+	}
+
+	/**
+	 * Reposition an open tooltip while the visual viewport resizes. Scrolling/zooming already dismiss it,
+	 * but closing the software keyboard only resizes the viewport (no dismissal) and animates over several
+	 * frames - so a tooltip opened mid-animation is positioned against a transient viewport and lands wrong.
+	 * Re-running positioning on each resize lets it settle into the correct spot.
+	 */
+	private _initVisualViewportListener(): void {
+		const visualViewport = this._document.defaultView?.visualViewport;
+		if (!visualViewport) return;
+
+		const reposition = () => {
+			if (!this._overlayRef?.hasAttached()) return;
+			this._updatePosition();
+			this._overlayRef.updatePosition();
+		};
+
+		this._listenersRefs = [
+			...this._listenersRefs,
+			this._renderer.listen(visualViewport, 'resize', reposition),
+			this._renderer.listen(visualViewport, 'scroll', reposition),
+		];
 	}
 
 	/** Hover and keyboard focus drive show/hide for mouse/pen pointers; touch has no hover. */
@@ -242,6 +269,9 @@ export class BrnTooltip {
 			...this._listenersRefs,
 			this._renderer.listen(this._elementRef.nativeElement, 'pointerdown', (event: PointerEvent) => {
 				if (event.pointerType === 'touch') this._requestShow();
+			}),
+			this._renderer.listen(this._elementRef.nativeElement, 'pointercancel', (event: PointerEvent) => {
+				if (event.pointerType === 'touch') this.delay(false, 0);
 			}),
 			this._renderer.listen(this._document, 'pointerdown', (event: PointerEvent) => {
 				if (event.pointerType !== 'touch') return;

@@ -1,3 +1,12 @@
+## <small>1.0.2-beta.1 (2026-06-26)</small>
+
+- fix: replace remaining replace text-[calc(var(--spacing)*n)] in vega style (#1586) ([25b91a8](https://github.com/spartan-ng/spartan/commit/25b91a8)), closes [#1586](https://github.com/spartan-ng/spartan/issues/1586)
+- fix(calendar): allow partial i18n config (#1569) ([f837f81](https://github.com/spartan-ng/spartan/commit/f837f81)), closes [#1569](https://github.com/spartan-ng/spartan/issues/1569)
+- fix(combobox): add missing trigger force invalid (#1583) ([3c79e87](https://github.com/spartan-ng/spartan/commit/3c79e87)), closes [#1583](https://github.com/spartan-ng/spartan/issues/1583)
+- fix(field): allow BrnFieldControl to inject ngControl from host component, set label's for attribute ([23d675b](https://github.com/spartan-ng/spartan/commit/23d675b)), closes [#1579](https://github.com/spartan-ng/spartan/issues/1579)
+- Merge pull request #1564 from spartan-ng/fix/commitlint-release-scope ([fc4a33a](https://github.com/spartan-ng/spartan/commit/fc4a33a)), closes [#1564](https://github.com/spartan-ng/spartan/issues/1564)
+- build: allow the release scope in commitlint ([fd74ad5](https://github.com/spartan-ng/spartan/commit/fd74ad5))
+
 ## <small>1.0.1 (2026-06-24)</small>
 
 - Merge pull request #1563 from spartan-ng/beta ([c94bf48](https://github.com/spartan-ng/spartan/commit/c94bf48)), closes [#1563](https://github.com/spartan-ng/spartan/issues/1563)

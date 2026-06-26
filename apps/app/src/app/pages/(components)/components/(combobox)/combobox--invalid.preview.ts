@@ -47,6 +47,24 @@ import { HlmFieldImports } from '@spartan-ng/helm/field';
 				</hlm-combobox-multiple>
 				<hlm-field-error>Please select at least one framework.</hlm-field-error>
 			</hlm-field>
+
+			<hlm-field forceInvalid>
+				<label hlmFieldLabel>Frameworks</label>
+				<hlm-combobox>
+					<hlm-combobox-trigger forceInvalid class="w-full justify-between">
+						<hlm-combobox-value placeholder="Select a framework" />
+					</hlm-combobox-trigger>
+					<hlm-combobox-content *hlmComboboxPortal>
+						<hlm-combobox-input showTrigger="false" placeholder="Search" showClear />
+						<hlm-combobox-empty>No items found.</hlm-combobox-empty>
+						<div hlmComboboxList>
+							@for (framework of frameworks; track $index) {
+								<hlm-combobox-item [value]="framework">{{ framework }}</hlm-combobox-item>
+							}
+						</div>
+					</hlm-combobox-content>
+				</hlm-combobox>
+			</hlm-field>
 		</hlm-field-group>
 	`,
 })

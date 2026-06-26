@@ -1683,7 +1683,13 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[brnComboboxStatus]",
       },
       "BrnComboboxTrigger": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "forceInvalid",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
         "models": [],
         "outputs": [],
         "selector": "button[brnComboboxTrigger]",
@@ -1875,6 +1881,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "name": "variant",
             "required": false,
             "type": "ButtonVariants['variant']",
+          },
+          {
+            "name": "forceInvalid",
+            "required": false,
+            "type": "boolean",
           },
         ],
         "models": [],

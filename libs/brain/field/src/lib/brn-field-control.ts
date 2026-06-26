@@ -14,6 +14,7 @@ export class BrnFieldControl implements OnInit, DoCheck {
 	private readonly _destroyRef = inject(DestroyRef);
 
 	private _labelable: BrnLabelable | null = null;
+	private _parentFieldControl: BrnFieldControl | null = null;
 
 	private readonly _stateTracker = signal<StateTracker | null>(null);
 	/** Sentinel value to differentiate "never checked" from "control is null". */
@@ -41,6 +42,7 @@ export class BrnFieldControl implements OnInit, DoCheck {
 
 	ngOnInit(): void {
 		this.ngControl = this._injector.get(NgControl, null);
+		this._parentFieldControl = this._injector.get(BrnFieldControl, null, { skipSelf: true });
 
 		if (this.ngControl) {
 			this._field?.registerFieldControl(this);
@@ -90,7 +92,6 @@ export class BrnFieldControl implements OnInit, DoCheck {
 			return this._field.brnFieldControl() !== this;
 		}
 
-		const parent = this._injector.get(BrnFieldControl, null, { skipSelf: true });
-		return !!parent?.ngControl && parent.ngControl === this.ngControl;
+		return !!this._parentFieldControl?.ngControl && this._parentFieldControl.ngControl === this.ngControl;
 	}
 }

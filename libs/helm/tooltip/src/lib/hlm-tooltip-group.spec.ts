@@ -49,11 +49,11 @@ describe('HlmTooltip skip-delay grouping', () => {
 		await render(TooltipGroupHost);
 
 		// First open waits for its delay -> animated "open".
-		fireEvent.mouseEnter(screen.getByText('one'));
+		fireEvent.pointerEnter(screen.getByText('one'), { pointerType: 'mouse' });
 		await waitFor(() => expect(tooltipByText('first')?.getAttribute('data-state')).toBe('open'));
 
 		// Second opens within the window -> "instant-open" (no enter animation).
-		fireEvent.mouseEnter(screen.getByText('two'));
+		fireEvent.pointerEnter(screen.getByText('two'), { pointerType: 'mouse' });
 		await waitFor(() => {
 			const el = tooltipByText('second');
 			expect(el).toBeTruthy();
@@ -65,14 +65,14 @@ describe('HlmTooltip skip-delay grouping', () => {
 		await render(TooltipGroupShortWindowHost);
 
 		// Open then close the first tooltip - closing starts the window's expiry timer.
-		fireEvent.mouseEnter(screen.getByText('one'));
+		fireEvent.pointerEnter(screen.getByText('one'), { pointerType: 'mouse' });
 		await waitFor(() => expect(tooltipByText('first')).toBeTruthy());
-		fireEvent.mouseLeave(screen.getByText('one'));
+		fireEvent.pointerLeave(screen.getByText('one'), { pointerType: 'mouse' });
 		await waitFor(() => expect(tooltipByText('first')).toBeFalsy());
 
 		// After the window elapses, the next open is delayed again -> animated "open", not "instant-open".
 		await wait(90);
-		fireEvent.mouseEnter(screen.getByText('two'));
+		fireEvent.pointerEnter(screen.getByText('two'), { pointerType: 'mouse' });
 		await waitFor(() => {
 			const el = tooltipByText('second');
 			expect(el).toBeTruthy();

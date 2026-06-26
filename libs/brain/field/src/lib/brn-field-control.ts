@@ -1,4 +1,4 @@
-import { computed, DestroyRef, Directive, DoCheck, effect, inject, Injector, OnInit, signal } from '@angular/core';
+import { computed, DestroyRef, Directive, DoCheck, inject, Injector, OnInit, signal } from '@angular/core';
 import { type AbstractControl, FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { createStateTracker, ErrorStateMatcher, type StateTracker } from '@spartan-ng/brain/forms';
 import { BrnField } from './brn-field';
@@ -13,15 +13,15 @@ export class BrnFieldControl implements OnInit, DoCheck {
 	private readonly _field = inject(BrnField, { optional: true });
 	private readonly _destroyRef = inject(DestroyRef);
 
-	private _idEffectRef?: ReturnType<typeof effect>;
+	private _labelable: BrnLabelable | null = null;
+	private _parentFieldControl: BrnFieldControl | null = null;
+
 	private readonly _stateTracker = signal<StateTracker | null>(null);
 	/** Sentinel value to differentiate "never checked" from "control is null". */
 	private _lastControl: AbstractControl | null = null;
 
 	/** Gets the AbstractControlDirective for this control. */
 	public ngControl: NgControl | null = null;
-
-	public readonly id = signal<string | null | undefined>(undefined);
 
 	public readonly controlState = computed(() => this._stateTracker()?.controlState() ?? null);
 	public readonly errors = computed(() => this._stateTracker()?.errors() ?? null);
@@ -32,17 +32,18 @@ export class BrnFieldControl implements OnInit, DoCheck {
 
 	constructor() {
 		this._destroyRef.onDestroy(() => {
-			this._idEffectRef?.destroy();
+			this._field?.unregisterFieldControl(this);
+			if (this._labelable) {
+				this._field?.unregisterLabelable(this._labelable);
+			}
 			this._stateTracker()?.destroy();
 		});
 	}
 
 	ngOnInit(): void {
-		// `self` prevents descendants (e.g. calendar selects) from inheriting an ancestor's NgControl.
-		this.ngControl = this._injector.get(NgControl, null, { optional: true, self: true });
+		this.ngControl = this._injector.get(NgControl, null);
+		this._parentFieldControl = this._injector.get(BrnFieldControl, null, { skipSelf: true });
 
-		// Only register with BrnField when this control has its own NgControl, otherwise descendant
-		// field controls rendered in portals (e.g. calendar selects) overwrite the real control's registration.
 		if (this.ngControl) {
 			this._field?.registerFieldControl(this);
 		}
@@ -59,14 +60,9 @@ export class BrnFieldControl implements OnInit, DoCheck {
 			});
 		}
 
-		const labelable = this._injector.get(BrnLabelable, null);
-		if (labelable) {
-			this._idEffectRef = effect(
-				() => {
-					this.id.set(labelable.labelableId());
-				},
-				{ injector: this._injector },
-			);
+		this._labelable = this._injector.get(BrnLabelable, null);
+		if (this._labelable) {
+			this._field?.registerLabelable(this._labelable);
 		}
 	}
 
@@ -79,7 +75,7 @@ export class BrnFieldControl implements OnInit, DoCheck {
 
 	/** @returns true if the control reference changed */
 	private _syncTracker(): void {
-		if (!this.ngControl) return;
+		if (!this.ngControl || this._hasFieldControlParent()) return;
 		const currentControl = this.ngControl.control ?? null;
 		if (currentControl === this._lastControl) return;
 		this._lastControl = currentControl;
@@ -89,5 +85,13 @@ export class BrnFieldControl implements OnInit, DoCheck {
 				? createStateTracker(this.ngControl, this._errorStateMatcher, this._parentFormGroup, this._parentForm)
 				: null,
 		);
+	}
+
+	private _hasFieldControlParent() {
+		if (this._field) {
+			return this._field.brnFieldControl() !== this;
+		}
+
+		return !!this._parentFieldControl?.ngControl && this._parentFieldControl.ngControl === this.ngControl;
 	}
 }

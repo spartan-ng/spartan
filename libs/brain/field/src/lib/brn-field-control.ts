@@ -22,8 +22,6 @@ export class BrnFieldControl implements OnInit, DoCheck {
 	/** Gets the AbstractControlDirective for this control. */
 	public ngControl: NgControl | null = null;
 
-	public readonly id = signal<string | null | undefined>(undefined);
-
 	public readonly controlState = computed(() => this._stateTracker()?.controlState() ?? null);
 	public readonly errors = computed(() => this._stateTracker()?.errors() ?? null);
 	public readonly dirty = computed(() => this._stateTracker()?.dirty() ?? null);
@@ -75,7 +73,7 @@ export class BrnFieldControl implements OnInit, DoCheck {
 
 	/** @returns true if the control reference changed */
 	private _syncTracker(): void {
-		if (!this.ngControl || (this._field && this._field.brnFieldControl() !== this)) return;
+		if (!this.ngControl || this._hasFieldControlParent()) return;
 		const currentControl = this.ngControl.control ?? null;
 		if (currentControl === this._lastControl) return;
 		this._lastControl = currentControl;
@@ -85,5 +83,13 @@ export class BrnFieldControl implements OnInit, DoCheck {
 				? createStateTracker(this.ngControl, this._errorStateMatcher, this._parentFormGroup, this._parentForm)
 				: null,
 		);
+	}
+
+	private _hasFieldControlParent() {
+		if (this._field) {
+			return this._field.brnFieldControl() !== this;
+		}
+
+		return !!this._injector.get(BrnFieldControl, null, { skipSelf: true });
 	}
 }

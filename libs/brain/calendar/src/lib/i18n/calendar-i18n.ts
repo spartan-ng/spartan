@@ -35,7 +35,7 @@ export const BrnCalendarI18nToken = new InjectionToken<BrnCalendarI18nService>('
 /**
  * Provide the calendar i18n configuration.
  */
-export function provideBrnCalendarI18n(configuration?: BrnCalendarI18n): Provider {
+export function provideBrnCalendarI18n(configuration?: Partial<BrnCalendarI18n>): Provider {
 	return {
 		provide: BrnCalendarI18nToken,
 		useFactory: () => {

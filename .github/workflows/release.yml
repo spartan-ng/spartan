@@ -63,7 +63,7 @@ jobs:
       - name: Lint
         run: pnpm run lint
       - name: Build publishable libs
-        run: pnpm nx run-many -t build -p brain cli mcp --parallel=1
+        run: pnpm nx run-many -t build -p brain cli mcp charts --parallel=1
       - name: Unit test publishable libs
         run: pnpm nx run-many -t test -p brain cli mcp --parallel=3
 

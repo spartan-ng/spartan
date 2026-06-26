@@ -2,8 +2,13 @@ import { formatFiles, type Tree, updateJson } from '@nx/devkit';
 import process from 'node:process';
 
 // semantic-release computes one version; we stamp it into the package.json of every lib we
-// publish in lockstep. brain/cli/mcp ship together off a single version, so they are listed here.
-const PUBLISHABLE_PACKAGE_JSONS = ['libs/brain/package.json', 'libs/cli/package.json', 'libs/mcp/package.json'];
+// publish in lockstep. brain/cli/mcp/charts ship together off a single version, so they are listed here.
+const PUBLISHABLE_PACKAGE_JSONS = [
+	'libs/brain/package.json',
+	'libs/cli/package.json',
+	'libs/mcp/package.json',
+	'libs/charts/package.json',
+];
 
 export default async function setReleaseVersionGenerator(tree: Tree, options?: { newVersion?: string }): Promise<void> {
 	const newVersion = options?.newVersion ?? process.env.VERSION;
@@ -23,5 +28,5 @@ export default async function setReleaseVersionGenerator(tree: Tree, options?: {
 
 	await formatFiles(tree);
 
-	console.log(`Set brain, cli and mcp version to ${newVersion}`);
+	console.log(`Set brain, cli, mcp and charts version to ${newVersion}`);
 }

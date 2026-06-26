@@ -1,0 +1,18 @@
+{
+	"name": "@spartan-ng/charts",
+	"version": "1.0.2",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/spartan-ng/spartan.git"
+	},
+	"license": "MIT",
+	"sideEffects": false,
+	"peerDependencies": {
+		"@angular/common": ">=21.0.0 <23.0.0",
+		"@angular/core": ">=21.0.0 <23.0.0",
+		"d3": ">=7.9.0"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
+}

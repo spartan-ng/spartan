@@ -55,6 +55,7 @@ export default {
 					'libs/brain/package.json',
 					'libs/cli/package.json',
 					'libs/mcp/package.json',
+					'libs/charts/package.json',
 					// helm is private (not version-stamped), but its `@spartan-ng/brain` peer is bumped in
 					// lockstep by the `lint --fix` in prepare-manual-release; commit it so that sync persists
 					// (otherwise the corrected file is discarded each release and helm:lint goes stale).

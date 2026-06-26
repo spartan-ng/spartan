@@ -2,7 +2,12 @@ import { readJson, type Tree, writeJson } from '@nx/devkit';
 import { createTreeWithEmptyWorkspace } from '@nx/devkit/testing';
 import setReleaseVersionGenerator from './generator';
 
-const PACKAGE_JSONS = ['libs/brain/package.json', 'libs/cli/package.json', 'libs/mcp/package.json'];
+const PACKAGE_JSONS = [
+	'libs/brain/package.json',
+	'libs/cli/package.json',
+	'libs/mcp/package.json',
+	'libs/charts/package.json',
+];
 
 describe('set-release-version', () => {
 	let tree: Tree;

@@ -107,12 +107,10 @@ class TestLabelForWithoutControlComponent {}
 class TestCvaInputComponent implements ControlValueAccessor {
 	/* eslint-disable @typescript-eslint/no-empty-function */
 	writeValue(): void {}
-	/* eslint-disable @typescript-eslint/no-empty-function */
 	registerOnChange(): void {}
-	/* eslint-disable @typescript-eslint/no-empty-function */
 	registerOnTouched(): void {}
-	/* eslint-disable @typescript-eslint/no-empty-function */
 	setDisabledState?(): void {}
+	/* eslint-enable @typescript-eslint/no-empty-function */
 
 	public readonly brnFieldControl = viewChild(BrnFieldControl);
 }

@@ -19,6 +19,7 @@ import { Tabs } from '../../../../shared/layout/tabs';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { AlertDialogDestructive } from './alert-dialog--destructive.preview';
+import { AlertDialogFromDropdown } from './alert-dialog--from-dropdown.preview';
 import { AlertDialogMedia } from './alert-dialog--media.preview';
 import { AlertDialogRtl } from './alert-dialog--rtl.preview';
 import { AlertDialogSmallMedia } from './alert-dialog--small-media.preview';
@@ -58,6 +59,7 @@ export const routeMeta: RouteMeta = {
 		AlertDialogMedia,
 		AlertDialogSmallMedia,
 		AlertDialogDestructive,
+		AlertDialogFromDropdown,
 		AlertDialogRtl,
 	],
 	template: `
@@ -141,6 +143,19 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_destructiveCode()" />
 			</spartan-tabs>
 
+			<h3 id="from-dropdown" spartanH4>From a dropdown menu</h3>
+			<p class="${hlmP}">
+				Use
+				<code class="${hlmCode}">hlmAlertDialogTriggerFor</code>
+				on a menu item to open an alert dialog from a dropdown menu.
+			</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-alert-dialog-from-dropdown />
+				</div>
+				<spartan-code secondTab [code]="_fromDropdownCode()" />
+			</spartan-tabs>
+
 			<spartan-header-rtl />
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanRtlCodePreview firstTab>
@@ -174,6 +189,7 @@ export default class AlertPage {
 	protected readonly _mediaCode = computed(() => this._snippets()['media']);
 	protected readonly _smallMediaCode = computed(() => this._snippets()['smallMedia']);
 	protected readonly _destructiveCode = computed(() => this._snippets()['destructive']);
+	protected readonly _fromDropdownCode = computed(() => this._snippets()['fromDropdown']);
 	protected readonly _rtlCode = computed(() => this._snippets()['rtl']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;

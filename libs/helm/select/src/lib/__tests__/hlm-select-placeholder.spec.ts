@@ -10,7 +10,7 @@ import { HlmSelectImports } from '../../index';
 	template: `
 		<hlm-select [formField]="form.fruit" class="w-56">
 			<hlm-select-trigger>
-				<hlm-select-value [placeholder]="placeholder()" />
+				<hlm-select-value [placeholder]="_placeholder()" />
 			</hlm-select-trigger>
 			<hlm-select-content *hlmSelectPortal>
 				<hlm-select-item value="apple">Apple</hlm-select-item>
@@ -20,9 +20,9 @@ import { HlmSelectImports } from '../../index';
 	`,
 })
 class HlmSelectPlaceholderHost {
-	protected readonly placeholder = signal('Select a fruit');
+	protected readonly _placeholder = signal('Select a fruit');
 	protected readonly _model = signal({ fruit: '' });
-	readonly form = form(this._model);
+	public readonly form = form(this._model);
 }
 
 describe('HlmSelect placeholder with signal forms', () => {

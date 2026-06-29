@@ -4,7 +4,7 @@ import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
 
 @Component({
-	selector: 'spartan-alert-dialog-from-dropdown',
+	selector: 'spartan-alert-dialog-dropdown',
 	imports: [HlmAlertDialogImports, HlmButtonImports, HlmDropdownMenuImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
@@ -17,7 +17,7 @@ import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
 					<button hlmDropdownMenuItem>Share</button>
 				</hlm-dropdown-menu-group>
 				<hlm-dropdown-menu-separator />
-				<button hlmDropdownMenuItem [hlmAlertDialogTriggerFor]="deleteDialog">Delete</button>
+				<button hlmDropdownMenuItem variant="destructive" [hlmAlertDialogTriggerFor]="deleteDialog">Delete</button>
 			</hlm-dropdown-menu>
 		</ng-template>
 
@@ -25,9 +25,7 @@ import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
 			<hlm-alert-dialog-content *hlmAlertDialogPortal="let ctx">
 				<hlm-alert-dialog-header>
 					<h2 hlmAlertDialogTitle>Are you absolutely sure?</h2>
-					<p hlmAlertDialogDescription>
-						This action cannot be undone. This will permanently delete your account from our servers.
-					</p>
+					<p hlmAlertDialogDescription>This action cannot be undone. This will permanently delete this item.</p>
 				</hlm-alert-dialog-header>
 				<hlm-alert-dialog-footer>
 					<button hlmAlertDialogCancel>Cancel</button>
@@ -37,4 +35,4 @@ import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
 		</hlm-alert-dialog>
 	`,
 })
-export class AlertDialogFromDropdown {}
+export class AlertDialogDropdown {}

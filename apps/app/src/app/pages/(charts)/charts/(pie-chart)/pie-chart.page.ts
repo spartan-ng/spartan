@@ -45,7 +45,7 @@ export const routeMeta: RouteMeta = {
 	providers: [provideIcons({ lucideTrendingUp })],
 	template: `
 		<div class="grid grid-cols-1 items-start gap-x-6 gap-y-24 md:grid-cols-2 xl:grid-cols-3">
-			<charts-card title="Pie Chart" description="January - June 2024" [code]="_snippets()['simple'] ?? ''">
+			<charts-card title="Pie Chart" description="January - June 2024" [code]="_snippets()['simple']">
 				<spartan-pie-chart-simple />
 				<div chartsCardFooter>
 					<div class="text-foreground flex items-center gap-2 font-medium">
@@ -59,7 +59,7 @@ export const routeMeta: RouteMeta = {
 			<charts-card
 				title="Pie Chart - Separator None"
 				description="January - June 2024"
-				[code]="_snippets()['separatorNone'] ?? ''"
+				[code]="_snippets()['separatorNone']"
 			>
 				<spartan-pie-chart-separator-none />
 				<div chartsCardFooter>
@@ -68,7 +68,7 @@ export const routeMeta: RouteMeta = {
 				</div>
 			</charts-card>
 
-			<charts-card title="Pie Chart - Label" description="January - June 2024" [code]="_snippets()['label'] ?? ''">
+			<charts-card title="Pie Chart - Label" description="January - June 2024" [code]="_snippets()['label']">
 				<spartan-pie-chart-label />
 				<div chartsCardFooter>
 					<div class="text-foreground flex items-center gap-2 font-medium">Trending up by 5.2% this month</div>
@@ -79,7 +79,7 @@ export const routeMeta: RouteMeta = {
 			<charts-card
 				title="Pie Chart - Custom Label"
 				description="January - June 2024"
-				[code]="_snippets()['labelCustom'] ?? ''"
+				[code]="_snippets()['labelCustom']"
 			>
 				<spartan-pie-chart-label-custom />
 				<div chartsCardFooter>
@@ -88,11 +88,7 @@ export const routeMeta: RouteMeta = {
 				</div>
 			</charts-card>
 
-			<charts-card
-				title="Pie Chart - Label List"
-				description="January - June 2024"
-				[code]="_snippets()['labelList'] ?? ''"
-			>
+			<charts-card title="Pie Chart - Label List" description="January - June 2024" [code]="_snippets()['labelList']">
 				<spartan-pie-chart-label-list />
 				<div chartsCardFooter>
 					<div class="text-foreground flex items-center gap-2 font-medium">Trending up by 5.2% this month</div>
@@ -100,11 +96,11 @@ export const routeMeta: RouteMeta = {
 				</div>
 			</charts-card>
 
-			<charts-card title="Pie Chart - Legend" description="January - June 2024" [code]="_snippets()['legend'] ?? ''">
+			<charts-card title="Pie Chart - Legend" description="January - June 2024" [code]="_snippets()['legend']">
 				<spartan-pie-chart-legend />
 			</charts-card>
 
-			<charts-card title="Pie Chart - Donut" description="January - June 2024" [code]="_snippets()['donut'] ?? ''">
+			<charts-card title="Pie Chart - Donut" description="January - June 2024" [code]="_snippets()['donut']">
 				<spartan-pie-chart-donut />
 				<div chartsCardFooter>
 					<div class="text-foreground flex items-center gap-2 font-medium">Trending up by 5.2% this month</div>
@@ -115,7 +111,7 @@ export const routeMeta: RouteMeta = {
 			<charts-card
 				title="Pie Chart - Donut Active"
 				description="January - June 2024"
-				[code]="_snippets()['donutActive'] ?? ''"
+				[code]="_snippets()['donutActive']"
 			>
 				<spartan-pie-chart-donut-active />
 				<div chartsCardFooter>
@@ -127,7 +123,7 @@ export const routeMeta: RouteMeta = {
 			<charts-card
 				title="Pie Chart - Donut with Text"
 				description="January - June 2024"
-				[code]="_snippets()['donutText'] ?? ''"
+				[code]="_snippets()['donutText']"
 			>
 				<spartan-pie-chart-donut-text />
 				<div chartsCardFooter>
@@ -136,7 +132,7 @@ export const routeMeta: RouteMeta = {
 				</div>
 			</charts-card>
 
-			<charts-card title="Pie Chart - Stacked" description="January - June 2024" [code]="_snippets()['stacked'] ?? ''">
+			<charts-card title="Pie Chart - Stacked" description="January - June 2024" [code]="_snippets()['stacked']">
 				<spartan-pie-chart-stacked />
 				<div chartsCardFooter>
 					<div class="text-foreground flex items-center gap-2 font-medium">Trending up by 5.2% this month</div>
@@ -147,7 +143,7 @@ export const routeMeta: RouteMeta = {
 			<charts-card
 				title="Pie Chart - Interactive"
 				description="January - June 2024"
-				[code]="_snippets()['interactive'] ?? ''"
+				[code]="_snippets()['interactive']"
 			>
 				<spartan-pie-chart-interactive />
 			</charts-card>

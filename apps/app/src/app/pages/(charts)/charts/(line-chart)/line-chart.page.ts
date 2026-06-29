@@ -51,13 +51,7 @@ export const routeMeta: RouteMeta = {
 	template: `
 		<div class="bg-card text-card-foreground relative flex flex-col gap-6 rounded-xl border py-4 sm:py-0">
 			<div class="absolute -top-10 right-0 z-10 flex items-center gap-1">
-				<button
-					hlmBtn
-					variant="outline"
-					size="sm"
-					type="button"
-					(click)="_drawer.open(_snippets()['interactive'] ?? '')"
-				>
+				<button hlmBtn variant="outline" size="sm" type="button" (click)="_drawer.open(_snippets()['interactive'])">
 					View Code
 				</button>
 			</div>
@@ -88,7 +82,7 @@ export const routeMeta: RouteMeta = {
 		</div>
 
 		<div class="mt-20 grid grid-cols-1 items-start gap-x-6 gap-y-24 md:grid-cols-2 xl:grid-cols-3">
-			<charts-card title="Line Chart" description="January - June 2024" [code]="_snippets()['default'] ?? ''">
+			<charts-card title="Line Chart" description="January - June 2024" [code]="_snippets()['default']">
 				<spartan-line-chart-default />
 				<div chartsCardFooter>
 					<div class="text-foreground flex items-center gap-2 font-medium">
@@ -99,7 +93,7 @@ export const routeMeta: RouteMeta = {
 				</div>
 			</charts-card>
 
-			<charts-card title="Line Chart - Linear" description="January - June 2024" [code]="_snippets()['linear'] ?? ''">
+			<charts-card title="Line Chart - Linear" description="January - June 2024" [code]="_snippets()['linear']">
 				<spartan-line-chart-linear />
 				<div chartsCardFooter>
 					<div class="text-foreground flex items-center gap-2 font-medium">
@@ -110,7 +104,7 @@ export const routeMeta: RouteMeta = {
 				</div>
 			</charts-card>
 
-			<charts-card title="Line Chart - Step" description="January - June 2024" [code]="_snippets()['step'] ?? ''">
+			<charts-card title="Line Chart - Step" description="January - June 2024" [code]="_snippets()['step']">
 				<spartan-line-chart-step />
 				<div chartsCardFooter>
 					<div class="text-foreground flex items-center gap-2 font-medium">
@@ -121,11 +115,7 @@ export const routeMeta: RouteMeta = {
 				</div>
 			</charts-card>
 
-			<charts-card
-				title="Line Chart - Multiple"
-				description="January - June 2024"
-				[code]="_snippets()['multiple'] ?? ''"
-			>
+			<charts-card title="Line Chart - Multiple" description="January - June 2024" [code]="_snippets()['multiple']">
 				<spartan-line-chart-multiple />
 				<div chartsCardFooter>
 					<div class="text-foreground flex items-center gap-2 font-medium">
@@ -136,7 +126,7 @@ export const routeMeta: RouteMeta = {
 				</div>
 			</charts-card>
 
-			<charts-card title="Line Chart - Dots" description="January - June 2024" [code]="_snippets()['dots'] ?? ''">
+			<charts-card title="Line Chart - Dots" description="January - June 2024" [code]="_snippets()['dots']">
 				<spartan-line-chart-dots />
 				<div chartsCardFooter>
 					<div class="text-foreground flex items-center gap-2 font-medium">
@@ -150,7 +140,7 @@ export const routeMeta: RouteMeta = {
 			<charts-card
 				title="Line Chart - Custom Dots"
 				description="January - June 2024"
-				[code]="_snippets()['dotsCustom'] ?? ''"
+				[code]="_snippets()['dotsCustom']"
 			>
 				<spartan-line-chart-dots-custom />
 				<div chartsCardFooter>
@@ -165,7 +155,7 @@ export const routeMeta: RouteMeta = {
 			<charts-card
 				title="Line Chart - Dots Colors"
 				description="January - June 2024"
-				[code]="_snippets()['dotsColors'] ?? ''"
+				[code]="_snippets()['dotsColors']"
 			>
 				<spartan-line-chart-dots-colors />
 				<div chartsCardFooter>
@@ -177,7 +167,7 @@ export const routeMeta: RouteMeta = {
 				</div>
 			</charts-card>
 
-			<charts-card title="Line Chart - Label" description="January - June 2024" [code]="_snippets()['label'] ?? ''">
+			<charts-card title="Line Chart - Label" description="January - June 2024" [code]="_snippets()['label']">
 				<spartan-line-chart-label />
 				<div chartsCardFooter>
 					<div class="text-foreground flex items-center gap-2 font-medium">
@@ -191,7 +181,7 @@ export const routeMeta: RouteMeta = {
 			<charts-card
 				title="Line Chart - Custom Label"
 				description="January - June 2024"
-				[code]="_snippets()['labelCustom'] ?? ''"
+				[code]="_snippets()['labelCustom']"
 			>
 				<spartan-line-chart-label-custom />
 				<div chartsCardFooter>

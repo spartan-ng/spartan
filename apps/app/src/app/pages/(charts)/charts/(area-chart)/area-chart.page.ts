@@ -49,7 +49,7 @@ export const routeMeta: RouteMeta = {
 			<charts-card
 				title="Area Chart - Interactive"
 				description="Showing total visitors for the last 3 months"
-				[code]="_snippets()['interactive'] ?? ''"
+				[code]="_snippets()['interactive']"
 			>
 				<spartan-area-chart-interactive />
 			</charts-card>
@@ -59,7 +59,7 @@ export const routeMeta: RouteMeta = {
 			<charts-card
 				title="Area Chart"
 				description="Showing total visitors for the last 6 months"
-				[code]="_snippets()['default'] ?? ''"
+				[code]="_snippets()['default']"
 			>
 				<spartan-area-chart-default />
 				<div chartsCardFooter>
@@ -74,7 +74,7 @@ export const routeMeta: RouteMeta = {
 			<charts-card
 				title="Area Chart - Linear"
 				description="Showing total visitors for the last 6 months"
-				[code]="_snippets()['linear'] ?? ''"
+				[code]="_snippets()['linear']"
 			>
 				<spartan-area-chart-linear />
 				<div chartsCardFooter>
@@ -89,7 +89,7 @@ export const routeMeta: RouteMeta = {
 			<charts-card
 				title="Area Chart - Step"
 				description="Showing total visitors for the last 6 months"
-				[code]="_snippets()['step'] ?? ''"
+				[code]="_snippets()['step']"
 			>
 				<spartan-area-chart-step />
 				<div chartsCardFooter>
@@ -104,7 +104,7 @@ export const routeMeta: RouteMeta = {
 			<charts-card
 				title="Area Chart - Legend"
 				description="Showing total visitors for the last 6 months"
-				[code]="_snippets()['legend'] ?? ''"
+				[code]="_snippets()['legend']"
 			>
 				<spartan-area-chart-legend />
 				<div chartsCardFooter>
@@ -119,7 +119,7 @@ export const routeMeta: RouteMeta = {
 			<charts-card
 				title="Area Chart - Stacked"
 				description="Showing total visitors for the last 6 months"
-				[code]="_snippets()['stacked'] ?? ''"
+				[code]="_snippets()['stacked']"
 			>
 				<spartan-area-chart-stacked />
 				<div chartsCardFooter>
@@ -134,7 +134,7 @@ export const routeMeta: RouteMeta = {
 			<charts-card
 				title="Area Chart - Stacked Expanded"
 				description="Showing total visitors for the last 6 months"
-				[code]="_snippets()['stackedExpand'] ?? ''"
+				[code]="_snippets()['stackedExpand']"
 			>
 				<spartan-area-chart-stacked-expand />
 				<div chartsCardFooter>
@@ -149,7 +149,7 @@ export const routeMeta: RouteMeta = {
 			<charts-card
 				title="Area Chart - Icons"
 				description="Showing total visitors for the last 6 months"
-				[code]="_snippets()['icons'] ?? ''"
+				[code]="_snippets()['icons']"
 			>
 				<spartan-area-chart-icons />
 				<div chartsCardFooter>
@@ -164,7 +164,7 @@ export const routeMeta: RouteMeta = {
 			<charts-card
 				title="Area Chart - Gradient"
 				description="Showing total visitors for the last 6 months"
-				[code]="_snippets()['gradient'] ?? ''"
+				[code]="_snippets()['gradient']"
 			>
 				<spartan-area-chart-gradient />
 				<div chartsCardFooter>
@@ -179,7 +179,7 @@ export const routeMeta: RouteMeta = {
 			<charts-card
 				title="Area Chart - Axes"
 				description="Showing total visitors for the last 6 months"
-				[code]="_snippets()['axes'] ?? ''"
+				[code]="_snippets()['axes']"
 			>
 				<spartan-area-chart-axes />
 				<div chartsCardFooter>

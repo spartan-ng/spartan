@@ -1,8 +1,8 @@
 import {
-	AfterContentInit,
 	ChangeDetectionStrategy,
 	Component,
 	ElementRef,
+	afterNextRender,
 	booleanAttribute,
 	computed,
 	contentChildren,
@@ -110,7 +110,7 @@ import { SpnYAxis } from '../y-axis/y-axis';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [ChartContextService],
 })
-export class SpnBarChart<T = unknown> implements AfterContentInit {
+export class SpnBarChart<T = unknown> {
 	// Signal-based inputs
 	readonly data = input.required<ChartData<T>>();
 	readonly width = input(600, { transform: numberAttribute });
@@ -185,10 +185,8 @@ export class SpnBarChart<T = unknown> implements AfterContentInit {
 
 			this.render();
 		});
-	}
 
-	ngAfterContentInit(): void {
-		this.setupLayers();
+		afterNextRender(() => this.setupLayers());
 	}
 
 	private setupLayers(): void {

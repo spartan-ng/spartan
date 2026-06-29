@@ -1,5 +1,5 @@
 import {
-	AfterContentInit,
+	afterNextRender,
 	booleanAttribute,
 	ChangeDetectionStrategy,
 	Component,
@@ -83,7 +83,7 @@ export interface RadarAxisLabelLine {
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [ChartContextService],
 })
-export class SpnRadarChart<T = unknown> implements AfterContentInit {
+export class SpnRadarChart<T = unknown> {
 	readonly data = input.required<ChartData<T>>();
 	readonly width = input(400, { transform: numberAttribute });
 	readonly height = input(400, { transform: numberAttribute });
@@ -155,10 +155,8 @@ export class SpnRadarChart<T = unknown> implements AfterContentInit {
 			this.grids();
 			this.render();
 		});
-	}
 
-	ngAfterContentInit(): void {
-		this.setupLayers();
+		afterNextRender(() => this.setupLayers());
 	}
 
 	private setupLayers(): void {

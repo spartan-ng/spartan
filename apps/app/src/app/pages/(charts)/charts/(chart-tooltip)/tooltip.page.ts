@@ -40,14 +40,14 @@ export const routeMeta: RouteMeta = {
 	],
 	template: `
 		<div class="grid grid-cols-1 items-start gap-x-6 gap-y-24 md:grid-cols-2 xl:grid-cols-3">
-			<charts-card title="Tooltip - Default" description="Default tooltip." [code]="_snippets()['default'] ?? ''">
+			<charts-card title="Tooltip - Default" description="Default tooltip." [code]="_snippets()['default']">
 				<spartan-tooltip-default />
 			</charts-card>
 
 			<charts-card
 				title="Tooltip - Line Indicator"
 				description="Tooltip with line indicator."
-				[code]="_snippets()['indicatorLine'] ?? ''"
+				[code]="_snippets()['indicatorLine']"
 			>
 				<spartan-tooltip-indicator-line />
 			</charts-card>
@@ -55,7 +55,7 @@ export const routeMeta: RouteMeta = {
 			<charts-card
 				title="Tooltip - No Indicator"
 				description="Tooltip with no indicator."
-				[code]="_snippets()['indicatorNone'] ?? ''"
+				[code]="_snippets()['indicatorNone']"
 			>
 				<spartan-tooltip-indicator-none />
 			</charts-card>
@@ -63,7 +63,7 @@ export const routeMeta: RouteMeta = {
 			<charts-card
 				title="Tooltip - Custom label"
 				description="Tooltip with a custom label."
-				[code]="_snippets()['labelCustom'] ?? ''"
+				[code]="_snippets()['labelCustom']"
 			>
 				<spartan-tooltip-label-custom />
 			</charts-card>
@@ -71,35 +71,31 @@ export const routeMeta: RouteMeta = {
 			<charts-card
 				title="Tooltip - Label Formatter"
 				description="Tooltip with label formatter."
-				[code]="_snippets()['labelFormatter'] ?? ''"
+				[code]="_snippets()['labelFormatter']"
 			>
 				<spartan-tooltip-label-formatter />
 			</charts-card>
 
-			<charts-card
-				title="Tooltip - No Label"
-				description="Tooltip with no label."
-				[code]="_snippets()['labelNone'] ?? ''"
-			>
+			<charts-card title="Tooltip - No Label" description="Tooltip with no label." [code]="_snippets()['labelNone']">
 				<spartan-tooltip-label-none />
 			</charts-card>
 
 			<charts-card
 				title="Tooltip - Formatter"
 				description="Tooltip with custom formatter."
-				[code]="_snippets()['formatter'] ?? ''"
+				[code]="_snippets()['formatter']"
 			>
 				<spartan-tooltip-formatter />
 			</charts-card>
 
-			<charts-card title="Tooltip - Icons" description="Tooltip with icons." [code]="_snippets()['icons'] ?? ''">
+			<charts-card title="Tooltip - Icons" description="Tooltip with icons." [code]="_snippets()['icons']">
 				<spartan-tooltip-icons />
 			</charts-card>
 
 			<charts-card
 				title="Tooltip - Advanced"
 				description="Tooltip with advanced customizations."
-				[code]="_snippets()['advanced'] ?? ''"
+				[code]="_snippets()['advanced']"
 			>
 				<spartan-tooltip-advanced />
 			</charts-card>

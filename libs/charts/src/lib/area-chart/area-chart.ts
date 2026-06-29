@@ -1,5 +1,5 @@
 import {
-	AfterContentInit,
+	afterNextRender,
 	booleanAttribute,
 	ChangeDetectionStrategy,
 	Component,
@@ -7,7 +7,6 @@ import {
 	contentChildren,
 	effect,
 	ElementRef,
-	HostListener,
 	inject,
 	input,
 	numberAttribute,
@@ -49,6 +48,9 @@ let areaClipCounter = 0;
 	selector: 'spn-area-chart',
 	host: {
 		'[attr.title]': 'null',
+		'(document:pointerdown)': 'onDocumentPointerDown($event)',
+		'(document:pointerup)': 'onDocumentPointerUp($event)',
+		'(document:pointercancel)': 'onDocumentPointerCancel()',
 	},
 	template: `
 		<svg #svgElement [attr.width]="chartWidth()" [attr.height]="chartHeight()" class="spn-area-chart">
@@ -120,7 +122,7 @@ let areaClipCounter = 0;
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [ChartContextService],
 })
-export class SpnAreaChart<T = unknown> implements AfterContentInit {
+export class SpnAreaChart<T = unknown> {
 	readonly data = input.required<ChartData<T>>();
 	readonly width = input(600, { transform: numberAttribute });
 	readonly height = input(400, { transform: numberAttribute });
@@ -175,7 +177,6 @@ export class SpnAreaChart<T = unknown> implements AfterContentInit {
 	 * pointer barely moved (a tap); a press that turns into a scroll leaves the
 	 * tooltip open.
 	 */
-	@HostListener('document:pointerdown', ['$event'])
 	onDocumentPointerDown(event: PointerEvent): void {
 		const target = event.target as Node | null;
 		if (target && this.hostRef.nativeElement.contains(target)) {
@@ -185,7 +186,6 @@ export class SpnAreaChart<T = unknown> implements AfterContentInit {
 		this.outsidePressStart = { x: event.clientX, y: event.clientY };
 	}
 
-	@HostListener('document:pointerup', ['$event'])
 	onDocumentPointerUp(event: PointerEvent): void {
 		const start = this.outsidePressStart;
 		this.outsidePressStart = null;
@@ -196,7 +196,6 @@ export class SpnAreaChart<T = unknown> implements AfterContentInit {
 		this.updateActiveDots(-1);
 	}
 
-	@HostListener('document:pointercancel')
 	onDocumentPointerCancel(): void {
 		// The press became a scroll/gesture; never treat it as an outside tap.
 		this.outsidePressStart = null;
@@ -242,10 +241,8 @@ export class SpnAreaChart<T = unknown> implements AfterContentInit {
 
 			this.render();
 		});
-	}
 
-	ngAfterContentInit(): void {
-		this.setupLayers();
+		afterNextRender(() => this.setupLayers());
 	}
 
 	private setupLayers(): void {

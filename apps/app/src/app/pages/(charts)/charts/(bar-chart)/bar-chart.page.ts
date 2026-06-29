@@ -48,13 +48,7 @@ export const routeMeta: RouteMeta = {
 	template: `
 		<div class="bg-card text-card-foreground relative flex flex-col gap-6 rounded-xl border py-4 sm:py-0">
 			<div class="absolute -top-10 right-0 z-10 flex items-center gap-1">
-				<button
-					hlmBtn
-					variant="outline"
-					size="sm"
-					type="button"
-					(click)="_drawer.open(_snippets()['interactive'] ?? '')"
-				>
+				<button hlmBtn variant="outline" size="sm" type="button" (click)="_drawer.open(_snippets()['interactive'])">
 					View Code
 				</button>
 			</div>
@@ -85,7 +79,7 @@ export const routeMeta: RouteMeta = {
 		</div>
 
 		<div class="mt-20 grid grid-cols-1 items-start gap-x-6 gap-y-24 md:grid-cols-2 xl:grid-cols-3">
-			<charts-card title="Bar Chart" description="January - June 2024" [code]="_snippets()['default'] ?? ''">
+			<charts-card title="Bar Chart" description="January - June 2024" [code]="_snippets()['default']">
 				<spartan-bar-chart-default />
 				<div chartsCardFooter>
 					<div class="text-foreground flex items-center gap-2 font-medium">
@@ -96,11 +90,7 @@ export const routeMeta: RouteMeta = {
 				</div>
 			</charts-card>
 
-			<charts-card
-				title="Bar Chart - Horizontal"
-				description="January - June 2024"
-				[code]="_snippets()['horizontal'] ?? ''"
-			>
+			<charts-card title="Bar Chart - Horizontal" description="January - June 2024" [code]="_snippets()['horizontal']">
 				<spartan-bar-chart-horizontal />
 				<div chartsCardFooter>
 					<div class="text-foreground flex items-center gap-2 font-medium">
@@ -111,11 +101,7 @@ export const routeMeta: RouteMeta = {
 				</div>
 			</charts-card>
 
-			<charts-card
-				title="Bar Chart - Multiple"
-				description="January - June 2024"
-				[code]="_snippets()['multiple'] ?? ''"
-			>
+			<charts-card title="Bar Chart - Multiple" description="January - June 2024" [code]="_snippets()['multiple']">
 				<spartan-bar-chart-multiple />
 				<div chartsCardFooter>
 					<div class="text-foreground flex items-center gap-2 font-medium">
@@ -129,7 +115,7 @@ export const routeMeta: RouteMeta = {
 			<charts-card
 				title="Bar Chart - Stacked + Legend"
 				description="January - June 2024"
-				[code]="_snippets()['stacked'] ?? ''"
+				[code]="_snippets()['stacked']"
 			>
 				<spartan-bar-chart-stacked />
 				<div chartsCardFooter>
@@ -141,7 +127,7 @@ export const routeMeta: RouteMeta = {
 				</div>
 			</charts-card>
 
-			<charts-card title="Bar Chart - Label" description="January - June 2024" [code]="_snippets()['label'] ?? ''">
+			<charts-card title="Bar Chart - Label" description="January - June 2024" [code]="_snippets()['label']">
 				<spartan-bar-chart-label />
 				<div chartsCardFooter>
 					<div class="text-foreground flex items-center gap-2 font-medium">
@@ -155,7 +141,7 @@ export const routeMeta: RouteMeta = {
 			<charts-card
 				title="Bar Chart - Custom Label"
 				description="January - June 2024"
-				[code]="_snippets()['labelCustom'] ?? ''"
+				[code]="_snippets()['labelCustom']"
 			>
 				<spartan-bar-chart-label-custom />
 				<div chartsCardFooter>
@@ -167,7 +153,7 @@ export const routeMeta: RouteMeta = {
 				</div>
 			</charts-card>
 
-			<charts-card title="Bar Chart - Mixed" description="January - June 2024" [code]="_snippets()['mixed'] ?? ''">
+			<charts-card title="Bar Chart - Mixed" description="January - June 2024" [code]="_snippets()['mixed']">
 				<spartan-bar-chart-mixed />
 				<div chartsCardFooter>
 					<div class="text-foreground flex items-center gap-2 font-medium">
@@ -178,7 +164,7 @@ export const routeMeta: RouteMeta = {
 				</div>
 			</charts-card>
 
-			<charts-card title="Bar Chart - Active" description="January - June 2024" [code]="_snippets()['active'] ?? ''">
+			<charts-card title="Bar Chart - Active" description="January - June 2024" [code]="_snippets()['active']">
 				<spartan-bar-chart-active />
 				<div chartsCardFooter>
 					<div class="text-foreground flex items-center gap-2 font-medium">
@@ -189,11 +175,7 @@ export const routeMeta: RouteMeta = {
 				</div>
 			</charts-card>
 
-			<charts-card
-				title="Bar Chart - Negative"
-				description="January - June 2024"
-				[code]="_snippets()['negative'] ?? ''"
-			>
+			<charts-card title="Bar Chart - Negative" description="January - June 2024" [code]="_snippets()['negative']">
 				<spartan-bar-chart-negative />
 				<div chartsCardFooter>
 					<div class="text-foreground flex items-center gap-2 font-medium">

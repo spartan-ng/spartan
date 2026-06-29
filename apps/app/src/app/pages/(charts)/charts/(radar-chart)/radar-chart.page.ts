@@ -53,7 +53,7 @@ export const routeMeta: RouteMeta = {
 			<charts-card
 				title="Radar Chart"
 				description="Showing total visitors for the last 6 months"
-				[code]="_snippets()['default'] ?? ''"
+				[code]="_snippets()['default']"
 			>
 				<spartan-radar-chart-default />
 				<div chartsCardFooter>
@@ -68,7 +68,7 @@ export const routeMeta: RouteMeta = {
 			<charts-card
 				title="Radar Chart - Dots"
 				description="Showing total visitors for the last 6 months"
-				[code]="_snippets()['dots'] ?? ''"
+				[code]="_snippets()['dots']"
 			>
 				<spartan-radar-chart-dots />
 				<div chartsCardFooter>
@@ -83,7 +83,7 @@ export const routeMeta: RouteMeta = {
 			<charts-card
 				title="Radar Chart - Lines Only"
 				description="Showing total visitors for the last 6 months"
-				[code]="_snippets()['linesOnly'] ?? ''"
+				[code]="_snippets()['linesOnly']"
 			>
 				<spartan-radar-chart-lines-only />
 				<div chartsCardFooter>
@@ -98,7 +98,7 @@ export const routeMeta: RouteMeta = {
 			<charts-card
 				title="Radar Chart - Custom Label"
 				description="Showing total visitors for the last 6 months"
-				[code]="_snippets()['labelCustom'] ?? ''"
+				[code]="_snippets()['labelCustom']"
 			>
 				<spartan-radar-chart-label-custom />
 				<div chartsCardFooter>
@@ -113,7 +113,7 @@ export const routeMeta: RouteMeta = {
 			<charts-card
 				title="Radar Chart - Grid Custom"
 				description="Showing total visitors for the last 6 months"
-				[code]="_snippets()['gridCustom'] ?? ''"
+				[code]="_snippets()['gridCustom']"
 			>
 				<spartan-radar-chart-grid-custom />
 				<div chartsCardFooter>
@@ -128,7 +128,7 @@ export const routeMeta: RouteMeta = {
 			<charts-card
 				title="Radar Chart - Grid None"
 				description="Showing total visitors for the last 6 months"
-				[code]="_snippets()['gridNone'] ?? ''"
+				[code]="_snippets()['gridNone']"
 			>
 				<spartan-radar-chart-grid-none />
 				<div chartsCardFooter>
@@ -143,7 +143,7 @@ export const routeMeta: RouteMeta = {
 			<charts-card
 				title="Radar Chart - Grid Circle"
 				description="Showing total visitors for the last 6 months"
-				[code]="_snippets()['gridCircle'] ?? ''"
+				[code]="_snippets()['gridCircle']"
 			>
 				<spartan-radar-chart-grid-circle />
 				<div chartsCardFooter>
@@ -158,7 +158,7 @@ export const routeMeta: RouteMeta = {
 			<charts-card
 				title="Radar Chart - Grid Circle - No lines"
 				description="Showing total visitors for the last 6 months"
-				[code]="_snippets()['gridCircleNoLines'] ?? ''"
+				[code]="_snippets()['gridCircleNoLines']"
 			>
 				<spartan-radar-chart-grid-circle-no-lines />
 				<div chartsCardFooter>
@@ -173,7 +173,7 @@ export const routeMeta: RouteMeta = {
 			<charts-card
 				title="Radar Chart - Grid Circle Filled"
 				description="Showing total visitors for the last 6 months"
-				[code]="_snippets()['gridCircleFill'] ?? ''"
+				[code]="_snippets()['gridCircleFill']"
 			>
 				<spartan-radar-chart-grid-circle-fill />
 				<div chartsCardFooter>
@@ -188,7 +188,7 @@ export const routeMeta: RouteMeta = {
 			<charts-card
 				title="Radar Chart - Grid Filled"
 				description="Showing total visitors for the last 6 months"
-				[code]="_snippets()['gridFill'] ?? ''"
+				[code]="_snippets()['gridFill']"
 			>
 				<spartan-radar-chart-grid-fill />
 				<div chartsCardFooter>
@@ -203,7 +203,7 @@ export const routeMeta: RouteMeta = {
 			<charts-card
 				title="Radar Chart - Multiple"
 				description="Showing total visitors for the last 6 months"
-				[code]="_snippets()['multiple'] ?? ''"
+				[code]="_snippets()['multiple']"
 			>
 				<spartan-radar-chart-multiple />
 				<div chartsCardFooter>
@@ -218,7 +218,7 @@ export const routeMeta: RouteMeta = {
 			<charts-card
 				title="Radar Chart - Legend"
 				description="Showing total visitors for the last 6 months"
-				[code]="_snippets()['legend'] ?? ''"
+				[code]="_snippets()['legend']"
 			>
 				<spartan-radar-chart-legend />
 				<div chartsCardFooter>

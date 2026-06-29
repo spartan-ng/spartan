@@ -1,5 +1,5 @@
 import {
-	AfterContentInit,
+	afterNextRender,
 	booleanAttribute,
 	ChangeDetectionStrategy,
 	Component,
@@ -95,7 +95,7 @@ interface PieArcData<T> {
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [ChartContextService],
 })
-export class SpnPieChart<T = unknown> implements AfterContentInit {
+export class SpnPieChart<T = unknown> {
 	// Signal-based inputs
 	readonly data = input.required<ChartData<T>>();
 	readonly width = input(400, { transform: numberAttribute });
@@ -165,10 +165,8 @@ export class SpnPieChart<T = unknown> implements AfterContentInit {
 
 			this.render();
 		});
-	}
 
-	ngAfterContentInit(): void {
-		this.setupLayers();
+		afterNextRender(() => this.setupLayers());
 	}
 
 	private setupLayers(): void {

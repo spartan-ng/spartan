@@ -38,7 +38,7 @@ export const routeMeta: RouteMeta = {
 	providers: [provideIcons({ lucideTrendingUp })],
 	template: `
 		<div class="grid grid-cols-1 items-start gap-x-6 gap-y-24 md:grid-cols-2 xl:grid-cols-3">
-			<charts-card title="Radial Chart" description="January - June 2024" [code]="_snippets()['simple'] ?? ''">
+			<charts-card title="Radial Chart" description="January - June 2024" [code]="_snippets()['simple']">
 				<spartan-radial-bar-chart-simple />
 				<div chartsCardFooter>
 					<div class="text-foreground flex items-center gap-2 font-medium">
@@ -49,7 +49,7 @@ export const routeMeta: RouteMeta = {
 				</div>
 			</charts-card>
 
-			<charts-card title="Radial Chart - Label" description="January - June 2024" [code]="_snippets()['label'] ?? ''">
+			<charts-card title="Radial Chart - Label" description="January - June 2024" [code]="_snippets()['label']">
 				<spartan-radial-bar-chart-label />
 				<div chartsCardFooter>
 					<div class="text-foreground flex items-center gap-2 font-medium">
@@ -60,7 +60,7 @@ export const routeMeta: RouteMeta = {
 				</div>
 			</charts-card>
 
-			<charts-card title="Radial Chart - Grid" description="January - June 2024" [code]="_snippets()['grid'] ?? ''">
+			<charts-card title="Radial Chart - Grid" description="January - June 2024" [code]="_snippets()['grid']">
 				<spartan-radial-bar-chart-grid />
 				<div chartsCardFooter>
 					<div class="text-foreground flex items-center gap-2 font-medium">
@@ -71,7 +71,7 @@ export const routeMeta: RouteMeta = {
 				</div>
 			</charts-card>
 
-			<charts-card title="Radial Chart - Text" description="January - June 2024" [code]="_snippets()['text'] ?? ''">
+			<charts-card title="Radial Chart - Text" description="January - June 2024" [code]="_snippets()['text']">
 				<spartan-radial-bar-chart-text />
 				<div chartsCardFooter>
 					<div class="text-foreground flex items-center gap-2 font-medium">
@@ -82,7 +82,7 @@ export const routeMeta: RouteMeta = {
 				</div>
 			</charts-card>
 
-			<charts-card title="Radial Chart - Shape" description="January - June 2024" [code]="_snippets()['shape'] ?? ''">
+			<charts-card title="Radial Chart - Shape" description="January - June 2024" [code]="_snippets()['shape']">
 				<spartan-radial-bar-chart-shape />
 				<div chartsCardFooter>
 					<div class="text-foreground flex items-center gap-2 font-medium">
@@ -93,11 +93,7 @@ export const routeMeta: RouteMeta = {
 				</div>
 			</charts-card>
 
-			<charts-card
-				title="Radial Chart - Stacked"
-				description="January - June 2024"
-				[code]="_snippets()['stacked'] ?? ''"
-			>
+			<charts-card title="Radial Chart - Stacked" description="January - June 2024" [code]="_snippets()['stacked']">
 				<spartan-radial-bar-chart-stacked />
 				<div chartsCardFooter>
 					<div class="text-foreground flex items-center gap-2 font-medium">

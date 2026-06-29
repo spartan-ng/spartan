@@ -1,5 +1,5 @@
 import {
-	AfterContentInit,
+	afterNextRender,
 	booleanAttribute,
 	ChangeDetectionStrategy,
 	Component,
@@ -83,7 +83,7 @@ interface SectorDatum<T> {
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [ChartContextService],
 })
-export class SpnRadialBarChart<T = unknown> implements AfterContentInit {
+export class SpnRadialBarChart<T = unknown> {
 	readonly data = input.required<ChartData<T>>();
 	readonly width = input(400, { transform: numberAttribute });
 	readonly height = input(400, { transform: numberAttribute });
@@ -130,10 +130,8 @@ export class SpnRadialBarChart<T = unknown> implements AfterContentInit {
 			this.grids();
 			this.render();
 		});
-	}
 
-	ngAfterContentInit(): void {
-		this.setupLayers();
+		afterNextRender(() => this.setupLayers());
 	}
 
 	private setupLayers(): void {

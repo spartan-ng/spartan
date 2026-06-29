@@ -6,10 +6,14 @@
 //   alpha -> alpha     -> alpha
 //
 // The actual build + npm publish is delegated to our nx executors via the exec plugin
-// (publishCmd -> `pnpm run release`), because we publish three packages (brain, cli, mcp)
-// in lockstep off a single computed version. The version is fanned out into every
-// package.json and the CLI's generated files by `pnpm run pre-manual-release`, which
-// reads the VERSION env var.
+// (publishCmd -> `pnpm run release`), because we publish brain/cli/mcp in lockstep off a single
+// computed version. That version is fanned out into their package.json files and the CLI's
+// generated files by `pnpm run pre-manual-release`, which reads the VERSION env var.
+//
+// charts rides the same release run but is still experimental: set-release-version bumps it on its
+// own independent alpha line (1.0.0-alpha.N) instead of the stable version, and release-charts
+// always publishes it under the `alpha` dist-tag (never `latest`). Its package.json is committed
+// below so the alpha counter persists across releases.
 
 const conventionalConfig = {
 	preset: 'conventionalcommits',

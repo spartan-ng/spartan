@@ -2,7 +2,8 @@ name: release
 
 # Push to a release branch -> semantic-release computes the next version from the conventional
 # commits, updates the changelog + package versions, publishes brain/cli/mcp to npm, and cuts a
-# GitHub Release.
+# GitHub Release. charts ships in the same run on its own experimental alpha line (1.0.0-alpha.N),
+# always under the `alpha` dist-tag.
 #
 #   main  -> latest    beta -> beta dist-tag    alpha -> alpha dist-tag
 #

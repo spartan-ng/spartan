@@ -28,8 +28,8 @@ interface ChartTranslation {
 				[tickFormatter]="formatMonth"
 				stroke="var(--muted-foreground)"
 			/>
-			<spn-bar dataKey="desktop" [name]="_t().desktop" fill="var(--chart-1)" radius="4" />
-			<spn-bar dataKey="mobile" [name]="_t().mobile" fill="var(--chart-2)" radius="4" />
+			<spn-bar dataKey="desktop" [name]="_t().desktop" fill="var(--chart-2)" radius="4" />
+			<spn-bar dataKey="mobile" [name]="_t().mobile" fill="var(--chart-1)" radius="4" />
 			<spn-tooltip>
 				<ng-template spnTooltipContent let-state>
 					<div
@@ -51,11 +51,11 @@ interface ChartTranslation {
 		</spn-bar-chart>
 		<div class="flex items-center justify-center gap-4 pt-3">
 			<div class="flex items-center gap-1.5">
-				<span class="size-2 shrink-0 rounded-[2px] bg-[var(--chart-1)]"></span>
+				<span class="bg-chart-2 size-2 shrink-0 rounded-xs"></span>
 				<span class="text-foreground text-xs leading-none">{{ _t().desktop }}</span>
 			</div>
 			<div class="flex items-center gap-1.5">
-				<span class="size-2 shrink-0 rounded-[2px] bg-[var(--chart-2)]"></span>
+				<span class="bg-chart-1 size-2 shrink-0 rounded-xs"></span>
 				<span class="text-foreground text-xs leading-none">{{ _t().mobile }}</span>
 			</div>
 		</div>

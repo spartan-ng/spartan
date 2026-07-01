@@ -1,47 +1,47 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { SpnBar, SpnBarChart, SpnCartesianGrid, SpnTooltip, SpnTooltipContentDef, SpnXAxis } from '@spartan-ng/charts';
+import { ChartConfig, HlmChartImports } from '@spartan-ng/helm/chart';
 
 @Component({
 	selector: 'spartan-charts-tooltip',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: { class: 'block w-full' },
-	imports: [SpnBarChart, SpnBar, SpnCartesianGrid, SpnXAxis, SpnTooltip, SpnTooltipContentDef],
+	imports: [HlmChartImports, SpnBarChart, SpnBar, SpnCartesianGrid, SpnXAxis, SpnTooltip, SpnTooltipContentDef],
 	template: `
-		<spn-bar-chart class="block h-[250px] w-full" [data]="data" [margin]="margin">
-			<spn-cartesian-grid vertical="false" stroke="color-mix(in oklch, var(--border) 50%, transparent)" />
-			<spn-x-axis
-				dataKey="month"
-				axisLine="false"
-				tickLine="false"
-				tickSize="0"
-				tickPadding="10"
-				[tickFormatter]="formatMonth"
-				stroke="var(--muted-foreground)"
-			/>
-			<spn-bar dataKey="desktop" name="Desktop" fill="var(--chart-1)" radius="4" />
-			<spn-bar dataKey="mobile" name="Mobile" fill="var(--chart-2)" radius="4" />
-			<spn-tooltip>
-				<ng-template spnTooltipContent let-state>
-					<div
-						class="bg-background border-border/50 grid min-w-[8rem] gap-1.5 rounded-lg border px-2.5 py-1.5 text-xs shadow-xl"
-					>
-						@if (state.label !== undefined && state.label !== null && state.label !== '') {
-							<div class="font-medium">{{ state.label }}</div>
-						}
-						@for (item of state.payload; track item.dataKey) {
-							<div class="flex w-full items-center gap-2">
-								<span class="size-2.5 shrink-0 rounded-[2px]" [style.background]="item.color"></span>
-								<span class="text-muted-foreground">{{ item.name }}</span>
-								<span class="text-foreground ml-auto font-mono font-medium tabular-nums">{{ item.value }}</span>
-							</div>
-						}
-					</div>
-				</ng-template>
-			</spn-tooltip>
-		</spn-bar-chart>
+		<hlm-chart-container class="min-h-50 w-full" [config]="chartConfig">
+			<spn-bar-chart [data]="data" [margin]="margin" defaultIndex="1">
+				<spn-cartesian-grid vertical="false" />
+				<spn-x-axis
+					dataKey="month"
+					axisLine="false"
+					tickLine="false"
+					tickSize="0"
+					tickPadding="10"
+					[tickFormatter]="formatMonth"
+				/>
+				<spn-bar dataKey="desktop" name="Desktop" fill="var(--color-desktop)" radius="4" />
+				<spn-bar dataKey="mobile" name="Mobile" fill="var(--color-mobile)" radius="4" />
+				<spn-tooltip>
+					<ng-template spnTooltipContent let-state>
+						<hlm-chart-tooltip-content [config]="chartConfig" [state]="state" />
+					</ng-template>
+				</spn-tooltip>
+			</spn-bar-chart>
+		</hlm-chart-container>
 	`,
 })
 export class ChartsTooltip {
+	public readonly chartConfig: ChartConfig = {
+		desktop: {
+			label: 'Desktop',
+			color: '#2563eb',
+		},
+		mobile: {
+			label: 'Mobile',
+			color: '#60a5fa',
+		},
+	};
+
 	protected readonly margin = { top: 12, right: 12, bottom: 24, left: 12 };
 	protected readonly formatMonth = (value: unknown): string => String(value).slice(0, 3);
 	protected readonly data = [

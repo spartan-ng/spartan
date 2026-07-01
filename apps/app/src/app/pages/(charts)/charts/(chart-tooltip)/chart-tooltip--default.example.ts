@@ -1,14 +1,15 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { type BarRadius, SpnBar, SpnBarChart, SpnTooltip, SpnTooltipContentDef, SpnXAxis } from '@spartan-ng/charts';
+import { ChartConfig, HlmChartImports } from '@spartan-ng/helm/chart';
 
 @Component({
 	selector: 'spartan-tooltip-default',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: { class: 'block w-full' },
-	imports: [SpnBarChart, SpnXAxis, SpnBar, SpnTooltip, SpnTooltipContentDef],
+	imports: [HlmChartImports, SpnBarChart, SpnXAxis, SpnBar, SpnTooltip, SpnTooltipContentDef],
 	template: `
-		<div class="w-full">
-			<spn-bar-chart class="block h-[250px] w-full" [data]="data" [margin]="margin" defaultIndex="1">
+		<hlm-chart-container class="min-h-50 w-full" [config]="chartConfig">
+			<spn-bar-chart [data]="data" [margin]="margin" defaultIndex="1">
 				<spn-x-axis
 					dataKey="date"
 					axisLine="false"
@@ -16,33 +17,30 @@ import { type BarRadius, SpnBar, SpnBarChart, SpnTooltip, SpnTooltipContentDef, 
 					tickSize="0"
 					tickPadding="10"
 					[tickFormatter]="formatDay"
-					stroke="var(--muted-foreground)"
 				/>
 				<spn-bar dataKey="running" name="Running" fill="var(--chart-1)" [radius]="runningRadius" stackId="a" />
 				<spn-bar dataKey="swimming" name="Swimming" fill="var(--chart-2)" [radius]="swimmingRadius" stackId="a" />
 				<spn-tooltip>
 					<ng-template spnTooltipContent let-state>
-						<div
-							class="bg-background border-border/50 grid min-w-[8rem] gap-1.5 rounded-lg border px-2.5 py-1.5 text-xs shadow-xl"
-						>
-							@if (state.label !== undefined && state.label !== null && state.label !== '') {
-								<div class="font-medium">{{ state.label }}</div>
-							}
-							@for (item of state.payload; track item.dataKey) {
-								<div class="flex w-full items-center gap-2">
-									<span class="size-2.5 shrink-0 rounded-[2px]" [style.background]="item.color"></span>
-									<span class="text-muted-foreground">{{ item.name }}</span>
-									<span class="text-foreground ml-auto font-mono font-medium tabular-nums">{{ item.value }}</span>
-								</div>
-							}
-						</div>
+						<hlm-chart-tooltip-content [config]="chartConfig" [state]="state" />
 					</ng-template>
 				</spn-tooltip>
 			</spn-bar-chart>
-		</div>
+		</hlm-chart-container>
 	`,
 })
 export class TooltipDefault {
+	public readonly chartConfig: ChartConfig = {
+		running: {
+			label: 'Running',
+			color: 'var(--chart-1)',
+		},
+		swimming: {
+			label: 'Swimming',
+			color: 'var(--chart-2)',
+		},
+	};
+
 	protected readonly margin = { top: 12, right: 12, bottom: 24, left: 12 };
 	protected readonly runningRadius: BarRadius = [0, 0, 4, 4];
 	protected readonly swimmingRadius: BarRadius = [4, 4, 0, 0];

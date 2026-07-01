@@ -3,7 +3,7 @@ import { NgTemplateOutlet } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, computed, input, TemplateRef } from '@angular/core';
 import { NgIcon } from '@ng-icons/core';
 import type { DataKey, TooltipState } from '@spartan-ng/charts';
-import { classes } from '<%- importAlias %>/utils';
+import { classes } from '@spartan-ng/helm/utils';
 import { ChartConfig, injectHlmChartConfig } from './hlm-chart.token';
 
 /** Context provided to the custom item template. */

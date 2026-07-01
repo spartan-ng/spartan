@@ -1,24 +1,15 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { SpnBar, SpnBarChart, SpnXAxis } from '@spartan-ng/charts';
+import { SpnBar, SpnBarChart } from '@spartan-ng/charts';
 import { ChartConfig, HlmChartImports } from '@spartan-ng/helm/chart';
 
 @Component({
 	selector: 'spartan-charts-basic',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: { class: 'block w-full' },
-	imports: [HlmChartImports, SpnBarChart, SpnBar, SpnXAxis],
+	imports: [HlmChartImports, SpnBarChart, SpnBar],
 	template: `
 		<hlm-chart-container class="min-h-50 w-full" [config]="chartConfig">
 			<spn-bar-chart [data]="data" [margin]="margin">
-				<spn-x-axis
-					dataKey="month"
-					axisLine="false"
-					tickLine="false"
-					tickSize="0"
-					tickPadding="10"
-					[tickFormatter]="formatMonth"
-					stroke="var(--muted-foreground)"
-				/>
 				<spn-bar dataKey="desktop" name="Desktop" fill="var(--color-desktop)" radius="4" />
 				<spn-bar dataKey="mobile" name="Mobile" fill="var(--color-mobile)" radius="4" />
 			</spn-bar-chart>
@@ -38,7 +29,6 @@ export class ChartsBasic {
 	};
 
 	protected readonly margin = { top: 12, right: 12, bottom: 24, left: 12 };
-	protected readonly formatMonth = (value: unknown): string => String(value).slice(0, 3);
 	protected readonly data = [
 		{ month: 'January', desktop: 186, mobile: 80 },
 		{ month: 'February', desktop: 305, mobile: 200 },

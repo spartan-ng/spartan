@@ -21,6 +21,10 @@ export class HlmChartContainer {
 
 	constructor() {
 		classes(() => 'flex aspect-video justify-center text-xs');
+		classes(() => [
+			'flex aspect-video justify-center text-xs',
+			"[&_.grid-layer_line[stroke='#ccc']]:stroke-border/50",
+		]);
 
 		afterNextRender(() => {
 			effect(

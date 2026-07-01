@@ -1,0 +1,44 @@
+import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import type { TooltipState } from '@spartan-ng/charts';
+
+/**
+ * Default shadcn-styled chart tooltip content.
+ * Use inside an `spnTooltipContent` template to avoid repeating the markup.
+ *
+ * @example
+ * ```html
+ * <spn-tooltip>
+ *   <ng-template spnTooltipContent let-state>
+ *     <hlm-chart-tooltip-content [state]="state" />
+ *   </ng-template>
+ * </spn-tooltip>
+ * ```
+ */
+@Component({
+	selector: 'hlm-chart-tooltip-content',
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: {
+		class:
+			'bg-background border-border/50 grid min-w-[8rem] gap-1.5 rounded-lg border px-2.5 py-1.5 text-xs shadow-xl',
+	},
+	template: `
+		@if (showLabel()) {
+			<div class="font-medium">{{ state().label }}</div>
+		}
+		@for (item of state().payload; track item.dataKey) {
+			<div class="flex w-full items-center gap-2">
+				<span class="size-2.5 shrink-0 rounded-xs" [style.background]="item.color"></span>
+				<span class="text-muted-foreground">{{ item.name }}</span>
+				<span class="text-foreground ml-auto font-mono font-medium tabular-nums">{{ item.value }}</span>
+			</div>
+		}
+	`,
+})
+export class HlmChartTooltipContent {
+	readonly state = input.required<TooltipState>();
+
+	protected readonly showLabel = computed(() => {
+		const label = this.state().label;
+		return label !== undefined && label !== null && label !== '';
+	});
+}

@@ -18,5 +18,5 @@ export class SpnCartesianGrid {
 	readonly verticalPoints = input<number[]>();
 	readonly stroke = input('#ccc');
 	readonly strokeWidth = input(1, { transform: numberAttribute });
-	readonly strokeDasharray = input('3 3');
+	readonly strokeDasharray = input('');
 }

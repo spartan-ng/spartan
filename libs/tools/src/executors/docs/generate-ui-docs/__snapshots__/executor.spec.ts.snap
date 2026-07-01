@@ -1217,6 +1217,28 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "outputs": [],
         "selector": "[hlmChartContainer],hlm-chart-container",
       },
+      "HlmChartLegendContent": {
+        "inputs": [
+          {
+            "name": "config",
+            "required": false,
+            "type": "ChartConfig",
+          },
+          {
+            "name": "verticalAlign",
+            "required": false,
+            "type": "'top' | 'bottom'",
+          },
+          {
+            "name": "hideIcon",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-chart-legend-content",
+      },
       "HlmChartTooltipContent": {
         "inputs": [
           {

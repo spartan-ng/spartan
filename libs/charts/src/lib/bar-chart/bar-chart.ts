@@ -228,7 +228,7 @@ export class SpnBarChart<T = unknown> {
 
 			// Render in correct z-order
 			this.renderAxes();
-			this.ensureDefaultValueScale();
+			this.ensureDefaultScales();
 			this.renderGrid();
 			this.renderReferenceLines(false);
 			this.renderBars();
@@ -298,27 +298,71 @@ export class SpnBarChart<T = unknown> {
 	 * shadcn bar charts declare no value axis, so synthesize one (recharts-nice
 	 * domain) when the relevant axis is missing - otherwise there's no value
 	 * scale and the bars can't be positioned.
+	 *
+	 * Also creates a default category (band) scale when no category axis is
+	 * declared, so bars render even without an explicit X/Y axis.
 	 */
-	private ensureDefaultValueScale(): void {
+	private ensureDefaultScales(): void {
 		this.defaultValueTicks = undefined;
 		const isHorizontal = this.layout() === 'horizontal';
+		const data = this.data();
 		const hasX = this.xAxes().some((a) => a.axisId() === 'default' && !a.hide());
 		const hasY = this.yAxes().some((a) => a.axisId() === 'default' && !a.hide());
+
 		const valueAxisMissing = isHorizontal ? !hasX : !hasY;
-		if (!valueAxisMissing) return;
+		const categoryAxisMissing = isHorizontal ? !hasY : !hasX;
+		const autoCategoryKey = this.categoryDataKey();
 
-		const [min, max] = this.calculateValueAxisDomain(this.data(), ['auto', 'auto']);
-		const ticks = niceTicks(min, max, 5);
-		const niceDomain: [number, number] = [ticks[0], ticks[ticks.length - 1]];
-		this.defaultValueTicks = ticks;
+		// Create default value scale when missing
+		if (valueAxisMissing) {
+			const [min, max] = this.calculateValueAxisDomain(data, ['auto', 'auto']);
+			const ticks = niceTicks(min, max, 5);
+			const niceDomain: [number, number] = [ticks[0], ticks[ticks.length - 1]];
+			this.defaultValueTicks = ticks;
 
-		if (isHorizontal) {
-			const scale = createLinearScale(niceDomain, this.chartContext.innerWidth(), false);
-			this.chartContext.registerXScale(scale, 'default');
-		} else {
-			const scale = createLinearScale(niceDomain, this.chartContext.innerHeight(), true);
-			this.chartContext.registerYScale(scale, 'default');
+			if (isHorizontal) {
+				const scale = createLinearScale(niceDomain, this.chartContext.innerWidth(), false);
+				this.chartContext.registerXScale(scale, 'default');
+			} else {
+				const scale = createLinearScale(niceDomain, this.chartContext.innerHeight(), true);
+				this.chartContext.registerYScale(scale, 'default');
+			}
 		}
+
+		// Create default category (band) scale when missing
+		if (categoryAxisMissing && autoCategoryKey) {
+			if (isHorizontal) {
+				const scale = createBandScale(data, autoCategoryKey, this.chartContext.innerHeight());
+				this.chartContext.registerYScale(scale, 'default');
+			} else {
+				const scale = createBandScale(data, autoCategoryKey, this.chartContext.innerWidth());
+				this.chartContext.registerXScale(scale, 'default');
+			}
+		}
+	}
+
+	/**
+	 * Returns the dataKey for the category (non-value) axis.
+	 * Uses the axis component's dataKey if declared, otherwise auto-detects
+	 * a key from the data that isn't used as any bar's dataKey.
+	 */
+	private categoryDataKey(): string {
+		const isHorizontal = this.layout() === 'horizontal';
+		// If an axis is declared and not hidden, use its dataKey
+		const axisKey = isHorizontal
+			? this.yAxes()
+					.find((a) => a.axisId() === 'default' && !a.hide())
+					?.dataKey()
+			: this.xAxes()
+					.find((a) => a.axisId() === 'default' && !a.hide())
+					?.dataKey();
+		if (axisKey) return String(axisKey);
+
+		// Auto-detect: first key in data that's not a bar dataKey
+		const bars = this.bars().filter((bar) => !bar.hide());
+		const barDataKeys = new Set(bars.map((b) => b.dataKey()));
+		const data = this.data();
+		return data.length ? (Object.keys(data[0] as Record<string, unknown>).find((k) => !barDataKeys.has(k)) ?? '') : '';
 	}
 
 	private calculateAxisDomain(
@@ -426,7 +470,7 @@ export class SpnBarChart<T = unknown> {
 		if (!xScale || !yScale) return;
 
 		// Get category dataKey from the correct axis based on layout
-		const categoryDataKey = isHorizontal ? this.yAxes()[0]?.dataKey() || '' : this.xAxes()[0]?.dataKey() || '';
+		const categoryDataKey = this.categoryDataKey();
 
 		// Get the band scale based on layout
 		const bandScale = isHorizontal ? yScale : xScale;
@@ -479,8 +523,8 @@ export class SpnBarChart<T = unknown> {
 		const yScale = this.chartContext.yScale();
 		if (!xScale || !yScale) return;
 
-		// Get category dataKey from the correct axis based on layout
-		const categoryDataKey = isHorizontal ? this.yAxes()[0]?.dataKey() || '' : this.xAxes()[0]?.dataKey() || '';
+		// Get category dataKey from axis or auto-detect from data
+		const categoryDataKey = this.categoryDataKey();
 
 		// Get the band scale based on layout
 		const bandScale = isHorizontal ? yScale : xScale;

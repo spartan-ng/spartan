@@ -49,7 +49,10 @@ export function renderGrid(
 			.attr('y2', (d) => (yScale as d3.ScaleLinear<number, number>)(d))
 			.attr('stroke', grid.stroke())
 			.attr('stroke-width', grid.strokeWidth())
-			.attr('stroke-dasharray', grid.strokeDasharray());
+			.call((sel) => {
+				const dash = grid.strokeDasharray();
+				if (dash) sel.attr('stroke-dasharray', dash);
+			});
 	}
 
 	// Render vertical lines
@@ -85,7 +88,10 @@ export function renderGrid(
 				.attr('y2', innerHeight)
 				.attr('stroke', grid.stroke())
 				.attr('stroke-width', grid.strokeWidth())
-				.attr('stroke-dasharray', grid.strokeDasharray());
+				.call((sel) => {
+					const dash = grid.strokeDasharray();
+					if (dash) sel.attr('stroke-dasharray', dash);
+				});
 		} else if ('step' in xScale) {
 			// Point scale (for line/area charts)
 			gridGroup
@@ -105,7 +111,10 @@ export function renderGrid(
 				.attr('y2', innerHeight)
 				.attr('stroke', grid.stroke())
 				.attr('stroke-width', grid.strokeWidth())
-				.attr('stroke-dasharray', grid.strokeDasharray());
+				.call((sel) => {
+					const dash = grid.strokeDasharray();
+					if (dash) sel.attr('stroke-dasharray', dash);
+				});
 		} else {
 			// Linear scale
 			gridGroup
@@ -119,7 +128,10 @@ export function renderGrid(
 				.attr('y2', innerHeight)
 				.attr('stroke', grid.stroke())
 				.attr('stroke-width', grid.strokeWidth())
-				.attr('stroke-dasharray', grid.strokeDasharray());
+				.call((sel) => {
+					const dash = grid.strokeDasharray();
+					if (dash) sel.attr('stroke-dasharray', dash);
+				});
 		}
 	}
 }

@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { SpnBar, SpnBarChart, SpnCartesianGrid, SpnTooltip, SpnTooltipContentDef, SpnXAxis } from '@spartan-ng/charts';
+import { SpnBar, SpnBarChart, SpnCartesianGrid, SpnXAxis } from '@spartan-ng/charts';
 import { ChartConfig, HlmChartImports } from '@spartan-ng/helm/chart';
 
 @Component({
-	selector: 'spartan-charts-tooltip',
+	selector: 'spartan-charts-axis',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: { class: 'block w-full' },
-	imports: [HlmChartImports, SpnBarChart, SpnBar, SpnCartesianGrid, SpnXAxis, SpnTooltip, SpnTooltipContentDef],
+	imports: [HlmChartImports, SpnBarChart, SpnBar, SpnCartesianGrid, SpnXAxis],
 	template: `
 		<hlm-chart-container class="min-h-50 w-full" [config]="chartConfig">
 			<spn-bar-chart [data]="data" [margin]="margin">
@@ -21,16 +21,11 @@ import { ChartConfig, HlmChartImports } from '@spartan-ng/helm/chart';
 				/>
 				<spn-bar dataKey="desktop" name="Desktop" fill="var(--color-desktop)" radius="4" />
 				<spn-bar dataKey="mobile" name="Mobile" fill="var(--color-mobile)" radius="4" />
-				<spn-tooltip>
-					<ng-template spnTooltipContent let-state>
-						<hlm-chart-tooltip-content [state]="state" />
-					</ng-template>
-				</spn-tooltip>
 			</spn-bar-chart>
 		</hlm-chart-container>
 	`,
 })
-export class ChartsTooltip {
+export class ChartsAxis {
 	public readonly chartConfig: ChartConfig = {
 		desktop: {
 			label: 'Desktop',

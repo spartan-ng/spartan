@@ -21,6 +21,7 @@ import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
 import { link } from '@spartan-ng/app/app/shared/typography/link';
 import { HlmAlertImports } from '@spartan-ng/helm/alert';
 import { hlmCode, hlmP, hlmUl } from '@spartan-ng/helm/typography';
+import { ChartsAxis } from './charts--axis.example';
 import { ChartsBasic } from './charts--basic.example';
 import { ChartsGrid } from './charts--grid.example';
 import { ChartsLegend } from './charts--legend.example';
@@ -54,6 +55,7 @@ export const routeMeta: RouteMeta = {
 		CodeRtlPreview,
 		ChartsBasic,
 		ChartsGrid,
+		ChartsAxis,
 		ChartsTooltip,
 		ChartsLegend,
 		ChartsRtl,
@@ -102,7 +104,7 @@ export const routeMeta: RouteMeta = {
 			<spartan-section-sub-heading id="your-first-chart">Your First Chart</spartan-section-sub-heading>
 			<p class="${hlmP}">Let's build a bar chart from scratch, one piece at a time.</p>
 
-			<h3 id="your-first-chart__data" spartanH4>Chart data</h3>
+			<h3 id="chart-data" spartanH4>Chart data</h3>
 			<p class="${hlmP}">
 				Charts take a plain array of objects through the
 				<span class="${hlmCode}">data</span>
@@ -110,7 +112,7 @@ export const routeMeta: RouteMeta = {
 			</p>
 			<spartan-code [code]="_dataCode" />
 
-			<h3 id="your-first-chart__build" spartanH4>Build the chart</h3>
+			<h3 id="build-the-chart" spartanH4>Build the chart</h3>
 			<p class="${hlmP}">
 				Wrap the chart in
 				<span class="${hlmCode}">spn-bar-chart</span>
@@ -129,7 +131,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_snippets()['basic']" />
 			</spartan-tabs>
 
-			<h3 id="your-first-chart__grid" spartanH4>Add a grid</h3>
+			<h3 id="add-a-grid" spartanH4>Add a Grid</h3>
 			<p class="${hlmP}">
 				Add a
 				<span class="${hlmCode}">spn-cartesian-grid</span>
@@ -142,7 +144,20 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_snippets()['grid']" />
 			</spartan-tabs>
 
-			<h3 id="your-first-chart__tooltip" spartanH4>Add a tooltip</h3>
+			<h3 id="add-an-axis" spartanH4>Add an Axis</h3>
+			<p class="${hlmP}">
+				To add an x-axis, add the
+				<span class="${hlmCode}">spn-x-axis</span>
+				component.
+			</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-charts-axis class="w-full max-w-2xl" />
+				</div>
+				<spartan-code secondTab [code]="_snippets()['axis']" />
+			</spartan-tabs>
+
+			<h3 id="add-tooltip" spartanH4>Add Tooltip</h3>
 			<p class="${hlmP}">
 				Add a
 				<span class="${hlmCode}">spn-tooltip</span>
@@ -163,7 +178,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_snippets()['tooltip']" />
 			</spartan-tabs>
 
-			<h3 id="your-first-chart__legend" spartanH4>Add a legend</h3>
+			<h3 id="add-legend" spartanH4>Add Legend</h3>
 			<p class="${hlmP}">
 				Charts don't ship a legend element - render your own below the chart so it matches your design exactly. A
 				centered row of coloured swatches and labels keeps it consistent with the

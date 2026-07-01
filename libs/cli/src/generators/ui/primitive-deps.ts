@@ -14,6 +14,7 @@ export const primitiveDependencies: Record<Primitive, Primitive[]> = {
 	calendar: ['utils', 'button', 'select'],
 	card: ['utils'],
 	carousel: ['utils', 'button'],
+	chart: ['utils'],
 	checkbox: ['utils'],
 	collapsible: ['utils'],
 	combobox: ['utils', 'input-group', 'button'],

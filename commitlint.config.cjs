@@ -20,6 +20,7 @@ module.exports = {
 				'calendar',
 				'card',
 				'carousel',
+				'chart',
 				'checkbox',
 				'cli',
 				'collapsible',

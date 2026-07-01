@@ -110,6 +110,13 @@
 			"embla-carousel-angular": ">=21.0.0 <23.0.0"
 		}
 	},
+	"chart": {
+		"name": "chart",
+		"peerDependencies": {
+			"@angular/common": ">=21.0.0 <23.0.0",
+			"@angular/core": ">=21.0.0 <23.0.0"
+		}
+	},
 	"checkbox": {
 		"name": "checkbox",
 		"peerDependencies": {

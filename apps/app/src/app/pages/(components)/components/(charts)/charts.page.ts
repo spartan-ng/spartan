@@ -178,7 +178,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_snippets()['tooltip']" />
 			</spartan-tabs>
 
-			<h3 id="your-first-chart__legend" spartanH4>Add a legend</h3>
+			<h3 id="add-legend" spartanH4>Add Legend</h3>
 			<p class="${hlmP}">
 				Charts don't ship a legend element - render your own below the chart so it matches your design exactly. A
 				centered row of coloured swatches and labels keeps it consistent with the

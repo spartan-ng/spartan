@@ -181,6 +181,7 @@ export class SpnLegendContentDef {
 			:host {
 				display: block;
 				position: absolute;
+				inset-inline: 0;
 				z-index: 10;
 			}
 

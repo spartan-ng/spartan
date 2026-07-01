@@ -18,8 +18,7 @@ import type { TooltipState } from '@spartan-ng/charts';
 	selector: 'hlm-chart-tooltip-content',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
-		class:
-			'bg-background border-border/50 grid min-w-[8rem] gap-1.5 rounded-lg border px-2.5 py-1.5 text-xs shadow-xl',
+		class: 'bg-background border-border/50 grid min-w-[8rem] gap-1.5 rounded-lg border px-2.5 py-1.5 text-xs shadow-xl',
 	},
 	template: `
 		@if (showLabel()) {

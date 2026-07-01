@@ -20,10 +20,10 @@ export class HlmChartContainer {
 	public readonly config = input<ChartConfig>(this._config);
 
 	constructor() {
-		classes(() => 'flex aspect-video justify-center text-xs');
 		classes(() => [
 			'flex aspect-video justify-center text-xs',
 			"[&_.grid-layer_line[stroke='#ccc']]:stroke-border/50",
+			'[&_.axes-layer_text]:fill-muted-foreground [&_.axes-layer_line]:stroke-border [&_.axes-layer_path]:stroke-border',
 		]);
 
 		afterNextRender(() => {

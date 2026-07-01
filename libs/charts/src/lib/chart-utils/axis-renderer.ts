@@ -101,9 +101,9 @@ export function renderXAxis(
 	if (!xAxis.axisLine()) g.select('.domain').remove();
 	if (!xAxis.tickLine()) g.selectAll('.tick line').remove();
 
-	g.selectAll('path, line').style('stroke', xAxis.stroke());
+	g.selectAll('path, line').attr('stroke', xAxis.stroke());
 	// recharts default tick font size is 12px (D3's default of 10px is too small)
-	g.selectAll('text').style('fill', xAxis.stroke()).style('font-size', '12px');
+	g.selectAll('text').attr('fill', xAxis.stroke()).style('font-size', '12px');
 }
 
 /**
@@ -148,7 +148,7 @@ export function renderYAxis(
 	if (!yAxis.axisLine()) g.select('.domain').remove();
 	if (!yAxis.tickLine()) g.selectAll('.tick line').remove();
 
-	g.selectAll('path, line').style('stroke', yAxis.stroke());
+	g.selectAll('path, line').attr('stroke', yAxis.stroke());
 	// recharts default tick font size is 12px (D3's default of 10px is too small)
-	g.selectAll('text').style('fill', yAxis.stroke()).style('font-size', '12px');
+	g.selectAll('text').attr('fill', yAxis.stroke()).style('font-size', '12px');
 }

@@ -1,10 +1,19 @@
 import { BooleanInput } from '@angular/cdk/coercion';
 import { NgTemplateOutlet } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, Component, computed, input, TemplateRef } from '@angular/core';
+import {
+	booleanAttribute,
+	ChangeDetectionStrategy,
+	Component,
+	computed,
+	inject,
+	input,
+	TemplateRef,
+} from '@angular/core';
 import { NgIcon } from '@ng-icons/core';
 import type { DataKey, TooltipState } from '@spartan-ng/charts';
 import { classes } from '@spartan-ng/helm/utils';
-import { ChartConfig, getPayloadConfigFromPayload, injectHlmChartConfig } from './hlm-chart.token';
+import { HlmChartContainer } from './hlm-chart-container';
+import { getPayloadConfigFromPayload } from './hlm-chart.token';
 
 /** Context provided to the custom item template. */
 export interface HlmChartTooltipItemContext {
@@ -70,11 +79,9 @@ export interface HlmChartTooltipItemContext {
 	`,
 })
 export class HlmChartTooltipContent {
-	private readonly _config = injectHlmChartConfig();
+	private readonly _chartContainer = inject(HlmChartContainer);
 
 	public readonly state = input.required<TooltipState>();
-
-	public readonly config = input<ChartConfig>(this._config);
 
 	public readonly hideLabel = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 	public readonly hideIndicator = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
@@ -89,7 +96,7 @@ export class HlmChartTooltipContent {
 		input<TemplateRef<{ $implicit: HlmChartTooltipItemContext; index: number; first: boolean; last: boolean }>>();
 
 	protected readonly _items = computed(() => {
-		const config = this.config();
+		const config = this._chartContainer.config();
 		return this.state().payload.map((item) => {
 			const key = `${item.dataKey ?? item.name ?? 'value'}`;
 			const itemConfig = getPayloadConfigFromPayload(config, item, key);
@@ -111,7 +118,7 @@ export class HlmChartTooltipContent {
 		if (labelKey === undefined || labelKey === null || labelKey === '') {
 			value = stateLabel;
 		} else {
-			const itemConfig = this.config()[labelKey];
+			const itemConfig = this._chartContainer.config()[labelKey];
 			value = itemConfig?.label ?? stateLabel;
 		}
 

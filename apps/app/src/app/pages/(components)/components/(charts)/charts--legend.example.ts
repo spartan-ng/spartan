@@ -42,12 +42,12 @@ import { ChartConfig, HlmChartImports } from '@spartan-ng/helm/chart';
 				<spn-bar dataKey="mobile" name="Mobile" fill="var(--color-mobile)" radius="4" />
 				<spn-tooltip>
 					<ng-template spnTooltipContent let-state>
-						<hlm-chart-tooltip-content [config]="chartConfig" [state]="state" />
+						<hlm-chart-tooltip-content [state]="state" />
 					</ng-template>
 				</spn-tooltip>
 				<spn-legend>
 					<ng-template spnLegendContent>
-						<hlm-chart-legend-content [config]="chartConfig" />
+						<hlm-chart-legend-content />
 					</ng-template>
 				</spn-legend>
 			</spn-bar-chart>

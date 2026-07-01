@@ -22,7 +22,7 @@ import { ChartConfig, HlmChartImports } from '@spartan-ng/helm/chart';
 				<spn-bar dataKey="swimming" name="Swimming" fill="var(--chart-2)" [radius]="swimmingRadius" stackId="a" />
 				<spn-tooltip>
 					<ng-template spnTooltipContent let-state>
-						<hlm-chart-tooltip-content [config]="chartConfig" [state]="state" labelKey="activities" indicator="line" />
+						<hlm-chart-tooltip-content [state]="state" labelKey="activities" indicator="line" />
 					</ng-template>
 				</spn-tooltip>
 			</spn-bar-chart>

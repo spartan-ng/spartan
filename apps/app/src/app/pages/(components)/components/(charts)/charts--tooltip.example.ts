@@ -9,7 +9,7 @@ import { ChartConfig, HlmChartImports } from '@spartan-ng/helm/chart';
 	imports: [HlmChartImports, SpnBarChart, SpnBar, SpnCartesianGrid, SpnXAxis, SpnTooltip, SpnTooltipContentDef],
 	template: `
 		<hlm-chart-container class="min-h-50 w-full" [config]="chartConfig">
-			<spn-bar-chart [data]="data" [margin]="margin" defaultIndex="1">
+			<spn-bar-chart [data]="data" [margin]="margin">
 				<spn-cartesian-grid vertical="false" />
 				<spn-x-axis
 					dataKey="month"
@@ -23,7 +23,7 @@ import { ChartConfig, HlmChartImports } from '@spartan-ng/helm/chart';
 				<spn-bar dataKey="mobile" name="Mobile" fill="var(--color-mobile)" radius="4" />
 				<spn-tooltip>
 					<ng-template spnTooltipContent let-state>
-						<hlm-chart-tooltip-content [config]="chartConfig" [state]="state" />
+						<hlm-chart-tooltip-content [state]="state" />
 					</ng-template>
 				</spn-tooltip>
 			</spn-bar-chart>

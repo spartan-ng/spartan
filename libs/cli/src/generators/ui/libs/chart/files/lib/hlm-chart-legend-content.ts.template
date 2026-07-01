@@ -1,8 +1,8 @@
 import { BooleanInput } from '@angular/cdk/coercion';
-import { booleanAttribute, ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
 import { NgIcon } from '@ng-icons/core';
 import { classes } from '<%- importAlias %>/utils';
-import { ChartConfig, injectHlmChartConfig } from './hlm-chart.token';
+import { HlmChartContainer } from './hlm-chart-container';
 
 /**
  * Default shadcn-styled chart legend content.
@@ -32,10 +32,7 @@ import { ChartConfig, injectHlmChartConfig } from './hlm-chart.token';
 	`,
 })
 export class HlmChartLegendContent {
-	private readonly _config = injectHlmChartConfig();
-
-	/** Override the injected chart config. */
-	public readonly config = input<ChartConfig>(this._config);
+	private readonly _chartContainer = inject(HlmChartContainer);
 
 	public readonly verticalAlign = input<'top' | 'bottom'>('bottom');
 
@@ -43,7 +40,7 @@ export class HlmChartLegendContent {
 	public readonly hideIcon = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
 	protected readonly _items = computed(() => {
-		const config = this.config();
+		const config = this._chartContainer.config();
 		return Object.entries(config).map(([key, itemConfig]) => ({
 			key,
 			label: itemConfig.label ?? key,

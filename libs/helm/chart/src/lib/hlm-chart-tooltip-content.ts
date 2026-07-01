@@ -32,8 +32,8 @@ export interface HlmChartTooltipItemContext {
  */
 @Component({
 	selector: 'hlm-chart-tooltip-content',
-	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [NgIcon, NgTemplateOutlet],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		@if (_tooltipLabel(); as label) {
 			<div class="font-medium">{{ label }}</div>
@@ -59,7 +59,7 @@ export interface HlmChartTooltipItemContext {
 						}
 						<div class="flex flex-1 items-center justify-between leading-none">
 							<span class="text-muted-foreground">{{ item.label ?? item.name }}</span>
-							@if (item.value != null) {
+							@if (item.value !== null) {
 								<span class="text-foreground font-mono font-medium tabular-nums">{{ item.value }}</span>
 							}
 						</div>

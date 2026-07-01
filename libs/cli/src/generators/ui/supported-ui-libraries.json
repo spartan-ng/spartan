@@ -116,7 +116,8 @@
 			"@angular/common": ">=21.0.0 <23.0.0",
 			"@angular/core": ">=21.0.0 <23.0.0",
 			"@angular/cdk": ">=21.0.0 <23.0.0",
-			"@ng-icons/core": ">=32.0.0 <34.0.0"
+			"@ng-icons/core": ">=32.0.0 <34.0.0",
+			"@spartan-ng/charts": "1.0.0-alpha.0"
 		}
 	},
 	"checkbox": {

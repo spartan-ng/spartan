@@ -174,3 +174,77 @@ jobs:
           # it out of publishConfig means local/verdaccio publishes — e.g. cli-smoke — don't attempt
           # provenance and fail without an id-token.
           NPM_CONFIG_PROVENANCE: 'true'
+
+  # After a release, propagate the release commit (+ any main-only hotfixes) DOWN the prerelease
+  # ladder so the branches never diverge: main -> beta -> alpha. semantic-release commits a version
+  # bump + CHANGELOG to each release branch, so without this the branches drift and the next
+  # prerelease miscomputes. We MERGE (never rebase/reset): a merge is a fast-forwardable append, so it
+  # satisfies the `non_fast_forward` ruleset that blocks force-pushes; a rebase would rewrite SHAs and
+  # confuse semantic-release's tag tracking. The App token is a bypass actor, so it pushes straight to
+  # the protected branches. `[skip ci]` on the merge keeps this from re-firing the heavy verify+release
+  # pipeline on every sync — the change is already published on its own channel; this only keeps the
+  # downstream branches consistent. A real conflict (a code hotfix touching prerelease-only lines)
+  # stops the automation and opens a PR to resolve by hand rather than guessing.
+  backmerge:
+    needs: [release]
+    # Run after any REAL release: plain pushes, and a workflow_dispatch with dry-run=false. Skip
+    # dry-run previews. On push events `inputs` is absent, so `!inputs.dry-run` evaluates to true;
+    # gating on `event_name == 'push'` instead would wrongly skip a manual real release and let the
+    # branches drift — the exact problem this job exists to prevent.
+    if: ${{ !inputs.dry-run && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/beta') }}
+    runs-on: ubuntu-latest
+    # Every step here uses the App token (checkout, push, PR); the default GITHUB_TOKEN is unused.
+    permissions: {}
+    steps:
+      - name: Generate app token
+        id: app-token
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ secrets.APP_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+          permission-contents: write
+          permission-pull-requests: write
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          # Keep the App token out of .git/config; it's applied inline only at push time below.
+          persist-credentials: false
+          token: ${{ steps.app-token.outputs.token }}
+      - name: Backmerge down the prerelease ladder
+        env:
+          APP_TOKEN: ${{ steps.app-token.outputs.token }}
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+        run: |
+          set -euo pipefail
+          # Adjacent hops to replay top-down from the branch that just released. main fans the release
+          # all the way to alpha in one job because the [skip ci] merge to beta won't re-trigger a
+          # beta release to continue the chain on its own.
+          case "${GITHUB_REF_NAME}" in
+            main) hops=("main beta" "beta alpha") ;;
+            beta) hops=("beta alpha") ;;
+            *) echo "::warning::backmerge: unexpected ref '${GITHUB_REF_NAME}', nothing to do"; exit 0 ;;
+          esac
+          git config user.name Leonidas
+          git config user.email leonidas@spartan.ng
+          remote="https://x-access-token:${APP_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          for hop in "${hops[@]}"; do
+            src="${hop% *}"
+            dst="${hop#* }"
+            git fetch origin "$src" "$dst"
+            git checkout -B "$dst" "origin/$dst"
+            if ! git merge --no-ff "origin/$src" -m "chore(release): backmerge $src into $dst [skip ci]"; then
+              git merge --abort
+              echo "::error::backmerge $src -> $dst conflicted; opening a PR to resolve by hand"
+              gh pr create --base "$dst" --head "$src" \
+                --title "chore(release): backmerge $src into $dst" \
+                --body "Automated backmerge hit a conflict and needs manual resolution." \
+                || echo "a backmerge PR for $src -> $dst already exists"
+              exit 1
+            fi
+            # Only push when the merge actually advanced the branch (skip no-op "already up to date").
+            if [ -n "$(git rev-list "origin/$dst"..HEAD)" ]; then
+              git push "$remote" "HEAD:refs/heads/$dst"
+            else
+              echo "$dst already contains $src; nothing to push"
+            fi
+          done

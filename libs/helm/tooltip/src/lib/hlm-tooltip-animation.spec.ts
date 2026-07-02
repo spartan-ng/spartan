@@ -129,3 +129,23 @@ describe('HlmTooltip teardown without an exit animation', () => {
 		await waitFor(() => expect(tooltipEl()).toBeNull());
 	});
 });
+
+describe('HlmTooltip dynamic text while open', () => {
+	afterEach(() => {
+		document.querySelectorAll('.cdk-overlay-container').forEach((el) => el.remove());
+	});
+
+	it('updates the tooltip text when the bound string signal changes while the tooltip is open', async () => {
+		const { fixture } = await render(TooltipDynamicHost);
+
+		fireEvent.mouseEnter(triggerEl());
+		await waitFor(() => expect(tooltipEl()?.textContent).toContain('first'));
+
+		// Change the tooltip text while the tooltip is open. No mouseleave!
+		fixture.componentInstance.tip.set('second');
+		fixture.detectChanges();
+
+		await waitFor(() => expect(tooltipEl()?.textContent).toContain('second'));
+		expect(tooltipEl()?.textContent).not.toContain('first');
+	});
+});

@@ -38,6 +38,7 @@ import {
 	BRN_TOOLTIP_FALLBACK_POSITIONS,
 	BRN_TOOLTIP_POSITIONS_MAP,
 	BrnTooltipPosition,
+	getTooltipArrowOffset,
 	resolveTooltipPosition,
 } from './brn-tooltip-position';
 import { BrnTooltipType } from './brn-tooltip-type';
@@ -244,6 +245,7 @@ export class BrnTooltip {
 				// Re-apply props so a programmatic text change during the close is reflected on revive.
 				// Keep the live (possibly flipped) position rather than resetting to the raw input.
 				this._applyContentProps(this._componentRef.instance, this._activePosition ?? this.position());
+				this._updateArrowOffset();
 				this._group?.onOpen();
 				this.show.emit();
 			}
@@ -274,6 +276,7 @@ export class BrnTooltip {
 					if (resolved) {
 						this._applyContentProps(compRef.instance, resolved, null);
 					}
+					this._updateArrowOffset();
 				});
 		}
 
@@ -287,6 +290,7 @@ export class BrnTooltip {
 				}
 			});
 		});
+		this._updateArrowOffset();
 		this.show.emit();
 	}
 
@@ -305,6 +309,16 @@ export class BrnTooltip {
 			this._config.arrowClasses(position),
 			this._config.svgClasses,
 		);
+	}
+
+	/** Slide the arrow back onto the trigger after CDK has positioned (and possibly pushed) the tooltip. */
+	private _updateArrowOffset(): void {
+		const content = this._componentRef?.instance;
+		const tooltipElement = this._componentRef?.location.nativeElement as HTMLElement | undefined;
+		if (!content || !tooltipElement) return;
+		const triggerRect = this._elementRef.nativeElement.getBoundingClientRect();
+		const tooltipRect = tooltipElement.getBoundingClientRect();
+		content.setArrowOffset(getTooltipArrowOffset(triggerRect, tooltipRect, this._activePosition ?? this.position()));
 	}
 
 	private _hide(): void {

@@ -19,7 +19,7 @@ let uniqueId = 0;
 	template: `
 		<ng-container *brnTooltipStringTemplateOutlet="_tooltipText()">{{ _tooltipText() }}</ng-container>
 
-		<span [class]="_arrowClass()">
+		<span [class]="_arrowClass()" [style.margin-left.px]="_arrowOffset().x" [style.margin-top.px]="_arrowOffset().y">
 			<svg [class]="_svgClass()" width="10" height="5" viewBox="0 0 30 10" preserveAspectRatio="none">
 				<polygon points="0,0 30,0 15,10" />
 			</svg>
@@ -36,6 +36,8 @@ export class BrnTooltipContent {
 
 	protected readonly _position = signal<BrnTooltipPosition>('top');
 	protected readonly _tooltipText = signal<BrnTooltipType>(null);
+	/** Applied as a margin so the arrow keeps pointing at the trigger after a viewport push (#1247). */
+	protected readonly _arrowOffset = signal<{ x: number; y: number }>({ x: 0, y: 0 });
 
 	public setProps(
 		tooltipText: BrnTooltipType,
@@ -52,5 +54,9 @@ export class BrnTooltipContent {
 		this._tooltipClass.set(tooltipClasses);
 		this._arrowClass.set(arrowClasses);
 		this._svgClass.set(svgClasses);
+	}
+
+	public setArrowOffset(offset: { x: number; y: number }): void {
+		this._arrowOffset.set(offset);
 	}
 }

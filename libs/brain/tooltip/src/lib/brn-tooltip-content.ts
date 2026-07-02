@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, input, signal } from '@angular/core';
 import { ClassValue } from 'clsx';
-import { BrnTooltipPosition } from './brn-tooltip-position';
+import { ArrowOffset, BrnTooltipPosition } from './brn-tooltip-position';
 import { BrnTooltipStringTemplateOutlet } from './brn-tooltip-string-template-outlet';
 import { BrnTooltipType } from './brn-tooltip-type';
 
@@ -37,7 +37,7 @@ export class BrnTooltipContent {
 	protected readonly _position = signal<BrnTooltipPosition>('top');
 	protected readonly _tooltipText = signal<BrnTooltipType>(null);
 	/** Applied as a margin so the arrow keeps pointing at the trigger after a viewport push (#1247). */
-	protected readonly _arrowOffset = signal<{ x: number; y: number }>({ x: 0, y: 0 });
+	protected readonly _arrowOffset = signal<ArrowOffset>({ x: 0, y: 0 });
 
 	public setProps(
 		tooltipText: BrnTooltipType,
@@ -56,7 +56,7 @@ export class BrnTooltipContent {
 		this._svgClass.set(svgClasses);
 	}
 
-	public setArrowOffset(offset: { x: number; y: number }): void {
+	public setArrowOffset(offset: ArrowOffset): void {
 		this._arrowOffset.set(offset);
 	}
 }

@@ -44,6 +44,9 @@ export const BRN_TOOLTIP_FALLBACK_POSITIONS: Record<BrnTooltipPosition, BrnToolt
 /** The fields we read off a `DOMRect`; broken out so the arrow math is unit-testable without the DOM. */
 export type TooltipRect = Pick<DOMRect, 'left' | 'top' | 'width' | 'height'>;
 
+/** Pixel offset applied to the arrow to slide it back onto the trigger. One axis is always zero. */
+export type ArrowOffset = { x: number; y: number };
+
 /** Arrow is 10px across (see the arrow classes in helm's tooltip). */
 const ARROW_SIZE = 10;
 /** Keep the arrow this far clear of the tooltip's rounded corners. */
@@ -58,7 +61,7 @@ export function getTooltipArrowOffset(
 	triggerRect: TooltipRect,
 	tooltipRect: TooltipRect,
 	position: BrnTooltipPosition,
-): { x: number; y: number } {
+): ArrowOffset {
 	if (position === 'top' || position === 'bottom') {
 		const delta = triggerRect.left + triggerRect.width / 2 - (tooltipRect.left + tooltipRect.width / 2);
 		return { x: clampArrowOffset(delta, tooltipRect.width), y: 0 };

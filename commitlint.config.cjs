@@ -42,6 +42,7 @@ module.exports = {
 				'label',
 				'mcp',
 				'menubar',
+				'month-year-calendar',
 				'native-select',
 				'navigation-menu',
 				'pagination',

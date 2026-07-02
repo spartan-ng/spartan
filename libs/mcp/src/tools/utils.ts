@@ -44,6 +44,7 @@ export const KNOWN_COMPONENTS: string[] = [
 	'kbd',
 	'label',
 	'menubar',
+	'month-year-calendar',
 	'native-select',
 	'navigation-menu',
 	'pagination',

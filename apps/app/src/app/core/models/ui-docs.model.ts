@@ -46,6 +46,7 @@ export type Primitives =
 	| 'dropdown-menu'
 	| 'label'
 	| 'menubar'
+	| 'month-year-calendar'
 	| 'pagination'
 	| 'popover'
 	| 'progress'

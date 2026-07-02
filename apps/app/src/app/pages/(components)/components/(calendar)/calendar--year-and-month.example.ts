@@ -1,45 +1,75 @@
-import { Component, model } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-
-import { HlmCalendar } from '@spartan-ng/helm/calendar';
-import { HlmCardImports } from '@spartan-ng/helm/card';
-import { HlmSelectImports } from '@spartan-ng/helm/select';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { HlmCard, HlmCardImports } from '@spartan-ng/helm/card';
+import { HlmMonthYearImports } from '@spartan-ng/helm/month-year-calendar';
 
 @Component({
-	selector: 'spartan-calendar-year-and-month',
-	imports: [HlmCalendar, HlmSelectImports, FormsModule, HlmCardImports],
+	selector: 'spartan-month-year-example',
+	imports: [HlmCardImports, HlmMonthYearImports],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	hostDirectives: [HlmCard],
 	host: {
-		class: 'flex flex-col gap-4',
+		class: 'p-0 w-fit mx-auto',
 	},
 	template: `
-		<div hlmCard class="mx-auto w-fit p-0">
-			<div hlmCardContent class="p-0">
-				<hlm-calendar [captionLayout]="_captionLayout()" />
-			</div>
+		<div hlmCardContent class="p-0">
+			<hlm-month-year-calendar [(date)]="selectedDate" />
 		</div>
-
-		<hlm-select class="inline-block" [(ngModel)]="_captionLayout" [itemToString]="itemToString">
-			<hlm-select-trigger class="w-full">
-				<hlm-select-value placeholder="Select an option" />
-			</hlm-select-trigger>
-			<hlm-select-content *hlmSelectPortal>
-				<hlm-select-group>
-					<hlm-select-item value="dropdown">Month and Year</hlm-select-item>
-					<hlm-select-item value="dropdown-months">Only Month</hlm-select-item>
-					<hlm-select-item value="dropdown-years">Only Year</hlm-select-item>
-				</hlm-select-group>
-			</hlm-select-content>
-		</hlm-select>
 	`,
 })
 export class CalendarYearAndMonthExample {
-	protected readonly _captionLayout = model<'dropdown' | 'label' | 'dropdown-months' | 'dropdown-years'>('dropdown');
+	/** The selected date */
+	public selectedDate = new Date();
 
-	public readonly options = [
-		{ value: 'dropdown', label: 'Month and Year' },
-		{ value: 'dropdown-months', label: 'Only Month' },
-		{ value: 'dropdown-years', label: 'Only Year' },
-	];
+	/** The minimum date */
+	public minDate = new Date(new Date().setMonth(new Date().getMonth() - 2));
 
-	public readonly itemToString = (value: string) => this.options.find((option) => option.value === value)?.label || '';
+	/** The maximum date */
+	public maxDate = new Date(new Date().setMonth(new Date().getMonth() + 2));
 }
+
+export const defaultImports = `
+import { HlmCalendarImports } from '@spartan-ng/helm/calendar';
+`;
+
+export const i18nRuntimeChange = `
+import { injectBrnCalendarI18n } from '@spartan-ng/brain/calendar';
+
+@Component({...})
+export class CalendarPage {
+  private readonly _i18n = injectBrnCalendarI18n();
+
+  switchToFrench() {
+    this._i18n.use({
+      ...,
+      labelNext: () => 'Mois suivant',
+      labelPrevious: () => 'Mois précédent',
+      ...
+    });
+  }
+}
+`;
+
+export const i18nProviders = `
+import { bootstrapApplication } from '@angular/platform-browser';
+import { provideBrnCalendarI18n } from '@spartan-ng/brain/calendar';
+bootstrapApplication(App, {
+	providers: [
+		provideBrnCalendarI18n({
+			formatWeekdayName: (i) => ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'][i],
+			formatHeader: (m, y) =>
+				new Date(y, m).toLocaleDateString('de-DE', {
+					month: 'long',
+					year: 'numeric',
+				}),
+			labelPrevious: () => 'Vorheriger Monat',
+			labelNext: () => 'Nächster Monat',
+			labelWeekday: (i) => ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'][i],
+			firstDayOfWeek: () => 1,
+		}),
+	],
+});
+`;
+
+export const defaultSkeleton = `
+<hlm-calendar [(date)]="selectedDate" [min]="minDate" [max]="maxDate" />
+`;

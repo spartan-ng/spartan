@@ -9,6 +9,7 @@ export type Primitive =
 	| 'breadcrumb'
 	| 'button'
 	| 'button-group'
+	| 'chart'
 	| 'calendar'
 	| 'card'
 	| 'carousel'

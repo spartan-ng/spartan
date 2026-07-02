@@ -38,6 +38,7 @@ import {
 	BRN_TOOLTIP_FALLBACK_POSITIONS,
 	BRN_TOOLTIP_POSITIONS_MAP,
 	BrnTooltipPosition,
+	getTooltipArrowOffset,
 	resolveTooltipPosition,
 } from './brn-tooltip-position';
 import { BrnTooltipType } from './brn-tooltip-type';
@@ -244,6 +245,7 @@ export class BrnTooltip {
 				// Re-apply props so a programmatic text change during the close is reflected on revive.
 				// Keep the live (possibly flipped) position rather than resetting to the raw input.
 				this._applyContentProps(this._componentRef.instance, this._activePosition ?? this.position());
+				this._updateArrowOffset();
 				this._group?.onOpen();
 				this.show.emit();
 			}
@@ -261,9 +263,10 @@ export class BrnTooltip {
 			this._applyContentProps(this._componentRef.instance, this.position());
 		}
 
-		// Subscribe to position changes for the lifetime of the tooltip so that
-		// arrow direction and CSS classes stay in sync when the CDK flips the
-		// overlay (initial show, viewport resize, scroll, etc.).
+		// Subscribe to position changes for the lifetime of the tooltip so that arrow direction, CSS
+		// classes and the arrow offset stay in sync when CDK positions or flips the overlay (initial
+		// show, viewport resize, scroll, etc.). CDK emits the first event only after it has actually
+		// positioned the pane, so this - not the synchronous show path - is where the offset is measured.
 		const strategy = this._overlayRef?.getConfig().positionStrategy as FlexibleConnectedPositionStrategy | undefined;
 		if (strategy && this._componentRef) {
 			const compRef = this._componentRef;
@@ -271,8 +274,11 @@ export class BrnTooltip {
 				.pipe(takeUntilDestroyed(this._destroyRef))
 				.subscribe((change) => {
 					const resolved = resolveTooltipPosition(change.connectionPair);
+					// Skip unmappable pairs: without a resolved side we can't know the arrow's axis, and
+					// measuring against a stale one would offset the wrong way.
 					if (resolved) {
 						this._applyContentProps(compRef.instance, resolved, null);
+						this._updateArrowOffset();
 					}
 				});
 		}
@@ -305,6 +311,16 @@ export class BrnTooltip {
 			this._config.arrowClasses(position),
 			this._config.svgClasses,
 		);
+	}
+
+	/** Slide the arrow back onto the trigger after CDK has positioned (and possibly pushed) the tooltip. */
+	private _updateArrowOffset(): void {
+		const content = this._componentRef?.instance;
+		const tooltipElement = this._componentRef?.location.nativeElement as HTMLElement | undefined;
+		if (!content || !tooltipElement) return;
+		const triggerRect = this._elementRef.nativeElement.getBoundingClientRect();
+		const tooltipRect = tooltipElement.getBoundingClientRect();
+		content.setArrowOffset(getTooltipArrowOffset(triggerRect, tooltipRect, this._activePosition ?? this.position()));
 	}
 
 	private _hide(): void {

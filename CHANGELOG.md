@@ -1,3 +1,16 @@
+## <small>1.0.3 (2026-07-02)</small>
+
+- Merge pull request #1570 from marcjulian/docs/mobile-examples ([96235a8](https://github.com/spartan-ng/spartan/commit/96235a8)), closes [#1570](https://github.com/spartan-ng/spartan/issues/1570)
+- Merge pull request #1580 from Nicoss54/fix/deprecated-rules-source ([d30d84c](https://github.com/spartan-ng/spartan/commit/d30d84c)), closes [#1580](https://github.com/spartan-ng/spartan/issues/1580)
+- docs: add ChangeDetectionStrategy OnPush ([fe18909](https://github.com/spartan-ng/spartan/commit/fe18909))
+- docs: remove icon from bottom nav ([1979c0f](https://github.com/spartan-ng/spartan/commit/1979c0f))
+- docs(alert-dialog): add from-dropdown preview (#1587) ([5eb27b0](https://github.com/spartan-ng/spartan/commit/5eb27b0)), closes [#1587](https://github.com/spartan-ng/spartan/issues/1587)
+- docs(carousel): improve mobile layout ([17de583](https://github.com/spartan-ng/spartan/commit/17de583))
+- docs(input): improve mobile layout ([e84f5e5](https://github.com/spartan-ng/spartan/commit/e84f5e5))
+- docs(resizable): improve mobile layout ([0219b91](https://github.com/spartan-ng/spartan/commit/0219b91))
+- docs(textarea): improve mobile size ([895ecb4](https://github.com/spartan-ng/spartan/commit/895ecb4))
+- refactor(repo): getSourceCode deprecated use ([bf0a653](https://github.com/spartan-ng/spartan/commit/bf0a653))
+
 ## <small>1.0.2 (2026-06-26)</small>
 
 - Merge pull request #1564 from spartan-ng/fix/commitlint-release-scope ([fc4a33a](https://github.com/spartan-ng/spartan/commit/fc4a33a)), closes [#1564](https://github.com/spartan-ng/spartan/issues/1564)

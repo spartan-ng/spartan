@@ -6,7 +6,7 @@ import { HlmTextareaImports } from '@spartan-ng/helm/textarea';
 	selector: 'spartan-textarea-button',
 	imports: [HlmTextareaImports, HlmButtonImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	host: { class: 'min-w-sm' },
+	host: { class: 'min-w-xs sm:min-w-sm' },
 	template: `
 		<div class="grid w-full gap-2">
 			<textarea hlmTextarea placeholder="Type your message here."></textarea>

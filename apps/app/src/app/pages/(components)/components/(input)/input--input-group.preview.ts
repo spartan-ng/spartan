@@ -10,7 +10,7 @@ import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 	imports: [HlmInputImports, HlmFieldImports, HlmInputGroupImports, NgIcon],
 	providers: [provideIcons({ lucideInfo })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	host: { class: 'min-w-sm' },
+	host: { class: 'min-w-xs sm:min-w-sm' },
 	template: `
 		<hlm-field>
 			<label hlmFieldLabel for="input-group-url">Website URL</label>

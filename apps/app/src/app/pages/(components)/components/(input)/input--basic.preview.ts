@@ -5,7 +5,7 @@ import { HlmInputImports } from '@spartan-ng/helm/input';
 	selector: 'spartan-input-basic',
 	imports: [HlmInputImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	host: { class: 'min-w-sm' },
+	host: { class: 'min-w-xs sm:min-w-sm' },
 	template: `
 		<input hlmInput placeholder="Enter text" />
 	`,

@@ -6,7 +6,7 @@ import { HlmTextareaImports } from '@spartan-ng/helm/textarea';
 	selector: 'spartan-textarea-disabled',
 	imports: [HlmTextareaImports, HlmFieldImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	host: { class: 'min-w-sm' },
+	host: { class: 'min-w-xs sm:min-w-sm' },
 	template: `
 		<hlm-field data-disabled="true">
 			<label hlmFieldLabel for="textarea-disabled">Message</label>

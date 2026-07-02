@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { HlmResizableImports } from '@spartan-ng/helm/resizable';
 
 @Component({
 	selector: 'spartan-resizable-handle-preview',
 	imports: [HlmResizableImports],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<hlm-resizable-group class="min-h-[200px] max-w-md rounded-lg border md:min-w-[450px]">
 			<hlm-resizable-panel defaultSize="25">

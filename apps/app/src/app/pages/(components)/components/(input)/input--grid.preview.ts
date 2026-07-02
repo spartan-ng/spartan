@@ -6,7 +6,7 @@ import { HlmInputImports } from '@spartan-ng/helm/input';
 	selector: 'spartan-input-grid',
 	imports: [HlmInputImports, HlmFieldImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	host: { class: 'min-w-sm' },
+	host: { class: 'min-w-xs sm:min-w-sm' },
 	template: `
 		<hlm-field-group class="grid max-w-sm grid-cols-2">
 			<hlm-field>

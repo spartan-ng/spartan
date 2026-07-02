@@ -9,9 +9,7 @@ import { HlmTextareaImports } from '@spartan-ng/helm/textarea';
 	selector: 'spartan-textarea-form',
 	imports: [HlmTextareaImports, HlmLabelImports, HlmButtonImports, HlmFieldImports, ReactiveFormsModule],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	host: {
-		class: 'min-w-sm',
-	},
+	host: { class: 'min-w-xs sm:min-w-sm' },
 	template: `
 		<form [formGroup]="form" (ngSubmit)="submit()">
 			<hlm-field-group>

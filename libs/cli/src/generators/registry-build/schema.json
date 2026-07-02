@@ -1,0 +1,16 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema",
+	"$id": "SpartanRegistryBuildSchema",
+	"type": "object",
+	"properties": {
+		"registry": {
+			"type": "string",
+			"description": "Path to source registry.json. When omitted, builds the first-party Spartan registry."
+		},
+		"output": {
+			"type": "string",
+			"description": "Output directory for built registry JSON.",
+			"default": "public/r"
+		}
+	}
+}

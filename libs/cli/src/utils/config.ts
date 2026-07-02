@@ -3,6 +3,7 @@ import { readJson, type Tree, updateJson } from '@nx/devkit';
 import { prompt } from 'enquirer';
 import z, { ZodError } from 'zod';
 import { type GenerateAs, generateOptions } from '../generators/base/lib/generate-as';
+import { registryConfigSchema } from '../registry';
 import { type Style, STYLES } from './supported-styles';
 
 const configPath = 'components.json';
@@ -18,6 +19,7 @@ export const AngularCliConfigSchema = z.object({
 		.optional()
 		.default('@spartan-ng/helm')
 		.refine((val) => !val.endsWith('/'), { message: 'importAlias should not end with a slash' }),
+	registries: registryConfigSchema.optional(),
 });
 
 export const NXConfigSchema = z.object({
@@ -30,6 +32,7 @@ export const NXConfigSchema = z.object({
 		.optional()
 		.default('@spartan-ng/helm')
 		.refine((val) => !val.endsWith('/'), { message: 'importAlias should not end with a slash' }),
+	registries: registryConfigSchema.optional(),
 });
 
 // buildable and generateAs only exist for NX configs; an Angular CLI config omits them.

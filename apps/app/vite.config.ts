@@ -148,6 +148,13 @@ export default defineConfig(({ command, mode }) => {
 							dir: './src/public/data',
 						},
 					],
+					publicAssets: [
+						{
+							baseURL: '/r',
+							dir: './src/public/r',
+							maxAge: 0,
+						},
+					],
 					rollupConfig: {
 						plugins: [],
 					},

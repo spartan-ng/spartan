@@ -15,6 +15,31 @@
 			"schema": "./src/generators/info/schema.json",
 			"description": "Print the project context (config, versions, installed components) as JSON or text."
 		},
+		"registry-add": {
+			"factory": "./src/generators/registry-add/generator",
+			"schema": "./src/generators/registry-add/schema.json",
+			"description": "Add registry namespaces to components.json."
+		},
+		"registry-build": {
+			"factory": "./src/generators/registry-build/generator",
+			"schema": "./src/generators/registry-build/schema.json",
+			"description": "Build Spartan registry JSON files."
+		},
+		"registry-search": {
+			"factory": "./src/generators/registry-search/generator",
+			"schema": "./src/generators/registry-search/schema.json",
+			"description": "Search configured Spartan registries."
+		},
+		"registry-validate": {
+			"factory": "./src/generators/registry-validate/generator",
+			"schema": "./src/generators/registry-validate/schema.json",
+			"description": "Validate a Spartan registry catalog or item."
+		},
+		"registry-view": {
+			"factory": "./src/generators/registry-view/generator",
+			"schema": "./src/generators/registry-view/schema.json",
+			"description": "Print registry item JSON."
+		},
 		"migrate-brain-accordion-trigger": {
 			"factory": "./src/generators/migrate-brain-accordion-trigger/generator",
 			"schema": "./src/generators/migrate-brain-accordion-trigger/schema.json",
@@ -136,6 +161,31 @@
 			"factory": "./src/generators/info/compat",
 			"schema": "./src/generators/info/schema.json",
 			"description": "Print the project context (config, versions, installed components) as JSON or text."
+		},
+		"registry-add": {
+			"factory": "./src/generators/registry-add/generator",
+			"schema": "./src/generators/registry-add/schema.json",
+			"description": "Add registry namespaces to components.json."
+		},
+		"registry-build": {
+			"factory": "./src/generators/registry-build/generator",
+			"schema": "./src/generators/registry-build/schema.json",
+			"description": "Build Spartan registry JSON files."
+		},
+		"registry-search": {
+			"factory": "./src/generators/registry-search/generator",
+			"schema": "./src/generators/registry-search/schema.json",
+			"description": "Search configured Spartan registries."
+		},
+		"registry-validate": {
+			"factory": "./src/generators/registry-validate/generator",
+			"schema": "./src/generators/registry-validate/schema.json",
+			"description": "Validate a Spartan registry catalog or item."
+		},
+		"registry-view": {
+			"factory": "./src/generators/registry-view/generator",
+			"schema": "./src/generators/registry-view/schema.json",
+			"description": "Print registry item JSON."
 		},
 		"migrate-brain-accordion-trigger": {
 			"factory": "./src/generators/migrate-brain-accordion-trigger/compat",

@@ -120,8 +120,11 @@ export class BrnTooltip {
 				this._initTriggers();
 				this._listenersRefs = [
 					...this._listenersRefs,
-					this._renderer.listen(this._overlayRef.hostElement, 'mouseenter', () => (this._tooltipHovered = true)),
-					this._renderer.listen(this._overlayRef.hostElement, 'mouseleave', () => {
+					this._renderer.listen(this._overlayRef.hostElement, 'pointerenter', (event: PointerEvent) => {
+						if (this._isHoverPointer(event)) this._tooltipHovered = true;
+					}),
+					this._renderer.listen(this._overlayRef.hostElement, 'pointerleave', (event: PointerEvent) => {
+						if (!this._isHoverPointer(event)) return;
 						this._tooltipHovered = false;
 						this.delay(false, this.hideDelay());
 					}),
@@ -161,26 +164,119 @@ export class BrnTooltip {
 	private _getAdjustedPositionFor(pos: BrnTooltipPosition): ConnectedPosition {
 		const position = BRN_TOOLTIP_POSITIONS_MAP[pos];
 		const isLtr = this._dir.value !== 'rtl';
+		const baseOffsetX = position.offsetX != null ? (isLtr ? position.offsetX : -position.offsetX) : 0;
+		const baseOffsetY = position.offsetY ?? 0;
+		const { x: compensationX, y: compensationY } = this._getVisualViewportCompensation(position, isLtr);
 
+		// CDK renders offsetX/offsetY as a transform on the pane, so fold the viewport compensation in here.
 		return {
 			...position,
-			offsetX: position.offsetX != null ? (isLtr ? position.offsetX : -position.offsetX) : undefined,
+			offsetX: baseOffsetX + compensationX,
+			offsetY: baseOffsetY + compensationY,
+		};
+	}
+
+	/**
+	 * iOS Safari grows the visual viewport's height/width as its toolbars collapse, but
+	 * `documentElement.clientHeight`/`clientWidth` don't track it. CDK anchors bottom/right overlays
+	 * from those stale dimensions, so they land shifted by the delta - top/left overlays are unaffected.
+	 * The delta is 0 when the viewports match (desktop, toolbar expanded), making this a no-op there.
+	 */
+	private _getVisualViewportCompensation(position: ConnectedPosition, isLtr: boolean): { x: number; y: number } {
+		const visualViewport = this._document.defaultView?.visualViewport;
+		if (!visualViewport) return { x: 0, y: 0 };
+
+		// Only the collapsing-toolbar case is a pure height/width change with the viewport top-left still
+		// pinned (scale 1, offset 0). Pinch-zoom (scale != 1) and the software keyboard (offset != 0)
+		// shrink the visual viewport for unrelated reasons, so the delta below would shift the tooltip
+		// wrongly - bail and let CDK position normally.
+		const pinnedToTopLeft = Math.abs(visualViewport.offsetTop) < 1 && Math.abs(visualViewport.offsetLeft) < 1;
+		if (Math.abs(visualViewport.scale - 1) > 0.01 || !pinnedToTopLeft) return { x: 0, y: 0 };
+
+		const docEl = this._document.documentElement;
+		const anchorsFromBottom = position.overlayY === 'bottom';
+		const anchorsFromRight = isLtr ? position.overlayX === 'end' : position.overlayX === 'start';
+
+		return {
+			x: anchorsFromRight ? docEl.clientWidth - visualViewport.width : 0,
+			y: anchorsFromBottom ? docEl.clientHeight - visualViewport.height : 0,
 		};
 	}
 
 	private _initTriggers() {
 		this._initScrollListener();
 		this._initHoverListeners();
+		this._initTouchListeners();
+		this._initVisualViewportListener();
 	}
 
+	/**
+	 * Reposition an open tooltip while the visual viewport resizes. Scrolling/zooming already dismiss it,
+	 * but closing the software keyboard only resizes the viewport (no dismissal) and animates over several
+	 * frames - so a tooltip opened mid-animation is positioned against a transient viewport and lands wrong.
+	 * Re-running positioning on each resize lets it settle into the correct spot.
+	 */
+	private _initVisualViewportListener(): void {
+		const visualViewport = this._document.defaultView?.visualViewport;
+		if (!visualViewport) return;
+
+		const reposition = () => {
+			if (!this._overlayRef?.hasAttached()) return;
+			this._updatePosition();
+			this._overlayRef.updatePosition();
+		};
+
+		this._listenersRefs = [
+			...this._listenersRefs,
+			this._renderer.listen(visualViewport, 'resize', reposition),
+			this._renderer.listen(visualViewport, 'scroll', reposition),
+		];
+	}
+
+	/** Hover and keyboard focus drive show/hide for mouse/pen pointers; touch has no hover. */
 	private _initHoverListeners(): void {
 		this._listenersRefs = [
 			...this._listenersRefs,
-			this._renderer.listen(this._elementRef.nativeElement, 'mouseenter', () => this._requestShow()),
-			this._renderer.listen(this._elementRef.nativeElement, 'mouseleave', () => this.delay(false, this.hideDelay())),
+			this._renderer.listen(this._elementRef.nativeElement, 'pointerenter', (event: PointerEvent) => {
+				if (this._isHoverPointer(event)) this._requestShow();
+			}),
+			this._renderer.listen(this._elementRef.nativeElement, 'pointerleave', (event: PointerEvent) => {
+				if (this._isHoverPointer(event)) this.delay(false, this.hideDelay());
+			}),
 			this._renderer.listen(this._elementRef.nativeElement, 'focus', () => this._requestShow()),
 			this._renderer.listen(this._elementRef.nativeElement, 'blur', () => this.delay(false, this.hideDelay())),
 		];
+	}
+
+	/**
+	 * Touch devices have no hover model and their synthesized mouse events are unreliable (e.g. a
+	 * hold-and-scroll never fires `mouseleave`). So for touch we show on tap and dismiss explicitly
+	 * on scroll (see `_initScrollListener`) or on a tap landing outside the trigger and the tooltip.
+	 */
+	private _initTouchListeners(): void {
+		this._listenersRefs = [
+			...this._listenersRefs,
+			this._renderer.listen(this._elementRef.nativeElement, 'pointerdown', (event: PointerEvent) => {
+				if (event.pointerType === 'touch') this._requestShow();
+			}),
+			this._renderer.listen(this._elementRef.nativeElement, 'pointercancel', (event: PointerEvent) => {
+				if (event.pointerType === 'touch') this.delay(false, 0);
+			}),
+			this._renderer.listen(this._document, 'pointerdown', (event: PointerEvent) => {
+				if (event.pointerType !== 'touch') return;
+
+				const target = event.target as Node | null;
+				if (!target) return;
+
+				const insideTrigger = this._elementRef.nativeElement.contains(target);
+				const insideTooltip = this._overlayRef?.hostElement.contains(target) ?? false;
+				if (!insideTrigger && !insideTooltip) this._hide();
+			}),
+		];
+	}
+
+	private _isHoverPointer(event: PointerEvent): boolean {
+		return event.pointerType === 'mouse' || event.pointerType === 'pen';
 	}
 
 	/** Snapshot the group skip decision once, so the delay and the instant-open state agree even if a
@@ -230,6 +326,9 @@ export class BrnTooltip {
 		if (!this._tooltipText() || this.mutableTooltipDisabled()) {
 			return;
 		}
+
+		// Recompute positions against the current viewport before attaching (see _getVisualViewportCompensation).
+		this._updatePosition();
 
 		// 'instant-open' suppresses the enter animation. Decided with the delay at request time so a sibling
 		// flipping the group window mid-delay can't desync the animation from the wait that actually happened.

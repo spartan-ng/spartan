@@ -25,13 +25,37 @@ import { BrnTooltip } from './brn-tooltip';
 })
 class TooltipArrowHost {}
 
+// A short tooltip on a tall trigger, centered mid-viewport (no edge, so no push). The arrow must stay
+// centered on the trigger; it must NOT be shoved to the panel edge (the bug from the initial
+// pre-positioning measurement).
+@Component({
+	selector: 'brn-tooltip-tall-host',
+	imports: [BrnTooltip],
+	providers: [Directionality],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<button
+			brnTooltip="tip"
+			position="right"
+			[showDelay]="0"
+			[hideDelay]="0"
+			style="position: fixed; top: 180px; left: 8px; width: 40px; height: 220px"
+		>
+			tall
+		</button>
+	`,
+})
+class TooltipTallTriggerHost {}
+
 const triggerEl = () => screen.getByText('trigger');
 const tooltipEl = () => document.querySelector<HTMLElement>('[role="tooltip"]');
 const arrowEl = () => tooltipEl()?.querySelector<HTMLElement>('span') ?? null;
-const centerX = (el: Element) => {
+const center = (el: Element, axis: 'x' | 'y') => {
 	const rect = el.getBoundingClientRect();
-	return rect.left + rect.width / 2;
+	return axis === 'x' ? rect.left + rect.width / 2 : rect.top + rect.height / 2;
 };
+const centerX = (el: Element) => center(el, 'x');
+const centerY = (el: Element) => center(el, 'y');
 
 describe('BrnTooltip arrow anchoring (#1247)', () => {
 	let style: HTMLStyleElement;
@@ -70,5 +94,26 @@ describe('BrnTooltip arrow anchoring (#1247)', () => {
 
 		// ...but the arrow must still sit over the trigger's center.
 		await waitFor(() => expect(Math.abs(centerX(arrowEl() as Element) - centerX(triggerEl()))).toBeLessThanOrEqual(2));
+	});
+
+	it('keeps a left/right arrow centered on a short tooltip over a tall, un-pushed trigger', async () => {
+		// A short tooltip whose arrow is centered vertically, like the real left/right arrow classes.
+		style.textContent = `
+			[role='tooltip'] { position: relative; box-sizing: border-box; width: 160px; height: 32px; }
+			[role='tooltip'] > span { position: absolute; left: 0; top: calc(50% - 5px); display: block; width: 10px; height: 10px; }
+		`;
+
+		await render(TooltipTallTriggerHost);
+
+		fireEvent.mouseEnter(screen.getByText('tall'));
+		await waitFor(() => expect(tooltipEl()).toBeTruthy());
+
+		const tooltip = tooltipEl() as HTMLElement;
+		// Centered on the trigger, mid-viewport: CDK does not push, so the arrow must stay centered.
+		expect(tooltip.getAttribute('data-side')).toBe('right');
+
+		// Let any post-open repositioning settle, then assert the arrow did not drift off-center.
+		await new Promise((resolve) => setTimeout(resolve, 60));
+		expect(Math.abs(centerY(arrowEl() as Element) - centerY(screen.getByText('tall')))).toBeLessThanOrEqual(2);
 	});
 });

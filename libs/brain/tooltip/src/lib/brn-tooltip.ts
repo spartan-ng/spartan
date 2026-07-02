@@ -263,9 +263,10 @@ export class BrnTooltip {
 			this._applyContentProps(this._componentRef.instance, this.position());
 		}
 
-		// Subscribe to position changes for the lifetime of the tooltip so that
-		// arrow direction and CSS classes stay in sync when the CDK flips the
-		// overlay (initial show, viewport resize, scroll, etc.).
+		// Subscribe to position changes for the lifetime of the tooltip so that arrow direction, CSS
+		// classes and the arrow offset stay in sync when CDK positions or flips the overlay (initial
+		// show, viewport resize, scroll, etc.). CDK emits the first event only after it has actually
+		// positioned the pane, so this - not the synchronous show path - is where the offset is measured.
 		const strategy = this._overlayRef?.getConfig().positionStrategy as FlexibleConnectedPositionStrategy | undefined;
 		if (strategy && this._componentRef) {
 			const compRef = this._componentRef;
@@ -273,10 +274,12 @@ export class BrnTooltip {
 				.pipe(takeUntilDestroyed(this._destroyRef))
 				.subscribe((change) => {
 					const resolved = resolveTooltipPosition(change.connectionPair);
+					// Skip unmappable pairs: without a resolved side we can't know the arrow's axis, and
+					// measuring against a stale one would offset the wrong way.
 					if (resolved) {
 						this._applyContentProps(compRef.instance, resolved, null);
+						this._updateArrowOffset();
 					}
-					this._updateArrowOffset();
 				});
 		}
 
@@ -290,7 +293,6 @@ export class BrnTooltip {
 				}
 			});
 		});
-		this._updateArrowOffset();
 		this.show.emit();
 	}
 

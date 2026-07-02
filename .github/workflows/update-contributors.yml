@@ -11,10 +11,20 @@ jobs:
     permissions:
       contents: write
     steps:
+      # Mint a short-lived token from the release GitHub App. It is a bypass actor on the branch
+      # ruleset, so the contributors commit can push straight to main even though PRs are required.
+      - name: Generate app token
+        id: app-token
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ secrets.APP_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
       - uses: actions/checkout@v6
         with:
           # Full history is required to derive contributor usernames from git log.
           fetch-depth: 0
+          # Persist the app token as the push credential so add-and-commit pushes as the bypass actor.
+          token: ${{ steps.app-token.outputs.token }}
       - name: Install pnpm
         uses: pnpm/action-setup@v5
       - name: Install Node

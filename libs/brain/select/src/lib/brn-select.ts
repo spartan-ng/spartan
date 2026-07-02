@@ -64,7 +64,10 @@ export class BrnSelect<T> implements BrnSelectBase<T>, ControlValueAccessor {
 	/** The selected value of the select. */
 	public readonly value = model<T | undefined | null>(null);
 
-	public readonly hasValue = computed(() => this.value() !== null && this.value() !== undefined);
+	public readonly hasValue = computed(() => {
+		const value = this.value();
+		return value !== null && value !== undefined && value !== '';
+	});
 
 	/** A function to compare an item with the selected value. */
 	public readonly isItemEqualToValue = input<SelectItemEqualToValue<T>>(this._config.isItemEqualToValue);

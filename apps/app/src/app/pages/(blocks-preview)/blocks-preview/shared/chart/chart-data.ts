@@ -1,0 +1,155 @@
+export const AREA_CHART_DATA = [
+	{ month: 'January', desktop: 186, mobile: 80, other: 45 },
+	{ month: 'February', desktop: 305, mobile: 200, other: 100 },
+	{ month: 'March', desktop: 237, mobile: 120, other: 150 },
+	{ month: 'April', desktop: 73, mobile: 190, other: 50 },
+	{ month: 'May', desktop: 209, mobile: 130, other: 100 },
+	{ month: 'June', desktop: 214, mobile: 140, other: 160 },
+];
+
+export const BAR_CHART_DATA = [
+	{ month: 'January', desktop: 186 },
+	{ month: 'February', desktop: 305 },
+	{ month: 'March', desktop: 237 },
+	{ month: 'April', desktop: 73 },
+	{ month: 'May', desktop: 209 },
+	{ month: 'June', desktop: 214 },
+];
+
+export const LINE_CHART_DATA = [...BAR_CHART_DATA];
+
+export const PIE_CHART_DATA = [
+	{ browser: 'chrome', visitors: 275, fill: 'var(--color-chrome)' },
+	{ browser: 'safari', visitors: 200, fill: 'var(--color-safari)' },
+	{ browser: 'firefox', visitors: 187, fill: 'var(--color-firefox)' },
+	{ browser: 'edge', visitors: 173, fill: 'var(--color-edge)' },
+	{ browser: 'other', visitors: 90, fill: 'var(--color-other)' },
+];
+
+export const RADAR_CHART_DATA = [
+	{ month: 'January', desktop: 186, mobile: 80 },
+	{ month: 'February', desktop: 305, mobile: 200 },
+	{ month: 'March', desktop: 237, mobile: 120 },
+	{ month: 'April', desktop: 73, mobile: 190 },
+	{ month: 'May', desktop: 209, mobile: 130 },
+	{ month: 'June', desktop: 214, mobile: 140 },
+];
+
+export const RADIAL_CHART_DATA = [...PIE_CHART_DATA];
+
+export const INTERACTIVE_CHART_DATA = [
+	{ date: '2024-04-01', desktop: 222, mobile: 150 },
+	{ date: '2024-04-02', desktop: 97, mobile: 180 },
+	{ date: '2024-04-03', desktop: 167, mobile: 120 },
+	{ date: '2024-04-04', desktop: 242, mobile: 260 },
+	{ date: '2024-04-05', desktop: 373, mobile: 290 },
+	{ date: '2024-04-06', desktop: 301, mobile: 340 },
+	{ date: '2024-04-07', desktop: 245, mobile: 180 },
+	{ date: '2024-04-08', desktop: 409, mobile: 320 },
+	{ date: '2024-04-09', desktop: 59, mobile: 110 },
+	{ date: '2024-04-10', desktop: 261, mobile: 190 },
+	{ date: '2024-04-11', desktop: 324, mobile: 350 },
+	{ date: '2024-04-12', desktop: 152, mobile: 120 },
+	{ date: '2024-04-13', desktop: 119, mobile: 260 },
+	{ date: '2024-04-14', desktop: 346, mobile: 130 },
+	{ date: '2024-04-15', desktop: 193, mobile: 150 },
+	{ date: '2024-04-16', desktop: 271, mobile: 200 },
+	{ date: '2024-04-17', desktop: 332, mobile: 310 },
+	{ date: '2024-04-18', desktop: 406, mobile: 280 },
+	{ date: '2024-04-19', desktop: 334, mobile: 350 },
+	{ date: '2024-04-20', desktop: 185, mobile: 140 },
+	{ date: '2024-04-21', desktop: 124, mobile: 220 },
+	{ date: '2024-04-22', desktop: 268, mobile: 180 },
+	{ date: '2024-04-23', desktop: 137, mobile: 150 },
+	{ date: '2024-04-24', desktop: 342, mobile: 310 },
+	{ date: '2024-04-25', desktop: 72, mobile: 240 },
+	{ date: '2024-04-26', desktop: 213, mobile: 170 },
+	{ date: '2024-04-27', desktop: 381, mobile: 340 },
+	{ date: '2024-04-28', desktop: 112, mobile: 210 },
+	{ date: '2024-04-29', desktop: 209, mobile: 160 },
+	{ date: '2024-04-30', desktop: 256, mobile: 190 },
+	{ date: '2024-05-01', desktop: 145, mobile: 280 },
+	{ date: '2024-05-02', desktop: 313, mobile: 120 },
+	{ date: '2024-05-03', desktop: 225, mobile: 340 },
+	{ date: '2024-05-04', desktop: 369, mobile: 260 },
+	{ date: '2024-05-05', desktop: 178, mobile: 180 },
+	{ date: '2024-05-06', desktop: 242, mobile: 310 },
+	{ date: '2024-05-07', desktop: 127, mobile: 230 },
+	{ date: '2024-05-08', desktop: 356, mobile: 290 },
+	{ date: '2024-05-09', desktop: 214, mobile: 150 },
+	{ date: '2024-05-10', desktop: 98, mobile: 320 },
+	{ date: '2024-05-11', desktop: 275, mobile: 180 },
+	{ date: '2024-05-12', desktop: 341, mobile: 260 },
+	{ date: '2024-05-13', desktop: 163, mobile: 210 },
+	{ date: '2024-05-14', desktop: 289, mobile: 340 },
+	{ date: '2024-05-15', desktop: 402, mobile: 130 },
+	{ date: '2024-05-16', desktop: 118, mobile: 280 },
+	{ date: '2024-05-17', desktop: 337, mobile: 190 },
+	{ date: '2024-05-18', desktop: 251, mobile: 240 },
+	{ date: '2024-05-19', desktop: 186, mobile: 310 },
+	{ date: '2024-05-20', desktop: 405, mobile: 160 },
+	{ date: '2024-05-21', desktop: 142, mobile: 270 },
+	{ date: '2024-05-22', desktop: 368, mobile: 140 },
+	{ date: '2024-05-23', desktop: 94, mobile: 220 },
+	{ date: '2024-05-24', desktop: 217, mobile: 350 },
+	{ date: '2024-05-25', desktop: 283, mobile: 180 },
+	{ date: '2024-05-26', desktop: 154, mobile: 260 },
+	{ date: '2024-05-27', desktop: 326, mobile: 130 },
+	{ date: '2024-05-28', desktop: 398, mobile: 290 },
+	{ date: '2024-05-29', desktop: 171, mobile: 210 },
+	{ date: '2024-05-30', desktop: 245, mobile: 340 },
+	{ date: '2024-05-31', desktop: 108, mobile: 170 },
+	{ date: '2024-06-01', desktop: 287, mobile: 250 },
+	{ date: '2024-06-02', desktop: 156, mobile: 130 },
+	{ date: '2024-06-03', desktop: 331, mobile: 310 },
+	{ date: '2024-06-04', desktop: 409, mobile: 200 },
+	{ date: '2024-06-05', desktop: 124, mobile: 350 },
+	{ date: '2024-06-06', desktop: 278, mobile: 180 },
+	{ date: '2024-06-07', desktop: 352, mobile: 260 },
+	{ date: '2024-06-08', desktop: 193, mobile: 140 },
+	{ date: '2024-06-09', desktop: 216, mobile: 320 },
+	{ date: '2024-06-10', desktop: 168, mobile: 210 },
+	{ date: '2024-06-11', desktop: 345, mobile: 170 },
+	{ date: '2024-06-12', desktop: 281, mobile: 290 },
+	{ date: '2024-06-13', desktop: 109, mobile: 230 },
+	{ date: '2024-06-14', desktop: 367, mobile: 150 },
+	{ date: '2024-06-15', desktop: 243, mobile: 340 },
+	{ date: '2024-06-16', desktop: 175, mobile: 180 },
+	{ date: '2024-06-17', desktop: 312, mobile: 260 },
+	{ date: '2024-06-18', desktop: 394, mobile: 120 },
+	{ date: '2024-06-19', desktop: 138, mobile: 310 },
+	{ date: '2024-06-20', desktop: 256, mobile: 200 },
+	{ date: '2024-06-21', desktop: 329, mobile: 170 },
+	{ date: '2024-06-22', desktop: 182, mobile: 350 },
+	{ date: '2024-06-23', desktop: 207, mobile: 140 },
+	{ date: '2024-06-24', desktop: 358, mobile: 280 },
+	{ date: '2024-06-25', desktop: 141, mobile: 210 },
+	{ date: '2024-06-26', desktop: 296, mobile: 130 },
+	{ date: '2024-06-27', desktop: 223, mobile: 320 },
+	{ date: '2024-06-28', desktop: 174, mobile: 190 },
+	{ date: '2024-06-29', desktop: 385, mobile: 260 },
+	{ date: '2024-06-30', desktop: 254, mobile: 150 },
+];
+
+export const SINGLE_SERIES_CONFIG = {
+	desktop: { label: 'Desktop', color: 'var(--chart-1)' },
+};
+
+export const DUAL_SERIES_CONFIG = {
+	desktop: { label: 'Desktop', color: 'var(--chart-1)' },
+	mobile: { label: 'Mobile', color: 'var(--chart-2)' },
+};
+
+export const TRI_SERIES_CONFIG = {
+	...DUAL_SERIES_CONFIG,
+	other: { label: 'Other', color: 'var(--chart-3)' },
+};
+
+export const BROWSER_CONFIG = {
+	visitors: { label: 'Visitors' },
+	chrome: { label: 'Chrome', color: 'var(--chart-1)' },
+	safari: { label: 'Safari', color: 'var(--chart-2)' },
+	firefox: { label: 'Firefox', color: 'var(--chart-3)' },
+	edge: { label: 'Edge', color: 'var(--chart-4)' },
+	other: { label: 'Other', color: 'var(--chart-5)' },
+};

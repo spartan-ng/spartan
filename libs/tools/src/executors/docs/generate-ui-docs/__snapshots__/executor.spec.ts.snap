@@ -1103,7 +1103,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "[hlmCardContent]",
+        "selector": "[hlmCardContent],hlm-card-content",
       },
       "HlmCardDescription": {
         "inputs": [],
@@ -1195,6 +1195,99 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "models": [],
         "outputs": [],
         "selector": "hlm-carousel-slide-display",
+      },
+    },
+  },
+  "chart": {
+    "helm": {
+      "HlmChartContainer": {
+        "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "config",
+            "required": true,
+            "type": "ChartConfig",
+          },
+          {
+            "name": "aspect",
+            "required": false,
+            "type": "'video' | 'square' | 'auto'",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-chart-container, [hlmChartContainer]",
+      },
+      "HlmChartTooltipContent": {
+        "inputs": [
+          {
+            "name": "hideLabel",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "hideIndicator",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "indicator",
+            "required": false,
+            "type": "'line' | 'dot' | 'dashed'",
+          },
+          {
+            "name": "nameKey",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "labelKey",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "payload",
+            "required": false,
+            "type": "Array<{ name: string; value: number; color: string; seriesName?: string }>",
+          },
+          {
+            "name": "config",
+            "required": false,
+            "type": "ChartConfig",
+          },
+          {
+            "name": "userClass",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "label",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "formatter",
+            "required": false,
+            "type": "(
+				value: number | string,
+				name: string,
+				index: number,
+				payload: { name: string; value: number; color: string; seriesName?: string },
+			) => string",
+          },
+          {
+            "name": "labelFormatter",
+            "required": false,
+            "type": "(value: string, payload: Array<{ name: string; value: number; color: string; seriesName?: string }>) => string",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-chart-tooltip-content, [hlmChartTooltipContent]",
       },
     },
   },

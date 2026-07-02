@@ -33,8 +33,6 @@ import { listVariants } from './hlm-tabs-list';
 			type="button"
 			aria-hidden="true"
 			tabindex="-1"
-			[class.flex]="showPaginationControls()"
-			[class.hidden]="!showPaginationControls()"
 			[class]="_paginationButtonClass()"
 			[disabled]="disableScrollBefore || null"
 			(click)="_handlePaginatorClick('before')"
@@ -58,8 +56,6 @@ import { listVariants } from './hlm-tabs-list';
 			type="button"
 			aria-hidden="true"
 			tabindex="-1"
-			[class.flex]="showPaginationControls()"
-			[class.hidden]="!showPaginationControls()"
 			[class]="_paginationButtonClass()"
 			[disabled]="disableScrollAfter || null"
 			(click)="_handlePaginatorClick('after')"
@@ -95,6 +91,7 @@ export class HlmTabsPaginatedList extends BrnTabsPaginatedList {
 			'relative z-[2] select-none disabled:cursor-default',
 			buttonVariants({ variant: 'ghost', size: 'icon-sm' }),
 			this.paginationButtonClass(),
+			this.showPaginationControls() ? 'inline-flex' : 'hidden',
 		),
 	);
 

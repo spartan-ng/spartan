@@ -31,6 +31,19 @@ module.exports = [
 		},
 	},
 	{
+		// The Charts docs section is a faithful port of the ng-primitives-charts showcase. Its example
+		// components keep the source's selectors (app-*) and member names (no leading underscore) so they
+		// stay diffable against upstream; relax the spartan-internal authoring rules for this folder only.
+		files: ['**/\\(charts\\)/**/*.ts'],
+		rules: {
+			'@typescript-eslint/naming-convention': 'off',
+			'@typescript-eslint/explicit-member-accessibility': 'off',
+			'@angular-eslint/component-selector': 'off',
+			'@angular-eslint/directive-selector': 'off',
+			'@nx/workspace-component-directive-key-order': 'off',
+		},
+	},
+	{
 		files: ['**/*.html'],
 		// Override or add rules here
 		rules: {

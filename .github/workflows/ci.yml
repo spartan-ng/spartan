@@ -105,6 +105,7 @@ jobs:
         run: pnpm nx affected -t test --parallel=3
 
   e2e:
+    if: ${{ github.event_name != 'push' || !startsWith(github.event.head_commit.message, 'chore(release):') }}
     runs-on: ubuntu-latest
     # Not gated on `build`: the e2e suite runs cypress against storybook (its cypress executor's
     # devServerTarget is ui-storybook:static-storybook), so it builds/serves storybook itself and

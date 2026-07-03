@@ -1,3 +1,29 @@
+## <small>1.0.4 (2026-07-02)</small>
+
+- Merge pull request #1598 from spartan-ng/ci/contributors-bypass-app ([29cc810](https://github.com/spartan-ng/spartan/commit/29cc810)), closes [#1598](https://github.com/spartan-ng/spartan/issues/1598)
+- Merge pull request #1599 from spartan-ng/ci/release-backmerge ([74ec074](https://github.com/spartan-ng/spartan/commit/74ec074)), closes [#1599](https://github.com/spartan-ng/spartan/issues/1599)
+- Merge pull request #1604 from spartan-ng/beta ([e6c7292](https://github.com/spartan-ng/spartan/commit/e6c7292)), closes [#1604](https://github.com/spartan-ng/spartan/issues/1604)
+- chore(release): 1.0.4-beta.1 [skip ci] ([d0e32da](https://github.com/spartan-ng/spartan/commit/d0e32da))
+- chore(release): backmerge main into beta [skip ci] ([cec66bb](https://github.com/spartan-ng/spartan/commit/cec66bb))
+- fix(resizable): initial size when defaultSize is set (#1575) ([159e3cc](https://github.com/spartan-ng/spartan/commit/159e3cc)), closes [#1575](https://github.com/spartan-ng/spartan/issues/1575)
+- fix(tabs): correct display of the buttons #1601 (#1602) ([7f36554](https://github.com/spartan-ng/spartan/commit/7f36554)), closes [#1601](https://github.com/spartan-ng/spartan/issues/1601) [#1602](https://github.com/spartan-ng/spartan/issues/1602)
+- fix(tooltip): tooltip text not updated (#1581) ([e333277](https://github.com/spartan-ng/spartan/commit/e333277)), closes [#1581](https://github.com/spartan-ng/spartan/issues/1581)
+- ci: backmerge release branches down the prerelease ladder ([cf09d45](https://github.com/spartan-ng/spartan/commit/cf09d45))
+- ci: push contributors update via release app to bypass main ruleset ([b1e3a3b](https://github.com/spartan-ng/spartan/commit/b1e3a3b))
+- ci: scope contributors app token and stop persisting it in git config ([ce12ccb](https://github.com/spartan-ng/spartan/commit/ce12ccb))
+
+## <small>1.0.4-beta.1 (2026-07-02)</small>
+
+- fix(resizable): initial size when defaultSize is set (#1575) ([159e3cc](https://github.com/spartan-ng/spartan/commit/159e3cc)), closes [#1575](https://github.com/spartan-ng/spartan/issues/1575)
+- fix(tabs): correct display of the buttons #1601 (#1602) ([7f36554](https://github.com/spartan-ng/spartan/commit/7f36554)), closes [#1601](https://github.com/spartan-ng/spartan/issues/1601) [#1602](https://github.com/spartan-ng/spartan/issues/1602)
+- fix(tooltip): tooltip text not updated (#1581) ([e333277](https://github.com/spartan-ng/spartan/commit/e333277)), closes [#1581](https://github.com/spartan-ng/spartan/issues/1581)
+- chore(release): backmerge main into beta [skip ci] ([cec66bb](https://github.com/spartan-ng/spartan/commit/cec66bb))
+- Merge pull request #1598 from spartan-ng/ci/contributors-bypass-app ([29cc810](https://github.com/spartan-ng/spartan/commit/29cc810)), closes [#1598](https://github.com/spartan-ng/spartan/issues/1598)
+- Merge pull request #1599 from spartan-ng/ci/release-backmerge ([74ec074](https://github.com/spartan-ng/spartan/commit/74ec074)), closes [#1599](https://github.com/spartan-ng/spartan/issues/1599)
+- ci: backmerge release branches down the prerelease ladder ([cf09d45](https://github.com/spartan-ng/spartan/commit/cf09d45))
+- ci: push contributors update via release app to bypass main ruleset ([b1e3a3b](https://github.com/spartan-ng/spartan/commit/b1e3a3b))
+- ci: scope contributors app token and stop persisting it in git config ([ce12ccb](https://github.com/spartan-ng/spartan/commit/ce12ccb))
+
 ## <small>1.0.3 (2026-07-02)</small>
 
 - Merge pull request #1570 from marcjulian/docs/mobile-examples ([96235a8](https://github.com/spartan-ng/spartan/commit/96235a8)), closes [#1570](https://github.com/spartan-ng/spartan/issues/1570)

@@ -118,6 +118,17 @@ export class BrnTooltip {
 				this._setupDelayMechanism();
 				this._cleanupTriggerEvents();
 				this._initTriggers();
+
+				/**
+				 * This effect is used to update the tooltip content when the tooltip text changes.
+				 * It's the reactive bridge between the tooltip text and the tooltip content.
+				 */
+				effect(() => {
+					const text = this._tooltipText();
+					if (this._componentRef) {
+						this._applyContentProps(this._componentRef.instance, this._activePosition ?? this.position(), text);
+					}
+				});
 				this._listenersRefs = [
 					...this._listenersRefs,
 					this._renderer.listen(this._overlayRef.hostElement, 'mouseenter', () => (this._tooltipHovered = true)),

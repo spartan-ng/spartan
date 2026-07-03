@@ -27,6 +27,9 @@ concurrency:
 
 jobs:
   setup-matrix:
+    # Skip release commits pushed to main; always run on pull_request so `cli-smoke result` reports
+    # (a `[skip ci]` token would skip the whole workflow, leaving the required check pending forever).
+    if: ${{ github.event_name != 'push' || !startsWith(github.event.head_commit.message, 'chore(release):') }}
     runs-on: ubuntu-latest
     strategy:
       # Don't cancel the other cells when one fails - we want the full picture of which setups broke.
@@ -84,6 +87,7 @@ jobs:
     # Runs in parallel with the cells (does not delay them). Fails if matrix.ts declares a cell that the
     # static matrix above does not cover, so the hardcoded list cannot silently go stale. Only the matrix
     # source or this workflow can introduce drift, so it installs only when one of those changed.
+    if: ${{ github.event_name != 'push' || !startsWith(github.event.head_commit.message, 'chore(release):') }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
@@ -121,7 +125,9 @@ jobs:
     # don't affect the CLI (every cell short-circuits to a pass).
     name: cli-smoke result
     needs: [setup-matrix, drift-guard]
-    if: always()
+    # always() so it still reports when cells short-circuit, but carry the same release-commit guard so
+    # it isn't left evaluating skipped needs into a failure on a `chore(release):` push to main.
+    if: ${{ always() && (github.event_name != 'push' || !startsWith(github.event.head_commit.message, 'chore(release):')) }}
     runs-on: ubuntu-latest
     steps:
       - name: Verify all cells and the drift guard passed

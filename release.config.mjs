@@ -66,7 +66,12 @@ export default {
 				// single `git commit -m` argument, and the first release's notes (thousands of commits)
 				// blow past the OS arg limit -> `spawn E2BIG`. The full changelog still lands in
 				// CHANGELOG.md (committed as an asset above) and in the GitHub Release.
-				message: 'chore(release): ${nextRelease.version} [skip ci]',
+				//
+				// No `[skip ci]`: that token skips ALL workflows for the commit, on push AND pull_request,
+				// so a promotion/sync PR whose tip is a release commit gets its required checks skipped and
+				// can never merge. Loop prevention lives in the workflows instead — ci/cli-smoke/release
+				// skip release commits on push via a `chore(release):`-prefix guard, leaving PR checks intact.
+				message: 'chore(release): ${nextRelease.version}',
 			},
 		],
 		'@semantic-release/github',

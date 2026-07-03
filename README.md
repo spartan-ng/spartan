@@ -182,6 +182,8 @@ Our initial 300 contributors and sponsors are featured here and on the front pag
 144. [PatrickLarocque](https://github.com/PatrickLarocque)
 145. [Ban117](https://github.com/Ban117)
 146. [gerasidev](https://github.com/gerasidev)
+147. [Nicoss54](https://github.com/Nicoss54)
+148. [semantic-release-bot](https://github.com/semantic-release-bot)
 
 ### Sponsor spartan
 

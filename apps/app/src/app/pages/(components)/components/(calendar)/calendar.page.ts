@@ -162,7 +162,7 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
-					<spartan-month-year-example />
+					<spartan-year-month-example />
 				</div>
 				<spartan-code secondTab [code]="_yearAndMonthCode()" />
 			</spartan-tabs>

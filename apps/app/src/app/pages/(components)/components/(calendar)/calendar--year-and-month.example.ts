@@ -3,7 +3,7 @@ import { HlmCalendarImports } from '@spartan-ng/helm/calendar';
 import { HlmCard, HlmCardImports } from '@spartan-ng/helm/card';
 
 @Component({
-	selector: 'spartan-month-year-example',
+	selector: 'spartan-year-month-example',
 	imports: [HlmCardImports, HlmCalendarImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	hostDirectives: [HlmCard],
@@ -12,7 +12,7 @@ import { HlmCard, HlmCardImports } from '@spartan-ng/helm/card';
 	},
 	template: `
 		<div hlmCardContent class="p-0">
-			<hlm-month-year-calendar [(date)]="selectedDate" />
+			<hlm-year-month-calendar [(date)]="selectedDate" />
 		</div>
 	`,
 })

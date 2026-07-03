@@ -21,6 +21,14 @@ export interface HlmDatePickerMultiConfig<T> {
 	 * @returns transformed date
 	 */
 	transformDates: (dates: T[]) => T[];
+
+	/**
+	 * Parse a user-entered string into a date.
+	 *
+	 * @param value the raw string from the input
+	 * @returns the parsed date, or `undefined` when the value can't be parsed
+	 */
+	parseDate: (value: string) => T[] | undefined;
 }
 
 function getDefaultConfig<T>(): HlmDatePickerMultiConfig<T> {
@@ -28,6 +36,34 @@ function getDefaultConfig<T>(): HlmDatePickerMultiConfig<T> {
 		formatDates: (dates) => dates.map((date) => (date instanceof Date ? date.toDateString() : `${date}`)).join(', '),
 		transformDates: (dates) => dates,
 		autoCloseOnMaxSelection: false,
+		parseDate: (value) => {
+			if (typeof value !== 'string') return undefined;
+
+			const parts = value.split(',').map((v) => v.trim());
+			const result: Date[] = [];
+
+			for (const part of parts) {
+				const match = part.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+				if (!match) return undefined;
+
+				const day = Number(match[1]);
+				const month = Number(match[2]);
+				const year = Number(match[3]);
+
+				if (month < 1 || month > 12) return undefined;
+				if (day < 1 || day > 31) return undefined;
+
+				const date = new Date(year, month - 1, day);
+
+				if (date.getFullYear() !== year || date.getMonth() !== month - 1 || date.getDate() !== day) {
+					return undefined;
+				}
+
+				result.push(date);
+			}
+
+			return result as T[];
+		},
 	};
 }
 

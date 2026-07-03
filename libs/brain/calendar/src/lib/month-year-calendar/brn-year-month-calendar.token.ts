@@ -6,28 +6,28 @@ import {
 	type Type,
 	type WritableSignal,
 } from '@angular/core';
-import type { BrnMonthYearCalendarHeader } from './brn-month-year-calendar-header';
+import type { BrnYearMonthCalendarHeader } from './brn-year-month-calendar-header';
 
 /** The available views of the month/year selector. */
-export type BrnMonthYearCalendarView = 'year' | 'month';
+export type BrnYearMonthCalendarView = 'year' | 'month';
 
 /** A focusable cell (month or year button) registered with the month/year selector. */
-export interface BrnMonthYearCalendarCell<T> {
+export interface BrnYearMonthCalendarCell<T> {
 	/** The date represented by the cell. */
 	value: Signal<T>;
 	/** Focus the cell. */
 	focus(): void;
 }
 
-export interface BrnMonthYearCalendarBase<T> {
+export interface BrnYearMonthCalendarBase<T> {
 	/** The current view of the month/year selector. */
-	view: WritableSignal<BrnMonthYearCalendarView>;
+	view: WritableSignal<BrnYearMonthCalendarView>;
 	/** The currently focused date. */
 	focusedDate: WritableSignal<T>;
 	/** Whether the month/year selector is disabled. */
 	disabled: Signal<boolean>;
 	/** The header directive, used to label the grid. */
-	header: Signal<BrnMonthYearCalendarHeader | undefined>;
+	header: Signal<BrnYearMonthCalendarHeader | undefined>;
 
 	/** The 12 months of the focused year. */
 	months: Signal<T[]>;
@@ -68,21 +68,21 @@ export interface BrnMonthYearCalendarBase<T> {
 	/** Whether navigating to the next page/year is disabled. */
 	isNextDisabled: () => boolean;
 
-	registerCell(cell: BrnMonthYearCalendarCell<T>): void;
-	unregisterCell(cell: BrnMonthYearCalendarCell<T>): void;
+	registerCell(cell: BrnYearMonthCalendarCell<T>): void;
+	unregisterCell(cell: BrnYearMonthCalendarCell<T>): void;
 }
 
-export const BrnMonthYearCalendarToken = new InjectionToken<BrnMonthYearCalendarBase<unknown>>(
-	'BrnMonthYearCalendarToken',
+export const BrnYearMonthCalendarToken = new InjectionToken<BrnYearMonthCalendarBase<unknown>>(
+	'BrnYearMonthCalendarToken',
 );
 
-export function provideBrnMonthYearCalendar<T>(instance: Type<BrnMonthYearCalendarBase<T>>): ExistingProvider {
-	return { provide: BrnMonthYearCalendarToken, useExisting: instance };
+export function provideBrnYearMonthCalendar<T>(instance: Type<BrnYearMonthCalendarBase<T>>): ExistingProvider {
+	return { provide: BrnYearMonthCalendarToken, useExisting: instance };
 }
 
 /**
  * Inject the month/year selector.
  */
-export function injectBrnMonthYearCalendar<T>(): BrnMonthYearCalendarBase<T> {
-	return inject(BrnMonthYearCalendarToken) as BrnMonthYearCalendarBase<T>;
+export function injectBrnYearMonthCalendar<T>(): BrnYearMonthCalendarBase<T> {
+	return inject(BrnYearMonthCalendarToken) as BrnYearMonthCalendarBase<T>;
 }

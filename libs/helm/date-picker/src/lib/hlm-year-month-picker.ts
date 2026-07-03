@@ -1,4 +1,4 @@
-import type { BooleanInput, NumberInput } from '@angular/cdk/coercion';
+import type { BooleanInput } from '@angular/cdk/coercion';
 import {
 	booleanAttribute,
 	ChangeDetectionStrategy,
@@ -8,7 +8,6 @@ import {
 	forwardRef,
 	input,
 	linkedSignal,
-	numberAttribute,
 	output,
 	signal,
 	viewChild,
@@ -18,25 +17,24 @@ import { BrnFieldControl, provideBrnLabelable } from '@spartan-ng/brain/field';
 import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
 import type { BrnOverlayState } from '@spartan-ng/brain/overlay';
 import { BrnPopover } from '@spartan-ng/brain/popover';
-import { HlmCalendarMulti } from '<%- importAlias %>/calendar';
-import { HlmPopoverImports } from '<%- importAlias %>/popover';
-import { injectHlmDatePickerMultiConfig } from './hlm-date-picker-multi.token';
+import { HlmCalendarImports } from '@spartan-ng/helm/calendar';
+import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 import { HlmDatePickerTriggerToken } from './hlm-date-picker-trigger.token';
 import { HlmDatePickerBase, provideHlmDatePicker } from './hlm-date-picker.token';
+import { injectHlmYearMonthPickerConfig } from './hlm-year-month-picker.token';
 
-export const HLM_DATE_PICKER_MUTLI_VALUE_ACCESSOR = {
+export const HLM_MONTH_YEAR_PICKER_VALUE_ACCESSOR = {
 	provide: NG_VALUE_ACCESSOR,
-	useExisting: forwardRef(() => HlmDatePickerMulti),
+	useExisting: forwardRef(() => HlmYearMonthPicker),
 	multi: true,
 };
-
 @Component({
-	selector: 'hlm-date-picker-multi',
-	imports: [HlmPopoverImports, HlmCalendarMulti],
+	selector: 'hlm-year-month-picker',
+	imports: [HlmPopoverImports, HlmCalendarImports],
 	providers: [
-		HLM_DATE_PICKER_MUTLI_VALUE_ACCESSOR,
-		provideHlmDatePicker(HlmDatePickerMulti),
-		provideBrnLabelable(HlmDatePickerMulti),
+		HLM_MONTH_YEAR_PICKER_VALUE_ACCESSOR,
+		provideHlmDatePicker(HlmYearMonthPicker),
+		provideBrnLabelable(HlmYearMonthPicker),
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	hostDirectives: [BrnFieldControl],
@@ -47,14 +45,12 @@ export const HLM_DATE_PICKER_MUTLI_VALUE_ACCESSOR = {
 
 			<hlm-popover-content class="w-fit p-0" *hlmPopoverPortal="let ctx">
 				<ng-content select="[hlmDatePickerHeader]" />
-				<hlm-calendar-multi
+				<hlm-year-month-calendar
 					class="rounded-none border-0"
 					[date]="_mutableDate()"
-					[captionLayout]="captionLayout()"
+					[defaultFocusedDate]="_mutableDate() ?? defaultFocusedDate()"
 					[min]="min()"
 					[max]="max()"
-					[minSelection]="minSelection()"
-					[maxSelection]="maxSelection()"
 					[disabled]="_disabled()"
 					(dateChange)="_handleChange($event)"
 				/>
@@ -63,15 +59,12 @@ export const HLM_DATE_PICKER_MUTLI_VALUE_ACCESSOR = {
 		</hlm-popover>
 	`,
 })
-export class HlmDatePickerMulti<T> implements HlmDatePickerBase<T[]>, ControlValueAccessor {
-	private readonly _config = injectHlmDatePickerMultiConfig<T>();
+export class HlmYearMonthPicker<T> implements HlmDatePickerBase<T>, ControlValueAccessor {
+	private readonly _config = injectHlmYearMonthPickerConfig<T>();
 
 	public readonly popover = viewChild.required(BrnPopover);
 
 	private readonly _trigger = contentChild(HlmDatePickerTriggerToken);
-
-	/** Show dropdowns to navigate between months or years. */
-	public readonly captionLayout = input<'dropdown' | 'label' | 'dropdown-months' | 'dropdown-years'>('label');
 
 	/** The minimum date that can be selected.*/
 	public readonly min = input<T>();
@@ -79,36 +72,29 @@ export class HlmDatePickerMulti<T> implements HlmDatePickerBase<T[]>, ControlVal
 	/** The maximum date that can be selected. */
 	public readonly max = input<T>();
 
-	/** The minimum selectable dates.  */
-	public readonly minSelection = input<number, NumberInput>(undefined, {
-		transform: numberAttribute,
-	});
-
-	/** The maximum selectable dates.  */
-	public readonly maxSelection = input<number, NumberInput>(undefined, {
-		transform: numberAttribute,
-	});
-
 	/** Determine if the date picker is disabled. */
 	public readonly disabled = input<boolean, BooleanInput>(false, {
 		transform: booleanAttribute,
 	});
 
 	/** The selected value. */
-	public readonly date = input<T[]>();
+	public readonly date = input<T>();
+
+	/** The date the calendar focuses on first open when no date is selected. */
+	public readonly defaultFocusedDate = input<T>();
 
 	protected readonly _mutableDate = linkedSignal(this.date);
 
-	/** If true, the date picker will close when the max selection of dates is reached. */
-	public readonly autoCloseOnMaxSelection = input<boolean, BooleanInput>(this._config.autoCloseOnMaxSelection, {
+	/** If true, the date picker will close when a date is selected. */
+	public readonly autoCloseOnSelect = input<boolean, BooleanInput>(this._config.autoCloseOnSelect, {
 		transform: booleanAttribute,
 	});
 
 	/** Defines how the date should be displayed in the UI.  */
-	public readonly formatDates = input<(date: T[]) => string>(this._config.formatDates);
+	public readonly formatDate = input<(date: T) => string>(this._config.formatDate);
 
 	/** Defines how the date should be transformed before saving to model/form. */
-	public readonly transformDates = input<(date: T[]) => T[]>(this._config.transformDates);
+	public readonly transformDate = input<(date: T) => T>(this._config.transformDate);
 
 	protected readonly _popoverState = signal<BrnOverlayState | null>(null);
 
@@ -118,17 +104,17 @@ export class HlmDatePickerMulti<T> implements HlmDatePickerBase<T[]>, ControlVal
 	public readonly disabledState = this._disabled.asReadonly();
 
 	public readonly formattedDate = computed(() => {
-		const dates = this._mutableDate();
-		return dates ? this.formatDates()(dates) : undefined;
+		const date = this._mutableDate();
+		return date ? this.formatDate()(date) : undefined;
 	});
 
-	public readonly dateChange = output<T[]>();
+	public readonly dateChange = output<T>();
 
 	public readonly labelableId = computed(() => this._trigger()?.triggerId());
 
-	public readonly hasDate = computed(() => !!this._mutableDate()?.length);
+	public readonly hasDate = computed(() => !!this._mutableDate());
 
-	protected _onChange?: ChangeFn<T[]>;
+	protected _onChange?: ChangeFn<T>;
 	protected _onTouched?: TouchFn;
 
 	protected _onStateChange(state: BrnOverlayState) {
@@ -136,50 +122,45 @@ export class HlmDatePickerMulti<T> implements HlmDatePickerBase<T[]>, ControlVal
 		if (state === 'closed') this._onTouched?.();
 	}
 
-	protected _handleChange(value: T[] | undefined) {
-		if (value === undefined) return;
-
+	protected _handleChange(value: T | undefined) {
 		if (this._disabled()) return;
-		const transformedDate = value !== undefined ? this.transformDates()(value) : value;
+		this.updateDate(value);
 
-		this._mutableDate.set(transformedDate);
-		this._onChange?.(transformedDate);
-		this.dateChange.emit(transformedDate);
-
-		if (this.autoCloseOnMaxSelection() && this._mutableDate()?.length === this.maxSelection()) {
+		if (this.autoCloseOnSelect()) {
 			this._popoverState.set('closed');
 		}
 	}
 
 	/**
-	 * Commit dates to the picker. Updates the internal model, notifies form
-	 * controls, and emits `dateChange`. Intended to be called from a text input
-	 * that parses user-entered values. Pass `undefined` to clear the selection.
+	 * Commit a date to the picker. Updates the internal model, notifies form
+	 * controls, and emits `dateChange`. Unlike `_handleChange`, this does not
+	 * close the popover - it's intended to be called from a text input that
+	 * is parsing user-entered values while typing.
 	 */
-	public updateDate(value: T[] | undefined) {
+	public updateDate(value: T | undefined) {
 		if (this._disabled()) return;
-		const transformedDate = value ? this.transformDates()(value) : undefined;
+		const transformedDate = value !== undefined ? this.transformDate()(value) : undefined;
 
 		this._mutableDate.set(transformedDate);
-		this._onChange?.(transformedDate ?? []);
-		this.dateChange.emit(transformedDate ?? []);
-	}
-
-	public touched(): void {
-		this._onTouched?.();
+		this._onChange?.(transformedDate as T);
+		this.dateChange.emit(transformedDate as T);
 	}
 
 	/** CONTROL VALUE ACCESSOR */
-	public writeValue(value: T[] | null): void {
-		this._mutableDate.set(value ? this.transformDates()(value) : undefined);
+	public writeValue(value: T | null): void {
+		this._mutableDate.set(value ? this.transformDate()(value) : undefined);
 	}
 
-	public registerOnChange(fn: ChangeFn<T[]>): void {
+	public registerOnChange(fn: ChangeFn<T>): void {
 		this._onChange = fn;
 	}
 
 	public registerOnTouched(fn: TouchFn): void {
 		this._onTouched = fn;
+	}
+
+	public touched(): void {
+		this._onTouched?.();
 	}
 
 	public setDisabledState(isDisabled: boolean): void {
@@ -196,7 +177,7 @@ export class HlmDatePickerMulti<T> implements HlmDatePickerBase<T[]>, ControlVal
 
 	public reset() {
 		this._mutableDate.set(undefined);
-		this._onChange?.([]);
-		this.dateChange.emit([]);
+		this._onChange?.(undefined as T);
+		this.dateChange.emit(undefined as T);
 	}
 }

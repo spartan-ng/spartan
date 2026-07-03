@@ -63,7 +63,7 @@ export const HLM_DATE_RANGE_PICKER_VALUE_ACCESSOR = {
 		</hlm-popover>
 	`,
 })
-export class HlmDateRangePicker<T> implements HlmDatePickerBase<T>, ControlValueAccessor {
+export class HlmDateRangePicker<T> implements HlmDatePickerBase<[T, T]>, ControlValueAccessor {
 	private readonly _config = injectHlmDateRangePickerConfig<T>();
 
 	public readonly popover = viewChild.required(BrnPopover);
@@ -152,6 +152,35 @@ export class HlmDateRangePicker<T> implements HlmDatePickerBase<T>, ControlValue
 				this._popoverState.set('closed');
 			}
 		}
+	}
+
+	/**
+	 * Commit a range to the picker. Updates the internal model, notifies form
+	 * controls, and emits `dateChange`. Intended to be called from a text input
+	 * that parses user-entered values. Pass `undefined` to clear the range.
+	 */
+	public updateDate(value: [T, T] | undefined) {
+		if (this._disabled()) return;
+
+		if (!value) {
+			this._mutableDate.set(undefined);
+			this._start.set(undefined);
+			this._end.set(undefined);
+			this._onChange?.(null);
+			this.dateChange.emit(null);
+			return;
+		}
+
+		const transformedDates = this.transformDates()(value);
+		this._mutableDate.set(transformedDates);
+		this._start.set(transformedDates[0]);
+		this._end.set(transformedDates[1]);
+		this._onChange?.(transformedDates);
+		this.dateChange.emit(transformedDates);
+	}
+
+	public touched(): void {
+		this._onTouched?.();
 	}
 
 	/** CONTROL VALUE ACCESSOR */

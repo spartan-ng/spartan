@@ -17,24 +17,24 @@ import { BrnFieldControl, provideBrnLabelable } from '@spartan-ng/brain/field';
 import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
 import type { BrnOverlayState } from '@spartan-ng/brain/overlay';
 import { BrnPopover } from '@spartan-ng/brain/popover';
-import { HlmCalendarImports } from '@spartan-ng/helm/calendar';
-import { HlmPopoverImports } from '@spartan-ng/helm/popover';
+import { HlmCalendarImports } from '<%- importAlias %>/calendar';
+import { HlmPopoverImports } from '<%- importAlias %>/popover';
 import { HlmDatePickerTriggerToken } from './hlm-date-picker-trigger.token';
 import { HlmDatePickerBase, provideHlmDatePicker } from './hlm-date-picker.token';
-import { injectHlmMonthYearPickerConfig } from './hlm-month-year-picker.token';
+import { injectHlmYearMonthPickerConfig } from './hlm-year-month-picker.token';
 
 export const HLM_MONTH_YEAR_PICKER_VALUE_ACCESSOR = {
 	provide: NG_VALUE_ACCESSOR,
-	useExisting: forwardRef(() => HlmMonthYearPicker),
+	useExisting: forwardRef(() => HlmYearMonthPicker),
 	multi: true,
 };
 @Component({
-	selector: 'hlm-month-year-picker',
+	selector: 'hlm-year-month-picker',
 	imports: [HlmPopoverImports, HlmCalendarImports],
 	providers: [
 		HLM_MONTH_YEAR_PICKER_VALUE_ACCESSOR,
-		provideHlmDatePicker(HlmMonthYearPicker),
-		provideBrnLabelable(HlmMonthYearPicker),
+		provideHlmDatePicker(HlmYearMonthPicker),
+		provideBrnLabelable(HlmYearMonthPicker),
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	hostDirectives: [BrnFieldControl],
@@ -45,7 +45,7 @@ export const HLM_MONTH_YEAR_PICKER_VALUE_ACCESSOR = {
 
 			<hlm-popover-content class="w-fit p-0" *hlmPopoverPortal="let ctx">
 				<ng-content select="[hlmDatePickerHeader]" />
-				<hlm-month-year-calendar
+				<hlm-year-month-calendar
 					class="rounded-none border-0"
 					[date]="_mutableDate()"
 					[defaultFocusedDate]="_mutableDate() ?? defaultFocusedDate()"
@@ -59,8 +59,8 @@ export const HLM_MONTH_YEAR_PICKER_VALUE_ACCESSOR = {
 		</hlm-popover>
 	`,
 })
-export class HlmMonthYearPicker<T> implements HlmDatePickerBase<T>, ControlValueAccessor {
-	private readonly _config = injectHlmMonthYearPickerConfig<T>();
+export class HlmYearMonthPicker<T> implements HlmDatePickerBase<T>, ControlValueAccessor {
+	private readonly _config = injectHlmYearMonthPickerConfig<T>();
 
 	public readonly popover = viewChild.required(BrnPopover);
 

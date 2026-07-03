@@ -1,30 +1,30 @@
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronLeft, lucideChevronRight } from '@ng-icons/lucide';
-import { BrnCalendarImports, BrnMonthYearCalendar, injectBrnCalendarI18n } from '@spartan-ng/brain/calendar';
+import { BrnCalendarImports, BrnYearMonthCalendar, injectBrnCalendarI18n } from '@spartan-ng/brain/calendar';
 import { injectDateAdapter } from '@spartan-ng/brain/date-time';
 import { buttonVariants, HlmButtonImports } from '@spartan-ng/helm/button';
 import { classes, hlm } from '@spartan-ng/helm/utils';
 
 @Component({
-	selector: 'hlm-month-year-calendar',
+	selector: 'hlm-year-month-calendar',
 	imports: [BrnCalendarImports, NgIcon, HlmButtonImports],
 	viewProviders: [provideIcons({ lucideChevronLeft, lucideChevronRight })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	hostDirectives: [
 		{
-			directive: BrnMonthYearCalendar,
+			directive: BrnYearMonthCalendar,
 			inputs: ['min', 'max', 'disabled', 'date', 'defaultFocusedDate', 'view'],
 			outputs: ['dateChange'],
 		},
 	],
-	host: { 'data-slot': 'month-year-calendar' },
+	host: { 'data-slot': 'year-month-calendar' },
 	template: `
 		<div class="flex flex-col gap-4">
 			<!-- Header -->
 			<div class="flex w-full items-center justify-between gap-1.5">
 				<button
-					brnMonthYearCalendarPreviousButton
+					brnYearMonthCalendarPreviousButton
 					hlmBtn
 					variant="ghost"
 					class="order-first size-(--cell-size) p-0 select-none aria-disabled:opacity-50"
@@ -36,13 +36,13 @@ import { classes, hlm } from '@spartan-ng/helm/utils';
 					hlmBtn
 					variant="ghost"
 					class="h-(--cell-size) py-0 select-none aria-disabled:opacity-50"
-					brnMonthYearCalendarHeader
+					brnYearMonthCalendarHeader
 				>
 					{{ _heading() }}
 				</button>
 
 				<button
-					brnMonthYearCalendarNextButton
+					brnYearMonthCalendarNextButton
 					hlmBtn
 					variant="ghost"
 					class="order-last size-(--cell-size) p-0 select-none aria-disabled:opacity-50"
@@ -54,18 +54,18 @@ import { classes, hlm } from '@spartan-ng/helm/utils';
 			<!-- Grid -->
 			@switch (_picker.view()) {
 				@case ('year') {
-					<div brnMonthYearCalendarGrid class="grid grid-cols-4 gap-2">
+					<div brnYearMonthCalendarGrid class="grid grid-cols-4 gap-2">
 						@for (year of _picker.years(); track _dateAdapter.getYear(year)) {
-							<button brnMonthYearCalendarYearButton [date]="year" [class]="_btnClass">
+							<button brnYearMonthCalendarYearButton [date]="year" [class]="_btnClass">
 								{{ _i18n.config().formatYear(_dateAdapter.getYear(year)) }}
 							</button>
 						}
 					</div>
 				}
 				@case ('month') {
-					<div brnMonthYearCalendarGrid class="grid grid-cols-4 gap-2">
+					<div brnYearMonthCalendarGrid class="grid grid-cols-4 gap-2">
 						@for (month of _picker.months(); track _dateAdapter.getMonth(month)) {
-							<button brnMonthYearCalendarMonthButton [date]="month" [class]="_btnClass">
+							<button brnYearMonthCalendarMonthButton [date]="month" [class]="_btnClass">
 								{{ _i18n.config().months()[_dateAdapter.getMonth(month)] }}
 							</button>
 						}
@@ -75,7 +75,7 @@ import { classes, hlm } from '@spartan-ng/helm/utils';
 		</div>
 	`,
 })
-export class HlmMonthYearCalendar<T> {
+export class HlmYearMonthCalendar<T> {
 	/** Access the calendar i18n */
 	protected readonly _i18n = injectBrnCalendarI18n();
 
@@ -83,7 +83,7 @@ export class HlmMonthYearCalendar<T> {
 	protected readonly _dateAdapter = injectDateAdapter<T>();
 
 	/** Access the picker directive */
-	protected readonly _picker = inject(BrnMonthYearCalendar<T>);
+	protected readonly _picker = inject(BrnYearMonthCalendar<T>);
 
 	/** The heading for the current view. */
 	protected readonly _heading = computed(() => {

@@ -63,7 +63,7 @@ export const HLM_DATE_PICKER_MUTLI_VALUE_ACCESSOR = {
 		</hlm-popover>
 	`,
 })
-export class HlmDatePickerMulti<T> implements HlmDatePickerBase<T>, ControlValueAccessor {
+export class HlmDatePickerMulti<T> implements HlmDatePickerBase<T[]>, ControlValueAccessor {
 	private readonly _config = injectHlmDatePickerMultiConfig<T>();
 
 	public readonly popover = viewChild.required(BrnPopover);
@@ -149,6 +149,24 @@ export class HlmDatePickerMulti<T> implements HlmDatePickerBase<T>, ControlValue
 		if (this.autoCloseOnMaxSelection() && this._mutableDate()?.length === this.maxSelection()) {
 			this._popoverState.set('closed');
 		}
+	}
+
+	/**
+	 * Commit dates to the picker. Updates the internal model, notifies form
+	 * controls, and emits `dateChange`. Intended to be called from a text input
+	 * that parses user-entered values. Pass `undefined` to clear the selection.
+	 */
+	public updateDate(value: T[] | undefined) {
+		if (this._disabled()) return;
+		const transformedDate = value ? this.transformDates()(value) : undefined;
+
+		this._mutableDate.set(transformedDate);
+		this._onChange?.(transformedDate ?? []);
+		this.dateChange.emit(transformedDate ?? []);
+	}
+
+	public touched(): void {
+		this._onTouched?.();
 	}
 
 	/** CONTROL VALUE ACCESSOR */

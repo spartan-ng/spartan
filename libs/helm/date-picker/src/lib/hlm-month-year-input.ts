@@ -163,7 +163,6 @@ export class HlmMonthYearInput<T> implements HlmDatePickerTriggerBase {
 
 	protected _commitDate() {
 		const value = this._inputValue();
-		console.log(value);
 
 		if (!value) {
 			this._datePicker.updateDate?.(undefined);

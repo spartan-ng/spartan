@@ -14,12 +14,13 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCalendar, lucideX } from '@ng-icons/lucide';
 import { HlmInputGroup, HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 import { HlmDatePickerTriggerBase, provideHlmDatePickerTrigger } from './hlm-date-picker-trigger.token';
-import { injectHlmDatePicker, injectHlmDatePickerConfig } from './hlm-date-picker.token';
+import { injectHlmDatePicker } from './hlm-date-picker.token';
+import { injectHlmDateRangePickerConfig } from './hlm-date-range-picker.token';
 
 @Component({
-	selector: 'hlm-date-picker-input',
+	selector: 'hlm-date-range-input',
 	imports: [HlmInputGroupImports, NgIcon],
-	providers: [provideIcons({ lucideCalendar, lucideX }), provideHlmDatePickerTrigger(HlmDatePickerInput)],
+	providers: [provideIcons({ lucideCalendar, lucideX }), provideHlmDatePickerTrigger(HlmDateRangeInput)],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	hostDirectives: [HlmInputGroup],
 	template: `
@@ -61,33 +62,33 @@ import { injectHlmDatePicker, injectHlmDatePickerConfig } from './hlm-date-picke
 		</hlm-input-group-addon>
 	`,
 })
-export class HlmDatePickerInput<T> implements HlmDatePickerTriggerBase {
+export class HlmDateRangeInput<T> implements HlmDatePickerTriggerBase {
 	private static _nextId = 0;
 	private readonly _host = inject(ElementRef);
-	private readonly _datePicker = injectHlmDatePicker<T>();
-	private readonly _config = injectHlmDatePickerConfig<T>();
+	private readonly _datePicker = injectHlmDatePicker<[T, T]>();
+	private readonly _config = injectHlmDateRangePickerConfig<T>();
 
 	protected readonly _popover = this._datePicker.popover;
 	protected readonly _disabled = this._datePicker.disabledState;
 
-	public readonly inputId = input(`hlm-date-picker-input-${HlmDatePickerInput._nextId++}`);
+	public readonly inputId = input(`hlm-date-range-input-${HlmDateRangeInput._nextId++}`);
 
 	public readonly placeholder = input('');
 
 	public readonly inputValue = input<string>('');
 
 	/**
-	 * Parses input text into a date value. Return `undefined` for invalid
-	 * input - the picker's date is cleared while the text is preserved so
+	 * Parses input text into a date range. Return `undefined` for invalid
+	 * input - the picker's range is cleared while the text is preserved so
 	 * the user can fix it.
 	 *
-	 * Defaults to `parseDate` from `HlmDatePickerConfig`.
+	 * Defaults to `parseDate` from `HlmDateRangePickerConfig`.
 	 */
-	public readonly parseDate = input<(value: string) => T | undefined>(this._config.parseDate);
+	public readonly parseDate = input<(value: string) => [T, T] | undefined>(this._config.parseDate);
 
 	public readonly forceInvalid = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
-	/** Show a clear button that resets the input and picker date. Hidden when empty. */
+	/** Show a clear button that resets the input and picker range. Hidden when empty. */
 	public readonly showClear = input<boolean, BooleanInput>(true, { transform: booleanAttribute });
 
 	/** Open the popover on input click. */
@@ -169,7 +170,7 @@ export class HlmDatePickerInput<T> implements HlmDatePickerTriggerBase {
 			return;
 		}
 
-		// Invalid parse: clear the picker date, keep the text so the user can fix it.
+		// Invalid parse: clear the picker range, keep the text so the user can fix it.
 		const parsed = this.parseDate()(value);
 		this._datePicker.updateDate?.(parsed ?? undefined);
 		this._datePicker.touched?.();

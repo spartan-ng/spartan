@@ -32,7 +32,6 @@ export type PrimitiveSnippet =
 	| 'kbd'
 	| 'label'
 	| 'menubar'
-	| 'month-year-calendar'
 	| 'native-select'
 	| 'navigation-menu'
 	| 'pagination'

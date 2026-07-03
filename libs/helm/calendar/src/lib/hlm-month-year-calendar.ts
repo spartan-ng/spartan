@@ -1,21 +1,20 @@
-import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronLeft, lucideChevronRight } from '@ng-icons/lucide';
-import { injectBrnCalendarI18n } from '@spartan-ng/brain/calendar';
+import { BrnCalendarImports, BrnMonthYearCalendar, injectBrnCalendarI18n } from '@spartan-ng/brain/calendar';
 import { injectDateAdapter } from '@spartan-ng/brain/date-time';
-import { BrnMonthYearCalendar, BrnMonthYearImports } from '@spartan-ng/brain/month-year-calendar';
 import { buttonVariants, HlmButtonImports } from '@spartan-ng/helm/button';
 import { classes, hlm } from '@spartan-ng/helm/utils';
 
 @Component({
 	selector: 'hlm-month-year-calendar',
-	imports: [BrnMonthYearImports, NgIcon, HlmButtonImports],
+	imports: [BrnCalendarImports, NgIcon, HlmButtonImports],
 	viewProviders: [provideIcons({ lucideChevronLeft, lucideChevronRight })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	hostDirectives: [
 		{
 			directive: BrnMonthYearCalendar,
-			inputs: ['min', 'max', 'disabled', 'date', 'defaultFocusedDate'],
+			inputs: ['min', 'max', 'disabled', 'date', 'defaultFocusedDate', 'view'],
 			outputs: ['dateChange'],
 		},
 	],
@@ -33,7 +32,14 @@ import { classes, hlm } from '@spartan-ng/helm/utils';
 					<ng-icon name="lucideChevronLeft" class="rtl:rotate-180" />
 				</button>
 
-				<button hlmBtn variant="ghost" brnMonthYearCalendarHeader>{{ _heading() }}</button>
+				<button
+					hlmBtn
+					variant="ghost"
+					class="h-(--cell-size) py-0 select-none aria-disabled:opacity-50"
+					brnMonthYearCalendarHeader
+				>
+					{{ _heading() }}
+				</button>
 
 				<button
 					brnMonthYearCalendarNextButton
@@ -79,9 +85,6 @@ export class HlmMonthYearCalendar<T> {
 	/** Access the picker directive */
 	protected readonly _picker = inject(BrnMonthYearCalendar<T>);
 
-	/** Show the year view first, then the month view. */
-	public readonly view = input<'year' | 'month'>('year');
-
 	/** The heading for the current view. */
 	protected readonly _heading = computed(() => {
 		const config = this._i18n.config();
@@ -104,9 +107,9 @@ export class HlmMonthYearCalendar<T> {
 	);
 
 	constructor() {
-		classes(() => 'spartan-calendar bg-background block');
-
-		// keep the brain view in sync with the `view` input.
-		this._picker.view.set(this.view());
+		classes(
+			() =>
+				'spartan-calendar group/calendar bg-background block in-data-[slot=card-content]:bg-transparent in-data-[slot=popover-content]:bg-transparent',
+		);
 	}
 }

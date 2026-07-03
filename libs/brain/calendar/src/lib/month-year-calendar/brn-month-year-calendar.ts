@@ -11,7 +11,6 @@ import {
 	input,
 	linkedSignal,
 	model,
-	signal,
 } from '@angular/core';
 import { injectDateAdapter } from '@spartan-ng/brain/date-time';
 import { BrnMonthYearCalendarHeader } from './brn-month-year-calendar-header';
@@ -23,7 +22,7 @@ import {
 } from './brn-month-year-calendar.token';
 
 /** The number of years shown per page (4 columns x 6 rows). */
-const YEARS_PER_PAGE = 24;
+const YEARS_PER_PAGE = 12;
 
 /** Positive modulo. */
 function floorMod(value: number, modulo: number): number {
@@ -62,7 +61,10 @@ export class BrnMonthYearCalendar<T> implements BrnMonthYearCalendarBase<T> {
 	public readonly defaultFocusedDate = input<T>();
 
 	/** The current view. The year view is shown first. */
-	public readonly view = signal<BrnMonthYearCalendarView>('year');
+	public readonly viewInput = input<BrnMonthYearCalendarView>('year', { alias: 'view' });
+
+	/** The current view mutable. The year view is shown first. */
+	public readonly view = linkedSignal(this.viewInput);
 
 	/** @internal Access the header */
 	public readonly header = contentChild(BrnMonthYearCalendarHeader);
@@ -119,7 +121,7 @@ export class BrnMonthYearCalendar<T> implements BrnMonthYearCalendarBase<T> {
 			return;
 		}
 
-		const month = this._dateAdapter.startOfMonth(date);
+		const month = this._dateAdapter.startOfDay(this._dateAdapter.startOfMonth(date));
 
 		if (this.isMonthSelected(date)) {
 			this.date.set(undefined);

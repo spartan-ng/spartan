@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { HlmCalendarImports } from '@spartan-ng/helm/calendar';
 import { HlmCard, HlmCardImports } from '@spartan-ng/helm/card';
-import { HlmMonthYearImports } from '@spartan-ng/helm/month-year-calendar';
 
 @Component({
 	selector: 'spartan-month-year-example',
-	imports: [HlmCardImports, HlmMonthYearImports],
+	imports: [HlmCardImports, HlmCalendarImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	hostDirectives: [HlmCard],
 	host: {

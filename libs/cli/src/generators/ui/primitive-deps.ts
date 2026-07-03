@@ -33,7 +33,6 @@ export const primitiveDependencies: Record<Primitive, Primitive[]> = {
 	kbd: ['utils'],
 	label: ['utils'],
 	menubar: ['utils', 'dropdown-menu'],
-	'month-year-calendar': ['utils', 'button'],
 	'native-select': ['utils'],
 	'navigation-menu': ['utils'],
 	pagination: ['utils', 'button', 'select'],

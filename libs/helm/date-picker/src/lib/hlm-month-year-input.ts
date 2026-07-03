@@ -14,12 +14,13 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCalendar, lucideX } from '@ng-icons/lucide';
 import { HlmInputGroup, HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 import { HlmDatePickerTriggerBase, provideHlmDatePickerTrigger } from './hlm-date-picker-trigger.token';
-import { injectHlmDatePicker, injectHlmDatePickerConfig } from './hlm-date-picker.token';
+import { injectHlmDatePicker } from './hlm-date-picker.token';
+import { injectHlmMonthYearPickerConfig } from './hlm-month-year-picker.token';
 
 @Component({
-	selector: 'hlm-date-picker-input',
+	selector: 'hlm-month-year-input',
 	imports: [HlmInputGroupImports, NgIcon],
-	providers: [provideIcons({ lucideCalendar, lucideX }), provideHlmDatePickerTrigger(HlmDatePickerInput)],
+	providers: [provideIcons({ lucideCalendar, lucideX }), provideHlmDatePickerTrigger(HlmMonthYearInput)],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	hostDirectives: [HlmInputGroup],
 	template: `
@@ -61,16 +62,16 @@ import { injectHlmDatePicker, injectHlmDatePickerConfig } from './hlm-date-picke
 		</hlm-input-group-addon>
 	`,
 })
-export class HlmDatePickerInput<T> implements HlmDatePickerTriggerBase {
+export class HlmMonthYearInput<T> implements HlmDatePickerTriggerBase {
 	private static _nextId = 0;
 	private readonly _host = inject(ElementRef);
 	private readonly _datePicker = injectHlmDatePicker<T>();
-	private readonly _config = injectHlmDatePickerConfig<T>();
+	private readonly _config = injectHlmMonthYearPickerConfig<T>();
 
 	protected readonly _popover = this._datePicker.popover;
 	protected readonly _disabled = this._datePicker.disabledState;
 
-	public readonly inputId = input(`hlm-date-picker-input-${HlmDatePickerInput._nextId++}`);
+	public readonly inputId = input(`hlm-month-year-input-${HlmMonthYearInput._nextId++}`);
 
 	public readonly placeholder = input('');
 

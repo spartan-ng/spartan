@@ -10,7 +10,9 @@ interface UpdateContributorsSchema {
 // under their current handle. Compared lowercased.
 const IGNORED_USERNAMES = new Set<string>([
 	'matznristo', // renamed to m-risto
-	'copilot', // GitHub's AI assistant, not a real contributor
+	// bot accounts — not real contributors
+	'copilot',
+	'semantic-release-bot',
 ]);
 
 export default async function updateContributorsGenerator(

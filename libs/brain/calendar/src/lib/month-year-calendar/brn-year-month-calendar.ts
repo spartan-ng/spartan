@@ -21,8 +21,8 @@ import {
 	provideBrnYearMonthCalendar,
 } from './brn-year-month-calendar.token';
 
-/** The number of years shown per page (4 columns x 6 rows). */
-const YEARS_PER_PAGE = 12;
+/** The number of years shown per page (4 columns x 3 rows). */
+export const YEARS_PER_PAGE = 12;
 
 /** Positive modulo. */
 function floorMod(value: number, modulo: number): number {

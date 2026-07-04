@@ -34,7 +34,7 @@ export * from './lib/brn-calendar.token';
 export * from './lib/i18n/calendar-i18n';
 export * from './lib/mode/brn-calendar-multiple';
 export * from './lib/mode/brn-calendar-range';
-export * from './lib/month-year-calendar/brn-year-month-calendar';
+export { BrnYearMonthCalendar } from './lib/month-year-calendar/brn-year-month-calendar';
 export * from './lib/month-year-calendar/brn-year-month-calendar-grid';
 export * from './lib/month-year-calendar/brn-year-month-calendar-header';
 export * from './lib/month-year-calendar/brn-year-month-calendar-month-button';

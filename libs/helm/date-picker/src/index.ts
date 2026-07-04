@@ -23,6 +23,7 @@ export * from './lib/hlm-date-range-picker';
 export * from './lib/hlm-date-range-picker.token';
 export * from './lib/hlm-year-month-input';
 export * from './lib/hlm-year-month-picker';
+export * from './lib/hlm-year-month-picker.token';
 
 export const HlmDatePickerImports = [
 	HlmDatePicker,

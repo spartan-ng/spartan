@@ -1,5 +1,6 @@
 import { computed, DestroyRef, Directive, ElementRef, inject, input } from '@angular/core';
 import { injectDateAdapter } from '@spartan-ng/brain/date-time';
+import { YEARS_PER_PAGE } from './brn-year-month-calendar';
 import { injectBrnYearMonthCalendar } from './brn-year-month-calendar.token';
 
 @Directive({
@@ -22,8 +23,8 @@ import { injectBrnYearMonthCalendar } from './brn-year-month-calendar.token';
 		'(keydown.arrowDown)': 'focusOffset($event, 4)',
 		'(keydown.home)': 'focusYear($event, _yearMonth.yearRange().start)',
 		'(keydown.end)': 'focusYear($event, _yearMonth.yearRange().end)',
-		'(keydown.pageUp)': 'focusOffset($event, -24)',
-		'(keydown.pageDown)': 'focusOffset($event, 24)',
+		'(keydown.pageUp)': 'focusOffset($event, -YEARS_PER_PAGE)',
+		'(keydown.pageDown)': 'focusOffset($event, YEARS_PER_PAGE)',
 	},
 })
 export class BrnYearMonthCalendarYearButton<T> {
@@ -74,4 +75,6 @@ export class BrnYearMonthCalendarYearButton<T> {
 	focus(): void {
 		this._elementRef.nativeElement.focus();
 	}
+
+	protected readonly YEARS_PER_PAGE = YEARS_PER_PAGE;
 }

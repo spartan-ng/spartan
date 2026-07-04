@@ -1089,11 +1089,11 @@
 
 	/* MARK: Switch */
 	.spartan-switch {
-		@apply data-checked:bg-primary data-unchecked:bg-input focus-visible:border-ring focus-visible:ring-ring/30 data-[matches-spartan-invalid=true]:ring-destructive/20 dark:data-[matches-spartan-invalid=true]:ring-destructive/40 data-[matches-spartan-invalid=true]:border-destructive dark:data-[matches-spartan-invalid=true]:border-destructive/50 dark:data-unchecked:bg-input/80 shrink-0 rounded-full border border-transparent focus-visible:ring-2 data-[matches-spartan-invalid=true]:ring-2 data-[size=default]:h-[16.6px] data-[size=default]:w-[28px] data-[size=lg]:h-6 data-[size=lg]:w-10 data-[size=md]:h-5 data-[size=md]:w-8 data-[size=sm]:h-[14px] data-[size=sm]:w-[24px] data-[size=xl]:h-7 data-[size=xl]:w-12;
+		@apply data-checked:bg-primary data-unchecked:bg-input focus-visible:border-ring focus-visible:ring-ring/30 data-[matches-spartan-invalid=true]:ring-destructive/20 dark:data-[matches-spartan-invalid=true]:ring-destructive/40 data-[matches-spartan-invalid=true]:border-destructive dark:data-[matches-spartan-invalid=true]:border-destructive/50 dark:data-unchecked:bg-input/80 shrink-0 rounded-full border border-transparent focus-visible:ring-2 data-[matches-spartan-invalid=true]:ring-2 data-[size=default]:h-[16.6px] data-[size=default]:w-[28px] data-[size=lg]:h-6 data-[size=lg]:w-10 data-[size=md]:h-[16.6px] data-[size=md]:w-[28px] data-[size=sm]:h-[14px] data-[size=sm]:w-[24px] data-[size=xl]:h-7 data-[size=xl]:w-12;
 	}
 
 	.spartan-switch-thumb {
-		@apply bg-background dark:data-unchecked:bg-foreground dark:data-checked:bg-primary-foreground rounded-full group-data-[size=default]/switch:size-3.5 group-data-[size=lg]/switch:size-5 group-data-[size=md]/switch:size-4 group-data-[size=sm]/switch:size-3 group-data-[size=xl]/switch:size-6 data-unchecked:translate-x-0 data-checked:ltr:translate-x-[calc(100%-2px)] data-checked:rtl:-translate-x-[calc(100%-2px)];
+		@apply bg-background dark:data-unchecked:bg-foreground dark:data-checked:bg-primary-foreground rounded-full group-data-[size=default]/switch:size-3.5 group-data-[size=lg]/switch:size-5 group-data-[size=md]/switch:size-3.5 group-data-[size=sm]/switch:size-3 group-data-[size=xl]/switch:size-6 data-unchecked:translate-x-0 data-checked:ltr:translate-x-[calc(100%-2px)] data-checked:rtl:-translate-x-[calc(100%-2px)];
 	}
 
 	/* MARK: Table */

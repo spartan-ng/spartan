@@ -73,7 +73,7 @@ export class HlmSwitch implements ControlValueAccessor {
 	});
 
 	/** The size of the switch. */
-	public readonly size = input<BrnSwitchSize>('md');
+	public readonly size = input<BrnSwitchSize>('default');
 
 	/** Used to set the id on the underlying brn element. */
 	public readonly inputId = input<string | null>(null);

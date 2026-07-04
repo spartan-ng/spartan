@@ -1,3 +1,5 @@
+[![MseeP.ai Security Assessment Badge](https://mseep.net/pr/spartan-ng-spartan-badge.png)](https://mseep.ai/app/spartan-ng-spartan)
+
 # spartan
 
 <a href="https://www.spartan.ng" target="_blank">

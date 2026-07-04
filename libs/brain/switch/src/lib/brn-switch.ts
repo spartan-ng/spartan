@@ -35,7 +35,7 @@ export const BRN_SWITCH_VALUE_ACCESSOR = {
 	multi: true,
 };
 
-export type BrnSwitchSize = 'default' | 'sm';
+export type BrnSwitchSize = 'sm' | 'md' | 'lg' | 'xl' | 'default';
 
 const CONTAINER_POST_FIX = '-switch';
 
@@ -136,9 +136,9 @@ export class BrnSwitch implements AfterContentInit, OnDestroy, ControlValueAcces
 	/**
 	 * Size of the switch.
 	 * Drives the size-keyed registry style rules via the `data-size` attribute.
-	 * @default 'default'
+	 * @default 'md'
 	 */
-	public readonly size = input<BrnSwitchSize>('default');
+	public readonly size = input<BrnSwitchSize>('md');
 
 	/**
 	 * Accessibility label for screen readers.

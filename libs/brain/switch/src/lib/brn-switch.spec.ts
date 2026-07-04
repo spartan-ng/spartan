@@ -291,14 +291,14 @@ describe('BrnSwitchComponent', () => {
 			return view;
 		};
 
-		it('defaults data-size to "default" on the button', async () => {
+		it('defaults data-size to "md" on the button', async () => {
 			await renderWithSize();
-			expect(screen.getByRole('switch')).toHaveAttribute('data-size', 'default');
+			expect(screen.getByRole('switch')).toHaveAttribute('data-size', 'md');
 		});
 
-		it('reflects the size input on the button', async () => {
-			await renderWithSize('sm');
-			expect(screen.getByRole('switch')).toHaveAttribute('data-size', 'sm');
+		it.each(['sm', 'md', 'lg', 'xl', 'default'])('reflects size "%s" on the button', async (size) => {
+			await renderWithSize(size);
+			expect(screen.getByRole('switch')).toHaveAttribute('data-size', size);
 		});
 	});
 

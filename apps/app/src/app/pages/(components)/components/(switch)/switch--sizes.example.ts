@@ -6,7 +6,7 @@ import { HlmSwitch } from '@spartan-ng/helm/switch';
 	selector: 'spartan-switch-sizes',
 	imports: [HlmLabel, HlmSwitch],
 	host: {
-		class: 'flex items-center gap-6',
+		class: 'flex flex-wrap items-center gap-6',
 	},
 	template: `
 		<label class="flex items-center" hlmLabel>
@@ -14,8 +14,16 @@ import { HlmSwitch } from '@spartan-ng/helm/switch';
 			Small
 		</label>
 		<label class="flex items-center" hlmLabel>
-			<hlm-switch class="me-2" size="default" />
-			Default
+			<hlm-switch class="me-2" size="md" />
+			Medium
+		</label>
+		<label class="flex items-center" hlmLabel>
+			<hlm-switch class="me-2" size="lg" />
+			Large
+		</label>
+		<label class="flex items-center" hlmLabel>
+			<hlm-switch class="me-2" size="xl" />
+			Extra large
 		</label>
 	`,
 })

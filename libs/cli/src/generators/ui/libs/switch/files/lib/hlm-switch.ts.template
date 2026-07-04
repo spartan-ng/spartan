@@ -1,3 +1,4 @@
+import { hlm } from '<%- importAlias %>/utils';
 import type { BooleanInput } from '@angular/cdk/coercion';
 import {
 	booleanAttribute,
@@ -12,7 +13,6 @@ import {
 import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
 import { BrnSwitch, type BrnSwitchSize, BrnSwitchThumb } from '@spartan-ng/brain/switch';
-import { hlm } from '<%- importAlias %>/utils';
 import type { ClassValue } from 'clsx';
 import { HlmSwitchThumb } from './hlm-switch-thumb';
 
@@ -73,7 +73,7 @@ export class HlmSwitch implements ControlValueAccessor {
 	});
 
 	/** The size of the switch. */
-	public readonly size = input<BrnSwitchSize>('default');
+	public readonly size = input<BrnSwitchSize>('md');
 
 	/** Used to set the id on the underlying brn element. */
 	public readonly inputId = input<string | null>(null);

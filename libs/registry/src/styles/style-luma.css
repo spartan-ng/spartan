@@ -47,11 +47,11 @@
 
 	/* MARK: Switch */
 	.spartan-switch {
-		@apply data-checked:bg-primary data-unchecked:bg-input/90 data-checked:border-primary focus-visible:border-ring focus-visible:ring-ring/30 data-[matches-spartan-invalid=true]:ring-destructive/20 dark:data-[matches-spartan-invalid=true]:ring-destructive/40 data-[matches-spartan-invalid=true]:border-destructive dark:data-[matches-spartan-invalid=true]:border-destructive/50 shrink-0 rounded-full border-2 focus-visible:ring-3 data-unchecked:border-transparent data-[matches-spartan-invalid=true]:ring-3 data-[size=default]:h-5 data-[size=default]:w-11 data-[size=sm]:h-4 data-[size=sm]:w-7;
+		@apply data-checked:bg-primary data-unchecked:bg-input/90 data-checked:border-primary focus-visible:border-ring focus-visible:ring-ring/30 data-[matches-spartan-invalid=true]:ring-destructive/20 dark:data-[matches-spartan-invalid=true]:ring-destructive/40 data-[matches-spartan-invalid=true]:border-destructive dark:data-[matches-spartan-invalid=true]:border-destructive/50 shrink-0 rounded-full border-2 focus-visible:ring-3 data-unchecked:border-transparent data-[matches-spartan-invalid=true]:ring-3 data-[size=default]:h-5 data-[size=default]:w-11 data-[size=lg]:h-6 data-[size=lg]:w-13 data-[size=md]:h-5 data-[size=md]:w-11 data-[size=sm]:h-4 data-[size=sm]:w-7 data-[size=xl]:h-7 data-[size=xl]:w-15;
 	}
 
 	.spartan-switch-thumb {
-		@apply bg-background dark:data-unchecked:bg-foreground dark:data-checked:bg-primary-foreground rounded-full shadow-sm not-dark:bg-clip-padding group-data-[size=default]/switch:h-4 group-data-[size=default]/switch:w-6 group-data-[size=sm]/switch:h-3 group-data-[size=sm]/switch:w-4 data-unchecked:translate-x-0 data-checked:ltr:translate-x-[calc(100%-8px)] data-checked:rtl:-translate-x-[calc(100%-8px)];
+		@apply bg-background dark:data-unchecked:bg-foreground dark:data-checked:bg-primary-foreground rounded-full shadow-sm not-dark:bg-clip-padding group-data-[size=default]/switch:h-4 group-data-[size=default]/switch:w-6 group-data-[size=lg]/switch:h-5 group-data-[size=lg]/switch:w-7 group-data-[size=md]/switch:h-4 group-data-[size=md]/switch:w-6 group-data-[size=sm]/switch:h-3 group-data-[size=sm]/switch:w-4 group-data-[size=xl]/switch:h-6 group-data-[size=xl]/switch:w-8 data-unchecked:translate-x-0 data-checked:ltr:translate-x-[calc(100%-8px)] data-checked:rtl:-translate-x-[calc(100%-8px)];
 	}
 
 	/* MARK: Radio */

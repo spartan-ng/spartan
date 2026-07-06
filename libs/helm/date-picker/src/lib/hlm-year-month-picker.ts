@@ -13,14 +13,13 @@ import {
 	viewChild,
 } from '@angular/core';
 import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { type BrnDatePickerBase, BrnDatePickerTriggerToken, provideBrnDatePicker } from '@spartan-ng/brain/date-picker';
 import { BrnFieldControl, provideBrnLabelable } from '@spartan-ng/brain/field';
 import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
 import type { BrnOverlayState } from '@spartan-ng/brain/overlay';
 import { BrnPopover } from '@spartan-ng/brain/popover';
 import { HlmCalendarImports } from '@spartan-ng/helm/calendar';
 import { HlmPopoverImports } from '@spartan-ng/helm/popover';
-import { HlmDatePickerTriggerToken } from './hlm-date-picker-trigger.token';
-import { HlmDatePickerBase, provideHlmDatePicker } from './hlm-date-picker.token';
 import { injectHlmYearMonthPickerConfig } from './hlm-year-month-picker.token';
 
 export const HLM_MONTH_YEAR_PICKER_VALUE_ACCESSOR = {
@@ -33,7 +32,7 @@ export const HLM_MONTH_YEAR_PICKER_VALUE_ACCESSOR = {
 	imports: [HlmPopoverImports, HlmCalendarImports],
 	providers: [
 		HLM_MONTH_YEAR_PICKER_VALUE_ACCESSOR,
-		provideHlmDatePicker(HlmYearMonthPicker),
+		provideBrnDatePicker(HlmYearMonthPicker),
 		provideBrnLabelable(HlmYearMonthPicker),
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -59,12 +58,12 @@ export const HLM_MONTH_YEAR_PICKER_VALUE_ACCESSOR = {
 		</hlm-popover>
 	`,
 })
-export class HlmYearMonthPicker<T> implements HlmDatePickerBase<T>, ControlValueAccessor {
+export class HlmYearMonthPicker<T> implements BrnDatePickerBase<T>, ControlValueAccessor {
 	private readonly _config = injectHlmYearMonthPickerConfig<T>();
 
 	public readonly popover = viewChild.required(BrnPopover);
 
-	private readonly _trigger = contentChild(HlmDatePickerTriggerToken);
+	private readonly _trigger = contentChild(BrnDatePickerTriggerToken);
 
 	/** The minimum date that can be selected.*/
 	public readonly min = input<T>();

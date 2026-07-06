@@ -46,6 +46,20 @@ export const Default: Story = {
 	args: { min: new Date(2020, 4, 1), max: new Date(2030, 6, 1), captionLayout: 'label' },
 };
 
+export const Input: Story = {
+	render: () => ({
+		props: {},
+		template: `
+		<div class="preview flex min-h-[350px] w-full justify-center p-10 items-center">
+			<hlm-date-picker-multi>
+				<hlm-date-multi-input inputId="date-input" placeholder="dd/MM/yyyy, dd/MM/yyyy" />
+				<hlm-date-picker-trigger buttonId="date-trigger" [showTrigger]="false">unset</hlm-date-picker-trigger>
+			</hlm-date-picker-multi>
+		</div>
+		`,
+	}),
+};
+
 export const WithHintAndError: Story = {
 	render: (args) => ({
 		props: {

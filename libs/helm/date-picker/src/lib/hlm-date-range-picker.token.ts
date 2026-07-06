@@ -57,7 +57,7 @@ function getDefaultConfig<T>(): HlmDateRangePickerConfig<T> {
 		parseDate: (value) => {
 			if (typeof value !== 'string') return undefined;
 
-			const parts = value.split(' - ').map((part) => part.trim());
+			const parts = value.split('-').map((part) => part.trim());
 			if (parts.length !== 2) return undefined;
 
 			const start = new Date(parts[0]);

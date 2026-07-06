@@ -48,7 +48,7 @@ function getDefaultConfig<T>(): HlmYearMonthPickerConfig<T> {
 			const month = String(date.getMonth() + 1).padStart(2, '0');
 			const year = date.getFullYear();
 
-			return date.toISOString();
+			return `${month}/${year}`;
 		},
 		formatInputDate: (date) => {
 			if (!(date instanceof Date)) return `${date}`;

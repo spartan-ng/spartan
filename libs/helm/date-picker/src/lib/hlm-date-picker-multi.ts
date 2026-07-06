@@ -14,6 +14,7 @@ import {
 	viewChild,
 } from '@angular/core';
 import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { type BrnDatePickerBase, BrnDatePickerTriggerToken, provideBrnDatePicker } from '@spartan-ng/brain/date-picker';
 import { BrnFieldControl, provideBrnLabelable } from '@spartan-ng/brain/field';
 import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
 import type { BrnOverlayState } from '@spartan-ng/brain/overlay';
@@ -21,8 +22,6 @@ import { BrnPopover } from '@spartan-ng/brain/popover';
 import { HlmCalendarMulti } from '@spartan-ng/helm/calendar';
 import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 import { injectHlmDatePickerMultiConfig } from './hlm-date-picker-multi.token';
-import { HlmDatePickerTriggerToken } from './hlm-date-picker-trigger.token';
-import { HlmDatePickerBase, provideHlmDatePicker } from './hlm-date-picker.token';
 
 export const HLM_DATE_PICKER_MUTLI_VALUE_ACCESSOR = {
 	provide: NG_VALUE_ACCESSOR,
@@ -35,7 +34,7 @@ export const HLM_DATE_PICKER_MUTLI_VALUE_ACCESSOR = {
 	imports: [HlmPopoverImports, HlmCalendarMulti],
 	providers: [
 		HLM_DATE_PICKER_MUTLI_VALUE_ACCESSOR,
-		provideHlmDatePicker(HlmDatePickerMulti),
+		provideBrnDatePicker(HlmDatePickerMulti),
 		provideBrnLabelable(HlmDatePickerMulti),
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -63,12 +62,12 @@ export const HLM_DATE_PICKER_MUTLI_VALUE_ACCESSOR = {
 		</hlm-popover>
 	`,
 })
-export class HlmDatePickerMulti<T> implements HlmDatePickerBase<T[]>, ControlValueAccessor {
+export class HlmDatePickerMulti<T> implements BrnDatePickerBase<T[]>, ControlValueAccessor {
 	private readonly _config = injectHlmDatePickerMultiConfig<T>();
 
 	public readonly popover = viewChild.required(BrnPopover);
 
-	private readonly _trigger = contentChild(HlmDatePickerTriggerToken);
+	private readonly _trigger = contentChild(BrnDatePickerTriggerToken);
 
 	/** Show dropdowns to navigate between months or years. */
 	public readonly captionLayout = input<'dropdown' | 'label' | 'dropdown-months' | 'dropdown-years'>('label');

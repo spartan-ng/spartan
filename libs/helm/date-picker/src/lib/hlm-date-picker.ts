@@ -13,14 +13,14 @@ import {
 	viewChild,
 } from '@angular/core';
 import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { type BrnDatePickerBase, BrnDatePickerTriggerToken, provideBrnDatePicker } from '@spartan-ng/brain/date-picker';
 import { BrnFieldControl, provideBrnLabelable } from '@spartan-ng/brain/field';
 import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
 import type { BrnOverlayState } from '@spartan-ng/brain/overlay';
 import { BrnPopover } from '@spartan-ng/brain/popover';
 import { HlmCalendar } from '@spartan-ng/helm/calendar';
 import { HlmPopoverImports } from '@spartan-ng/helm/popover';
-import { HlmDatePickerTriggerToken } from './hlm-date-picker-trigger.token';
-import { HlmDatePickerBase, injectHlmDatePickerConfig, provideHlmDatePicker } from './hlm-date-picker.token';
+import { injectHlmDatePickerConfig } from './hlm-date-picker.token';
 
 export const HLM_DATE_PICKER_VALUE_ACCESSOR = {
 	provide: NG_VALUE_ACCESSOR,
@@ -31,7 +31,7 @@ export const HLM_DATE_PICKER_VALUE_ACCESSOR = {
 @Component({
 	selector: 'hlm-date-picker',
 	imports: [HlmPopoverImports, HlmCalendar],
-	providers: [HLM_DATE_PICKER_VALUE_ACCESSOR, provideHlmDatePicker(HlmDatePicker), provideBrnLabelable(HlmDatePicker)],
+	providers: [HLM_DATE_PICKER_VALUE_ACCESSOR, provideBrnDatePicker(HlmDatePicker), provideBrnLabelable(HlmDatePicker)],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	hostDirectives: [BrnFieldControl],
 	host: { class: 'block' },
@@ -56,12 +56,12 @@ export const HLM_DATE_PICKER_VALUE_ACCESSOR = {
 		</hlm-popover>
 	`,
 })
-export class HlmDatePicker<T> implements HlmDatePickerBase<T>, ControlValueAccessor {
+export class HlmDatePicker<T> implements BrnDatePickerBase<T>, ControlValueAccessor {
 	private readonly _config = injectHlmDatePickerConfig<T>();
 
 	public readonly popover = viewChild.required(BrnPopover);
 
-	private readonly _trigger = contentChild(HlmDatePickerTriggerToken);
+	private readonly _trigger = contentChild(BrnDatePickerTriggerToken);
 
 	/** Show dropdowns to navigate between months or years. */
 	public readonly captionLayout = input<'dropdown' | 'label' | 'dropdown-months' | 'dropdown-years'>('label');

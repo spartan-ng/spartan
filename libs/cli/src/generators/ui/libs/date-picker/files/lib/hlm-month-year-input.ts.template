@@ -18,6 +18,7 @@ import { injectHlmMonthYearPickerConfig } from './hlm-month-year-picker.token';
 	hostDirectives: [HlmInputGroup],
 	template: `
 		<input
+			#input
 			hlmInputGroupInput
 			[value]="_inputValue()"
 			[id]="inputId()"

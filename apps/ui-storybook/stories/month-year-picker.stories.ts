@@ -5,7 +5,7 @@ import { HlmFieldImports } from '@spartan-ng/helm/field';
 import { type Meta, moduleMetadata, type StoryObj } from '@storybook/angular';
 
 const meta: Meta<HlmMonthYearPicker<Date>> = {
-	title: 'Year Month Picker',
+	title: 'Month Year Picker',
 	component: HlmMonthYearPicker,
 	tags: ['autodocs'],
 	args: {

@@ -19,10 +19,4 @@ import { HlmCard, HlmCardImports } from '@spartan-ng/helm/card';
 export class CalendarMonthAndYearExample {
 	/** The selected date */
 	public selectedDate = new Date();
-
-	/** The minimum date */
-	public minDate = new Date(new Date().setMonth(new Date().getMonth() - 2));
-
-	/** The maximum date */
-	public maxDate = new Date(new Date().setMonth(new Date().getMonth() + 2));
 }

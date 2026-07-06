@@ -35,7 +35,7 @@ export default async function runExecutor(options: GenerateUiDocsExecutorSchema,
 	return { success: true };
 }
 
-function extractInputsOutputs(project: Project, workspaceRoot: string) {
+export function extractInputsOutputs(project: Project, workspaceRoot: string) {
 	const inputsOutputs = {};
 
 	// Build a registry of every class by name so we can resolve base classes and
@@ -207,7 +207,7 @@ function mapHostDirectiveMembers(memberProp, directiveMembers, kind: 'input' | '
 			.map((part) => part.trim());
 		const publicName = alias || originalName;
 
-		const resolved = membersByName.get(originalName);
+		const resolved = membersByName.get(originalName) as object;
 		if (!resolved) return;
 		if (seen.has(`${kind}:${publicName}`)) return;
 		seen.add(`${kind}:${publicName}`);

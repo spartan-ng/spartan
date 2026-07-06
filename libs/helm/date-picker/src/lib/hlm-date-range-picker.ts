@@ -14,14 +14,13 @@ import {
 	viewChild,
 } from '@angular/core';
 import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { type BrnDatePickerBase, BrnDatePickerTriggerToken, provideBrnDatePicker } from '@spartan-ng/brain/date-picker';
 import { BrnFieldControl, provideBrnLabelable } from '@spartan-ng/brain/field';
 import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
 import type { BrnOverlayState } from '@spartan-ng/brain/overlay';
 import { BrnPopover } from '@spartan-ng/brain/popover';
 import { HlmCalendarRange } from '@spartan-ng/helm/calendar';
 import { HlmPopoverImports } from '@spartan-ng/helm/popover';
-import { HlmDatePickerTriggerToken } from './hlm-date-picker-trigger.token';
-import { HlmDatePickerBase, provideHlmDatePicker } from './hlm-date-picker.token';
 import { injectHlmDateRangePickerConfig } from './hlm-date-range-picker.token';
 
 export const HLM_DATE_RANGE_PICKER_VALUE_ACCESSOR = {
@@ -35,7 +34,7 @@ export const HLM_DATE_RANGE_PICKER_VALUE_ACCESSOR = {
 	imports: [HlmPopoverImports, HlmCalendarRange],
 	providers: [
 		HLM_DATE_RANGE_PICKER_VALUE_ACCESSOR,
-		provideHlmDatePicker(HlmDateRangePicker),
+		provideBrnDatePicker(HlmDateRangePicker),
 		provideBrnLabelable(HlmDateRangePicker),
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -63,12 +62,12 @@ export const HLM_DATE_RANGE_PICKER_VALUE_ACCESSOR = {
 		</hlm-popover>
 	`,
 })
-export class HlmDateRangePicker<T> implements HlmDatePickerBase<T>, ControlValueAccessor {
+export class HlmDateRangePicker<T> implements BrnDatePickerBase<[T, T]>, ControlValueAccessor {
 	private readonly _config = injectHlmDateRangePickerConfig<T>();
 
 	public readonly popover = viewChild.required(BrnPopover);
 
-	private readonly _trigger = contentChild(HlmDatePickerTriggerToken);
+	private readonly _trigger = contentChild(BrnDatePickerTriggerToken);
 
 	/** Show dropdowns to navigate between months or years. */
 	public readonly captionLayout = input<'dropdown' | 'label' | 'dropdown-months' | 'dropdown-years'>('label');
@@ -122,6 +121,9 @@ export class HlmDateRangePicker<T> implements HlmDatePickerBase<T>, ControlValue
 
 	public readonly hasDate = computed(() => !!this._start() || !!this._end());
 
+	/** @internal The current raw value, used by inputs to reformat on focus. */
+	public readonly value = this._mutableDate.asReadonly();
+
 	protected _onChange?: ChangeFn<[T, T] | null>;
 	protected _onTouched?: TouchFn;
 
@@ -152,6 +154,35 @@ export class HlmDateRangePicker<T> implements HlmDatePickerBase<T>, ControlValue
 				this._popoverState.set('closed');
 			}
 		}
+	}
+
+	/**
+	 * Commit a range to the picker. Updates the internal model, notifies form
+	 * controls, and emits `dateChange`. Intended to be called from a text input
+	 * that parses user-entered values. Pass `undefined` to clear the range.
+	 */
+	public updateDate(value: [T, T] | undefined) {
+		if (this._disabled()) return;
+
+		if (!value) {
+			this._mutableDate.set(undefined);
+			this._start.set(undefined);
+			this._end.set(undefined);
+			this._onChange?.(null);
+			this.dateChange.emit(null);
+			return;
+		}
+
+		const transformedDates = this.transformDates()(value);
+		this._mutableDate.set(transformedDates);
+		this._start.set(transformedDates[0]);
+		this._end.set(transformedDates[1]);
+		this._onChange?.(transformedDates);
+		this.dateChange.emit(transformedDates);
+	}
+
+	public touched(): void {
+		this._onTouched?.();
 	}
 
 	/** CONTROL VALUE ACCESSOR */

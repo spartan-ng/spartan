@@ -1,0 +1,5 @@
+import { HlmYearMonthCalendar } from './lib/hlm-year-month-calendar';
+
+export * from './lib/hlm-year-month-calendar';
+
+export const HlmYearMonthImports = [HlmYearMonthCalendar] as const;

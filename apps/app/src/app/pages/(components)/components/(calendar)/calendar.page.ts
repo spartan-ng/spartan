@@ -3,6 +3,7 @@ import { Component, computed, inject } from '@angular/core';
 import { injectComponentDocs } from '@spartan-ng/app/app/core/services/component-docs';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { CalendarRangeExample } from '@spartan-ng/app/app/pages/(components)/components/(calendar)/calendar--range.example';
+import { CalendarYearAndMonthDropdownsExample } from '@spartan-ng/app/app/pages/(components)/components/(calendar)/calendar--year-and-month-dropdowns.example';
 import { CalendarYearAndMonthExample } from '@spartan-ng/app/app/pages/(components)/components/(calendar)/calendar--year-and-month.example';
 import { CodePreview } from '@spartan-ng/app/app/shared/code/code-preview';
 import { CodeRtlPreview } from '@spartan-ng/app/app/shared/code/code-rtl-preview';
@@ -52,8 +53,9 @@ export const routeMeta: RouteMeta = {
 		CodeRtlPreview,
 		CalendarMultipleExample,
 		CalendarRangeExample,
-		CalendarYearAndMonthExample,
+		CalendarYearAndMonthDropdownsExample,
 		CalendarRtl,
+		CalendarYearAndMonthExample,
 	],
 	template: `
 		<section spartanMainSection>
@@ -151,7 +153,16 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
-					<spartan-calendar-year-and-month />
+					<spartan-calendar-year-and-month-dropdown />
+				</div>
+				<spartan-code secondTab [code]="_yearAndMonthDropdownsCode()" />
+			</spartan-tabs>
+
+			<h3 id="examples__month_and_year" spartanH4>Month and Year</h3>
+
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-year-month-example />
 				</div>
 				<spartan-code secondTab [code]="_yearAndMonthCode()" />
 			</spartan-tabs>
@@ -194,6 +205,7 @@ export default class CardPage {
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
 	protected readonly _multipleCode = computed(() => this._snippets()['multiple']);
 	protected readonly _rangeCode = computed(() => this._snippets()['range']);
+	protected readonly _yearAndMonthDropdownsCode = computed(() => this._snippets()['yearAndMonthDropdowns']);
 	protected readonly _yearAndMonthCode = computed(() => this._snippets()['yearAndMonth']);
 	protected readonly _rtlCode = computed(() => this._snippets()['rtl']);
 	protected readonly _defaultImports = defaultImports;

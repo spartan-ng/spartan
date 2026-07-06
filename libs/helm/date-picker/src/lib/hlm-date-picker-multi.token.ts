@@ -15,19 +15,76 @@ export interface HlmDatePickerMultiConfig<T> {
 	formatDates: (dates: T[]) => string;
 
 	/**
+	 * Defines how the dates should be displayed while the input is focused,
+	 * i.e. the format the user is expected to type in.
+	 *
+	 * @param dates
+	 * @returns formatted dates in the input/edit format
+	 */
+	formatInputDates: (dates: T[]) => string;
+
+	/**
 	 * Defines how the date should be transformed before saving to model/form.
 	 *
 	 * @param dates
 	 * @returns transformed date
 	 */
 	transformDates: (dates: T[]) => T[];
+
+	/**
+	 * Parse a user-entered string into a date.
+	 *
+	 * @param value the raw string from the input
+	 * @returns the parsed date, or `undefined` when the value can't be parsed
+	 */
+	parseDate: (value: string) => T[] | undefined;
 }
 
 function getDefaultConfig<T>(): HlmDatePickerMultiConfig<T> {
 	return {
 		formatDates: (dates) => dates.map((date) => (date instanceof Date ? date.toDateString() : `${date}`)).join(', '),
+		formatInputDates: (dates) =>
+			dates
+				.map((date) => {
+					if (!(date instanceof Date)) return `${date}`;
+
+					const day = String(date.getDate()).padStart(2, '0');
+					const month = String(date.getMonth() + 1).padStart(2, '0');
+					const year = date.getFullYear();
+
+					return `${day}/${month}/${year}`;
+				})
+				.join(', '),
 		transformDates: (dates) => dates,
 		autoCloseOnMaxSelection: false,
+		parseDate: (value) => {
+			if (typeof value !== 'string') return undefined;
+
+			const parts = value.split(',').map((v) => v.trim());
+			const result: Date[] = [];
+
+			for (const part of parts) {
+				const match = part.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+				if (!match) return undefined;
+
+				const day = Number(match[1]);
+				const month = Number(match[2]);
+				const year = Number(match[3]);
+
+				if (month < 1 || month > 12) return undefined;
+				if (day < 1 || day > 31) return undefined;
+
+				const date = new Date(year, month - 1, day);
+
+				if (date.getFullYear() !== year || date.getMonth() !== month - 1 || date.getDate() !== day) {
+					return undefined;
+				}
+
+				result.push(date);
+			}
+
+			return result as T[];
+		},
 	};
 }
 

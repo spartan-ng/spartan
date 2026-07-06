@@ -1,6 +1,6 @@
 import { inject, InjectionToken, type ValueProvider } from '@angular/core';
 
-export interface HlmYearMonthPickerConfig<T> {
+export interface HlmMonthYearPickerConfig<T> {
 	/**
 	 * If true, the date picker will close when a date is selected.
 	 */
@@ -40,7 +40,7 @@ export interface HlmYearMonthPickerConfig<T> {
 	parseDate: (value: string) => T | undefined;
 }
 
-function getDefaultConfig<T>(): HlmYearMonthPickerConfig<T> {
+function getDefaultConfig<T>(): HlmMonthYearPickerConfig<T> {
 	return {
 		formatDate: (date) => {
 			if (!(date instanceof Date)) return `${date}`;
@@ -78,13 +78,13 @@ function getDefaultConfig<T>(): HlmYearMonthPickerConfig<T> {
 	};
 }
 
-const HlmYearMonthPickerConfigToken = new InjectionToken<HlmYearMonthPickerConfig<unknown>>('HlmYearMonthPickerConfig');
+const HlmMonthYearPickerConfigToken = new InjectionToken<HlmMonthYearPickerConfig<unknown>>('HlmMonthYearPickerConfig');
 
-export function provideHlmYearMonthPickerConfig<T>(config: Partial<HlmYearMonthPickerConfig<T>>): ValueProvider {
-	return { provide: HlmYearMonthPickerConfigToken, useValue: { ...getDefaultConfig(), ...config } };
+export function provideHlmMonthYearPickerConfig<T>(config: Partial<HlmMonthYearPickerConfig<T>>): ValueProvider {
+	return { provide: HlmMonthYearPickerConfigToken, useValue: { ...getDefaultConfig(), ...config } };
 }
 
-export function injectHlmYearMonthPickerConfig<T>(): HlmYearMonthPickerConfig<T> {
-	const injectedConfig = inject(HlmYearMonthPickerConfigToken, { optional: true });
-	return injectedConfig ? (injectedConfig as HlmYearMonthPickerConfig<T>) : getDefaultConfig();
+export function injectHlmMonthYearPickerConfig<T>(): HlmMonthYearPickerConfig<T> {
+	const injectedConfig = inject(HlmMonthYearPickerConfigToken, { optional: true });
+	return injectedConfig ? (injectedConfig as HlmMonthYearPickerConfig<T>) : getDefaultConfig();
 }

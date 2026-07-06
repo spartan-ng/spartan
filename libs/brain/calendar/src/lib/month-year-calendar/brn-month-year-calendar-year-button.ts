@@ -1,10 +1,10 @@
 import { computed, DestroyRef, Directive, ElementRef, inject, input } from '@angular/core';
 import { injectDateAdapter } from '@spartan-ng/brain/date-time';
-import { YEARS_PER_PAGE } from './brn-year-month-calendar';
-import { injectBrnYearMonthCalendar } from './brn-year-month-calendar.token';
+import { YEARS_PER_PAGE } from './brn-month-year-calendar';
+import { injectBrnMonthYearCalendar } from './brn-month-year-calendar.token';
 
 @Directive({
-	selector: 'button[brnYearMonthCalendarYearButton]',
+	selector: 'button[brnMonthYearCalendarYearButton]',
 	host: {
 		role: 'gridcell',
 		type: 'button',
@@ -16,23 +16,23 @@ import { injectBrnYearMonthCalendar } from './brn-year-month-calendar.token';
 		'[attr.aria-selected]': 'selected() ? true : null',
 		'[attr.aria-disabled]': 'disabled() ? true : null',
 		'[disabled]': 'disabled()',
-		'(click)': '_yearMonth.selectYear(date())',
+		'(click)': '_monthYear.selectYear(date())',
 		'(keydown.arrowLeft)': 'focusOffset($event, getDirection() === "rtl" ? 1 : -1)',
 		'(keydown.arrowRight)': 'focusOffset($event, getDirection() === "rtl" ? -1 : 1)',
 		'(keydown.arrowUp)': 'focusOffset($event, -4)',
 		'(keydown.arrowDown)': 'focusOffset($event, 4)',
-		'(keydown.home)': 'focusYear($event, _yearMonth.yearRange().start)',
-		'(keydown.end)': 'focusYear($event, _yearMonth.yearRange().end)',
+		'(keydown.home)': 'focusYear($event, _monthYear.yearRange().start)',
+		'(keydown.end)': 'focusYear($event, _monthYear.yearRange().end)',
 		'(keydown.pageUp)': 'focusOffset($event, -_yearsPerPage)',
 		'(keydown.pageDown)': 'focusOffset($event, _yearsPerPage)',
 	},
 })
-export class BrnYearMonthCalendarYearButton<T> {
+export class BrnMonthYearCalendarYearButton<T> {
 	/** Access the date adapter */
 	protected readonly _dateAdapter = injectDateAdapter<T>();
 
 	/** Access the month/year selector */
-	protected readonly _yearMonth = injectBrnYearMonthCalendar<T>();
+	protected readonly _monthYear = injectBrnMonthYearCalendar<T>();
 
 	/** Access the element ref */
 	private readonly _elementRef = inject<ElementRef<HTMLButtonElement>>(ElementRef);
@@ -45,29 +45,29 @@ export class BrnYearMonthCalendarYearButton<T> {
 	/** Expose the value for the month/year selector's focus tracking. */
 	public readonly value = this.date;
 
-	public readonly selected = computed(() => this._yearMonth.isYearSelected(this.date()));
-	public readonly today = computed(() => this._yearMonth.isYearToday(this.date()));
-	public readonly disabled = computed(() => this._yearMonth.isYearDisabled(this.date()));
+	public readonly selected = computed(() => this._monthYear.isYearSelected(this.date()));
+	public readonly today = computed(() => this._monthYear.isYearToday(this.date()));
+	public readonly disabled = computed(() => this._monthYear.isYearDisabled(this.date()));
 
-	public readonly focusable = computed(() => this._dateAdapter.isSameYear(this._yearMonth.focusedDate(), this.date()));
+	public readonly focusable = computed(() => this._dateAdapter.isSameYear(this._monthYear.focusedDate(), this.date()));
 
 	protected readonly _yearsPerPage = YEARS_PER_PAGE;
 
 	constructor() {
-		this._yearMonth.registerCell(this);
-		this._destroyRef.onDestroy(() => this._yearMonth.unregisterCell(this));
+		this._monthYear.registerCell(this);
+		this._destroyRef.onDestroy(() => this._monthYear.unregisterCell(this));
 	}
 
 	protected focusOffset(event: Event, offset: number): void {
 		event.preventDefault();
 		event.stopPropagation();
-		this._yearMonth.setFocusedYear(this._dateAdapter.add(this._yearMonth.focusedDate(), { years: offset }));
+		this._monthYear.setFocusedYear(this._dateAdapter.add(this._monthYear.focusedDate(), { years: offset }));
 	}
 
 	protected focusYear(event: Event, year: number): void {
 		event.preventDefault();
 		event.stopPropagation();
-		this._yearMonth.setFocusedYear(this._dateAdapter.set(this._yearMonth.focusedDate(), { year }));
+		this._monthYear.setFocusedYear(this._dateAdapter.set(this._monthYear.focusedDate(), { year }));
 	}
 
 	protected getDirection(): 'ltr' | 'rtl' {

@@ -1,9 +1,9 @@
 import { computed, DestroyRef, Directive, ElementRef, inject, input } from '@angular/core';
 import { injectDateAdapter } from '@spartan-ng/brain/date-time';
-import { injectBrnYearMonthCalendar } from './brn-year-month-calendar.token';
+import { injectBrnMonthYearCalendar } from './brn-month-year-calendar.token';
 
 @Directive({
-	selector: 'button[brnYearMonthCalendarMonthButton]',
+	selector: 'button[brnMonthYearCalendarMonthButton]',
 	host: {
 		role: 'gridcell',
 		type: 'button',
@@ -15,7 +15,7 @@ import { injectBrnYearMonthCalendar } from './brn-year-month-calendar.token';
 		'[attr.aria-selected]': 'selected() ? true : null',
 		'[attr.aria-disabled]': 'disabled() ? true : null',
 		'[disabled]': 'disabled()',
-		'(click)': '_yearMonth.selectMonth(date())',
+		'(click)': '_monthYear.selectMonth(date())',
 		'(keydown.arrowLeft)': 'focusOffset($event, getDirection() === "rtl" ? 1 : -1)',
 		'(keydown.arrowRight)': 'focusOffset($event, getDirection() === "rtl" ? -1 : 1)',
 		'(keydown.arrowUp)': 'focusOffset($event, -4)',
@@ -26,12 +26,12 @@ import { injectBrnYearMonthCalendar } from './brn-year-month-calendar.token';
 		'(keydown.pageDown)': 'focusYearOffset($event, 1)',
 	},
 })
-export class BrnYearMonthCalendarMonthButton<T> {
+export class BrnMonthYearCalendarMonthButton<T> {
 	/** Access the date adapter */
 	protected readonly _dateAdapter = injectDateAdapter<T>();
 
 	/** Access the month/year selector */
-	protected readonly _yearMonth = injectBrnYearMonthCalendar<T>();
+	protected readonly _monthYear = injectBrnMonthYearCalendar<T>();
 
 	/** Access the element ref */
 	private readonly _elementRef = inject<ElementRef<HTMLButtonElement>>(ElementRef);
@@ -44,37 +44,37 @@ export class BrnYearMonthCalendarMonthButton<T> {
 	/** Expose the value for the month/year selector's focus tracking. */
 	public readonly value = this.date;
 
-	public readonly selected = computed(() => this._yearMonth.isMonthSelected(this.date()));
-	public readonly today = computed(() => this._yearMonth.isMonthToday(this.date()));
-	public readonly disabled = computed(() => this._yearMonth.isMonthDisabled(this.date()));
+	public readonly selected = computed(() => this._monthYear.isMonthSelected(this.date()));
+	public readonly today = computed(() => this._monthYear.isMonthToday(this.date()));
+	public readonly disabled = computed(() => this._monthYear.isMonthDisabled(this.date()));
 
 	public readonly focusable = computed(
 		() =>
-			this._dateAdapter.isSameMonth(this._yearMonth.focusedDate(), this.date()) &&
-			this._dateAdapter.isSameYear(this._yearMonth.focusedDate(), this.date()),
+			this._dateAdapter.isSameMonth(this._monthYear.focusedDate(), this.date()) &&
+			this._dateAdapter.isSameYear(this._monthYear.focusedDate(), this.date()),
 	);
 
 	constructor() {
-		this._yearMonth.registerCell(this);
-		this._destroyRef.onDestroy(() => this._yearMonth.unregisterCell(this));
+		this._monthYear.registerCell(this);
+		this._destroyRef.onDestroy(() => this._monthYear.unregisterCell(this));
 	}
 
 	protected focusOffset(event: Event, offset: number): void {
 		event.preventDefault();
 		event.stopPropagation();
-		this._yearMonth.setFocusedMonth(this._dateAdapter.add(this._yearMonth.focusedDate(), { months: offset }));
+		this._monthYear.setFocusedMonth(this._dateAdapter.add(this._monthYear.focusedDate(), { months: offset }));
 	}
 
 	protected focusMonth(event: Event, month: number): void {
 		event.preventDefault();
 		event.stopPropagation();
-		this._yearMonth.setFocusedMonth(this._dateAdapter.set(this._yearMonth.focusedDate(), { month, day: 1 }));
+		this._monthYear.setFocusedMonth(this._dateAdapter.set(this._monthYear.focusedDate(), { month, day: 1 }));
 	}
 
 	protected focusYearOffset(event: Event, offset: number): void {
 		event.preventDefault();
 		event.stopPropagation();
-		this._yearMonth.setFocusedMonth(this._dateAdapter.add(this._yearMonth.focusedDate(), { years: offset }));
+		this._monthYear.setFocusedMonth(this._dateAdapter.add(this._monthYear.focusedDate(), { years: offset }));
 	}
 
 	protected getDirection(): 'ltr' | 'rtl' {

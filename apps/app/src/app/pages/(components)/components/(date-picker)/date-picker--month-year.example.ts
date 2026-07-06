@@ -4,18 +4,18 @@ import { HlmDatePickerImports } from '@spartan-ng/helm/date-picker';
 import { HlmFieldImports } from '@spartan-ng/helm/field';
 
 @Component({
-	selector: 'spartan-date-year-month-picker',
+	selector: 'spartan-date-month-year-picker',
 	imports: [HlmDatePickerImports, HlmFieldImports, FormsModule, ReactiveFormsModule],
 	template: `
 		<hlm-field>
 			<label hlmFieldLabel>Month Year Picker</label>
-			<hlm-year-month-picker [min]="minDate" [max]="maxDate" autoCloseOnSelect>
+			<hlm-month-year-picker [min]="minDate" [max]="maxDate" autoCloseOnSelect>
 				<hlm-date-picker-trigger>Pick a year and month</hlm-date-picker-trigger>
-			</hlm-year-month-picker>
+			</hlm-month-year-picker>
 		</hlm-field>
 	`,
 })
-export class DatePickerYearMonthExample {
+export class DatePickerMonthYearExample {
 	/** The minimum date */
 	public minDate = new Date(2023, 0, 1);
 

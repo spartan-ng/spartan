@@ -1,36 +1,4 @@
-import {
-	type ExistingProvider,
-	inject,
-	InjectionToken,
-	type Signal,
-	type Type,
-	type ValueProvider,
-} from '@angular/core';
-import type { BrnPopover } from '@spartan-ng/brain/popover';
-
-export interface HlmDatePickerBase<T> {
-	popover: Signal<BrnPopover>;
-	disabledState: Signal<boolean>;
-	formattedDate: Signal<string | undefined>;
-	hasDate: Signal<boolean>;
-	/** Commit a date to the picker (e.g. from a parsed input). Pass `undefined` to clear. Optional. */
-	updateDate?(value: T | undefined): void;
-	// used for ControlValueAccessor
-	touched?(): void;
-}
-
-export const HlmDatePickerToken = new InjectionToken<HlmDatePickerBase<unknown>>('HlmDatePickerToken');
-
-export function provideHlmDatePicker(instance: Type<HlmDatePickerBase<unknown>>): ExistingProvider {
-	return { provide: HlmDatePickerToken, useExisting: instance };
-}
-
-/**
- * Inject the date picker component.
- */
-export function injectHlmDatePicker<T>(): HlmDatePickerBase<T> {
-	return inject(HlmDatePickerToken) as HlmDatePickerBase<T>;
-}
+import { inject, InjectionToken, type ValueProvider } from '@angular/core';
 
 export interface HlmDatePickerConfig<T> {
 	/**
@@ -45,6 +13,15 @@ export interface HlmDatePickerConfig<T> {
 	 * @returns formatted date
 	 */
 	formatDate: (date: T) => string;
+
+	/**
+	 * Defines how the date should be displayed while the input is focused,
+	 * i.e. the format the user is expected to type in.
+	 *
+	 * @param date
+	 * @returns formatted date in the input/edit format
+	 */
+	formatInputDate: (date: T) => string;
 
 	/**
 	 * Defines how the date should be transformed before saving to model/form.
@@ -66,6 +43,7 @@ export interface HlmDatePickerConfig<T> {
 function getDefaultConfig<T>(): HlmDatePickerConfig<T> {
 	return {
 		formatDate: (date) => (date instanceof Date ? date.toDateString() : `${date}`),
+		formatInputDate: (date) => (date instanceof Date ? date.toDateString() : `${date}`),
 		transformDate: (date) => date,
 		parseDate: (value) => {
 			const date = new Date(value);

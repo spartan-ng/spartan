@@ -13,28 +13,27 @@ import {
 	viewChild,
 } from '@angular/core';
 import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { type BrnDatePickerBase, BrnDatePickerTriggerToken, provideBrnDatePicker } from '@spartan-ng/brain/date-picker';
 import { BrnFieldControl, provideBrnLabelable } from '@spartan-ng/brain/field';
 import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
 import type { BrnOverlayState } from '@spartan-ng/brain/overlay';
 import { BrnPopover } from '@spartan-ng/brain/popover';
-import { HlmCalendarImports } from '<%- importAlias %>/calendar';
-import { HlmPopoverImports } from '<%- importAlias %>/popover';
-import { HlmDatePickerTriggerToken } from './hlm-date-picker-trigger.token';
-import { HlmDatePickerBase, provideHlmDatePicker } from './hlm-date-picker.token';
-import { injectHlmYearMonthPickerConfig } from './hlm-year-month-picker.token';
+import { HlmCalendarImports } from '@spartan-ng/helm/calendar';
+import { HlmPopoverImports } from '@spartan-ng/helm/popover';
+import { injectHlmMonthYearPickerConfig } from './hlm-month-year-picker.token';
 
 export const HLM_MONTH_YEAR_PICKER_VALUE_ACCESSOR = {
 	provide: NG_VALUE_ACCESSOR,
-	useExisting: forwardRef(() => HlmYearMonthPicker),
+	useExisting: forwardRef(() => HlmMonthYearPicker),
 	multi: true,
 };
 @Component({
-	selector: 'hlm-year-month-picker',
+	selector: 'hlm-month-year-picker',
 	imports: [HlmPopoverImports, HlmCalendarImports],
 	providers: [
 		HLM_MONTH_YEAR_PICKER_VALUE_ACCESSOR,
-		provideHlmDatePicker(HlmYearMonthPicker),
-		provideBrnLabelable(HlmYearMonthPicker),
+		provideBrnDatePicker(HlmMonthYearPicker),
+		provideBrnLabelable(HlmMonthYearPicker),
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	hostDirectives: [BrnFieldControl],
@@ -45,7 +44,7 @@ export const HLM_MONTH_YEAR_PICKER_VALUE_ACCESSOR = {
 
 			<hlm-popover-content class="w-fit p-0" *hlmPopoverPortal="let ctx">
 				<ng-content select="[hlmDatePickerHeader]" />
-				<hlm-year-month-calendar
+				<hlm-month-year-calendar
 					class="rounded-none border-0"
 					[date]="_mutableDate()"
 					[defaultFocusedDate]="_mutableDate() ?? defaultFocusedDate()"
@@ -59,12 +58,12 @@ export const HLM_MONTH_YEAR_PICKER_VALUE_ACCESSOR = {
 		</hlm-popover>
 	`,
 })
-export class HlmYearMonthPicker<T> implements HlmDatePickerBase<T>, ControlValueAccessor {
-	private readonly _config = injectHlmYearMonthPickerConfig<T>();
+export class HlmMonthYearPicker<T> implements BrnDatePickerBase<T>, ControlValueAccessor {
+	private readonly _config = injectHlmMonthYearPickerConfig<T>();
 
 	public readonly popover = viewChild.required(BrnPopover);
 
-	private readonly _trigger = contentChild(HlmDatePickerTriggerToken);
+	private readonly _trigger = contentChild(BrnDatePickerTriggerToken);
 
 	/** The minimum date that can be selected.*/
 	public readonly min = input<T>();
@@ -113,6 +112,9 @@ export class HlmYearMonthPicker<T> implements HlmDatePickerBase<T>, ControlValue
 	public readonly labelableId = computed(() => this._trigger()?.triggerId());
 
 	public readonly hasDate = computed(() => !!this._mutableDate());
+
+	/** @internal The current raw value, used by inputs to reformat on focus. */
+	public readonly value = this._mutableDate.asReadonly();
 
 	protected _onChange?: ChangeFn<T>;
 	protected _onTouched?: TouchFn;

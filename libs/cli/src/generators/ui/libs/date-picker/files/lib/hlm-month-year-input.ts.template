@@ -8,12 +8,12 @@ import {
 	provideBrnDatePickerTrigger,
 } from '@spartan-ng/brain/date-picker';
 import { HlmInputGroup, HlmInputGroupImports } from '<%- importAlias %>/input-group';
-import { injectHlmDatePickerConfig } from './hlm-date-picker.token';
+import { injectHlmMonthYearPickerConfig } from './hlm-month-year-picker.token';
 
 @Component({
-	selector: 'hlm-date-picker-input',
+	selector: 'hlm-month-year-input',
 	imports: [HlmInputGroupImports, NgIcon],
-	providers: [provideIcons({ lucideCalendar, lucideX }), provideBrnDatePickerTrigger(HlmDatePickerInput)],
+	providers: [provideIcons({ lucideCalendar, lucideX }), provideBrnDatePickerTrigger(HlmMonthYearInput)],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	hostDirectives: [HlmInputGroup],
 	template: `
@@ -56,11 +56,11 @@ import { injectHlmDatePickerConfig } from './hlm-date-picker.token';
 		</hlm-input-group-addon>
 	`,
 })
-export class HlmDatePickerInput<T> extends BrnDateInput<T> implements BrnDatePickerTriggerBase {
+export class HlmMonthYearInput<T> extends BrnDateInput<T> implements BrnDatePickerTriggerBase {
 	private static _nextId = 0;
-	private readonly _config = injectHlmDatePickerConfig<T>();
+	private readonly _config = injectHlmMonthYearPickerConfig<T>();
 
-	public readonly inputId = input(`hlm-date-picker-input-${HlmDatePickerInput._nextId++}`);
+	public readonly inputId = input(`hlm-month-year-input-${HlmMonthYearInput._nextId++}`);
 
 	public readonly placeholder = input('');
 
@@ -69,7 +69,7 @@ export class HlmDatePickerInput<T> extends BrnDateInput<T> implements BrnDatePic
 	 * input - the picker's date is cleared while the text is preserved so
 	 * the user can fix it.
 	 *
-	 * Defaults to `parseDate` from `HlmDatePickerConfig`.
+	 * Defaults to `parseDate` from `HlmMonthYearPickerConfig`.
 	 */
 	public readonly parseDate = input<(value: string) => T | undefined>(this._config.parseDate);
 
@@ -77,7 +77,7 @@ export class HlmDatePickerInput<T> extends BrnDateInput<T> implements BrnDatePic
 	 * Formats the current date into the input/edit format shown while the
 	 * input is focused. On blur the picker's display format is restored.
 	 *
-	 * Defaults to `formatInputDate` from `HlmDatePickerConfig`.
+	 * Defaults to `formatInputDate` from `HlmMonthYearPickerConfig`.
 	 */
 	public readonly formatInputDate = input<(date: T) => string>(this._config.formatInputDate);
 
@@ -92,11 +92,11 @@ export class HlmDatePickerInput<T> extends BrnDateInput<T> implements BrnDatePic
 	/** @internal Id used by the trigger contract for labeling. */
 	public readonly triggerId = this.inputId;
 
-	protected parseValue(value: string): T | undefined {
+	protected override parseValue(value: string): T | undefined {
 		return this.parseDate()(value);
 	}
 
-	protected formatInputValue(value: T): string {
+	protected override formatInputValue(value: T): string {
 		return this.formatInputDate()(value);
 	}
 }

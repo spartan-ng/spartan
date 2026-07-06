@@ -13,13 +13,13 @@ import {
 	model,
 } from '@angular/core';
 import { injectDateAdapter } from '@spartan-ng/brain/date-time';
-import { BrnYearMonthCalendarHeader } from './brn-year-month-calendar-header';
+import { BrnMonthYearCalendarHeader } from './brn-month-year-calendar-header';
 import {
-	BrnYearMonthCalendarBase,
-	BrnYearMonthCalendarCell,
-	BrnYearMonthCalendarView,
-	provideBrnYearMonthCalendar,
-} from './brn-year-month-calendar.token';
+	BrnMonthYearCalendarBase,
+	BrnMonthYearCalendarCell,
+	BrnMonthYearCalendarView,
+	provideBrnMonthYearCalendar,
+} from './brn-month-year-calendar.token';
 
 /** The number of years shown per page (4 columns x 3 rows). */
 export const YEARS_PER_PAGE = 12;
@@ -30,10 +30,10 @@ function floorMod(value: number, modulo: number): number {
 }
 
 @Directive({
-	selector: '[brnYearMonthCalendar]',
-	providers: [provideBrnYearMonthCalendar(BrnYearMonthCalendar)],
+	selector: '[brnMonthYearCalendar]',
+	providers: [provideBrnMonthYearCalendar(BrnMonthYearCalendar)],
 })
-export class BrnYearMonthCalendar<T> implements BrnYearMonthCalendarBase<T> {
+export class BrnMonthYearCalendar<T> implements BrnMonthYearCalendarBase<T> {
 	/** Access the date adapter */
 	protected readonly _dateAdapter = injectDateAdapter<T>();
 
@@ -61,20 +61,20 @@ export class BrnYearMonthCalendar<T> implements BrnYearMonthCalendarBase<T> {
 	public readonly defaultFocusedDate = input<T>();
 
 	/** The current view. The year view is shown first. */
-	public readonly viewInput = input<BrnYearMonthCalendarView>('year', { alias: 'view' });
+	public readonly viewInput = input<BrnMonthYearCalendarView>('year', { alias: 'view' });
 
 	/** The current view mutable. The year view is shown first. */
 	public readonly view = linkedSignal(this.viewInput);
 
 	/** @internal Access the header */
-	public readonly header = contentChild(BrnYearMonthCalendarHeader);
+	public readonly header = contentChild(BrnMonthYearCalendarHeader);
 
 	/** The focused date. */
 	public readonly focusedDate = linkedSignal(() =>
 		this.constrainDate(this.defaultFocusedDate() ?? this.date() ?? this._dateAdapter.now()),
 	);
 
-	private readonly _cells: BrnYearMonthCalendarCell<T>[] = [];
+	private readonly _cells: BrnMonthYearCalendarCell<T>[] = [];
 
 	/** The 12 months of the currently focused year. */
 	public readonly months = computed<T[]>(() => {
@@ -138,22 +138,15 @@ export class BrnYearMonthCalendar<T> implements BrnYearMonthCalendarBase<T> {
 		}
 
 		const year = this._dateAdapter.getYear(date);
-		this.focusedDate.set(this._dateAdapter.set(this.focusedDate(), { year }));
+		let target = this._dateAdapter.set(this.focusedDate(), { year });
+		if (this.isMonthDisabled(target)) {
+			target = this._dateAdapter.set(target, { month: 0, day: 1 });
+		}
+		this.focusedDate.set(target);
 		this.view.set('month');
 
 		// focus the first available month once the month view is rendered.
-		afterNextRender(
-			{
-				write: () => {
-					const cell = this._cells[0];
-					if (cell) {
-						cell.focus();
-					}
-				},
-			},
-			{ injector: this._injector },
-		);
-		this._changeDetector.detectChanges();
+		this._focusCell((cell) => !this.isMonthDisabled(cell));
 	}
 
 	isMonthSelected(date: T): boolean {
@@ -292,11 +285,11 @@ export class BrnYearMonthCalendar<T> implements BrnYearMonthCalendarBase<T> {
 		this._changeDetector.detectChanges();
 	}
 
-	registerCell(cell: BrnYearMonthCalendarCell<T>): void {
+	registerCell(cell: BrnMonthYearCalendarCell<T>): void {
 		this._cells.push(cell);
 	}
 
-	unregisterCell(cell: BrnYearMonthCalendarCell<T>): void {
+	unregisterCell(cell: BrnMonthYearCalendarCell<T>): void {
 		const index = this._cells.indexOf(cell);
 		if (index !== -1) {
 			this._cells.splice(index, 1);

@@ -2,9 +2,9 @@ import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
 import { injectComponentDocs } from '@spartan-ng/app/app/core/services/component-docs';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
+import { CalendarMonthAndYearExample } from '@spartan-ng/app/app/pages/(components)/components/(calendar)/calendar--month-and-year.example';
 import { CalendarRangeExample } from '@spartan-ng/app/app/pages/(components)/components/(calendar)/calendar--range.example';
 import { CalendarYearAndMonthDropdownsExample } from '@spartan-ng/app/app/pages/(components)/components/(calendar)/calendar--year-and-month-dropdowns.example';
-import { CalendarYearAndMonthExample } from '@spartan-ng/app/app/pages/(components)/components/(calendar)/calendar--year-and-month.example';
 import { CodePreview } from '@spartan-ng/app/app/shared/code/code-preview';
 import { CodeRtlPreview } from '@spartan-ng/app/app/shared/code/code-rtl-preview';
 import { RtlHeader } from '@spartan-ng/app/app/shared/code/rtl-header';
@@ -55,7 +55,7 @@ export const routeMeta: RouteMeta = {
 		CalendarRangeExample,
 		CalendarYearAndMonthDropdownsExample,
 		CalendarRtl,
-		CalendarYearAndMonthExample,
+		CalendarMonthAndYearExample,
 	],
 	template: `
 		<section spartanMainSection>
@@ -162,7 +162,7 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
-					<spartan-year-month-example />
+					<spartan-month-year-example />
 				</div>
 				<spartan-code secondTab [code]="_yearAndMonthCode()" />
 			</spartan-tabs>

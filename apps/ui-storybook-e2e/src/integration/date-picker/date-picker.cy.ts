@@ -1,8 +1,8 @@
 /**
  * e2e coverage for the date picker family:
- * - trigger + calendar selection for single / multi / range / year-month pickers
+ * - trigger + calendar selection for single / multi / range / month-year pickers
  * - the text-input variants (`hlm-date-picker-input`, `hlm-date-multi-input`,
- *   `hlm-date-range-input`, `hlm-year-month-input`), including the enter-then-blur
+ *   `hlm-date-range-input`, `hlm-month-year-input`), including the enter-then-blur
  *   regression where committing with Enter and then blurring must NOT clear the value.
  *
  * The Input stories render a hidden `hlm-date-picker-trigger` next to the input. Its
@@ -234,20 +234,20 @@ describe('date picker', () => {
 		});
 	});
 
-	describe('year-month - trigger', () => {
+	describe('month-year - trigger', () => {
 		beforeEach(() => {
-			cy.visit('/iframe.html?id=year-month-picker--default');
+			cy.visit('/iframe.html?id=month-year-picker--default');
 		});
 
-		it('opens the year-month calendar', () => {
+		it('opens the month-year calendar', () => {
 			cy.get('#date').click();
-			cy.get('hlm-year-month-calendar').should('exist');
+			cy.get('hlm-month-year-calendar').should('exist');
 		});
 	});
 
-	describe('year-month - input', () => {
+	describe('month-year - input', () => {
 		beforeEach(() => {
-			cy.visit('/iframe.html?id=year-month-picker--input');
+			cy.visit('/iframe.html?id=month-year-picker--input');
 		});
 
 		it('renders the input', () => {

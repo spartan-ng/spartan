@@ -1039,7 +1039,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "outputs": [],
         "selector": "brnSelect[brnCalendarYearSelect],hlm-select[brnCalendarYearSelect]",
       },
-      "BrnYearMonthCalendar": {
+      "BrnMonthYearCalendar": {
         "inputs": [
           {
             "name": "min",
@@ -1064,7 +1064,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
           {
             "name": "view",
             "required": false,
-            "type": "BrnYearMonthCalendarView",
+            "type": "BrnMonthYearCalendarView",
           },
         ],
         "models": [
@@ -1074,15 +1074,15 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
           },
         ],
         "outputs": [],
-        "selector": "[brnYearMonthCalendar]",
+        "selector": "[brnMonthYearCalendar]",
       },
-      "BrnYearMonthCalendarGrid": {
+      "BrnMonthYearCalendarGrid": {
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "[brnYearMonthCalendarGrid]",
+        "selector": "[brnMonthYearCalendarGrid]",
       },
-      "BrnYearMonthCalendarHeader": {
+      "BrnMonthYearCalendarHeader": {
         "inputs": [
           {
             "name": "id",
@@ -1092,9 +1092,9 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "button[brnYearMonthCalendarHeader]",
+        "selector": "button[brnMonthYearCalendarHeader]",
       },
-      "BrnYearMonthCalendarMonthButton": {
+      "BrnMonthYearCalendarMonthButton": {
         "inputs": [
           {
             "name": "date",
@@ -1104,21 +1104,21 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "button[brnYearMonthCalendarMonthButton]",
+        "selector": "button[brnMonthYearCalendarMonthButton]",
       },
-      "BrnYearMonthCalendarNextButton": {
+      "BrnMonthYearCalendarNextButton": {
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "button[brnYearMonthCalendarNextButton]",
+        "selector": "button[brnMonthYearCalendarNextButton]",
       },
-      "BrnYearMonthCalendarPreviousButton": {
+      "BrnMonthYearCalendarPreviousButton": {
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "button[brnYearMonthCalendarPreviousButton]",
+        "selector": "button[brnMonthYearCalendarPreviousButton]",
       },
-      "BrnYearMonthCalendarYearButton": {
+      "BrnMonthYearCalendarYearButton": {
         "inputs": [
           {
             "name": "date",
@@ -1128,7 +1128,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "button[brnYearMonthCalendarYearButton]",
+        "selector": "button[brnMonthYearCalendarYearButton]",
       },
     },
     "helm": {
@@ -1168,11 +1168,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "outputs": [],
         "selector": "hlm-calendar-range",
       },
-      "HlmYearMonthCalendar": {
+      "HlmMonthYearCalendar": {
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "hlm-year-month-calendar",
+        "selector": "hlm-month-year-calendar",
       },
     },
   },
@@ -2624,7 +2624,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         ],
         "selector": "hlm-date-range-picker",
       },
-      "HlmYearMonthInput": {
+      "HlmMonthYearInput": {
         "inputs": [
           {
             "name": "inputId",
@@ -2664,9 +2664,9 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "hlm-year-month-input",
+        "selector": "hlm-month-year-input",
       },
-      "HlmYearMonthPicker": {
+      "HlmMonthYearPicker": {
         "inputs": [
           {
             "name": "min",
@@ -2716,7 +2716,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "type": "T",
           },
         ],
-        "selector": "hlm-year-month-picker",
+        "selector": "hlm-month-year-picker",
       },
     },
   },

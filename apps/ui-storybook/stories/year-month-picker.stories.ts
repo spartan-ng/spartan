@@ -1,12 +1,12 @@
 import { ReactiveFormsModule } from '@angular/forms';
 import { HlmButton } from '@spartan-ng/helm/button';
-import { HlmDatePickerImports, HlmYearMonthPicker } from '@spartan-ng/helm/date-picker';
+import { HlmDatePickerImports, HlmMonthYearPicker } from '@spartan-ng/helm/date-picker';
 import { HlmFieldImports } from '@spartan-ng/helm/field';
-import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';
+import { type Meta, moduleMetadata, type StoryObj } from '@storybook/angular';
 
-const meta: Meta<HlmYearMonthPicker<Date>> = {
+const meta: Meta<HlmMonthYearPicker<Date>> = {
 	title: 'Year Month Picker',
-	component: HlmYearMonthPicker,
+	component: HlmMonthYearPicker,
 	tags: ['autodocs'],
 	args: {
 		min: new Date(2020, 4, 1),
@@ -21,9 +21,9 @@ const meta: Meta<HlmYearMonthPicker<Date>> = {
 		props: args,
 		template: `
 		<div class="preview flex min-h-[350px] w-full justify-center p-10 items-center">
-			<hlm-year-month-picker [min]="min" [max]="max">
+			<hlm-month-year-picker [min]="min" [max]="max">
 				<hlm-date-picker-trigger buttonId="date">Pick a year and month</hlm-date-picker-trigger>
-			</hlm-year-month-picker>
+			</hlm-month-year-picker>
 		</div>
 		`,
 	}),
@@ -31,7 +31,7 @@ const meta: Meta<HlmYearMonthPicker<Date>> = {
 
 export default meta;
 
-type Story = StoryObj<HlmYearMonthPicker<Date>>;
+type Story = StoryObj<HlmMonthYearPicker<Date>>;
 
 const pad = (value: number): string => String(value).padStart(2, '0');
 
@@ -59,15 +59,15 @@ export const Input: Story = {
 		props: { formatDate, formatInputDate, parseDate },
 		template: `
 		<div class="preview flex min-h-[350px] w-full justify-center p-10 items-center">
-			<hlm-year-month-picker [formatDate]="formatDate">
-				<hlm-year-month-input
+			<hlm-month-year-picker [formatDate]="formatDate">
+				<hlm-month-year-input
 					inputId="date-input"
 					placeholder="MM/yyyy"
 					[parseDate]="parseDate"
 					[formatInputDate]="formatInputDate"
 				/>
 				<hlm-date-picker-trigger buttonId="date-trigger" [showTrigger]="false">unset</hlm-date-picker-trigger>
-			</hlm-year-month-picker>
+			</hlm-month-year-picker>
 		</div>
 		`,
 	}),

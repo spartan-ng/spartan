@@ -18,7 +18,6 @@ import { injectHlmDatePickerMultiConfig } from './hlm-date-picker-multi.token';
 	hostDirectives: [HlmInputGroup],
 	template: `
 		<input
-			#input
 			hlmInputGroupInput
 			[value]="_inputValue()"
 			[id]="inputId()"

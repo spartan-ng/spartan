@@ -16,7 +16,7 @@ import { injectBrnDatePicker } from './brn-date-picker.token';
 
 /**
  * Headless behavior shared by every date picker text input (single, multi,
- * range, year-month). Owns the editable text mirror, cursor preservation and
+ * range, month-year). Owns the editable text mirror, cursor preservation and
  * the commit/parse lifecycle; styled subclasses provide the template, styling
  * and the parse/format strategy.
  *

@@ -114,6 +114,9 @@ export class HlmDatePicker<T> implements HlmDatePickerBase<T>, ControlValueAcces
 
 	public readonly hasDate = computed(() => !!this._mutableDate());
 
+	/** @internal The current raw value, used by inputs to reformat on focus. */
+	public readonly value = this._mutableDate.asReadonly();
+
 	protected _onChange?: ChangeFn<T>;
 	protected _onTouched?: TouchFn;
 

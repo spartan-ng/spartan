@@ -35,7 +35,8 @@ import { injectHlmYearMonthPickerConfig } from './hlm-year-month-picker.token';
 			(keydown.arrowDown)="_open()"
 			(keydown.enter)="_handleEnter($event)"
 			(input)="_handleInputChange($event)"
-			(blur)="_commitDate()"
+			(focus)="_handleFocus()"
+			(blur)="_handleBlur()"
 		/>
 		<hlm-input-group-addon align="inline-end">
 			@if (_showClearButton()) {
@@ -85,6 +86,14 @@ export class HlmYearMonthInput<T> implements HlmDatePickerTriggerBase {
 	 * Defaults to `parseDate` from `HlmDatePickerConfig`.
 	 */
 	public readonly parseDate = input<(value: string) => T | undefined>(this._config.parseDate);
+
+	/**
+	 * Formats the current date into the input/edit format shown while the
+	 * input is focused. On blur the picker's display format is restored.
+	 *
+	 * Defaults to `formatInputDate` from `HlmYearMonthPickerConfig`.
+	 */
+	public readonly formatInputDate = input<(date: T) => string>(this._config.formatInputDate);
 
 	public readonly forceInvalid = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
@@ -159,6 +168,27 @@ export class HlmYearMonthInput<T> implements HlmDatePickerTriggerBase {
 		event.preventDefault();
 		this._commitDate();
 		this._popover().close();
+		// The field keeps focus after Enter, so restore the edit format the
+		// commit snapped away from - otherwise a later blur would re-parse the
+		// display format and clear the value.
+		this._handleFocus();
+	}
+
+	/** On focus, reformat the committed value into the input/edit format. */
+	protected _handleFocus() {
+		const value = this._datePicker.value?.();
+		if (value !== undefined) {
+			this._inputValue.set(this.formatInputDate()(value));
+		}
+	}
+
+	/** On blur, commit the input and snap back to the picker's display format. */
+	protected _handleBlur() {
+		this._commitDate();
+		const formatted = this._datePicker.formattedDate();
+		if (formatted !== undefined) {
+			this._inputValue.set(formatted);
+		}
 	}
 
 	protected _commitDate() {

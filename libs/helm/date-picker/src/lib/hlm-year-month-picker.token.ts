@@ -15,6 +15,15 @@ export interface HlmYearMonthPickerConfig<T> {
 	formatDate: (date: T) => string;
 
 	/**
+	 * Defines how the date should be displayed while the input is focused,
+	 * i.e. the format the user is expected to type in.
+	 *
+	 * @param date
+	 * @returns formatted date in the input/edit format
+	 */
+	formatInputDate: (date: T) => string;
+
+	/**
 	 * Defines how the date should be transformed before saving to model/form.
 	 *
 	 * @param date
@@ -34,6 +43,14 @@ export interface HlmYearMonthPickerConfig<T> {
 function getDefaultConfig<T>(): HlmYearMonthPickerConfig<T> {
 	return {
 		formatDate: (date) => {
+			if (!(date instanceof Date)) return `${date}`;
+
+			const month = String(date.getMonth() + 1).padStart(2, '0');
+			const year = date.getFullYear();
+
+			return date.toISOString();
+		},
+		formatInputDate: (date) => {
 			if (!(date instanceof Date)) return `${date}`;
 
 			const month = String(date.getMonth() + 1).padStart(2, '0');

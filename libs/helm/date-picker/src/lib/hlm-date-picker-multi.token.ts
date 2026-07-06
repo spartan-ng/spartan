@@ -15,6 +15,15 @@ export interface HlmDatePickerMultiConfig<T> {
 	formatDates: (dates: T[]) => string;
 
 	/**
+	 * Defines how the dates should be displayed while the input is focused,
+	 * i.e. the format the user is expected to type in.
+	 *
+	 * @param dates
+	 * @returns formatted dates in the input/edit format
+	 */
+	formatInputDates: (dates: T[]) => string;
+
+	/**
 	 * Defines how the date should be transformed before saving to model/form.
 	 *
 	 * @param dates
@@ -34,6 +43,18 @@ export interface HlmDatePickerMultiConfig<T> {
 function getDefaultConfig<T>(): HlmDatePickerMultiConfig<T> {
 	return {
 		formatDates: (dates) => dates.map((date) => (date instanceof Date ? date.toDateString() : `${date}`)).join(', '),
+		formatInputDates: (dates) =>
+			dates
+				.map((date) => {
+					if (!(date instanceof Date)) return `${date}`;
+
+					const day = String(date.getDate()).padStart(2, '0');
+					const month = String(date.getMonth() + 1).padStart(2, '0');
+					const year = date.getFullYear();
+
+					return `${day}/${month}/${year}`;
+				})
+				.join(', '),
 		transformDates: (dates) => dates,
 		autoCloseOnMaxSelection: false,
 		parseDate: (value) => {

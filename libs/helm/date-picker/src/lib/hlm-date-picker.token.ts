@@ -13,6 +13,8 @@ export interface HlmDatePickerBase<T> {
 	disabledState: Signal<boolean>;
 	formattedDate: Signal<string | undefined>;
 	hasDate: Signal<boolean>;
+	/** The current raw value. Used by inputs to reformat into the input format on focus. Optional. */
+	value?: Signal<T | undefined>;
 	/** Commit a date to the picker (e.g. from a parsed input). Pass `undefined` to clear. Optional. */
 	updateDate?(value: T | undefined): void;
 	// used for ControlValueAccessor
@@ -47,6 +49,15 @@ export interface HlmDatePickerConfig<T> {
 	formatDate: (date: T) => string;
 
 	/**
+	 * Defines how the date should be displayed while the input is focused,
+	 * i.e. the format the user is expected to type in.
+	 *
+	 * @param date
+	 * @returns formatted date in the input/edit format
+	 */
+	formatInputDate: (date: T) => string;
+
+	/**
 	 * Defines how the date should be transformed before saving to model/form.
 	 *
 	 * @param date
@@ -66,6 +77,7 @@ export interface HlmDatePickerConfig<T> {
 function getDefaultConfig<T>(): HlmDatePickerConfig<T> {
 	return {
 		formatDate: (date) => (date instanceof Date ? date.toDateString() : `${date}`),
+		formatInputDate: (date) => (date instanceof Date ? date.toDateString() : `${date}`),
 		transformDate: (date) => date,
 		parseDate: (value) => {
 			const date = new Date(value);

@@ -15,6 +15,15 @@ export interface HlmDateRangePickerConfig<T> {
 	formatDates: (dates: [T | undefined, T | undefined]) => string;
 
 	/**
+	 * Defines how the range should be displayed while the input is focused,
+	 * i.e. the format the user is expected to type in.
+	 *
+	 * @param dates
+	 * @returns formatted range in the input/edit format
+	 */
+	formatInputDates: (dates: [T | undefined, T | undefined]) => string;
+
+	/**
 	 * Defines how the date should be transformed before saving to model/form.
 	 *
 	 * @param dates
@@ -34,6 +43,11 @@ export interface HlmDateRangePickerConfig<T> {
 function getDefaultConfig<T>(): HlmDateRangePickerConfig<T> {
 	return {
 		formatDates: (dates) =>
+			dates
+				.filter(Boolean)
+				.map((date) => (date instanceof Date ? date.toDateString() : `${date}`))
+				.join(' - '),
+		formatInputDates: (dates) =>
 			dates
 				.filter(Boolean)
 				.map((date) => (date instanceof Date ? date.toDateString() : `${date}`))

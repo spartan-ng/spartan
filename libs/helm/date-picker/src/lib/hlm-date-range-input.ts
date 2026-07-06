@@ -35,7 +35,8 @@ import { injectHlmDateRangePickerConfig } from './hlm-date-range-picker.token';
 			(keydown.arrowDown)="_open()"
 			(keydown.enter)="_handleEnter($event)"
 			(input)="_handleInputChange($event)"
-			(blur)="_commitDate()"
+			(focus)="_handleFocus()"
+			(blur)="_handleBlur()"
 		/>
 		<hlm-input-group-addon align="inline-end">
 			@if (_showClearButton()) {
@@ -85,6 +86,16 @@ export class HlmDateRangeInput<T> implements HlmDatePickerTriggerBase {
 	 * Defaults to `parseDate` from `HlmDateRangePickerConfig`.
 	 */
 	public readonly parseDate = input<(value: string) => [T, T] | undefined>(this._config.parseDate);
+
+	/**
+	 * Formats the current range into the input/edit format shown while the
+	 * input is focused. On blur the picker's display format is restored.
+	 *
+	 * Defaults to `formatInputDates` from `HlmDateRangePickerConfig`.
+	 */
+	public readonly formatInputDates = input<(dates: [T | undefined, T | undefined]) => string>(
+		this._config.formatInputDates,
+	);
 
 	public readonly forceInvalid = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
@@ -159,6 +170,27 @@ export class HlmDateRangeInput<T> implements HlmDatePickerTriggerBase {
 		event.preventDefault();
 		this._commitDate();
 		this._popover().close();
+		// The field keeps focus after Enter, so restore the edit format the
+		// commit snapped away from - otherwise a later blur would re-parse the
+		// display format and clear the value.
+		this._handleFocus();
+	}
+
+	/** On focus, reformat the committed range into the input/edit format. */
+	protected _handleFocus() {
+		const value = this._datePicker.value?.();
+		if (value !== undefined) {
+			this._inputValue.set(this.formatInputDates()(value));
+		}
+	}
+
+	/** On blur, commit the input and snap back to the picker's display format. */
+	protected _handleBlur() {
+		this._commitDate();
+		const formatted = this._datePicker.formattedDate();
+		if (formatted !== undefined) {
+			this._inputValue.set(formatted);
+		}
 	}
 
 	protected _commitDate() {

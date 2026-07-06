@@ -1,7 +1,7 @@
 import type { ExecutorContext } from '@nx/devkit';
 import fs from 'fs';
 import path from 'path';
-import type { ClassDeclaration } from 'ts-morph';
+import type { ClassDeclaration, Decorator, Node, SourceFile } from 'ts-morph';
 import { ArrayLiteralExpression, CallExpression, ObjectLiteralExpression, Project, PropertyAssignment } from 'ts-morph';
 import { writePerComponentData } from '../../../write-per-component-data';
 import type { GenerateUiDocsExecutorSchema } from './schema';
@@ -38,15 +38,20 @@ export default async function runExecutor(options: GenerateUiDocsExecutorSchema,
 function extractInputsOutputs(project: Project, workspaceRoot: string) {
 	const inputsOutputs = {};
 
-	// Build a registry of every class by name so we can resolve base classes even
-	// when they are imported via TS path aliases (which the type checker can't
-	// resolve without a tsconfig).
-	const classRegistry = new Map<string, ClassDeclaration>();
+	// Build a registry of every class by name so we can resolve base classes and
+	// host directives even when they are imported via TS path aliases (which the
+	// type checker can't resolve without a tsconfig). Multiple classes may share a
+	// name across packages, so we keep a list per name and disambiguate later.
+	const classRegistry = new Map<string, ClassDeclaration[]>();
 	project.getSourceFiles().forEach((sourceFile) => {
 		sourceFile.getClasses().forEach((cls) => {
 			const name = cls.getName();
-			if (name && !classRegistry.has(name)) {
-				classRegistry.set(name, cls);
+			if (!name) return;
+			const existing = classRegistry.get(name);
+			if (existing) {
+				existing.push(cls);
+			} else {
+				classRegistry.set(name, [cls]);
 			}
 		});
 	});
@@ -114,7 +119,7 @@ function extractInputsOutputs(project: Project, workspaceRoot: string) {
 function collectAllMembers(
 	cls: ClassDeclaration,
 	componentInfo,
-	classRegistry: Map<string, ClassDeclaration>,
+	classRegistry: Map<string, ClassDeclaration[]>,
 	seen: Set<string>,
 ) {
 	const visitedClasses = new Set<ClassDeclaration>();
@@ -129,7 +134,7 @@ function collectAllMembers(
 function collectHostDirectiveMembers(
 	cls: ClassDeclaration,
 	componentInfo,
-	classRegistry: Map<string, ClassDeclaration>,
+	classRegistry: Map<string, ClassDeclaration[]>,
 	seen: Set<string>,
 ) {
 	const decorator = cls.getDecorator((d) => d.getName() === 'Component' || d.getName() === 'Directive');
@@ -152,7 +157,7 @@ function collectHostDirectiveMembers(
 		if (!(directiveProp instanceof PropertyAssignment)) return;
 
 		const directiveName = directiveProp.getInitializer().getText().replace(/<.*>$/s, '').trim();
-		const directiveClass = classRegistry.get(directiveName);
+		const directiveClass = resolveClassByName(directiveName, cls.getSourceFile(), classRegistry);
 		if (!directiveClass) return;
 
 		// Resolve the referenced directive's members (including inherited ones) so the
@@ -160,14 +165,29 @@ function collectHostDirectiveMembers(
 		const directiveInfo = { inputs: [], outputs: [], models: [] };
 		collectAllMembers(directiveClass, directiveInfo, classRegistry, new Set<string>());
 
-		mapHostDirectiveMembers(element.getProperty('inputs'), directiveInfo.inputs, 'input', seen, componentInfo.inputs);
-		mapHostDirectiveMembers(
-			element.getProperty('outputs'),
-			directiveInfo.outputs,
-			'output',
-			seen,
-			componentInfo.outputs,
-		);
+		// A signal `model()` is exposed as an input plus a `<name>Change` output, so
+		// include models as candidates for both the input and output mappings.
+		const inputCandidates = [
+			...directiveInfo.inputs,
+			...directiveInfo.models.map((model) => ({
+				name: model.name,
+				type: model.type,
+				description: model.description,
+				defaultValue: model.defaultValue,
+				required: model.required,
+			})),
+		];
+		const outputCandidates = [
+			...directiveInfo.outputs,
+			...directiveInfo.models.map((model) => ({
+				name: `${model.name}Change`,
+				type: model.type,
+				description: model.description,
+			})),
+		];
+
+		mapHostDirectiveMembers(element.getProperty('inputs'), inputCandidates, 'input', seen, componentInfo.inputs);
+		mapHostDirectiveMembers(element.getProperty('outputs'), outputCandidates, 'output', seen, componentInfo.outputs);
 	});
 }
 
@@ -197,7 +217,7 @@ function mapHostDirectiveMembers(memberProp, directiveMembers, kind: 'input' | '
 
 function resolveBaseClass(
 	cls: ClassDeclaration,
-	classRegistry: Map<string, ClassDeclaration>,
+	classRegistry: Map<string, ClassDeclaration[]>,
 ): ClassDeclaration | undefined {
 	// Try the type-checker first (works when the base class is in the same file
 	// or resolvable without path aliases).
@@ -213,7 +233,79 @@ function resolveBaseClass(
 		return undefined;
 	}
 	const baseName = extendsExpr.getExpression().getText().replace(/<.*>$/s, '').trim();
-	return classRegistry.get(baseName);
+	return resolveClassByName(baseName, cls.getSourceFile(), classRegistry);
+}
+
+function resolveClassByName(
+	name: string,
+	fromSourceFile: SourceFile,
+	classRegistry: Map<string, ClassDeclaration[]>,
+): ClassDeclaration | undefined {
+	const candidates = classRegistry.get(name);
+	if (!candidates || candidates.length === 0) {
+		return undefined;
+	}
+	if (candidates.length === 1) {
+		return candidates[0];
+	}
+
+	// Multiple classes share this name; disambiguate using the import declaration
+	// in the referencing file so inheritance/host-directive lookups don't silently
+	// resolve to the wrong package.
+	const importDecl = fromSourceFile
+		.getImportDeclarations()
+		.find((imp) =>
+			imp.getNamedImports().some((named) => (named.getAliasNode()?.getText() ?? named.getName()) === name),
+		);
+	if (importDecl) {
+		// Prefer the file the module resolver points to (works for relative imports).
+		const resolvedSourceFile = importDecl.getModuleSpecifierSourceFile();
+		if (resolvedSourceFile) {
+			const match = candidates.find((candidate) => candidate.getSourceFile() === resolvedSourceFile);
+			if (match) return match;
+		}
+		// Otherwise match the module specifier tail against candidate file paths,
+		// e.g. '@spartan-ng/brain/dialog' -> a file under '.../brain/dialog/...'.
+		const specifierTail = importDecl
+			.getModuleSpecifierValue()
+			.replace(/^@[^/]+\//, '')
+			.replace(/^[./]+/, '');
+		if (specifierTail) {
+			const match = candidates.find((candidate) =>
+				candidate.getSourceFile().getFilePath().includes(`/${specifierTail}`),
+			);
+			if (match) return match;
+		}
+	}
+
+	return candidates[0];
+}
+
+function readAliasFromOptions(optionsArg: Node | undefined): string | undefined {
+	if (optionsArg instanceof ObjectLiteralExpression) {
+		const aliasProp = optionsArg.getProperty('alias');
+		if (aliasProp instanceof PropertyAssignment) {
+			const aliasValue = aliasProp.getInitializer()?.getText().replace(/['"]/g, '');
+			if (aliasValue) return aliasValue;
+		}
+	}
+	return undefined;
+}
+
+function readDecoratorAlias(decorator: Decorator): string | undefined {
+	const args = decorator.getArguments();
+	if (!args.length) return undefined;
+	const firstArg = args[0];
+	// `@Input({ alias: 'publicAlias' })` / `@Output({ alias: 'publicAlias' })`
+	if (firstArg instanceof ObjectLiteralExpression) {
+		return readAliasFromOptions(firstArg);
+	}
+	// `@Input('publicAlias')` / `@Output('publicAlias')`
+	const text = firstArg.getText();
+	if (/^['"`]/.test(text)) {
+		return text.replace(/['"`]/g, '').trim() || undefined;
+	}
+	return undefined;
 }
 
 function collectMembers(cls: ClassDeclaration, componentInfo, seen: Set<string>) {
@@ -228,26 +320,16 @@ function collectMembers(cls: ClassDeclaration, componentInfo, seen: Set<string>)
 			.join('\n');
 
 		if (decorator) {
+			// Angular exposes the member under its binding alias when one is given.
+			const publicName = readDecoratorAlias(decorator) ?? name;
 			if (decorator.getName() === 'Input') {
-				// Extract default value from Input decorator
-				let defaultValue = null;
-				const decoratorArgs = decorator.getArguments();
-				if (decoratorArgs.length > 0) {
-					// Get the text representation of the argument
-					const argText = decoratorArgs[0].getText();
-					// Extract the value between parentheses if present
-					const match = argText.match(/\((.*?)\)/);
-					if (match && match[1]) {
-						defaultValue = match[1].replace(/['"]/g, '');
-					}
-				}
-				if (seen.has(`input:${name}`)) return;
-				seen.add(`input:${name}`);
-				componentInfo.inputs.push({ name, type, description, defaultValue, required: false });
+				if (seen.has(`input:${publicName}`)) return;
+				seen.add(`input:${publicName}`);
+				componentInfo.inputs.push({ name: publicName, type, description, defaultValue: null, required: false });
 			} else {
-				if (seen.has(`output:${name}`)) return;
-				seen.add(`output:${name}`);
-				componentInfo.outputs.push({ name, type, description });
+				if (seen.has(`output:${publicName}`)) return;
+				seen.add(`output:${publicName}`);
+				componentInfo.outputs.push({ name: publicName, type, description });
 			}
 		} else {
 			// Check for signal-based inputs/outputs/models
@@ -262,12 +344,16 @@ function collectMembers(cls: ClassDeclaration, componentInfo, seen: Set<string>)
 					inferredType = typeArg.getText();
 				}
 
-				const required = exprText === 'input.required';
+				const isInputRequired = exprText === 'input.required';
+				const isModelRequired = exprText === 'model.required';
+				const isRequired = isInputRequired || isModelRequired;
 
-				// Extract default value from signal-based input/model
-				let defaultValue = null;
 				const callArgs = callExpr.getArguments();
-				if (!required && callArgs.length > 0) {
+
+				// Extract the default value from signal-based input/model. The `*.required`
+				// forms take their options object as the first argument, so they have none.
+				let defaultValue = null;
+				if (!isRequired && (exprText === 'input' || exprText === 'model') && callArgs.length > 0) {
 					const argText = callArgs[0].getText();
 					const match = argText.match(/\(([^()]*)\)$/);
 					if (match && match[1]) {
@@ -277,39 +363,38 @@ function collectMembers(cls: ClassDeclaration, componentInfo, seen: Set<string>)
 					}
 				}
 
-				if (exprText === 'input' || required) {
-					let inputName = name;
-					// Options object is the first arg for `input.required(opts)` and the
-					// last arg for `input(default, opts)`.
-					const optionsArg = required ? callArgs[0] : callArgs.length > 1 ? callArgs[callArgs.length - 1] : undefined;
-					if (optionsArg instanceof ObjectLiteralExpression) {
-						const aliasProp = optionsArg.getProperty('alias');
-						if (aliasProp instanceof PropertyAssignment) {
-							const aliasValue = aliasProp.getInitializer().getText().replace(/['"]/g, '');
-							if (aliasValue) inputName = aliasValue;
-						}
-					}
+				// Options object is the first arg for the `*.required(opts)` forms and the
+				// last arg for the `input(default, opts)` / `model(default, opts)` forms.
+				const optionsArg = isRequired ? callArgs[0] : callArgs.length > 1 ? callArgs[callArgs.length - 1] : undefined;
+
+				if (exprText === 'input' || isInputRequired) {
+					const inputName = readAliasFromOptions(optionsArg) ?? name;
 					if (seen.has(`input:${inputName}`)) return;
 					seen.add(`input:${inputName}`);
-					componentInfo.inputs.push({ name: inputName, type: inferredType, description, defaultValue, required });
+					componentInfo.inputs.push({
+						name: inputName,
+						type: inferredType,
+						description,
+						defaultValue,
+						required: isInputRequired,
+					});
 				} else if (exprText === 'output') {
-					let outputName = name;
 					// `output(opts)` takes its options (incl. alias) as the first arg.
-					const optionsArg = callArgs[0];
-					if (optionsArg instanceof ObjectLiteralExpression) {
-						const aliasProp = optionsArg.getProperty('alias');
-						if (aliasProp instanceof PropertyAssignment) {
-							const aliasValue = aliasProp.getInitializer().getText().replace(/['"]/g, '');
-							if (aliasValue) outputName = aliasValue;
-						}
-					}
+					const outputName = readAliasFromOptions(callArgs[0]) ?? name;
 					if (seen.has(`output:${outputName}`)) return;
 					seen.add(`output:${outputName}`);
 					componentInfo.outputs.push({ name: outputName, type: inferredType, description });
-				} else if (exprText === 'model') {
-					if (seen.has(`model:${name}`)) return;
-					seen.add(`model:${name}`);
-					componentInfo.models.push({ name, type: inferredType, description, defaultValue });
+				} else if (exprText === 'model' || isModelRequired) {
+					const modelName = readAliasFromOptions(optionsArg) ?? name;
+					if (seen.has(`model:${modelName}`)) return;
+					seen.add(`model:${modelName}`);
+					componentInfo.models.push({
+						name: modelName,
+						type: inferredType,
+						description,
+						defaultValue,
+						required: isModelRequired,
+					});
 				}
 			}
 		}

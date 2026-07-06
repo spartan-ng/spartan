@@ -623,10 +623,12 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "models": [
           {
             "name": "value",
+            "required": false,
             "type": "T | undefined | null",
           },
           {
             "name": "search",
+            "required": false,
             "type": "string",
           },
         ],
@@ -753,10 +755,12 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "models": [
           {
             "name": "value",
+            "required": false,
             "type": "string | undefined | null",
           },
           {
             "name": "search",
+            "required": false,
             "type": "string",
           },
         ],
@@ -796,6 +800,16 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "type": "boolean",
           },
           {
+            "name": "value",
+            "required": false,
+            "type": "T | undefined | null",
+          },
+          {
+            "name": "search",
+            "required": false,
+            "type": "string",
+          },
+          {
             "name": "itemToString",
             "required": false,
             "type": "AutocompleteItemToString<T> | undefined",
@@ -833,6 +847,14 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [
+          {
+            "name": "valueChange",
+            "type": "T | undefined | null",
+          },
+          {
+            "name": "searchChange",
+            "type": "string",
+          },
           {
             "name": "stateChanged",
             "type": "BrnOverlayState",
@@ -975,6 +997,16 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "type": "boolean",
           },
           {
+            "name": "value",
+            "required": false,
+            "type": "string | undefined | null",
+          },
+          {
+            "name": "search",
+            "required": false,
+            "type": "string",
+          },
+          {
             "name": "itemToString",
             "required": false,
             "type": "AutocompleteItemToString<T> | undefined",
@@ -1007,6 +1039,14 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [
+          {
+            "name": "valueChange",
+            "type": "string | undefined | null",
+          },
+          {
+            "name": "searchChange",
+            "type": "string",
+          },
           {
             "name": "stateChanged",
             "type": "BrnOverlayState",
@@ -1311,6 +1351,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "models": [
           {
             "name": "date",
+            "required": false,
             "type": "T",
           },
         ],
@@ -1410,6 +1451,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "models": [
           {
             "name": "date",
+            "required": false,
             "type": "T[]",
           },
         ],
@@ -1469,10 +1511,12 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "models": [
           {
             "name": "startDate",
+            "required": false,
             "type": "T",
           },
           {
             "name": "endDate",
+            "required": false,
             "type": "T",
           },
         ],
@@ -1522,6 +1566,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "type": "boolean",
           },
           {
+            "name": "date",
+            "required": false,
+            "type": "T",
+          },
+          {
             "name": "dateDisabled",
             "required": false,
             "type": "(date: T) => boolean",
@@ -1543,7 +1592,12 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
           },
         ],
         "models": [],
-        "outputs": [],
+        "outputs": [
+          {
+            "name": "dateChange",
+            "type": "T",
+          },
+        ],
         "selector": "hlm-calendar",
       },
       "HlmCalendarMulti": {
@@ -1579,6 +1633,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "type": "boolean",
           },
           {
+            "name": "date",
+            "required": false,
+            "type": "T[]",
+          },
+          {
             "name": "dateDisabled",
             "required": false,
             "type": "(date: T) => boolean",
@@ -1600,7 +1659,12 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
           },
         ],
         "models": [],
-        "outputs": [],
+        "outputs": [
+          {
+            "name": "dateChange",
+            "type": "T[]",
+          },
+        ],
         "selector": "hlm-calendar-multi",
       },
       "HlmCalendarRange": {
@@ -1626,6 +1690,16 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "type": "boolean",
           },
           {
+            "name": "startDate",
+            "required": false,
+            "type": "T",
+          },
+          {
+            "name": "endDate",
+            "required": false,
+            "type": "T",
+          },
+          {
             "name": "dateDisabled",
             "required": false,
             "type": "(date: T) => boolean",
@@ -1647,7 +1721,16 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
           },
         ],
         "models": [],
-        "outputs": [],
+        "outputs": [
+          {
+            "name": "endDateChange",
+            "type": "T",
+          },
+          {
+            "name": "startDateChange",
+            "type": "T",
+          },
+        ],
         "selector": "hlm-calendar-range",
       },
     },
@@ -1851,6 +1934,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "models": [
           {
             "name": "indeterminate",
+            "required": false,
             "type": "boolean",
           },
         ],
@@ -1924,6 +2008,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "models": [
           {
             "name": "indeterminate",
+            "required": false,
             "type": "boolean",
           },
         ],
@@ -1951,6 +2036,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "models": [
           {
             "name": "expanded",
+            "required": false,
             "type": "boolean",
           },
         ],
@@ -1986,13 +2072,23 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
       "HlmCollapsible": {
         "inputs": [
           {
+            "name": "expanded",
+            "required": false,
+            "type": "boolean",
+          },
+          {
             "name": "disabled",
             "required": false,
             "type": "boolean",
           },
         ],
         "models": [],
-        "outputs": [],
+        "outputs": [
+          {
+            "name": "expandedChange",
+            "type": "boolean",
+          },
+        ],
         "selector": "[hlmCollapsible],hlm-collapsible",
       },
       "HlmCollapsibleContent": {
@@ -2064,10 +2160,12 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "models": [
           {
             "name": "value",
+            "required": false,
             "type": "T | undefined | null",
           },
           {
             "name": "search",
+            "required": false,
             "type": "string",
           },
         ],
@@ -2249,10 +2347,12 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "models": [
           {
             "name": "value",
+            "required": false,
             "type": "T[] | undefined | null",
           },
           {
             "name": "search",
+            "required": false,
             "type": "string",
           },
         ],
@@ -2351,6 +2451,16 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "type": "ComboboxFilter<T>",
           },
           {
+            "name": "search",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "value",
+            "required": false,
+            "type": "T | undefined | null",
+          },
+          {
             "name": "itemToString",
             "required": false,
             "type": "ComboboxItemToString<T> | undefined",
@@ -2393,6 +2503,14 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [
+          {
+            "name": "searchChange",
+            "type": "string",
+          },
+          {
+            "name": "valueChange",
+            "type": "T | undefined | null",
+          },
           {
             "name": "stateChanged",
             "type": "BrnOverlayState",
@@ -2575,6 +2693,16 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "type": "ComboboxFilter<T>",
           },
           {
+            "name": "search",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "value",
+            "required": false,
+            "type": "T[] | undefined | null",
+          },
+          {
             "name": "itemToString",
             "required": false,
             "type": "ComboboxItemToString<T> | undefined",
@@ -2617,6 +2745,14 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [
+          {
+            "name": "searchChange",
+            "type": "string",
+          },
+          {
+            "name": "valueChange",
+            "type": "T[] | undefined | null",
+          },
           {
             "name": "stateChanged",
             "type": "BrnOverlayState",
@@ -2745,6 +2881,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "models": [
           {
             "name": "search",
+            "required": false,
             "type": "string",
           },
         ],
@@ -2846,6 +2983,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "type": "CommandFilter",
           },
           {
+            "name": "search",
+            "required": false,
+            "type": "string",
+          },
+          {
             "name": "disabled",
             "required": false,
             "type": "boolean",
@@ -2855,6 +2997,10 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "outputs": [
           {
             "name": "valueChange",
+            "type": "string",
+          },
+          {
+            "name": "searchChange",
             "type": "string",
           },
         ],
@@ -5135,6 +5281,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "models": [
           {
             "name": "value",
+            "required": false,
             "type": "string",
           },
         ],
@@ -5204,6 +5351,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
       "HlmNavigationMenu": {
         "inputs": [
           {
+            "name": "value",
+            "required": false,
+            "type": "string",
+          },
+          {
             "name": "delayDuration",
             "required": false,
             "type": "number",
@@ -5225,7 +5377,12 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
           },
         ],
         "models": [],
-        "outputs": [],
+        "outputs": [
+          {
+            "name": "valueChange",
+            "type": "string",
+          },
+        ],
         "selector": "nav[hlmNavigationMenu]",
       },
       "HlmNavigationMenuContent": {
@@ -5437,7 +5594,18 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "type": "number[]",
           },
         ],
-        "models": [],
+        "models": [
+          {
+            "name": "currentPage",
+            "required": true,
+            "type": "number",
+          },
+          {
+            "name": "itemsPerPage",
+            "required": true,
+            "type": "number",
+          },
+        ],
         "outputs": [],
         "selector": "hlm-numbered-pagination",
       },
@@ -5469,7 +5637,18 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "type": "number[]",
           },
         ],
-        "models": [],
+        "models": [
+          {
+            "name": "currentPage",
+            "required": true,
+            "type": "number",
+          },
+          {
+            "name": "itemsPerPage",
+            "required": true,
+            "type": "number",
+          },
+        ],
         "outputs": [],
         "selector": "hlm-numbered-pagination-query-params",
       },
@@ -6135,6 +6314,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "models": [
           {
             "name": "layout",
+            "required": false,
             "type": "number[]",
           },
         ],
@@ -6214,6 +6394,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "required": false,
             "type": "'horizontal' | 'vertical'",
           },
+          {
+            "name": "layout",
+            "required": false,
+            "type": "number[]",
+          },
         ],
         "models": [],
         "outputs": [
@@ -6224,6 +6409,10 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
           {
             "name": "dragStart",
             "type": "void",
+          },
+          {
+            "name": "layoutChange",
+            "type": "number[]",
           },
         ],
         "selector": "[hlmResizableGroup],hlm-resizable-group",
@@ -6314,6 +6503,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "models": [
           {
             "name": "value",
+            "required": false,
             "type": "T | undefined | null",
           },
         ],
@@ -6393,6 +6583,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "models": [
           {
             "name": "value",
+            "required": false,
             "type": "T[] | undefined | null",
           },
         ],
@@ -6480,6 +6671,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "type": "boolean",
           },
           {
+            "name": "value",
+            "required": false,
+            "type": "T | undefined | null",
+          },
+          {
             "name": "isItemEqualToValue",
             "required": false,
             "type": "SelectItemEqualToValue<T>",
@@ -6517,6 +6713,10 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [
+          {
+            "name": "valueChange",
+            "type": "T | undefined | null",
+          },
           {
             "name": "stateChanged",
             "type": "BrnOverlayState",
@@ -6588,6 +6788,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "type": "boolean",
           },
           {
+            "name": "value",
+            "required": false,
+            "type": "T[] | undefined | null",
+          },
+          {
             "name": "isItemEqualToValue",
             "required": false,
             "type": "SelectItemEqualToValue<T>",
@@ -6625,6 +6830,10 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [
+          {
+            "name": "valueChange",
+            "type": "T[] | undefined | null",
+          },
           {
             "name": "stateChanged",
             "type": "BrnOverlayState",
@@ -8153,7 +8362,8 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         ],
         "models": [
           {
-            "name": "activeTab",
+            "name": "brnTabs",
+            "required": false,
             "type": "string | undefined",
           },
         ],
@@ -8414,6 +8624,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "models": [
           {
             "name": "state",
+            "required": false,
             "type": "'on' | 'off'",
           },
         ],
@@ -8450,6 +8661,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "type": "boolean",
           },
           {
+            "name": "state",
+            "required": false,
+            "type": "'on' | 'off'",
+          },
+          {
             "name": "aria-label",
             "required": false,
             "type": "string | null",
@@ -8461,7 +8677,12 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
           },
         ],
         "models": [],
-        "outputs": [],
+        "outputs": [
+          {
+            "name": "stateChange",
+            "type": "'on' | 'off'",
+          },
+        ],
         "selector": "button[hlmToggle]",
       },
     },
@@ -8536,6 +8757,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "models": [
           {
             "name": "state",
+            "required": false,
             "type": "'on' | 'off'",
           },
         ],
@@ -8624,6 +8846,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "type": "boolean",
           },
           {
+            "name": "state",
+            "required": false,
+            "type": "'on' | 'off'",
+          },
+          {
             "name": "aria-label",
             "required": false,
             "type": "string | null",
@@ -8635,7 +8862,12 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
           },
         ],
         "models": [],
-        "outputs": [],
+        "outputs": [
+          {
+            "name": "stateChange",
+            "type": "'on' | 'off'",
+          },
+        ],
         "selector": "button[hlmToggleGroupItem]",
       },
     },

@@ -23,8 +23,8 @@ import { injectBrnYearMonthCalendar } from './brn-year-month-calendar.token';
 		'(keydown.arrowDown)': 'focusOffset($event, 4)',
 		'(keydown.home)': 'focusYear($event, _yearMonth.yearRange().start)',
 		'(keydown.end)': 'focusYear($event, _yearMonth.yearRange().end)',
-		'(keydown.pageUp)': 'focusOffset($event, -YEARS_PER_PAGE)',
-		'(keydown.pageDown)': 'focusOffset($event, YEARS_PER_PAGE)',
+		'(keydown.pageUp)': 'focusOffset($event, -_yearsPerPage)',
+		'(keydown.pageDown)': 'focusOffset($event, _yearsPerPage)',
 	},
 })
 export class BrnYearMonthCalendarYearButton<T> {
@@ -51,6 +51,8 @@ export class BrnYearMonthCalendarYearButton<T> {
 
 	public readonly focusable = computed(() => this._dateAdapter.isSameYear(this._yearMonth.focusedDate(), this.date()));
 
+	protected readonly _yearsPerPage = YEARS_PER_PAGE;
+
 	constructor() {
 		this._yearMonth.registerCell(this);
 		this._destroyRef.onDestroy(() => this._yearMonth.unregisterCell(this));
@@ -75,6 +77,4 @@ export class BrnYearMonthCalendarYearButton<T> {
 	focus(): void {
 		this._elementRef.nativeElement.focus();
 	}
-
-	protected readonly YEARS_PER_PAGE = YEARS_PER_PAGE;
 }

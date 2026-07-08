@@ -64,10 +64,14 @@ export class BrnSelect<T> implements BrnSelectBase<T>, ControlValueAccessor {
 	/** The selected value of the select. */
 	public readonly value = model<T | undefined | null>(null);
 
-	public readonly hasValue = computed(() => {
-		const value = this.value();
-		return value !== null && value !== undefined && value !== '';
-	});
+	/**
+	 * Determines whether a single value is present (i.e., has been selected).
+	 * Only used by single select, ignored by the multiple select variant.
+	 */
+	public readonly isSingleValuePresent = input<(value: T | undefined | null) => boolean>(
+		this._config.isSingleValuePresent,
+	);
+	public readonly hasValue = computed(() => this.isSingleValuePresent()(this.value()));
 
 	/** A function to compare an item with the selected value. */
 	public readonly isItemEqualToValue = input<SelectItemEqualToValue<T>>(this._config.isItemEqualToValue);

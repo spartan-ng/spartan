@@ -1572,6 +1572,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "models": [
           {
             "name": "date",
+            "required": false,
             "type": "T",
           },
         ],
@@ -1825,9 +1826,45 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "hlm-calendar-range",
       },
       "HlmMonthYearCalendar": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "min",
+            "required": false,
+            "type": "T",
+          },
+          {
+            "name": "max",
+            "required": false,
+            "type": "T",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "date",
+            "required": false,
+            "type": "T",
+          },
+          {
+            "name": "defaultFocusedDate",
+            "required": false,
+            "type": "T",
+          },
+          {
+            "name": "view",
+            "required": false,
+            "type": "BrnMonthYearCalendarView",
+          },
+        ],
         "models": [],
-        "outputs": [],
+        "outputs": [
+          {
+            "name": "dateChange",
+            "type": "T",
+          },
+        ],
         "selector": "hlm-month-year-calendar",
       },
     },
@@ -3330,6 +3367,46 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "required": false,
             "type": "(dates: T[]) => string",
           },
+          {
+            "name": "inputId",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "inputValue",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "showClear",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "openOnClick",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "forceInvalid",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "clearAriaLabel",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "calendarAriaLabel",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "placeholder",
+            "required": false,
+            "type": "string",
+          },
         ],
         "models": [],
         "outputs": [],
@@ -3415,6 +3492,46 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "name": "formatInputDate",
             "required": false,
             "type": "(date: T) => string",
+          },
+          {
+            "name": "inputId",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "inputValue",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "showClear",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "openOnClick",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "forceInvalid",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "clearAriaLabel",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "calendarAriaLabel",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "placeholder",
+            "required": false,
+            "type": "string",
           },
         ],
         "models": [],
@@ -3527,6 +3644,46 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "required": false,
             "type": "(dates: [T | null, T | null]) => string",
           },
+          {
+            "name": "inputId",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "inputValue",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "showClear",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "openOnClick",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "forceInvalid",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "clearAriaLabel",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "calendarAriaLabel",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "placeholder",
+            "required": false,
+            "type": "string",
+          },
         ],
         "models": [],
         "outputs": [],
@@ -3595,6 +3752,46 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "name": "formatInputDate",
             "required": false,
             "type": "(date: T) => string",
+          },
+          {
+            "name": "inputId",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "inputValue",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "showClear",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "openOnClick",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "forceInvalid",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "clearAriaLabel",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "calendarAriaLabel",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "placeholder",
+            "required": false,
+            "type": "string",
           },
         ],
         "models": [],

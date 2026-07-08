@@ -37,8 +37,8 @@ export class DatePickerInputExample {
 	public formatInputDate = (date: Date): string => DateTime.fromJSDate(date).toFormat('dd.MM.yyyy');
 
 	/** Parse `dd.MM.yyyy` strings back into `Date` instances. */
-	public parseDate = (value: string): Date | undefined => {
+	public parseDate = (value: string): Date | null => {
 		const dt = DateTime.fromFormat(value, 'dd.MM.yyyy');
-		return dt.isValid ? dt.toJSDate() : undefined;
+		return dt.isValid ? dt.toJSDate() : null;
 	};
 }

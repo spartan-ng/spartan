@@ -59,13 +59,13 @@ import { injectHlmDatePickerMultiConfig } from './hlm-date-picker-multi.token';
 export class HlmDateMultiInput<T> extends BrnDateInput<T[]> implements BrnDatePickerTriggerBase {
 	private readonly _config = injectHlmDatePickerMultiConfig<T>();
 	/**
-	 * Parses input text into dates. Return `undefined` for invalid input - the
+	 * Parses input text into dates. Return `null` for invalid input - the
 	 * picker's dates are cleared while the text is preserved so the user can
 	 * fix it.
 	 *
 	 * Defaults to `parseDate` from `HlmDatePickerMultiConfig`.
 	 */
-	public readonly parseDate = input<(value: string) => T[] | undefined>(this._config.parseDate);
+	public readonly parseDate = input<(value: string) => T[] | null>(this._config.parseDate);
 
 	/**
 	 * Formats the current dates into the input/edit format shown while the
@@ -75,7 +75,7 @@ export class HlmDateMultiInput<T> extends BrnDateInput<T[]> implements BrnDatePi
 	 */
 	public readonly formatInputDates = input<(dates: T[]) => string>(this._config.formatInputDates);
 
-	protected override parseValue(value: string): T[] | undefined {
+	protected override parseValue(value: string): T[] | null {
 		return this.parseDate()(value);
 	}
 

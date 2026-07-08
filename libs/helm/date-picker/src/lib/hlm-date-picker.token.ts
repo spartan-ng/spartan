@@ -35,9 +35,9 @@ export interface HlmDatePickerConfig<T> {
 	 * Parse a user-entered string into a date.
 	 *
 	 * @param value the raw string from the input
-	 * @returns the parsed date, or `undefined` when the value can't be parsed
+	 * @returns the parsed date, or `null` when the value can't be parsed
 	 */
-	parseDate: (value: string) => T | undefined;
+	parseDate: (value: string) => T | null;
 }
 
 function getDefaultConfig<T>(): HlmDatePickerConfig<T> {
@@ -47,7 +47,7 @@ function getDefaultConfig<T>(): HlmDatePickerConfig<T> {
 		transformDate: (date) => date,
 		parseDate: (value) => {
 			const date = new Date(value);
-			return isNaN(date.getTime()) ? undefined : (date as T);
+			return isNaN(date.getTime()) ? null : (date as T);
 		},
 		autoCloseOnSelect: false,
 	};

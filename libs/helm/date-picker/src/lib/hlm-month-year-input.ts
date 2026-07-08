@@ -60,13 +60,13 @@ export class HlmMonthYearInput<T> extends BrnDateInput<T> implements BrnDatePick
 	private readonly _config = injectHlmMonthYearPickerConfig<T>();
 
 	/**
-	 * Parses input text into a date value. Return `undefined` for invalid
+	 * Parses input text into a date value. Return `null` for invalid
 	 * input - the picker's date is cleared while the text is preserved so
 	 * the user can fix it.
 	 *
 	 * Defaults to `parseDate` from `HlmMonthYearPickerConfig`.
 	 */
-	public readonly parseDate = input<(value: string) => T | undefined>(this._config.parseDate);
+	public readonly parseDate = input<(value: string) => T | null>(this._config.parseDate);
 
 	/**
 	 * Formats the current date into the input/edit format shown while the
@@ -76,7 +76,7 @@ export class HlmMonthYearInput<T> extends BrnDateInput<T> implements BrnDatePick
 	 */
 	public readonly formatInputDate = input<(date: T) => string>(this._config.formatInputDate);
 
-	protected override parseValue(value: string): T | undefined {
+	protected override parseValue(value: string): T | null {
 		return this.parseDate()(value);
 	}
 

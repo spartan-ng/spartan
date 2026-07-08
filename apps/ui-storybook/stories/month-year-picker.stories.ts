@@ -42,11 +42,11 @@ const formatDate = (date: Date): string => `${pad(date.getMonth() + 1)}.${date.g
 const formatInputDate = (date: Date): string => `${pad(date.getMonth() + 1)}/${date.getFullYear()}`;
 
 /** Parses `MM/yyyy`. Does not understand the display format on purpose. */
-const parseDate = (value: string): Date | undefined => {
+const parseDate = (value: string): Date | null => {
 	const match = value.match(/^(\d{2})\/(\d{4})$/);
-	if (!match) return undefined;
+	if (!match) return null;
 	const month = Number(match[1]);
-	if (month < 1 || month > 12) return undefined;
+	if (month < 1 || month > 12) return null;
 	return new Date(Number(match[2]), month - 1, 1);
 };
 

@@ -35,9 +35,9 @@ export interface HlmMonthYearPickerConfig<T> {
 	 * Parse a user-entered string into a date.
 	 *
 	 * @param value the raw string from the input
-	 * @returns the parsed date, or `undefined` when the value can't be parsed
+	 * @returns the parsed date, or `null` when the value can't be parsed
 	 */
-	parseDate: (value: string) => T | undefined;
+	parseDate: (value: string) => T | null;
 }
 
 const mmYYYY = <T>(date: T) => {
@@ -55,15 +55,15 @@ function getDefaultConfig<T>(): HlmMonthYearPickerConfig<T> {
 		formatInputDate: mmYYYY,
 		transformDate: (date) => date,
 		parseDate: (value) => {
-			if (typeof value !== 'string') return undefined;
+			if (typeof value !== 'string') return null;
 
 			const match = value.match(/^(\d{2})\/(\d{4})$/);
-			if (!match) return undefined;
+			if (!match) return null;
 
 			const month = Number(match[1]);
 			const year = Number(match[2]);
 
-			if (month < 1 || month > 12) return undefined;
+			if (month < 1 || month > 12) return null;
 
 			const date = new Date(year, month - 1, 1);
 

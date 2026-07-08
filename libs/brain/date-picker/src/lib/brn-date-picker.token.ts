@@ -7,9 +7,9 @@ export interface BrnDatePickerBase<T> {
 	formattedDate: Signal<string | undefined>;
 	hasDate: Signal<boolean>;
 	/** The current raw value. Used by inputs to reformat into the input format on focus. Optional. */
-	value?: Signal<T | undefined>;
-	/** Commit a date to the picker (e.g. from a parsed input). Pass `undefined` to clear. Optional. */
-	updateDate?(value: T | undefined): void;
+	value?: Signal<T | null>;
+	/** Commit a date to the picker (e.g. from a parsed input). Pass `null` to clear. Optional. */
+	updateDate?(value: T | null): void;
 	// used for ControlValueAccessor
 	touched?(): void;
 }

@@ -35,9 +35,9 @@ export interface HlmDatePickerMultiConfig<T> {
 	 * Parse a user-entered string into a date.
 	 *
 	 * @param value the raw string from the input
-	 * @returns the parsed date, or `undefined` when the value can't be parsed
+	 * @returns the parsed date, or `null` when the value can't be parsed
 	 */
-	parseDate: (value: string) => T[] | undefined;
+	parseDate: (value: string) => T[] | null;
 }
 
 function getDefaultConfig<T>(): HlmDatePickerMultiConfig<T> {
@@ -58,26 +58,26 @@ function getDefaultConfig<T>(): HlmDatePickerMultiConfig<T> {
 		transformDates: (dates) => dates,
 		autoCloseOnMaxSelection: false,
 		parseDate: (value) => {
-			if (typeof value !== 'string') return undefined;
+			if (typeof value !== 'string') return null;
 
 			const parts = value.split(',').map((v) => v.trim());
 			const result: Date[] = [];
 
 			for (const part of parts) {
 				const match = part.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
-				if (!match) return undefined;
+				if (!match) return null;
 
 				const day = Number(match[1]);
 				const month = Number(match[2]);
 				const year = Number(match[3]);
 
-				if (month < 1 || month > 12) return undefined;
-				if (day < 1 || day > 31) return undefined;
+				if (month < 1 || month > 12) return null;
+				if (day < 1 || day > 31) return null;
 
 				const date = new Date(year, month - 1, day);
 
 				if (date.getFullYear() !== year || date.getMonth() !== month - 1 || date.getDate() !== day) {
-					return undefined;
+					return null;
 				}
 
 				result.push(date);

@@ -2313,7 +2313,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
           {
             "name": "parseDate",
             "required": false,
-            "type": "(value: string) => T[] | undefined",
+            "type": "(value: string) => T[] | null",
           },
           {
             "name": "formatInputDates",
@@ -2377,7 +2377,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "outputs": [
           {
             "name": "dateChange",
-            "type": "T",
+            "type": "T | null",
           },
         ],
         "selector": "hlm-date-picker",
@@ -2399,7 +2399,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
           {
             "name": "parseDate",
             "required": false,
-            "type": "(value: string) => T | undefined",
+            "type": "(value: string) => T | null",
           },
           {
             "name": "formatInputDate",
@@ -2510,12 +2510,12 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
           {
             "name": "parseDate",
             "required": false,
-            "type": "(value: string) => [T, T] | undefined",
+            "type": "(value: string) => [T, T] | null",
           },
           {
             "name": "formatInputDates",
             "required": false,
-            "type": "(dates: [T | undefined, T | undefined]) => string",
+            "type": "(dates: [T | null, T | null]) => string",
           },
         ],
         "models": [],
@@ -2557,7 +2557,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
           {
             "name": "formatDates",
             "required": false,
-            "type": "(dates: [T | undefined, T | undefined]) => string",
+            "type": "(dates: [T | null, T | null]) => string",
           },
           {
             "name": "transformDates",
@@ -2579,7 +2579,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
           {
             "name": "parseDate",
             "required": false,
-            "type": "(value: string) => T | undefined",
+            "type": "(value: string) => T | null",
           },
           {
             "name": "formatInputDate",
@@ -2638,7 +2638,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "outputs": [
           {
             "name": "dateChange",
-            "type": "T",
+            "type": "T | null",
           },
         ],
         "selector": "hlm-month-year-picker",

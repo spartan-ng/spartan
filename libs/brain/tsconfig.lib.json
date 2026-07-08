@@ -8,14 +8,6 @@
 		"types": [],
 		"moduleResolution": "bundler"
 	},
-	"exclude": [
-		"**/*.spec.ts",
-		"test-setup.ts",
-		"vite.config.mts",
-		"**/*.test.ts",
-		"src/testing/**",
-		"date-picker/**/*.spec.ts",
-		"date-picker/**/*.test.ts",
-		"date-picker/src/testing/**"
-	]
+	"exclude": ["**/*.spec.ts", "test-setup.ts", "vite.config.mts", "**/*.test.ts", "src/testing/**"],
+	"include": ["**/*.ts"]
 }

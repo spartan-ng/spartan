@@ -52,11 +52,11 @@ const formatInputDate = (date: Date): string =>
 	`${pad(date.getDate())}/${pad(date.getMonth() + 1)}/${date.getFullYear()}`;
 
 /** Parses `dd/MM/yyyy` back into a `Date`. Does not understand the display format on purpose. */
-const parseDate = (value: string): Date | undefined => {
+const parseDate = (value: string): Date | null => {
 	const match = value.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
-	if (!match) return undefined;
+	if (!match) return null;
 	const date = new Date(Number(match[3]), Number(match[2]) - 1, Number(match[1]));
-	return isNaN(date.getTime()) ? undefined : date;
+	return isNaN(date.getTime()) ? null : date;
 };
 
 export const Default: Story = {

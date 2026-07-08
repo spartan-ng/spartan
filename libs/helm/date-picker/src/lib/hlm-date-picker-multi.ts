@@ -128,7 +128,7 @@ export class HlmDatePickerMulti<T> implements BrnDatePickerBase<T[]>, ControlVal
 	public readonly hasDate = computed(() => !!this._mutableDate()?.length);
 
 	/** @internal The current raw value, used by inputs to reformat on focus. */
-	public readonly value = this._mutableDate.asReadonly();
+	public readonly value = computed(() => this._mutableDate() ?? null);
 
 	protected _onChange?: ChangeFn<T[]>;
 	protected _onTouched?: TouchFn;
@@ -156,9 +156,9 @@ export class HlmDatePickerMulti<T> implements BrnDatePickerBase<T[]>, ControlVal
 	/**
 	 * Commit dates to the picker. Updates the internal model, notifies form
 	 * controls, and emits `dateChange`. Intended to be called from a text input
-	 * that parses user-entered values. Pass `undefined` to clear the selection.
+	 * that parses user-entered values. Pass `null` to clear the selection.
 	 */
-	public updateDate(value: T[] | undefined) {
+	public updateDate(value: T[] | null) {
 		if (this._disabled()) return;
 		const transformedDate = value ? this.transformDates()(value) : undefined;
 

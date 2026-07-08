@@ -46,23 +46,23 @@ const pad = (value: number): string => String(value).padStart(2, '0');
 const toInput = (date: Date): string => `${pad(date.getDate())}/${pad(date.getMonth() + 1)}/${date.getFullYear()}`;
 
 /** Display format (shown on blur / in the trigger) - intentionally distinct from the edit format. */
-const formatDates = (dates: [Date | undefined, Date | undefined]): string =>
+const formatDates = (dates: [Date | null, Date | null]): string =>
 	dates
 		.filter((date): date is Date => !!date)
 		.map((date) => date.toDateString())
 		.join(' to ');
 
 /** Edit format (shown while focused) - `dd/MM/yyyy - dd/MM/yyyy`. */
-const formatInputDates = (dates: [Date | undefined, Date | undefined]): string =>
+const formatInputDates = (dates: [Date | null, Date | null]): string =>
 	dates
 		.filter((date): date is Date => !!date)
 		.map(toInput)
 		.join(' - ');
 
 /** Parses `dd/MM/yyyy - dd/MM/yyyy`. Does not understand the display format on purpose. */
-const parseDate = (value: string): [Date, Date] | undefined => {
+const parseDate = (value: string): [Date, Date] | null => {
 	const parts = value.split(' - ').map((part) => part.trim());
-	if (parts.length !== 2) return undefined;
+	if (parts.length !== 2) return null;
 
 	const dates = parts.map((part) => {
 		const match = part.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
@@ -71,7 +71,7 @@ const parseDate = (value: string): [Date, Date] | undefined => {
 		return isNaN(date.getTime()) ? undefined : date;
 	});
 
-	if (!dates[0] || !dates[1]) return undefined;
+	if (!dates[0] || !dates[1]) return null;
 	return [dates[0], dates[1]];
 };
 

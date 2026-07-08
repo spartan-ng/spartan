@@ -62,11 +62,11 @@ export abstract class BrnDateInput<V> {
 	public readonly placeholder = input<string>('');
 
 	/**
-	 * Parse user-entered text into the picker value. Return `undefined` for
+	 * Parse user-entered text into the picker value. Return `null` for
 	 * invalid input - the picker's value is cleared while the text is preserved
 	 * so the user can fix it.
 	 */
-	protected abstract parseValue(value: string): V | undefined;
+	protected abstract parseValue(value: string): V | null;
 
 	/**
 	 * Format the committed value into the input/edit format shown while the
@@ -136,7 +136,7 @@ export abstract class BrnDateInput<V> {
 
 	protected _clear() {
 		this._inputValue.set('');
-		this._datePicker.updateDate?.(undefined);
+		this._datePicker.updateDate?.(null);
 		this._datePicker.touched?.();
 	}
 
@@ -153,7 +153,7 @@ export abstract class BrnDateInput<V> {
 	/** On focus, reformat the committed value into the input/edit format. */
 	protected _handleFocus() {
 		const value = this._datePicker.value?.();
-		if (value !== undefined) {
+		if (value != null) {
 			this._inputValue.set(this.formatInputValue(value));
 		}
 	}
@@ -171,7 +171,7 @@ export abstract class BrnDateInput<V> {
 		const value = this._inputValue();
 
 		if (!value) {
-			this._datePicker.updateDate?.(undefined);
+			this._datePicker.updateDate?.(null);
 			this._datePicker.touched?.();
 			return;
 		}

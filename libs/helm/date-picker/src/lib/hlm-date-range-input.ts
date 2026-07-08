@@ -60,13 +60,13 @@ export class HlmDateRangeInput<T> extends BrnDateInput<[T, T]> implements BrnDat
 	private readonly _config = injectHlmDateRangePickerConfig<T>();
 
 	/**
-	 * Parses input text into a date range. Return `undefined` for invalid
+	 * Parses input text into a date range. Return `null` for invalid
 	 * input - the picker's range is cleared while the text is preserved so
 	 * the user can fix it.
 	 *
 	 * Defaults to `parseDate` from `HlmDateRangePickerConfig`.
 	 */
-	public readonly parseDate = input<(value: string) => [T, T] | undefined>(this._config.parseDate);
+	public readonly parseDate = input<(value: string) => [T, T] | null>(this._config.parseDate);
 
 	/**
 	 * Formats the current range into the input/edit format shown while the
@@ -74,11 +74,9 @@ export class HlmDateRangeInput<T> extends BrnDateInput<[T, T]> implements BrnDat
 	 *
 	 * Defaults to `formatInputDates` from `HlmDateRangePickerConfig`.
 	 */
-	public readonly formatInputDates = input<(dates: [T | undefined, T | undefined]) => string>(
-		this._config.formatInputDates,
-	);
+	public readonly formatInputDates = input<(dates: [T | null, T | null]) => string>(this._config.formatInputDates);
 
-	protected override parseValue(value: string): [T, T] | undefined {
+	protected override parseValue(value: string): [T, T] | null {
 		return this.parseDate()(value);
 	}
 

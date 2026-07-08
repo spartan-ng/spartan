@@ -1,28 +1,53 @@
-import { Project } from 'ts-morph';
+import { Project, ts } from 'ts-morph';
 import { describe, expect, it } from 'vitest';
-import { extractInputsOutputs } from './executor';
+import { extractInputsOutputs, type ComponentInfo, type Member } from './executor';
 
-type Member = { name: string; type?: string; description?: string; defaultValue?: string | null; required?: boolean };
-type ComponentInfo = {
-	file: string;
-	inputs: Member[];
-	outputs: Member[];
-	models: Member[];
-	selector: string | null;
-	exportAs: string | null;
-};
+/**
+ * Mirrors the real workspace layout so `@spartan-ng/*` imports resolve exactly as
+ * they do at runtime: every `libs/<scope>/<pkg>` gets a barrel `src/index.ts` that
+ * re-exports its lib files, and a matching `paths` entry. The extractor then relies
+ * on the type checker for base-class/host-directive resolution — no name registry.
+ */
+function buildBarrelsAndPaths(files: Record<string, string>): {
+	barrels: Record<string, string>;
+	paths: Record<string, string[]>;
+} {
+	const libFilesByPackage = new Map<string, string[]>();
+	for (const filePath of Object.keys(files)) {
+		const match = filePath.match(/^(libs\/[^/]+\/[^/]+)\/src\/lib\/(.+)\.ts$/);
+		if (!match) continue;
+		const [, packageRoot, libName] = match;
+		const existing = libFilesByPackage.get(packageRoot);
+		if (existing) existing.push(libName);
+		else libFilesByPackage.set(packageRoot, [libName]);
+	}
+
+	const barrels: Record<string, string> = {};
+	const paths: Record<string, string[]> = {};
+	for (const [packageRoot, libNames] of libFilesByPackage) {
+		const indexPath = `${packageRoot}/src/index.ts`;
+		barrels[indexPath] = libNames.map((name) => `export * from './lib/${name}';`).join('\n');
+		const alias = packageRoot.replace('libs/', '@spartan-ng/');
+		paths[alias] = [indexPath];
+	}
+	return { barrels, paths };
+}
 
 /**
  * Runs the extractor against a set of in-memory source files and returns a flat
  * map keyed by class name for convenient assertions.
  */
 function extract(files: Record<string, string>): Record<string, ComponentInfo> {
-	const project = new Project({ useInMemoryFileSystem: true });
-	for (const [filePath, content] of Object.entries(files)) {
+	const { barrels, paths } = buildBarrelsAndPaths(files);
+	const project = new Project({
+		useInMemoryFileSystem: true,
+		compilerOptions: { baseUrl: '/', paths, moduleResolution: ts.ModuleResolutionKind.Bundler },
+	});
+	for (const [filePath, content] of Object.entries({ ...barrels, ...files })) {
 		project.createSourceFile(filePath, content);
 	}
 
-	const nested = extractInputsOutputs(project, '/') as Record<string, Record<string, Record<string, ComponentInfo>>>;
+	const nested = extractInputsOutputs(project, '/');
 
 	const flat: Record<string, ComponentInfo> = {};
 	for (const componentType of Object.values(nested)) {
@@ -116,6 +141,38 @@ describe('extractInputsOutputs', () => {
 				{ name: 'size', type: 'number', description: '', defaultValue: null, required: true },
 			]);
 		});
+
+		it('keeps default values exactly as written, including string quotes and expressions', () => {
+			const result = extract({
+				'libs/brain/foo/src/lib/brn-foo.ts': `
+					import { Directive, input, signal } from '@angular/core';
+					@Directive({ selector: '[brnFoo]' })
+					export class BrnFoo {
+						public readonly label = input<string>('dialog');
+						public readonly count = input<number>(signal(5));
+					}
+				`,
+			});
+
+			const byName = Object.fromEntries(result['BrnFoo'].inputs.map((i) => [i.name, i.defaultValue]));
+			expect(byName['label']).toBe("'dialog'");
+			expect(byName['count']).toBe('signal(5)');
+		});
+
+		it('captures the JSDoc comment of a member as its description', () => {
+			const result = extract({
+				'libs/brain/foo/src/lib/brn-foo.ts': `
+					import { Directive, input } from '@angular/core';
+					@Directive({ selector: '[brnFoo]' })
+					export class BrnFoo {
+						/** The size of the thing. */
+						public readonly size = input<number>(1);
+					}
+				`,
+			});
+
+			expect(result['BrnFoo'].inputs[0].description).toBe('The size of the thing.');
+		});
 	});
 
 	describe('decorator-based members', () => {
@@ -163,6 +220,23 @@ describe('extractInputsOutputs', () => {
 			});
 
 			expect(names(result['BrnFoo'].inputs)).toEqual(['plain']);
+		});
+	});
+
+	describe('selector and exportAs', () => {
+		it('leaves exportAs undefined when the decorator omits it, so it is dropped from the JSON', () => {
+			const result = extract({
+				'libs/brain/foo/src/lib/brn-foo.ts': `
+					import { Directive, input } from '@angular/core';
+					@Directive({ selector: '[brnFoo]' })
+					export class BrnFoo {
+						public readonly size = input<number>(1);
+					}
+				`,
+			});
+
+			expect(result['BrnFoo'].selector).toBe('[brnFoo]');
+			expect(result['BrnFoo'].exportAs).toBeUndefined();
 		});
 	});
 
@@ -394,6 +468,34 @@ describe('extractInputsOutputs', () => {
 			// beyond its selector.
 			expect(result['HlmDialogClose'].inputs).toEqual([]);
 		});
+
+		it('keeps the own member when a host directive re-exposes the same public name', () => {
+			const result = extract({
+				'libs/brain/button/src/lib/brn-button.ts': `
+					import { Directive, input } from '@angular/core';
+					@Directive({ selector: '[brnBtn]' })
+					export class BrnButton {
+						public readonly variant = input<string>('brain');
+					}
+				`,
+				'libs/helm/button/src/lib/hlm-button.ts': `
+					import { Directive, input } from '@angular/core';
+					import { BrnButton } from '@spartan-ng/brain/button';
+					@Directive({
+						selector: '[hlmBtn]',
+						hostDirectives: [{ directive: BrnButton, inputs: ['variant'] }],
+					})
+					export class HlmButton {
+						public readonly variant = input<string>('helm');
+					}
+				`,
+			});
+
+			// The class's own `variant` is collected first, so the host-directive copy is deduped away.
+			const variants = result['HlmButton'].inputs.filter((i) => i.name === 'variant');
+			expect(variants).toHaveLength(1);
+			expect(variants[0].defaultValue).toBe("'helm'");
+		});
 	});
 
 	describe('class-name collisions', () => {
@@ -425,6 +527,39 @@ describe('extractInputsOutputs', () => {
 
 			// Must inherit from the brain Base, not the helm one that shares the name.
 			expect(names(result['BrnDialog'].inputs)).toEqual(['own', 'fromBrain']);
+		});
+
+		it('does not resolve to a sibling package whose path is a prefix substring', () => {
+			const result = extract({
+				// Declared first so it wins any array-order fallback. Its path
+				// ('.../brain/dialog-content/...') contains '/brain/dialog' as a substring.
+				'libs/brain/dialog-content/src/lib/base.ts': `
+					import { Directive, input } from '@angular/core';
+					@Directive()
+					export class Base {
+						public readonly fromContent = input<string>('content');
+					}
+				`,
+				'libs/brain/dialog/src/lib/base.ts': `
+					import { Directive, input } from '@angular/core';
+					@Directive()
+					export class Base {
+						public readonly fromDialog = input<string>('dialog');
+					}
+				`,
+				'libs/brain/dialog/src/lib/brn-dialog.ts': `
+					import { Directive, input } from '@angular/core';
+					import { Base } from '@spartan-ng/brain/dialog';
+					@Directive({ selector: '[brnDialog]' })
+					export class BrnDialog extends Base {
+						public readonly own = input<string>('x');
+					}
+				`,
+			});
+
+			// '@spartan-ng/brain/dialog' must resolve to the dialog Base, not the
+			// dialog-content sibling that merely shares a path prefix.
+			expect(names(result['BrnDialog'].inputs)).toEqual(['own', 'fromDialog']);
 		});
 	});
 });

@@ -100,6 +100,16 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 		transform: numberAttribute,
 	});
 
+	/** Maximum number of steps allowed between thumbs in a range slider. */
+	public readonly maxStepsBetweenThumbs = input<number, NumberInput>(Number.POSITIVE_INFINITY, {
+		transform: numberAttribute,
+	});
+
+	/** Whether a thumb is prevented from being dragged past its neighbouring thumbs in a range slider. */
+	public readonly preventStepOverThumb = input<boolean, BooleanInput>(false, {
+		transform: booleanAttribute,
+	});
+
 	/** Whether the slider is disabled. */
 	public readonly disabled = input<boolean, BooleanInput>(false, {
 		transform: booleanAttribute,
@@ -285,11 +295,22 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 
 		value = clamp(snapToStep, [this.min(), this.max()]);
 
-		const newValue = [...this.normalizedValue()];
+		const currentValue = this.normalizedValue();
+
+		if (this.preventStepOverThumb() && currentValue.length > 1) {
+			const gap = this.minStepsBetweenThumbs() * this.step();
+			const lowerBound = atIndex > 0 ? currentValue[atIndex - 1] + gap : this.min();
+			const upperBound = atIndex < currentValue.length - 1 ? currentValue[atIndex + 1] - gap : this.max();
+			value = clamp(value, [lowerBound, upperBound]);
+		}
+
+		const newValue = [...currentValue];
 		newValue[atIndex] = value;
 		newValue.sort((a, b) => a - b);
 
 		if (!hasMinStepsBetweenValues(newValue, this.minStepsBetweenThumbs() * this.step())) return;
+
+		if (!hasMaxStepsBetweenValues(newValue, this.maxStepsBetweenThumbs() * this.step())) return;
 
 		const newValIndex = newValue.findIndex((val) => val === value);
 		this.valueIndexToChange.set(newValIndex);
@@ -389,6 +410,18 @@ function hasMinStepsBetweenValues(values: number[], minStepsBetweenValues: numbe
 		const stepsBetweenValues = getStepsBetweenValues(values);
 		const actualMinStepsBetweenValues = Math.min(...stepsBetweenValues);
 		return actualMinStepsBetweenValues >= minStepsBetweenValues;
+	}
+	return true;
+}
+
+function hasMaxStepsBetweenValues(values: number[], maxStepsBetweenValues: number): boolean {
+	if (Number.isFinite(maxStepsBetweenValues)) {
+		const stepsBetweenValues = getStepsBetweenValues(values);
+		if (!stepsBetweenValues.length) {
+			return true;
+		}
+		const actualMaxStepsBetweenValues = Math.max(...stepsBetweenValues);
+		return actualMaxStepsBetweenValues <= maxStepsBetweenValues;
 	}
 	return true;
 }

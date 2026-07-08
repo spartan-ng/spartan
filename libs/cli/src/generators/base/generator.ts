@@ -17,6 +17,7 @@ import { buildDependencyArray, buildDevDependencyArray } from './lib/build-depen
 import { deleteFiles } from './lib/deleteFiles';
 import { getTargetLibraryDirectory } from './lib/get-target-library-directory';
 import { initializeAngularLibrary } from './lib/initialize-angular-library';
+import { filterUnregisteredDependencies } from './lib/package-json-dependencies';
 
 import { librarySecondaryEntryPointGenerator } from '@nx/angular/generators';
 
@@ -193,10 +194,16 @@ function generateLibraryFiles(tree: Tree, targetLibDir: string, options: HlmBase
 	);
 }
 
-function registerDependencies(tree: Tree, options: HlmBaseGeneratorSchema): GeneratorCallback {
+function registerDependencies(tree: Tree, options: HlmBaseGeneratorSchema): GeneratorCallback | undefined {
 	const cdkVersion = getInstalledPackageVersion(tree, '@angular/cdk', FALLBACK_ANGULAR_CDK_VERSION, true);
-	const dependencies = buildDependencyArray(tree, options, cdkVersion);
-	const devDependencies = buildDevDependencyArray();
+	const { dependencies, devDependencies } = filterUnregisteredDependencies(
+		tree,
+		buildDependencyArray(tree, options, cdkVersion),
+		buildDevDependencyArray(),
+	);
+	if (Object.keys(dependencies).length === 0 && Object.keys(devDependencies).length === 0) {
+		return undefined;
+	}
 	return addDependenciesToPackageJson(tree, dependencies, devDependencies);
 }
 
@@ -237,7 +244,10 @@ export async function hlmBaseGenerator(tree: Tree, options: HlmBaseGeneratorSche
 		tree.write(filePath, transformed);
 	}
 
-	tasks.push(registerDependencies(tree, options));
+	const dependencyTask = registerDependencies(tree, options);
+	if (dependencyTask) {
+		tasks.push(dependencyTask);
+	}
 
 	return runTasksInSerial(...tasks);
 }

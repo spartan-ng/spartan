@@ -6,7 +6,8 @@ import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmTabsImports } from '@spartan-ng/helm/tabs';
 
 export const routeMeta: RouteMeta = {
-	meta: metaWith('Blocks - spartan', 'Blocks built with the spartan/ui'),
+	meta: metaWith('spartan/blocks - Blocks', 'Blocks built with the spartan/ui'),
+	title: 'spartan/blocks - Blocks',
 };
 
 @Component({

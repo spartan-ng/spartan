@@ -1,8 +1,15 @@
 import type { ExecutorContext } from '@nx/devkit';
 import fs from 'fs';
 import path from 'path';
-import type { ClassDeclaration, Decorator, Node, SourceFile } from 'ts-morph';
-import { ArrayLiteralExpression, CallExpression, ObjectLiteralExpression, Project, PropertyAssignment } from 'ts-morph';
+import type { ClassDeclaration, Decorator } from 'ts-morph';
+import {
+	ArrayLiteralExpression,
+	CallExpression,
+	Node,
+	ObjectLiteralExpression,
+	Project,
+	PropertyAssignment,
+} from 'ts-morph';
 import { writePerComponentData } from '../../../write-per-component-data';
 import type { GenerateUiDocsExecutorSchema } from './schema';
 
@@ -16,7 +23,11 @@ export default async function runExecutor(options: GenerateUiDocsExecutorSchema,
 		fs.mkdirSync(outputDir, { recursive: true });
 	}
 
-	const project = new Project();
+	// Load the workspace tsconfig so `@spartan-ng/*` imports resolve via its `paths` map.
+	const project = new Project({
+		tsConfigFilePath: path.join(context.root, 'tsconfig.base.json'),
+		skipAddingFilesFromTsConfig: true,
+	});
 	project.addSourceFilesAtPaths([
 		`${brainDir}/**/*.ts`,
 		`${helmDir}/**/*.ts`,
@@ -36,25 +47,7 @@ export default async function runExecutor(options: GenerateUiDocsExecutorSchema,
 }
 
 export function extractInputsOutputs(project: Project, workspaceRoot: string) {
-	const inputsOutputs = {};
-
-	// Build a registry of every class by name so we can resolve base classes and
-	// host directives even when they are imported via TS path aliases (which the
-	// type checker can't resolve without a tsconfig). Multiple classes may share a
-	// name across packages, so we keep a list per name and disambiguate later.
-	const classRegistry = new Map<string, ClassDeclaration[]>();
-	project.getSourceFiles().forEach((sourceFile) => {
-		sourceFile.getClasses().forEach((cls) => {
-			const name = cls.getName();
-			if (!name) return;
-			const existing = classRegistry.get(name);
-			if (existing) {
-				existing.push(cls);
-			} else {
-				classRegistry.set(name, [cls]);
-			}
-		});
-	});
+	const inputsOutputs: NestedStructure = {};
 
 	project.getSourceFiles().forEach((sourceFile) => {
 		// if the source file is a .spec.ts file then skip
@@ -67,7 +60,7 @@ export function extractInputsOutputs(project: Project, workspaceRoot: string) {
 			// Get the full file path and make it relative to workspace root
 			const fullPath = sourceFile.getFilePath();
 			const relativeFilePath = path.relative(workspaceRoot, fullPath);
-			const componentInfo = {
+			const componentInfo: ComponentInfo = {
 				file: relativeFilePath,
 				inputs: [],
 				outputs: [],
@@ -95,11 +88,11 @@ export function extractInputsOutputs(project: Project, workspaceRoot: string) {
 			// Collect members from the class itself and every ancestor it extends,
 			// so inherited inputs/outputs/models show up in the generated docs.
 			const seenMembers = new Set<string>();
-			collectAllMembers(cls, componentInfo, classRegistry, seenMembers);
+			collectAllMembers(cls, componentInfo, seenMembers);
 
 			// Collect inputs and outputs exposed through `hostDirectives`, applying the
 			// renaming declared in the decorator (e.g. 'brnTabsContent: hlmTabsContent').
-			collectHostDirectiveMembers(cls, componentInfo, classRegistry, seenMembers);
+			collectHostDirectiveMembers(cls, componentInfo, seenMembers);
 
 			if (
 				componentInfo.inputs.length ||
@@ -116,27 +109,39 @@ export function extractInputsOutputs(project: Project, workspaceRoot: string) {
 	return inputsOutputs;
 }
 
-function collectAllMembers(
-	cls: ClassDeclaration,
-	componentInfo,
-	classRegistry: Map<string, ClassDeclaration[]>,
-	seen: Set<string>,
-) {
+interface Member {
+	name: string;
+	type: string;
+	description: string;
+	defaultValue?: string | null;
+	required?: boolean;
+}
+
+interface MemberCollection {
+	inputs: Member[];
+	outputs: Member[];
+	models: Member[];
+}
+
+interface ComponentInfo extends MemberCollection {
+	file: string;
+	selector?: string | null;
+	exportAs?: string | null;
+}
+
+type NestedStructure = Record<string, Record<string, Record<string, ComponentInfo>>>;
+
+function collectAllMembers(cls: ClassDeclaration, componentInfo: MemberCollection, seen: Set<string>) {
 	const visitedClasses = new Set<ClassDeclaration>();
 	let currentClass: ClassDeclaration | undefined = cls;
 	while (currentClass && !visitedClasses.has(currentClass)) {
 		visitedClasses.add(currentClass);
 		collectMembers(currentClass, componentInfo, seen);
-		currentClass = resolveBaseClass(currentClass, classRegistry);
+		currentClass = currentClass.getBaseClass();
 	}
 }
 
-function collectHostDirectiveMembers(
-	cls: ClassDeclaration,
-	componentInfo,
-	classRegistry: Map<string, ClassDeclaration[]>,
-	seen: Set<string>,
-) {
+function collectHostDirectiveMembers(cls: ClassDeclaration, componentInfo: MemberCollection, seen: Set<string>) {
 	const decorator = cls.getDecorator((d) => d.getName() === 'Component' || d.getName() === 'Directive');
 	if (!decorator) return;
 
@@ -156,27 +161,16 @@ function collectHostDirectiveMembers(
 		const directiveProp = element.getProperty('directive');
 		if (!(directiveProp instanceof PropertyAssignment)) return;
 
-		const directiveName = directiveProp.getInitializer().getText().replace(/<.*>$/s, '').trim();
-		const directiveClass = resolveClassByName(directiveName, cls.getSourceFile(), classRegistry);
+		const directiveClass = resolveClass(directiveProp.getInitializer());
 		if (!directiveClass) return;
 
 		// Resolve the referenced directive's members (including inherited ones) so the
 		// exposed mappings can be matched by their public name.
-		const directiveInfo = { inputs: [], outputs: [], models: [] };
-		collectAllMembers(directiveClass, directiveInfo, classRegistry, new Set<string>());
+		const directiveInfo: MemberCollection = { inputs: [], outputs: [], models: [] };
+		collectAllMembers(directiveClass, directiveInfo, new Set<string>());
 
-		// A signal `model()` is exposed as an input plus a `<name>Change` output, so
-		// include models as candidates for both the input and output mappings.
-		const inputCandidates = [
-			...directiveInfo.inputs,
-			...directiveInfo.models.map((model) => ({
-				name: model.name,
-				type: model.type,
-				description: model.description,
-				defaultValue: model.defaultValue,
-				required: model.required,
-			})),
-		];
+		// A signal `model()` is exposed as an input plus a `<name>Change` output.
+		const inputCandidates = [...directiveInfo.inputs, ...directiveInfo.models];
 		const outputCandidates = [
 			...directiveInfo.outputs,
 			...directiveInfo.models.map((model) => ({
@@ -191,7 +185,13 @@ function collectHostDirectiveMembers(
 	});
 }
 
-function mapHostDirectiveMembers(memberProp, directiveMembers, kind: 'input' | 'output', seen: Set<string>, target) {
+function mapHostDirectiveMembers(
+	memberProp: Node | undefined,
+	directiveMembers: Member[],
+	kind: 'input' | 'output',
+	seen: Set<string>,
+	target: Member[],
+) {
 	if (!(memberProp instanceof PropertyAssignment)) return;
 	const init = memberProp.getInitializer();
 	if (!(init instanceof ArrayLiteralExpression)) return;
@@ -207,7 +207,7 @@ function mapHostDirectiveMembers(memberProp, directiveMembers, kind: 'input' | '
 			.map((part) => part.trim());
 		const publicName = alias || originalName;
 
-		const resolved = membersByName.get(originalName) as object;
+		const resolved = membersByName.get(originalName);
 		if (!resolved) return;
 		if (seen.has(`${kind}:${publicName}`)) return;
 		seen.add(`${kind}:${publicName}`);
@@ -215,70 +215,13 @@ function mapHostDirectiveMembers(memberProp, directiveMembers, kind: 'input' | '
 	});
 }
 
-function resolveBaseClass(
-	cls: ClassDeclaration,
-	classRegistry: Map<string, ClassDeclaration[]>,
-): ClassDeclaration | undefined {
-	// Try the type-checker first (works when the base class is in the same file
-	// or resolvable without path aliases).
-	const resolved = cls.getBaseClass();
-	if (resolved) {
-		return resolved;
-	}
-
-	// Fall back to resolving by the written name of the `extends` expression,
-	// stripping any generic type arguments (e.g. `BrnDialog<T>` -> `BrnDialog`).
-	const extendsExpr = cls.getExtends();
-	if (!extendsExpr) {
-		return undefined;
-	}
-	const baseName = extendsExpr.getExpression().getText().replace(/<.*>$/s, '').trim();
-	return resolveClassByName(baseName, cls.getSourceFile(), classRegistry);
-}
-
-function resolveClassByName(
-	name: string,
-	fromSourceFile: SourceFile,
-	classRegistry: Map<string, ClassDeclaration[]>,
-): ClassDeclaration | undefined {
-	const candidates = classRegistry.get(name);
-	if (!candidates || candidates.length === 0) {
-		return undefined;
-	}
-	if (candidates.length === 1) {
-		return candidates[0];
-	}
-
-	// Multiple classes share this name; disambiguate using the import declaration
-	// in the referencing file so inheritance/host-directive lookups don't silently
-	// resolve to the wrong package.
-	const importDecl = fromSourceFile
-		.getImportDeclarations()
-		.find((imp) =>
-			imp.getNamedImports().some((named) => (named.getAliasNode()?.getText() ?? named.getName()) === name),
-		);
-	if (importDecl) {
-		// Prefer the file the module resolver points to (works for relative imports).
-		const resolvedSourceFile = importDecl.getModuleSpecifierSourceFile();
-		if (resolvedSourceFile) {
-			const match = candidates.find((candidate) => candidate.getSourceFile() === resolvedSourceFile);
-			if (match) return match;
-		}
-		// Otherwise match the module specifier tail against candidate file paths,
-		// e.g. '@spartan-ng/brain/dialog' -> a file under '.../brain/dialog/...'.
-		const specifierTail = importDecl
-			.getModuleSpecifierValue()
-			.replace(/^@[^/]+\//, '')
-			.replace(/^[./]+/, '');
-		if (specifierTail) {
-			const match = candidates.find((candidate) =>
-				candidate.getSourceFile().getFilePath().includes(`/${specifierTail}`),
-			);
-			if (match) return match;
-		}
-	}
-
-	return candidates[0];
+function resolveClass(expr: Node | undefined): ClassDeclaration | undefined {
+	const declaration = expr
+		?.getType()
+		.getSymbol()
+		?.getDeclarations()
+		.find((decl): decl is ClassDeclaration => Node.isClassDeclaration(decl));
+	return declaration;
 }
 
 function readAliasFromOptions(optionsArg: Node | undefined): string | undefined {
@@ -308,7 +251,7 @@ function readDecoratorAlias(decorator: Decorator): string | undefined {
 	return undefined;
 }
 
-function collectMembers(cls: ClassDeclaration, componentInfo, seen: Set<string>) {
+function collectMembers(cls: ClassDeclaration, componentInfo: MemberCollection, seen: Set<string>) {
 	cls.getProperties().forEach((prop) => {
 		// Prefer the type as written in the code (without import path)
 		const type = prop.getTypeNode()?.getText() || prop.getType().getText();
@@ -350,18 +293,11 @@ function collectMembers(cls: ClassDeclaration, componentInfo, seen: Set<string>)
 
 				const callArgs = callExpr.getArguments();
 
-				// Extract the default value from signal-based input/model. The `*.required`
-				// forms take their options object as the first argument, so they have none.
-				let defaultValue = null;
-				if (!isRequired && (exprText === 'input' || exprText === 'model') && callArgs.length > 0) {
-					const argText = callArgs[0].getText();
-					const match = argText.match(/\(([^()]*)\)$/);
-					if (match && match[1]) {
-						defaultValue = match[1].replace(/['"]/g, '');
-					} else {
-						defaultValue = argText.replace(/['"]/g, '');
-					}
-				}
+				// Only the plain `input`/`model` forms carry a default; the `*.required`
+				// forms take their options object as the first argument instead. Keep the
+				// default exactly as written so strings stay quoted and expressions intact.
+				const hasDefault = !isRequired && (exprText === 'input' || exprText === 'model') && callArgs.length > 0;
+				const defaultValue = hasDefault ? callArgs[0].getText() : null;
 
 				// Options object is the first arg for the `*.required(opts)` forms and the
 				// last arg for the `input(default, opts)` / `model(default, opts)` forms.
@@ -401,7 +337,14 @@ function collectMembers(cls: ClassDeclaration, componentInfo, seen: Set<string>)
 	});
 }
 
-function addToNestedStructure(rootObject, relativeFilePath, className, componentInfo) {
+function addToNestedStructure(
+	rootObject: NestedStructure,
+	relativeFilePath: string,
+	className: string | undefined,
+	componentInfo: ComponentInfo,
+) {
+	if (!className) return;
+
 	// Split path and remove 'src' and 'lib' segments
 	const pathSegments = relativeFilePath.split(path.sep).filter((segment) => segment !== 'src' && segment !== 'lib');
 

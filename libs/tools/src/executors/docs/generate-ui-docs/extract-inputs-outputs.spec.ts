@@ -8,8 +8,8 @@ type ComponentInfo = {
 	inputs: Member[];
 	outputs: Member[];
 	models: Member[];
-	selector: string | null;
-	exportAs: string | null;
+	selector?: string | null;
+	exportAs?: string | null;
 };
 
 /**
@@ -24,7 +24,7 @@ function buildBarrelsAndPaths(files: Record<string, string>): {
 } {
 	const libFilesByPackage = new Map<string, string[]>();
 	for (const filePath of Object.keys(files)) {
-		const match = filePath.match(/^(libs\/(?:brain|helm)\/[^/]+)\/src\/lib\/(.+)\.ts$/);
+		const match = filePath.match(/^(libs\/[^/]+\/[^/]+)\/src\/lib\/(.+)\.ts$/);
 		if (!match) continue;
 		const [, packageRoot, libName] = match;
 		const existing = libFilesByPackage.get(packageRoot);

@@ -40,24 +40,19 @@ export interface HlmMonthYearPickerConfig<T> {
 	parseDate: (value: string) => T | undefined;
 }
 
+const mmYYYY = <T>(date: T) => {
+	if (!(date instanceof Date)) return `${date}`;
+
+	const month = String(date.getMonth() + 1).padStart(2, '0');
+	const year = date.getFullYear();
+
+	return `${month}/${year}`;
+};
+
 function getDefaultConfig<T>(): HlmMonthYearPickerConfig<T> {
 	return {
-		formatDate: (date) => {
-			if (!(date instanceof Date)) return `${date}`;
-
-			const month = String(date.getMonth() + 1).padStart(2, '0');
-			const year = date.getFullYear();
-
-			return `${month}/${year}`;
-		},
-		formatInputDate: (date) => {
-			if (!(date instanceof Date)) return `${date}`;
-
-			const month = String(date.getMonth() + 1).padStart(2, '0');
-			const year = date.getFullYear();
-
-			return `${month}/${year}`;
-		},
+		formatDate: mmYYYY,
+		formatInputDate: mmYYYY,
 		transformDate: (date) => date,
 		parseDate: (value) => {
 			if (typeof value !== 'string') return undefined;

@@ -1,5 +1,4 @@
-import { BooleanInput } from '@angular/cdk/coercion';
-import { booleanAttribute, ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCalendar, lucideX } from '@ng-icons/lucide';
 import {
@@ -58,12 +57,7 @@ import { injectHlmDateRangePickerConfig } from './hlm-date-range-picker.token';
 	`,
 })
 export class HlmDateRangeInput<T> extends BrnDateInput<[T, T]> implements BrnDatePickerTriggerBase {
-	private static _nextId = 0;
 	private readonly _config = injectHlmDateRangePickerConfig<T>();
-
-	public readonly inputId = input(`hlm-date-range-input-${HlmDateRangeInput._nextId++}`);
-
-	public readonly placeholder = input('');
 
 	/**
 	 * Parses input text into a date range. Return `undefined` for invalid
@@ -83,17 +77,6 @@ export class HlmDateRangeInput<T> extends BrnDateInput<[T, T]> implements BrnDat
 	public readonly formatInputDates = input<(dates: [T | undefined, T | undefined]) => string>(
 		this._config.formatInputDates,
 	);
-
-	public readonly forceInvalid = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
-
-	/** Accessible label for the clear button. */
-	public readonly clearAriaLabel = input<string>('Clear date');
-
-	/** Accessible label for the calendar trigger button. */
-	public readonly calendarAriaLabel = input<string>('Open calendar');
-
-	/** @internal Id used by the trigger contract for labeling. */
-	public readonly triggerId = this.inputId;
 
 	protected override parseValue(value: string): [T, T] | undefined {
 		return this.parseDate()(value);

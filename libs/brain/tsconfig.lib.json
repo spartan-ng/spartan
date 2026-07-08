@@ -17,6 +17,5 @@
 		"date-picker/**/*.spec.ts",
 		"date-picker/**/*.test.ts",
 		"date-picker/src/testing/**"
-	],
-	"include": ["**/*.ts", "date-picker/**/*.ts"]
+	]
 }

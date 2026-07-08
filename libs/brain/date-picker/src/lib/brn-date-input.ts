@@ -25,6 +25,10 @@ import { injectBrnDatePicker } from './brn-date-picker.token';
  */
 @Directive()
 export abstract class BrnDateInput<V> {
+	private static _nextId = 0;
+
+	public readonly inputId = input(`hlm-date-picker-input-${BrnDateInput._nextId++}`);
+
 	private readonly _document = inject(DOCUMENT);
 	private readonly _host = inject(ElementRef);
 	private readonly _inputElement = viewChild.required<ElementRef<HTMLInputElement>>('input');
@@ -42,6 +46,20 @@ export abstract class BrnDateInput<V> {
 
 	/** Open the popover on input click. */
 	public readonly openOnClick = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
+
+	/** Forces the invalid state visually, regardless of form control state. */
+	public readonly forceInvalid = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
+
+	/** Accessible label for the clear button. */
+	public readonly clearAriaLabel = input<string>('Clear date');
+
+	/** Accessible label for the calendar trigger button. */
+	public readonly calendarAriaLabel = input<string>('Open calendar');
+
+	/** @internal Id used by the trigger contract for labeling. */
+	public readonly triggerId = computed(() => this.inputId());
+
+	public readonly placeholder = input('');
 
 	/**
 	 * Parse user-entered text into the picker value. Return `undefined` for
@@ -160,7 +178,7 @@ export abstract class BrnDateInput<V> {
 
 		// Invalid parse: clear the picker value, keep the text so the user can fix it.
 		const parsed = this.parseValue(value);
-		this._datePicker.updateDate?.(parsed ?? undefined);
+		this._datePicker.updateDate?.(parsed);
 		this._datePicker.touched?.();
 	}
 

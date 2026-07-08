@@ -1,6 +1,7 @@
 import { addDependenciesToPackageJson, type GeneratorCallback, logger, runTasksInSerial, type Tree } from '@nx/devkit';
 import { getInstalledPackageVersion } from '../../utils/version-utils';
 import { buildDependencyArray, buildDevDependencyArray } from '../base/lib/build-dependency-array';
+import { filterUnregisteredDependencies } from '../base/lib/package-json-dependencies';
 import type { HlmBaseGeneratorSchema } from '../base/schema';
 import { FALLBACK_ANGULAR_CDK_VERSION } from '../base/versions';
 import addThemeToApplicationGenerator from '../theme/generator';
@@ -11,12 +12,15 @@ export async function spartanInitGenerator(tree: Tree, options: SpartanInitGener
 
 	const cdkVersionStr = getInstalledPackageVersion(tree, '@angular/cdk', FALLBACK_ANGULAR_CDK_VERSION, true);
 
-	const dependencies: Record<string, string> = buildDependencyArray(tree, {} as HlmBaseGeneratorSchema, cdkVersionStr);
-	const devDependencies: Record<string, string> = buildDevDependencyArray();
+	const { dependencies, devDependencies } = filterUnregisteredDependencies(
+		tree,
+		buildDependencyArray(tree, {} as HlmBaseGeneratorSchema, cdkVersionStr),
+		buildDevDependencyArray(),
+	);
 
 	const tasks: GeneratorCallback[] = [];
 
-	if (Object.entries(dependencies).length > 0 || Object.entries(devDependencies).length > 0) {
+	if (Object.keys(dependencies).length > 0 || Object.keys(devDependencies).length > 0) {
 		tasks.push(addDependenciesToPackageJson(tree, dependencies, devDependencies));
 	}
 

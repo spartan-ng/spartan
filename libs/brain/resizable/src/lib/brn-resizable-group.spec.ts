@@ -23,6 +23,18 @@ class ResizableHost {
 }
 
 @Component({
+	imports: [BrnResizablePanel],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<brn-resizable-group>
+			<brn-resizable-panel [defaultSize]="25" />
+			<brn-resizable-panel [defaultSize]="75" />
+		</brn-resizable-group>
+	`,
+})
+class ResizableDefaultSize {}
+
+@Component({
 	imports: [BrnResizableGroup, BrnResizablePanel, BrnResizableHandle],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
@@ -240,6 +252,25 @@ describe('BrnResizableGroup', () => {
 				Number(panel.getAttribute('data-panel-size')),
 			),
 		).toEqual([20, 30, 50]);
+	});
+
+	it('renders panels at their default sizes on the first paint (no 50/50 flash)', async () => {
+		// Mount panels against a stub group so the real BrnResizableGroup's afterRenderEffect
+		// never runs to setSize them. Whatever flex the panels emit here IS the first paint.
+		const view = await render(ResizableDefaultSize, {
+			providers: [
+				{
+					provide: BrnResizableGroup,
+					useValue: { id: signal('standalone-group'), direction: signal('horizontal') },
+				},
+			],
+		});
+		view.detectChanges();
+
+		const panels = Array.from(view.container.querySelectorAll<HTMLElement>('[data-slot="resizable-panel"]'));
+		// Chromium serializes the `0` flex-basis as `0px`; normalize so the assertion is portable.
+		const flexValues = panels.map((panel) => panel.style.flex.replace(/0px$/, '0'));
+		expect(flexValues).toEqual(['25 1 0', '75 1 0']);
 	});
 
 	it('applies an external layout update without a panel membership change', async () => {

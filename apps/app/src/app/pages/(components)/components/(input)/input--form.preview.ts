@@ -8,7 +8,7 @@ import { HlmInputImports } from '@spartan-ng/helm/input';
 	selector: 'spartan-input-form',
 	imports: [HlmInputImports, HlmButtonImports, HlmFieldImports, ReactiveFormsModule],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	host: { class: 'min-w-sm' },
+	host: { class: 'min-w-xs sm:min-w-sm' },
 	template: `
 		<form [formGroup]="form" (ngSubmit)="submit()">
 			<hlm-field-group>

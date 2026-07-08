@@ -6,7 +6,7 @@ import { HlmInputImports } from '@spartan-ng/helm/input';
 	selector: 'spartan-input-disabled',
 	imports: [HlmInputImports, HlmFieldImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	host: { class: 'min-w-sm' },
+	host: { class: 'min-w-xs sm:min-w-sm' },
 	template: `
 		<hlm-field data-disabled="true">
 			<label hlmFieldLabel for="input-disabled">Email</label>

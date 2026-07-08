@@ -7,7 +7,7 @@ import { HlmInputImports } from '@spartan-ng/helm/input';
 	selector: 'spartan-input-field-group',
 	imports: [HlmInputImports, HlmFieldImports, HlmButtonImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	host: { class: 'min-w-sm' },
+	host: { class: 'min-w-xs sm:min-w-sm' },
 	template: `
 		<hlm-field-group>
 			<hlm-field>

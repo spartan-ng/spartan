@@ -1,5 +1,5 @@
 import { Directionality } from '@angular/cdk/bidi';
-import { Component, computed, effect, inject, untracked } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, inject, untracked } from '@angular/core';
 import { TranslateService, Translations } from '@spartan-ng/app/app/shared/translate.service';
 import { HlmResizableImports } from '@spartan-ng/helm/resizable';
 
@@ -7,19 +7,33 @@ import { HlmResizableImports } from '@spartan-ng/helm/resizable';
 	selector: 'spartan-resizable-rtl-preview',
 	imports: [HlmResizableImports],
 	providers: [Directionality],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
+		class: 'min-w-xs',
 		'[dir]': '_dir()',
 	},
 	template: `
-		<hlm-resizable-group class="h-[200px] w-[500px] max-w-md rounded-lg border">
-			<hlm-resizable-panel>
-				<div class="flex h-full items-center justify-center p-6">{{ _t()['sidebar'] }}</div>
-			</hlm-resizable-panel>
-			<hlm-resizable-handle />
-			<hlm-resizable-panel>
-				<div class="flex h-full items-center justify-center p-6">
-					<span class="font-semibold">{{ _t()['content'] }}</span>
+		<hlm-resizable-group class="max-w-md rounded-lg border">
+			<hlm-resizable-panel defaultSize="50">
+				<div class="flex h-[200px] items-center justify-center p-6">
+					<span class="font-semibold">{{ _t()['one'] }}</span>
 				</div>
+			</hlm-resizable-panel>
+			<hlm-resizable-handle withHandle />
+			<hlm-resizable-panel defaultSize="50">
+				<hlm-resizable-group direction="vertical">
+					<hlm-resizable-panel defaultSize="25">
+						<div class="flex h-full items-center justify-center p-6">
+							<span class="font-semibold">{{ _t()['two'] }}</span>
+						</div>
+					</hlm-resizable-panel>
+					<hlm-resizable-handle withHandle />
+					<hlm-resizable-panel defaultSize="75">
+						<div class="flex h-full items-center justify-center p-6">
+							<span class="font-semibold">{{ _t()['three'] }}</span>
+						</div>
+					</hlm-resizable-panel>
+				</hlm-resizable-group>
 			</hlm-resizable-panel>
 		</hlm-resizable-group>
 	`,
@@ -31,22 +45,25 @@ export class ResizableRtlPreview {
 		en: {
 			dir: 'ltr',
 			values: {
-				sidebar: 'Sidebar',
-				content: 'Content',
+				one: 'One',
+				two: 'Two',
+				three: 'Three',
 			},
 		},
 		ar: {
 			dir: 'rtl',
 			values: {
-				sidebar: 'الشريط الجانبي',
-				content: 'المحتوى',
+				one: 'واحد',
+				two: 'اثنان',
+				three: 'ثلاثة',
 			},
 		},
 		he: {
 			dir: 'rtl',
 			values: {
-				sidebar: 'סרגל צד',
-				content: 'תוכן',
+				one: 'אחד',
+				two: 'שניים',
+				three: 'שלושה',
 			},
 		},
 	};

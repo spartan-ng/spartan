@@ -1,13 +1,13 @@
 import { type Tree } from '@nx/devkit';
 import { major } from 'semver';
-import { getInstalledPackageVersion } from '../../../utils/version-utils';
+import { getCliPackageVersion, getInstalledPackageVersion } from '../../../utils/version-utils';
 import type { HlmBaseGeneratorSchema } from '../schema';
 import { NG_ICONS_VERSION, TAILWIND_MERGE_VERSION, TW_ANIMATE_CSS } from '../versions';
 
 export function buildDependencyArray(tree: Tree, options: HlmBaseGeneratorSchema, cdkVersion: string) {
 	let dependencies: Record<string, string> = {
 		'@angular/cdk': cdkVersion,
-		'@spartan-ng/brain': getInstalledPackageVersion(tree, '@spartan-ng/cli', undefined, true),
+		'@spartan-ng/brain': getInstalledPackageVersion(tree, '@spartan-ng/cli', undefined, true) ?? getCliPackageVersion(),
 		'tailwind-merge': TAILWIND_MERGE_VERSION,
 	};
 

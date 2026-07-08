@@ -1,16 +1,6 @@
 import { Project, ts } from 'ts-morph';
 import { describe, expect, it } from 'vitest';
-import { extractInputsOutputs } from './executor';
-
-type Member = { name: string; type?: string; description?: string; defaultValue?: string | null; required?: boolean };
-type ComponentInfo = {
-	file: string;
-	inputs: Member[];
-	outputs: Member[];
-	models: Member[];
-	selector?: string | null;
-	exportAs?: string | null;
-};
+import { extractInputsOutputs, type ComponentInfo, type Member } from './executor';
 
 /**
  * Mirrors the real workspace layout so `@spartan-ng/*` imports resolve exactly as
@@ -57,7 +47,7 @@ function extract(files: Record<string, string>): Record<string, ComponentInfo> {
 		project.createSourceFile(filePath, content);
 	}
 
-	const nested = extractInputsOutputs(project, '/') as Record<string, Record<string, Record<string, ComponentInfo>>>;
+	const nested = extractInputsOutputs(project, '/');
 
 	const flat: Record<string, ComponentInfo> = {};
 	for (const componentType of Object.values(nested)) {

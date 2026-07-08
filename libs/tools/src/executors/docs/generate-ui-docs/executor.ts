@@ -109,7 +109,7 @@ export function extractInputsOutputs(project: Project, workspaceRoot: string) {
 	return inputsOutputs;
 }
 
-interface Member {
+export interface Member {
 	name: string;
 	type: string;
 	description: string;
@@ -117,19 +117,19 @@ interface Member {
 	required?: boolean;
 }
 
-interface MemberCollection {
+export interface MemberCollection {
 	inputs: Member[];
 	outputs: Member[];
 	models: Member[];
 }
 
-interface ComponentInfo extends MemberCollection {
+export interface ComponentInfo extends MemberCollection {
 	file: string;
 	selector?: string | null;
 	exportAs?: string | null;
 }
 
-type NestedStructure = Record<string, Record<string, Record<string, ComponentInfo>>>;
+export type NestedStructure = Record<string, Record<string, Record<string, ComponentInfo>>>;
 
 function collectAllMembers(cls: ClassDeclaration, componentInfo: MemberCollection, seen: Set<string>) {
 	const visitedClasses = new Set<ClassDeclaration>();

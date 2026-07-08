@@ -18,6 +18,17 @@ function isStringLiteralLike(node: Node): node is StringLiteral | NoSubstitution
 	return Node.isStringLiteral(node) || Node.isNoSubstitutionTemplateLiteral(node);
 }
 
+// `setLiteralValue` escapes inner single quotes into `[class*=\'text-\']`, which Tailwind's scanner
+// can't match against the unescaped DOM class, so no CSS is emitted (#1572). Re-emit as a
+// double-quoted literal (via JSON.stringify) so the attribute selectors survive verbatim.
+function setClassLiteral(node: StringLiteral | NoSubstitutionTemplateLiteral, value: string) {
+	if (Node.isStringLiteral(node) && value.includes("'")) {
+		node.replaceWithText(JSON.stringify(value));
+		return;
+	}
+	node.setLiteralValue(value);
+}
+
 export const transformStyleMap: TransformerStyle<SourceFile> = async ({ sourceFile, styleMap }) => {
 	const matchedClasses = new Set<string>();
 	applyToHlmCalls(sourceFile, styleMap);
@@ -171,7 +182,7 @@ function applyStyle(stringNode: StringLiteral | NoSubstitutionTemplateLiteral, s
 
 	updated = removeSpartanClasses(updated);
 
-	stringNode.setLiteralValue(updated);
+	setClassLiteral(stringNode, updated);
 }
 
 function extractSpartanClasses(str: string) {
@@ -289,7 +300,7 @@ function applyStyleToCvaString(stringNode: StringLiteral, styleMap: StyleMap, ma
 	if (unmatchedClasses.length === 0) {
 		// All classes already matched, just clean up non-allowlisted ones
 		const updated = removeCnClasses(stringValue);
-		stringNode.setLiteralValue(updated);
+		setClassLiteral(stringNode, updated);
 		return;
 	}
 
@@ -300,12 +311,12 @@ function applyStyleToCvaString(stringNode: StringLiteral, styleMap: StyleMap, ma
 	if (tailwindClassesToApply.length > 0) {
 		const mergedClasses = tailwindClassesToApply.join(' ');
 		const updated = removeCnClasses(mergeClasses(mergedClasses, stringValue));
-		stringNode.setLiteralValue(updated);
+		setClassLiteral(stringNode, updated);
 		unmatchedClasses.forEach((hlmClass) => matchedClasses.add(hlmClass));
 	} else {
 		// No styles to apply, but still need to clean up non-allowlisted classes
 		const updated = removeCnClasses(stringValue);
-		stringNode.setLiteralValue(updated);
+		setClassLiteral(stringNode, updated);
 	}
 }
 

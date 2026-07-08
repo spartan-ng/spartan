@@ -1,5 +1,4 @@
-import { BooleanInput } from '@angular/cdk/coercion';
-import { booleanAttribute, ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCalendar, lucideX } from '@ng-icons/lucide';
 import {
@@ -58,21 +57,16 @@ import { injectHlmMonthYearPickerConfig } from './hlm-month-year-picker.token';
 	`,
 })
 export class HlmMonthYearInput<T> extends BrnDateInput<T> implements BrnDatePickerTriggerBase {
-	private static _nextId = 0;
 	private readonly _config = injectHlmMonthYearPickerConfig<T>();
 
-	public readonly inputId = input(`hlm-month-year-input-${HlmMonthYearInput._nextId++}`);
-
-	public readonly placeholder = input('');
-
 	/**
-	 * Parses input text into a date value. Return `undefined` for invalid
+	 * Parses input text into a date value. Return `null` for invalid
 	 * input - the picker's date is cleared while the text is preserved so
 	 * the user can fix it.
 	 *
 	 * Defaults to `parseDate` from `HlmMonthYearPickerConfig`.
 	 */
-	public readonly parseDate = input<(value: string) => T | undefined>(this._config.parseDate);
+	public readonly parseDate = input<(value: string) => T | null>(this._config.parseDate);
 
 	/**
 	 * Formats the current date into the input/edit format shown while the
@@ -82,18 +76,7 @@ export class HlmMonthYearInput<T> extends BrnDateInput<T> implements BrnDatePick
 	 */
 	public readonly formatInputDate = input<(date: T) => string>(this._config.formatInputDate);
 
-	public readonly forceInvalid = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
-
-	/** Accessible label for the clear button. */
-	public readonly clearAriaLabel = input<string>('Clear date');
-
-	/** Accessible label for the calendar trigger button. */
-	public readonly calendarAriaLabel = input<string>('Open calendar');
-
-	/** @internal Id used by the trigger contract for labeling. */
-	public readonly triggerId = this.inputId;
-
-	protected override parseValue(value: string): T | undefined {
+	protected override parseValue(value: string): T | null {
 		return this.parseDate()(value);
 	}
 

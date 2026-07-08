@@ -12,7 +12,7 @@ export interface HlmDateRangePickerConfig<T> {
 	 * @param dates
 	 * @returns formatted date
 	 */
-	formatDates: (dates: [T | undefined, T | undefined]) => string;
+	formatDates: (dates: [T | null, T | null]) => string;
 
 	/**
 	 * Defines how the range should be displayed while the input is focused,
@@ -21,7 +21,7 @@ export interface HlmDateRangePickerConfig<T> {
 	 * @param dates
 	 * @returns formatted range in the input/edit format
 	 */
-	formatInputDates: (dates: [T | undefined, T | undefined]) => string;
+	formatInputDates: (dates: [T | null, T | null]) => string;
 
 	/**
 	 * Defines how the date should be transformed before saving to model/form.
@@ -35,9 +35,9 @@ export interface HlmDateRangePickerConfig<T> {
 	 * Parse a user-entered string into a date range.
 	 *
 	 * @param value the raw string from the input
-	 * @returns the parsed range, or `undefined` when the value can't be parsed
+	 * @returns the parsed range, or `null` when the value can't be parsed
 	 */
-	parseDate: (value: string) => [T, T] | undefined;
+	parseDate: (value: string) => [T, T] | null;
 }
 
 function getDefaultConfig<T>(): HlmDateRangePickerConfig<T> {
@@ -55,17 +55,17 @@ function getDefaultConfig<T>(): HlmDateRangePickerConfig<T> {
 		transformDates: (dates) => dates,
 		autoCloseOnEndSelection: false,
 		parseDate: (value) => {
-			if (typeof value !== 'string') return undefined;
+			if (typeof value !== 'string') return null;
 
 			const parts = value.split(' - ').map((part) => part.trim());
-			if (parts.length !== 2) return undefined;
+			if (parts.length === 0 || parts.length > 2) return null;
 
 			const start = new Date(parts[0]);
-			const end = new Date(parts[1]);
+			if (isNaN(start.getTime())) return null;
 
-			if (isNaN(start.getTime()) || isNaN(end.getTime())) return undefined;
+			const end = parts.length === 2 ? new Date(parts[1]) : start;
 
-			return [start, end] as [T, T];
+			return [start, isNaN(end.getTime()) ? start : end] as [T, T];
 		},
 	};
 }

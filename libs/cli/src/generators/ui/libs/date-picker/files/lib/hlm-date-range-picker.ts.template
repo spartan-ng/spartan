@@ -97,7 +97,7 @@ export class HlmDateRangePicker<T> implements BrnDatePickerBase<[T, T]>, Control
 	});
 
 	/** Defines how the date should be displayed in the UI.  */
-	public readonly formatDates = input<(dates: [T | undefined, T | undefined]) => string>(this._config.formatDates);
+	public readonly formatDates = input<(dates: [T | null, T | null]) => string>(this._config.formatDates);
 
 	/** Defines how the date should be transformed before saving to model/form. */
 	public readonly transformDates = input<(date: [T, T]) => [T, T]>(this._config.transformDates);
@@ -112,7 +112,7 @@ export class HlmDateRangePicker<T> implements BrnDatePickerBase<[T, T]>, Control
 	public readonly formattedDate = computed(() => {
 		const start = this._start();
 		const end = this._end();
-		return start || end ? this.formatDates()([start, end]) : undefined;
+		return start || end ? this.formatDates()([start ?? null, end ?? null]) : undefined;
 	});
 
 	public readonly dateChange = output<[T, T] | null>();
@@ -122,7 +122,7 @@ export class HlmDateRangePicker<T> implements BrnDatePickerBase<[T, T]>, Control
 	public readonly hasDate = computed(() => !!this._start() || !!this._end());
 
 	/** @internal The current raw value, used by inputs to reformat on focus. */
-	public readonly value = this._mutableDate.asReadonly();
+	public readonly value = computed(() => this._mutableDate() ?? null);
 
 	protected _onChange?: ChangeFn<[T, T] | null>;
 	protected _onTouched?: TouchFn;
@@ -159,9 +159,9 @@ export class HlmDateRangePicker<T> implements BrnDatePickerBase<[T, T]>, Control
 	/**
 	 * Commit a range to the picker. Updates the internal model, notifies form
 	 * controls, and emits `dateChange`. Intended to be called from a text input
-	 * that parses user-entered values. Pass `undefined` to clear the range.
+	 * that parses user-entered values. Pass `null` to clear the range.
 	 */
-	public updateDate(value: [T, T] | undefined) {
+	public updateDate(value: [T, T] | null) {
 		if (this._disabled()) return;
 
 		if (!value) {

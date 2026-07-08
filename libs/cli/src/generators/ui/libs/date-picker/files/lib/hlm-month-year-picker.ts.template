@@ -107,16 +107,16 @@ export class HlmMonthYearPicker<T> implements BrnDatePickerBase<T>, ControlValue
 		return date ? this.formatDate()(date) : undefined;
 	});
 
-	public readonly dateChange = output<T>();
+	public readonly dateChange = output<T | null>();
 
 	public readonly labelableId = computed(() => this._trigger()?.triggerId());
 
 	public readonly hasDate = computed(() => !!this._mutableDate());
 
 	/** @internal The current raw value, used by inputs to reformat on focus. */
-	public readonly value = this._mutableDate.asReadonly();
+	public readonly value = computed(() => this._mutableDate() ?? null);
 
-	protected _onChange?: ChangeFn<T>;
+	protected _onChange?: ChangeFn<T | null>;
 	protected _onTouched?: TouchFn;
 
 	protected _onStateChange(state: BrnOverlayState) {
@@ -126,7 +126,7 @@ export class HlmMonthYearPicker<T> implements BrnDatePickerBase<T>, ControlValue
 
 	protected _handleChange(value: T | undefined) {
 		if (this._disabled()) return;
-		this.updateDate(value);
+		this.updateDate(value ?? null);
 
 		if (this.autoCloseOnSelect()) {
 			this._popoverState.set('closed');
@@ -139,13 +139,13 @@ export class HlmMonthYearPicker<T> implements BrnDatePickerBase<T>, ControlValue
 	 * close the popover - it's intended to be called from a text input that
 	 * is parsing user-entered values while typing.
 	 */
-	public updateDate(value: T | undefined) {
+	public updateDate(value: T | null) {
 		if (this._disabled()) return;
-		const transformedDate = value !== undefined ? this.transformDate()(value) : undefined;
+		const transformedDate = value != null ? this.transformDate()(value) : undefined;
 
 		this._mutableDate.set(transformedDate);
-		this._onChange?.(transformedDate as T);
-		this.dateChange.emit(transformedDate as T);
+		this._onChange?.(transformedDate ?? null);
+		this.dateChange.emit(transformedDate ?? null);
 	}
 
 	/** CONTROL VALUE ACCESSOR */
@@ -153,7 +153,7 @@ export class HlmMonthYearPicker<T> implements BrnDatePickerBase<T>, ControlValue
 		this._mutableDate.set(value ? this.transformDate()(value) : undefined);
 	}
 
-	public registerOnChange(fn: ChangeFn<T>): void {
+	public registerOnChange(fn: ChangeFn<T | null>): void {
 		this._onChange = fn;
 	}
 
@@ -179,7 +179,7 @@ export class HlmMonthYearPicker<T> implements BrnDatePickerBase<T>, ControlValue
 
 	public reset() {
 		this._mutableDate.set(undefined);
-		this._onChange?.(undefined as T);
-		this.dateChange.emit(undefined as T);
+		this._onChange?.(null);
+		this.dateChange.emit(null);
 	}
 }

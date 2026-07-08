@@ -2262,6 +2262,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "exportAs": null,
         "inputs": [
           {
+            "name": "inputId",
+            "required": false,
+            "type": "string",
+          },
+          {
             "name": "inputValue",
             "required": false,
             "type": "string",
@@ -2275,35 +2280,6 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "name": "openOnClick",
             "required": false,
             "type": "boolean",
-          },
-        ],
-        "models": [],
-        "outputs": [],
-        "selector": null,
-      },
-    },
-    "helm": {
-      "HlmDateMultiInput": {
-        "inputs": [
-          {
-            "name": "inputId",
-            "required": false,
-            "type": "unknown",
-          },
-          {
-            "name": "placeholder",
-            "required": false,
-            "type": "unknown",
-          },
-          {
-            "name": "parseDate",
-            "required": false,
-            "type": "(value: string) => T[] | undefined",
-          },
-          {
-            "name": "formatInputDates",
-            "required": false,
-            "type": "(dates: T[]) => string",
           },
           {
             "name": "forceInvalid",
@@ -2319,6 +2295,30 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "name": "calendarAriaLabel",
             "required": false,
             "type": "string",
+          },
+          {
+            "name": "placeholder",
+            "required": false,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": null,
+      },
+    },
+    "helm": {
+      "HlmDateMultiInput": {
+        "inputs": [
+          {
+            "name": "parseDate",
+            "required": false,
+            "type": "(value: string) => T[] | undefined",
+          },
+          {
+            "name": "formatInputDates",
+            "required": false,
+            "type": "(dates: T[]) => string",
           },
         ],
         "models": [],
@@ -2397,16 +2397,6 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
       "HlmDatePickerInput": {
         "inputs": [
           {
-            "name": "inputId",
-            "required": false,
-            "type": "unknown",
-          },
-          {
-            "name": "placeholder",
-            "required": false,
-            "type": "unknown",
-          },
-          {
             "name": "parseDate",
             "required": false,
             "type": "(value: string) => T | undefined",
@@ -2415,21 +2405,6 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "name": "formatInputDate",
             "required": false,
             "type": "(date: T) => string",
-          },
-          {
-            "name": "forceInvalid",
-            "required": false,
-            "type": "boolean",
-          },
-          {
-            "name": "clearAriaLabel",
-            "required": false,
-            "type": "string",
-          },
-          {
-            "name": "calendarAriaLabel",
-            "required": false,
-            "type": "string",
           },
         ],
         "models": [],
@@ -2533,16 +2508,6 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
       "HlmDateRangeInput": {
         "inputs": [
           {
-            "name": "inputId",
-            "required": false,
-            "type": "unknown",
-          },
-          {
-            "name": "placeholder",
-            "required": false,
-            "type": "unknown",
-          },
-          {
             "name": "parseDate",
             "required": false,
             "type": "(value: string) => [T, T] | undefined",
@@ -2551,21 +2516,6 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "name": "formatInputDates",
             "required": false,
             "type": "(dates: [T | undefined, T | undefined]) => string",
-          },
-          {
-            "name": "forceInvalid",
-            "required": false,
-            "type": "boolean",
-          },
-          {
-            "name": "clearAriaLabel",
-            "required": false,
-            "type": "string",
-          },
-          {
-            "name": "calendarAriaLabel",
-            "required": false,
-            "type": "string",
           },
         ],
         "models": [],
@@ -2627,16 +2577,6 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
       "HlmMonthYearInput": {
         "inputs": [
           {
-            "name": "inputId",
-            "required": false,
-            "type": "unknown",
-          },
-          {
-            "name": "placeholder",
-            "required": false,
-            "type": "unknown",
-          },
-          {
             "name": "parseDate",
             "required": false,
             "type": "(value: string) => T | undefined",
@@ -2645,21 +2585,6 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "name": "formatInputDate",
             "required": false,
             "type": "(date: T) => string",
-          },
-          {
-            "name": "forceInvalid",
-            "required": false,
-            "type": "boolean",
-          },
-          {
-            "name": "clearAriaLabel",
-            "required": false,
-            "type": "string",
-          },
-          {
-            "name": "calendarAriaLabel",
-            "required": false,
-            "type": "string",
           },
         ],
         "models": [],
@@ -5541,7 +5466,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
           {
             "name": "srOnlyText",
             "required": false,
-            "type": "unknown",
+            "type": "string",
           },
         ],
         "models": [],

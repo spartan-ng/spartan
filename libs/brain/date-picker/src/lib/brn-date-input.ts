@@ -27,7 +27,7 @@ import { injectBrnDatePicker } from './brn-date-picker.token';
 export abstract class BrnDateInput<V> {
 	private static _nextId = 0;
 
-	public readonly inputId = input(`hlm-date-picker-input-${BrnDateInput._nextId++}`);
+	public readonly inputId = input<string>(`hlm-date-picker-input-${BrnDateInput._nextId++}`);
 
 	private readonly _document = inject(DOCUMENT);
 	private readonly _host = inject(ElementRef);
@@ -59,7 +59,7 @@ export abstract class BrnDateInput<V> {
 	/** @internal Id used by the trigger contract for labeling. */
 	public readonly triggerId = computed(() => this.inputId());
 
-	public readonly placeholder = input('');
+	public readonly placeholder = input<string>('');
 
 	/**
 	 * Parse user-entered text into the picker value. Return `undefined` for

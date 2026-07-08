@@ -2156,6 +2156,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "required": false,
             "type": "boolean",
           },
+          {
+            "name": "isSingleValuePresent",
+            "required": false,
+            "type": "(value: T | undefined | null) => boolean",
+          },
         ],
         "models": [
           {

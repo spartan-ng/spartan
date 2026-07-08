@@ -8,7 +8,9 @@ import { clean, coerce } from 'semver';
 // <pkg>/src/utils in both source and dist, so ../../package.json is the cli package root.
 export function getCliPackageVersion(): string {
 	const pkg = JSON.parse(readFileSync(join(__dirname, '..', '..', 'package.json'), 'utf-8'));
-	return pkg.version;
+	const version = coerce(pkg.version)?.version;
+	if (!version) throw new Error('Unable to determine @spartan-ng/cli version from its package.json');
+	return version;
 }
 
 export function getInstalledPackageVersion(

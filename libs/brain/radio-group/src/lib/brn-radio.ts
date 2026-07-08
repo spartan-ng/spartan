@@ -53,7 +53,7 @@ const INPUT_POST_FIX = '-input';
 		</div>
 		<input
 			#input
-			[style]="'position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border-width: 0;'"
+			[style]="inputStyles()"
 			type="radio"
 			[attr.id]="_inputId()"
 			[checked]="_checked()"
@@ -108,6 +108,14 @@ export class BrnRadio<T = unknown> implements OnDestroy {
 	 * The value this radio button represents.
 	 */
 	public readonly value = input.required<T>();
+
+	/**
+	 * Styles applied to the visually hidden native input element. Bound via `[style]` so they apply
+	 * through the CSSOM and are not blocked by a strict Content-Security-Policy.
+	 */
+	public readonly inputStyles = input<string>(
+		'position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border-width: 0;',
+	);
 
 	/**
 	 * Whether the radio button is required.

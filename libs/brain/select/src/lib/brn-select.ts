@@ -66,6 +66,7 @@ export class BrnSelect<T> implements BrnSelectBase<T>, ControlValueAccessor {
 
 	/**
 	 * Determines whether a single value is present (i.e., has been selected).
+	 * Considers `undefined`, `null`, and empty string as "not present".
 	 * Only used by single select, ignored by the multiple select variant.
 	 */
 	public readonly isSingleValuePresent = input<(value: T | undefined | null) => boolean>(

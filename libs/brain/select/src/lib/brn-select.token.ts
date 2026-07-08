@@ -54,6 +54,7 @@ export interface BrnSelectConfig<T> {
 	isItemEqualToValue: SelectItemEqualToValue<T>;
 	/**
 	 * Determines whether a single value is present (i.e., has been selected).
+	 * Considers `undefined`, `null`, and empty string as "not present".
 	 * Only used by {@link BrnSelectComponent} (single select), ignored by the multiple select variant.
 	 */
 	isSingleValuePresent: (value: T | undefined | null) => boolean;
@@ -63,7 +64,7 @@ export interface BrnSelectConfig<T> {
 function getDefaultConfig<T>(): BrnSelectConfig<T> {
 	return {
 		isItemEqualToValue: (itemValue: T, selectedValue: T | undefined | null) => Object.is(itemValue, selectedValue),
-		isSingleValuePresent: (value: T | undefined | null) => value !== undefined && value !== null,
+		isSingleValuePresent: (value: T | undefined | null) => value !== undefined && value !== null && value !== '',
 		itemToString: undefined,
 	};
 }

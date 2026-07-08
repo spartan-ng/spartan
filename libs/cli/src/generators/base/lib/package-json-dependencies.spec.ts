@@ -1,8 +1,8 @@
 import { type Tree, writeJson } from '@nx/devkit';
 import { createTreeWithEmptyWorkspace } from '@nx/devkit/testing';
-import { filterUnregisteredDependencies } from './package-json-dependencies';
+import { removeCatalogManagedDependencies } from './package-json-dependencies';
 
-describe('filterUnregisteredDependencies', () => {
+describe('removeCatalogManagedDependencies', () => {
 	let tree: Tree;
 
 	beforeEach(() => {
@@ -20,7 +20,7 @@ describe('filterUnregisteredDependencies', () => {
 			},
 		});
 
-		const result = filterUnregisteredDependencies(
+		const result = removeCatalogManagedDependencies(
 			tree,
 			{
 				'@angular/cdk': 'catalog:angular',
@@ -35,6 +35,7 @@ describe('filterUnregisteredDependencies', () => {
 
 		expect(result).toEqual({
 			dependencies: {
+				// kept: not installed yet, so it is a new dependency (even as a catalog ref)
 				'@spartan-ng/brain': 'catalog:spartanui',
 			},
 			devDependencies: {
@@ -43,10 +44,20 @@ describe('filterUnregisteredDependencies', () => {
 		});
 	});
 
+	it('keeps a concrete already-declared dependency so nx can still bump it', () => {
+		writeJson(tree, 'package.json', {
+			dependencies: { 'tailwind-merge': '^3.0.0' },
+		});
+
+		const result = removeCatalogManagedDependencies(tree, { 'tailwind-merge': '^3.5.0' }, {});
+
+		expect(result.dependencies).toEqual({ 'tailwind-merge': '^3.5.0' });
+	});
+
 	it('drops null versions before registering dependencies', () => {
 		writeJson(tree, 'package.json', {});
 
-		expect(filterUnregisteredDependencies(tree, { '@spartan-ng/brain': null }, {})).toEqual({
+		expect(removeCatalogManagedDependencies(tree, { '@spartan-ng/brain': null }, {})).toEqual({
 			dependencies: {},
 			devDependencies: {},
 		});

@@ -17,7 +17,7 @@ import { buildDependencyArray, buildDevDependencyArray } from './lib/build-depen
 import { deleteFiles } from './lib/deleteFiles';
 import { getTargetLibraryDirectory } from './lib/get-target-library-directory';
 import { initializeAngularLibrary } from './lib/initialize-angular-library';
-import { filterUnregisteredDependencies } from './lib/package-json-dependencies';
+import { removeCatalogManagedDependencies } from './lib/package-json-dependencies';
 
 import { librarySecondaryEntryPointGenerator } from '@nx/angular/generators';
 
@@ -196,7 +196,7 @@ function generateLibraryFiles(tree: Tree, targetLibDir: string, options: HlmBase
 
 function registerDependencies(tree: Tree, options: HlmBaseGeneratorSchema): GeneratorCallback | undefined {
 	const cdkVersion = getInstalledPackageVersion(tree, '@angular/cdk', FALLBACK_ANGULAR_CDK_VERSION, true);
-	const { dependencies, devDependencies } = filterUnregisteredDependencies(
+	const { dependencies, devDependencies } = removeCatalogManagedDependencies(
 		tree,
 		buildDependencyArray(tree, options, cdkVersion),
 		buildDevDependencyArray(),

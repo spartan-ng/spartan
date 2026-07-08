@@ -1901,6 +1901,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "type": "string | null",
           },
           {
+            "name": "hostStyles",
+            "required": false,
+            "type": "string",
+          },
+          {
             "name": "aria-label",
             "required": false,
             "type": "string | null",
@@ -6042,6 +6047,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "type": "T",
           },
           {
+            "name": "inputStyles",
+            "required": false,
+            "type": "string",
+          },
+          {
             "name": "required",
             "required": false,
             "type": "boolean",
@@ -8064,6 +8074,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "name": "class",
             "required": false,
             "type": "string | null",
+          },
+          {
+            "name": "hostStyles",
+            "required": false,
+            "type": "string",
           },
           {
             "name": "size",

@@ -99,7 +99,7 @@ function applyToHtmlInStrings(sourceFile: SourceFile, styleMap: StyleMap, matche
 		});
 
 		if (updated !== text) {
-			node.setLiteralValue(updated);
+			setClassLiteral(node, updated);
 		}
 	});
 }

@@ -18,7 +18,8 @@ export function filterUnregisteredDependencies(tree: Tree, dependencies: Depende
 	const filter = (deps: Dependencies) =>
 		Object.fromEntries(
 			Object.entries(deps).filter(
-				([packageName, version]) => typeof version === 'string' && !isCatalogManagedDependency(packageJson, packageName),
+				([packageName, version]) =>
+					typeof version === 'string' && !isCatalogManagedDependency(packageJson, packageName),
 			),
 		) as Record<string, string>;
 

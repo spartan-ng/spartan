@@ -43,6 +43,66 @@ describe('filterUnregisteredDependencies', () => {
 		});
 	});
 
+	it('keeps dependencies already declared with concrete versions', () => {
+		writeJson(tree, 'package.json', {
+			dependencies: {
+				'@angular/cdk': '^20.0.0',
+			},
+			devDependencies: {
+				'tw-animate-css': '^1.0.0',
+			},
+		});
+
+		const result = filterUnregisteredDependencies(
+			tree,
+			{
+				'@angular/cdk': '^21.0.0',
+			},
+			{
+				'tw-animate-css': '^1.4.0',
+			},
+		);
+
+		expect(result).toEqual({
+			dependencies: {
+				'@angular/cdk': '^21.0.0',
+			},
+			devDependencies: {
+				'tw-animate-css': '^1.4.0',
+			},
+		});
+	});
+
+	it('keeps dependencies that are only declared as peer or optional dependencies', () => {
+		writeJson(tree, 'package.json', {
+			peerDependencies: {
+				'@angular/cdk': '^20.0.0',
+			},
+			optionalDependencies: {
+				'tw-animate-css': '^1.0.0',
+			},
+		});
+
+		const result = filterUnregisteredDependencies(
+			tree,
+			{
+				'@angular/cdk': '^21.0.0',
+			},
+			{
+				'tw-animate-css': '^1.4.0',
+			},
+		);
+
+		expect(result).toEqual({
+			dependencies: {
+				'@angular/cdk': '^21.0.0',
+			},
+			devDependencies: {
+				'tw-animate-css': '^1.4.0',
+			},
+		});
+	});
+
 	it('drops null versions before registering dependencies', () => {
 		writeJson(tree, 'package.json', {});
 

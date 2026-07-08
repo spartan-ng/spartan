@@ -20,7 +20,7 @@ export async function spartanInitGenerator(tree: Tree, options: SpartanInitGener
 
 	const tasks: GeneratorCallback[] = [];
 
-	if (Object.entries(dependencies).length > 0 || Object.entries(devDependencies).length > 0) {
+	if (Object.keys(dependencies).length > 0 || Object.keys(devDependencies).length > 0) {
 		tasks.push(addDependenciesToPackageJson(tree, dependencies, devDependencies));
 	}
 

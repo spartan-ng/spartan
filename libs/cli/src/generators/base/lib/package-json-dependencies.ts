@@ -8,13 +8,9 @@ type PackageJsonDependencies = {
 	optionalDependencies?: Record<string, string>;
 };
 
-function hasDeclaredDependency(packageJson: PackageJsonDependencies, packageName: string): boolean {
-	return (
-		packageName in (packageJson.dependencies ?? {}) ||
-		packageName in (packageJson.devDependencies ?? {}) ||
-		packageName in (packageJson.peerDependencies ?? {}) ||
-		packageName in (packageJson.optionalDependencies ?? {})
-	);
+function isCatalogManagedDependency(packageJson: PackageJsonDependencies, packageName: string): boolean {
+	const version = packageJson.dependencies?.[packageName] ?? packageJson.devDependencies?.[packageName];
+	return typeof version === 'string' && version.startsWith('catalog:');
 }
 
 export function filterUnregisteredDependencies(tree: Tree, dependencies: Dependencies, devDependencies: Dependencies) {
@@ -22,7 +18,7 @@ export function filterUnregisteredDependencies(tree: Tree, dependencies: Depende
 	const filter = (deps: Dependencies) =>
 		Object.fromEntries(
 			Object.entries(deps).filter(
-				([packageName, version]) => typeof version === 'string' && !hasDeclaredDependency(packageJson, packageName),
+				([packageName, version]) => typeof version === 'string' && !isCatalogManagedDependency(packageJson, packageName),
 			),
 		) as Record<string, string>;
 

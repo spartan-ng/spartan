@@ -309,7 +309,12 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 		newValue[atIndex] = value;
 		newValue.sort((a, b) => a - b);
 
-		const newValIndex = newValue.findIndex((val) => val === value);
+		let newValIndex = 0;
+		for (let i = 0; i < newValue.length; i++) {
+			if (newValue[i] < value || (newValue[i] === value && i < atIndex)) {
+				newValIndex = i + 1;
+			}
+		}
 
 		// Only validate the gaps adjacent to the moved thumb so that a state which already
 		// violates the constraint (e.g. set programmatically via a form control) can still be

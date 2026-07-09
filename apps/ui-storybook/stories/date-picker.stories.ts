@@ -42,8 +42,44 @@ export default meta;
 
 type Story = StoryObj<HlmDatePicker<Date>>;
 
+const pad = (value: number): string => String(value).padStart(2, '0');
+
+/** Display format (shown on blur / in the trigger) - intentionally distinct from the edit format. */
+const formatDate = (date: Date): string => date.toDateString();
+
+/** Edit format (shown while focused) - `dd/MM/yyyy`. */
+const formatInputDate = (date: Date): string =>
+	`${pad(date.getDate())}/${pad(date.getMonth() + 1)}/${date.getFullYear()}`;
+
+/** Parses `dd/MM/yyyy` back into a `Date`. Does not understand the display format on purpose. */
+const parseDate = (value: string): Date | null => {
+	const match = value.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+	if (!match) return null;
+	const date = new Date(Number(match[3]), Number(match[2]) - 1, Number(match[1]));
+	return isNaN(date.getTime()) ? null : date;
+};
+
 export const Default: Story = {
 	args: { min: new Date(2020, 4, 1), max: new Date(2030, 6, 1), captionLayout: 'label' },
+};
+
+export const Input: Story = {
+	render: () => ({
+		props: { formatDate, formatInputDate, parseDate },
+		template: `
+		<div class="preview flex min-h-[350px] w-full justify-center p-10 items-center">
+			<hlm-date-picker [formatDate]="formatDate">
+				<hlm-date-picker-input
+					inputId="date-input"
+					placeholder="dd/MM/yyyy"
+					[parseDate]="parseDate"
+					[formatInputDate]="formatInputDate"
+				/>
+				<hlm-date-picker-trigger buttonId="date-trigger" [showTrigger]="false">unset</hlm-date-picker-trigger>
+			</hlm-date-picker>
+		</div>
+		`,
+	}),
 };
 
 export const WithHintAndError: Story = {

@@ -464,16 +464,15 @@ export function buildWorkspace(ws: CellWorkspace): void {
 		run(`npx ng build`, ws.dir);
 	}
 
-	assertThemeStylesEmitted(ws);
+	assertStylesEmitted(ws);
 }
 
 /**
- * Assert the theme actually made it into the built CSS. The theme generator writes CSS custom
- * properties (`--background`, `--primary`, ...) into the styles entry point; if the styles/Tailwind/brain
- * pipeline is wired correctly they appear in the build output. A clean build that produced no themed CSS
- * would otherwise pass silently.
+ * Assert the build emitted the styles it should have; a build that produced nothing passes silently.
+ * Checks the theme's CSS variables and the button's `[&_ng-icon:not([class*='text-'])]` rule (the
+ * #1572 canary for the CLI's quote-escaping regression).
  */
-function assertThemeStylesEmitted(ws: CellWorkspace): void {
+function assertStylesEmitted(ws: CellWorkspace): void {
 	const distDir = join(ws.dir, 'dist');
 	if (!existsSync(distDir)) {
 		throw new Error(`No dist directory at ${distDir} after build`);
@@ -485,10 +484,13 @@ function assertThemeStylesEmitted(ws: CellWorkspace): void {
 		.join('\n');
 
 	if (!/--(background|foreground|primary|ring|border)\b/.test(css)) {
-		throw new Error(
-			`Theme CSS variables not found in the built CSS under ${distDir}. The theme/Tailwind/brain ` +
-				`pipeline produced no themed styles for this setup.`,
-		);
+		throw new Error(`Theme CSS variables not found in the built CSS under ${distDir}.`);
+	}
+
+	// Optional quote tolerates the production minifier stripping it (`[class*='text-']` -> `[class*=text-]`);
+	// the #1572 regression emits `[class*=\'text-\']`, which this deliberately won't match.
+	if (!/ng-icon:not\(\[class\*=['"]?text-['"]?\]\)/.test(css)) {
+		throw new Error(`Icon-sizing rule ([&_ng-icon:not([class*='text-'])]) not found in the built CSS (#1572).`);
 	}
 }
 

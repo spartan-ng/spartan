@@ -12,7 +12,7 @@ import { injectBrnAccordionItem } from './brn-accordion-token';
 		'[style.--brn-accordion-content-width.px]': '_dimensions.width()',
 		'[style.--brn-accordion-content-height.px]': '_dimensions.height()',
 		'[attr.inert]': '_inert()',
-		'[attr.style]': 'style()',
+		'[style]': 'style()',
 	},
 })
 export class BrnAccordionContent {

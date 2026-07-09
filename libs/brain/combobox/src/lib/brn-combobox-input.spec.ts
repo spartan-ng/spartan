@@ -55,4 +55,18 @@ describe('BrnComboboxInput', () => {
 		const input = screen.getByLabelText('Test') as HTMLInputElement;
 		expect(input.value).toBe('false');
 	});
+
+	it('does not display a label for null value', async () => {
+		const combobox = comboboxStub(null);
+		await renderInput(combobox);
+		const input = screen.getByLabelText('Test') as HTMLInputElement;
+		expect(input.value).toBe('');
+	});
+
+	it('does not display a label for undefined value', async () => {
+		const combobox = comboboxStub(undefined);
+		await renderInput(combobox);
+		const input = screen.getByLabelText('Test') as HTMLInputElement;
+		expect(input.value).toBe('');
+	});
 });

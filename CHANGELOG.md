@@ -1,3 +1,19 @@
+## <small>1.0.5 (2026-07-09)</small>
+
+- docs: add new contributors to our 300 ([47d44bd](https://github.com/spartan-ng/spartan/commit/47d44bd))
+- docs: add new contributors to our 300 ([ff9a069](https://github.com/spartan-ng/spartan/commit/ff9a069))
+- docs(repo): contributing guide ([3e1ec46](https://github.com/spartan-ng/spartan/commit/3e1ec46))
+- fix(cli): handle pnpm catalog dependencies in CLI (#1610) ([2902e73](https://github.com/spartan-ng/spartan/commit/2902e73)), closes [#1610](https://github.com/spartan-ng/spartan/issues/1610)
+- fix(repo): add missing route titles ([de79162](https://github.com/spartan-ng/spartan/commit/de79162))
+- chore: ignore semantic-release-bot from contributors ([29c5eb5](https://github.com/spartan-ng/spartan/commit/29c5eb5))
+- chore(repo): generate-ui-docs inputs/outputs (#1617) ([a87dec2](https://github.com/spartan-ng/spartan/commit/a87dec2)), closes [#1617](https://github.com/spartan-ng/spartan/issues/1617)
+- Merge pull request #1578 from Nicoss54/fix/contributing-doc ([14da06e](https://github.com/spartan-ng/spartan/commit/14da06e)), closes [#1578](https://github.com/spartan-ng/spartan/issues/1578)
+- Merge pull request #1606 from spartan-ng/ci/release-hardening ([445b938](https://github.com/spartan-ng/spartan/commit/445b938)), closes [#1606](https://github.com/spartan-ng/spartan/issues/1606)
+- Merge pull request #1607 from spartan-ng/fix/contributors-bots ([dbcd8ee](https://github.com/spartan-ng/spartan/commit/dbcd8ee)), closes [#1607](https://github.com/spartan-ng/spartan/issues/1607)
+- Merge pull request #1611 from xonaib/fix-docs-search-route-titles ([c3e6958](https://github.com/spartan-ng/spartan/commit/c3e6958)), closes [#1611](https://github.com/spartan-ng/spartan/issues/1611)
+- ci: guard release commits by chore(release) prefix instead of the skip-ci token ([7f2b71b](https://github.com/spartan-ng/spartan/commit/7f2b71b))
+- ci: guard the e2e job too so release commits skip it (review follow-up) ([3a9e4af](https://github.com/spartan-ng/spartan/commit/3a9e4af))
+
 ## <small>1.0.4 (2026-07-02)</small>
 
 - Merge pull request #1598 from spartan-ng/ci/contributors-bypass-app ([29cc810](https://github.com/spartan-ng/spartan/commit/29cc810)), closes [#1598](https://github.com/spartan-ng/spartan/issues/1598)

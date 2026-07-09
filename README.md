@@ -183,6 +183,7 @@ Our initial 300 contributors and sponsors are featured here and on the front pag
 145. [Ban117](https://github.com/Ban117)
 146. [gerasidev](https://github.com/gerasidev)
 147. [Nicoss54](https://github.com/Nicoss54)
+148. [xonaib](https://github.com/xonaib)
 
 ### Sponsor spartan
 

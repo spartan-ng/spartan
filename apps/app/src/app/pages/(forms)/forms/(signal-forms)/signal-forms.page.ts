@@ -15,6 +15,11 @@ import { link } from '@spartan-ng/app/app/shared/typography/link';
 import { hlmCode, hlmP, hlmUl } from '@spartan-ng/helm/typography';
 import { SignalFormCheckboxDemo, signalFormsCheckboxDemoCode } from './signal-forms--checkbox.demo';
 import { SignalFormComplexDemo, signalFormsComplexDemoCode } from './signal-forms--complex.demo';
+import {
+	demoPasswordInputGroupCode,
+	SignalFormCustomControlDemo,
+	signalFormsCustomControlDemoCode,
+} from './signal-forms--custom-control.demo';
 import { SignalFormInputDemo, signalFormsInputDemoCode } from './signal-forms--input.demo';
 import { SignalFormRadioGroupDemo, signalFormsRadioGroupDemoCode } from './signal-forms--radio-group.demo';
 import { SignalFormSelectDemo, signalFormsSelectDemoCode } from './signal-forms--select.demo';
@@ -59,6 +64,7 @@ export const routeMeta: RouteMeta = {
 		SignalFormRadioGroupDemo,
 		SignalFormSwitchDemo,
 		SignalFormComplexDemo,
+		SignalFormCustomControlDemo,
 	],
 	template: `
 		<section spartanMainSection>
@@ -69,6 +75,38 @@ export const routeMeta: RouteMeta = {
 				<code class="${hlmCode}">HlmField</code>
 				component, how to handle validation and how to display errors.
 			</p>
+
+			<spartan-section-sub-heading id="custom-control">Custom Control</spartan-section-sub-heading>
+
+			<p class="${hlmP}">
+				Signal Forms allows you to build
+				<a
+					href="https://angular.dev/guide/forms/signals/custom-controls"
+					class="underline"
+					target="_blank"
+					rel="noopener"
+				>
+					custom form controls
+				</a>
+				using the
+				<code class="${hlmCode}">FormValueControl</code>
+				interface.
+			</p>
+
+			<p class="${hlmP}">
+				In this example, we are going to build a custom password input control that toggles visibility and integrates
+				seamlessly with Signal Forms.
+			</p>
+
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-signal-form-custom-control-demo />
+				</div>
+				<spartan-code secondTab [code]="_signalFormsCustomControlDemoCode" />
+			</spartan-tabs>
+
+			<h3 id="create-password-input-group" spartanH4>Create password input group</h3>
+			<spartan-code class="mt-6" fileName="login-form.ts" [code]="_demoPasswordInputGroupCode" />
 
 			<spartan-section-sub-heading id="demo">Demo</spartan-section-sub-heading>
 			<p class="${hlmP}">
@@ -469,4 +507,7 @@ export default class SignalFormsPage {
 	protected readonly _signalFormsSelectDemoCode = signalFormsSelectDemoCode;
 	protected readonly _signalFormsSwitchDemoCode = signalFormsSwitchDemoCode;
 	protected readonly _signalFormsComplexDemoCode = signalFormsComplexDemoCode;
+
+	protected readonly _signalFormsCustomControlDemoCode = signalFormsCustomControlDemoCode;
+	protected readonly _demoPasswordInputGroupCode = demoPasswordInputGroupCode;
 }

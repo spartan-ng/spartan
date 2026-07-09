@@ -87,6 +87,12 @@ export interface BrnComboboxConfig<T> {
 	filterOptions: ComboboxFilterOptions;
 	filter: ComboboxFilter<T>;
 	isItemEqualToValue: ComboboxItemEqualToValue<T>;
+	/**
+	 * Determines whether a single value is present (i.e., has been selected).
+	 * Considers `undefined`, `null`, and empty string as "not present".
+	 * Only used by single-select combobox in popup mode, ignored by the multiple select variant.
+	 */
+	isSingleValuePresent: (value: T | undefined | null) => boolean;
 	itemToString?: ComboboxItemToString<T>;
 	autoHighlight: boolean;
 	/** Whether to reset the search and close the popover after selecting an item when the search is active. */
@@ -103,6 +109,7 @@ function getDefaultConfig<T>(): BrnComboboxConfig<T> {
 		filter: (itemValue: T, search: string, collator: Intl.Collator, itemToString?: ComboboxItemToString<T>) =>
 			comboboxContainsFilter(itemValue, search, collator, itemToString),
 		isItemEqualToValue: (itemValue: T, selectedValue: T | undefined | null) => Object.is(itemValue, selectedValue),
+		isSingleValuePresent: (value: T | undefined | null) => value !== undefined && value !== null && value !== '',
 		itemToString: undefined,
 		autoHighlight: false,
 		closeOnSelect: true,

@@ -1,3 +1,15 @@
+## 1.1.0-beta.2 (2026-07-09)
+
+- Merge branch 'beta' into fix/placeholder-select ([57488ea](https://github.com/spartan-ng/spartan/commit/57488ea))
+- Merge branch 'main' into fix/placeholder-select ([ef88baa](https://github.com/spartan-ng/spartan/commit/ef88baa))
+- Merge pull request #1594 from Nicoss54/fix/placeholder-select ([348a958](https://github.com/spartan-ng/spartan/commit/348a958)), closes [#1594](https://github.com/spartan-ng/spartan/issues/1594)
+- fix(combobox): include empty string check in hasValue, add config option ([6a1de16](https://github.com/spartan-ng/spartan/commit/6a1de16))
+- fix(select): displayed placeholder empty value ([236291a](https://github.com/spartan-ng/spartan/commit/236291a))
+- fix(select): linter failed on test ([58e778e](https://github.com/spartan-ng/spartan/commit/58e778e))
+- feat(select): add empty string to isSingleValuePresent check ([7349104](https://github.com/spartan-ng/spartan/commit/7349104))
+- feat(select): add isSingleValuePresent config/input option ([201218d](https://github.com/spartan-ng/spartan/commit/201218d))
+- chore: remove index.db ([507fa91](https://github.com/spartan-ng/spartan/commit/507fa91))
+
 ## 1.1.0-beta.1 (2026-07-09)
 
 - feat(calendar,date-picker): add month-year picker and all date inputs ([3a445d3](https://github.com/spartan-ng/spartan/commit/3a445d3))

@@ -1,5 +1,7 @@
 import { type Tree, updateJson } from '@nx/devkit';
 import { createTreeWithEmptyWorkspace } from '@nx/devkit/testing';
+import { valid } from 'semver';
+import { getCliPackageVersion } from '../../../utils/version-utils';
 import type { HlmBaseGeneratorSchema } from '../schema';
 import { buildDependencyArray } from './build-dependency-array';
 
@@ -66,5 +68,14 @@ describe('buildDependencyArray', () => {
 		const deps = buildDependencyArray(tree, { ...carouselOptions, name: 'button', peerDependencies: {} }, '^21.0.0');
 
 		expect(deps).not.toHaveProperty('embla-carousel-angular');
+	});
+
+	// When the workspace doesn't pin @spartan-ng/cli, brain must fall back to the running cli version rather
+	// than a null that crashes nx's catalog check (#1613).
+	it('falls back to the running cli version for brain when the workspace has no cli', () => {
+		const deps = buildDependencyArray(tree, { ...carouselOptions, name: 'button', peerDependencies: {} }, '^21.0.0');
+
+		expect(deps['@spartan-ng/brain']).toBe(getCliPackageVersion());
+		expect(valid(deps['@spartan-ng/brain'])).not.toBeNull();
 	});
 });

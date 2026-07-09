@@ -6,7 +6,7 @@ import { HlmCardImports } from '@spartan-ng/helm/card';
 import { HlmSelectImports } from '@spartan-ng/helm/select';
 
 @Component({
-	selector: 'spartan-calendar-year-and-month',
+	selector: 'spartan-calendar-year-and-month-dropdown',
 	imports: [HlmCalendar, HlmSelectImports, FormsModule, HlmCardImports],
 	host: {
 		class: 'flex flex-col gap-4',
@@ -32,7 +32,7 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 		</hlm-select>
 	`,
 })
-export class CalendarYearAndMonthExample {
+export class CalendarYearAndMonthDropdownsExample {
 	protected readonly _captionLayout = model<'dropdown' | 'label' | 'dropdown-months' | 'dropdown-years'>('dropdown');
 
 	public readonly options = [

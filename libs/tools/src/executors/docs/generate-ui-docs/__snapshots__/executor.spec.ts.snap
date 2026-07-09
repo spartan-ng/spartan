@@ -1541,6 +1541,98 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "outputs": [],
         "selector": "brnSelect[brnCalendarYearSelect],hlm-select[brnCalendarYearSelect]",
       },
+      "BrnMonthYearCalendar": {
+        "inputs": [
+          {
+            "name": "min",
+            "required": false,
+            "type": "T",
+          },
+          {
+            "name": "max",
+            "required": false,
+            "type": "T",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "defaultFocusedDate",
+            "required": false,
+            "type": "T",
+          },
+          {
+            "name": "view",
+            "required": false,
+            "type": "BrnMonthYearCalendarView",
+          },
+        ],
+        "models": [
+          {
+            "name": "date",
+            "required": false,
+            "type": "T",
+          },
+        ],
+        "outputs": [],
+        "selector": "[brnMonthYearCalendar]",
+      },
+      "BrnMonthYearCalendarGrid": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnMonthYearCalendarGrid]",
+      },
+      "BrnMonthYearCalendarHeader": {
+        "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "button[brnMonthYearCalendarHeader]",
+      },
+      "BrnMonthYearCalendarMonthButton": {
+        "inputs": [
+          {
+            "name": "date",
+            "required": true,
+            "type": "T",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "button[brnMonthYearCalendarMonthButton]",
+      },
+      "BrnMonthYearCalendarNextButton": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "button[brnMonthYearCalendarNextButton]",
+      },
+      "BrnMonthYearCalendarPreviousButton": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "button[brnMonthYearCalendarPreviousButton]",
+      },
+      "BrnMonthYearCalendarYearButton": {
+        "inputs": [
+          {
+            "name": "date",
+            "required": true,
+            "type": "T",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "button[brnMonthYearCalendarYearButton]",
+      },
     },
     "helm": {
       "HlmCalendar": {
@@ -1733,6 +1825,48 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         ],
         "selector": "hlm-calendar-range",
       },
+      "HlmMonthYearCalendar": {
+        "inputs": [
+          {
+            "name": "min",
+            "required": false,
+            "type": "T",
+          },
+          {
+            "name": "max",
+            "required": false,
+            "type": "T",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "date",
+            "required": false,
+            "type": "T",
+          },
+          {
+            "name": "defaultFocusedDate",
+            "required": false,
+            "type": "T",
+          },
+          {
+            "name": "view",
+            "required": false,
+            "type": "BrnMonthYearCalendarView",
+          },
+        ],
+        "models": [],
+        "outputs": [
+          {
+            "name": "dateChange",
+            "type": "T",
+          },
+        ],
+        "selector": "hlm-month-year-calendar",
+      },
     },
   },
   "card": {
@@ -1899,6 +2033,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "name": "class",
             "required": false,
             "type": "string | null",
+          },
+          {
+            "name": "hostStyles",
+            "required": false,
+            "type": "string",
           },
           {
             "name": "aria-label",
@@ -2155,6 +2294,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "name": "closeOnSelect",
             "required": false,
             "type": "boolean",
+          },
+          {
+            "name": "isSingleValuePresent",
+            "required": false,
+            "type": "(value: T | undefined | null) => boolean",
           },
         ],
         "models": [
@@ -3170,7 +3314,114 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
     },
   },
   "date-picker": {
+    "brain": {
+      "BrnDateInput": {
+        "exportAs": null,
+        "inputs": [
+          {
+            "name": "inputId",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "inputValue",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "showClear",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "openOnClick",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "forceInvalid",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "clearAriaLabel",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "calendarAriaLabel",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "placeholder",
+            "required": false,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": null,
+      },
+    },
     "helm": {
+      "HlmDateMultiInput": {
+        "inputs": [
+          {
+            "name": "parseDate",
+            "required": false,
+            "type": "(value: string) => T[] | null",
+          },
+          {
+            "name": "formatInputDates",
+            "required": false,
+            "type": "(dates: T[]) => string",
+          },
+          {
+            "name": "inputId",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "inputValue",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "showClear",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "openOnClick",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "forceInvalid",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "clearAriaLabel",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "calendarAriaLabel",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "placeholder",
+            "required": false,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-date-multi-input",
+      },
       "HlmDatePicker": {
         "inputs": [
           {
@@ -3223,7 +3474,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "outputs": [
           {
             "name": "dateChange",
-            "type": "T",
+            "type": "T | null",
           },
         ],
         "selector": "hlm-date-picker",
@@ -3243,29 +3494,24 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
       "HlmDatePickerInput": {
         "inputs": [
           {
-            "name": "inputId",
+            "name": "parseDate",
             "required": false,
-            "type": "unknown",
+            "type": "(value: string) => T | null",
           },
           {
-            "name": "placeholder",
+            "name": "formatInputDate",
             "required": false,
-            "type": "unknown",
+            "type": "(date: T) => string",
+          },
+          {
+            "name": "inputId",
+            "required": false,
+            "type": "string",
           },
           {
             "name": "inputValue",
             "required": false,
             "type": "string",
-          },
-          {
-            "name": "parseDate",
-            "required": false,
-            "type": "(value: string) => T | undefined",
-          },
-          {
-            "name": "forceInvalid",
-            "required": false,
-            "type": "boolean",
           },
           {
             "name": "showClear",
@@ -3278,12 +3524,22 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "type": "boolean",
           },
           {
+            "name": "forceInvalid",
+            "required": false,
+            "type": "boolean",
+          },
+          {
             "name": "clearAriaLabel",
             "required": false,
             "type": "string",
           },
           {
             "name": "calendarAriaLabel",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "placeholder",
             "required": false,
             "type": "string",
           },
@@ -3386,6 +3642,63 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "outputs": [],
         "selector": "hlm-date-picker-trigger",
       },
+      "HlmDateRangeInput": {
+        "inputs": [
+          {
+            "name": "parseDate",
+            "required": false,
+            "type": "(value: string) => [T, T] | null",
+          },
+          {
+            "name": "formatInputDates",
+            "required": false,
+            "type": "(dates: [T | null, T | null]) => string",
+          },
+          {
+            "name": "inputId",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "inputValue",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "showClear",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "openOnClick",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "forceInvalid",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "clearAriaLabel",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "calendarAriaLabel",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "placeholder",
+            "required": false,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-date-range-input",
+      },
       "HlmDateRangePicker": {
         "inputs": [
           {
@@ -3421,7 +3734,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
           {
             "name": "formatDates",
             "required": false,
-            "type": "(dates: [T | undefined, T | undefined]) => string",
+            "type": "(dates: [T | null, T | null]) => string",
           },
           {
             "name": "transformDates",
@@ -3437,6 +3750,115 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
           },
         ],
         "selector": "hlm-date-range-picker",
+      },
+      "HlmMonthYearInput": {
+        "inputs": [
+          {
+            "name": "parseDate",
+            "required": false,
+            "type": "(value: string) => T | null",
+          },
+          {
+            "name": "formatInputDate",
+            "required": false,
+            "type": "(date: T) => string",
+          },
+          {
+            "name": "inputId",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "inputValue",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "showClear",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "openOnClick",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "forceInvalid",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "clearAriaLabel",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "calendarAriaLabel",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "placeholder",
+            "required": false,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-month-year-input",
+      },
+      "HlmMonthYearPicker": {
+        "inputs": [
+          {
+            "name": "min",
+            "required": false,
+            "type": "T",
+          },
+          {
+            "name": "max",
+            "required": false,
+            "type": "T",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "date",
+            "required": false,
+            "type": "T",
+          },
+          {
+            "name": "defaultFocusedDate",
+            "required": false,
+            "type": "T",
+          },
+          {
+            "name": "autoCloseOnSelect",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "formatDate",
+            "required": false,
+            "type": "(date: T) => string",
+          },
+          {
+            "name": "transformDate",
+            "required": false,
+            "type": "(date: T) => T",
+          },
+        ],
+        "models": [],
+        "outputs": [
+          {
+            "name": "dateChange",
+            "type": "T | null",
+          },
+        ],
+        "selector": "hlm-month-year-picker",
       },
     },
   },
@@ -6042,6 +6464,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "type": "T",
           },
           {
+            "name": "inputStyles",
+            "required": false,
+            "type": "string",
+          },
+          {
             "name": "required",
             "required": false,
             "type": "boolean",
@@ -6384,6 +6811,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "name": "disabled",
             "required": false,
             "type": "boolean",
+          },
+          {
+            "name": "isSingleValuePresent",
+            "required": false,
+            "type": "(value: T | undefined | null) => boolean",
           },
           {
             "name": "isItemEqualToValue",
@@ -7483,7 +7915,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
           {
             "name": "srOnlyText",
             "required": false,
-            "type": "unknown",
+            "type": "string",
           },
           {
             "name": "variant",
@@ -8064,6 +8496,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "name": "class",
             "required": false,
             "type": "string | null",
+          },
+          {
+            "name": "hostStyles",
+            "required": false,
+            "type": "string",
           },
           {
             "name": "size",

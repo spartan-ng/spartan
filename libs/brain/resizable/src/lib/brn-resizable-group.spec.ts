@@ -273,6 +273,28 @@ describe('BrnResizableGroup', () => {
 		expect(flexValues).toEqual(['25 1 0', '75 1 0']);
 	});
 
+	it('is idempotent when re-applying the already-applied fractional layout (no NG0103 feedback)', async () => {
+		// A drag frame that computes the same percentages as the last one re-sets the model to a
+		// value that already equals the applied layout. Re-synchronizing must be a no-op: the
+		// proportional-rescale branch round-trips through x/total*100, which is not bit-identical for
+		// these fractions, and any drift feeds back into the model and can loop until Angular throws
+		// NG0103 in zoneless apps.
+		const fractional = [50.669642857142854, 49.330357142857146];
+		const view = await render(DynamicResizableHost);
+		view.fixture.componentInstance.layout.set([...fractional]);
+		view.detectChanges();
+		await view.fixture.whenStable();
+		expect(view.fixture.componentInstance.layout()).toEqual(fractional);
+
+		// Re-apply the identical percentages via a fresh array reference (a zero-velocity drag frame).
+		view.fixture.componentInstance.layout.set([...fractional]);
+		view.detectChanges();
+		await view.fixture.whenStable();
+
+		// No floating-point drift leaked back into the model.
+		expect(view.fixture.componentInstance.layout()).toEqual(fractional);
+	});
+
 	it('applies an external layout update without a panel membership change', async () => {
 		const view = await render(DynamicResizableHost);
 		view.fixture.componentInstance.layout.set([35, 65]);

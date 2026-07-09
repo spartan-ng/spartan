@@ -96,7 +96,16 @@ export class BrnResizableGroup {
 		const hasCompleteExternalLayout =
 			!isInitialLayout &&
 			currentLayout.length === totalPanels &&
-			!this._layoutsEqual(currentLayout, this._appliedLayout);
+			!this._layoutsEquivalent(currentLayout, this._appliedLayout);
+		const membershipChanged = !isInitialLayout && !this._panelsEqual(panels, this._knownPanels);
+
+		// Nothing external changed and the same panels are still mounted: the applied layout is already
+		// correct. Falling through to the proportional-rescale branch would round-trip each size through
+		// x/total*100, which is not bit-identical for fractional layouts; the drift feeds back into the
+		// model and can loop until Angular throws NG0103 in zoneless apps.
+		if (!isInitialLayout && !hasCompleteExternalLayout && !membershipChanged) {
+			return;
+		}
 
 		let sizes: number[];
 		if (isInitialLayout) {
@@ -134,13 +143,20 @@ export class BrnResizableGroup {
 		this._knownPanels = panels;
 		this._appliedLayout = [...sizes];
 
-		if (!this._layoutsEqual(currentLayout, sizes)) {
+		if (!this._layoutsEquivalent(currentLayout, sizes)) {
 			this._setLayout(sizes);
 		}
 	}
 
-	private _layoutsEqual(first: readonly number[], second: readonly number[]): boolean {
-		return first.length === second.length && first.every((size, index) => size === second[index]);
+	// Percentages within this tolerance render identically; treat them as the same layout so
+	// floating-point drift from a rescale round-trip can't feed back into the model (NG0103).
+	private _layoutsEquivalent(first: readonly number[], second: readonly number[]): boolean {
+		const epsilon = 1e-9;
+		return first.length === second.length && first.every((size, index) => Math.abs(size - second[index]) < epsilon);
+	}
+
+	private _panelsEqual(first: readonly BrnResizablePanel[], second: readonly BrnResizablePanel[]): boolean {
+		return first.length === second.length && first.every((panel, index) => panel === second[index]);
 	}
 
 	public startResize(handleIndex: number, event: MouseEvent | TouchEvent): void {

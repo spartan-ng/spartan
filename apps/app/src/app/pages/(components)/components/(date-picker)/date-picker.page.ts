@@ -4,6 +4,7 @@ import { RouterLink } from '@angular/router';
 import { injectComponentDocs } from '@spartan-ng/app/app/core/services/component-docs';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { DatePickerFormRangeExample } from '@spartan-ng/app/app/pages/(components)/components/(date-picker)/date-picker--form-range.example';
+import { DatePickerMonthYearExample } from '@spartan-ng/app/app/pages/(components)/components/(date-picker)/date-picker--month-year.example';
 import { DatePickerRangeExample } from '@spartan-ng/app/app/pages/(components)/components/(date-picker)/date-picker--range.example';
 import { CodePreview } from '@spartan-ng/app/app/shared/code/code-preview';
 import { CodeRtlPreview } from '@spartan-ng/app/app/shared/code/code-rtl-preview';
@@ -72,6 +73,7 @@ export const routeMeta: RouteMeta = {
 		DatePickerFormMultipleExample,
 		DateAndTimePickerExample,
 		DatePickerRtl,
+		DatePickerMonthYearExample,
 	],
 	template: `
 		<section spartanMainSection>
@@ -213,6 +215,14 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_dateTimeCode()" />
 			</spartan-tabs>
 
+			<h3 id="date-month-year-picker" spartanH4>Month Year Picker</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-date-month-year-picker />
+				</div>
+				<spartan-code secondTab [code]="_monthYearCode()" />
+			</spartan-tabs>
+
 			<h3 id="form" spartanH4>Form</h3>
 			<p class="${hlmP} mb-6">
 				Sync the date to a form by adding
@@ -309,6 +319,7 @@ export default class CardPage {
 	protected readonly _multiCode = computed(() => this._snippets()['multi']);
 	protected readonly _rangeCode = computed(() => this._snippets()['range']);
 	protected readonly _dateTimeCode = computed(() => this._snippets()['dateTime']);
+	protected readonly _monthYearCode = computed(() => this._snippets()['monthYear']);
 	protected readonly _rtlCode = computed(() => this._snippets()['rtl']);
 	protected readonly _defaultImports = defaultImports;
 	protected readonly _codeSkeleton = defaultSkeleton;

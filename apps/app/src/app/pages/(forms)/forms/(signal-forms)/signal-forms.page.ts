@@ -18,7 +18,9 @@ import { SignalFormCheckboxDemo, signalFormsCheckboxDemoCode } from './signal-fo
 import { SignalFormComplexDemo, signalFormsComplexDemoCode } from './signal-forms--complex.demo';
 import {
 	demoPasswordInputGroupCode,
+	SignalFormCountryPickerDemo,
 	SignalFormCustomControlDemo,
+	signalFormsCountryPickerDemoCode,
 	signalFormsCustomControlDemoCode,
 } from './signal-forms--custom-control.demo';
 import { SignalFormInputDemo, signalFormsInputDemoCode } from './signal-forms--input.demo';
@@ -66,6 +68,7 @@ export const routeMeta: RouteMeta = {
 		SignalFormSwitchDemo,
 		SignalFormComplexDemo,
 		SignalFormCustomControlDemo,
+		SignalFormCountryPickerDemo,
 	],
 	template: `
 		<section spartanMainSection>
@@ -189,6 +192,24 @@ export const routeMeta: RouteMeta = {
 			</ul>
 
 			<spartan-code class="mt-6" fileName="password-input.ts" [code]="_demoPasswordInputComponentCode" />
+
+			<h3 id="country-picker" spartanH4>Country picker</h3>
+
+			<p class="${hlmP}">
+				For more complex custom controls, you can wrap components like the combobox. The example below builds a country
+				picker by wrapping
+				<code class="${hlmCode}">HlmCombobox</code>
+				with a
+				<code class="${hlmCode}">FormValueControl</code>
+				interface.
+			</p>
+
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-signal-form-country-picker-demo />
+				</div>
+				<spartan-code secondTab [code]="_signalFormsCountryPickerDemoCode" />
+			</spartan-tabs>
 
 			<spartan-section-sub-heading id="demo">Demo</spartan-section-sub-heading>
 			<p class="${hlmP}">
@@ -591,6 +612,7 @@ export default class SignalFormsPage {
 	protected readonly _signalFormsComplexDemoCode = signalFormsComplexDemoCode;
 
 	protected readonly _signalFormsCustomControlDemoCode = signalFormsCustomControlDemoCode;
+	protected readonly _signalFormsCountryPickerDemoCode = signalFormsCountryPickerDemoCode;
 	protected readonly _demoPasswordInputGroupCode = demoPasswordInputGroupCode;
 	protected readonly _demoPasswordInputComponentCode = passwordInputCode;
 }

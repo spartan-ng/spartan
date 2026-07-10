@@ -4,6 +4,7 @@ import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmCardImports } from '@spartan-ng/helm/card';
 import { HlmFieldImports } from '@spartan-ng/helm/field';
 import { HlmInputImports } from '@spartan-ng/helm/input';
+import { CountryPicker, countryPickerCode } from './custom-control/country-picker';
 import { PasswordInput, passwordInputCode } from './custom-control/password-input';
 
 @Component({
@@ -195,6 +196,137 @@ export class SignalFormCustomControlDemo {
 			email: '',
 			password: '',
 		});
+	}
+}
+`;
+
+@Component({
+	selector: 'spartan-signal-form-country-picker-demo',
+	imports: [FormRoot, FormField, HlmCardImports, HlmFieldImports, HlmInputImports, HlmButtonImports, CountryPicker],
+	host: { class: 'w-full sm:max-w-sm' },
+	template: `
+		<hlm-card>
+			<hlm-card-header>
+				<h3 hlmCardTitle>Shipping information</h3>
+				<p hlmCardDescription>Where should we ship your order?</p>
+			</hlm-card-header>
+			<div hlmCardContent>
+				<form [formRoot]="form" id="form-country-picker-demo">
+					<hlm-field-group>
+						<hlm-field>
+							<label hlmFieldLabel for="country">Country</label>
+							<spartan-country-picker inputId="country" [formField]="form.country" />
+							@for (error of form.country().errors(); track error.kind) {
+								<hlm-field-error [validator]="error.kind">
+									{{ error.message }}
+								</hlm-field-error>
+							}
+						</hlm-field>
+					</hlm-field-group>
+				</form>
+			</div>
+			<hlm-card-footer>
+				<hlm-field>
+					<button hlmBtn type="submit" form="form-country-picker-demo">Submit</button>
+					<button hlmBtn variant="outline" type="button" (click)="reset()">Reset</button>
+				</hlm-field>
+			</hlm-card-footer>
+		</hlm-card>
+	`,
+})
+export class SignalFormCountryPickerDemo {
+	protected readonly _model = signal<{ country: string | null }>({
+		country: null,
+	});
+
+	public readonly form = form(
+		this._model,
+		(schemaPath) => {
+			required(schemaPath.country, { message: 'Please select a country.' });
+		},
+		{
+			submission: {
+				action: async () => {
+					const model = this._model();
+					console.log('You submitted the following values:', JSON.stringify(model, null, 2));
+				},
+			},
+		},
+	);
+
+	reset() {
+		this.form().reset({ country: null });
+	}
+}
+
+export const signalFormsCountryPickerDemoCode = `
+${countryPickerCode}
+
+// shipping-form.ts
+import { Component, signal } from '@angular/core';
+import { form, FormField, FormRoot, required } from '@angular/forms/signals';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
+import { HlmCardImports } from '@spartan-ng/helm/card';
+import { HlmFieldImports } from '@spartan-ng/helm/field';
+import { HlmInputImports } from '@spartan-ng/helm/input';
+import { CountryPicker } from './custom-control/country-picker';
+
+@Component({
+	selector: 'app-shipping-form',
+	imports: [FormRoot, FormField, HlmCardImports, HlmFieldImports, HlmInputImports, HlmButtonImports, CountryPicker],
+	host: { class: 'w-full sm:max-w-sm' },
+	template: \`
+		<hlm-card>
+			<hlm-card-header>
+				<h3 hlmCardTitle>Shipping information</h3>
+				<p hlmCardDescription>Where should we ship your order?</p>
+			</hlm-card-header>
+			<div hlmCardContent>
+				<form [formRoot]="form" id="form-country-picker-demo">
+					<hlm-field-group>
+						<hlm-field>
+							<label hlmFieldLabel for="country">Country</label>
+							<spartan-country-picker inputId="country" [formField]="form.country" />
+							@for (error of form.country().errors(); track error.kind) {
+								<hlm-field-error [validator]="error.kind">
+									{{ error.message }}
+								</hlm-field-error>
+							}
+						</hlm-field>
+					</hlm-field-group>
+				</form>
+			</div>
+			<hlm-card-footer>
+				<hlm-field>
+					<button hlmBtn type="submit" form="form-country-picker-demo">Submit</button>
+					<button hlmBtn variant="outline" type="button" (click)="reset()">Reset</button>
+				</hlm-field>
+			</hlm-card-footer>
+		</hlm-card>
+	\`,
+})
+export class ShippingForm {
+	protected readonly _model = signal<{ country: string | null }>({
+		country: null,
+	});
+
+	public readonly form = form(
+		this._model,
+		(schemaPath) => {
+			required(schemaPath.country, { message: 'Please select a country.' });
+		},
+		{
+			submission: {
+				action: async () => {
+					const model = this._model();
+					console.log('You submitted the following values:', JSON.stringify(model, null, 2));
+				},
+			},
+		},
+	);
+
+	reset() {
+		this.form().reset({ country: null });
 	}
 }
 `;

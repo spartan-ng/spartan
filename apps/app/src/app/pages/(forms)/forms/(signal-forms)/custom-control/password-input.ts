@@ -77,7 +77,7 @@ import { HlmInputGroup, HlmInputGroupImports } from '@spartan-ng/helm/input-grou
 			autoComplete="current-password"
 			[type]="_inputType()"
 			(input)="value.set($event.target.value)"
-			(blur)="touch.emit()"
+			(blur)="touchedChange.emit(true)"
 		/>
 		<hlm-input-group-addon align="inline-end">
 			<button hlmInputGroupButton size="icon-xs" (click)="togglePasswordVisibility()">
@@ -91,8 +91,10 @@ export class PasswordInput implements FormValueControl<string> {
 	public readonly disabled = input<boolean>(false);
 	public readonly readonly = input<boolean>(false);
 
+	// use touchedChange with Angular v21
+	public readonly touchedChange = output<boolean>();
 	// use touch output in starting with Angular v22
-	public readonly touch = output<void>();
+	// public readonly touch = output<void>();
 
 	public readonly inputId = input<string>();
 	public readonly placeholder = input<string>('********');

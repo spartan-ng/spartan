@@ -199,5 +199,37 @@ export class SignalFormCustomControlDemo {
 }
 `;
 
+export const demoPasswordInputGroupCode = `
+<!-- Password field with input group -->
+<hlm-field>
+	<label hlmFieldLabel for="password">Password</label>
+	<hlm-input-group>
+		<input 
+			hlmInputGroupInput 
+			id="password" 
+			autoComplete="current-password" 
+			[type]="_inputType()" 
+			[formField]="form.password" />
+		<hlm-input-group-addon align="inline-end">
+			<button hlmInputGroupButton size="icon-xs" (click)="togglePasswordVisibility()">
+				<ng-icon [name]="_icon()" />
+				<span class="sr-only">Toggle password visibility</span>
+			</button>
+		</hlm-input-group-addon>
+	</hlm-input-group>
+	@for (error of form.password().errors(); track error.kind) {
+		<hlm-field-error [validator]="error.kind">
+			{{ error.message }}
+		</hlm-field-error>
+	}
+</hlm-field>
 
-export const demoPasswordInputGroupCode = ``
+// Component logic
+protected readonly _inputType = signal<'text' | 'password'>('password');
+
+protected readonly _icon = computed(() => (this._inputType() === 'password' ? 'lucideEye' : 'lucideEyeOff'));
+
+public togglePasswordVisibility() {
+	this._inputType.set(this._inputType() === 'password' ? 'text' : 'password');
+}
+`;

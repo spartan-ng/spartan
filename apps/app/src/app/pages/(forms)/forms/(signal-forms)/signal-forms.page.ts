@@ -13,6 +13,7 @@ import { Tabs } from '@spartan-ng/app/app/shared/layout/tabs';
 import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
 import { link } from '@spartan-ng/app/app/shared/typography/link';
 import { hlmCode, hlmP, hlmUl } from '@spartan-ng/helm/typography';
+import { passwordInputCode } from './custom-control/password-input';
 import { SignalFormCheckboxDemo, signalFormsCheckboxDemoCode } from './signal-forms--checkbox.demo';
 import { SignalFormComplexDemo, signalFormsComplexDemoCode } from './signal-forms--complex.demo';
 import {
@@ -105,8 +106,89 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_signalFormsCustomControlDemoCode" />
 			</spartan-tabs>
 
-			<h3 id="create-password-input-group" spartanH4>Create password input group</h3>
+			<h3 id="inline-input-group" spartanH4>Inline input group</h3>
+
+			<p class="${hlmP}">
+				The example below builds an inline input group with a password field and a visibility toggle
+				<code class="${hlmCode}">button</code>
+				. You can customize your form fields and inputs directly inline. This is useful for one-off inputs where
+				creating a dedicated component would be overkill.
+			</p>
+
 			<spartan-code class="mt-6" fileName="login-form.ts" [code]="_demoPasswordInputGroupCode" />
+
+			<h3 id="custom-control-component" spartanH4>Custom control component</h3>
+
+			<p class="${hlmP}">
+				When you want to reuse a custom input across your app — like a password input used in login, register, and
+				password reset forms — extract it into a standalone component that implements the
+				<code class="${hlmCode}">FormValueControl</code>
+				interface. This lets your component integrate natively with Signal Forms, just like any built-in form control.
+			</p>
+
+			<p class="${hlmP}">
+				When implementing
+				<code class="${hlmCode}">FormValueControl</code>
+				there are a few things to wire up:
+			</p>
+			<ul class="${hlmUl}">
+				<li>
+					Set up a
+					<code class="${hlmCode}">value</code>
+					model and bind it to the input with
+					<code class="${hlmCode}">[value]="value()"</code>
+					and
+					<code class="${hlmCode}">(input)="value.set($event.target.value)"</code>
+					, as shown in the password input example below.
+				</li>
+				<li>
+					Add
+					<a
+						class="${link}"
+						href="https://angular.dev/guide/forms/signals/custom-controls#adding-state-signals"
+						target="_blank"
+						rel="noopener noreferrer"
+					>
+						state signals
+					</a>
+					(
+					<code class="${hlmCode}">disabled</code>
+					,
+					<code class="${hlmCode}">readonly</code>
+					etc.) to make your control react to the form control state changes.
+				</li>
+				<li>
+					Call
+					<code class="${hlmCode}">touch()</code>
+					on your input's blur event (
+					<a
+						href="https://agoge.spartan.ng/forms/signal-forms#custom-control"
+						target="_blank"
+						rel="noopener noreferrer"
+					>
+						Angular v22+
+					</a>
+					). In Angular v21, use
+					<code class="${hlmCode}">touchedChange</code>
+					instead — see
+					<a
+						class="${link}"
+						href="https://angular.dev/guide/forms/signals/custom-controls#working-with-debounceblur"
+						target="_blank"
+						rel="noopener noreferrer"
+					>
+						debounce / blur
+					</a>
+					for details.
+				</li>
+				<li>
+					Form components (like Input, Autocomplete, Select) use
+					<code class="${hlmCode}">BrnFieldControl</code>
+					and receive automatically invalid states from the form control.
+				</li>
+			</ul>
+
+			<spartan-code class="mt-6" fileName="password-input.ts" [code]="_demoPasswordInputComponentCode" />
 
 			<spartan-section-sub-heading id="demo">Demo</spartan-section-sub-heading>
 			<p class="${hlmP}">
@@ -510,4 +592,5 @@ export default class SignalFormsPage {
 
 	protected readonly _signalFormsCustomControlDemoCode = signalFormsCustomControlDemoCode;
 	protected readonly _demoPasswordInputGroupCode = demoPasswordInputGroupCode;
+	protected readonly _demoPasswordInputComponentCode = passwordInputCode;
 }

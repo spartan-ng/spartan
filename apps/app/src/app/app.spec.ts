@@ -5,6 +5,18 @@ import { vitest } from 'vitest';
 import { App } from './app';
 
 describe('AppComponent', () => {
+	let originalLocalStorage: PropertyDescriptor | undefined;
+
+	beforeAll(() => {
+		originalLocalStorage = Object.getOwnPropertyDescriptor(globalThis, 'localStorage');
+	});
+
+	afterAll(() => {
+		if (originalLocalStorage) {
+			Object.defineProperty(globalThis, 'localStorage', originalLocalStorage);
+		}
+	});
+
 	beforeEach(async () => {
 		Object.defineProperty(window, 'matchMedia', {
 			writable: true,
@@ -15,6 +27,10 @@ describe('AppComponent', () => {
 				removeEventListener: vitest.fn(),
 				dispatchEvent: vitest.fn(),
 			})),
+		});
+		Object.defineProperty(globalThis, 'localStorage', {
+			writable: true,
+			value: { getItem: vitest.fn(), setItem: vitest.fn() },
 		});
 
 		await TestBed.configureTestingModule({

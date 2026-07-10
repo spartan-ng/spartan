@@ -193,15 +193,22 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-code class="mt-6" fileName="password-input.ts" [code]="_demoPasswordInputComponentCode" />
 
-			<h3 id="country-picker" spartanH4>Country picker</h3>
+			<h3 id="value-transformation" spartanH4>Value transformation</h3>
 
 			<p class="${hlmP}">
-				For more complex custom controls, you can wrap components like the combobox. The example below builds a country
-				picker by wrapping
-				<code class="${hlmCode}">HlmCombobox</code>
-				with a
-				<code class="${hlmCode}">FormValueControl</code>
-				interface.
+				For more complex custom controls, you can wrap components like the combobox. This example builds a country
+				picker that performs
+				<a
+					class="${link}"
+					href="https://angular.dev/guide/forms/signals/custom-controls#value-transformation"
+					target="_blank"
+					rel="noopener noreferrer"
+				>
+					value transformation
+				</a>
+				to map a country code to its display label. The form stores the country code string, while the combobox uses
+				<code class="${hlmCode}">linkedSignal</code>
+				to transform it into the flag and label for display.
 			</p>
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">

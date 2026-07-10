@@ -17,8 +17,8 @@ export type Country = {
 	template: `
 		<hlm-combobox
 			[value]="_displayValue()"
-			(valueChange)="updateValue($event)"
 			[disabled]="disabled()"
+			(valueChange)="updateValue($event)"
 			(closed)="touchedChange.emit(true)"
 		>
 			<hlm-combobox-input [inputId]="inputId()" placeholder="Select a country" showClear />
@@ -48,7 +48,7 @@ export class CountryPicker implements FormValueControl<string | null> {
 
 	protected readonly _displayValue = linkedSignal(() => {
 		const country = this.countries.find((c) => c.code === this.value());
-		return country ? `${country.flag} ${country.label}` : '';
+		return country ? `${country.flag} ${country.label}` : null;
 	});
 
 	public readonly countries: Country[] = [
@@ -133,8 +133,8 @@ export type Country = {
 	template: \`
 		<hlm-combobox
 			[value]="_displayValue()"
-			(valueChange)="updateValue($event)"
 			[disabled]="disabled()"
+			(valueChange)="updateValue($event)"
 			(closed)="touchedChange.emit(true)"
 		>
 			<hlm-combobox-input [inputId]="inputId()" placeholder="Select a country" showClear />
@@ -151,24 +151,25 @@ export type Country = {
 })
 export class CountryPicker implements FormValueControl<string | null> {
 	private static _id = 0;
-
 	public readonly value = model<string | null>(null);
 	public readonly disabled = input<boolean>(false);
 	public readonly readonly = input<boolean>(false);
 
+	// use touchedChange with Angular v21
+	public readonly touchedChange = output<boolean>();
 	// use touch output in starting with Angular v22
-	public readonly touch = output<void>();
+	// public readonly touch = output<void>();
 
 	public readonly inputId = input<string>(\`country-picker-\${CountryPicker._id++}\`);
 
 	protected readonly _displayValue = linkedSignal(() => {
 		const country = this.countries.find((c) => c.code === this.value());
-		return country ? \`\${country.flag} \${country.label}\` : '';
+		return country ? \`\${country.flag} \${country.label}\` : null;
 	});
 
 	public readonly countries: Country[] = [
 		{ code: 'af', value: 'afghanistan', label: 'Afghanistan', continent: 'Asia', flag: '🇦🇫' },
-		// ... full country list ...
+		// full country list ...
 	];
 
 	public updateValue(value: string | null | undefined): void {

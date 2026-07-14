@@ -13,8 +13,16 @@ import { Tabs } from '@spartan-ng/app/app/shared/layout/tabs';
 import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
 import { link } from '@spartan-ng/app/app/shared/typography/link';
 import { hlmCode, hlmP, hlmUl } from '@spartan-ng/helm/typography';
+import { passwordInputCode } from './custom-control/password-input';
 import { SignalFormCheckboxDemo, signalFormsCheckboxDemoCode } from './signal-forms--checkbox.demo';
 import { SignalFormComplexDemo, signalFormsComplexDemoCode } from './signal-forms--complex.demo';
+import {
+	demoPasswordInputGroupCode,
+	SignalFormCountryPickerDemo,
+	SignalFormCustomControlDemo,
+	signalFormsCountryPickerDemoCode,
+	signalFormsCustomControlDemoCode,
+} from './signal-forms--custom-control.demo';
 import { SignalFormInputDemo, signalFormsInputDemoCode } from './signal-forms--input.demo';
 import { SignalFormRadioGroupDemo, signalFormsRadioGroupDemoCode } from './signal-forms--radio-group.demo';
 import { SignalFormSelectDemo, signalFormsSelectDemoCode } from './signal-forms--select.demo';
@@ -59,6 +67,8 @@ export const routeMeta: RouteMeta = {
 		SignalFormRadioGroupDemo,
 		SignalFormSwitchDemo,
 		SignalFormComplexDemo,
+		SignalFormCustomControlDemo,
+		SignalFormCountryPickerDemo,
 	],
 	template: `
 		<section spartanMainSection>
@@ -440,6 +450,144 @@ export const routeMeta: RouteMeta = {
 			</p>
 			<spartan-code class="mt-6" [code]="_demoResetForm" />
 
+			<spartan-section-sub-heading id="custom-control">Custom Control</spartan-section-sub-heading>
+
+			<p class="${hlmP}">
+				Signal Forms allows you to build
+				<a
+					href="https://angular.dev/guide/forms/signals/custom-controls"
+					class="underline"
+					target="_blank"
+					rel="noopener"
+				>
+					custom form controls
+				</a>
+				using the
+				<code class="${hlmCode}">FormValueControl</code>
+				interface.
+			</p>
+
+			<p class="${hlmP}">
+				In this example, we are going to build a custom password input control that toggles visibility and integrates
+				seamlessly with Signal Forms.
+			</p>
+
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-signal-form-custom-control-demo />
+				</div>
+				<spartan-code secondTab [code]="_signalFormsCustomControlDemoCode" />
+			</spartan-tabs>
+
+			<h3 id="inline-input-group" spartanH4>Inline input group</h3>
+
+			<p class="${hlmP}">
+				The example below builds an inline input group with a password field and a visibility toggle
+				<code class="${hlmCode}">button</code>
+				. You can customize your form fields and inputs directly inline. This is useful for one-off inputs where
+				creating a dedicated component would be overkill.
+			</p>
+
+			<spartan-code class="mt-6" fileName="login-form.ts" [code]="_demoPasswordInputGroupCode" />
+
+			<h3 id="custom-control-component" spartanH4>Custom control component</h3>
+
+			<p class="${hlmP}">
+				When you want to reuse a custom input across your app — like a password input used in login, register, and
+				password reset forms — extract it into a standalone component that implements the
+				<code class="${hlmCode}">FormValueControl</code>
+				interface. This lets your component integrate natively with Signal Forms, just like any built-in form control.
+			</p>
+
+			<p class="${hlmP}">
+				When implementing
+				<code class="${hlmCode}">FormValueControl</code>
+				there are a few things to wire up:
+			</p>
+			<ul class="${hlmUl}">
+				<li>
+					Set up a
+					<code class="${hlmCode}">value</code>
+					model and bind it to the input with
+					<code class="${hlmCode}">[value]="value()"</code>
+					and
+					<code class="${hlmCode}">(input)="value.set($event.target.value)"</code>
+					, as shown in the password input example below.
+				</li>
+				<li>
+					Add
+					<a
+						class="${link}"
+						href="https://angular.dev/guide/forms/signals/custom-controls#adding-state-signals"
+						target="_blank"
+						rel="noopener noreferrer"
+					>
+						state signals
+					</a>
+					(
+					<code class="${hlmCode}">disabled</code>
+					,
+					<code class="${hlmCode}">readonly</code>
+					etc.) to make your control react to the form control state changes.
+				</li>
+				<li>
+					Call
+					<code class="${hlmCode}">touch()</code>
+					on your input's blur event (
+					<a
+						href="https://agoge.spartan.ng/forms/signal-forms#custom-control"
+						target="_blank"
+						rel="noopener noreferrer"
+					>
+						Angular v22+
+					</a>
+					). In Angular v21, use
+					<code class="${hlmCode}">touchedChange</code>
+					instead — see
+					<a
+						class="${link}"
+						href="https://angular.dev/guide/forms/signals/custom-controls#working-with-debounceblur"
+						target="_blank"
+						rel="noopener noreferrer"
+					>
+						debounce / blur
+					</a>
+					for details.
+				</li>
+				<li>
+					Form components (like Input, Autocomplete, Select) use
+					<code class="${hlmCode}">BrnFieldControl</code>
+					and receive automatically invalid states from the form control.
+				</li>
+			</ul>
+
+			<spartan-code class="mt-6" fileName="password-input.ts" [code]="_demoPasswordInputComponentCode" />
+
+			<h3 id="value-transformation" spartanH4>Value transformation</h3>
+
+			<p class="${hlmP}">
+				For more complex custom controls, you can wrap components like the combobox. This example builds a country
+				picker that performs
+				<a
+					class="${link}"
+					href="https://angular.dev/guide/forms/signals/custom-controls#value-transformation"
+					target="_blank"
+					rel="noopener noreferrer"
+				>
+					value transformation
+				</a>
+				to map a country code to its display label. The form stores the country code string, while the combobox uses
+				<code class="${hlmCode}">linkedSignal</code>
+				to transform it into the flag and label for display.
+			</p>
+
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-signal-form-country-picker-demo />
+				</div>
+				<spartan-code secondTab [code]="_signalFormsCountryPickerDemoCode" />
+			</spartan-tabs>
+
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="/stack/overview" label="Stack" />
 				<spartan-page-bottom-nav-link direction="previous" href="/forms/reactive-forms" label="Reactive Forms" />
@@ -469,4 +617,9 @@ export default class SignalFormsPage {
 	protected readonly _signalFormsSelectDemoCode = signalFormsSelectDemoCode;
 	protected readonly _signalFormsSwitchDemoCode = signalFormsSwitchDemoCode;
 	protected readonly _signalFormsComplexDemoCode = signalFormsComplexDemoCode;
+
+	protected readonly _signalFormsCustomControlDemoCode = signalFormsCustomControlDemoCode;
+	protected readonly _signalFormsCountryPickerDemoCode = signalFormsCountryPickerDemoCode;
+	protected readonly _demoPasswordInputGroupCode = demoPasswordInputGroupCode;
+	protected readonly _demoPasswordInputComponentCode = passwordInputCode;
 }

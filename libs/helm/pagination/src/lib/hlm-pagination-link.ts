@@ -40,7 +40,7 @@ export class HlmPaginationLink {
 
 	constructor() {
 		classes(() => [
-			'spartan-pagination-link',
+			'spartan-pagination-link relative',
 			buttonVariants({
 				variant: this.isActive() ? 'outline' : 'ghost',
 				size: this.size(),

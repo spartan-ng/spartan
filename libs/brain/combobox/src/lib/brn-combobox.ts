@@ -106,7 +106,7 @@ export class BrnCombobox<T> implements BrnComboboxBase<T>, ControlValueAccessor 
 	 * Considers `undefined`, `null`, and empty string as "not present".
 	 * Only used by single-select combobox in popup mode, ignored by the multiple select variant.
 	 */
-	public readonly isSingleValuePresent = input<(value: T | undefined | null) => boolean>(
+	public readonly isSingleValuePresent = input<(value: T | undefined | null) => value is T>(
 		this._config.isSingleValuePresent,
 	);
 	public readonly hasValue = computed(() => this.isSingleValuePresent()(this.value()));
@@ -204,7 +204,7 @@ export class BrnCombobox<T> implements BrnComboboxBase<T>, ControlValueAccessor 
 
 		const value = this.keyManager.activeItem?.value();
 
-		if (value) {
+		if (this.isSingleValuePresent()(value)) {
 			this.select(value);
 		} else {
 			this.close();

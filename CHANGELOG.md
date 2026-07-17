@@ -1,3 +1,16 @@
+## <small>1.1.1 (2026-07-17)</small>
+
+- Merge pull request #1641 from spartan-ng/beta ([dd9be00](https://github.com/spartan-ng/spartan/commit/dd9be00)), closes [#1641](https://github.com/spartan-ng/spartan/issues/1641)
+- chore(release): 1.1.1-beta.1 ([be2edb7](https://github.com/spartan-ng/spartan/commit/be2edb7))
+- chore(release): 1.1.1-beta.2 ([cd51e12](https://github.com/spartan-ng/spartan/commit/cd51e12))
+- chore(release): backmerge main into beta ([21d6658](https://github.com/spartan-ng/spartan/commit/21d6658))
+- chore(release): backmerge main into beta ([db855fd](https://github.com/spartan-ng/spartan/commit/db855fd))
+- chore(release): backmerge main into beta ([3d6cd37](https://github.com/spartan-ng/spartan/commit/3d6cd37))
+- fix(combobox): ensure falsy values still display their input label (#1627) ([985eb5e](https://github.com/spartan-ng/spartan/commit/985eb5e)), closes [#1627](https://github.com/spartan-ng/spartan/issues/1627)
+- fix(pagination): position sr-only label relative to pagination link (#1635) ([2f02869](https://github.com/spartan-ng/spartan/commit/2f02869)), closes [#1635](https://github.com/spartan-ng/spartan/issues/1635) [#1634](https://github.com/spartan-ng/spartan/issues/1634)
+- docs: add new contributors to our 300 ([0abe05c](https://github.com/spartan-ng/spartan/commit/0abe05c))
+- docs: add signal custom control examples (#1632) ([579ea5d](https://github.com/spartan-ng/spartan/commit/579ea5d)), closes [#1632](https://github.com/spartan-ng/spartan/issues/1632)
+
 ## <small>1.1.1-beta.2 (2026-07-17)</small>
 
 - fix(combobox): ensure falsy values still display their input label (#1627) ([985eb5e](https://github.com/spartan-ng/spartan/commit/985eb5e)), closes [#1627](https://github.com/spartan-ng/spartan/issues/1627)

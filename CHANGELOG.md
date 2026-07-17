@@ -1,3 +1,12 @@
+## <small>1.1.1-beta.1 (2026-07-17)</small>
+
+- fix(pagination): position sr-only label relative to pagination link (#1635) ([2f02869](https://github.com/spartan-ng/spartan/commit/2f02869)), closes [#1635](https://github.com/spartan-ng/spartan/issues/1635) [#1634](https://github.com/spartan-ng/spartan/issues/1634)
+- chore(release): backmerge main into beta ([21d6658](https://github.com/spartan-ng/spartan/commit/21d6658))
+- chore(release): backmerge main into beta ([db855fd](https://github.com/spartan-ng/spartan/commit/db855fd))
+- chore(release): backmerge main into beta ([3d6cd37](https://github.com/spartan-ng/spartan/commit/3d6cd37))
+- docs: add new contributors to our 300 ([0abe05c](https://github.com/spartan-ng/spartan/commit/0abe05c))
+- docs: add signal custom control examples (#1632) ([579ea5d](https://github.com/spartan-ng/spartan/commit/579ea5d)), closes [#1632](https://github.com/spartan-ng/spartan/issues/1632)
+
 ## 1.1.0 (2026-07-09)
 
 - feat(calendar,date-picker): add month-year picker and all date inputs ([3a445d3](https://github.com/spartan-ng/spartan/commit/3a445d3))

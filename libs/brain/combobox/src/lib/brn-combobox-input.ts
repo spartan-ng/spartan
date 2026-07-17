@@ -74,7 +74,7 @@ export class BrnComboboxInput<T> {
 			const search = this._combobox.search();
 
 			// In combobox mode we want to display the label of the selected value if no search is active
-			if (mode === 'combobox' && value && search === '') {
+			if (mode === 'combobox' && this._combobox.hasValue() && search === '') {
 				this._el.nativeElement.value = stringifyAsLabel(value, this._combobox.itemToString());
 				return;
 			}

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { render, screen } from '@testing-library/angular';
 import { BrnComboboxInput } from './brn-combobox-input';
 import { BrnComboboxBaseToken } from './brn-combobox.token';
@@ -14,7 +14,7 @@ function comboboxStub(initialValue: SimpleValue = null) {
 		disabledState: signal(false),
 		itemToString: signal(undefined),
 		mode: signal('combobox'),
-		hasValue: signal(false),
+		hasValue: computed(() => value() !== undefined && value() !== null && value() !== ''),
 		controlState: signal(null),
 	};
 }

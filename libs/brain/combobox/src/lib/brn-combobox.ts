@@ -102,9 +102,9 @@ export class BrnCombobox<T> implements BrnComboboxBase<T>, ControlValueAccessor 
 	public readonly value = model<T | undefined | null>(null);
 
 	/**
-	 * Determines whether a single value is present (i.e., has been selected).
+	 * Determines whether a value is present (i.e., has been selected).
 	 * Considers `undefined`, `null`, and empty string as "not present".
-	 * Only used by single-select combobox in popup mode, ignored by the multiple select variant.
+	 * Used to check if the selected value is present and to validate an item value on Enter key selection.
 	 */
 	public readonly isSingleValuePresent = input<(value: T | undefined | null) => value is T>(
 		this._config.isSingleValuePresent,

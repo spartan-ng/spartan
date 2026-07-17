@@ -2298,7 +2298,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
           {
             "name": "isSingleValuePresent",
             "required": false,
-            "type": "(value: T | undefined | null) => boolean",
+            "type": "(value: T | undefined | null) => value is T",
           },
         ],
         "models": [
@@ -2486,6 +2486,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "name": "closeOnSelect",
             "required": false,
             "type": "boolean",
+          },
+          {
+            "name": "isValuePresent",
+            "required": false,
+            "type": "(value: T | undefined | null) => value is T",
           },
         ],
         "models": [

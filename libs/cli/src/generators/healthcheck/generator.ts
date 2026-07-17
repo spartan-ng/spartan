@@ -28,6 +28,7 @@ import { scrollAreaHealthcheck } from './healthchecks/hlm-scroll-area';
 import { selectHealthcheck } from './healthchecks/hlm-select';
 import { moduleImportsHealthcheck } from './healthchecks/module-imports';
 import { namingConventionHealthcheck } from './healthchecks/naming-conventions';
+import { scaffoldIntegrityHealthcheck } from './healthchecks/scaffold-integrity';
 import { sonnerHealthcheck } from './healthchecks/sonner';
 import { versionHealthcheck } from './healthchecks/version';
 import type { HealthcheckGeneratorSchema } from './schema';
@@ -66,6 +67,7 @@ export async function healthcheckGenerator(tree: Tree, options: HealthcheckGener
 		helmFormFieldHealthcheck,
 		sonnerHealthcheck,
 		brnSelectHealthcheck,
+		scaffoldIntegrityHealthcheck,
 	];
 
 	const failedReports: HealthcheckReport[] = [];

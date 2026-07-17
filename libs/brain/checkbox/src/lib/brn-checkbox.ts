@@ -45,7 +45,7 @@ const CONTAINER_POST_FIX = '-checkbox';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	hostDirectives: [BrnFieldControl],
 	host: {
-		'[style]': '{display: "contents"}',
+		'[style]': 'hostStyles()',
 		'[attr.id]': '_state().id',
 		'[attr.name]': '_state().name',
 		'[attr.aria-labelledby]': 'null',
@@ -155,6 +155,12 @@ export class BrnCheckbox implements ControlValueAccessor, AfterContentInit, OnDe
 	 * CSS classes applied to inner button element.
 	 */
 	public readonly class = input<string | null>(null);
+
+	/**
+	 * Styles applied to the host element. Bound via `[style]` so they apply through the CSSOM and are
+	 * not blocked by a strict Content-Security-Policy.
+	 */
+	public readonly hostStyles = input<string>('display: contents');
 
 	/**
 	 * Accessibility label for screen readers.

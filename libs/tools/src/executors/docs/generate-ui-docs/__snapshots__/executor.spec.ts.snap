@@ -2298,7 +2298,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
           {
             "name": "isSingleValuePresent",
             "required": false,
-            "type": "(value: T | undefined | null) => value is T",
+            "type": "(value: T | undefined | null) => boolean",
           },
         ],
         "models": [
@@ -2490,7 +2490,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
           {
             "name": "isValuePresent",
             "required": false,
-            "type": "(value: T | undefined | null) => value is T",
+            "type": "(value: T | undefined | null) => boolean",
           },
         ],
         "models": [

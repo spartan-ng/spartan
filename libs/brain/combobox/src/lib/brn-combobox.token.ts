@@ -93,7 +93,7 @@ export interface BrnComboboxConfig<T> {
 	 * Used by the single variant to check if the selected value is present,
 	 * and by both single and multi variants to validate an item value on Enter key selection.
 	 */
-	isSingleValuePresent: (value: T | undefined | null) => value is T;
+	isSingleValuePresent: (value: T | undefined | null) => boolean;
 	itemToString?: ComboboxItemToString<T>;
 	autoHighlight: boolean;
 	/** Whether to reset the search and close the popover after selecting an item when the search is active. */
@@ -110,8 +110,7 @@ function getDefaultConfig<T>(): BrnComboboxConfig<T> {
 		filter: (itemValue: T, search: string, collator: Intl.Collator, itemToString?: ComboboxItemToString<T>) =>
 			comboboxContainsFilter(itemValue, search, collator, itemToString),
 		isItemEqualToValue: (itemValue: T, selectedValue: T | undefined | null) => Object.is(itemValue, selectedValue),
-		isSingleValuePresent: (value: T | undefined | null): value is T =>
-			value !== undefined && value !== null && value !== '',
+		isSingleValuePresent: (value: T | undefined | null) => value !== undefined && value !== null && value !== '',
 		itemToString: undefined,
 		autoHighlight: false,
 		closeOnSelect: true,

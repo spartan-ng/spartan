@@ -110,9 +110,7 @@ export class BrnComboboxMultiple<T> implements BrnComboboxBase<T>, ControlValueA
 	 * Considers `undefined`, `null`, and empty string as "not present".
 	 * Used to validate an item value on Enter key selection.
 	 */
-	public readonly isValuePresent = input<(value: T | undefined | null) => value is T>(
-		this._config.isSingleValuePresent,
-	);
+	public readonly isValuePresent = input<(value: T | undefined | null) => boolean>(this._config.isSingleValuePresent);
 
 	public readonly hasValue = computed(() => {
 		const value = this.value();
@@ -223,7 +221,7 @@ export class BrnComboboxMultiple<T> implements BrnComboboxBase<T>, ControlValueA
 		const value = this.keyManager.activeItem?.value();
 
 		if (this.isValuePresent()(value)) {
-			this.select(value);
+			this.select(value as T);
 		} else {
 			this.close();
 		}

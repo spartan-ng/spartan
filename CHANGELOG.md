@@ -1,3 +1,7 @@
+## <small>1.1.1-beta.2 (2026-07-17)</small>
+
+- fix(combobox): ensure falsy values still display their input label (#1627) ([985eb5e](https://github.com/spartan-ng/spartan/commit/985eb5e)), closes [#1627](https://github.com/spartan-ng/spartan/issues/1627)
+
 ## <small>1.1.1-beta.1 (2026-07-17)</small>
 
 - fix(pagination): position sr-only label relative to pagination link (#1635) ([2f02869](https://github.com/spartan-ng/spartan/commit/2f02869)), closes [#1635](https://github.com/spartan-ng/spartan/issues/1635) [#1634](https://github.com/spartan-ng/spartan/issues/1634)

@@ -13,7 +13,7 @@ export class BrnComboboxValueTemplate<T> {
 	protected readonly _value = computed<T | null>(() => {
 		const value = this._combobox.value();
 
-		if (value === null) {
+		if (value === null || value === undefined) {
 			return null;
 		}
 

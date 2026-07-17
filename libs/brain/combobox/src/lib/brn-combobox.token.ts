@@ -88,9 +88,10 @@ export interface BrnComboboxConfig<T> {
 	filter: ComboboxFilter<T>;
 	isItemEqualToValue: ComboboxItemEqualToValue<T>;
 	/**
-	 * Determines whether a single value is present (i.e., has been selected).
+	 * Determines whether a value is present (i.e., has been selected).
 	 * Considers `undefined`, `null`, and empty string as "not present".
-	 * Only used by single-select combobox in popup mode, ignored by the multiple select variant.
+	 * Used by the single variant to check if the selected value is present,
+	 * and by both single and multi variants to validate an item value on Enter key selection.
 	 */
 	isSingleValuePresent: (value: T | undefined | null) => boolean;
 	itemToString?: ComboboxItemToString<T>;

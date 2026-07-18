@@ -185,6 +185,8 @@ Our initial 300 contributors and sponsors are featured here and on the front pag
 147. [Nicoss54](https://github.com/Nicoss54)
 148. [xonaib](https://github.com/xonaib)
 149. [SocDario](https://github.com/SocDario)
+150. [bcl-dev](https://github.com/bcl-dev)
+151. [skolldev](https://github.com/skolldev)
 
 ### Sponsor spartan
 

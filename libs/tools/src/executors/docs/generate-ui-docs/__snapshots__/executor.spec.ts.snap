@@ -5959,6 +5959,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "required": false,
             "type": "number[]",
           },
+          {
+            "name": "enableSizeParams",
+            "required": false,
+            "type": "boolean",
+          },
         ],
         "models": [
           {

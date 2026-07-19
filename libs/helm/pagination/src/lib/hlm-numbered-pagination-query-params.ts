@@ -4,11 +4,14 @@ import {
 	ChangeDetectionStrategy,
 	Component,
 	computed,
+	effect,
+	inject,
 	input,
 	model,
 	numberAttribute,
 	untracked,
 } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HlmSelectImports } from '@spartan-ng/helm/select';
 import { classes } from '@spartan-ng/helm/utils';
 import { createPageArray, outOfBoundCorrection } from './hlm-numbered-pagination';
@@ -99,6 +102,12 @@ import { HlmPaginationPrevious } from './hlm-pagination-previous';
 	`,
 })
 export class HlmNumberedPaginationQueryParams {
+	private readonly _router = inject(Router);
+	private readonly _route = inject(ActivatedRoute);
+
+	/** Guards against firing a navigation for the initial (non user-driven) itemsPerPage value. */
+	private _skipNextSizeNavigation = true;
+
 	/**
 	 * The current (active) page.
 	 */
@@ -144,6 +153,15 @@ export class HlmNumberedPaginationQueryParams {
 	 */
 	public readonly pageSizes = input<number[]>([10, 20, 50, 100]);
 
+	/**
+	 * Whether to sync the selected page size to a `size` query param.
+	 *
+	 * @default false
+	 */
+	public readonly enableSizeParams = input<boolean, BooleanInput>(false, {
+		transform: booleanAttribute,
+	});
+
 	protected readonly _pageSizesWithCurrent = computed(() => {
 		const pageSizes = this.pageSizes();
 		return pageSizes.includes(this.itemsPerPage())
@@ -176,5 +194,27 @@ export class HlmNumberedPaginationQueryParams {
 
 	constructor() {
 		classes(() => 'flex items-center justify-between gap-2 px-4 py-2');
+
+		effect(() => {
+			const size = this.itemsPerPage();
+			const enableSizeParams = this.enableSizeParams();
+
+			if (this._skipNextSizeNavigation) {
+				this._skipNextSizeNavigation = false;
+				return;
+			}
+
+			if (!enableSizeParams) {
+				return;
+			}
+
+			untracked(() => {
+				this._router.navigate([], {
+					relativeTo: this._route,
+					queryParams: { size },
+					queryParamsHandling: 'merge',
+				});
+			});
+		});
 	}
 }

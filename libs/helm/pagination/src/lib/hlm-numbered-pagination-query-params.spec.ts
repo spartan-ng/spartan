@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { provideRouter, Router } from '@angular/router';
 import { fireEvent, render, RenderResult, screen } from '@testing-library/angular';
@@ -7,6 +7,7 @@ import { HlmNumberedPaginationQueryParams } from './hlm-numbered-pagination-quer
 @Component({
 	selector: 'hlm-numbered-pagination-query-params-host',
 	imports: [HlmNumberedPaginationQueryParams],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<hlm-numbered-pagination-query-params
 			[(currentPage)]="currentPage"

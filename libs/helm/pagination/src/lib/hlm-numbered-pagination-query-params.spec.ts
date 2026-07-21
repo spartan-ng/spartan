@@ -14,6 +14,7 @@ import { HlmNumberedPaginationQueryParams } from './hlm-numbered-pagination-quer
 			[(itemsPerPage)]="itemsPerPage"
 			[totalItems]="totalItems()"
 			[enableSizeParams]="enableSizeParams()"
+			[sizeParamName]="sizeParamName()"
 		/>
 	`,
 })
@@ -22,6 +23,7 @@ class HlmNumberedPaginationQueryParamsHost {
 	public readonly itemsPerPage = signal(10);
 	public readonly totalItems = signal(100);
 	public readonly enableSizeParams = signal(true);
+	public readonly sizeParamName = signal('size');
 }
 
 describe('HlmNumberedPaginationQueryParams', () => {
@@ -66,6 +68,22 @@ describe('HlmNumberedPaginationQueryParams', () => {
 		});
 	});
 
+	it('should use the configured size query param name', async () => {
+		r.fixture.componentInstance.sizeParamName.set('pageSize');
+		r.detectChanges();
+
+		fireEvent.click(screen.getByRole('combobox'));
+		fireEvent.click(await screen.findByRole('option', { name: '20' }));
+
+		r.detectChanges();
+		await r.fixture.whenStable();
+
+		const tree = router.parseUrl(router.url);
+
+		expect(tree.queryParams['pageSize']).toBe('20');
+		expect(tree.queryParams['size']).toBeUndefined();
+	});
+
 	it('should not add the size query param when enableSizeParams is false', async () => {
 		r.fixture.componentInstance.enableSizeParams.set(false);
 		r.detectChanges();
@@ -79,6 +97,21 @@ describe('HlmNumberedPaginationQueryParams', () => {
 		const tree = router.parseUrl(router.url);
 
 		expect(tree.queryParams['size']).toBeUndefined();
+	});
+
+	it('should remove the size query param when enableSizeParams is disabled', async () => {
+		await router.navigateByUrl('/?page=4&size=20&sort=name');
+
+		r.fixture.componentInstance.enableSizeParams.set(false);
+		r.detectChanges();
+		await r.fixture.whenStable();
+
+		const tree = router.parseUrl(router.url);
+
+		expect(tree.queryParams).toEqual({
+			page: '4',
+			sort: 'name',
+		});
 	});
 
 	it('should not write the initial page size to the query params', async () => {

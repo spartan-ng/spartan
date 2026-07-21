@@ -5893,6 +5893,25 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
     },
   },
   "pagination": {
+    "brain": {
+      "BrnPaginationSizeSync": {
+        "inputs": [
+          {
+            "name": "enableSizeParams",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "sizeParamName",
+            "required": false,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnPaginationSizeSync]",
+      },
+    },
     "helm": {
       "HlmNumberedPagination": {
         "inputs": [
@@ -5963,6 +5982,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "name": "enableSizeParams",
             "required": false,
             "type": "boolean",
+          },
+          {
+            "name": "sizeParamName",
+            "required": false,
+            "type": "string",
           },
         ],
         "models": [

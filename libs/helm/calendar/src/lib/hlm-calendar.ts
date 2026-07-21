@@ -22,7 +22,7 @@ import { classes, hlm } from '@spartan-ng/helm/utils';
 	],
 	host: { 'data-slot': 'calendar' },
 	template: `
-		<div class="inline-flex flex-col gap-4">
+		<div class="inline-flex flex-col gap-4 in-data-[slot=popover-content]:w-full">
 			<!-- Header -->
 			<div class="flex w-full items-center justify-between gap-1.5">
 				<ng-template #month>

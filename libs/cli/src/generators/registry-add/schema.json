@@ -1,0 +1,11 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema",
+	"$id": "SpartanRegistryAddSchema",
+	"type": "object",
+	"properties": {
+		"registries": {
+			"type": "string",
+			"description": "Comma-separated registry specs, e.g. @acme=https://example.com/r/{name}.json"
+		}
+	}
+}

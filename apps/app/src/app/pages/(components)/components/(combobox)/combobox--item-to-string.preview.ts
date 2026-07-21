@@ -41,7 +41,7 @@ type Assignee = {
 export class ComboboxItemToStringPreview {
 	public search = signal('');
 
-	protected readonly _model = signal<{ assignee: string }>({ assignee: '' });
+	protected readonly _model = signal<{ assignee: string }>({ assignee: '8' });
 
 	public readonly form = form(
 		this._model,

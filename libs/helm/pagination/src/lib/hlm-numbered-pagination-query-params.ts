@@ -10,8 +10,8 @@ import {
 	untracked,
 } from '@angular/core';
 import {
+	BrnPaginationSize,
 	BrnPaginationSizeSource,
-	BrnPaginationSizeSync,
 	provideBrnPaginationSizeSource,
 } from '@spartan-ng/brain/pagination';
 import { HlmSelectImports } from '@spartan-ng/helm/select';
@@ -41,7 +41,7 @@ import { HlmPaginationPrevious } from './hlm-pagination-previous';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	hostDirectives: [
 		{
-			directive: BrnPaginationSizeSync,
+			directive: BrnPaginationSize,
 			inputs: ['enableSizeParams', 'sizeParamName'],
 		},
 	],

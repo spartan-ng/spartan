@@ -6,7 +6,7 @@ export interface BrnPaginationSizeSource {
 
 export const BrnPaginationSizeSourceToken = new InjectionToken<BrnPaginationSizeSource>('BrnPaginationSizeSourceToken');
 
-/** Registers `host` as the source consumed by `BrnPaginationSizeSync`. */
+/** Registers `host` as the source consumed by `BrnPaginationSize`. */
 export function provideBrnPaginationSizeSource(host: Type<BrnPaginationSizeSource>): ExistingProvider {
 	return { provide: BrnPaginationSizeSourceToken, useExisting: host };
 }

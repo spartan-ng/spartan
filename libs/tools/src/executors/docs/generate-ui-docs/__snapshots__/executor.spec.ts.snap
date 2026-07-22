@@ -5894,7 +5894,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
   },
   "pagination": {
     "brain": {
-      "BrnPaginationSizeSync": {
+      "BrnPaginationSize": {
         "inputs": [
           {
             "name": "enableSizeParams",
@@ -5909,7 +5909,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "[brnPaginationSizeSync]",
+        "selector": "[brnPaginationSize]",
       },
     },
     "helm": {

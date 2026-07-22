@@ -4,9 +4,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { injectBrnPaginationSizeSource } from './brn-pagination-size-token';
 
 @Directive({
-	selector: '[brnPaginationSizeSync]',
+	selector: '[brnPaginationSize]',
 })
-export class BrnPaginationSizeSync {
+export class BrnPaginationSize {
 	private readonly _router = inject(Router);
 	private readonly _route = inject(ActivatedRoute);
 	private readonly _source = injectBrnPaginationSizeSource();

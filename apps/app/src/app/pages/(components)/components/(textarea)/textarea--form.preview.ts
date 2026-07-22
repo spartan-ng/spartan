@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { form, FormField, FormRoot, required } from '@angular/forms/signals';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmFieldImports } from '@spartan-ng/helm/field';
 import { HlmLabelImports } from '@spartan-ng/helm/label';
@@ -7,11 +7,11 @@ import { HlmTextareaImports } from '@spartan-ng/helm/textarea';
 
 @Component({
 	selector: 'spartan-textarea-form',
-	imports: [HlmTextareaImports, HlmLabelImports, HlmButtonImports, HlmFieldImports, ReactiveFormsModule],
+	imports: [HlmTextareaImports, HlmLabelImports, HlmButtonImports, HlmFieldImports, FormRoot, FormField],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: { class: 'min-w-xs sm:min-w-sm' },
 	template: `
-		<form [formGroup]="form" (ngSubmit)="submit()">
+		<form [formRoot]="form">
 			<hlm-field-group>
 				<hlm-field>
 					<label hlmFieldLabel for="username">Bio</label>
@@ -20,7 +20,7 @@ import { HlmTextareaImports } from '@spartan-ng/helm/textarea';
 						class="w-80"
 						id="username"
 						placeholder="Tell us a little bit about yourself"
-						formControlName="bio"
+						[formField]="form.bio"
 					></textarea>
 					<p hlmFieldDescription>
 						You can
@@ -36,12 +36,22 @@ import { HlmTextareaImports } from '@spartan-ng/helm/textarea';
 	`,
 })
 export class TextareaFormPreview {
-	private readonly _formBuilder = inject(FormBuilder);
-	public form = this._formBuilder.group({
-		bio: [null, Validators.required],
+	protected readonly _model = signal({
+		bio: '',
 	});
 
-	submit() {
-		console.log(this.form.value);
-	}
+	public readonly form = form(
+		this._model,
+		(schemaPath) => {
+			required(schemaPath.bio, { message: 'Bio is required' });
+		},
+		{
+			submission: {
+				action: async () => {
+					const model = this._model();
+					console.log(model);
+				},
+			},
+		},
+	);
 }

@@ -3435,12 +3435,12 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "type": "'dropdown' | 'label' | 'dropdown-months' | 'dropdown-years'",
           },
           {
-            "name": "min",
+            "name": "minDate",
             "required": false,
             "type": "T",
           },
           {
-            "name": "max",
+            "name": "maxDate",
             "required": false,
             "type": "T",
           },
@@ -3561,12 +3561,12 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "type": "'dropdown' | 'label' | 'dropdown-months' | 'dropdown-years'",
           },
           {
-            "name": "min",
+            "name": "minDate",
             "required": false,
             "type": "T",
           },
           {
-            "name": "max",
+            "name": "maxDate",
             "required": false,
             "type": "T",
           },
@@ -3712,12 +3712,12 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "type": "'dropdown' | 'label' | 'dropdown-months' | 'dropdown-years'",
           },
           {
-            "name": "min",
+            "name": "minDate",
             "required": false,
             "type": "T",
           },
           {
-            "name": "max",
+            "name": "maxDate",
             "required": false,
             "type": "T",
           },
@@ -3816,12 +3816,12 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
       "HlmMonthYearPicker": {
         "inputs": [
           {
-            "name": "min",
+            "name": "minDate",
             "required": false,
             "type": "T",
           },
           {
-            "name": "max",
+            "name": "maxDate",
             "required": false,
             "type": "T",
           },

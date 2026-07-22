@@ -114,6 +114,26 @@ describe('HlmNumberedPaginationQueryParams', () => {
 		});
 	});
 
+	it('should replace the old size param when sizeParamName changes', async () => {
+		fireEvent.click(screen.getByRole('combobox'));
+		fireEvent.click(await screen.findByRole('option', { name: '20' }));
+
+		r.detectChanges();
+		await r.fixture.whenStable();
+
+		let tree = router.parseUrl(router.url);
+		expect(tree.queryParams['size']).toBe('20');
+
+		r.fixture.componentInstance.sizeParamName.set('pageSize');
+		r.detectChanges();
+		await r.fixture.whenStable();
+
+		tree = router.parseUrl(router.url);
+
+		expect(tree.queryParams['pageSize']).toBe('20');
+		expect(tree.queryParams['size']).toBeUndefined();
+	});
+
 	it('should not write the initial page size to the query params', async () => {
 		await router.navigateByUrl('/');
 

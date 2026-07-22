@@ -14,6 +14,7 @@ export class BrnPaginationSize {
 	/** Guards against firing a navigation for the initial (non user-driven) itemsPerPage value. */
 	private _skipNextSizeNavigation = true;
 	private _wasSizeParamsEnabled = false;
+	private _previousSizeParamName: string | undefined;
 
 	/**
 	 * Whether to sync the selected page size to a `size` query param.
@@ -34,10 +35,12 @@ export class BrnPaginationSize {
 			const size = this._source.itemsPerPage();
 			const enableSizeParams = this.enableSizeParams();
 			const sizeParamName = this.sizeParamName();
+			const previousSizeParamName = this._previousSizeParamName;
 
 			if (this._skipNextSizeNavigation) {
 				this._skipNextSizeNavigation = false;
 				this._wasSizeParamsEnabled = enableSizeParams;
+				this._previousSizeParamName = sizeParamName;
 				return;
 			}
 
@@ -46,22 +49,29 @@ export class BrnPaginationSize {
 					untracked(() => {
 						this._router.navigate([], {
 							relativeTo: this._route,
-							queryParams: { [sizeParamName]: null },
+							queryParams: { [previousSizeParamName ?? sizeParamName]: null },
 							queryParamsHandling: 'merge',
 						});
 					});
 				}
 
 				this._wasSizeParamsEnabled = false;
+				this._previousSizeParamName = sizeParamName;
 				return;
 			}
 
 			this._wasSizeParamsEnabled = true;
+			this._previousSizeParamName = sizeParamName;
+
+			const queryParams: Record<string, string | null> = { [sizeParamName]: String(size) };
+			if (previousSizeParamName && previousSizeParamName !== sizeParamName) {
+				queryParams[previousSizeParamName] = null;
+			}
 
 			untracked(() => {
 				this._router.navigate([], {
 					relativeTo: this._route,
-					queryParams: { [sizeParamName]: size },
+					queryParams,
 					queryParamsHandling: 'merge',
 				});
 			});

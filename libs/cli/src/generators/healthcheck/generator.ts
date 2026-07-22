@@ -17,6 +17,7 @@ import { coreImportsHealthcheck } from './healthchecks/core-imports';
 import { helmImportsHealthcheck } from './healthchecks/helm-imports';
 import { hlmImportHealthcheck } from './healthchecks/hlm';
 import { datePickerHealthcheck } from './healthchecks/hlm-date-picker';
+import { datePickerMinMaxHealthcheck } from './healthchecks/hlm-date-picker-min-max';
 import { helmDialogHealthcheck } from './healthchecks/hlm-dialog';
 import { helmDialogPortalHealthcheck } from './healthchecks/hlm-dialog-portal';
 import { helmFormFieldHealthcheck } from './healthchecks/hlm-form-field';
@@ -50,6 +51,7 @@ export async function healthcheckGenerator(tree: Tree, options: HealthcheckGener
 		helmImportsHealthcheck,
 		namingConventionHealthcheck,
 		datePickerHealthcheck,
+		datePickerMinMaxHealthcheck,
 		hlmInputIdHealthcheck,
 		progressHealthcheck,
 		hlmImportHealthcheck,

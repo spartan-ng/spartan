@@ -35,6 +35,7 @@
 		"baseUrl": ".",
 		"paths": {
 			"@spartan-ng/app/*": ["apps/app/src/*"],
+			"@spartan-ng/charts": ["libs/charts/src/index.ts"],
 			"@spartan-ng/brain": ["libs/brain/src/index.ts"],
 			"@spartan-ng/brain/accordion": ["libs/brain/accordion/src/index.ts"],
 			"@spartan-ng/brain/alert-dialog": ["libs/brain/alert-dialog/src/index.ts"],

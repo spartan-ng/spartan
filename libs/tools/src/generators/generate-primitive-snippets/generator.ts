@@ -193,31 +193,33 @@ function processPrimitive(
 export async function extractPrimitiveCodeGenerator(tree: Tree): Promise<void> {
 	logger.info('Extract Primitive Code generator running...');
 
-	const componentsDir = 'apps/app/src/app/pages/(components)/components';
-	const componentDirs = getComponentDirectories(tree, componentsDir);
-
-	if (componentDirs.length === 0) {
-		logger.info('No component directories found. Writing empty snippets file.');
-	} else {
-		logger.info(`Found ${componentDirs.length} component directories.`);
-	}
+	const baseDirs = ['apps/app/src/app/pages/(components)/components', 'apps/app/src/app/pages/(charts)/charts'];
 
 	const allPrimitivesSnippets: Record<string, Record<string, string>> = {};
 	// Sibling files imported by multi-file examples, keyed by basename. The StackBlitz builder
 	// writes each to src/app/<basename>.ts when an example imports it.
 	const siblingFiles: Record<string, string> = {};
 
-	// Process each primitive directory
-	for (const primitiveName of componentDirs) {
-		try {
-			const snippets = processPrimitive(tree, componentsDir, primitiveName, siblingFiles);
-			if (snippets) {
-				const primitiveNameClean = primitiveName.replaceAll('(', '').replaceAll(')', '');
-				allPrimitivesSnippets[primitiveNameClean] = snippets;
+	for (const baseDir of baseDirs) {
+		const primitiveDirs = getComponentDirectories(tree, baseDir);
+		if (primitiveDirs.length === 0) {
+			logger.info(`No primitive directories found under ${baseDir}. Skipping.`);
+			continue;
+		}
+		logger.info(`Found ${primitiveDirs.length} primitive directories under ${baseDir}.`);
+
+		// Process each primitive directory
+		for (const primitiveName of primitiveDirs) {
+			try {
+				const snippets = processPrimitive(tree, baseDir, primitiveName, siblingFiles);
+				if (snippets) {
+					const primitiveNameClean = primitiveName.replaceAll('(', '').replaceAll(')', '');
+					allPrimitivesSnippets[primitiveNameClean] = snippets;
+				}
+			} catch (error) {
+				logger.error(`Failed to process ${primitiveName}: ${error}`);
+				// Continue with other primitives even if one fails
 			}
-		} catch (error) {
-			logger.error(`Failed to process ${primitiveName}: ${error}`);
-			// Continue with other primitives even if one fails
 		}
 	}
 

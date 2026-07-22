@@ -36,8 +36,8 @@ export const datePickerMinMaxHealthcheck: Healthcheck = {
 			}
 		});
 	},
-	fix: async (tree) => {
-		await migrateDatePickerMinMaxGenerator(tree, { skipFormat: true });
+	fix: async (tree, { angularCli }) => {
+		await migrateDatePickerMinMaxGenerator(tree, { skipFormat: true, angularCli });
 		return true;
 	},
 	prompt: 'Would you like to migrate renamed date picker min/max inputs?',

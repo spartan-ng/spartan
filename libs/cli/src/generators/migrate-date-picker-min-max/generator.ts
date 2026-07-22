@@ -1,5 +1,7 @@
 import { formatFiles, type Tree } from '@nx/devkit';
+import { loadOrInitConfig } from '../../utils/config';
 import { visitFiles } from '../../utils/visit-files';
+import { migrateHelmLibrariesGenerator } from '../migrate-helm-libraries/generator';
 import type { MigrateDatePickerMinMaxGeneratorSchema } from './schema';
 
 const datePickerSelectors = [
@@ -13,9 +15,20 @@ const datePickerTagPattern = new RegExp(`<(?:${datePickerSelectors.join('|')})(?
 
 export async function migrateDatePickerMinMaxGenerator(
 	tree: Tree,
-	{ skipFormat }: MigrateDatePickerMinMaxGeneratorSchema,
+	{ skipFormat, angularCli }: MigrateDatePickerMinMaxGeneratorSchema,
 ) {
 	replaceLegacyMinMaxInputs(tree);
+
+	const config = await loadOrInitConfig(tree, { angularCli: angularCli ?? false });
+
+	await migrateHelmLibrariesGenerator(tree, {
+		libraries: ['date-picker'],
+		angularCli: angularCli ?? false,
+		generateAs: config.generateAs ?? 'library',
+		buildable: config.buildable ?? true,
+		importAlias: config.importAlias,
+		style: config.style,
+	});
 
 	if (!skipFormat) {
 		await formatFiles(tree);

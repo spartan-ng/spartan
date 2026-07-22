@@ -8,6 +8,10 @@
 			"type": "boolean",
 			"default": false,
 			"description": "Skip formatting files"
+		},
+		"angularCli": {
+			"type": "boolean",
+			"description": "When true, uses Angular CLI conventions"
 		}
 	},
 	"required": []

@@ -1,8 +1,10 @@
 import { applicationGenerator, E2eTestRunner, UnitTestRunner } from '@nx/angular/generators';
 import type { Tree } from '@nx/devkit';
 import { createTreeWithEmptyWorkspace } from '@nx/devkit/testing';
+import { migrateHelmLibrariesGenerator } from '../migrate-helm-libraries/generator';
 import { migrateDatePickerMinMaxGenerator } from './generator';
 
+vi.mock('../migrate-helm-libraries/generator');
 vi.mock('enquirer');
 vi.mock('@nx/devkit', async (importOriginal) => {
 	const original = await importOriginal<typeof import('@nx/devkit')>();
@@ -31,6 +33,42 @@ describe('migrate-date-picker-min-max generator', () => {
 			skipPackageJson: true,
 			skipTests: true,
 		});
+
+		tree.write(
+			'components.json',
+			JSON.stringify({
+				componentsPath: 'libs/ui',
+				importAlias: '@spartan-ng/helm',
+				generateAs: 'library',
+				buildable: true,
+				style: 'vega',
+			}),
+		);
+
+		// Simulate an Nx workspace for the default test environment
+		tree.write('nx.json', JSON.stringify({}));
+	});
+
+	it('should call migrateHelmLibrariesGenerator with date-picker library', async () => {
+		tree.write(
+			'app/src/app/app.component.html',
+			'<hlm-date-picker min="2024-01-01" max="2024-12-31"></hlm-date-picker>',
+		);
+
+		await migrateDatePickerMinMaxGenerator(tree, { skipFormat: true });
+
+		expect(migrateHelmLibrariesGenerator).toHaveBeenCalledWith(
+			tree,
+			expect.objectContaining({ libraries: ['date-picker'], angularCli: false }),
+		);
+	});
+
+	it('should pass angularCli option through to migrateHelmLibrariesGenerator', async () => {
+		tree.write('app/src/app/app.component.html', '<hlm-date-picker min="2024-01-01"></hlm-date-picker>');
+
+		await migrateDatePickerMinMaxGenerator(tree, { skipFormat: true, angularCli: true });
+
+		expect(migrateHelmLibrariesGenerator).toHaveBeenCalledWith(tree, expect.objectContaining({ angularCli: true }));
 	});
 
 	it('should rename static min and max inputs on date picker elements in html templates', async () => {

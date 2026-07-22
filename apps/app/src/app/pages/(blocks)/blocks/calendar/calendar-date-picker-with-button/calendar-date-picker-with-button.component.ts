@@ -14,7 +14,7 @@ import { DateTime } from 'luxon';
 	template: `
 		<hlm-field class="max-w-xs">
 			<label hlmFieldLabel for="datePickerWithButton">Date Picker with Button</label>
-			<hlm-date-picker #datePicker [min]="minDate" [max]="maxDate" [formatDate]="formatDate">
+			<hlm-date-picker #datePicker [minDate]="minDate" [maxDate]="maxDate" [formatDate]="formatDate">
 				<hlm-date-picker-trigger buttonId="datePickerWithButton">Pick a date</hlm-date-picker-trigger>
 				<div hlmDatePickerFooter class="flex justify-end gap-2 p-2">
 					<button hlmBtn (click)="datePicker.close()">Submit</button>

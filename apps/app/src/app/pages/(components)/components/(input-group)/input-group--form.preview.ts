@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { email, form, FormField, FormRoot, required } from '@angular/forms/signals';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideInfo } from '@ng-icons/lucide';
 
@@ -9,14 +9,14 @@ import { HlmTooltipImports } from '@spartan-ng/helm/tooltip';
 
 @Component({
 	selector: 'spartan-input-group-form-preview',
-	imports: [ReactiveFormsModule, HlmInputGroupImports, HlmLabelImports, HlmTooltipImports, NgIcon],
+	imports: [FormRoot, FormField, HlmInputGroupImports, HlmLabelImports, HlmTooltipImports, NgIcon],
 	providers: [provideIcons({ lucideInfo })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: { class: 'grid w-full max-w-sm gap-6' },
 	template: `
-		<form [formGroup]="form" (ngSubmit)="submit()" class="space-y-8">
+		<form [formRoot]="form">
 			<hlm-input-group>
-				<input hlmInputGroupInput id="email-form" placeholder="spartan-ng@github.com" formControlName="email" />
+				<input hlmInputGroupInput id="email-form" placeholder="spartan-ng@github.com" [formField]="form.email" />
 				<hlm-input-group-addon align="block-start">
 					<label for="email-form" class="text-foreground" hlmLabel>Email</label>
 					<button
@@ -38,7 +38,7 @@ import { HlmTooltipImports } from '@spartan-ng/helm/tooltip';
 						size="sm"
 						variant="default"
 						type="submit"
-						[disabled]="form.invalid"
+						[disabled]="form().submitting()"
 					>
 						Submit
 					</button>
@@ -48,13 +48,23 @@ import { HlmTooltipImports } from '@spartan-ng/helm/tooltip';
 	`,
 })
 export class InputGroupFormPreview {
-	private readonly _formBuilder = inject(FormBuilder);
-
-	public form = this._formBuilder.group({
-		email: [null, [Validators.required, Validators.email]],
+	protected readonly _model = signal({
+		email: '',
 	});
 
-	submit() {
-		console.log(this.form.value);
-	}
+	public readonly form = form(
+		this._model,
+		(schemaPath) => {
+			required(schemaPath.email, { message: 'Email is required' });
+			email(schemaPath.email, { message: 'Enter a valid email address' });
+		},
+		{
+			submission: {
+				action: async () => {
+					const model = this._model();
+					console.log(model);
+				},
+			},
+		},
+	);
 }

@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { email, form, FormField, FormRoot, minLength, required } from '@angular/forms/signals';
 import { RouterLink } from '@angular/router';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmCardImports } from '@spartan-ng/helm/card';
@@ -8,7 +8,7 @@ import { HlmInputImports } from '@spartan-ng/helm/input';
 
 @Component({
 	selector: 'spartan-simple-login-form',
-	imports: [ReactiveFormsModule, RouterLink, HlmCardImports, HlmFieldImports, HlmInputImports, HlmButtonImports],
+	imports: [FormRoot, FormField, RouterLink, HlmCardImports, HlmFieldImports, HlmInputImports, HlmButtonImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<hlm-card>
@@ -17,13 +17,14 @@ import { HlmInputImports } from '@spartan-ng/helm/input';
 				<p hlmCardDescription>Enter your email below to login to your account</p>
 			</hlm-card-header>
 			<div hlmCardContent>
-				<form [formGroup]="form" (ngSubmit)="login()">
+				<form [formRoot]="form">
 					<hlm-field-group>
 						<hlm-field>
 							<label hlmFieldLabel for="email">Email</label>
-							<input hlmInput type="email" id="email" placeholder="m@example.com" formControlName="email" />
-							<hlm-field-error validator="required">Email is required.</hlm-field-error>
-							<hlm-field-error validator="email">Enter a valid email address.</hlm-field-error>
+							<input hlmInput type="email" id="email" placeholder="m@example.com" [formField]="form.email" />
+							@for (error of form.email().errors(); track error) {
+								<hlm-field-error [validator]="error.kind">{{ error.message }}</hlm-field-error>
+							}
 						</hlm-field>
 						<hlm-field>
 							<div class="flex items-center">
@@ -32,12 +33,13 @@ import { HlmInputImports } from '@spartan-ng/helm/input';
 									Forgot password?
 								</a>
 							</div>
-							<input hlmInput type="password" id="password" formControlName="password" />
-							<hlm-field-error validator="required">Password is required.</hlm-field-error>
-							<hlm-field-error validator="minlength">Password must be at least 8 characters long.</hlm-field-error>
+							<input hlmInput type="password" id="password" [formField]="form.password" />
+							@for (error of form.password().errors(); track error) {
+								<hlm-field-error [validator]="error.kind">{{ error.message }}</hlm-field-error>
+							}
 						</hlm-field>
 						<hlm-field>
-							<button hlmBtn type="submit" [disabled]="form.invalid">Login</button>
+							<button hlmBtn type="submit" [disabled]="form().submitting()">Login</button>
 							<button hlmBtn variant="outline" type="button">Login with Google</button>
 							<p hlmFieldDescription class="text-center">
 								Don't have an account?
@@ -51,17 +53,26 @@ import { HlmInputImports } from '@spartan-ng/helm/input';
 	`,
 })
 export class LoginForm {
-	private readonly _fb = inject(FormBuilder);
-
-	public form = this._fb.group({
-		email: ['', [Validators.required, Validators.email]],
-		password: ['', [Validators.required, Validators.minLength(8)]],
+	protected readonly _model = signal({
+		email: '',
+		password: '',
 	});
 
-	public login() {
-		if (this.form.valid) {
-			// login logic here
-			console.log(this.form.value);
-		}
-	}
+	public readonly form = form(
+		this._model,
+		(schemaPath) => {
+			required(schemaPath.email, { message: 'Email is required.' });
+			email(schemaPath.email, { message: 'Enter a valid email address.' });
+			required(schemaPath.password, { message: 'Password is required.' });
+			minLength(schemaPath.password, 8, { message: 'Password must be at least 8 characters long.' });
+		},
+		{
+			submission: {
+				action: async () => {
+					const model = this._model();
+					console.log(model);
+				},
+			},
+		},
+	);
 }

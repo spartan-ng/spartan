@@ -1,25 +1,23 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { form, FormField, FormRoot, required } from '@angular/forms/signals';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmDatePickerImports } from '@spartan-ng/helm/date-picker';
 import { HlmFieldImports } from '@spartan-ng/helm/field';
 
 @Component({
 	selector: 'spartan-date-picker-form-range',
-	imports: [ReactiveFormsModule, HlmButtonImports, HlmDatePickerImports, HlmFieldImports],
+	imports: [FormRoot, FormField, HlmButtonImports, HlmDatePickerImports, HlmFieldImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	host: {
-		class: 'w-full max-w-xs',
-	},
+	host: { class: 'w-full max-w-xs' },
 	template: `
-		<form [formGroup]="form" (ngSubmit)="submit()">
+		<form [formRoot]="form">
 			<hlm-field-group>
 				<hlm-field>
 					<label hlmFieldLabel for="date-range-form">Enter a date range</label>
 					<hlm-date-range-picker
-						[min]="minDate"
-						[max]="maxDate"
-						formControlName="range"
+						[minDate]="minDate"
+						[maxDate]="maxDate"
+						[formField]="form.range"
 						[autoCloseOnEndSelection]="true"
 					>
 						<hlm-date-picker-trigger buttonId="date-range-form">Pick date range</hlm-date-picker-trigger>
@@ -27,30 +25,33 @@ import { HlmFieldImports } from '@spartan-ng/helm/field';
 				</hlm-field>
 
 				<hlm-field orientation="horizontal">
-					<button type="submit" hlmBtn [disabled]="form.invalid">Submit</button>
+					<button type="submit" hlmBtn [disabled]="form().submitting()">Submit</button>
 				</hlm-field>
 			</hlm-field-group>
 		</form>
 	`,
 })
 export class DatePickerFormRangeExample {
-	private readonly _formBuilder = inject(FormBuilder);
+	protected readonly _model = signal<{ range: [Date, Date] | null }>({ range: null });
 
-	public form = this._formBuilder.group({
-		range: [[], [Validators.required]],
-	});
+	public readonly form = form(
+		this._model,
+		(schemaPath) => {
+			required(schemaPath.range, { message: 'Please select a date' });
+		},
+		{
+			submission: {
+				action: async () => {
+					const model = this._model();
+					console.log(model);
+				},
+			},
+		},
+	);
 
 	/** The minimum date */
 	public minDate = new Date(2023, 0, 1);
 
 	/** The maximum date */
 	public maxDate = new Date(2030, 11, 31);
-
-	submit() {
-		console.log(this.form.value);
-	}
-
-	constructor() {
-		this.form.get('range')?.valueChanges.subscribe(console.log);
-	}
 }

@@ -1,5 +1,6 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { Code } from '@spartan-ng/app/app/shared/code/code';
 import { CodePreview } from '@spartan-ng/app/app/shared/code/code-preview';
 import { MainSection } from '@spartan-ng/app/app/shared/layout/main-section';
@@ -37,6 +38,7 @@ export const routeMeta: RouteMeta = {
 		StylesSelector,
 		StylesShowcase,
 		StylesComplexShowcase,
+		RouterLink,
 	],
 	template: `
 		<section spartanMainSection>
@@ -114,7 +116,9 @@ export const routeMeta: RouteMeta = {
 
 			<p class="${hlmP}">
 				See the
-				<a class="font-medium underline" routerLink="/documentation/update-guide#automated-migration">update guide</a>
+				<a class="font-medium underline" routerLink="/documentation/update-guide" fragment="automated-migration">
+					update guide
+				</a>
 				for how to migrate existing components to the new style.
 			</p>
 
@@ -177,7 +181,9 @@ export const routeMeta: RouteMeta = {
 				<div hlmAlertDescription>
 					<p>
 						See
-						<a class="font-medium underline" routerLink="/components/field">Field → Validation and Errors</a>
+						<a class="font-medium underline" routerLink="/components/field" fragment="validation-and-errors">
+							Field → Validation and Errors
+						</a>
 						for the correct structure.
 					</p>
 				</div>

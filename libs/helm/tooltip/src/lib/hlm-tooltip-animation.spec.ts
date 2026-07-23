@@ -138,7 +138,7 @@ describe('HlmTooltip dynamic text while open', () => {
 	it('updates the tooltip text when the bound string signal changes while the tooltip is open', async () => {
 		const { fixture } = await render(TooltipDynamicHost);
 
-		fireEvent.mouseEnter(triggerEl());
+		fireEvent.pointerEnter(triggerEl(), { pointerType: 'mouse' });
 		await waitFor(() => expect(tooltipEl()?.textContent).toContain('first'));
 
 		// Change the tooltip text while the tooltip is open. No mouseleave!

@@ -188,10 +188,16 @@ export class BrnTooltip {
 	}
 
 	/**
-	 * iOS Safari grows the visual viewport's height/width as its toolbars collapse, but
-	 * `documentElement.clientHeight`/`clientWidth` don't track it. CDK anchors bottom/right overlays
-	 * from those stale dimensions, so they land shifted by the delta - top/left overlays are unaffected.
-	 * The delta is 0 when the viewports match (desktop, toolbar expanded), making this a no-op there.
+	 * Corrects overlay placement for the layout-vs-visual viewport mismatch on mobile browsers.
+	 *
+	 * Tooltips only open on hover/focus, but a hovering pen (e.g. Apple Pencil on iOS Safari) can open
+	 * one on a phone/tablet where this bites: as the browser's toolbars collapse the visual viewport
+	 * grows, yet `documentElement.clientHeight`/`clientWidth` stay frozen at the toolbar-expanded size.
+	 * CDK anchors bottom/right overlays from those stale dimensions (top/left overlays measure from the
+	 * pinned top-left edge and are unaffected), so a `position: 'top'` tooltip lands shifted by the delta.
+	 *
+	 * We fold that delta back in as an offset. It is 0 whenever the viewports match (desktop, or toolbar
+	 * expanded), so this is a no-op everywhere except the collapsed-toolbar case it targets.
 	 */
 	private _getVisualViewportCompensation(position: ConnectedPosition, isLtr: boolean): { x: number; y: number } {
 		const visualViewport = this._document.defaultView?.visualViewport;
@@ -217,34 +223,14 @@ export class BrnTooltip {
 	private _initTriggers() {
 		this._initScrollListener();
 		this._initHoverListeners();
-		this._initTouchListeners();
-		this._initVisualViewportListener();
 	}
 
 	/**
-	 * Reposition an open tooltip while the visual viewport resizes. Scrolling/zooming already dismiss it,
-	 * but closing the software keyboard only resizes the viewport (no dismissal) and animates over several
-	 * frames - so a tooltip opened mid-animation is positioned against a transient viewport and lands wrong.
-	 * Re-running positioning on each resize lets it settle into the correct spot.
+	 * Tooltips are supplementary labels for a trigger that already has its own action, so - like Radix
+	 * and Base UI - they open only on mouse/pen hover and keyboard focus, never on touch (a touch tap
+	 * would both fire the trigger's action and the tooltip). Touch pointers are ignored via
+	 * `_isHoverPointer`; use a popover when touch users need to see the content.
 	 */
-	private _initVisualViewportListener(): void {
-		const visualViewport = this._document.defaultView?.visualViewport;
-		if (!visualViewport) return;
-
-		const reposition = () => {
-			if (!this._overlayRef?.hasAttached()) return;
-			this._updatePosition();
-			this._overlayRef.updatePosition();
-		};
-
-		this._listenersRefs = [
-			...this._listenersRefs,
-			this._renderer.listen(visualViewport, 'resize', reposition),
-			this._renderer.listen(visualViewport, 'scroll', reposition),
-		];
-	}
-
-	/** Hover and keyboard focus drive show/hide for mouse/pen pointers; touch has no hover. */
 	private _initHoverListeners(): void {
 		this._listenersRefs = [
 			...this._listenersRefs,
@@ -256,33 +242,6 @@ export class BrnTooltip {
 			}),
 			this._renderer.listen(this._elementRef.nativeElement, 'focus', () => this._requestShow()),
 			this._renderer.listen(this._elementRef.nativeElement, 'blur', () => this.delay(false, this.hideDelay())),
-		];
-	}
-
-	/**
-	 * Touch devices have no hover model and their synthesized mouse events are unreliable (e.g. a
-	 * hold-and-scroll never fires `mouseleave`). So for touch we show on tap and dismiss explicitly
-	 * on scroll (see `_initScrollListener`) or on a tap landing outside the trigger and the tooltip.
-	 */
-	private _initTouchListeners(): void {
-		this._listenersRefs = [
-			...this._listenersRefs,
-			this._renderer.listen(this._elementRef.nativeElement, 'pointerdown', (event: PointerEvent) => {
-				if (event.pointerType === 'touch') this._requestShow();
-			}),
-			this._renderer.listen(this._elementRef.nativeElement, 'pointercancel', (event: PointerEvent) => {
-				if (event.pointerType === 'touch') this.delay(false, 0);
-			}),
-			this._renderer.listen(this._document, 'pointerdown', (event: PointerEvent) => {
-				if (event.pointerType !== 'touch') return;
-
-				const target = event.target as Node | null;
-				if (!target) return;
-
-				const insideTrigger = this._elementRef.nativeElement.contains(target);
-				const insideTooltip = this._overlayRef?.hostElement.contains(target) ?? false;
-				if (!insideTrigger && !insideTooltip) this._hide();
-			}),
 		];
 	}
 

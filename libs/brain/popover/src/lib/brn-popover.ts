@@ -1,23 +1,7 @@
 import { type NumberInput } from '@angular/cdk/coercion';
 import { type ConnectedPosition } from '@angular/cdk/overlay';
-import { isPlatformServer } from '@angular/common';
-import {
-	Directive,
-	effect,
-	ElementRef,
-	forwardRef,
-	inject,
-	input,
-	numberAttribute,
-	PLATFORM_ID,
-	signal,
-} from '@angular/core';
-import {
-	BrnOverlay,
-	type BrnOverlayDefaultOptions,
-	type BrnOverlayOptions,
-	provideBrnOverlayDefaultOptions,
-} from '@spartan-ng/brain/overlay';
+import { Directive, forwardRef, input, numberAttribute } from '@angular/core';
+import { BrnOverlay, type BrnOverlayDefaultOptions, provideBrnOverlayDefaultOptions } from '@spartan-ng/brain/overlay';
 import {
 	BRN_POPOVER_OVERLAY_DEFAULT_OPTIONS,
 	type BrnPopoverAlign,
@@ -41,40 +25,10 @@ export const BRN_POPOVER_DIALOG_DEFAULT_OPTIONS = BRN_POPOVER_OVERLAY_DEFAULT_OP
 })
 export class BrnPopover extends BrnOverlay {
 	private readonly _config = injectBrnPopoverConfig();
-	private readonly _platformId = inject(PLATFORM_ID);
 
 	public readonly align = input<BrnPopoverAlign>(this._config.align);
 	public readonly sideOffset = input<number, NumberInput>(this._config.sideOffset, { transform: numberAttribute });
 	public readonly offsetX = input<number, NumberInput>(this._config.offsetX, { transform: numberAttribute });
-
-	private readonly _triggerWidth = signal<number | null>(null);
-
-	public readonly triggerWidth = this._triggerWidth.asReadonly();
-
-	constructor() {
-		super();
-
-		if (isPlatformServer(this._platformId)) return;
-
-		effect((onCleanup) => {
-			if (this.stateComputed() !== 'open') return;
-
-			const element = this._resolveOriginElement(this.getAttachTo());
-			if (!element) return;
-
-			this._triggerWidth.set(element.getBoundingClientRect().width);
-
-			const observer = new ResizeObserver(() => this._triggerWidth.set(element.getBoundingClientRect().width));
-			observer.observe(element, { box: 'border-box' });
-			onCleanup(() => observer.disconnect());
-		});
-	}
-
-	private _resolveOriginElement(origin: BrnOverlayOptions['attachTo']): Element | null {
-		if (origin instanceof ElementRef) return origin.nativeElement;
-		if (origin instanceof Element) return origin;
-		return null;
-	}
 
 	protected override getDefaultOptions(): BrnOverlayDefaultOptions {
 		return injectBrnPopoverDefaultOptions();

@@ -96,7 +96,7 @@ export const routeMeta: RouteMeta = {
 			<p class="${hlmP} mt-6">
 				<strong>Prefer using tooltips as visual labels only</strong>
 				: Tooltips should act as supplementary visual labels for sighted mouse and keyboard users. Tooltips alone are
-				not accessible to touch or screen reader users. When touch users need to read the content, use a
+				not accessible to touch users. When touch users need to read the content, use a
 				<a routerLink="/components/popover" hlmBtn variant="link" class="${link}">Popover</a>
 				instead.
 			</p>

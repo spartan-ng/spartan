@@ -1251,4 +1251,18 @@
 	.spartan-menu-translucent {
 		@apply bg-popover/70 **:data-[slot$=-item]:focus:bg-foreground/10 **:data-[slot$=-item]:data-highlighted:bg-foreground/10 **:data-[slot$=-separator]:bg-foreground/5 **:data-[slot$=-trigger]:focus:bg-foreground/10 **:data-[slot$=-trigger]:aria-expanded:bg-foreground/10! **:data-[variant=destructive]:focus:bg-foreground/10! **:data-[variant=destructive]:text-accent-foreground! **:data-[variant=destructive]:**:text-accent-foreground! relative animate-none! before:pointer-events-none before:absolute before:inset-0 before:-z-1 before:rounded-[inherit] before:backdrop-blur-2xl before:backdrop-saturate-150;
 	}
+
+	--chart-1: oklch(0.65 0.12 25);
+	--chart-2: oklch(0.62 0.08 190);
+	--chart-3: oklch(0.58 0.1 250);
+	--chart-4: oklch(0.75 0.1 95);
+	--chart-5: oklch(0.7 0.09 50);
+
+	.dark & {
+		--chart-1: oklch(0.75 0.11 25);
+		--chart-2: oklch(0.72 0.07 190);
+		--chart-3: oklch(0.68 0.09 250);
+		--chart-4: oklch(0.82 0.09 95);
+		--chart-5: oklch(0.77 0.08 50);
+	}
 }

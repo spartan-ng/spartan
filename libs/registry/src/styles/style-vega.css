@@ -1388,4 +1388,18 @@
 	.spartan-input-group-textarea {
 		@apply rounded-none border-0 bg-transparent py-2 shadow-none ring-0 focus-visible:ring-0 data-[matches-spartan-invalid=true]:ring-0 dark:bg-transparent;
 	}
+
+	--chart-1: oklch(0.55 0.22 250);
+	--chart-2: oklch(0.65 0.2 180);
+	--chart-3: oklch(0.45 0.2 320);
+	--chart-4: oklch(0.75 0.2 80);
+	--chart-5: oklch(0.7 0.22 30);
+
+	.dark & {
+		--chart-1: oklch(0.65 0.2 250);
+		--chart-2: oklch(0.72 0.18 180);
+		--chart-3: oklch(0.58 0.18 320);
+		--chart-4: oklch(0.8 0.18 80);
+		--chart-5: oklch(0.75 0.2 30);
+	}
 }

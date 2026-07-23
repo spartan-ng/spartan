@@ -1,0 +1,122 @@
+import { isPlatformBrowser } from '@angular/common';
+import { Component, inject, PLATFORM_ID } from '@angular/core';
+import { HlmCardImports } from '@spartan-ng/helm/card';
+import type { ChartConfig } from '@spartan-ng/helm/chart';
+import { HlmChartImports } from '@spartan-ng/helm/chart';
+import {
+	VisAxisModule,
+	VisCrosshairModule,
+	VisStackedBarModule,
+	VisTooltipModule,
+	VisXYContainerModule,
+} from '@unovis/angular';
+import type { NumericAccessor } from '@unovis/ts';
+
+type TooltipDatum = { date: string; running: number; swimming: number };
+
+const chartData: TooltipDatum[] = [
+	{ date: '2024-07-15', running: 450, swimming: 300 },
+	{ date: '2024-07-16', running: 380, swimming: 420 },
+	{ date: '2024-07-17', running: 520, swimming: 120 },
+	{ date: '2024-07-18', running: 140, swimming: 550 },
+	{ date: '2024-07-19', running: 600, swimming: 350 },
+	{ date: '2024-07-20', running: 480, swimming: 400 },
+];
+
+const dayLabels = chartData.map((d) => {
+	const date = new Date(d.date);
+	return date.toLocaleDateString('en-US', { weekday: 'short' });
+});
+
+@Component({
+	selector: 'spartan-chart-tooltip-icons-preview',
+	imports: [
+		HlmCardImports,
+		HlmChartImports,
+		VisStackedBarModule,
+		VisXYContainerModule,
+		VisAxisModule,
+		VisCrosshairModule,
+		VisTooltipModule,
+	],
+	host: { class: 'w-full max-w-md' },
+	template: `
+		<hlm-card class="w-full">
+			<hlm-card-header>
+				<h3 hlmCardTitle>Tooltip - Icons</h3>
+				<p hlmCardDescription>Tooltip with lucide icons</p>
+			</hlm-card-header>
+			<hlm-card-content>
+				@if (isBrowser) {
+					<hlm-chart-container [config]="chartConfig">
+						<vis-xy-container [data]="data" [margin]="{ top: 8, bottom: 20, left: 36, right: 8 }">
+							<vis-stacked-bar [x]="xAccessor" [y]="yAccessors" [color]="colorAccessor" [roundedCorners]="4" />
+							<vis-axis
+								type="x"
+								position="bottom"
+								[tickFormat]="tickFormat"
+								[gridLine]="false"
+								[tickLine]="false"
+								[domainLine]="false"
+							/>
+							<vis-axis type="y" position="left" [gridLine]="true" [tickLine]="false" [domainLine]="false" />
+							<vis-crosshair [template]="crosshairTemplate" />
+							<vis-tooltip />
+						</vis-xy-container>
+					</hlm-chart-container>
+				}
+			</hlm-card-content>
+		</hlm-card>
+	`,
+})
+export class ChartTooltipIconsPreview {
+	public readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
+	public readonly data = chartData;
+	public readonly xAccessor: NumericAccessor<TooltipDatum> = (_d: TooltipDatum, i: number) => i;
+	public readonly yAccessors: NumericAccessor<TooltipDatum>[] = [
+		(d: TooltipDatum) => d.running,
+		(d: TooltipDatum) => d.swimming,
+	];
+	public readonly colorAccessor = (_d: TooltipDatum, i: number) => (i === 0 ? 'var(--chart-1)' : 'var(--chart-2)');
+	public readonly tickFormat = (_: number | Date, i: number) => dayLabels[i] ?? '';
+
+	public readonly crosshairTemplate = (d: TooltipDatum) => {
+		const items = [
+			{
+				name: 'Running',
+				value: d.running,
+				color: 'var(--chart-1)',
+				icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 4.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z"/><path d="m10 11 2 2-4 4 2 6"/><path d="M10 11l-4-3 2-3"/></svg>`,
+			},
+			{
+				name: 'Swimming',
+				value: d.swimming,
+				color: 'var(--chart-2)',
+				icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/></svg>`,
+			},
+		];
+		const itemHtml = items
+			.map(
+				(item) => `
+					<div class="flex w-full items-stretch gap-2 [&>svg]:h-2.5 [&>svg]:w-2.5 [&>svg]:text-muted-foreground items-center">
+						${item.icon}
+						<div class="flex flex-1 justify-between leading-none items-center">
+							<span class="text-muted-foreground">${item.name}</span>
+							<span class="text-foreground font-mono font-medium tabular-nums ml-4">${item.value.toLocaleString()} kcal</span>
+						</div>
+					</div>
+				`,
+			)
+			.join('');
+		return `
+			<div class="border-border/50 bg-background grid min-w-32 items-start rounded-lg border px-2.5 py-1.5 text-xs shadow-xl">
+				<div class="grid gap-1.5">${itemHtml}</div>
+			</div>
+		`;
+	};
+
+	public readonly chartConfig = {
+		running: { label: 'Running', color: 'var(--chart-1)' },
+		swimming: { label: 'Swimming', color: 'var(--chart-2)' },
+	} satisfies ChartConfig;
+}

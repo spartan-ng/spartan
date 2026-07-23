@@ -1,0 +1,96 @@
+import { AfterViewInit, Component, ElementRef, OnDestroy, ViewEncapsulation, viewChild } from '@angular/core';
+import { Chart } from 'chart.js/auto';
+
+const datalabelPlugin = {
+	id: 'datalabels',
+	afterDatasetsDraw(chart: Chart) {
+		const { ctx } = chart;
+		chart.data.datasets.forEach((dataset, datasetIndex) => {
+			const meta = chart.getDatasetMeta(datasetIndex);
+			if (meta.hidden) return;
+			meta.data.forEach((element, index) => {
+				const value = dataset.data[index];
+				ctx.save();
+				ctx.font = '10px sans-serif';
+				ctx.fillStyle = 'hsl(0, 0%, 40%)';
+				ctx.textAlign = 'center';
+				ctx.textBaseline = 'bottom';
+				ctx.fillText(String(value), element.x, (element as any).y - 8);
+				ctx.restore();
+			});
+		});
+	},
+};
+
+@Component({
+	selector: 'spartan-chart-line-label',
+	encapsulation: ViewEncapsulation.None,
+	host: { class: 'block p-6' },
+	styleUrl: '../../blocks-preview-default.css',
+	template: `
+		<div class="flex flex-col gap-1.5">
+			<h3 class="text-lg leading-none font-semibold tracking-tight">Line Chart with Labels</h3>
+			<p class="text-muted-foreground text-sm">Showing desktop and mobile visitors</p>
+		</div>
+		<div class="mt-4">
+			<canvas #chart class="w-full"></canvas>
+		</div>
+		<div class="flex items-center gap-4 pt-4 text-sm">
+			<div class="flex items-center gap-2">
+				<span class="h-3 w-3 rounded-full" style="background: hsl(12, 76%, 61%)"></span>
+				<span>Desktop</span>
+			</div>
+			<div class="flex items-center gap-2">
+				<span class="h-3 w-3 rounded-full" style="background: hsl(173, 58%, 39%)"></span>
+				<span>Mobile</span>
+			</div>
+		</div>
+	`,
+})
+export default class ChartLineLabelComponent implements AfterViewInit, OnDestroy {
+	protected readonly _chartRef = viewChild<ElementRef<HTMLCanvasElement>>('chart');
+	private _chartInstance: Chart | null = null;
+
+	ngAfterViewInit(): void {
+		const canvas = this._chartRef()?.nativeElement;
+		if (!canvas) return;
+		this._chartInstance = new Chart(canvas, {
+			type: 'line',
+			data: {
+				labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+				datasets: [
+					{
+						label: 'Desktop',
+						data: [186, 305, 237, 73, 209, 214],
+						borderColor: 'hsl(12, 76%, 61%)',
+						backgroundColor: 'hsl(12, 76%, 61%)',
+						tension: 0.4,
+						pointRadius: 4,
+					},
+					{
+						label: 'Mobile',
+						data: [80, 200, 120, 190, 130, 140],
+						borderColor: 'hsl(173, 58%, 39%)',
+						backgroundColor: 'hsl(173, 58%, 39%)',
+						tension: 0.4,
+						pointRadius: 4,
+					},
+				],
+			},
+			options: {
+				responsive: true,
+				maintainAspectRatio: true,
+				plugins: { legend: { display: false } },
+				scales: {
+					x: { grid: { display: false }, ticks: { maxRotation: 0 } },
+					y: { grid: { display: false }, ticks: { maxRotation: 0 } },
+				},
+			},
+			plugins: [datalabelPlugin],
+		});
+	}
+
+	ngOnDestroy(): void {
+		this._chartInstance?.destroy();
+	}
+}

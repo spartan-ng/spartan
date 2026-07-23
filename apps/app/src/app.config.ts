@@ -4,6 +4,7 @@ import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/
 import type { ApplicationConfig } from '@angular/core';
 import { provideClientHydration } from '@angular/platform-browser';
 import { PreloadAllModules, withInMemoryScrolling, withNavigationErrorHandler, withPreloading } from '@angular/router';
+import { provideEchartsCore } from 'ngx-echarts';
 import { StyleAwareOverlayContainer } from './app/shared/style-aware-overlay-container';
 import { provideTrpcClient } from './trpc-client';
 
@@ -15,6 +16,7 @@ export const appConfig: ApplicationConfig = {
 			withPreloading(PreloadAllModules),
 		),
 		provideClientHydration(),
+		provideEchartsCore({ echarts: () => import('echarts') }),
 		provideTrpcClient(),
 		provideHttpClient(withFetch(), withInterceptors([requestContextInterceptor])),
 		// Overlays inherit the style of their trigger's island instead of one global value (see the class).

@@ -91,6 +91,7 @@
 			"@spartan-ng/helm/calendar": ["libs/helm/calendar/src/index.ts"],
 			"@spartan-ng/helm/card": ["libs/helm/card/src/index.ts"],
 			"@spartan-ng/helm/carousel": ["libs/helm/carousel/src/index.ts"],
+			"@spartan-ng/helm/chart": ["libs/helm/chart/src/index.ts"],
 			"@spartan-ng/helm/checkbox": ["libs/helm/checkbox/src/index.ts"],
 			"@spartan-ng/helm/collapsible": ["libs/helm/collapsible/src/index.ts"],
 			"@spartan-ng/helm/combobox": ["libs/helm/combobox/src/index.ts"],

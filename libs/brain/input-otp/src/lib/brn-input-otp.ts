@@ -7,6 +7,7 @@ import {
 	computed,
 	ElementRef,
 	forwardRef,
+	inject,
 	input,
 	linkedSignal,
 	numberAttribute,
@@ -15,6 +16,7 @@ import {
 	viewChild,
 } from '@angular/core';
 import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { BrnFieldControl, provideBrnLabelable } from '@spartan-ng/brain/field';
 import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
 import type { ClassValue } from 'clsx';
 import { provideBrnInputOtp } from './brn-input-otp.token';
@@ -29,8 +31,9 @@ export type InputMode = 'text' | 'tel' | 'url' | 'email' | 'numeric' | 'decimal'
 
 @Component({
 	selector: 'brn-input-otp',
-	providers: [BRN_INPUT_OTP_VALUE_ACCESSOR, provideBrnInputOtp(BrnInputOtp)],
+	providers: [BRN_INPUT_OTP_VALUE_ACCESSOR, provideBrnInputOtp(BrnInputOtp), provideBrnLabelable(BrnInputOtp)],
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	hostDirectives: [BrnFieldControl],
 	host: {
 		'[style]': 'hostStyles()',
 		'data-input-otp-container': 'true',
@@ -51,13 +54,20 @@ export type InputMode = 'text' | 'tel' | 'url' | 'email' | 'numeric' | 'decimal'
 				(input)="onInputChange($event)"
 				(paste)="onPaste($event)"
 				(focus)="_focused.set(true)"
-				(blur)="_focused.set(false)"
+				(blur)="onBlur()"
 			/>
 		</div>
 	`,
 })
 export class BrnInputOtp implements ControlValueAccessor {
 	private static _id = 0;
+
+	private readonly _fieldControl = inject(BrnFieldControl, { optional: true });
+
+	public readonly invalid = this._fieldControl?.invalid;
+	public readonly touched = this._fieldControl?.touched;
+	public readonly dirty = this._fieldControl?.dirty;
+	public readonly spartanInvalid = this._fieldControl?.spartanInvalid;
 
 	/** Whether the input has focus. */
 	protected readonly _focused = signal<boolean>(false);
@@ -69,6 +79,8 @@ export class BrnInputOtp implements ControlValueAccessor {
 
 	/** Custom id applied to the input element */
 	public readonly inputId = input<string>(`brn-input-otp-${++BrnInputOtp._id}`);
+
+	public readonly labelableId = this.inputId;
 
 	/** Custom autocomplete attribute applied to the input element */
 	public readonly inputAutocomplete = input<'one-time-code' | 'off'>('one-time-code');
@@ -89,7 +101,7 @@ export class BrnInputOtp implements ControlValueAccessor {
 	protected readonly _disabled = linkedSignal(this.disabled);
 
 	/** The number of slots. */
-	public readonly maxLength = input.required<number, NumberInput>({ transform: numberAttribute });
+	public readonly length = input.required<number, NumberInput>({ transform: numberAttribute });
 
 	/** Virtual keyboard appearance on mobile */
 	public readonly inputMode = input<InputMode>('numeric');
@@ -101,12 +113,12 @@ export class BrnInputOtp implements ControlValueAccessor {
 
 	/**
 	 * Defines how the pasted text should be transformed before saving to model/form.
-	 * Allows pasting text which contains extra characters like spaces, dashes, etc. and are longer than the maxLength.
+	 * Allows pasting text which contains extra characters like spaces, dashes, etc. and are longer than the length.
 	 *
 	 * "XXX-XXX": (pastedText) => pastedText.replaceAll('-', '')
 	 * "XXX XXX": (pastedText) => pastedText.replaceAll(/\s+/g, '')
 	 */
-	public readonly transformPaste = input<(pastedText: string, maxLength: number) => string>((text) => text);
+	public readonly transformPaste = input<(pastedText: string, length: number) => string>((text) => text);
 
 	/** The value controlling the input */
 	public readonly valueInput = input<string | null>(null, { alias: 'value' });
@@ -118,12 +130,11 @@ export class BrnInputOtp implements ControlValueAccessor {
 	public readonly context = computed(() => {
 		const value = this.value() ?? '';
 		const focused = this._focused();
-		const maxLength = this.maxLength();
-		const slots = Array.from({ length: this.maxLength() }).map((_, slotIndex) => {
+		const length = this.length();
+		const slots = Array.from({ length: this.length() }).map((_, slotIndex) => {
 			const char = value[slotIndex] !== undefined ? value[slotIndex] : null;
 
-			const isActive =
-				focused && (value.length === slotIndex || (value.length === maxLength && slotIndex === maxLength - 1));
+			const isActive = focused && (value.length === slotIndex || (value.length === length && slotIndex === length - 1));
 
 			return {
 				char,
@@ -151,34 +162,39 @@ export class BrnInputOtp implements ControlValueAccessor {
 		});
 	}
 
+	protected onBlur() {
+		this._focused.set(false);
+		this._onTouched?.();
+	}
+
 	protected onInputChange(event: Event) {
 		let newValue = (event.target as HTMLInputElement).value;
-		const maxLength = this.maxLength();
+		const length = this.length();
 
-		if (newValue.length > maxLength) {
-			// Replace the last character when max length is exceeded
-			newValue = newValue.slice(0, maxLength - 1) + newValue.slice(-1);
+		if (newValue.length > length) {
+			// Replace the last character when length is exceeded
+			newValue = newValue.slice(0, length - 1) + newValue.slice(-1);
 		}
 
-		this.updateValue(newValue, maxLength);
+		this.updateValue(newValue, length);
 	}
 
 	protected onPaste(event: ClipboardEvent) {
 		event.preventDefault();
 		const clipboardData = event.clipboardData?.getData('text/plain') || '';
 
-		const maxLength = this.maxLength();
+		const length = this.length();
 
-		const content = this.transformPaste()(clipboardData, maxLength);
-		const newValue = content.slice(0, maxLength);
+		const content = this.transformPaste()(clipboardData, length);
+		const newValue = content.slice(0, length);
 
-		this.updateValue(newValue, maxLength);
+		this.updateValue(newValue, length);
 	}
 
 	/** CONTROL VALUE ACCESSOR */
 	writeValue(value: string | null): void {
 		this.value.set(value);
-		if (value?.length === this.maxLength()) {
+		if (value?.length === this.length()) {
 			this.completed.emit(value ?? '');
 		}
 	}
@@ -195,18 +211,18 @@ export class BrnInputOtp implements ControlValueAccessor {
 		this._disabled.set(isDisabled);
 	}
 
-	private isCompleted(newValue: string, previousValue: string, maxLength: number) {
-		return newValue !== previousValue && previousValue.length < maxLength && newValue.length === maxLength;
+	private isCompleted(newValue: string, previousValue: string, length: number) {
+		return newValue !== previousValue && previousValue.length < length && newValue.length === length;
 	}
 
-	private updateValue(newValue: string, maxLength: number) {
+	private updateValue(newValue: string, length: number) {
 		const previousValue = this.value() ?? '';
 
 		this.value.set(newValue);
 		this.valueChange.emit(newValue);
 		this._onChange?.(newValue);
 
-		if (this.isCompleted(newValue, previousValue, maxLength)) {
+		if (this.isCompleted(newValue, previousValue, length)) {
 			this.completed.emit(newValue);
 		}
 	}

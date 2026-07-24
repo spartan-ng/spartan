@@ -14,7 +14,7 @@ import { HlmInputOtpImports } from '@spartan-ng/helm/input-otp';
 				inputId="input-otp-rtl"
 				hlmInputOtp
 				value="123456"
-				maxLength="6"
+				length="6"
 				inputClass="disabled:cursor-not-allowed"
 			>
 				<hlm-input-otp-group>

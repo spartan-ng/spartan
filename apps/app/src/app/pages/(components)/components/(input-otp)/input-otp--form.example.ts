@@ -1,5 +1,5 @@
-import { afterNextRender, Component, computed, inject, type OnDestroy, signal } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { afterNextRender, Component, computed, type OnDestroy, signal } from '@angular/core';
+import { form, FormField, FormRoot, maxLength, minLength, required, submit } from '@angular/forms/signals';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideRefreshCw } from '@ng-icons/lucide';
 import { BrnInputOtpImports } from '@spartan-ng/brain/input-otp';
@@ -13,12 +13,13 @@ import { HlmToasterImports } from '@spartan-ng/helm/sonner';
 @Component({
 	selector: 'spartan-input-otp-form',
 	imports: [
-		ReactiveFormsModule,
+		FormRoot,
+		FormField,
+		NgIcon,
 		HlmButtonImports,
 		HlmToasterImports,
 		HlmCardImports,
 		HlmFieldImports,
-		NgIcon,
 		BrnInputOtpImports,
 		HlmInputOtpImports,
 	],
@@ -38,7 +39,7 @@ import { HlmToasterImports } from '@spartan-ng/helm/sonner';
 				</div>
 			</hlm-card-header>
 
-			<form hlmCardContent id="otp-form" [formGroup]="form" (ngSubmit)="submit()">
+			<form hlmCardContent id="otp-form" [formRoot]="form">
 				<hlm-field>
 					<div class="flex items-center justify-between">
 						<label hlmFieldLabel for="otp-verification">Verification code</label>
@@ -52,9 +53,9 @@ import { HlmToasterImports } from '@spartan-ng/helm/sonner';
 					</div>
 					<brn-input-otp
 						hlmInputOtp
-						[maxLength]="maxLength"
+						[length]="maxLength"
 						inputClass="disabled:cursor-not-allowed"
-						formControlName="otp"
+						[formField]="form.otp"
 						[transformPaste]="transformPaste"
 						(completed)="submit()"
 					>
@@ -81,7 +82,7 @@ import { HlmToasterImports } from '@spartan-ng/helm/sonner';
 			</form>
 			<hlm-card-footer>
 				<hlm-field>
-					<button type="submit" form="otp-form" hlmBtn [disabled]="form.invalid">Verify</button>
+					<button type="submit" form="otp-form" hlmBtn [disabled]="form().invalid()">Verify</button>
 					<div class="text-muted-foreground text-sm">
 						Having trouble signing in?
 						<a href="#" class="hover:text-primary underline underline-offset-4 transition-colors">Contact support</a>
@@ -92,7 +93,6 @@ import { HlmToasterImports } from '@spartan-ng/helm/sonner';
 	`,
 })
 export class InputOtpFormExample implements OnDestroy {
-	private readonly _formBuilder = inject(FormBuilder);
 	private _intervalId?: NodeJS.Timeout;
 
 	public readonly countdown = signal(60);
@@ -103,19 +103,36 @@ export class InputOtpFormExample implements OnDestroy {
 	/** Overrides global formatDate  */
 	public transformPaste = (pastedText: string) => pastedText.replaceAll('-', '');
 
-	public form = this._formBuilder.group({
-		otp: [null, [Validators.required, Validators.minLength(this.maxLength), Validators.maxLength(this.maxLength)]],
+	private readonly _model = signal({
+		otp: '',
 	});
+
+	public readonly form = form(
+		this._model,
+		(schemaPath) => {
+			required(schemaPath.otp, { message: 'OTP is required' });
+			minLength(schemaPath.otp, this.maxLength, { message: `OTP must be ${this.maxLength} characters` });
+			maxLength(schemaPath.otp, this.maxLength, { message: `OTP must be ${this.maxLength} characters` });
+		},
+		{
+			submission: {
+				action: async () => {
+					const model = this._model();
+					console.log(model);
+					toast('OTP submitted', {
+						description: `Your OTP ${model.otp} has been submitted`,
+					});
+				},
+			},
+		},
+	);
 
 	constructor() {
 		afterNextRender(() => this.startCountdown());
 	}
 
 	submit() {
-		console.log(this.form.value);
-		toast('OTP submitted', {
-			description: `Your OTP ${this.form.value.otp} has been submitted`,
-		});
+		submit(this.form);
 	}
 
 	resendOtp() {

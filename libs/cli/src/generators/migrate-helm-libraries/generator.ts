@@ -9,6 +9,12 @@ import { deleteFiles } from '../base/lib/deleteFiles';
 import type { SupportedLibraries } from '../base/lib/supported-libs';
 import { createPrimitiveLibraries } from '../ui/generator';
 import type { Primitive } from '../ui/primitives';
+import {
+	categorizeLibraries,
+	getCurrentCliVersion,
+	getLibraryPathFromPrimitive,
+	regenerateAllMetadata,
+} from './detect-customizations';
 import type { MigrateHelmLibrariesGeneratorSchema } from './schema';
 
 type RemoveGenerator = (
@@ -54,51 +60,113 @@ export async function migrateHelmLibrariesGenerator(tree: Tree, options: Migrate
 		return;
 	}
 
-	// allow the user to select which libraries to migrate
-	const selectedLibraries = await prompt({
-		type: 'multiselect',
-		name: 'libraries',
-		message: 'The following libraries are installed. Select the ones you want to replace with the latest version:',
-		choices: ['all', ...existingLibraries],
-	});
+	const { unchanged, customized } = categorizeLibraries(tree, existingLibraries, (primitive) =>
+		getLibraryPathFromPrimitive(tree, primitive, config.importAlias),
+	);
 
-	// prompt the user to confirm their actions as this will overwrite the existing libraries and remove any customizations
-	const confirmation = (await prompt({
-		type: 'confirm',
-		name: 'confirm',
-		message:
-			'Are you sure you want to update the selected libraries? This will overwrite the existing libraries and remove any customizations.',
-	})) as { confirm: boolean };
+	logger.info('\n📋 Migration overview:');
+	logger.info(
+		`   ✓ ${unchanged.length} unchanged ${unchanged.length === 1 ? 'library' : 'libraries'} (safe to migrate)`,
+	);
+	logger.info(
+		`   ⚠ ${customized.length} customized ${customized.length === 1 ? 'library' : 'libraries'} (contain modifications)`,
+	);
 
-	if (!confirmation.confirm) {
-		logger.info('Aborting migration.');
-		return;
+	if (customized.length > 0) {
+		logger.warn('\n⚠️  Customized libraries detected:');
+		for (const { primitive, details } of customized) {
+			logger.warn(`   📦 ${primitive}:`);
+			if (details.modifiedFiles.length > 0) logger.warn(`      - Modified: ${details.modifiedFiles.join(', ')}`);
+			if (details.addedFiles.length > 0) logger.warn(`      - Added: ${details.addedFiles.join(', ')}`);
+			if (details.deletedFiles.length > 0) logger.warn(`      - Deleted: ${details.deletedFiles.join(', ')}`);
+			if (details.modifiedFiles.length + details.addedFiles.length + details.deletedFiles.length === 0) {
+				logger.warn('      - No baseline metadata exists; treating this library as customized');
+			}
+		}
 	}
 
-	let { libraries } = selectedLibraries as { libraries: (Primitive | 'all')[] };
+	type MigrationChoice = Primitive | 'all' | 'all-unchanged' | 'all-customized';
+	const choices: Array<{ name: MigrationChoice; message: string }> = [{ name: 'all', message: 'all' }];
+
+	if (unchanged.length > 0 && customized.length > 0) {
+		choices.push({ name: 'all-unchanged', message: 'all unchanged' });
+		choices.push({ name: 'all-customized', message: 'all customized ⚠️' });
+	}
+	choices.push(...unchanged.map((primitive) => ({ name: primitive, message: primitive })));
+	choices.push(...customized.map(({ primitive }) => ({ name: primitive, message: `${primitive} ⚠️` })));
+
+	const { libraries } = await prompt<{ libraries: MigrationChoice[] }>({
+		type: 'multiselect',
+		name: 'libraries',
+		message: 'Select the libraries you want to replace with the latest version:',
+		choices,
+	});
 
 	if (libraries.length === 0) {
 		logger.info('No libraries will be updated.');
 		return;
 	}
 
-	// if the user selected all libraries then we will update all libraries
-	if (libraries.includes('all')) {
-		libraries = existingLibraries;
+	const librariesToMigrate = new Set<Primitive>();
+	if (libraries.includes('all') || libraries.includes('all-unchanged')) {
+		unchanged.forEach((primitive) => librariesToMigrate.add(primitive));
+	}
+	if (libraries.includes('all') || libraries.includes('all-customized')) {
+		customized.forEach(({ primitive }) => librariesToMigrate.add(primitive));
+	}
+	libraries.forEach((library) => {
+		if (library !== 'all' && library !== 'all-unchanged' && library !== 'all-customized') {
+			librariesToMigrate.add(library);
+		}
+	});
+
+	const selectedPrimitives = [...librariesToMigrate];
+	const customizedSelected = selectedPrimitives.filter((primitive) =>
+		customized.some(({ primitive: customizedPrimitive }) => customizedPrimitive === primitive),
+	);
+
+	if (customizedSelected.length > 0) {
+		logger.warn('\n⚠️  WARNING: The following customized libraries will be overwritten:');
+		customizedSelected.forEach((primitive) => logger.warn(`   - ${primitive}`));
+		logger.warn('   All customizations in these libraries will be lost.');
+	}
+
+	const { confirm } = await prompt<{ confirm: boolean }>({
+		type: 'confirm',
+		name: 'confirm',
+		message:
+			customizedSelected.length > 0
+				? 'Are you sure you want to overwrite these customized libraries?'
+				: `Migrate ${selectedPrimitives.length} ${selectedPrimitives.length === 1 ? 'library' : 'libraries'}?`,
+		initial: customizedSelected.length === 0,
+	});
+
+	if (!confirm) {
+		logger.info('Aborting migration.');
+		return;
 	}
 
 	await removeExistingLibraries(
 		tree,
 		{ ...options, generateAs: config.generateAs, importAlias: config.importAlias },
-		libraries as Primitive[],
+		selectedPrimitives,
 	);
 	await regenerateLibraries(
 		tree,
-		{ ...options, generateAs: config.generateAs, buildable: config.buildable },
-		libraries as Primitive[],
+		{ ...options, generateAs: config.generateAs, buildable: config.buildable, importAlias: config.importAlias },
+		selectedPrimitives,
 	);
 
 	await formatFiles(tree);
+	regenerateAllMetadata(
+		tree,
+		selectedPrimitives,
+		(primitive) => getLibraryPathFromPrimitive(tree, primitive, config.importAlias),
+		getCurrentCliVersion(tree),
+	);
+	logger.info(
+		`\n✅ Successfully migrated ${selectedPrimitives.length} ${selectedPrimitives.length === 1 ? 'library' : 'libraries'}`,
+	);
 }
 
 export default migrateHelmLibrariesGenerator;

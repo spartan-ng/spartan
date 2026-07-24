@@ -1,261 +1,202 @@
-import { Directionality } from '@angular/cdk/bidi';
-import type { BooleanInput, NumberInput } from '@angular/cdk/coercion';
-import { CdkListboxModule } from '@angular/cdk/listbox';
+import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
+import type { BooleanInput } from '@angular/cdk/coercion';
 import {
-	CdkConnectedOverlay,
-	type ConnectedOverlayPositionChange,
-	type ConnectedPosition,
-	OverlayModule,
-} from '@angular/cdk/overlay';
-import {
+	afterNextRender,
 	booleanAttribute,
-	ChangeDetectionStrategy,
-	Component,
 	computed,
-	contentChild,
 	contentChildren,
-	type DoCheck,
+	Directive,
+	effect,
 	forwardRef,
 	inject,
 	Injector,
 	input,
+	linkedSignal,
 	model,
-	numberAttribute,
-	output,
-	type Signal,
 	signal,
-	viewChild,
+	untracked,
 } from '@angular/core';
-import { takeUntilDestroyed, toObservable, toSignal } from '@angular/core/rxjs-interop';
-import { type ControlValueAccessor, FormGroupDirective, NgControl, NgForm } from '@angular/forms';
-import {
-	type ExposesSide,
-	type ExposesState,
-	provideExposedSideProviderExisting,
-	provideExposesStateProviderExisting,
-} from '@spartan-ng/brain/core';
-import { BrnFormFieldControl } from '@spartan-ng/brain/form-field';
-import { type ChangeFn, ErrorStateMatcher, ErrorStateTracker, type TouchFn } from '@spartan-ng/brain/forms';
-import { BrnLabel } from '@spartan-ng/brain/label';
-import { of, Subject } from 'rxjs';
-import { delay, map, switchMap } from 'rxjs/operators';
-import { BrnSelectContent } from './brn-select-content';
-import { BrnSelectOption } from './brn-select-option';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { BrnFieldControl, provideBrnLabelable } from '@spartan-ng/brain/field';
+import { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
+import { BrnPopover } from '@spartan-ng/brain/popover';
+import { BrnSelectItem } from './brn-select-item';
+import { BrnSelectItemToken } from './brn-select-item.token';
 import type { BrnSelectTrigger } from './brn-select-trigger';
-import { provideBrnSelect } from './brn-select.token';
+import {
+	type BrnSelectBase,
+	injectBrnSelectConfig,
+	provideBrnSelectBase,
+	type SelectItemEqualToValue,
+	type SelectItemToString,
+} from './brn-select.token';
 
-export type BrnReadDirection = 'ltr' | 'rtl';
+export const BRN_SELECT_VALUE_ACCESSOR = {
+	provide: NG_VALUE_ACCESSOR,
+	useExisting: forwardRef(() => BrnSelect),
+	multi: true,
+};
 
-let nextId = 0;
-
-@Component({
-	selector: 'brn-select, hlm-select',
-	imports: [OverlayModule, CdkListboxModule],
-	providers: [
-		provideExposedSideProviderExisting(() => BrnSelect),
-		provideExposesStateProviderExisting(() => BrnSelect),
-		provideBrnSelect(BrnSelect),
-		{
-			provide: BrnFormFieldControl,
-			useExisting: forwardRef(() => BrnSelect),
-		},
-	],
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	template: `
-		@if (!_selectLabel() && placeholder()) {
-			<label style="display: none;" [attr.id]="labelId()">{{ placeholder() }}</label>
-		} @else {
-			<ng-content select="label[hlmLabel],label[brnLabel]" />
-		}
-
-		<div cdk-overlay-origin (click)="toggle()" #trigger="cdkOverlayOrigin">
-			<ng-content select="hlm-select-trigger,[brnSelectTrigger]" />
-		</div>
-
-		<ng-template
-			cdk-connected-overlay
-			cdkConnectedOverlayLockPosition
-			cdkConnectedOverlayHasBackdrop
-			cdkConnectedOverlayBackdropClass="cdk-overlay-transparent-backdrop"
-			[cdkConnectedOverlayOrigin]="trigger"
-			[cdkConnectedOverlayOpen]="_delayedExpanded()"
-			[cdkConnectedOverlayPositions]="_positions"
-			[cdkConnectedOverlayWidth]="triggerWidth() > 0 ? triggerWidth() : 'auto'"
-			(backdropClick)="hide()"
-			(detach)="hide()"
-			(positionChange)="_positionChanges$.next($event)"
-		>
-			<ng-content />
-		</ng-template>
-	`,
+@Directive({
+	selector: '[brnSelect]',
+	providers: [provideBrnSelectBase(BrnSelect), BRN_SELECT_VALUE_ACCESSOR, provideBrnLabelable(BrnSelect)],
+	hostDirectives: [BrnFieldControl],
 })
-export class BrnSelect<T = unknown>
-	implements ControlValueAccessor, DoCheck, ExposesSide, ExposesState, BrnFormFieldControl
-{
-	private readonly _defaultErrorStateMatcher = inject(ErrorStateMatcher);
-	private readonly _parentForm = inject(NgForm, { optional: true });
-	private readonly _dir = inject(Directionality);
+export class BrnSelect<T> implements BrnSelectBase<T>, ControlValueAccessor {
 	private readonly _injector = inject(Injector);
-	private readonly _parentFormGroup = inject(FormGroupDirective, { optional: true });
-	public readonly ngControl = inject(NgControl, { optional: true, self: true });
+	private readonly _fieldControl = inject(BrnFieldControl, { optional: true });
 
-	public readonly id = input<string>(`brn-select-${++nextId}`);
-	public readonly multiple = input<boolean, BooleanInput>(false, {
-		transform: booleanAttribute,
-	});
-	public readonly placeholder = input<string>('');
-	public readonly disabled = input<boolean, BooleanInput>(false, {
-		transform: booleanAttribute,
-	});
+	private readonly _config = injectBrnSelectConfig<T>();
 
-	/** internal **/
-	public readonly direction = this._dir.valueSignal;
+	public readonly controlState = this._fieldControl?.controlState;
 
-	public readonly closeDelay = input<number, NumberInput>(100, {
-		transform: numberAttribute,
-	});
+	/** Access the popover if present */
+	private readonly _brnPopover = inject(BrnPopover, { optional: true });
 
-	public readonly open = model<boolean>(false);
-	public readonly value = model<T | T[]>();
-	public readonly valueChange = output<T | T[]>();
-	public readonly compareWith = input<(o1: T, o2: T) => boolean>((o1, o2) => o1 === o2);
-	public readonly formDisabled = signal(false);
+	/** Whether the select is disabled */
+	public readonly disabled = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
-	/** Label provided by the consumer. */
-	protected readonly _selectLabel = contentChild(BrnLabel, { descendants: false });
+	protected readonly _disabled = linkedSignal(this.disabled);
 
-	/** Overlay pane containing the options. */
-	protected readonly _selectContent = contentChild.required(BrnSelectContent);
+	/** @internal The disabled state as a readonly signal */
+	public readonly disabledState = this._disabled.asReadonly();
 
-	/** @internal */
-	public readonly options = contentChildren(BrnSelectOption, { descendants: true });
+	/** The selected value of the select. */
+	public readonly value = model<T | undefined | null>(null);
 
-	/** @internal Derive the selected options to filter out the unselected options */
-	public readonly selectedOptions = computed(() => this.options().filter((option) => option.selected()));
-
-	/** Overlay pane containing the options. */
-	protected readonly _overlayDir = viewChild.required(CdkConnectedOverlay);
-	public readonly trigger = signal<BrnSelectTrigger<T> | null>(null);
-	public readonly triggerWidth = signal<number>(0);
-
-	protected readonly _delayedExpanded = toSignal(
-		toObservable(this.open).pipe(
-			switchMap((expanded) => (!expanded ? of(expanded).pipe(delay(this.closeDelay())) : of(expanded))),
-			takeUntilDestroyed(),
-		),
-		{ initialValue: false },
-	);
-
-	public readonly state = computed(() => (this.open() ? 'open' : 'closed'));
-
-	protected readonly _positionChanges$ = new Subject<ConnectedOverlayPositionChange>();
-
-	public readonly side: Signal<'top' | 'bottom' | 'left' | 'right'> = toSignal(
-		this._positionChanges$.pipe(
-			map<ConnectedOverlayPositionChange, 'top' | 'bottom' | 'left' | 'right'>((change) =>
-				// todo: better translation or adjusting hlm to take that into account
-				change.connectionPair.originY === 'center'
-					? change.connectionPair.originX === 'start'
-						? 'left'
-						: 'right'
-					: change.connectionPair.originY,
-			),
-		),
-		{ initialValue: 'bottom' },
-	);
-
-	public readonly labelId = computed(() => this._selectLabel()?.id ?? `${this.id()}--label`);
-
-	// eslint-disable-next-line @typescript-eslint/no-empty-function
-	private _onChange: ChangeFn<T | T[]> = () => {};
-	// eslint-disable-next-line @typescript-eslint/no-empty-function
-	private _onTouched: TouchFn = () => {};
-
-	/*
-	 * This position config ensures that the top "start" corner of the overlay
-	 * is aligned with with the top "start" of the origin by default (overlapping
-	 * the trigger completely). If the panel cannot fit below the trigger, it
-	 * will fall back to a position above the trigger.
+	/**
+	 * Determines whether a single value is present (i.e., has been selected).
+	 * Considers `undefined`, `null`, and empty string as "not present".
+	 * Only used by single select, ignored by the multiple select variant.
 	 */
-	protected _positions: ConnectedPosition[] = [
-		{
-			originX: 'start',
-			originY: 'bottom',
-			overlayX: 'start',
-			overlayY: 'top',
-		},
-		{
-			originX: 'end',
-			originY: 'bottom',
-			overlayX: 'end',
-			overlayY: 'top',
-		},
-		{
-			originX: 'start',
-			originY: 'top',
-			overlayX: 'start',
-			overlayY: 'bottom',
-		},
-		{
-			originX: 'end',
-			originY: 'top',
-			overlayX: 'end',
-			overlayY: 'bottom',
-		},
-	];
+	public readonly isSingleValuePresent = input<(value: T | undefined | null) => boolean>(
+		this._config.isSingleValuePresent,
+	);
+	public readonly hasValue = computed(() => this.isSingleValuePresent()(this.value()));
 
-	public errorStateTracker: ErrorStateTracker;
+	/** A function to compare an item with the selected value. */
+	public readonly isItemEqualToValue = input<SelectItemEqualToValue<T>>(this._config.isItemEqualToValue);
 
-	public readonly errorState = computed(() => this.errorStateTracker.errorState());
+	/** A function to convert an item to a string for display. */
+	public readonly itemToString = input<SelectItemToString<T> | undefined>(this._config.itemToString);
+
+	private readonly _triggerWidth = signal<number | null>(null);
+
+	/** @internal The width of the trigger wrapper */
+	public readonly triggerWidth = this._triggerWidth.asReadonly();
+
+	/** @internal Access all the items within the select */
+	public readonly items = contentChildren<BrnSelectItem<T>>(BrnSelectItemToken, {
+		descendants: true,
+	});
+
+	/** @internal The key manager for managing active descendant */
+	public readonly keyManager = new ActiveDescendantKeyManager(this.items, this._injector);
+
+	/** @internal Whether the select is expanded */
+	public readonly isExpanded = computed(() => this._brnPopover?.stateComputed() === 'open');
+
+	private readonly _selectTrigger = signal<BrnSelectTrigger | undefined>(undefined);
+
+	public readonly labelableId = computed(() => this._selectTrigger()?.id());
+
+	protected _onChange?: ChangeFn<T | undefined | null>;
+	protected _onTouched?: TouchFn;
 
 	constructor() {
-		if (this.ngControl !== null) {
-			this.ngControl.valueAccessor = this;
-		}
+		this.keyManager
+			.withVerticalOrientation()
+			.withHomeAndEnd()
+			.withTypeAhead()
+			.withWrap()
+			.skipPredicate((item) => item.disabled);
 
-		this.errorStateTracker = new ErrorStateTracker(
-			this._defaultErrorStateMatcher,
-			this.ngControl,
-			this._parentFormGroup,
-			this._parentForm,
-		);
+		this._brnPopover?.closed.subscribe(() => {
+			this._onTouched?.();
+			this.keyManager.setActiveItem(-1);
+		});
+
+		afterNextRender(() => {
+			effect(
+				() => {
+					if (!this.isExpanded()) return;
+
+					const items = this.items();
+					const value = this.value();
+
+					untracked(() => {
+						const index =
+							value !== null && value !== undefined
+								? items.findIndex((item) => this.isItemEqualToValue()(item.value(), value))
+								: -1;
+
+						if (index !== -1) {
+							this.keyManager.setActiveItem(index);
+						} else if (items.length > 0) {
+							this.keyManager.setFirstItemActive();
+						} else {
+							this.keyManager.setActiveItem(-1);
+						}
+					});
+				},
+				{ injector: this._injector },
+			);
+		});
 	}
 
-	ngDoCheck() {
-		this.errorStateTracker.updateErrorState();
+	public registerSelectTrigger(input: BrnSelectTrigger): void {
+		return this._selectTrigger.set(input);
+	}
+
+	public updateTriggerWidth(width: number | null): void {
+		this._triggerWidth.set(width);
+	}
+
+	public isSelected(itemValue: T): boolean {
+		return this.isItemEqualToValue()(itemValue, this.value());
+	}
+
+	public select(itemValue: T): void {
+		this.value.set(itemValue);
+		this._onChange?.(itemValue);
+		this.close();
+	}
+
+	/** Select the active item with Enter key. */
+	public selectActiveItem(): void {
+		if (!this.isExpanded()) return;
+
+		const value = this.keyManager.activeItem?.value();
+
+		if (value !== null && value !== undefined) {
+			this.select(value);
+		} else {
+			this.close();
+		}
+	}
+
+	public open(): void {
+		if (this._disabled() || this.isExpanded()) return;
+
+		this._brnPopover?.open();
+	}
+
+	public close(): void {
+		if (this._disabled() || !this.isExpanded()) return;
+
+		this._brnPopover?.close();
 	}
 
 	public toggle(): void {
-		if (this.open()) {
-			this.hide();
-		} else {
-			this.show();
-		}
+		this.isExpanded() ? this.close() : this.open();
 	}
 
-	public show(): void {
-		if (this.open() || this.disabled() || this.formDisabled() || this.options()?.length == 0) {
-			return;
-		}
-
-		this.open.set(true);
-	}
-
-	public hide(): void {
-		if (!this.open()) return;
-
-		this.open.set(false);
-		this._onTouched();
-
-		// restore focus to the trigger
-		this.trigger()?.focus();
-	}
-
-	public writeValue(value: T): void {
+	/** CONTROL VALUE ACCESSOR */
+	public writeValue(value: T | undefined | null): void {
 		this.value.set(value);
 	}
 
-	public registerOnChange(fn: ChangeFn<T | T[]>): void {
+	public registerOnChange(fn: ChangeFn<T | undefined | null>): void {
 		this._onChange = fn;
 	}
 
@@ -263,61 +204,7 @@ export class BrnSelect<T = unknown>
 		this._onTouched = fn;
 	}
 
-	public setDisabledState(isDisabled: boolean) {
-		this.formDisabled.set(isDisabled);
-	}
-
-	selectOption(value: T): void {
-		// if this is a multiple select we need to add the value to the array
-		if (this.multiple()) {
-			const currentValue = this.value() as T[];
-			const newValue = currentValue ? [...currentValue, value] : [value];
-			this.value.set(newValue);
-			this.valueChange.emit(newValue);
-		} else {
-			this.value.set(value);
-			this.valueChange.emit(value);
-		}
-
-		this._onChange?.(this.value() as T | T[]);
-
-		// if this is single select close the dropdown
-		if (!this.multiple()) {
-			this.hide();
-		}
-	}
-
-	deselectOption(value: T): void {
-		if (this.multiple()) {
-			const currentValue = this.value() as T[];
-			const newValue = currentValue.filter((val) => !this.compareWith()(val, value));
-			this.value.set(newValue);
-			this.valueChange.emit(newValue);
-		} else {
-			this.value.set(null as T);
-			this.valueChange.emit(null as T);
-		}
-
-		this._onChange?.(this.value() as T | T[]);
-	}
-
-	toggleSelect(value: T): void {
-		if (this.isSelected(value)) {
-			this.deselectOption(value);
-		} else {
-			this.selectOption(value);
-		}
-	}
-
-	isSelected(value: T): boolean {
-		const selection = this.value();
-
-		if (Array.isArray(selection)) {
-			return selection.some((val) => this.compareWith()(val, value));
-		} else if (value !== undefined) {
-			return this.compareWith()(selection as T, value);
-		}
-
-		return false;
+	public setDisabledState(isDisabled: boolean): void {
+		this._disabled.set(isDisabled);
 	}
 }

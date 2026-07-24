@@ -1,15 +1,18 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { HlmFieldImports } from '@spartan-ng/helm/field';
 import { HlmInputImports } from '@spartan-ng/helm/input';
-import { HlmLabelImports } from '@spartan-ng/helm/label';
 
 @Component({
 	selector: 'spartan-input-file',
-	imports: [HlmInputImports, HlmLabelImports],
+	imports: [HlmInputImports, HlmFieldImports],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: { class: 'min-w-xs sm:min-w-sm' },
 	template: `
-		<div class="grid w-full max-w-sm items-center gap-3">
-			<label hlmLabel for="picture">Upload file</label>
+		<hlm-field>
+			<label hlmFieldLabel for="picture">Picture</label>
 			<input hlmInput id="picture" type="file" />
-		</div>
+			<hlm-field-description>Select a picture to upload.</hlm-field-description>
+		</hlm-field>
 	`,
 })
 export class InputFilePreview {}

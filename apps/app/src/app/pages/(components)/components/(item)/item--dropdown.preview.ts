@@ -1,48 +1,44 @@
-import { Component } from '@angular/core';
-import { provideIcons } from '@ng-icons/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronDown } from '@ng-icons/lucide';
 import { HlmAvatarImports } from '@spartan-ng/helm/avatar';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
-import { HlmIconImports } from '@spartan-ng/helm/icon';
 import { HlmItemImports } from '@spartan-ng/helm/item';
 
 @Component({
 	selector: 'spartan-item-dropdown-preview',
-	imports: [HlmItemImports, HlmButtonImports, HlmAvatarImports, HlmIconImports, HlmDropdownMenuImports],
-	providers: [
-		provideIcons({
-			lucideChevronDown,
-		}),
-	],
+	imports: [HlmItemImports, HlmButtonImports, HlmAvatarImports, NgIcon, HlmDropdownMenuImports],
+	providers: [provideIcons({ lucideChevronDown })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		class: 'flex min-h-64 w-full max-w-md flex-col items-center gap-6',
 	},
 	template: `
-		<button hlmBtn variant="outline" size="sm" [hlmDropdownMenuTrigger]="people" class="w-fit" align="end">
+		<button hlmBtn variant="outline" [hlmDropdownMenuTrigger]="people" align="end">
 			Select
-			<ng-icon hlm name="lucideChevronDown" />
+			<ng-icon name="lucideChevronDown" />
 		</button>
 
 		<ng-template #people>
-			<hlm-dropdown-menu class="w-72 [--radius:0.65rem]">
+			<hlm-dropdown-menu class="w-48">
 				@for (person of _people; track person.email) {
-					<div hlmDropdownMenuItem class="p-0">
-						<div hlmItem size="sm" class="w-full p-2">
-							<div hlmItemMedia>
-								<hlm-avatar class="size-8">
+					<hlm-dropdown-menu-item class="p-0">
+						<hlm-item size="xs" class="w-full p-2">
+							<hlm-item-media>
+								<hlm-avatar class="size-6.5">
 									<img hlmAvatarImage [src]="person.avatar" [alt]="person.username" class="grayscale" />
 									<span hlmAvatarFallback>
 										{{ person.username.charAt(0).toUpperCase() }}
 									</span>
 								</hlm-avatar>
-							</div>
-							<div hlmItemContent class="gap-0.5">
-								<div hlmItemTitle>{{ person.username }}</div>
-								<p hlmItemDescription>{{ person.email }}</p>
-							</div>
-						</div>
-					</div>
+							</hlm-item-media>
+							<hlm-item-content class="gap-0">
+								<hlm-item-title>{{ person.username }}</hlm-item-title>
+								<p hlmItemDescription class="leading-none">{{ person.email }}</p>
+							</hlm-item-content>
+						</hlm-item>
+					</hlm-dropdown-menu-item>
 				}
 			</hlm-dropdown-menu>
 		</ng-template>

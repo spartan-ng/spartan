@@ -1,14 +1,17 @@
-import { Component } from '@angular/core';
+import { NgOptimizedImage } from '@angular/common';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { HlmAspectRatioImports } from '@spartan-ng/helm/aspect-ratio';
 
 @Component({
 	selector: 'spartan-aspect-ratio-preview',
-	imports: [HlmAspectRatioImports],
+	imports: [HlmAspectRatioImports, NgOptimizedImage],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: {
+		class: 'flex items-center justify-center h-72 w-full',
+	},
 	template: `
-		<div class="max-w-xl overflow-hidden rounded-xl drop-shadow">
-			<div [hlmAspectRatio]="16 / 9">
-				<img alt="Mountain views" src="/assets/mountains.jpg" />
-			</div>
+		<div [hlmAspectRatio]="16 / 9" class="w-full max-w-sm overflow-hidden">
+			<img ngSrc="/assets/mountains.jpg" fill alt="Mountain views" class="rounded-lg object-cover" />
 		</div>
 	`,
 })
@@ -19,9 +22,7 @@ import { HlmAspectRatioImports } from '@spartan-ng/helm/aspect-ratio';
 `;
 
 export const defaultSkeleton = `
-<div class="max-w-xl overflow-hidden rounded-xl drop-shadow">
-  <div [hlmAspectRatio]="ratio">
-    <img alt="Mountain views" src="/mountains.jpg" />
+  <div [hlmAspectRatio]="16 / 9">
+    <img src="..." alt="Image" class="rounded-md object-cover"  />
   </div>
-</div>
 `;

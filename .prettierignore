@@ -14,3 +14,4 @@ pnpm-lock.yaml
 /.nx/workspace-data
 
 apps/ui-storybook/.storybook/tailwind.css
+.nx/self-healing

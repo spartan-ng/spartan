@@ -6,7 +6,6 @@ import { lucideArrowRight, lucideStar } from '@ng-icons/lucide';
 import { ZeropsLogo } from '@spartan-ng/app/app/pages/(home)/components/zerops-logo';
 import { HlmBadge } from '@spartan-ng/helm/badge';
 import { HlmButton } from '@spartan-ng/helm/button';
-import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmTabsImports } from '@spartan-ng/helm/tabs';
 import { metaWith } from '../shared/meta/meta.util';
 import { AuthenticationExample } from './(home)/components/authentication/authentication';
@@ -33,7 +32,6 @@ const lead = 'text-foreground max-w-3xl text-base text-balance sm:text-lg';
 	selector: 'spartan-home',
 	imports: [
 		HlmButton,
-		HlmIcon,
 		RouterLink,
 		HlmBadge,
 		NgIcon,
@@ -56,7 +54,7 @@ const lead = 'text-foreground max-w-3xl text-base text-balance sm:text-lg';
 				<a target="_blank" href="https://zerops.io" hlmBadge variant="outline" class="border-none outline-none">
 					<spartan-zerops-logo class="mr-0.5 h-3 w-3 fill-red-800 text-red-700" />
 					Powered by Zerops. The dev-first cloud platform.
-					<ng-icon hlm name="lucideArrowRight" />
+					<ng-icon name="lucideArrowRight" />
 				</a>
 				<h1
 					class="text-primary leading-tighter max-w-4xl text-4xl font-semibold tracking-tight text-balance lg:leading-[1.1] lg:font-semibold xl:text-5xl xl:tracking-tighter"
@@ -78,7 +76,7 @@ const lead = 'text-foreground max-w-3xl text-base text-balance sm:text-lg';
 						rel="noreferrer"
 						href="https://github.com/spartan-ng/spartan"
 					>
-						<ng-icon hlm size="sm" class="mr-0.5" name="lucideStar" />
+						<ng-icon class="mr-0.5" name="lucideStar" />
 						Star on GitHub
 					</a>
 				</div>
@@ -102,24 +100,37 @@ const lead = 'text-foreground max-w-3xl text-base text-balance sm:text-lg';
 					</hlm-tabs-list>
 				</div>
 				<div hlmTabsContent="examples" class="mt-0">
-					<spartan-overview-example />
+					<ng-template hlmTabsContentLazy>
+						<spartan-overview-example />
+					</ng-template>
 				</div>
 				<div hlmTabsContent="dashboard" class="mt-0">
-					<spartan-dashboard-example />
+					<ng-template hlmTabsContentLazy>
+						<spartan-dashboard-example />
+					</ng-template>
 				</div>
 				<div hlmTabsContent="tasks" class="mt-0">
-					<spartan-tasks-example />
+					<ng-template hlmTabsContentLazy>
+						<spartan-tasks-example />
+					</ng-template>
 				</div>
 				<div hlmTabsContent="playground" class="mt-0">
-					<spartan-playground-example />
+					<ng-template hlmTabsContentLazy>
+						<spartan-playground-example />
+					</ng-template>
 				</div>
 				<div hlmTabsContent="authentication" class="mt-0">
-					<spartan-authentication-example />
+					<ng-template hlmTabsContentLazy>
+						<spartan-authentication-example />
+					</ng-template>
 				</div>
 			</hlm-tabs>
 		</section>
 
-		<section id="the-300" class="space-y-6 py-8 md:py-12">
+		<section
+			id="the-300"
+			class="scroll-mt-24 space-y-6 py-8 [contain-intrinsic-size:auto_900px] [content-visibility:auto] md:py-12"
+		>
 			<div class="${container} max-w-[58rem]">
 				<h2 class="${subHeading}">Built By The 300</h2>
 				<p class="${lead} max-w-[42rem]">
@@ -130,11 +141,24 @@ const lead = 'text-foreground max-w-3xl text-base text-balance sm:text-lg';
 			<div class="mx-auto space-y-12 text-center md:max-w-[64rem]">
 				<spartan-three-hundred class="mt-12" />
 				<p class="${lead} mx-auto max-w-[42rem]">
-					Contribute code, share insights, or sponsor on GitHub. Let's build something extraordinary together!
+					This project is MIT-licensed and free forever. Sponsoring funds ongoing maintenance, new components, and the
+					people who keep it moving!
 				</p>
-				<a hlmBtn size="lg" target="_blank" rel="noreferrer" href="https://github.com/spartan-ng/spartan">
-					Claim your spot in the 300 today!
-				</a>
+				<div class="flex flex-col items-center justify-center gap-3 sm:flex-row">
+					<a hlmBtn size="lg" target="_blank" rel="noreferrer" href="https://github.com/sponsors/goetzrobin">
+						Sponsor spartan
+					</a>
+					<a
+						hlmBtn
+						size="lg"
+						variant="outline"
+						target="_blank"
+						rel="noreferrer"
+						href="https://github.com/spartan-ng/spartan"
+					>
+						Claim your spot in the 300 today!
+					</a>
+				</div>
 			</div>
 		</section>
 	`,

@@ -17,7 +17,7 @@ import { HlmFieldImports } from '@spartan-ng/helm/field';
 				</p>
 				<div hlmFieldGroup data-slot="checkbox-group">
 					<div hlmField orientation="horizontal">
-						<hlm-checkbox id="field-group-push-notifications" disabled [checked]="true" />
+						<hlm-checkbox inputId="field-group-push-notifications" disabled [checked]="true" />
 						<label hlmFieldLabel for="field-group-push-notifications" class="font-normal">Push notifications</label>
 					</div>
 				</div>
@@ -31,11 +31,11 @@ import { HlmFieldImports } from '@spartan-ng/helm/field';
 				</p>
 				<div hlmFieldGroup data-slot="checkbox-group">
 					<div hlmField orientation="horizontal">
-						<hlm-checkbox id="field-group-push-task" />
+						<hlm-checkbox inputId="field-group-push-task" />
 						<label hlmFieldLabel for="field-group-push-task" class="font-normal">Push notifications</label>
 					</div>
 					<div hlmField orientation="horizontal">
-						<hlm-checkbox id="field-group-email-task" />
+						<hlm-checkbox inputId="field-group-email-task" />
 						<label hlmFieldLabel for="field-group-email-task" class="font-normal">Email notifications</label>
 					</div>
 				</div>

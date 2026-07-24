@@ -1,0 +1,62 @@
+name: update-contributors
+
+on:
+  schedule:
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+
+# Read-only by default: the checkout + contributors API only need read. The push is done with a
+# scoped GitHub App token minted below, not the default token.
+permissions:
+  contents: read
+
+jobs:
+  update-contributors:
+    runs-on: ubuntu-latest
+    steps:
+      # Mint a short-lived token from the release GitHub App. It is a bypass actor on the branch
+      # ruleset, so the contributors commit can push straight to main even though PRs are required.
+      # Scoped to contents:write - the only permission the push path needs.
+      - name: Generate app token
+        id: app-token
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ secrets.APP_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+          permission-contents: write
+      - uses: actions/checkout@v6
+        with:
+          # Full history is required to derive contributor usernames from git log.
+          fetch-depth: 0
+          # Keep the App token out of .git/config; it's applied inline only at push time below.
+          persist-credentials: false
+      - name: Install pnpm
+        uses: pnpm/action-setup@v5
+      - name: Install Node
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: .node-version
+          cache: 'pnpm'
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Update contributors
+        env:
+          # Lets the generator enhance git history with the GitHub contributors API.
+          GH_TOKEN: ${{ github.token }}
+        run: pnpm update-contributors
+      - name: Commit and push changes
+        env:
+          # Bypass-actor token, used only for the push on the last line.
+          APP_TOKEN: ${{ steps.app-token.outputs.token }}
+        run: |
+          files=(README.md 'apps/app/src/app/pages/(home)/components/three-hundred.ts')
+          if git diff --quiet -- "${files[@]}"; then
+            echo 'No new contributors to commit.'
+            exit 0
+          fi
+          git config user.name Leonidas
+          git config user.email leonidas@spartan.ng
+          git add "${files[@]}"
+          # docs: is a non-releasing type, so pushing to main does not trigger semantic-release.
+          git commit -m 'docs: add new contributors to our 300'
+          git push "https://x-access-token:${APP_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" "HEAD:${GITHUB_REF_NAME}"

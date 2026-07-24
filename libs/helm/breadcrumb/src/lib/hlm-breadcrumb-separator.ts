@@ -10,6 +10,7 @@ import { classes } from '@spartan-ng/helm/utils';
 	providers: [provideIcons({ lucideChevronRight })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
+		'data-slot': 'breadcrumb-separator',
 		role: 'presentation',
 		'aria-hidden': 'true',
 	},
@@ -21,6 +22,6 @@ import { classes } from '@spartan-ng/helm/utils';
 })
 export class HlmBreadcrumbSeparator {
 	constructor() {
-		classes(() => '[&_ng-icon]:block [&_ng-icon]:size-3.5');
+		classes(() => 'spartan-breadcrumb-separator [&>ng-icon]:flex');
 	}
 }

@@ -1,6 +1,22 @@
 @import '@angular/cdk/overlay-prebuilt.css';
 @import 'tw-animate-css';
 
+/* CDK fades the backdrop with its own opacity transition, and the spartan overlay class fades it again
+   with a tw-animate keyframe - two fades that visibly double up on iOS (#1555). Neutralize CDK's so the
+   spartan keyframe is the sole animator. Kept UNLAYERED so it reliably beats CDK's runtime
+   `@layer cdk-overlay` (unlayered wins over any layer; a custom `@layer` here gets dropped by Tailwind).
+   The vars let consumers re-enable/tune the CDK fade without `!important`, e.g.
+   `:root { --spartan-overlay-backdrop-transition: opacity 200ms ease; }`.
+   Note: the spartan keyframe itself doesn't smoothly interpolate on Safari/iOS - upstream tw-animate-css#59
+   (the `blur()` in its keyframes) - so on iOS the backdrop appears in one step rather than a smooth fade.
+   Tracked upstream; out of scope for this double-fade fix.
+   Scoped off `.cdk-overlay-transparent-backdrop` so CDK's invisible click-catcher backdrops (menus,
+   popovers) keep their own `opacity: 0` and aren't forced visible. */
+.cdk-overlay-backdrop:not(.cdk-overlay-transparent-backdrop) {
+	opacity: var(--spartan-overlay-backdrop-opacity, 1);
+	transition: var(--spartan-overlay-backdrop-transition, none);
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @custom-variant data-open {
@@ -92,10 +108,13 @@
 	--color-popover: var(--popover);
 	--color-card-foreground: var(--card-foreground);
 	--color-card: var(--card);
-	--radius-sm: calc(var(--radius) - 4px);
-	--radius-md: calc(var(--radius) - 2px);
+	--radius-sm: calc(var(--radius) * 0.6);
+	--radius-md: calc(var(--radius) * 0.8);
 	--radius-lg: var(--radius);
-	--radius-xl: calc(var(--radius) + 4px);
+	--radius-xl: calc(var(--radius) * 1.4);
+	--radius-2xl: calc(var(--radius) * 1.8);
+	--radius-3xl: calc(var(--radius) * 2.2);
+	--radius-4xl: calc(var(--radius) * 2.6);
 	--animate-indeterminate: indeterminate 4s ease-in-out infinite;
 
 	@keyframes indeterminate {
@@ -111,4 +130,13 @@
 @utility container {
 	margin-inline: auto;
 	padding-inline: 2rem;
+}
+
+@utility no-scrollbar {
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+
+	&::-webkit-scrollbar {
+		display: none;
+	}
 }

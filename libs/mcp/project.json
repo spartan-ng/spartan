@@ -1,0 +1,36 @@
+{
+	"name": "mcp",
+	"$schema": "../../node_modules/nx/schemas/project-schema.json",
+	"sourceRoot": "libs/mcp/src",
+	"projectType": "library",
+	"tags": ["scope:mcp"],
+	"targets": {
+		"build": {
+			"executor": "@nx/js:tsc",
+			"outputs": ["{options.outputPath}"],
+			"options": {
+				"outputPath": "dist/libs/mcp",
+				"main": "libs/mcp/src/index.ts",
+				"tsConfig": "libs/mcp/tsconfig.lib.json",
+				"assets": ["libs/mcp/*.md"]
+			}
+		},
+		"lint": {
+			"executor": "@nx/eslint:lint",
+			"outputs": ["{options.outputFile}"]
+		},
+		"test": {
+			"executor": "@nx/vitest:test",
+			"outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+			"options": {
+				"configFile": "libs/mcp/vite.config.ts"
+			}
+		},
+		"release": {
+			"executor": "@spartan-ng/tools:build-update-publish",
+			"options": {
+				"libName": "mcp"
+			}
+		}
+	}
+}

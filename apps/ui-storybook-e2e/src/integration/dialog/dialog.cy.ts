@@ -27,7 +27,7 @@ describe('dialog--default', () => {
 			cy.findByRole('dialog').should('have.attr', 'aria-modal', 'true');
 			cy.findByRole('dialog').should('have.attr', 'tabindex', '-1');
 
-			cy.findByRole('dialog').get('ng-icon').click();
+			cy.findByRole('dialog').get('button[data-slot="dialog-close"]').click();
 			cy.findAllByText(/edit profile/i).should('have.length', 1);
 			cy.findAllByText(/edit profile/i).should('have.focus');
 			cy.findByText(/edit profile/i).click();
@@ -142,6 +142,31 @@ describe('dialog--default', () => {
 			cy.findAllByText(/open dialog/i).should('have.focus');
 		});
 	});
+
+	describe('context menu', () => {
+		beforeEach(() => {
+			cy.visit('/iframe.html?id=dialog--context-menu');
+			cy.injectAxe();
+			cy.viewport(1000, 1000);
+		});
+
+		it('opens and renders dialog content when launched from a context menu item', () => {
+			cy.checkA11y('#storybook-root', {
+				rules: {
+					'page-has-heading-one': { enabled: false },
+					'landmark-one-main': { enabled: false },
+				},
+			});
+
+			cy.findByText(/right click here/i).realClick({ button: 'right' });
+			cy.findByRole('menu').should('be.visible');
+			cy.findByText(/^print$/i).realClick();
+
+			cy.findByRole('dialog', { name: /print this page/i }).should('be.visible');
+			cy.findByText(/are you sure you want to print this page/i).should('be.visible');
+			cy.findByRole('button', { name: /cancel/i }).should('be.visible');
+		});
+	});
 });
 
 describe('dialog--dynamic-component', () => {
@@ -158,10 +183,11 @@ describe('dialog--dynamic-component', () => {
 			cy.findByRole('dialog').should('have.attr', 'aria-labelledby', 'brn-dialog-title-1');
 			cy.findByRole('dialog').should('have.attr', 'aria-modal', 'true');
 			cy.findByRole('dialog').should('have.attr', 'tabindex', '-1');
+			cy.findAllByText('close').should('exist');
 			cy.get('dynamic-content');
 
 			// close on click close button
-			cy.findByRole('dialog').get('ng-icon').click();
+			cy.findByRole('dialog').get('button[data-slot="dialog-close"]').click();
 			cy.findAllByText(/select user/i).should('have.length', 1);
 			cy.findAllByText(/select user/i).should('have.focus');
 			cy.findByText(/select user/i).click();
@@ -171,6 +197,12 @@ describe('dialog--dynamic-component', () => {
 			cy.get('.cdk-overlay-backdrop').click({ force: true });
 			cy.findAllByText(/select user/i).should('have.length', 1);
 			cy.findAllByText(/select user/i).should('have.focus');
+		});
+
+		it('click on teams button should open dyanmic component without close button', () => {
+			cy.findAllByText(/select team/i).click();
+			cy.findByRole('dialog');
+			cy.findAllByText('close').should('not.exist');
 		});
 	});
 

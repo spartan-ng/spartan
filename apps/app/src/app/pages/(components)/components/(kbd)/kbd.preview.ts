@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { HlmKbdImports } from '@spartan-ng/helm/kbd';
 
 @Component({
 	selector: 'spartan-kbd-preview',
 	imports: [HlmKbdImports],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div class="flex flex-col items-center gap-4">
 			<kbd hlmKbdGroup>

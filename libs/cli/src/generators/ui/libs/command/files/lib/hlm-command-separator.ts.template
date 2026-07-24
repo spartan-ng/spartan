@@ -11,6 +11,6 @@ import { classes } from '<%- importAlias %>/utils';
 })
 export class HlmCommandSeparator {
 	constructor() {
-		classes(() => 'bg-border -mx-1 block h-px data-hidden:hidden');
+		classes(() => 'spartan-command-separator block data-hidden:hidden');
 	}
 }

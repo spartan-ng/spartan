@@ -1,5 +1,4 @@
-import { type ExistingProvider, inject, InjectionToken, type Type, type ValueProvider } from '@angular/core';
-import type { MeasurementDisplay } from '@spartan-ng/brain/core';
+import { type ExistingProvider, inject, InjectionToken, type Type } from '@angular/core';
 import type { BrnAccordion } from './brn-accordion';
 import type { BrnAccordionItem } from './brn-accordion-item';
 
@@ -21,26 +20,4 @@ export function injectBrnAccordionItem() {
 
 export function provideBrnAccordionItem(item: Type<BrnAccordionItem>): ExistingProvider {
 	return { provide: BrnAccordionItemToken, useExisting: item };
-}
-
-export interface BrBrnAccordionConfig {
-	/**
-	 * The display style to use when measuring element dimensions.
-	 * @default 'block'
-	 */
-	measurementDisplay: MeasurementDisplay;
-}
-
-const defaultConfig: BrBrnAccordionConfig = {
-	measurementDisplay: 'block',
-};
-
-const BrnAccordionConfigToken = new InjectionToken<BrBrnAccordionConfig>('BrnBrnAccordionConfig');
-
-export function provideBrnAccordionConfig(config: Partial<BrBrnAccordionConfig>): ValueProvider {
-	return { provide: BrnAccordionConfigToken, useValue: { ...defaultConfig, ...config } };
-}
-
-export function injectBrnAccordionConfig(): BrBrnAccordionConfig {
-	return inject(BrnAccordionConfigToken, { optional: true }) ?? defaultConfig;
 }

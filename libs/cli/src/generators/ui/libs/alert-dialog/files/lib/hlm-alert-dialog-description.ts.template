@@ -5,12 +5,10 @@ import { classes } from '<%- importAlias %>/utils';
 @Directive({
 	selector: '[hlmAlertDialogDescription]',
 	hostDirectives: [BrnAlertDialogDescription],
-	host: {
-		'data-slot': 'alert-dialog-description',
-	},
+	host: { 'data-slot': 'alert-dialog-description' },
 })
 export class HlmAlertDialogDescription {
 	constructor() {
-		classes(() => 'text-muted-foreground text-sm');
+		classes(() => 'spartan-alert-dialog-description');
 	}
 }

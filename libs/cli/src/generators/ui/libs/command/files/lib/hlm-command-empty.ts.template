@@ -9,6 +9,6 @@ import { classes } from '<%- importAlias %>/utils';
 })
 export class HlmCommandEmpty {
 	constructor() {
-		classes(() => 'py-6 text-center text-sm');
+		classes(() => 'spartan-command-empty');
 	}
 }

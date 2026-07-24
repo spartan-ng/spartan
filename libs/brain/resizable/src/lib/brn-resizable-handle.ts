@@ -35,12 +35,20 @@ export class BrnResizableHandle {
 	/** Computed layout orientation based on the parent group. */
 	protected readonly _layout = computed(() => this._resizable?.direction() || 'horizontal');
 
-	/** Index of this handle relative to panels in the group. */
-	private _handleIndex = 0;
+	/** Always-current index of this handle relative to panels in the group. */
+	private get _handleIndex(): number {
+		return this._getHandleIndex();
+	}
 
 	constructor() {
 		afterNextRender(() => {
-			this._handleIndex = this._getHandleIndex();
+			this._el.nativeElement.onpointerdown = (e: PointerEvent) => {
+				this._el.nativeElement.setPointerCapture(e.pointerId);
+			};
+
+			this._el.nativeElement.onpointerup = (e: PointerEvent) => {
+				this._el.nativeElement.releasePointerCapture(e.pointerId);
+			};
 		});
 	}
 
@@ -62,6 +70,7 @@ export class BrnResizableHandle {
 
 	protected _handleMouseDown(event: MouseEvent): void {
 		if (this.disabled() || !this._resizable) return;
+
 		this._resizable.startResize(this._handleIndex, event);
 	}
 

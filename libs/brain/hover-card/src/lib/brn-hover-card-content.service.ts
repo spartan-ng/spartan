@@ -1,4 +1,5 @@
 import { FocusMonitor } from '@angular/cdk/a11y';
+import { Directionality } from '@angular/cdk/bidi';
 import { NumberInput } from '@angular/cdk/coercion';
 import {
 	type ConnectedOverlayPositionChange,
@@ -38,6 +39,7 @@ import {
 } from '@spartan-ng/brain/core';
 import { BehaviorSubject, fromEvent, merge, type Observable, of, Subject } from 'rxjs';
 import { delay, distinctUntilChanged, filter, map, share, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { injectBrnHoverCardDefaultOptions } from './brn-hover-card.token';
 
 @Directive({
 	selector: '[brnHoverCardContent]',
@@ -64,7 +66,7 @@ export type BrnHoverCardOptions = Partial<
 	{
 		attachTo: ElementRef;
 		attachPositions: ConnectedPosition[];
-		align: 'top' | 'bottom';
+		align: 'top' | 'bottom' | 'left' | 'right';
 		sideOffset: number;
 	} & OverlayConfig
 >;
@@ -98,11 +100,81 @@ const bottomFirstPositions: ConnectedPosition[] = [
 	},
 ];
 
+const leftFirstPositions: ConnectedPosition[] = [
+	// left side
+	{
+		originX: 'start',
+		originY: 'center',
+		overlayX: 'end',
+		overlayY: 'center',
+	},
+	// Fallback 1: right (opposite horizontal)
+	{
+		originX: 'end',
+		originY: 'center',
+		overlayX: 'start',
+		overlayY: 'center',
+	},
+	// Fallback 2: bottom (vertical fallback)
+	{
+		originX: 'center',
+		originY: 'bottom',
+		overlayX: 'center',
+		overlayY: 'top',
+	},
+	// Fallback 3: top (vertical fallback)
+	{
+		originX: 'center',
+		originY: 'top',
+		overlayX: 'center',
+		overlayY: 'bottom',
+	},
+];
+
+const rightFirstPositions: ConnectedPosition[] = [
+	// right side
+	{
+		originX: 'end',
+		originY: 'center',
+		overlayX: 'start',
+		overlayY: 'center',
+	},
+	// Fallback 1: left (opposite horizontal)
+	{
+		originX: 'start',
+		originY: 'center',
+		overlayX: 'end',
+		overlayY: 'center',
+	},
+	// Fallback 2: bottom (vertical fallback)
+	{
+		originX: 'center',
+		originY: 'bottom',
+		overlayX: 'center',
+		overlayY: 'top',
+	},
+	// Fallback 3: top (vertical fallback)
+	{
+		originX: 'center',
+		originY: 'top',
+		overlayX: 'center',
+		overlayY: 'bottom',
+	},
+];
+
+const POSITION_MAP: Record<'top' | 'bottom' | 'left' | 'right', ConnectedPosition[]> = {
+	top: topFirstPositions,
+	bottom: bottomFirstPositions,
+	left: leftFirstPositions,
+	right: rightFirstPositions,
+};
+
 @Injectable()
 export class BrnHoverCardContentService {
 	private readonly _overlay = inject(Overlay);
 	private readonly _zone = inject(NgZone);
 	private readonly _psBuilder = inject(OverlayPositionBuilder);
+	private readonly _directionality = inject(Directionality);
 
 	private readonly _content = signal<TemplatePortal<unknown> | null>(null);
 	private readonly _state = signal<'open' | 'closed'>('closed');
@@ -140,13 +212,28 @@ export class BrnHoverCardContentService {
 		{ initialValue: 'bottom' },
 	);
 
+	constructor() {
+		effect(() => {
+			const direction = this._directionality.valueSignal();
+			untracked(() => this._overlayRef?.setDirection(direction));
+		});
+	}
+
 	public setConfig(config: BrnHoverCardOptions) {
 		this._config = config;
 		if (config.attachTo) {
-			this._positionStrategy = this._psBuilder
-				.flexibleConnectedTo(config.attachTo)
-				.withPositions(config.attachPositions ?? (config.align === 'top' ? topFirstPositions : bottomFirstPositions))
-				.withDefaultOffsetY(config.sideOffset ?? 0);
+			const align = config.align ?? 'bottom';
+			const positions = config.attachPositions ?? POSITION_MAP[align];
+
+			this._positionStrategy = this._psBuilder.flexibleConnectedTo(config.attachTo).withPositions(positions);
+
+			const offset = config.sideOffset ?? 0;
+			if (align === 'left' || align === 'right') {
+				this._positionStrategy.withDefaultOffsetX(align === 'left' ? -offset : offset);
+			} else {
+				this._positionStrategy.withDefaultOffsetY(align === 'top' ? -offset : offset);
+			}
+
 			this._config = {
 				...this._config,
 				positionStrategy: this._positionStrategy,
@@ -154,6 +241,7 @@ export class BrnHoverCardContentService {
 			};
 			this._positionChangesObservables$.next(this._positionStrategy.positionChanges);
 		}
+		this._config = { ...this._config, direction: this._directionality.valueSignal() };
 		this._overlayRef = this._overlay.create(this._config);
 	}
 
@@ -231,11 +319,20 @@ export class BrnHoverCardTrigger implements OnInit, OnDestroy {
 		takeUntil(this._destroy$),
 	);
 
-	public readonly showDelay = input<number, NumberInput>(300, { transform: numberAttribute });
-	public readonly hideDelay = input<number, NumberInput>(500, { transform: numberAttribute });
-	public readonly animationDelay = input<number, NumberInput>(100, { transform: numberAttribute });
-	public readonly sideOffset = input<number, NumberInput>(5, { transform: numberAttribute });
-	public readonly align = input<'top' | 'bottom'>('bottom');
+	private readonly _defaultOptions = injectBrnHoverCardDefaultOptions();
+	public readonly showDelay = input<number, NumberInput>(this._defaultOptions.showDelay, {
+		transform: numberAttribute,
+	});
+	public readonly hideDelay = input<number, NumberInput>(this._defaultOptions.hideDelay, {
+		transform: numberAttribute,
+	});
+	public readonly animationDelay = input<number, NumberInput>(this._defaultOptions.animationDelay, {
+		transform: numberAttribute,
+	});
+	public readonly sideOffset = input<number, NumberInput>(this._defaultOptions.sideOffset, {
+		transform: numberAttribute,
+	});
+	public readonly align = input<'top' | 'bottom' | 'left' | 'right'>(this._defaultOptions.align);
 
 	public readonly brnHoverCardTriggerFor = input<TemplateRef<unknown> | BrnHoverCardContent | undefined>(undefined);
 	public readonly mutableBrnHoverCardTriggerFor = computed(() => signal(this.brnHoverCardTriggerFor()));

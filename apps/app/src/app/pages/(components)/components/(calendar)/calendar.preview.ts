@@ -1,11 +1,19 @@
-import { Component } from '@angular/core';
-import { HlmCalendarImports } from '@spartan-ng/helm/calendar';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { HlmCalendar } from '@spartan-ng/helm/calendar';
+import { HlmCard, HlmCardImports } from '@spartan-ng/helm/card';
 
 @Component({
 	selector: 'spartan-calendar-preview',
-	imports: [HlmCalendarImports],
+	imports: [HlmCalendar, HlmCardImports],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	hostDirectives: [HlmCard],
+	host: {
+		class: 'p-0 w-fit mx-auto',
+	},
 	template: `
-		<hlm-calendar [(date)]="selectedDate" [min]="minDate" [max]="maxDate" />
+		<div hlmCardContent class="p-0">
+			<hlm-calendar [(date)]="selectedDate" [min]="minDate" [max]="maxDate" />
+		</div>
 	`,
 })
 export class CalendarPreview {
@@ -13,10 +21,10 @@ export class CalendarPreview {
 	public selectedDate = new Date();
 
 	/** The minimum date */
-	public minDate = new Date(2023, 0, 1);
+	public minDate = new Date(new Date().setMonth(new Date().getMonth() - 2));
 
 	/** The maximum date */
-	public maxDate = new Date(2030, 11, 31);
+	public maxDate = new Date(new Date().setMonth(new Date().getMonth() + 2));
 }
 
 export const defaultImports = `

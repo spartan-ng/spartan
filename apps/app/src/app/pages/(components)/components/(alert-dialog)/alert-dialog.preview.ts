@@ -1,25 +1,24 @@
-import { Component } from '@angular/core';
-import { BrnAlertDialogImports } from '@spartan-ng/brain/alert-dialog';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { HlmAlertDialogImports } from '@spartan-ng/helm/alert-dialog';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 
 @Component({
 	selector: 'spartan-alert-dialog-preview',
-	imports: [BrnAlertDialogImports, HlmAlertDialogImports, HlmButtonImports],
+	imports: [HlmAlertDialogImports, HlmButtonImports],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<hlm-alert-dialog>
-			<button id="edit-profile" hlmAlertDialogTrigger hlmBtn variant="outline">Show Dialog</button>
-			<hlm-alert-dialog-content *brnAlertDialogContent="let ctx">
+			<button hlmAlertDialogTrigger hlmBtn variant="outline">Show Dialog</button>
+			<hlm-alert-dialog-content *hlmAlertDialogPortal="let ctx">
 				<hlm-alert-dialog-header>
 					<h2 hlmAlertDialogTitle>Are you absolutely sure?</h2>
 					<p hlmAlertDialogDescription>
-						This action cannot be undone. This will permanently delete your account and remove your data from our
-						servers.
+						This action cannot be undone. This will permanently delete your account from our servers.
 					</p>
 				</hlm-alert-dialog-header>
 				<hlm-alert-dialog-footer>
-					<button hlmAlertDialogCancel (click)="ctx.close()">Cancel</button>
-					<button hlmAlertDialogAction (click)="ctx.close()">Continue</button>
+					<button hlmAlertDialogCancel>Cancel</button>
+					<button hlmAlertDialogAction>Continue</button>
 				</hlm-alert-dialog-footer>
 			</hlm-alert-dialog-content>
 		</hlm-alert-dialog>
@@ -28,24 +27,20 @@ import { HlmButtonImports } from '@spartan-ng/helm/button';
 export class AlertDialogPreview {}
 
 export const defaultImports = `
-import { BrnAlertDialogImports } from '@spartan-ng/brain/alert-dialog';
 import { HlmAlertDialogImports } from '@spartan-ng/helm/alert-dialog';
 `;
 
 export const defaultSkeleton = `
 <hlm-alert-dialog>
-  <button id="edit-profile" hlmAlertDialogTrigger>Show Dialog</button>
-  <hlm-alert-dialog-content *brnAlertDialogContent="let ctx">
+  <button hlmAlertDialogTrigger hlmBtn variant="outline">Show Dialog</button>
+  <hlm-alert-dialog-content *hlmAlertDialogPortal="let ctx">
     <hlm-alert-dialog-header>
       <h2 hlmAlertDialogTitle>Are you absolutely sure?</h2>
-      <p hlmAlertDialogDescription>
-        This action cannot be undone. This will permanently delete your account and remove your data from our
-        servers.
-      </p>
+      <p hlmAlertDialogDescription>This action cannot be undone. This will permanently delete your account from our servers.</p>
     </hlm-alert-dialog-header>
     <hlm-alert-dialog-footer>
-      <button hlmAlertDialogCancel (click)="ctx.close()">Cancel</button>
-      <button hlmAlertDialogAction (click)="ctx.close()">Continue</button>
+      <button hlmAlertDialogCancel>Cancel</button>
+      <button hlmAlertDialogAction>Continue</button>
     </hlm-alert-dialog-footer>
   </hlm-alert-dialog-content>
 </hlm-alert-dialog>

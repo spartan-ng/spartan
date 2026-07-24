@@ -1,3 +1,4 @@
+import type { Style } from '../../utils/supported-styles';
 import { type GenerateAs } from '../base/lib/generate-as';
 
 export interface MigrateHelmLibrariesGeneratorSchema {
@@ -8,4 +9,5 @@ export interface MigrateHelmLibrariesGeneratorSchema {
 	generateAs: GenerateAs;
 	buildable: boolean;
 	importAlias: string;
+	style: Style;
 }

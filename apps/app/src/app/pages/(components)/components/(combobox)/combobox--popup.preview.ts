@@ -1,31 +1,33 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { BrnPopoverContent } from '@spartan-ng/brain/popover';
 import { HlmComboboxImports } from '@spartan-ng/helm/combobox';
+import { HlmFieldImports } from '@spartan-ng/helm/field';
 
 @Component({
 	selector: 'spartan-combobox-popup-preview',
-	imports: [HlmComboboxImports, BrnPopoverContent],
+	imports: [HlmComboboxImports, HlmFieldImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<hlm-combobox [value]="countries[0]" autoFocus="first-tabbable">
-			<hlm-combobox-trigger class="w-64 justify-between font-normal">
-				<span hlmComboboxValue></span>
-			</hlm-combobox-trigger>
-			<div *brnPopoverContent hlmComboboxContent>
-				<hlm-combobox-input showTrigger="false" mode="popup" placeholder="Search"></hlm-combobox-input>
-				<hlm-combobox-empty>No items found.</hlm-combobox-empty>
-				<div hlmComboboxList>
-					@for (country of countries; track country.code) {
-						<hlm-combobox-item [value]="country">{{ country.label }}</hlm-combobox-item>
-					}
-				</div>
-			</div>
-		</hlm-combobox>
+		<hlm-field>
+			<label hlmFieldLabel for="countries">Countries</label>
+			<hlm-combobox>
+				<hlm-combobox-trigger buttonId="countries" class="w-64 justify-between font-normal">
+					<hlm-combobox-value placeholder="Select a country" />
+				</hlm-combobox-trigger>
+				<hlm-combobox-content *hlmComboboxPortal>
+					<hlm-combobox-input showTrigger="false" placeholder="Search" showClear />
+					<hlm-combobox-empty>No items found.</hlm-combobox-empty>
+					<div hlmComboboxList>
+						@for (country of countries; track country.code) {
+							<hlm-combobox-item [value]="country">{{ country.label }}</hlm-combobox-item>
+						}
+					</div>
+				</hlm-combobox-content>
+			</hlm-combobox>
+		</hlm-field>
 	`,
 })
 export class ComboboxPopupPreview {
 	public countries = [
-		{ code: '', value: '', continent: '', label: 'Select country' },
 		{ code: 'af', value: 'afghanistan', label: 'Afghanistan', continent: 'Asia' },
 		{ code: 'al', value: 'albania', label: 'Albania', continent: 'Europe' },
 		{ code: 'dz', value: 'algeria', label: 'Algeria', continent: 'Africa' },

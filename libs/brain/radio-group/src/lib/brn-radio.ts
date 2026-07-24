@@ -23,6 +23,8 @@ export class BrnRadioChange<T> {
 
 const CONTAINER_POST_FIX = '-radio';
 
+const INPUT_POST_FIX = '-input';
+
 @Component({
 	selector: 'brn-radio',
 	exportAs: 'brnRadio',
@@ -51,12 +53,11 @@ const CONTAINER_POST_FIX = '-radio';
 		</div>
 		<input
 			#input
-			style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border-width: 0;"
+			[style]="inputStyles()"
 			type="radio"
-			[id]="id()"
+			[attr.id]="_inputId()"
 			[checked]="_checked()"
 			[disabled]="_disabledState()"
-			[tabIndex]="_tabIndex()"
 			[attr.name]="_radioGroup.name()"
 			[attr.value]="value()"
 			[required]="required()"
@@ -92,18 +93,6 @@ export class BrnRadio<T = unknown> implements OnDestroy {
 	 */
 	protected readonly _checked = computed(() => this._radioGroup.value() === this.value());
 
-	protected readonly _tabIndex = computed(() => {
-		const disabled = this._disabledState();
-		const checked = this._checked();
-		const hasSelectedRadio = this._radioGroup.value() !== undefined;
-		const isFirstRadio = this._radioGroup.radioButtons()[0] === this;
-
-		if (disabled || (!checked && (hasSelectedRadio || !isFirstRadio))) {
-			return -1;
-		}
-		return 0;
-	});
-
 	/**
 	 * The unique ID for the radio button input. If none is supplied, it will be auto-generated.
 	 */
@@ -121,6 +110,14 @@ export class BrnRadio<T = unknown> implements OnDestroy {
 	public readonly value = input.required<T>();
 
 	/**
+	 * Styles applied to the visually hidden native input element. Bound via `[style]` so they apply
+	 * through the CSSOM and are not blocked by a strict Content-Security-Policy.
+	 */
+	public readonly inputStyles = input<string>(
+		'position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border-width: 0;',
+	);
+
+	/**
 	 * Whether the radio button is required.
 	 */
 	public readonly required = input<boolean, BooleanInput>(false, {
@@ -134,6 +131,10 @@ export class BrnRadio<T = unknown> implements OnDestroy {
 
 	protected readonly _hostId = computed(() => {
 		return this.id() ? this.id() + CONTAINER_POST_FIX : `brn-radio-${++BrnRadio._nextUniqueId}`;
+	});
+
+	protected readonly _inputId = computed(() => {
+		return this.id() ?? `brn-radio${INPUT_POST_FIX}-${++BrnRadio._nextUniqueId}`;
 	});
 
 	protected readonly _inputElement = viewChild.required<ElementRef<HTMLInputElement>>('input');

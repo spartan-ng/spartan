@@ -1,10 +1,8 @@
-import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
-import { FormBuilder, FormControl, ReactiveFormsModule } from '@angular/forms';
-import { BrnPopoverContent } from '@spartan-ng/brain/popover';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
+import { form, FormField, FormRoot, required } from '@angular/forms/signals';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmComboboxImports } from '@spartan-ng/helm/combobox';
 import { HlmFieldImports } from '@spartan-ng/helm/field';
-import { Validators } from 'ng-signal-forms';
 
 type Assignee = {
 	id: string;
@@ -13,43 +11,52 @@ type Assignee = {
 
 @Component({
 	selector: 'spartan-combobox-item-to-string-preview',
-	imports: [HlmComboboxImports, BrnPopoverContent, ReactiveFormsModule, HlmButton, HlmFieldImports],
+	imports: [HlmComboboxImports, FormRoot, FormField, HlmButton, HlmFieldImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	host: {
-		class: 'w-full max-w-xs',
-	},
+	host: { class: 'w-full max-w-xs' },
 	template: `
-		<form [formGroup]="form" (ngSubmit)="submit()">
+		<form [formRoot]="form">
 			<div hlmFieldGroup>
 				<div hlmField>
 					<label hlmFieldLabel>Assign reviewer</label>
-					<hlm-combobox [(search)]="search" formControlName="assignee" [itemToString]="itemToString">
-						<hlm-combobox-input placeholder="e.g. Einstein"></hlm-combobox-input>
-						<div *brnPopoverContent hlmComboboxContent>
+					<hlm-combobox [(search)]="search" [formField]="form.assignee" [itemToString]="itemToString">
+						<hlm-combobox-input placeholder="e.g. Einstein" />
+						<hlm-combobox-content *hlmComboboxPortal>
 							<hlm-combobox-empty>No items found.</hlm-combobox-empty>
 							<div hlmComboboxList>
 								@for (assignee of filteredOptions(); track $index) {
 									<hlm-combobox-item [value]="assignee.id">{{ assignee.name }}</hlm-combobox-item>
 								}
 							</div>
-						</div>
+						</hlm-combobox-content>
 					</hlm-combobox>
 				</div>
 				<div hlmField orientation="horizontal">
-					<button type="submit" hlmBtn [disabled]="form.invalid">Submit</button>
+					<button type="submit" hlmBtn [disabled]="form().submitting()">Submit</button>
 				</div>
 			</div>
 		</form>
 	`,
 })
 export class ComboboxItemToStringPreview {
-	private readonly _formBuilder = inject(FormBuilder);
-
 	public search = signal('');
 
-	public form = this._formBuilder.group({
-		assignee: new FormControl<string>('8', Validators.required),
-	});
+	protected readonly _model = signal<{ assignee: string }>({ assignee: '8' });
+
+	public readonly form = form(
+		this._model,
+		(schemaPath) => {
+			required(schemaPath.assignee, { message: 'Please select an assignee' });
+		},
+		{
+			submission: {
+				action: async () => {
+					const model = this._model();
+					console.log(model);
+				},
+			},
+		},
+	);
 
 	public itemToString = (assigneeId: string) =>
 		this._assignees.find((assignee) => assignee.id === assigneeId)?.name ?? '';
@@ -73,8 +80,4 @@ export class ComboboxItemToStringPreview {
 	public readonly filteredOptions = computed(() => {
 		return this._assignees.filter((assignee) => assignee.name.toLowerCase().includes(this.search().toLowerCase()));
 	});
-
-	submit() {
-		console.log(this.form.value);
-	}
 }

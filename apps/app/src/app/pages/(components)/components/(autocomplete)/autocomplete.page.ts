@@ -1,9 +1,11 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { injectComponentDocs } from '@spartan-ng/app/app/core/services/component-docs';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
+import { CodeRtlPreview } from '@spartan-ng/app/app/shared/code/code-rtl-preview';
+import { RtlHeader } from '@spartan-ng/app/app/shared/code/rtl-header';
+import { InstallTabs } from '@spartan-ng/app/app/shared/layout/install-tabs';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
-import { TabsCli } from '@spartan-ng/app/app/shared/layout/tabs-cli';
 import { UIApiDocs } from '@spartan-ng/app/app/shared/layout/ui-docs-section/ui-docs-section';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
@@ -17,15 +19,18 @@ import { SectionIntro } from '../../../../shared/layout/section-intro';
 import { SectionSubHeading } from '../../../../shared/layout/section-sub-heading';
 import { Tabs } from '../../../../shared/layout/tabs';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { link } from '../../../../shared/typography/link';
 import { AutocompleteAsyncPreview } from './autocomplete--async.preview';
+import { AutocompleteAutohighlightPreview } from './autocomplete--autohighlight.preview';
 import { AutocompleteClearPreview } from './autocomplete--clear.preview';
 import { AutocompleteCountriesPreview } from './autocomplete--countries.example';
 import { AutocompleteDisabledPreview } from './autocomplete--disabled.preview';
 import { AutocompleteFormPreview } from './autocomplete--form.preview';
 import { AutocompleteGroupSeparatorPreview } from './autocomplete--group-separator.preview';
 import { AutocompleteGroupPreview } from './autocomplete--group.preview';
-import { AutocompleteResolveValueIdPreview } from './autocomplete--resolve-id.example';
+import { AutocompleteInvalidPreview } from './autocomplete--invalid.preview';
+import { AutocompleteResolveValueIdPreview } from './autocomplete--resolve-value-id.example';
+import { AutocompleteRtlPreview } from './autocomplete--rtl.preview';
+import { AutocompleteSearchAutohighlightPreview } from './autocomplete--search-autohighlight.preview';
 import { AutocompleteSearchFormPreview } from './autocomplete--search-form.preview';
 import { AutocompleteSearchPreview } from './autocomplete--search.preview';
 import {
@@ -45,18 +50,20 @@ export const routeMeta: RouteMeta = {
 	selector: 'spartan-autocomplete',
 	imports: [
 		MainSection,
+		InstallTabs,
 		Code,
 		SectionIntro,
 		SectionSubHeading,
 		Tabs,
-		TabsCli,
+
 		CodePreview,
+		RtlHeader,
+		CodeRtlPreview,
 		PageNav,
 		PageBottomNav,
 		PageBottomNavLink,
 		UIApiDocs,
 		AutocompletePreview,
-		RouterLink,
 		HlmButtonImports,
 		SectionSubSubHeading,
 		AutocompleteAsyncPreview,
@@ -66,15 +73,20 @@ export const routeMeta: RouteMeta = {
 		AutocompleteGroupSeparatorPreview,
 		AutocompleteClearPreview,
 		AutocompleteDisabledPreview,
+		AutocompleteRtlPreview,
+		AutocompleteInvalidPreview,
 		AutocompleteSearchPreview,
 		AutocompleteSearchFormPreview,
 		AutocompleteResolveValueIdPreview,
+		AutocompleteAutohighlightPreview,
+		AutocompleteSearchAutohighlightPreview,
 	],
 	template: `
 		<section spartanMainSection>
 			<spartan-section-intro
 				name="Autocomplete"
 				lead="Autocomplete input and dropdown selection with filtering options."
+				showThemeToggle
 			/>
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
@@ -84,17 +96,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
-			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
-			<p class="${hlmP}">
-				The Autocomplete component is built with the
-				<a routerLink="/components/popover" hlmBtn variant="link" class="${link}">Popover</a>
-				component.
-			</p>
-
-			<spartan-cli-tabs
-				nxCode="npx nx g @spartan-ng/cli:ui autocomplete"
-				ngCode="ng g @spartan-ng/cli:ui autocomplete"
-			/>
+			<spartan-install-tabs primitive="autocomplete" />
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="mt-6 space-y-4">
@@ -148,6 +150,30 @@ export const routeMeta: RouteMeta = {
 					<spartan-autocomplete-disabled-preview />
 				</div>
 				<spartan-code secondTab [code]="_disabledCode()" />
+			</spartan-tabs>
+
+			<h3 id="examples__invalid" spartanH4>Invalid</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-autocomplete-invalid-preview />
+				</div>
+				<spartan-code secondTab [code]="_invalidCode()" />
+			</spartan-tabs>
+
+			<h3 id="examples__autohighlight" spartanH4>Auto highlight</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-autocomplete-autohighlight-preview />
+				</div>
+				<spartan-code secondTab [code]="_autohighlightCode()" />
+			</spartan-tabs>
+
+			<h3 id="examples__autohighlight_search" spartanH4>Auto highlight (search)</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-autocomplete-search-autohighlight-preview />
+				</div>
+				<spartan-code secondTab [code]="_searchAutohighlightCode()" />
 			</spartan-tabs>
 
 			<h3 id="examples__group" spartanH4>With Groups</h3>
@@ -238,6 +264,14 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_searchFormCode()" />
 			</spartan-tabs>
 
+			<spartan-header-rtl />
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanRtlCodePreview firstTab>
+					<spartan-autocomplete-rtl-preview />
+				</div>
+				<spartan-code secondTab [code]="_rtlCode()" />
+			</spartan-tabs>
+
 			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="brain" />
 
@@ -253,11 +287,19 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class AutocompletePage {
+	constructor() {
+		injectComponentDocs();
+	}
+
 	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('autocomplete');
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
 	protected readonly _searchCode = computed(() => this._snippets()['search']);
 	protected readonly _clearCode = computed(() => this._snippets()['clear']);
 	protected readonly _disabledCode = computed(() => this._snippets()['disabled']);
+	protected readonly _rtlCode = computed(() => this._snippets()['rtl']);
+	protected readonly _invalidCode = computed(() => this._snippets()['invalid']);
+	protected readonly _autohighlightCode = computed(() => this._snippets()['autohighlight']);
+	protected readonly _searchAutohighlightCode = computed(() => this._snippets()['searchAutohighlight']);
 	protected readonly _groupCode = computed(() => this._snippets()['group']);
 	protected readonly _groupSeparatorCode = computed(() => this._snippets()['groupSeparator']);
 	protected readonly _countriesCode = computed(() => this._snippets()['countries']);

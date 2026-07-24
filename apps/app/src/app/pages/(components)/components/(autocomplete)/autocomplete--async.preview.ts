@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, resource, signal } from '@angular/core';
-import { BrnPopoverContent } from '@spartan-ng/brain/popover';
 import { HlmAutocompleteImports } from '@spartan-ng/helm/autocomplete';
 import { HlmSpinnerImports } from '@spartan-ng/helm/spinner';
 
@@ -11,12 +10,12 @@ interface Movie {
 
 @Component({
 	selector: 'spartan-autocomplete-async-preview',
-	imports: [HlmAutocompleteImports, BrnPopoverContent, HlmSpinnerImports],
+	imports: [HlmAutocompleteImports, HlmSpinnerImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<hlm-autocomplete [(search)]="search" [itemToString]="itemToString">
 			<hlm-autocomplete-input placeholder="Search movies" />
-			<div *brnPopoverContent hlmAutocompleteContent>
+			<hlm-autocomplete-content *hlmAutocompletePortal>
 				<hlm-autocomplete-status class="justify-start">
 					@if (options.error(); as error) {
 						{{ error }}
@@ -44,7 +43,7 @@ interface Movie {
 						}
 					}
 				</div>
-			</div>
+			</hlm-autocomplete-content>
 		</hlm-autocomplete>
 	`,
 })
@@ -63,7 +62,7 @@ export class AutocompleteAsyncPreview {
 				return [];
 			}
 
-			return await this.searchMovies(search);
+			return await this.searchMovies(search.toLowerCase());
 		},
 	});
 
@@ -78,7 +77,9 @@ export class AutocompleteAsyncPreview {
 			throw new Error('Failed to fetch movies. Please try again.');
 		}
 
-		return this._top100Movies.filter((movie) => movie.title.includes(query) || movie.year.toString().includes(query));
+		return this._top100Movies.filter(
+			(movie) => movie.title.toLowerCase().includes(query) || movie.year.toString().includes(query),
+		);
 	}
 
 	private readonly _top100Movies: Movie[] = [

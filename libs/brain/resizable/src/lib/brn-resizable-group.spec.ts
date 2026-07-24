@@ -1,0 +1,311 @@
+import { Directionality } from '@angular/cdk/bidi';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
+import { render } from '@testing-library/angular';
+import type { MockInstance } from 'vitest';
+import { BrnResizableGroup } from './brn-resizable-group';
+import { BrnResizableHandle } from './brn-resizable-handle';
+import { BrnResizablePanel } from './brn-resizable-panel';
+
+@Component({
+	imports: [BrnResizableGroup, BrnResizablePanel, BrnResizableHandle],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<brn-resizable-group [(layout)]="layout">
+			<brn-resizable-panel />
+			<brn-resizable-handle />
+			<brn-resizable-panel />
+		</brn-resizable-group>
+	`,
+})
+class ResizableHost {
+	public readonly layout = signal<number[]>([50, 50]);
+}
+
+@Component({
+	imports: [BrnResizablePanel],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<brn-resizable-group>
+			<brn-resizable-panel [defaultSize]="25" />
+			<brn-resizable-panel [defaultSize]="75" />
+		</brn-resizable-group>
+	`,
+})
+class ResizableDefaultSize {}
+
+@Component({
+	imports: [BrnResizableGroup, BrnResizablePanel, BrnResizableHandle],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<brn-resizable-group direction="vertical" [(layout)]="layout">
+			@if (showStart()) {
+				<brn-resizable-panel />
+				<brn-resizable-handle />
+			}
+			<brn-resizable-panel [defaultSize]="40" />
+			<brn-resizable-handle />
+			@if (showMiddle()) {
+				<brn-resizable-panel />
+				<brn-resizable-handle />
+			}
+			<brn-resizable-panel [defaultSize]="60" />
+			@if (showEnd()) {
+				<brn-resizable-handle />
+				<brn-resizable-panel [defaultSize]="25" />
+			}
+		</brn-resizable-group>
+	`,
+})
+class DynamicResizableHost {
+	public readonly layout = signal<number[]>([10, 90]);
+	public readonly showStart = signal(false);
+	public readonly showMiddle = signal(false);
+	public readonly showEnd = signal(false);
+}
+
+describe('BrnResizableGroup', () => {
+	let rafSpy: MockInstance;
+
+	beforeEach(() => {
+		// Run the RAF-scheduled layout commit synchronously so the drag result is observable.
+		rafSpy = vi.spyOn(window, 'requestAnimationFrame').mockImplementation((cb: FrameRequestCallback) => (cb(0), 0));
+	});
+
+	afterEach(() => rafSpy.mockRestore());
+
+	const setup = async () => {
+		const view = await render(ResizableHost);
+		view.detectChanges();
+		const group = document.querySelector('[data-slot="resizable-panel-group"]') as HTMLElement;
+		// jsdom reports offsetWidth as 0; give the group a concrete width so deltas resolve to percentages.
+		Object.defineProperty(group, 'offsetWidth', { value: 200, configurable: true });
+		const handle = document.querySelector('brn-resizable-handle') as HTMLElement;
+		return { ...view, handle };
+	};
+
+	const dragRightBy = (handle: HTMLElement, px: number) => {
+		const at = (clientX: number) => ({ bubbles: true, cancelable: true, clientX, clientY: 0, button: 0 });
+		handle.dispatchEvent(new MouseEvent('mousedown', at(100)));
+		document.dispatchEvent(new MouseEvent('mousemove', at(100 + px)));
+		document.dispatchEvent(new MouseEvent('mouseup', at(100 + px)));
+	};
+
+	const firstPanelSize = () =>
+		Number(document.querySelector('[data-slot="resizable-panel"]')?.getAttribute('data-panel-size'));
+	const expectLayout = (actual: readonly number[], expected: readonly number[]) => {
+		expect(actual).toHaveLength(expected.length);
+		expected.forEach((size, index) => expect(actual[index]).toBeCloseTo(size));
+		expect(actual.reduce((total, size) => total + size, 0)).toBeCloseTo(100);
+	};
+
+	it('grows the first panel when dragging the handle right in LTR', async () => {
+		const { handle, detectChanges } = await setup();
+		TestBed.inject(Directionality).valueSignal.set('ltr');
+
+		dragRightBy(handle, 20); // +20px of 200px = +10%
+		detectChanges();
+
+		expect(firstPanelSize()).toBeGreaterThan(50);
+	});
+
+	it('shrinks the first panel when dragging right in RTL (delta mirrored)', async () => {
+		const { handle, detectChanges } = await setup();
+		TestBed.inject(Directionality).valueSignal.set('rtl');
+
+		dragRightBy(handle, 20);
+		detectChanges();
+
+		expect(firstPanelSize()).toBeLessThan(50);
+	});
+
+	it('detaches document listeners and restores the cursor when destroyed mid-drag', async () => {
+		const { handle, fixture } = await setup();
+		TestBed.inject(Directionality).valueSignal.set('ltr');
+
+		const at = (clientX: number) => ({ bubbles: true, cancelable: true, clientX, clientY: 0, button: 0 });
+
+		// begin a drag but never release the pointer
+		handle.dispatchEvent(new MouseEvent('mousedown', at(100)));
+		expect(document.body.style.cursor).toBe('ew-resize');
+
+		const removeSpy = vi.spyOn(document, 'removeEventListener');
+
+		// destroy the group while the drag is still active
+		fixture.destroy();
+
+		// every document listener is detached and the global cursor is restored
+		expect(document.body.style.cursor).toBe('default');
+		for (const type of ['mousemove', 'touchmove', 'mouseup', 'touchend', 'touchcancel']) {
+			expect(removeSpy).toHaveBeenCalledWith(type, expect.any(Function));
+		}
+
+		// a late move must not reach a torn-down handler
+		expect(() => document.dispatchEvent(new MouseEvent('mousemove', at(180)))).not.toThrow();
+
+		removeSpy.mockRestore();
+	});
+
+	it('ends the drag and restores the cursor when a touch is cancelled (touchcancel)', async () => {
+		const { handle } = await setup();
+		TestBed.inject(Directionality).valueSignal.set('ltr');
+
+		// begin a drag
+		handle.dispatchEvent(
+			new MouseEvent('mousedown', { bubbles: true, cancelable: true, clientX: 100, clientY: 0, button: 0 }),
+		);
+		expect(document.body.style.cursor).toBe('ew-resize');
+
+		// the system interrupts the touch: touchcancel fires instead of touchend
+		document.dispatchEvent(new Event('touchcancel', { bubbles: true }));
+
+		// the drag is torn down: cursor restored and listeners gone (a late move is a no-op)
+		expect(document.body.style.cursor).toBe('default');
+		expect(() =>
+			document.dispatchEvent(new MouseEvent('mousemove', { bubbles: true, clientX: 180, clientY: 0 })),
+		).not.toThrow();
+	});
+
+	it('initializes a panel added after the group has rendered', async () => {
+		const view = await render(DynamicResizableHost);
+		view.fixture.componentInstance.showEnd.set(true);
+		view.detectChanges();
+		await view.fixture.whenStable();
+
+		expectLayout(view.fixture.componentInstance.layout(), [30, 45, 25]);
+
+		const handles = view.container.querySelectorAll<HTMLElement>('brn-resizable-handle');
+		handles[1].dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true }));
+		view.detectChanges();
+
+		expectLayout(view.fixture.componentInstance.layout(), [30, 46, 24]);
+	});
+
+	it('keeps default sizes ahead of the initial layout values', async () => {
+		const view = await render(DynamicResizableHost);
+
+		expect(view.fixture.componentInstance.layout()).toEqual([40, 60]);
+	});
+
+	it('uses an equal share for a panel inserted at the beginning without a default size', async () => {
+		const view = await render(DynamicResizableHost);
+		view.fixture.componentInstance.showStart.set(true);
+		view.detectChanges();
+		await view.fixture.whenStable();
+
+		expectLayout(view.fixture.componentInstance.layout(), [100 / 3, (40 * 2) / 3, 40]);
+
+		const handles = view.container.querySelectorAll<HTMLElement>('brn-resizable-handle');
+		handles[1].dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true }));
+		view.detectChanges();
+
+		expectLayout(view.fixture.componentInstance.layout(), [100 / 3, (40 * 2) / 3 + 1, 39]);
+	});
+
+	it('uses an equal share for a panel inserted in the middle without a default size', async () => {
+		const view = await render(DynamicResizableHost);
+		view.fixture.componentInstance.showMiddle.set(true);
+		view.detectChanges();
+		await view.fixture.whenStable();
+
+		expectLayout(view.fixture.componentInstance.layout(), [(40 * 2) / 3, 100 / 3, 40]);
+	});
+
+	it('preserves surviving panel sizes when a dynamic panel is removed', async () => {
+		const view = await render(DynamicResizableHost);
+		view.fixture.componentInstance.showMiddle.set(true);
+		view.detectChanges();
+		await view.fixture.whenStable();
+		expectLayout(view.fixture.componentInstance.layout(), [(40 * 2) / 3, 100 / 3, 40]);
+
+		view.fixture.componentInstance.showMiddle.set(false);
+		view.detectChanges();
+		await view.fixture.whenStable();
+
+		expectLayout(view.fixture.componentInstance.layout(), [40, 60]);
+	});
+
+	it('preserves resized panel proportions when a new panel is added', async () => {
+		const view = await render(DynamicResizableHost);
+		const handle = view.container.querySelector<HTMLElement>('brn-resizable-handle') as HTMLElement;
+		handle.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true }));
+		view.detectChanges();
+		expect(view.fixture.componentInstance.layout()).toEqual([41, 59]);
+
+		view.fixture.componentInstance.showEnd.set(true);
+		view.detectChanges();
+		await view.fixture.whenStable();
+
+		expectLayout(view.fixture.componentInstance.layout(), [30.75, 44.25, 25]);
+	});
+
+	it('honors a complete external layout supplied with a panel insertion', async () => {
+		const view = await render(DynamicResizableHost);
+		view.fixture.componentInstance.showMiddle.set(true);
+		view.fixture.componentInstance.layout.set([20, 30, 50]);
+		view.detectChanges();
+		await view.fixture.whenStable();
+
+		expect(view.fixture.componentInstance.layout()).toEqual([20, 30, 50]);
+		expect(
+			Array.from(view.container.querySelectorAll('[data-slot="resizable-panel"]'), (panel) =>
+				Number(panel.getAttribute('data-panel-size')),
+			),
+		).toEqual([20, 30, 50]);
+	});
+
+	it('renders panels at their default sizes on the first paint (no 50/50 flash)', async () => {
+		// Mount panels against a stub group so the real BrnResizableGroup's afterRenderEffect
+		// never runs to setSize them. Whatever flex the panels emit here IS the first paint.
+		const view = await render(ResizableDefaultSize, {
+			providers: [
+				{
+					provide: BrnResizableGroup,
+					useValue: { id: signal('standalone-group'), direction: signal('horizontal') },
+				},
+			],
+		});
+		view.detectChanges();
+
+		const panels = Array.from(view.container.querySelectorAll<HTMLElement>('[data-slot="resizable-panel"]'));
+		// Chromium serializes the `0` flex-basis as `0px`; normalize so the assertion is portable.
+		const flexValues = panels.map((panel) => panel.style.flex.replace(/0px$/, '0'));
+		expect(flexValues).toEqual(['25 1 0', '75 1 0']);
+	});
+
+	it('is idempotent when re-applying the already-applied fractional layout (no NG0103 feedback)', async () => {
+		// A drag frame that computes the same percentages as the last one re-sets the model to a
+		// value that already equals the applied layout. Re-synchronizing must be a no-op: the
+		// proportional-rescale branch round-trips through x/total*100, which is not bit-identical for
+		// these fractions, and any drift feeds back into the model and can loop until Angular throws
+		// NG0103 in zoneless apps.
+		const fractional = [50.669642857142854, 49.330357142857146];
+		const view = await render(DynamicResizableHost);
+		view.fixture.componentInstance.layout.set([...fractional]);
+		view.detectChanges();
+		await view.fixture.whenStable();
+		expect(view.fixture.componentInstance.layout()).toEqual(fractional);
+
+		// Re-apply the identical percentages via a fresh array reference (a zero-velocity drag frame).
+		view.fixture.componentInstance.layout.set([...fractional]);
+		view.detectChanges();
+		await view.fixture.whenStable();
+
+		// No floating-point drift leaked back into the model.
+		expect(view.fixture.componentInstance.layout()).toEqual(fractional);
+	});
+
+	it('applies an external layout update without a panel membership change', async () => {
+		const view = await render(DynamicResizableHost);
+		view.fixture.componentInstance.layout.set([35, 65]);
+		view.detectChanges();
+		await view.fixture.whenStable();
+
+		expect(view.fixture.componentInstance.layout()).toEqual([35, 65]);
+		expect(
+			Array.from(view.container.querySelectorAll('[data-slot="resizable-panel"]'), (panel) =>
+				Number(panel.getAttribute('data-panel-size')),
+			),
+		).toEqual([35, 65]);
+	});
+});

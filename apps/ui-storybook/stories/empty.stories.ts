@@ -9,7 +9,7 @@ import {
 	HlmEmptyMedia,
 	HlmEmptyTitle,
 } from '@spartan-ng/helm/empty';
-import { HlmIcon } from '@spartan-ng/helm/icon';
+
 import type { Meta, StoryObj } from '@storybook/angular';
 import { moduleMetadata } from '@storybook/angular';
 
@@ -26,7 +26,7 @@ const meta: Meta<HlmEmpty> = {
 				HlmEmptyDescription,
 				HlmEmptyContent,
 				HlmEmptyMedia,
-				HlmIcon,
+
 				HlmButton,
 			],
 			providers: [provideIcons({ lucideInbox, lucideSearch, lucideWifi, lucideFileX })],

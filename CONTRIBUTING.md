@@ -40,7 +40,7 @@ pnpm run build
 
 ### Testing
 
-spartan uses [Jest](https://jestjs.io) for tests. To test all projects locally, run the following command from the root
+spartan uses [Vitest](https://vitest.dev) for tests. To test all projects locally, run the following command from the root
 folder:
 
 ```shell
@@ -202,7 +202,6 @@ The following is the list of supported scopes:
 - **dropdown-menu**
 - **empty**
 - **field**
-- **form-field**
 - **hover-card**
 - **icon**
 - **input**

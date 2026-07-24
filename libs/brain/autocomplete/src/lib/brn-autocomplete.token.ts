@@ -9,6 +9,8 @@ import {
 	type Type,
 	type ValueProvider,
 } from '@angular/core';
+import type { ControlState } from '@spartan-ng/brain/forms';
+import type { BrnAutocompleteInput } from './brn-autocomplete-input';
 import type { BrnAutocompleteItem } from './brn-autocomplete-item';
 
 export interface BrnAutocompleteBase<T> {
@@ -17,10 +19,11 @@ export interface BrnAutocompleteBase<T> {
 	disabled: Signal<boolean>;
 	disabledState: Signal<boolean>;
 	keyManager: ActiveDescendantKeyManager<BrnAutocompleteItem<T>>;
-	value: ModelSignal<T | null> | ModelSignal<string | null>;
+	value: ModelSignal<T | undefined | null> | ModelSignal<string | undefined | null>;
 	visibleItems: Signal<boolean>;
 	isExpanded: Signal<boolean>;
 	searchInputWrapperWidth: Signal<number | null>;
+	controlState: Signal<ControlState | null> | undefined;
 
 	updateSearch: (value: string) => void;
 	isSelected: (itemValue: T) => boolean;
@@ -29,6 +32,8 @@ export interface BrnAutocompleteBase<T> {
 	resetValue: () => void;
 	/** Select the active item with Enter key. */
 	selectActiveItem: () => void;
+	registerAutocompleteInput: (input: BrnAutocompleteInput<T>) => void;
+	updateInputWidth: (width: number | null) => void;
 }
 
 export const BrnAutocompleteBaseToken = new InjectionToken<BrnAutocompleteBase<unknown>>('BrnAutocompleteBaseToken');
@@ -42,18 +47,20 @@ export function injectBrnAutocompleteBase<T>(): BrnAutocompleteBase<T> {
 }
 
 // config
-export type AutocompleteItemEqualToValue<T> = (itemValue: T, selectedValue: T | null) => boolean;
+export type AutocompleteItemEqualToValue<T> = (itemValue: T, selectedValue: T | undefined | null) => boolean;
 export type AutocompleteItemToString<T> = (itemValue: T) => string;
 
 export interface BrnAutocompleteConfig<T> {
 	isItemEqualToValue: AutocompleteItemEqualToValue<T>;
 	itemToString?: AutocompleteItemToString<T>;
+	autoHighlight: boolean;
 }
 
 function getDefaultConfig<T>(): BrnAutocompleteConfig<T> {
 	return {
-		isItemEqualToValue: (itemValue: T, selectedValue: T | null) => Object.is(itemValue, selectedValue),
+		isItemEqualToValue: (itemValue: T, selectedValue: T | undefined | null) => Object.is(itemValue, selectedValue),
 		itemToString: undefined,
+		autoHighlight: false,
 	};
 }
 

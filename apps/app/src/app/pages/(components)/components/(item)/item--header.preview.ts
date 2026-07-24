@@ -1,17 +1,18 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { HlmItemImports } from '@spartan-ng/helm/item';
 
 @Component({
 	selector: 'spartan-item-header-preview',
 	imports: [HlmItemImports],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		class: 'flex w-full max-w-xl flex-col gap-6',
 	},
 	template: `
-		<div hlmItemGroup class="grid grid-cols-3 gap-4">
+		<hlm-item-group class="grid grid-cols-3 gap-4">
 			@for (model of _models; track model.name) {
-				<div hlmItem variant="outline">
-					<div hlmItemHeader>
+				<hlm-item variant="outline">
+					<hlm-item-header>
 						<img
 							[src]="model.image"
 							[alt]="model.name"
@@ -19,14 +20,14 @@ import { HlmItemImports } from '@spartan-ng/helm/item';
 							height="128"
 							class="aspect-square w-full rounded-sm object-cover"
 						/>
-					</div>
-					<div hlmItemContent>
-						<div hlmItemTitle>{{ model.name }}</div>
+					</hlm-item-header>
+					<hlm-item-content>
+						<hlm-item-title>{{ model.name }}</hlm-item-title>
 						<p hlmItemDescription>{{ model.description }}</p>
-					</div>
-				</div>
+					</hlm-item-content>
+				</hlm-item>
 			}
-		</div>
+		</hlm-item-group>
 	`,
 })
 export class ItemHeaderPreview {

@@ -14,7 +14,7 @@ async function getComponentRoutes(): Promise<PrerenderRoute[]> {
 	const componentRoutes = await glob('apps/app/src/app/pages/[(]components[)]/**/*.page.ts');
 
 	const routes = componentRoutes.map((route) => ({
-		route: removePatterns(route, [PAGES_ROOT, PAGE_EXTENSION, REMOVE_PARENTHESES_PATH_PATTERN]),
+		route: stripTrailingIndex(removePatterns(route, [PAGES_ROOT, PAGE_EXTENSION, REMOVE_PARENTHESES_PATH_PATTERN])),
 		staticData: true,
 	}));
 	return routes;
@@ -27,12 +27,29 @@ export async function getPrerenderedRoutes(staticRoutes: PrerenderRoute[] = []):
 		// Combine static routes with dynamically discovered component routes
 		const allRoutes = [...staticRoutes, ...componentRoutes];
 
-		return allRoutes;
+		// De-duplicate by route: e.g. the components layout and its index page both resolve to `/components`.
+		const seen = new Set<string>();
+		const deduped: PrerenderRoute[] = [];
+		for (const entry of allRoutes) {
+			const route = typeof entry === 'string' ? entry : entry.route;
+			if (seen.has(route)) continue;
+			seen.add(route);
+			deduped.push(entry);
+		}
+		return deduped;
 	} catch (error) {
 		console.error('Error discovering routes:', error);
 		// Return static routes only if there's an error
 		return staticRoutes;
 	}
+}
+
+/**
+ * Analog treats `index.page.ts` as its parent path, so a derived `/foo/index` route is really `/foo`.
+ * Strip a trailing `/index` segment (falling back to the root) to avoid prerendering a bogus URL.
+ */
+function stripTrailingIndex(route: string): string {
+	return route.replace(/\/index$/, '') || '/';
 }
 
 /**

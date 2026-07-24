@@ -3,7 +3,7 @@ import { Component, booleanAttribute, input } from '@angular/core';
 @Component({
 	selector: 'spartan-section-sub-heading',
 	host: {
-		class: 'block',
+		class: 'block scroll-mt-28',
 		'[class.-mt-12]': 'first()',
 	},
 	template: `

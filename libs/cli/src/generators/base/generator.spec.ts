@@ -1,43 +1,50 @@
 import { applicationGenerator, E2eTestRunner, UnitTestRunner } from '@nx/angular/generators';
 import type { Schema } from '@nx/angular/src/generators/library/schema';
-import { joinPathFragments, readJson, type Tree } from '@nx/devkit';
+import {
+	addDependenciesToPackageJson,
+	joinPathFragments,
+	readJson,
+	type Tree,
+	updateJson,
+	writeJson,
+} from '@nx/devkit';
 import { createTreeWithEmptyWorkspace } from '@nx/devkit/testing';
-import { hlmBaseGenerator } from './generator';
+import { dedupeEntrypointGlobs, hlmBaseGenerator } from './generator';
 import { singleLibName } from './lib/single-lib-name';
 
 // Mock buildDependencyArray and buildDevDependencyArray
-jest.mock('./lib/build-dependency-array', () => ({
-	buildDependencyArray: jest.fn().mockReturnValue({ '@angular/core': '^17.0.0' }),
-	buildDevDependencyArray: jest.fn().mockReturnValue({ '@types/node': '^20.0.0' }),
+vi.mock('./lib/build-dependency-array', () => ({
+	buildDependencyArray: vi.fn().mockReturnValue({ '@angular/core': '^17.0.0' }),
+	buildDevDependencyArray: vi.fn().mockReturnValue({ '@types/node': '^20.0.0' }),
 }));
 
 // Mock devkit and angular/generators
-jest.mock('enquirer');
-jest.mock('@nx/devkit', () => {
-	const original = jest.requireActual('@nx/devkit');
+vi.mock('enquirer');
+vi.mock('@nx/devkit', async (importOriginal) => {
+	const original = await importOriginal<typeof import('@nx/devkit')>();
 	return {
 		...original,
-		ensurePackage: (pkg: string) => jest.requireActual(pkg),
-		createProjectGraphAsync: jest.fn().mockResolvedValue({
+		ensurePackage: (pkg: string) => require(pkg),
+		createProjectGraphAsync: vi.fn().mockResolvedValue({
 			nodes: {},
 			dependencies: {},
 		}),
-		addDependenciesToPackageJson: jest.fn(original.addDependenciesToPackageJson),
+		addDependenciesToPackageJson: vi.fn(original.addDependenciesToPackageJson),
 	};
 });
-jest.mock('@nx/angular/generators', () => {
-	const original = jest.requireActual('@nx/angular/generators');
+vi.mock('@nx/angular/generators', async (importOriginal) => {
+	const original = await importOriginal<typeof import('@nx/angular/generators')>();
 	return {
 		...original,
-		libraryGenerator: jest.fn().mockImplementation(async (tree: Tree, schema: Schema) => {
+		libraryGenerator: vi.fn().mockImplementation(async (tree: Tree, schema: Schema) => {
 			const dirToCreateAndThenDelete = joinPathFragments(schema.directory as string, 'src', 'lib', schema.name);
 			tree.write(joinPathFragments(dirToCreateAndThenDelete, `dummy.ts`), '// Dummy file created by mock');
 		}),
 	};
 });
 
-// required because @angular/core is esm and jest doesn't handle esm well
-jest.mock('@angular/core', () => ({
+// Stub @angular/core down to its VERSION so the generator's Angular-version check is deterministic.
+vi.mock('@angular/core', () => ({
 	VERSION: {
 		major: 19,
 	},
@@ -98,8 +105,10 @@ describe('hlmBaseGenerator', () => {
 	});
 
 	it('should generate files correctly for a secondary entrypoint and buildable true', async () => {
-		jest.unmock('@nx/angular/generators'); // use real generator here
-		const { libraryGenerator } = require('@nx/angular/generators');
+		// Load the real generator for just this test; the file-level vi.mock stubs libraryGenerator.
+		// vi.importActual is test-scoped, unlike vi.unmock which is hoisted to the whole file.
+		const { libraryGenerator } =
+			await vi.importActual<typeof import('@nx/angular/generators')>('@nx/angular/generators');
 
 		const options = {
 			name: 'input',
@@ -131,9 +140,8 @@ describe('hlmBaseGenerator', () => {
 	});
 
 	it('should register the correct dependencies', async () => {
-		const { addDependenciesToPackageJson } = require('@nx/devkit');
 		const options = {
-			name: 'icon',
+			name: 'spinner',
 
 			directory: 'libs/test-ui',
 			buildable: false,
@@ -148,6 +156,79 @@ describe('hlmBaseGenerator', () => {
 			{ '@angular/core': '^17.0.0' },
 			{ '@types/node': '^20.0.0' },
 		);
+	});
+
+	it('adds the generated components source dirs to tsconfig.app.json include for angular-cli projects', async () => {
+		// Simulate an Angular CLI app layout: a root tsconfig.app.json that only includes `src`. The generated
+		// libs live under libs/test-ui (outside src), so without this they'd be orphaned in the editor.
+		writeJson(tree, 'tsconfig.app.json', { extends: './tsconfig.json', include: ['src/**/*.ts'] });
+
+		await hlmBaseGenerator(tree, {
+			name: 'button',
+			directory: 'libs/test-ui',
+			buildable: false,
+			generateAs: 'library' as const,
+			importAlias: '@spartan-ng/helm',
+			angularCli: true,
+		});
+
+		const tsconfigApp = readJson(tree, 'tsconfig.app.json');
+		expect(tsconfigApp.include).toContain('libs/test-ui/**/src/**/*.ts');
+		// keep the generated source files in the app project without pulling in specs/stories/helpers under libs/test-ui
+		expect(tsconfigApp.include).not.toContain('libs/test-ui/**/*.ts');
+		// the app's own src glob is preserved
+		expect(tsconfigApp.include).toContain('src/**/*.ts');
+	});
+
+	it('preserves implicit src coverage when tsconfig.app.json has no include key', async () => {
+		// A tsconfig.app.json with no `include` implicitly compiles every `.ts` under the config dir. Seeding
+		// the array with only the lib glob would drop the app's own `src` from the editor program, so the
+		// helper must restore the implicit `src` coverage alongside the generated libs.
+		writeJson(tree, 'tsconfig.app.json', { extends: './tsconfig.json', files: ['src/main.ts'] });
+
+		await hlmBaseGenerator(tree, {
+			name: 'button',
+			directory: 'libs/test-ui',
+			buildable: false,
+			generateAs: 'library' as const,
+			importAlias: '@spartan-ng/helm',
+			angularCli: true,
+		});
+
+		const tsconfigApp = readJson(tree, 'tsconfig.app.json');
+		expect(tsconfigApp.include).toContain('libs/test-ui/**/src/**/*.ts');
+		expect(tsconfigApp.include).toContain('src/**/*.ts');
+	});
+
+	it('does not duplicate the components include across multiple angular-cli generations', async () => {
+		writeJson(tree, 'tsconfig.app.json', { include: ['src/**/*.ts'] });
+		const base = {
+			directory: 'libs/test-ui',
+			buildable: false,
+			generateAs: 'library' as const,
+			importAlias: '@spartan-ng/helm',
+			angularCli: true,
+		};
+
+		await hlmBaseGenerator(tree, { ...base, name: 'button' });
+		await hlmBaseGenerator(tree, { ...base, name: 'card' });
+
+		const tsconfigApp = readJson(tree, 'tsconfig.app.json');
+		const globCount = tsconfigApp.include.filter((glob: string) => glob === 'libs/test-ui/**/src/**/*.ts').length;
+		expect(globCount).toBe(1);
+	});
+
+	it('leaves the workspace untouched when there is no tsconfig.app.json', async () => {
+		await hlmBaseGenerator(tree, {
+			name: 'button',
+			directory: 'libs/test-ui',
+			buildable: false,
+			generateAs: 'library' as const,
+			importAlias: '@spartan-ng/helm',
+			angularCli: true,
+		});
+
+		expect(tree.exists('tsconfig.app.json')).toBe(false);
 	});
 
 	it('should not duplicate paths in tsconfig.base.json on second run (idempotent)', async () => {
@@ -167,5 +248,117 @@ describe('hlmBaseGenerator', () => {
 		const tsconfigAfterSecondRun = readJson(tree, 'tsconfig.base.json');
 
 		expect(tsconfigAfterSecondRun.compilerOptions.paths).toEqual(tsconfigAfterFirstRun.compilerOptions.paths);
+	});
+
+	it('should not exponentially grow tsconfig.lib.json include/exclude across many buildable entrypoints', async () => {
+		// Regression test: nx's `librarySecondaryEntryPointGenerator` re-prefixes every existing
+		// include/exclude glob for each entrypoint, doubling the arrays each time. With enough
+		// primitives (e.g. `migrate-helm-libraries` -> "all") the JSON serialization eventually
+		// throws `RangeError: Invalid string length`. The generator must keep these arrays bounded.
+		const { libraryGenerator } =
+			await vi.importActual<typeof import('@nx/angular/generators')>('@nx/angular/generators');
+
+		const directory = 'libs/test-ui';
+		const importAlias = '@spartan-ng/helm';
+
+		await libraryGenerator(tree, {
+			buildable: true,
+			name: singleLibName,
+			importPath: importAlias,
+			directory,
+			skipTests: true,
+			unitTestRunner: UnitTestRunner.None,
+		});
+
+		// Seed include/exclude explicitly rather than relying on nx's library defaults: a recursive
+		// `**/*.ts` include (what `initializeAngularEntrypoint` adds) plus the standard spec/test excludes.
+		// This keeps the assertions about the normalized result independent of nx's default tsconfig.
+		updateJson(tree, joinPathFragments(directory, 'tsconfig.lib.json'), (json) => {
+			json.include = ['src/**/*.ts', '**/*.ts'];
+			json.exclude = ['src/**/*.spec.ts', 'src/**/*.test.ts'];
+			return json;
+		});
+
+		// 30+ primitives reproduces the failure: the doubling crosses the string-length ceiling.
+		const primitives = [
+			'accordion',
+			'alert',
+			'avatar',
+			'badge',
+			'button',
+			'card',
+			'checkbox',
+			'collapsible',
+			'command',
+			'dialog',
+			'input',
+			'kbd',
+			'label',
+			'menubar',
+			'pagination',
+			'popover',
+			'progress',
+			'scroll-area',
+			'select',
+			'separator',
+			'sheet',
+			'skeleton',
+			'slider',
+			'sonner',
+			'spinner',
+			'switch',
+			'table',
+			'tabs',
+			'textarea',
+			'toggle',
+			'tooltip',
+		];
+
+		for (const name of primitives) {
+			await hlmBaseGenerator(tree, {
+				name,
+				directory,
+				buildable: true,
+				generateAs: 'entrypoint' as const,
+				importAlias,
+			});
+		}
+
+		const tsconfig = readJson(tree, joinPathFragments(directory, 'tsconfig.lib.json'));
+		// A correct result is a small, constant-sized set of globs - never one entry per primitive.
+		expect(tsconfig.include.length).toBeLessThan(10);
+		expect(tsconfig.exclude.length).toBeLessThan(10);
+		// The recursive include still covers every entrypoint's sources...
+		expect(tsconfig.include).toContain('**/*.ts');
+		// ...and the recursive excludes still keep every entrypoint's specs/tests out of the build.
+		expect(tsconfig.exclude).toContain('**/*.spec.ts');
+		expect(tsconfig.exclude).toContain('**/*.test.ts');
+	});
+});
+
+describe('dedupeEntrypointGlobs', () => {
+	it('collapses entrypoint-prefixed variants to a single recursive glob', () => {
+		const include = ['src/**/*.ts', '**/*.ts', 'accordion/src/**/*.ts', 'accordion/**/*.ts', 'alert/**/*.ts'];
+		expect(dedupeEntrypointGlobs(include, ['**/*.ts'])).toEqual(['**/*.ts']);
+	});
+
+	it('only restores a recursive glob when a variant was present (no unconditional injection)', () => {
+		// exclude with no spec/test globs at all: must stay as-is, not gain `**/*.spec.ts`/`**/*.test.ts`.
+		expect(dedupeEntrypointGlobs(['jest.config.ts'], ['**/*.spec.ts', '**/*.test.ts'])).toEqual(['jest.config.ts']);
+		// only spec variants present -> only the spec recursive glob is restored, test is not injected.
+		expect(dedupeEntrypointGlobs(['src/**/*.spec.ts', 'jest.config.ts'], ['**/*.spec.ts', '**/*.test.ts'])).toEqual([
+			'jest.config.ts',
+			'**/*.spec.ts',
+		]);
+	});
+
+	it('does not rewrite flat custom globs (only recursive `/**/` sub-paths are collapsed)', () => {
+		// `*.ts` matches only the root and `tools/*.ts` only that folder; neither is an nx entrypoint
+		// variant (no `/**/`), so both are preserved rather than widened to `**/*.ts`.
+		expect(dedupeEntrypointGlobs(['*.ts'], ['**/*.ts'])).toEqual(['*.ts']);
+		expect(dedupeEntrypointGlobs(['tools/*.ts', 'accordion/src/**/*.ts'], ['**/*.ts'])).toEqual([
+			'tools/*.ts',
+			'**/*.ts',
+		]);
 	});
 });

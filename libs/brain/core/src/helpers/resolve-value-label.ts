@@ -1,12 +1,12 @@
 export function stringifyAsLabel(item: any, itemToStringLabel?: (item: any) => string) {
-	if (itemToStringLabel && item != null) {
+	if (itemToStringLabel && item !== null && item !== undefined) {
 		return itemToStringLabel(item) ?? '';
 	}
 	if (item && typeof item === 'object') {
-		if ('label' in item && item.label != null) {
+		if ('label' in item && item.label !== null && item.label !== undefined) {
 			return String(item.label);
 		}
-		if ('value' in item) {
+		if ('value' in item && item.value !== null && item.value !== undefined) {
 			return String(item.value);
 		}
 	}
@@ -14,7 +14,7 @@ export function stringifyAsLabel(item: any, itemToStringLabel?: (item: any) => s
 }
 
 export function serializeValue(value: unknown): string {
-	if (value == null) {
+	if (value === null || value === undefined) {
 		return '';
 	}
 	if (typeof value === 'string') {

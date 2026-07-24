@@ -1,0 +1,27 @@
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { lucideChevronDown } from '@ng-icons/lucide';
+import { BrnNavigationMenuTrigger } from '@spartan-ng/brain/navigation-menu';
+import { classes } from '@spartan-ng/helm/utils';
+
+@Component({
+	// eslint-disable-next-line @angular-eslint/component-selector
+	selector: 'button[hlmNavigationMenuTrigger]',
+	imports: [NgIcon],
+	providers: [provideIcons({ lucideChevronDown })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	hostDirectives: [{ directive: BrnNavigationMenuTrigger, inputs: ['align'] }],
+	host: { 'data-slot': 'navigation-menu-trigger' },
+	template: `
+		<ng-content />
+		<ng-icon name="lucideChevronDown" class="spartan-navigation-menu-trigger-icon" />
+	`,
+})
+export class HlmNavigationMenuTrigger {
+	constructor() {
+		classes(
+			() =>
+				'spartan-navigation-menu-trigger group/navigation-menu-trigger inline-flex h-9 w-max items-center justify-center outline-none disabled:pointer-events-none',
+		);
+	}
+}

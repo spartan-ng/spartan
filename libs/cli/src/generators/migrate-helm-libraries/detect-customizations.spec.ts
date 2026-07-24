@@ -53,6 +53,21 @@ describe('detect-customizations', () => {
 			const metadata = getMetadata(tree);
 			expect(metadata).toEqual({ libraries: {} });
 		});
+
+		it('should reject metadata without a valid libraries object', () => {
+			tree.write('.spartan/library-metadata.json', JSON.stringify({ libraries: null }));
+
+			expect(getMetadata(tree)).toEqual({ libraries: {} });
+		});
+
+		it('should add the metadata directory to gitignore exactly once', () => {
+			tree.write('.gitignore', 'node_modules\n');
+
+			saveMetadata(tree, { libraries: {} });
+			saveMetadata(tree, { libraries: {} });
+
+			expect(tree.read('.gitignore', 'utf-8')).toBe('node_modules\n.spartan/\n');
+		});
 	});
 
 	describe('generateLibraryMetadata', () => {
@@ -99,6 +114,14 @@ describe('detect-customizations', () => {
 
 			expect(metadata.version).toBe('1.0.0');
 			expect(metadata.files).toEqual({});
+		});
+
+		it('should track empty files', () => {
+			tree.write('libs/button/src/empty.ts', '');
+
+			const metadata = generateLibraryMetadata(tree, 'libs/button', '1.0.0');
+
+			expect(metadata.files['src/empty.ts']).toBeDefined();
 		});
 
 		it('should skip node_modules and .spartan directories', () => {

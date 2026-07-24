@@ -1,0 +1,16 @@
+import { Directive } from '@angular/core';
+import { BrnNavigationMenuLink } from '@spartan-ng/brain/navigation-menu';
+import { classes } from '@spartan-ng/helm/utils';
+
+@Directive({
+	selector: 'a[hlmNavigationMenuLink]',
+	hostDirectives: [{ directive: BrnNavigationMenuLink, inputs: ['active'] }],
+	host: {
+		'data-slot': 'navigation-menu-link',
+	},
+})
+export class HlmNavigationMenuLink {
+	constructor() {
+		classes(() => 'spartan-navigation-menu-link');
+	}
+}

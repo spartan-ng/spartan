@@ -1,16 +1,24 @@
 import type { BooleanInput } from '@angular/cdk/coercion';
+import type { ComponentType } from '@angular/cdk/portal';
 import { NgComponentOutlet } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
-import { provideIcons } from '@ng-icons/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideX } from '@ng-icons/lucide';
 import { BrnDialogRef, injectBrnDialogContext } from '@spartan-ng/brain/dialog';
-import { HlmIconImports } from '@spartan-ng/helm/icon';
+import { HlmButton } from '@spartan-ng/helm/button';
+
 import { classes } from '@spartan-ng/helm/utils';
 import { HlmDialogClose } from './hlm-dialog-close';
 
+type HlmDialogContentContext = {
+	$component?: ComponentType<unknown>;
+	$dynamicComponentClass?: string;
+	$showCloseButton?: boolean;
+};
+
 @Component({
 	selector: 'hlm-dialog-content',
-	imports: [NgComponentOutlet, HlmDialogClose, HlmIconImports],
+	imports: [NgComponentOutlet, HlmButton, HlmDialogClose, NgIcon],
 	providers: [provideIcons({ lucideX })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
@@ -25,18 +33,20 @@ import { HlmDialogClose } from './hlm-dialog-close';
 		}
 
 		@if (showCloseButton()) {
-			<button hlmDialogClose>
-				<span class="sr-only">Close</span>
-				<ng-icon hlm size="sm" name="lucideX" />
+			<button hlmBtn variant="ghost" size="icon-sm" class="spartan-dialog-close" hlmDialogClose>
+				<span class="sr-only">close</span>
+				<ng-icon name="lucideX" />
 			</button>
 		}
 	`,
 })
 export class HlmDialogContent {
 	private readonly _dialogRef = inject(BrnDialogRef);
-	private readonly _dialogContext = injectBrnDialogContext({ optional: true });
+	private readonly _dialogContext = injectBrnDialogContext<HlmDialogContentContext | null>({ optional: true });
 
-	public readonly showCloseButton = input<boolean, BooleanInput>(true, { transform: booleanAttribute });
+	public readonly showCloseButton = input<boolean, BooleanInput>(this._dialogContext?.$showCloseButton ?? true, {
+		transform: booleanAttribute,
+	});
 
 	public readonly state = computed(() => this._dialogRef?.state() ?? 'closed');
 
@@ -44,9 +54,6 @@ export class HlmDialogContent {
 	private readonly _dynamicComponentClass = this._dialogContext?.$dynamicComponentClass;
 
 	constructor() {
-		classes(() => [
-			'bg-background data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 relative z-50 mx-auto grid w-full max-w-[calc(100%-2rem)] gap-4 rounded-lg border p-6 shadow-lg data-[state=closed]:duration-200 data-[state=open]:duration-200 sm:mx-0 sm:max-w-lg',
-			this._dynamicComponentClass,
-		]);
+		classes(() => ['spartan-dialog-content relative mx-auto w-full outline-none sm:mx-0', this._dynamicComponentClass]);
 	}
 }

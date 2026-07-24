@@ -1,45 +1,43 @@
-import { Component } from '@angular/core';
-import { provideIcons } from '@ng-icons/core';
-import { lucideCross } from '@ng-icons/lucide';
-import { BrnSheetImports } from '@spartan-ng/brain/sheet';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
-
-import { HlmInputImports } from '@spartan-ng/helm/input';
-import { HlmLabelImports } from '@spartan-ng/helm/label';
 import { HlmSheetImports } from '@spartan-ng/helm/sheet';
 
 @Component({
 	selector: 'spartan-sheet-side-preview',
-	imports: [BrnSheetImports, HlmSheetImports, HlmButtonImports, HlmInputImports, HlmLabelImports],
-	providers: [provideIcons({ lucideCross })],
+	imports: [HlmSheetImports, HlmButtonImports],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<hlm-sheet>
-			<div class="grid grid-cols-2 gap-2">
-				<button id="left" hlmSheetTrigger side="left" hlmBtn variant="outline">left</button>
-				<button id="right" hlmSheetTrigger side="right" hlmBtn variant="outline">right</button>
-				<button id="top" hlmSheetTrigger side="top" hlmBtn variant="outline">top</button>
-				<button id="bottom" hlmSheetTrigger side="bottom" hlmBtn variant="outline">bottom</button>
+			<div class="flex flex-wrap gap-2">
+				<button id="top" hlmSheetTrigger side="top" hlmBtn variant="outline">Top</button>
+				<button id="right" hlmSheetTrigger side="right" hlmBtn variant="outline">Right</button>
+				<button id="bottom" hlmSheetTrigger side="bottom" hlmBtn variant="outline">Bottom</button>
+				<button id="left" hlmSheetTrigger side="left" hlmBtn variant="outline">Left</button>
 			</div>
-			<hlm-sheet-content *brnSheetContent="let ctx">
+			<hlm-sheet-content *hlmSheetPortal="let ctx" class="data-[side=bottom]:max-h-[50vh] data-[side=top]:max-h-[50vh]">
 				<hlm-sheet-header>
-					<h3 hlmSheetTitle>Edit Profile</h3>
+					<h3 hlmSheetTitle>Edit profile</h3>
 					<p hlmSheetDescription>Make changes to your profile here. Click save when you're done.</p>
 				</hlm-sheet-header>
-				<div class="grid flex-1 auto-rows-min gap-6 px-4">
-					<div class="grid gap-3">
-						<label hlmLabel for="name" class="text-right">Name</label>
-						<input hlmInput id="name" value="Pedro Duarte" class="col-span-3" />
-					</div>
-					<div class="grid gap-3">
-						<label hlmLabel for="username" class="text-right">Username</label>
-						<input hlmInput id="username" value="@peduarte" class="col-span-3" />
-					</div>
+				<div class="no-scrollbar overflow-y-auto px-4">
+					@for (item of _items; track item) {
+						<p class="mb-4 leading-normal">
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et
+							dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+							ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+							fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+							mollit anim id est laborum.
+						</p>
+					}
 				</div>
 				<hlm-sheet-footer>
-					<button hlmBtn type="submit">Save Changes</button>
+					<button hlmBtn>Save changes</button>
+					<button hlmBtn variant="outline" hlmSheetClose>Cancel</button>
 				</hlm-sheet-footer>
 			</hlm-sheet-content>
 		</hlm-sheet>
 	`,
 })
-export class SheetSidePreview {}
+export class SheetSidePreview {
+	protected readonly _items = Array.from({ length: 10 }, (_, i) => i + 1);
+}

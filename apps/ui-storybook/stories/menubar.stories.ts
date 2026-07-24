@@ -2,7 +2,7 @@ import { NgIcon } from '@ng-icons/core';
 
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
-import { HlmIcon } from '@spartan-ng/helm/icon';
+
 import { HlmMenubar, HlmMenubarImports } from '@spartan-ng/helm/menubar';
 import { argsToTemplate, type Meta, moduleMetadata, type StoryObj } from '@storybook/angular';
 
@@ -12,7 +12,7 @@ const meta: Meta<HlmMenubar> = {
 	tags: ['autodocs'],
 	decorators: [
 		moduleMetadata({
-			imports: [HlmMenubarImports, HlmDropdownMenuImports, HlmButton, NgIcon, HlmIcon],
+			imports: [HlmMenubarImports, HlmDropdownMenuImports, HlmButton, NgIcon],
 		}),
 	],
 };
@@ -48,7 +48,7 @@ export const Default: Story = {
 
         <hlm-dropdown-menu-separator />
 
-        <button hlmDropdownMenuItem [hlmDropdownMenuTrigger]='share'>
+        <button hlmDropdownMenuItem [hlmDropdownMenuSubTrigger]='share'>
           Share
           <hlm-dropdown-menu-item-sub-indicator />
         </button>
@@ -91,7 +91,7 @@ export const Default: Story = {
 
         <hlm-dropdown-menu-separator />
 
-        <button hlmDropdownMenuItem [hlmDropdownMenuTrigger]='find'>
+        <button hlmDropdownMenuItem [hlmDropdownMenuSubTrigger]='share'>
           Share
           <hlm-dropdown-menu-item-sub-indicator />
         </button>
@@ -104,7 +104,7 @@ export const Default: Story = {
 
       </hlm-dropdown-menu>
     </ng-template>
-    <ng-template #find>
+    <ng-template #share>
       <hlm-dropdown-menu-sub>
         <button hlmDropdownMenuItem>
           Search the web

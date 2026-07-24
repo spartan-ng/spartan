@@ -1,7 +1,5 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component } from '@angular/core';
-import { provideIcons } from '@ng-icons/core';
-import { lucideTriangleAlert } from '@ng-icons/lucide';
 import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
 import { MainSection } from '../../../../shared/layout/main-section';
 import { PackageInstallerTabs } from '../../../../shared/layout/package-installer-tabs';
@@ -31,7 +29,6 @@ export const routeMeta: RouteMeta = {
 		TabsCli,
 		PackageInstallerTabs,
 	],
-	providers: [provideIcons({ lucideTriangleAlert })],
 	template: `
 		<section spartanMainSection>
 			<spartan-section-intro name="CLI" lead="Add accessible UI primitives to any Angular project with one command." />
@@ -70,6 +67,26 @@ export const routeMeta: RouteMeta = {
 			<p class="${hlmP}">
 				You'll be prompted to select components to add - choose individual components or all of them. The CLI takes care
 				of the rest.
+			</p>
+
+			<spartan-section-sub-heading id="inspect-project">Inspect Your Project</spartan-section-sub-heading>
+			<p class="${hlmP}">
+				Print a read-only summary of your spartan setup - the
+				<code class="${hlmCode}">components.json</code>
+				config, package versions, detected icon library and styles file, and which components are installed versus
+				available:
+			</p>
+			<spartan-cli-tabs
+				class="mt-4"
+				nxCode="npx nx g @spartan-ng/cli:info --json"
+				ngCode="ng g @spartan-ng/cli:info --json"
+			/>
+			<p class="${hlmP}">
+				Add
+				<code class="${hlmCode}">--json</code>
+				for machine-readable output. This is what the
+				<a href="/documentation/skills" class="${hlmCode} underline">spartan agent skill</a>
+				uses to gather project context.
 			</p>
 
 			<spartan-section-sub-heading id="what-happens">What the CLI Does</spartan-section-sub-heading>
@@ -132,7 +149,7 @@ export const routeMeta: RouteMeta = {
 			</ol>
 
 			<spartan-page-bottom-nav>
-				<spartan-page-bottom-nav-link href="typography" label="Typography" />
+				<spartan-page-bottom-nav-link href="rtl" label="RTL" />
 				<spartan-page-bottom-nav-link direction="previous" href="dark-mode" label="Dark Mode" />
 			</spartan-page-bottom-nav>
 		</section>

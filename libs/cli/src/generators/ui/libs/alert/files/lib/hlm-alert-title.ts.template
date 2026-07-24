@@ -3,9 +3,12 @@ import { classes } from '<%- importAlias %>/utils';
 
 @Directive({
 	selector: '[hlmAlertTitle]',
+	host: {
+		'data-slot': 'alert-title',
+	},
 })
 export class HlmAlertTitle {
 	constructor() {
-		classes(() => 'col-start-2 line-clamp-1 min-h-4 font-medium tracking-tight');
+		classes(() => 'spartan-alert-title [&_a]:hover:text-foreground [&_a]:underline [&_a]:underline-offset-3');
 	}
 }

@@ -8,6 +8,7 @@ export type BrnCollapsibleState = 'open' | 'closed';
 
 @Directive({
 	selector: '[brnCollapsible],brn-collapsible',
+	exportAs: 'brnCollapsible',
 	providers: [provideBrnCollapsible(BrnCollapsible)],
 	host: {
 		'[attr.data-state]': 'state()',

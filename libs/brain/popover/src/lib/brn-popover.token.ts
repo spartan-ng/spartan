@@ -1,4 +1,5 @@
-import { InjectionToken, type ValueProvider, inject } from '@angular/core';
+import { inject, InjectionToken, type ValueProvider } from '@angular/core';
+import { type BrnOverlayDefaultOptions, defaultOptions as overlayDefaultOptions } from '@spartan-ng/brain/overlay';
 
 export type BrnPopoverAlign = 'start' | 'center' | 'end';
 
@@ -22,4 +23,29 @@ export function provideBrnPopoverConfig(config: Partial<BrnPopoverConfig>): Valu
 
 export function injectBrnPopoverConfig(): BrnPopoverConfig {
 	return inject(BrnPopoverConfigToken, { optional: true }) ?? defaultConfig;
+}
+
+export const BRN_POPOVER_OVERLAY_DEFAULT_OPTIONS: BrnOverlayDefaultOptions = {
+	...overlayDefaultOptions,
+	autoFocus: true,
+	closeOnOutsidePointerEvents: true,
+	hasBackdrop: false,
+	role: 'dialog',
+	scrollStrategy: 'reposition',
+};
+
+const BRN_POPOVER_DEFAULT_OPTIONS = new InjectionToken<BrnOverlayDefaultOptions>('brn-popover-default-options', {
+	providedIn: 'root',
+	factory: () => BRN_POPOVER_OVERLAY_DEFAULT_OPTIONS,
+});
+
+export function provideBrnPopoverDefaultOptions(options: Partial<BrnOverlayDefaultOptions>): ValueProvider {
+	return {
+		provide: BRN_POPOVER_DEFAULT_OPTIONS,
+		useValue: { ...BRN_POPOVER_OVERLAY_DEFAULT_OPTIONS, ...options },
+	};
+}
+
+export function injectBrnPopoverDefaultOptions(): BrnOverlayDefaultOptions {
+	return inject(BRN_POPOVER_DEFAULT_OPTIONS, { optional: true }) ?? BRN_POPOVER_OVERLAY_DEFAULT_OPTIONS;
 }

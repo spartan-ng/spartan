@@ -12,7 +12,7 @@ import { UIApiDocsTable } from '../ui-api-docs-table/ui-api-docs-table';
 	selector: 'spartan-ui-api-docs',
 	imports: [UIApiDocsTable, SectionSubSubHeading],
 	host: {
-		class: 'block ',
+		class: 'block [content-visibility:auto] [contain-intrinsic-size:auto_600px]',
 	},
 	template: `
 		@if (_componentDocs() && _componentEntries() && _componentEntries().length > 0) {
@@ -79,6 +79,8 @@ export class UIApiDocs {
 
 		const transformed: any = {};
 		for (const [key, value] of Object.entries(items)) {
+			const existingOutputNames = new Set((value.outputs ?? []).map((o: any) => o?.name));
+
 			// Transform inputs to include models
 			const transformedInputs = [
 				...(value.inputs?.map((input: any) => ({
@@ -91,18 +93,20 @@ export class UIApiDocs {
 				})) || []),
 			];
 
-			// Transform outputs to include models with "Changed" suffix
+			// Transform outputs to include models with "Change" suffix
 			const transformedOutputs = [
 				...(value.outputs?.map((output: any) => ({
 					...output,
 					name: output.required ? `${output.name}<span class="text-destructive">*</span> (required)` : output.name,
 				})) || []),
-				...(value.models?.map((model: any) => ({
-					...model,
-					name: model.required
-						? `${model.name}Changed<span class="text-destructive">*</span> (required)`
-						: `${model.name}Changed`,
-				})) || []),
+				...(value.models
+					?.filter((model: any) => !existingOutputNames.has(`${model.name}Change`))
+					.map((model: any) => ({
+						...model,
+						name: model.required
+							? `${model.name}Change<span class="text-destructive">*</span> (required)`
+							: `${model.name}Change`,
+					})) || []),
 			];
 
 			transformed[key] = {

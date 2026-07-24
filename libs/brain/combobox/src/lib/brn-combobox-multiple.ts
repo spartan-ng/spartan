@@ -1,33 +1,39 @@
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import type { BooleanInput } from '@angular/cdk/coercion';
 import {
+	afterNextRender,
 	booleanAttribute,
 	computed,
 	contentChild,
 	contentChildren,
 	Directive,
-	ElementRef,
+	effect,
 	forwardRef,
 	inject,
 	Injector,
 	input,
 	linkedSignal,
 	model,
+	signal,
+	untracked,
 } from '@angular/core';
-import { NG_VALUE_ACCESSOR, type ControlValueAccessor } from '@angular/forms';
-import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
+import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { BrnFieldControl, provideBrnLabelable } from '@spartan-ng/brain/field';
+import { type ChangeFn, type TouchFn } from '@spartan-ng/brain/forms';
 import { BrnPopover } from '@spartan-ng/brain/popover';
-import { BrnComboboxInputWrapper } from './brn-combobox-input-wrapper';
+import { BrnComboboxChipInput } from './brn-combobox-chip-input';
+import { BrnComboboxContent } from './brn-combobox-content';
 import { type BrnComboboxItem } from './brn-combobox-item';
 import { BrnComboboxItemToken } from './brn-combobox-item.token';
 import {
-	injectBrnComboboxConfig,
-	provideBrnComboboxBase,
 	type BrnComboboxBase,
 	type ComboboxFilter,
 	type ComboboxFilterOptions,
+	ComboboxInputMode,
 	type ComboboxItemEqualToValue,
 	type ComboboxItemToString,
+	injectBrnComboboxConfig,
+	provideBrnComboboxBase,
 } from './brn-combobox.token';
 
 export const BRN_COMBOBOX_MULTIPLE_VALUE_ACCESSOR = {
@@ -38,15 +44,26 @@ export const BRN_COMBOBOX_MULTIPLE_VALUE_ACCESSOR = {
 
 @Directive({
 	selector: '[brnCombobox]',
-	providers: [provideBrnComboboxBase(BrnComboboxMultiple), BRN_COMBOBOX_MULTIPLE_VALUE_ACCESSOR],
+	providers: [
+		BRN_COMBOBOX_MULTIPLE_VALUE_ACCESSOR,
+		provideBrnComboboxBase(BrnComboboxMultiple),
+		provideBrnLabelable(BrnComboboxMultiple),
+	],
+	hostDirectives: [BrnFieldControl],
+	host: {
+		'(focusout)': '_onFocusOut($event)',
+	},
 })
 export class BrnComboboxMultiple<T> implements BrnComboboxBase<T>, ControlValueAccessor {
 	private readonly _injector = inject(Injector);
+	private readonly _fieldControl = inject(BrnFieldControl, { optional: true });
 
 	private readonly _config = injectBrnComboboxConfig<T>();
 
 	/** Access the popover if present */
 	private readonly _brnPopover = inject(BrnPopover, { optional: true });
+
+	public readonly controlState = this._fieldControl?.controlState;
 
 	/** Whether the combobox is disabled */
 	public readonly disabled = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
@@ -75,23 +92,46 @@ export class BrnComboboxMultiple<T> implements BrnComboboxBase<T>, ControlValueA
 	/** A custom filter function to use when searching. */
 	public readonly filter = input<ComboboxFilter<T>>(this._config.filter);
 
+	/** Whether to auto-highlight the first matching item. */
+	public readonly autoHighlight = input<boolean, BooleanInput>(this._config.autoHighlight, {
+		transform: booleanAttribute,
+	});
+
+	/** Whether to reset the search and close the popover after selecting an item when the search is active. */
+	public readonly closeOnSelect = input<boolean, BooleanInput>(this._config.closeOnSelect, {
+		transform: booleanAttribute,
+	});
+
 	/** The selected values of the combobox. */
-	public readonly value = model<T[] | null>(null);
+	public readonly value = model<T[] | undefined | null>(null);
+
+	/**
+	 * Determines whether a value is present (i.e., has been selected).
+	 * Considers `undefined`, `null`, and empty string as "not present".
+	 * Used to validate an item value on Enter key selection.
+	 */
+	public readonly isValuePresent = input<(value: T | undefined | null) => boolean>(this._config.isSingleValuePresent);
+
+	public readonly hasValue = computed(() => {
+		const value = this.value();
+		if (value === null || value === undefined) return false;
+		return value.length > 0;
+	});
 
 	/** The current search query. */
 	public readonly search = model<string>('');
 
-	private readonly _searchInputWrapper = contentChild(BrnComboboxInputWrapper, {
-		read: ElementRef,
-	});
+	private readonly _inputWidth = signal<number | null>(null);
 
-	public readonly searchInputWrapperWidth = computed<number | null>(() => {
-		const inputElement = this._searchInputWrapper()?.nativeElement;
-		return inputElement ? (inputElement.offsetWidth as number) : null;
-	});
+	/** @internal The width of the search input wrapper */
+	public readonly searchInputWrapperWidth = this._inputWidth.asReadonly();
 
 	/** @internal Access all the items within the combobox */
 	public readonly items = contentChildren<BrnComboboxItem<T>>(BrnComboboxItemToken, {
+		descendants: true,
+	});
+
+	private readonly _content = contentChild<BrnComboboxContent>(BrnComboboxContent, {
 		descendants: true,
 	});
 
@@ -104,7 +144,13 @@ export class BrnComboboxMultiple<T> implements BrnComboboxBase<T>, ControlValueA
 	/** @internal Whether the autocomplete is expanded */
 	public readonly isExpanded = computed(() => this._brnPopover?.stateComputed() === 'open');
 
-	protected _onChange?: ChangeFn<T[] | null>;
+	private readonly _comboboxChipInput = signal<BrnComboboxChipInput<T> | undefined>(undefined);
+
+	public readonly mode = signal<ComboboxInputMode>('combobox').asReadonly();
+
+	public readonly labelableId = computed(() => this._comboboxChipInput()?.id());
+
+	protected _onChange?: ChangeFn<T[] | undefined | null>;
 	protected _onTouched?: TouchFn;
 
 	constructor() {
@@ -118,6 +164,33 @@ export class BrnComboboxMultiple<T> implements BrnComboboxBase<T>, ControlValueA
 			this.search.set('');
 			this.keyManager.setActiveItem(-1);
 		});
+
+		afterNextRender(() => {
+			effect(
+				() => {
+					if (!this.autoHighlight() || !this.isExpanded() || !this.search()) return;
+
+					const hasVisibleItems = this.visibleItems();
+
+					untracked(() => {
+						if (hasVisibleItems) {
+							this.keyManager.setFirstItemActive();
+						} else {
+							this.keyManager.setActiveItem(-1);
+						}
+					});
+				},
+				{ injector: this._injector },
+			);
+		});
+	}
+
+	public registerComboboxChipInput(input: BrnComboboxChipInput<T>): void {
+		this._comboboxChipInput.set(input);
+	}
+
+	public updateInputWidth(width: number | null): void {
+		this._inputWidth.set(width);
 	}
 
 	public isSelected(itemValue: T): boolean {
@@ -132,7 +205,7 @@ export class BrnComboboxMultiple<T> implements BrnComboboxBase<T>, ControlValueA
 			this.value.set([...selected, itemValue]);
 		}
 
-		if (this.search() !== '') {
+		if (this.closeOnSelect() && this.search() !== '') {
 			// reset search after selection and close popover
 			this.search.set('');
 			this.close();
@@ -147,14 +220,20 @@ export class BrnComboboxMultiple<T> implements BrnComboboxBase<T>, ControlValueA
 
 		const value = this.keyManager.activeItem?.value();
 
-		if (value === undefined) return;
-
-		this.select(value);
+		if (this.isValuePresent()(value)) {
+			this.select(value as T);
+		} else {
+			this.close();
+		}
 	}
 
 	public resetValue(): void {
 		this.value.set(null);
 		this._onChange?.(null);
+	}
+
+	public resetSearch(): void {
+		this.search.set('');
 	}
 
 	public removeValue(itemValue: T): void {
@@ -168,8 +247,7 @@ export class BrnComboboxMultiple<T> implements BrnComboboxBase<T>, ControlValueA
 		const selected = this.value() ?? [];
 		if (selected.length === 0) return;
 
-		selected.pop();
-		this.value.set([...selected]);
+		this.value.set(selected.slice(0, -1));
 		this._onChange?.(this.value());
 	}
 
@@ -179,6 +257,19 @@ export class BrnComboboxMultiple<T> implements BrnComboboxBase<T>, ControlValueA
 		this._brnPopover?.open();
 	}
 
+	protected _onFocusOut(event: FocusEvent): void {
+		const currentTarget = event.currentTarget as HTMLElement;
+		const focusedEl = event.relatedTarget as HTMLElement | null;
+		const contentEl = this._content()?.el.nativeElement;
+
+		if (!currentTarget.contains(focusedEl) && !contentEl?.contains(focusedEl)) {
+			if (this.isExpanded()) {
+				this._brnPopover?.close();
+			}
+			this._onTouched?.();
+		}
+	}
+
 	private close(): void {
 		if (this._disabled() || !this.isExpanded()) return;
 
@@ -186,11 +277,11 @@ export class BrnComboboxMultiple<T> implements BrnComboboxBase<T>, ControlValueA
 	}
 
 	/** CONTROL VALUE ACCESSOR */
-	public writeValue(value: T[] | null): void {
+	public writeValue(value: T[] | undefined | null): void {
 		this.value.set(value);
 	}
 
-	public registerOnChange(fn: ChangeFn<T[] | null>): void {
+	public registerOnChange(fn: ChangeFn<T[] | undefined | null>): void {
 		this._onChange = fn;
 	}
 

@@ -20,7 +20,7 @@ export const routeMeta: RouteMeta = {
 	title: 'spartan/ui - Components',
 };
 @Component({
-	selector: 'spartan-input',
+	selector: 'spartan-components-page',
 	imports: [
 		MainSection,
 		SectionIntro,
@@ -38,9 +38,7 @@ export const routeMeta: RouteMeta = {
 				lead="Here you can find all the components available in the library. We are working on adding more components."
 			/>
 
-			<div
-				class="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 md:gap-x-8 lg:gap-x-16 lg:gap-y-6 xl:gap-x-20"
-			>
+			<div class="mt-12 grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-x-8 lg:gap-x-16 lg:gap-y-6 xl:gap-x-20">
 				@for (component of _components; track component.url) {
 					<a
 						class="inline-flex items-center gap-2 text-lg font-medium underline-offset-4 hover:underline md:text-base"
@@ -67,6 +65,6 @@ export const routeMeta: RouteMeta = {
 		<spartan-page-nav />
 	`,
 })
-export default class TogglePage {
+export default class ComponentsPage {
 	protected readonly _components = components;
 }

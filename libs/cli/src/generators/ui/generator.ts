@@ -1,12 +1,17 @@
-import { type GeneratorCallback, getProjects, readJson, runTasksInSerial, type Tree } from '@nx/devkit';
+import { type GeneratorCallback, getProjects, runTasksInSerial, type Tree } from '@nx/devkit';
+
 import { prompt } from 'enquirer';
-import { dirname } from 'path';
-import { type Config, getOrCreateConfig } from '../../utils/config';
-import { readTsConfigPathsFromTree } from '../../utils/tsconfig';
+import { backfillStyleInComponentsJson, type Config, loadOrInitConfig } from '../../utils/config';
+import type { Style } from '../../utils/supported-styles';
 import type { GenerateAs } from '../base/lib/generate-as';
 import { initializeAngularEntrypoint } from '../base/lib/initialize-angular-library';
 import { singleLibName } from '../base/lib/single-lib-name';
 import type { HlmBaseGeneratorSchema } from '../base/schema';
+import {
+	getCurrentCliVersion,
+	getLibraryPathFromPrimitive,
+	updateLibraryMetadata,
+} from '../migrate-helm-libraries/detect-customizations';
 import { addDependentPrimitives } from './add-dependent-primitive';
 import type { Primitive } from './primitives';
 import type { HlmUIGeneratorSchema } from './schema';
@@ -15,9 +20,10 @@ type PrimitiveResponse = Primitive | 'all';
 
 export default async function hlmUIGenerator(tree: Tree, options: HlmUIGeneratorSchema & { angularCli?: boolean }) {
 	const tasks: GeneratorCallback[] = [];
-	const config = await getOrCreateConfig(tree, {
+	await backfillStyleInComponentsJson(tree);
+	const config = await loadOrInitConfig(tree, {
 		componentsPath: options.directory,
-		angularCli: options.angularCli,
+		angularCli: options.angularCli ?? true,
 	});
 
 	const availablePrimitives: PrimitiveDefinitions = await import('./supported-ui-libraries.json').then(
@@ -60,11 +66,14 @@ export async function createPrimitiveLibraries(
 		buildable?: boolean;
 		generateAs?: GenerateAs;
 		importAlias?: string;
+		style?: Style;
 	},
 	config: Config,
 ) {
 	const allPrimitivesSelected = response.primitives.includes('all');
-	const primitivesToCreate = allPrimitivesSelected ? availablePrimitiveNames : response.primitives;
+	const primitivesToCreate: Primitive[] = allPrimitivesSelected
+		? [...availablePrimitiveNames]
+		: response.primitives.filter((primitive): primitive is Primitive => primitive !== 'all');
 	const tasks: GeneratorCallback[] = [];
 	const installPeerDependencies =
 		options.installPeerDependencies === undefined
@@ -77,6 +86,17 @@ export async function createPrimitiveLibraries(
 		await addDependentPrimitives(primitivesToCreate, false);
 	}
 
+	const importAlias = options.importAlias ?? config.importAlias ?? '@spartan-ng/helm';
+	// Never establish a new baseline for an already installed library: doing so would hide existing customizations.
+	const primitivesToTrack = primitivesToCreate.filter((primitive) => {
+		try {
+			getLibraryPathFromPrimitive(tree, primitive, importAlias);
+			return false;
+		} catch {
+			return true;
+		}
+	});
+
 	const projects = getProjects(tree);
 
 	if (
@@ -88,8 +108,9 @@ export async function createPrimitiveLibraries(
 		const task = await initializeAngularEntrypoint(tree, {
 			tags: options.tags,
 			directory: options.directory ?? config.componentsPath,
-			buildable: config.buildable,
+			buildable: config.buildable ?? true,
 			importAlias: config.importAlias,
+			style: config.style,
 		});
 		tasks.push(task);
 	}
@@ -99,7 +120,8 @@ export async function createPrimitiveLibraries(
 		primitivesToCreate.map(async (primitiveName) => {
 			const name = availablePrimitives[primitiveName].name;
 			const peerDependencies = removeHelmKeys(availablePrimitives[primitiveName].peerDependencies);
-			const { generator } = await import(`./libs/${name}/generator`);
+			// @vite-ignore - resolved at runtime by Node; Vite must not try to statically bundle this.
+			const { generator } = await import(/* @vite-ignore */ `./libs/${name}/generator`);
 
 			return generator(tree, {
 				name: '',
@@ -108,92 +130,27 @@ export async function createPrimitiveLibraries(
 				tags: options.tags,
 				rootProject: options.rootProject,
 				angularCli: options.angularCli,
-				buildable: options.buildable ?? config.buildable,
+				buildable: options.buildable ?? config.buildable ?? true,
 				generateAs: options.generateAs ?? config.generateAs ?? 'library',
 				importAlias: options.importAlias ?? config.importAlias ?? `@spartan-ng/helm`,
+				style: options.style ?? config.style,
 			} satisfies HlmBaseGeneratorSchema);
 		}),
 	);
 
 	tasks.push(...installTasks.filter(Boolean));
 
-	await saveLibrariesMetadata(
-		tree,
-		primitivesToCreate,
-		options.importAlias ?? config.importAlias ?? '@spartan-ng/helm',
-	);
-
-	return tasks;
-}
-
-/**
- * Save metadata for newly created libraries to enable future customization detection
- */
-async function saveLibrariesMetadata(tree: Tree, primitives: PrimitiveResponse[], importAlias: string): Promise<void> {
-	// Dynamically import to avoid circular dependencies
-	const { updateLibraryMetadata } = await import('../migrate-helm-libraries/detect-customizations');
-
-	// Get current package version
-	const packageJsonPath = 'package.json';
-	let version = '1.0.0';
-
-	if (tree.exists(packageJsonPath)) {
-		const packageJson = readJson(tree, packageJsonPath);
-		version = packageJson.dependencies?.['@spartan-ng/cli'] || packageJson.version || '1.0.0';
-	}
-
-	for (const primitive of primitives) {
-		// skip certain primitives that are not libraries
-		if (primitive === 'all' || primitive === 'sonner') {
-			continue;
-		}
-
+	const version = getCurrentCliVersion(tree);
+	for (const primitive of primitivesToTrack) {
 		try {
 			const libraryPath = getLibraryPathFromPrimitive(tree, primitive, importAlias);
-			if (libraryPath) {
-				updateLibraryMetadata(tree, primitive, libraryPath, version);
-			}
-		} catch (error) {
-			// If library path can't be found, it might not have been created yet
-			// we'll just skip saving metadata for it
+			updateLibraryMetadata(tree, primitive, libraryPath, version);
+		} catch {
+			// A generator may skip a primitive; only track libraries that were actually created.
 		}
 	}
-}
 
-/**
- * Helper to get library path from primitive name
- */
-function getLibraryPathFromPrimitive(tree: Tree, primitive: Primitive, importAlias: string): string | null {
-	try {
-		const tsconfigPaths = readTsConfigPathsFromTree(tree);
-		const compatLibrary = primitive.toString().replaceAll('-', '');
-
-		let importPath: string | undefined;
-
-		if (`${importAlias}/${primitive}` in tsconfigPaths) {
-			importPath = `${importAlias}/${primitive}`;
-		} else if (`@spartan-ng/helm/${primitive}` in tsconfigPaths) {
-			importPath = `@spartan-ng/helm/${primitive}`;
-		} else if (`@spartan-ng/ui-${primitive}-helm` in tsconfigPaths) {
-			importPath = `@spartan-ng/ui-${primitive}-helm`;
-		} else if (`@spartan-ng/ui-${compatLibrary}-helm` in tsconfigPaths) {
-			importPath = `@spartan-ng/ui-${compatLibrary}-helm`;
-		}
-
-		if (!importPath) {
-			return null;
-		}
-
-		const tsconfigPath = tsconfigPaths[importPath];
-		if (!tsconfigPath) {
-			return null;
-		}
-
-		const path = tsconfigPath[0];
-		return dirname(path).replace(/\/src$/, '');
-	} catch {
-		return null;
-	}
+	return tasks;
 }
 
 const removeHelmKeys = (obj: Record<string, string>) =>

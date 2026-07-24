@@ -3,6 +3,7 @@ export type Link = {
 	url: string;
 	wip?: boolean;
 	new?: boolean;
+	exact?: boolean;
 };
 type NavItem = {
 	label: string;
@@ -13,10 +14,10 @@ type NavItem = {
 export const pageNavs: Link[] = [
 	{ label: 'Home', url: '/' },
 	{ label: 'Docs', url: '/documentation' },
-	{ label: 'Stack', url: '/stack' },
 	{ label: 'Components', url: '/components' },
-	{ label: 'Blocks', url: '/blocks', new: true },
+	{ label: 'Blocks', url: '/blocks' },
 	{ label: 'Colors', url: '/colors' },
+	{ label: 'Stack', url: '/stack' },
 ];
 
 export const components: Link[] = [
@@ -29,43 +30,42 @@ export const components: Link[] = [
 	{ label: 'Badge', url: '/badge' },
 	{ label: 'Breadcrumb', url: '/breadcrumb' },
 	{ label: 'Button', url: '/button' },
-	{ label: 'Button Group', url: '/button-group', new: true },
+	{ label: 'Button Group', url: '/button-group' },
 	{ label: 'Calendar', url: '/calendar' },
 	{ label: 'Card', url: '/card' },
 	{ label: 'Carousel', url: '/carousel' },
 	{ label: 'Checkbox', url: '/checkbox' },
 	{ label: 'Collapsible', url: '/collapsible' },
-	{ label: 'Combobox', url: '/combobox', new: true },
+	{ label: 'Combobox', url: '/combobox' },
 	{ label: 'Command', url: '/command' },
-	{ label: 'Context Menu', url: '/context-menu', new: true },
+	{ label: 'Context Menu', url: '/context-menu' },
 	{ label: 'Data Table', url: '/data-table' },
 	{ label: 'Date Picker', url: '/date-picker' },
 	{ label: 'Dialog', url: '/dialog' },
-	{ label: 'Dropdown Menu', url: '/dropdown-menu', new: true },
-	{ label: 'Empty', url: '/empty', new: true },
-	{ label: 'Field', url: '/field', new: true },
-	{ label: 'Form', url: '/form', wip: true },
-	{ label: 'Form Field', url: '/form-field' },
+	{ label: 'Drawer', url: '/drawer' },
+	{ label: 'Dropdown Menu', url: '/dropdown-menu' },
+	{ label: 'Empty', url: '/empty' },
+	{ label: 'Field', url: '/field' },
 	{ label: 'Hover Card', url: '/hover-card' },
-	{ label: 'Icon', url: '/icon' },
-	{ label: 'Input Group', url: '/input-group', new: true },
+	{ label: 'Input Group', url: '/input-group' },
 	{ label: 'Input OTP', url: '/input-otp' },
 	{ label: 'Input', url: '/input' },
-	{ label: 'Item', url: '/item', new: true },
-	{ label: 'Kbd', url: '/kbd', new: true },
+	{ label: 'Item', url: '/item' },
+	{ label: 'Kbd', url: '/kbd' },
 	{ label: 'Label', url: '/label' },
-	{ label: 'Menubar', url: '/menubar', new: true },
-	{ label: 'Navigation Menu', url: '/navigation-menu', new: true },
+	{ label: 'Menubar', url: '/menubar' },
+	{ label: 'Native Select', url: '/native-select' },
+	{ label: 'Navigation Menu', url: '/navigation-menu' },
 	{ label: 'Pagination', url: '/pagination' },
 	{ label: 'Popover', url: '/popover' },
 	{ label: 'Progress', url: '/progress' },
 	{ label: 'Radio Group', url: '/radio-group' },
-	{ label: 'Resizable', url: '/resizable', new: true },
+	{ label: 'Resizable', url: '/resizable' },
 	{ label: 'Scroll Area', url: '/scroll-area' },
 	{ label: 'Select', url: '/select' },
 	{ label: 'Separator', url: '/separator' },
 	{ label: 'Sheet', url: '/sheet' },
-	{ label: 'Sidebar', url: '/sidebar', new: true },
+	{ label: 'Sidebar', url: '/sidebar' },
 	{ label: 'Skeleton', url: '/skeleton' },
 	{ label: 'Slider', url: '/slider' },
 	{ label: 'Sonner (Toast)', url: '/sonner' },
@@ -73,10 +73,16 @@ export const components: Link[] = [
 	{ label: 'Switch', url: '/switch' },
 	{ label: 'Table', url: '/table' },
 	{ label: 'Tabs', url: '/tabs' },
-	{ label: 'Textarea', url: '/textarea', new: true },
+	{ label: 'Textarea', url: '/textarea' },
 	{ label: 'Toggle', url: '/toggle' },
 	{ label: 'Toggle Group', url: '/toggle-group' },
 	{ label: 'Tooltip', url: '/tooltip' },
+];
+
+export const forms: Link[] = [
+	{ label: 'Forms', url: '/', exact: true },
+	{ label: 'Reactive Forms', url: '/reactive-forms' },
+	{ label: 'Signal Forms', url: '/signal-forms', new: true },
 ];
 
 export const sidenavItems: NavItem[] = [
@@ -96,19 +102,28 @@ export const sidenavItems: NavItem[] = [
 			{ label: 'Installation', url: '/installation' },
 			{ label: 'components.json', url: '/components-json' },
 			{ label: 'Theming', url: '/theming' },
+			{ label: 'Styles', url: '/styles', new: true },
 			{ label: 'Dark Mode', url: '/dark-mode' },
 			{ label: 'CLI', url: '/cli' },
+			{ label: 'RTL', url: '/rtl' },
 			{ label: 'Typography', url: '/typography' },
 			{ label: 'Figma', url: '/figma' },
 			{ label: 'Version Support', url: '/version-support' },
 			{ label: 'Health Checks', url: '/health-checks' },
 			{ label: 'Update Guide', url: '/update-guide' },
+			{ label: 'MCP Server', url: '/mcp', new: true },
+			{ label: 'Skills', url: '/skills', new: true },
 		],
 	},
 	{
 		label: 'Components',
 		url: '/components',
 		links: components,
+	},
+	{
+		label: 'Forms',
+		url: '/forms',
+		links: forms,
 	},
 	{
 		label: 'Stack',

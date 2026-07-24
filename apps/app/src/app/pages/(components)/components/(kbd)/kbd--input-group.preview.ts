@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideSearch } from '@ng-icons/lucide';
 import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
@@ -8,8 +8,9 @@ import { HlmKbdImports } from '@spartan-ng/helm/kbd';
 	selector: 'spartan-kbd-input-group-preview',
 	imports: [HlmKbdImports, HlmInputGroupImports, NgIcon],
 	providers: [provideIcons({ lucideSearch })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<div className="flex w-full max-w-xs flex-col gap-6">
+		<div class="flex w-full max-w-xs flex-col gap-6">
 			<div hlmInputGroup>
 				<input hlmInputGroupInput placeholder="Search..." />
 				<div hlmInputGroupAddon>

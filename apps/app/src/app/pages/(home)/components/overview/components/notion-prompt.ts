@@ -13,13 +13,9 @@ import {
 	lucideX,
 } from '@ng-icons/lucide';
 import { tablerCircleDashedPlus } from '@ng-icons/tabler-icons';
-import { BrnCommandEmpty } from '@spartan-ng/brain/command';
-import { BrnPopoverImports } from '@spartan-ng/brain/popover';
-import { HlmAvatarImports } from '@spartan-ng/helm/avatar';
 import { HlmBadge } from '@spartan-ng/helm/badge';
 import { HlmCommandImports } from '@spartan-ng/helm/command';
 import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
-import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 import { HlmSwitch } from '@spartan-ng/helm/switch';
@@ -45,13 +41,9 @@ type GroupedItems = {
 	selector: 'spartan-notion-prompt',
 	imports: [
 		HlmInputGroupImports,
-		BrnPopoverImports,
 		HlmPopoverImports,
 		HlmCommandImports,
-		HlmAvatarImports,
 		HlmDropdownMenuImports,
-		BrnCommandEmpty,
-		HlmIcon,
 		NgIcon,
 		MentionableItem,
 		HlmBadge,
@@ -85,19 +77,15 @@ type GroupedItems = {
 						class="rounded-full"
 						[size]="_mentionButtonSize()"
 					>
-						<ng-icon hlm name="lucideAtSign" size="sm" />
+						<ng-icon name="lucideAtSign" />
 						@if (!_hasMention()) {
 							<span>Add mention</span>
 						}
 					</button>
 
-					<div hlmPopoverContent class="p-0 [--radius:1.2rem]" *brnPopoverContent="let ctx">
+					<hlm-popover-content class="p-0 [--radius:1.2rem]" *hlmPopoverPortal="let ctx">
 						<hlm-command>
-							<hlm-command-search>
-								<ng-icon hlm name="lucideSearch" size="sm" class="shrink-0 opacity-50" />
-
-								<input type="text" hlm-command-search-input placeholder="Type a command or search..." />
-							</hlm-command-search>
+							<hlm-command-input placeholder="Type a command or search..." />
 
 							<hlm-command-list>
 								@for (groupType of _groupTypes(); track groupType) {
@@ -114,9 +102,9 @@ type GroupedItems = {
 							</hlm-command-list>
 
 							<!-- Empty state -->
-							<div *brnCommandEmpty hlmCommandEmpty>No results found.</div>
+							<div *hlmCommandEmptyState hlmCommandEmpty>No results found.</div>
 						</hlm-command>
-					</div>
+					</hlm-popover-content>
 				</hlm-popover>
 				<div class="no-scrollbar -m-1.5 flex gap-1 overflow-y-auto p-1.5">
 					@for (mention of _mentions(); track mention) {
@@ -129,7 +117,7 @@ type GroupedItems = {
 						>
 							<spartan-mentionable-item [item]="mention" />
 							{{ mention.title }}
-							<ng-icon hlm name="lucideX" size="sm" class="ml-1" />
+							<ng-icon name="lucideX" class="ml-1" />
 						</button>
 					}
 				</div>
@@ -137,7 +125,7 @@ type GroupedItems = {
 			<textarea hlmInputGroupTextarea placeholder="Ask, Search or make anything..."></textarea>
 			<div hlmInputGroupAddon align="block-end" class="no-scrollbar gap-1 overflow-y-auto">
 				<button hlmInputGroupButton class="rounded-full" size="icon-sm">
-					<ng-icon hlm name="lucidePaperclip" size="sm" />
+					<ng-icon name="lucidePaperclip" />
 					<span class="sr-only">Attachment</span>
 				</button>
 				<button hlmInputGroupButton class="rounded-full" size="sm" [hlmDropdownMenuTrigger]="model" #menuTrigger>
@@ -148,7 +136,7 @@ type GroupedItems = {
 						<hlm-dropdown-menu-group>
 							<hlm-dropdown-menu-label class="text-muted-foreground text-xs">Select Agent Mode</hlm-dropdown-menu-label>
 							@for (model of _models; track model.name) {
-								<button hlmDropdownMenuCheckbox [checked]="isChecked(model)" (click)="selectModel(model)">
+								<button hlmDropdownMenuCheckbox [checked]="isChecked(model)" (triggered)="selectModel(model)">
 									<span>{{ model.name }}</span>
 									@if (model.badge) {
 										<span
@@ -167,7 +155,7 @@ type GroupedItems = {
 				</ng-template>
 
 				<button hlmInputGroupButton class="rounded-full" size="sm" [hlmDropdownMenuTrigger]="sources">
-					<ng-icon hlm name="lucideGlobe" size="sm" />
+					<ng-icon name="lucideGlobe" />
 					All Sources
 				</button>
 				<ng-template #sources>
@@ -175,9 +163,14 @@ type GroupedItems = {
 						<hlm-dropdown-menu-group>
 							<button hlmDropdownMenuItem (click)="$event.stopPropagation()">
 								<label for="web-search" (click)="$event.stopPropagation()" class="flex flex-1 items-center">
-									<ng-icon hlm name="lucideGlobe" class="mr-2" size="sm" />
+									<ng-icon name="lucideGlobe" class="mr-2" />
 									Web Search
-									<hlm-switch id="web-search" class="ml-auto" [checked]="true" (click)="$event.stopPropagation()" />
+									<hlm-switch
+										inputId="web-search"
+										class="ml-auto"
+										[checked]="true"
+										(click)="$event.stopPropagation()"
+									/>
 								</label>
 							</button>
 						</hlm-dropdown-menu-group>
@@ -185,10 +178,10 @@ type GroupedItems = {
 						<hlm-dropdown-menu-group>
 							<button hlmDropdownMenuItem (click)="$event.stopPropagation()">
 								<label for="app-integrations" class="flex flex-1" (click)="$event.stopPropagation()">
-									<ng-icon hlm name="lucideBlocks" class="mr-2" size="sm" />
+									<ng-icon name="lucideBlocks" class="mr-2" />
 									Apps and Integrations
 									<hlm-switch
-										id="app-integrations"
+										inputId="app-integrations"
 										class="ml-auto"
 										[checked]="true"
 										(click)="$event.stopPropagation()"
@@ -196,18 +189,18 @@ type GroupedItems = {
 								</label>
 							</button>
 							<button hlmDropdownMenuItem>
-								<ng-icon hlm name="tablerCircleDashedPlus" size="sm" />
+								<ng-icon name="tablerCircleDashedPlus" />
 								All Sources I can access
 							</button>
 							<button hlmDropdownMenuItem>
-								<ng-icon hlm name="lucideBookOpen" size="sm" />
+								<ng-icon name="lucideBookOpen" />
 								Help Center
 							</button>
 						</hlm-dropdown-menu-group>
 						<hlm-dropdown-menu-separator />
 						<hlm-dropdown-menu-group>
 							<button hlmDropdownMenuItem>
-								<ng-icon hlm name="lucidePlus" size="sm" />
+								<ng-icon name="lucidePlus" />
 								Connect Apps
 							</button>
 							<hlm-dropdown-menu-label class="text-muted-foreground text-xs">
@@ -218,7 +211,7 @@ type GroupedItems = {
 				</ng-template>
 
 				<button hlmInputGroupButton variant="default" class="ml-auto rounded-full" size="icon-sm">
-					<ng-icon hlm name="lucideArrowUp" size="sm" />
+					<ng-icon name="lucideArrowUp" />
 					<span class="sr-only">Send</span>
 				</button>
 			</div>

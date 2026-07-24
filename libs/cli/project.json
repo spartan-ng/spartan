@@ -13,6 +13,11 @@
 				"main": "libs/cli/src/index.ts",
 				"tsConfig": "libs/cli/tsconfig.lib.json",
 				"assets": [
+					{
+						"input": "libs/registry/src/styles",
+						"glob": "**/!(*.ts)",
+						"output": "./src/generators/ui"
+					},
 					"libs/cli/*.md",
 					{
 						"input": "./libs/cli/src",
@@ -42,10 +47,10 @@
 			"outputs": ["{options.outputFile}"]
 		},
 		"test": {
-			"executor": "@nx/jest:jest",
+			"executor": "@nx/vitest:test",
 			"outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
 			"options": {
-				"jestConfig": "libs/cli/jest.config.ts"
+				"configFile": "libs/cli/vite.config.mts"
 			}
 		},
 		"release": {

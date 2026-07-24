@@ -1,16 +1,17 @@
 import { applicationGenerator, E2eTestRunner, UnitTestRunner } from '@nx/angular/generators';
 import type { Tree } from '@nx/devkit';
 import { createTreeWithEmptyWorkspace } from '@nx/devkit/testing';
+import type { MockInstance } from 'vitest';
 import migrateAccordionTriggerGenerator from './generator';
 
 // patch some imports to avoid running the actual code
-jest.mock('enquirer');
-jest.mock('@nx/devkit', () => {
-	const original = jest.requireActual('@nx/devkit');
+vi.mock('enquirer');
+vi.mock('@nx/devkit', async (importOriginal) => {
+	const original = await importOriginal<typeof import('@nx/devkit')>();
 	return {
 		...original,
-		ensurePackage: (pkg: string) => jest.requireActual(pkg),
-		createProjectGraphAsync: jest.fn().mockResolvedValue({
+		ensurePackage: (pkg: string) => require(pkg),
+		createProjectGraphAsync: vi.fn().mockResolvedValue({
 			nodes: {},
 			dependencies: {},
 		}),
@@ -19,11 +20,11 @@ jest.mock('@nx/devkit', () => {
 
 describe('migrate-accordion-trigger generator', () => {
 	let tree: Tree;
-	let consoleLogSpy: jest.SpyInstance;
+	let consoleLogSpy: MockInstance;
 
 	beforeEach(async () => {
 		tree = createTreeWithEmptyWorkspace();
-		consoleLogSpy = jest.spyOn(console, 'log').mockImplementation();
+		consoleLogSpy = vi.spyOn(console, 'log').mockImplementation();
 
 		await applicationGenerator(tree, {
 			name: 'app',
@@ -115,8 +116,6 @@ describe('migrate-accordion-trigger generator', () => {
 })
 export class AppComponent {}`,
 		);
-
-		console.log('los gehts');
 
 		await migrateAccordionTriggerGenerator(tree, { skipFormat: true });
 

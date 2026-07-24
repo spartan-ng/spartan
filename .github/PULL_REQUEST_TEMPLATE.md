@@ -50,7 +50,6 @@ What kind of change does this PR introduce?
 - [ ] empty
 - [ ] dropdown-menu
 - [ ] field
-- [ ] form-field
 - [ ] hover-card
 - [ ] icon
 - [ ] input
@@ -60,6 +59,7 @@ What kind of change does this PR introduce?
 - [ ] kbd
 - [ ] label
 - [ ] menubar
+- [ ] native-select
 - [ ] navigation-menu
 - [ ] pagination
 - [ ] popover
@@ -90,6 +90,7 @@ What kind of change does this PR introduce?
 - [ ] nx
 - [ ] repo
 - [ ] cli
+- [ ] mcp
 
 ## What is the current behavior?
 

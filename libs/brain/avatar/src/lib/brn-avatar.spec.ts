@@ -60,13 +60,14 @@ describe('BrnAvatarComponent', () => {
 		expect(fallback.textContent).toEqual('fallback');
 	});
 
-	it('should not render the fallback, but rather the image when provided with a valid src', () => {
-		// delay test to allow for image to resolve
-		setTimeout(() => {
+	it('should not render the fallback, but rather the image when provided with a valid src', async () => {
+		// The data-URI image loads asynchronously in a real browser; wait for the directive to swap in
+		// the <img> once its load event fires, then assert the fallback is gone.
+		await vi.waitFor(() => {
 			const img = fixture.debugElement.query(By.css('#good img'));
 			expect(img).toBeTruthy();
-			const fallback = fixture.nativeElement.querySelector('#good span');
-			expect(fallback).toBeFalsy();
 		});
+		const fallback = fixture.nativeElement.querySelector('#good span');
+		expect(fallback).toBeFalsy();
 	});
 });

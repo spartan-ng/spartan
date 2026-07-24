@@ -1,11 +1,15 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { injectComponentDocs } from '@spartan-ng/app/app/core/services/component-docs';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
+import { CommandGroups } from '@spartan-ng/app/app/pages/(components)/components/(command)/command--groups.example';
+import { CommandRtl } from '@spartan-ng/app/app/pages/(components)/components/(command)/command--rtl.example';
+import { CommandScrollable } from '@spartan-ng/app/app/pages/(components)/components/(command)/command--scrollable.example';
+import { CommandShortcuts } from '@spartan-ng/app/app/pages/(components)/components/(command)/command--shortcuts.example';
+import { CodeRtlPreview } from '@spartan-ng/app/app/shared/code/code-rtl-preview';
+import { RtlHeader } from '@spartan-ng/app/app/shared/code/rtl-header';
+import { InstallTabs } from '@spartan-ng/app/app/shared/layout/install-tabs';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
-import { link } from '@spartan-ng/app/app/shared/typography/link';
-import { HlmButton } from '@spartan-ng/helm/button';
-import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
 import { MainSection } from '../../../../shared/layout/main-section';
@@ -15,11 +19,9 @@ import { PageNav } from '../../../../shared/layout/page-nav/page-nav';
 import { SectionIntro } from '../../../../shared/layout/section-intro';
 import { SectionSubHeading } from '../../../../shared/layout/section-sub-heading';
 import { Tabs } from '../../../../shared/layout/tabs';
-import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
-import { CommandComboboxPreview } from './command--combobox.preview';
-import { CommandDialog } from './command--dialog.example';
+import { CommandBasic } from './command--basic.example';
 import { CommandPreview, defaultImports, defaultSkeleton } from './command.preview';
 
 export const routeMeta: RouteMeta = {
@@ -33,25 +35,29 @@ export const routeMeta: RouteMeta = {
 	imports: [
 		UIApiDocs,
 		MainSection,
+		InstallTabs,
 		Code,
 		SectionIntro,
 		SectionSubHeading,
 		Tabs,
-		TabsCli,
+
 		CodePreview,
 		PageNav,
 		PageBottomNav,
 		PageBottomNavLink,
 		CommandPreview,
-		HlmButton,
-		CommandDialog,
-		RouterLink,
+		CommandBasic,
 		SectionSubSubHeading,
-		CommandComboboxPreview,
+		RtlHeader,
+		CodeRtlPreview,
+		CommandRtl,
+		CommandScrollable,
+		CommandGroups,
+		CommandShortcuts,
 	],
 	template: `
 		<section spartanMainSection>
-			<spartan-section-intro name="Command" lead="Fast, composable, command menu for Angular." />
+			<spartan-section-intro name="Command" lead="Fast, composable, command menu for Angular." showThemeToggle />
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
@@ -60,8 +66,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
-			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
-			<spartan-cli-tabs nxCode="npx nx g @spartan-ng/cli:ui command" ngCode="ng g @spartan-ng/cli:ui command" />
+			<spartan-install-tabs primitive="command" />
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="mt-6 space-y-4">
@@ -70,28 +75,44 @@ export const routeMeta: RouteMeta = {
 			</div>
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
-			<h3 id="examples__dialog" spartanH4>Dialog</h3>
+			<h3 id="examples__basic" spartanH4>Basic</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
-					<spartan-command-dialog />
+					<spartan-command-basic />
 				</div>
-				<spartan-code secondTab [code]="_commandDialogCode()" />
+				<spartan-code secondTab [code]="_commandBasicCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__combobox" spartanH4>Combobox</h3>
-			<p class="${hlmP}">
-				You can use the
-				<code class="${hlmCode}">Command</code>
-				component as a combobox. Otherwise use the
-				<a class="${link}" routerLink="../combobox">Combobox</a>
-				component for more advanced use cases.
-			</p>
-
+			<h3 id="examples__shortcuts" spartanH4>Shortcuts</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
-					<spartan-command-combobox-preview />
+					<spartan-command-shortcuts />
 				</div>
-				<spartan-code secondTab [code]="_comboboxCode()" />
+				<spartan-code secondTab [code]="_commandShortcutsCode()" />
+			</spartan-tabs>
+
+			<h3 id="examples__groups" spartanH4>Groups</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-command-groups />
+				</div>
+				<spartan-code secondTab [code]="_commandGroupsCode()" />
+			</spartan-tabs>
+
+			<h3 id="examples__scrollable" spartanH4>Scrollable</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-command-scrollable />
+				</div>
+				<spartan-code secondTab [code]="_commandScrollableCode()" />
+			</spartan-tabs>
+
+			<spartan-header-rtl />
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanRtlCodePreview firstTab>
+					<spartan-command-rtl />
+				</div>
+				<spartan-code secondTab [code]="_commandRtlCode()" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
@@ -109,10 +130,17 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class CommandPage {
+	constructor() {
+		injectComponentDocs();
+	}
+
 	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('command');
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
-	protected readonly _commandDialogCode = computed(() => this._snippets()['dialog']);
-	protected readonly _comboboxCode = computed(() => this._snippets()['combobox']);
+	protected readonly _commandBasicCode = computed(() => this._snippets()['basic']);
+	protected readonly _commandGroupsCode = computed(() => this._snippets()['groups']);
+	protected readonly _commandRtlCode = computed(() => this._snippets()['rtl']);
+	protected readonly _commandScrollableCode = computed(() => this._snippets()['scrollable']);
+	protected readonly _commandShortcutsCode = computed(() => this._snippets()['shortcuts']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
 }

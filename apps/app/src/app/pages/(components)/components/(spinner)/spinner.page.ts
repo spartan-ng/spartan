@@ -1,6 +1,10 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
+import { injectComponentDocs } from '@spartan-ng/app/app/core/services/component-docs';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
+import { CodeRtlPreview } from '@spartan-ng/app/app/shared/code/code-rtl-preview';
+import { RtlHeader } from '@spartan-ng/app/app/shared/code/rtl-header';
+import { InstallTabs } from '@spartan-ng/app/app/shared/layout/install-tabs';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { link } from '@spartan-ng/app/app/shared/typography/link';
 import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
@@ -13,7 +17,6 @@ import { PageNav } from '../../../../shared/layout/page-nav/page-nav';
 import { SectionIntro } from '../../../../shared/layout/section-intro';
 import { SectionSubHeading } from '../../../../shared/layout/section-sub-heading';
 import { Tabs } from '../../../../shared/layout/tabs';
-import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { SpartanSpinnerBadgePreview } from './spinner--badge.preview';
@@ -23,6 +26,7 @@ import { SpartanSpinnerCustomPreview } from './spinner--custom.preview';
 import { SpartanSpinnerEmptyPreview } from './spinner--empty.preview';
 import { SpartanSpinnerInputGroupPreview } from './spinner--input-group.preview';
 import { SpartanSpinnerItemPreview } from './spinner--item.preview';
+import { SpartanSpinnerRtlPreview } from './spinner--rtl.preview';
 import { SpartanSpinnerSizePreview } from './spinner--size.preview';
 import { SpinnerPreview, defaultImports, defaultSkeleton } from './spinner.preview';
 
@@ -39,16 +43,19 @@ export const routeMeta: RouteMeta = {
 	imports: [
 		UIApiDocs,
 		MainSection,
+		InstallTabs,
 		Code,
 		SectionIntro,
 		SectionSubHeading,
 		SectionSubSubHeading,
 		Tabs,
-		TabsCli,
+
 		CodePreview,
 		PageNav,
 		PageBottomNav,
 		PageBottomNavLink,
+		RtlHeader,
+		CodeRtlPreview,
 		SpinnerPreview,
 		SpartanSpinnerSizePreview,
 		SpartanSpinnerColorPreview,
@@ -58,12 +65,14 @@ export const routeMeta: RouteMeta = {
 		SpartanSpinnerInputGroupPreview,
 		SpartanSpinnerEmptyPreview,
 		SpartanSpinnerItemPreview,
+		SpartanSpinnerRtlPreview,
 	],
 	template: `
 		<section spartanMainSection>
 			<spartan-section-intro
 				name="Spinner"
 				lead="Shows a Loading spinner to indicate that the app is busy or the page is still loading."
+				showThemeToggle
 			/>
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
@@ -84,8 +93,7 @@ export const routeMeta: RouteMeta = {
 				.
 			</p>
 
-			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
-			<spartan-cli-tabs nxCode="npx nx g @spartan-ng/cli:ui spinner" ngCode="ng g @spartan-ng/cli:ui spinner" />
+			<spartan-install-tabs primitive="spinner" />
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="mt-6 space-y-4">
@@ -184,6 +192,14 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_itemCode()" />
 			</spartan-tabs>
 
+			<spartan-header-rtl />
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanRtlCodePreview firstTab>
+					<spartan-spinner-rtl />
+				</div>
+				<spartan-code secondTab [code]="_rtlCode()" />
+			</spartan-tabs>
+
 			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="helm" />
 
@@ -196,6 +212,10 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class SpinnerPage {
+	constructor() {
+		injectComponentDocs();
+	}
+
 	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('spinner');
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
 	protected readonly _customCode = computed(() => this._snippets()['custom']);
@@ -206,6 +226,7 @@ export default class SpinnerPage {
 	protected readonly _inputGroupCode = computed(() => this._snippets()['inputGroup']);
 	protected readonly _emptyCode = computed(() => this._snippets()['empty']);
 	protected readonly _itemCode = computed(() => this._snippets()['item']);
+	protected readonly _rtlCode = computed(() => this._snippets()['rtl']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
 }

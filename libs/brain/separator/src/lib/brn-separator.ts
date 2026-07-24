@@ -5,7 +5,7 @@ import { injectBrnSeparatorConfig, SeparatorOrientation } from './brn-separator.
 @Directive({
 	selector: '[brnSeparator],brn-separator',
 	host: {
-		'[role]': '_role()',
+		'[attr.role]': '_role()',
 		'[attr.aria-orientation]': '_ariaOrientation()',
 		'[attr.data-orientation]': 'orientation()',
 	},

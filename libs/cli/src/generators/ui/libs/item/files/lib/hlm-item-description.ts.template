@@ -2,16 +2,14 @@ import { Directive } from '@angular/core';
 import { classes } from '<%- importAlias %>/utils';
 
 @Directive({
-	selector: 'p[hlmItemDescription]',
-	host: {
-		'data-slot': 'item-description',
-	},
+	selector: '[hlmItemDescription],hlm-item-description',
+	host: { 'data-slot': 'item-description' },
 })
 export class HlmItemDescription {
 	constructor() {
-		classes(() => [
-			'text-muted-foreground line-clamp-2 text-sm leading-normal font-normal text-balance',
-			'[&>a:hover]:text-primary [&>a]:underline [&>a]:underline-offset-4',
-		]);
+		classes(
+			() =>
+				'spartan-item-description [&>a:hover]:text-primary line-clamp-2 flex font-normal [&>a]:underline [&>a]:underline-offset-4',
+		);
 	}
 }

@@ -5,9 +5,7 @@ import { classes } from '@spartan-ng/helm/utils';
 @Directive({
 	selector: '[hlmAutocompleteGroup]',
 	hostDirectives: [BrnAutocompleteGroup],
-	host: {
-		'data-slot': 'autocomplete-group',
-	},
+	host: { 'data-slot': 'autocomplete-group' },
 })
 export class HlmAutocompleteGroup {
 	constructor() {

@@ -12,10 +12,10 @@ import { HlmTextareaImports } from '@spartan-ng/helm/textarea';
 		<fieldset hlmFieldSet>
 			<div hlmFieldGroup>
 				<div hlmField>
-					<label hlmFieldLabel for="field-input-preview-firstname">Feedback</label>
+					<label hlmFieldLabel for="field-textarea-preview-firstname">Feedback</label>
 					<textarea
 						hlmTextarea
-						id="field-input-preview-firstname"
+						id="field-textarea-preview-firstname"
 						placeholder="Your feedback helps us improve..."
 					></textarea>
 					<p hlmFieldDescription>Share your thoughts about our service.</p>

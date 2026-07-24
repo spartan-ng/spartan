@@ -1,6 +1,10 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
+import { injectComponentDocs } from '@spartan-ng/app/app/core/services/component-docs';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
+import { CodeRtlPreview } from '@spartan-ng/app/app/shared/code/code-rtl-preview';
+import { RtlHeader } from '@spartan-ng/app/app/shared/code/rtl-header';
+import { InstallTabs } from '@spartan-ng/app/app/shared/layout/install-tabs';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { link } from '@spartan-ng/app/app/shared/typography/link';
 import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
@@ -13,11 +17,11 @@ import { PageNav } from '../../../../shared/layout/page-nav/page-nav';
 import { SectionIntro } from '../../../../shared/layout/section-intro';
 import { SectionSubHeading } from '../../../../shared/layout/section-sub-heading';
 import { Tabs } from '../../../../shared/layout/tabs';
-import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { CarouselOrientation } from './carousel--orientation.example';
 import { CarouselPlugins } from './carousel--plugins.example';
+import { CarouselRtlPreview } from './carousel--rtl.example';
 import { CarouselSizes } from './carousel--sizes.example';
 import { CarouselSlideCount } from './carousel--slide-count.example';
 import { CarouselSpacing } from './carousel--spacing.example';
@@ -34,11 +38,12 @@ export const routeMeta: RouteMeta = {
 	imports: [
 		UIApiDocs,
 		MainSection,
+		InstallTabs,
 		Code,
 		SectionIntro,
 		SectionSubHeading,
 		Tabs,
-		TabsCli,
+
 		CodePreview,
 		PageNav,
 		PageBottomNav,
@@ -50,10 +55,17 @@ export const routeMeta: RouteMeta = {
 		CarouselOrientation,
 		CarouselSlideCount,
 		SectionSubSubHeading,
+		RtlHeader,
+		CodeRtlPreview,
+		CarouselRtlPreview,
 	],
 	template: `
 		<section spartanMainSection>
-			<spartan-section-intro name="Carousel" lead="A carousel with motion and swipe built using Embla." />
+			<spartan-section-intro
+				name="Carousel"
+				lead="A carousel with motion and swipe built using Embla."
+				showThemeToggle
+			/>
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
@@ -78,8 +90,7 @@ export const routeMeta: RouteMeta = {
 				wrapper.
 			</p>
 
-			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
-			<spartan-cli-tabs nxCode="npx nx g @spartan-ng/cli:ui carousel" ngCode="ng g @spartan-ng/cli:ui carousel" />
+			<spartan-install-tabs primitive="carousel" />
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="mt-6 space-y-4">
@@ -168,6 +179,14 @@ export const routeMeta: RouteMeta = {
 				for more information on using plugins.
 			</p>
 
+			<spartan-header-rtl />
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanRtlCodePreview firstTab>
+					<spartan-carousel-rtl-preview />
+				</div>
+				<spartan-code secondTab [code]="_rtlCode()" />
+			</spartan-tabs>
+
 			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="helm" />
 
@@ -180,6 +199,10 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class CarouselPage {
+	constructor() {
+		injectComponentDocs();
+	}
+
 	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('carousel');
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
 	protected readonly _sizesCode = computed(() => this._snippets()['sizes']);
@@ -187,6 +210,7 @@ export default class CarouselPage {
 	protected readonly _slideCountCode = computed(() => this._snippets()['slideCount']);
 	protected readonly _pluginsCode = computed(() => this._snippets()['plugins']);
 	protected readonly _orientationCode = computed(() => this._snippets()['orientation']);
+	protected readonly _rtlCode = computed(() => this._snippets()['rtl']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
 }

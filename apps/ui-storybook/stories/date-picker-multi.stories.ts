@@ -1,4 +1,7 @@
-import { HlmDatePickerMulti } from '@spartan-ng/helm/date-picker';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { HlmButton } from '@spartan-ng/helm/button';
+import { HlmDatePickerImports, HlmDatePickerMulti } from '@spartan-ng/helm/date-picker';
+import { HlmFieldImports } from '@spartan-ng/helm/field';
 import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';
 
 const meta: Meta<HlmDatePickerMulti<Date>> = {
@@ -7,6 +10,8 @@ const meta: Meta<HlmDatePickerMulti<Date>> = {
 	tags: ['autodocs'],
 	args: {
 		captionLayout: 'label',
+		min: new Date(2020, 4, 1),
+		max: new Date(2030, 6, 1),
 	},
 	argTypes: {
 		captionLayout: {
@@ -18,7 +23,7 @@ const meta: Meta<HlmDatePickerMulti<Date>> = {
 	},
 	decorators: [
 		moduleMetadata({
-			imports: [HlmDatePickerMulti],
+			imports: [HlmDatePickerImports, ReactiveFormsModule, HlmFieldImports, HlmButton],
 		}),
 	],
 	render: ({ ...args }) => ({
@@ -26,7 +31,7 @@ const meta: Meta<HlmDatePickerMulti<Date>> = {
 		template: `
 		<div class="preview flex min-h-[350px] w-full justify-center p-10 items-center">
 			<hlm-date-picker-multi [min]="min" [max]="max" [captionLayout]="captionLayout">
-                <span>Pick a date</span>
+                <hlm-date-picker-trigger buttonId="date">Pick a date</hlm-date-picker-trigger>
             </hlm-date-picker-multi>
 		</div>
 		`,
@@ -39,4 +44,52 @@ type Story = StoryObj<HlmDatePickerMulti<Date>>;
 
 export const Default: Story = {
 	args: { min: new Date(2020, 4, 1), max: new Date(2030, 6, 1), captionLayout: 'label' },
+};
+
+export const Input: Story = {
+	render: () => ({
+		props: {},
+		template: `
+		<div class="preview flex min-h-[350px] w-full justify-center p-10 items-center">
+			<hlm-date-picker-multi>
+				<hlm-date-multi-input inputId="date-input" placeholder="dd/MM/yyyy, dd/MM/yyyy" />
+				<hlm-date-picker-trigger buttonId="date-trigger" [showTrigger]="false">unset</hlm-date-picker-trigger>
+			</hlm-date-picker-multi>
+		</div>
+		`,
+	}),
+};
+
+export const WithHintAndError: Story = {
+	render: (args) => ({
+		props: {
+			...args,
+			form: new FormGroup({
+				dates: new FormControl(null, { validators: [Validators.required] }),
+			}),
+		},
+		template: `
+		<form [formGroup]="form" class="space-y-3 w-full max-w-sm">
+			<div hlmField>
+				<label hlmFieldLabel>Dates *</label>
+				<hlm-date-picker-multi
+					formControlName="dates"
+					[captionLayout]="captionLayout"
+					[min]="min"
+					[max]="max">
+					<hlm-date-picker-trigger buttonId="date">Select dates</hlm-date-picker-trigger>
+				</hlm-date-picker-multi>
+
+				<p hlmFieldDescription>Select multiple dates for your availability.</p>
+
+				<hlm-field-error>Select at least one date to continue.</hlm-field-error>
+			</div>
+
+			<div class="flex flex-wrap items-center gap-2">
+				<button hlmBtn type="button" (click)="form.markAllAsTouched()">Validate</button>
+				<button hlmBtn variant="outline" type="button" (click)="form.reset()">Reset</button>
+			</div>
+		</form>
+		`,
+	}),
 };

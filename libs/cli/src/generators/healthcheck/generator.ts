@@ -1,4 +1,5 @@
 import { formatFiles, logger, type Tree } from '@nx/devkit';
+import { prompt } from 'enquirer';
 import { getImportAlias } from '../../utils/config';
 import { type Healthcheck, type HealthcheckReport, HealthcheckStatus, isHealthcheckFixable } from './healthchecks';
 import { brainImportsHealthcheck } from './healthchecks/brain-imports';
@@ -6,6 +7,7 @@ import { brainAccordionTriggerHealthcheck } from './healthchecks/brn-accordion-t
 import { brnCheckboxChangedEventRename } from './healthchecks/brn-checkbox-changed-event-rename';
 import { brainCollapsibleHealthcheck } from './healthchecks/brn-collapsible';
 import { brainRadioHealthcheck } from './healthchecks/brn-radio';
+import { brnSelectHealthcheck } from './healthchecks/brn-select';
 import { brainSeparatorHealthcheck } from './healthchecks/brn-separator';
 import { brnSwitchChangedEventRename } from './healthchecks/brn-switch-changed-event-rename';
 import { brainToggleHealthcheck } from './healthchecks/brn-toggle';
@@ -16,16 +18,20 @@ import { helmImportsHealthcheck } from './healthchecks/helm-imports';
 import { hlmImportHealthcheck } from './healthchecks/hlm';
 import { datePickerHealthcheck } from './healthchecks/hlm-date-picker';
 import { helmDialogHealthcheck } from './healthchecks/hlm-dialog';
+import { helmDialogPortalHealthcheck } from './healthchecks/hlm-dialog-portal';
+import { helmFormFieldHealthcheck } from './healthchecks/hlm-form-field';
 import { helmIconHealthcheck } from './healthchecks/hlm-icon';
+import { hlmInputIdHealthcheck } from './healthchecks/hlm-input-id';
 import { helmMenuHealthcheck } from './healthchecks/hlm-menu';
 import { progressHealthcheck } from './healthchecks/hlm-progress';
 import { scrollAreaHealthcheck } from './healthchecks/hlm-scroll-area';
 import { selectHealthcheck } from './healthchecks/hlm-select';
 import { moduleImportsHealthcheck } from './healthchecks/module-imports';
 import { namingConventionHealthcheck } from './healthchecks/naming-conventions';
+import { scaffoldIntegrityHealthcheck } from './healthchecks/scaffold-integrity';
+import { sonnerHealthcheck } from './healthchecks/sonner';
 import { versionHealthcheck } from './healthchecks/version';
 import type { HealthcheckGeneratorSchema } from './schema';
-import { promptUser } from './utils/prompt';
 import { printReport } from './utils/reporter';
 import { runHealthcheck } from './utils/runner';
 
@@ -44,6 +50,7 @@ export async function healthcheckGenerator(tree: Tree, options: HealthcheckGener
 		helmImportsHealthcheck,
 		namingConventionHealthcheck,
 		datePickerHealthcheck,
+		hlmInputIdHealthcheck,
 		progressHealthcheck,
 		hlmImportHealthcheck,
 		brainSeparatorHealthcheck,
@@ -56,6 +63,11 @@ export async function healthcheckGenerator(tree: Tree, options: HealthcheckGener
 		brainCollapsibleHealthcheck,
 		helmMenuHealthcheck,
 		helmDialogHealthcheck,
+		helmDialogPortalHealthcheck,
+		helmFormFieldHealthcheck,
+		sonnerHealthcheck,
+		brnSelectHealthcheck,
+		scaffoldIntegrityHealthcheck,
 	];
 
 	const failedReports: HealthcheckReport[] = [];
@@ -73,7 +85,15 @@ export async function healthcheckGenerator(tree: Tree, options: HealthcheckGener
 
 	for (const report of failedReports) {
 		if (report.fixable && isHealthcheckFixable(report.healthcheck)) {
-			const fix = options.autoFix || (await promptUser(report.healthcheck.prompt));
+			const fix =
+				options.autoFix ||
+				(
+					await prompt<{ confirmed: boolean }>({
+						type: 'confirm',
+						name: 'confirmed',
+						message: report.healthcheck.prompt,
+					})
+				).confirmed;
 
 			if (fix) {
 				await report.healthcheck.fix(tree, { angularCli: options.angularCli, importAlias });

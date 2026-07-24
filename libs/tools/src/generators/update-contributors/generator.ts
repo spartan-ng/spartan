@@ -1,9 +1,32 @@
 import { formatFiles, type Tree } from '@nx/devkit';
 import { execSync } from 'node:child_process';
 
-export default async function updateContributorsGenerator(tree: Tree): Promise<void> {
+interface UpdateContributorsSchema {
+	usernames?: string;
+}
+
+// Usernames that appear in git history but should never be added: accounts that
+// were renamed (the noreply email keeps the old name) and are already listed
+// under their current handle. Compared lowercased.
+const IGNORED_USERNAMES = new Set<string>([
+	'matznristo', // renamed to m-risto
+	// bot accounts — not real contributors
+	'copilot',
+	'semantic-release-bot',
+]);
+
+export default async function updateContributorsGenerator(
+	tree: Tree,
+	options: UpdateContributorsSchema,
+): Promise<void> {
 	try {
 		const contributorsWithUsernames = new Set<string>();
+		const manualUsernames = (options.usernames ?? '')
+			.split(',')
+			.map((username) => username.trim())
+			.filter((username) => /^[a-zA-Z0-9][\w-]*$/.test(username));
+
+		manualUsernames.forEach((username) => contributorsWithUsernames.add(username));
 
 		// Extract GitHub usernames from git commit history
 		// Method 1: Extract from GitHub noreply email addresses (username@users.noreply.github.com)
@@ -46,6 +69,7 @@ export default async function updateContributorsGenerator(tree: Tree): Promise<v
 				.split('\n')
 				.filter(Boolean)
 				.forEach((username) => contributorsWithUsernames.add(username.trim()));
+			contributorsWithUsernames.delete('dependabot[bot]'); // ignore bot accounts
 			console.log('✓ Enhanced with GitHub API data');
 		} catch {
 			console.log('ℹ Using git history only (GitHub CLI not available - this is fine!)');
@@ -56,7 +80,7 @@ export default async function updateContributorsGenerator(tree: Tree): Promise<v
 			return;
 		}
 
-		console.log(`Found ${contributorsWithUsernames.size} total unique contributor(s) in git history`);
+		console.log(`Found ${contributorsWithUsernames.size} total unique username(s) from contributors + manual input`);
 
 		// Read the README
 		const readmePath = 'README.md';
@@ -115,7 +139,10 @@ export default async function updateContributorsGenerator(tree: Tree): Promise<v
 
 		// Filter out contributors who are already in the README
 		const newContributors = Array.from(contributorsWithUsernames)
-			.filter((username) => !existingContributors.has(username.toLowerCase()))
+			.filter(
+				(username) =>
+					!existingContributors.has(username.toLowerCase()) && !IGNORED_USERNAMES.has(username.toLowerCase()),
+			)
 			.sort();
 
 		if (newContributors.length === 0) {

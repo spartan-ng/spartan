@@ -1,6 +1,5 @@
-import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
-import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { BrnPopoverContent } from '@spartan-ng/brain/popover';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
+import { form, FormField, FormRoot, required } from '@angular/forms/signals';
 import { HlmAutocompleteImports } from '@spartan-ng/helm/autocomplete';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmFieldImports } from '@spartan-ng/helm/field';
@@ -12,19 +11,19 @@ interface Tag {
 
 @Component({
 	selector: 'spartan-autocomplete-search-form-preview',
-	imports: [HlmAutocompleteImports, BrnPopoverContent, ReactiveFormsModule, HlmButton, HlmFieldImports],
+	imports: [HlmAutocompleteImports, FormRoot, FormField, HlmButton, HlmFieldImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		class: 'w-full max-w-xs',
 	},
 	template: `
-		<form [formGroup]="form" (ngSubmit)="submit()">
-			<div hlmFieldGroup>
-				<div hlmField>
-					<label hlmFieldLabel>Create or select a tag</label>
-					<hlm-autocomplete-search formControlName="tag" [(search)]="search">
-						<hlm-autocomplete-input placeholder="e.g. feature" />
-						<div *brnPopoverContent hlmAutocompleteContent>
+		<form [formRoot]="form">
+			<hlm-field-group>
+				<hlm-field>
+					<label hlmFieldLabel for="tag">Create or select a tag</label>
+					<hlm-autocomplete-search [formField]="form.tag" [(search)]="search">
+						<hlm-autocomplete-input inputId="tag" placeholder="e.g. feature" />
+						<hlm-autocomplete-content *hlmAutocompletePortal>
 							<hlm-autocomplete-empty>No tags found.</hlm-autocomplete-empty>
 							<div hlmAutocompleteList>
 								@for (tag of filteredOptions(); track $index) {
@@ -33,23 +32,34 @@ interface Tag {
 									</hlm-autocomplete-item>
 								}
 							</div>
-						</div>
+						</hlm-autocomplete-content>
 					</hlm-autocomplete-search>
-					<div hlmFieldDescription>Create a new tag if it doesn't exist.</div>
-				</div>
-				<div hlmField orientation="horizontal">
-					<button type="submit" hlmBtn [disabled]="form.invalid">Submit</button>
-				</div>
-			</div>
+					<hlm-field-description>Create a new tag if it doesn't exist.</hlm-field-description>
+				</hlm-field>
+				<hlm-field orientation="horizontal">
+					<button type="submit" hlmBtn [disabled]="form().submitting()">Submit</button>
+				</hlm-field>
+			</hlm-field-group>
 		</form>
 	`,
 })
 export class AutocompleteSearchFormPreview {
-	private readonly _formBuilder = inject(FormBuilder);
+	protected readonly _model = signal<{ tag: string | null }>({ tag: null });
 
-	public form = this._formBuilder.group({
-		tag: new FormControl<string | null>(null, Validators.required),
-	});
+	public readonly form = form(
+		this._model,
+		(schemaPath) => {
+			required(schemaPath.tag, { message: 'Please select or create a tag' });
+		},
+		{
+			submission: {
+				action: async () => {
+					const model = this._model();
+					console.log(model);
+				},
+			},
+		},
+	);
 
 	private readonly _tags: Tag[] = [
 		{ id: 't1', value: 'feature' },
@@ -98,8 +108,4 @@ export class AutocompleteSearchFormPreview {
 	public readonly filteredOptions = computed(() =>
 		this._tags.filter((tag) => tag.value.toLowerCase().includes(this.search().toLowerCase())),
 	);
-
-	submit() {
-		console.log(this.form.value);
-	}
 }

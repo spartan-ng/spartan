@@ -3,17 +3,20 @@ import { BrnAccordionItem } from '@spartan-ng/brain/accordion';
 import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
-	selector: '[hlmAccordionItem],brn-accordion-item[hlm],hlm-accordion-item',
+	selector: '[hlmAccordionItem],hlm-accordion-item',
 	hostDirectives: [
 		{
 			directive: BrnAccordionItem,
-			inputs: ['isOpened'],
+			inputs: ['isOpened', 'disabled'],
 			outputs: ['openedChange'],
 		},
 	],
+	host: {
+		'data-slot': 'accordion-item',
+	},
 })
 export class HlmAccordionItem {
 	constructor() {
-		classes(() => 'border-border flex flex-1 flex-col border-b');
+		classes(() => 'spartan-accordion-item flex flex-col');
 	}
 }

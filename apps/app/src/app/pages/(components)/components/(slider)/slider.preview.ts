@@ -15,7 +15,7 @@ import { HlmSliderImports } from '@spartan-ng/helm/slider';
 	`,
 })
 export class SliderPreview {
-	public readonly value = signal(50);
+	public readonly value = signal([75]);
 }
 
 export const defaultImports = `

@@ -3,12 +3,10 @@ import { classes } from '<%- importAlias %>/utils';
 
 @Directive({
 	selector: 'brn-input-otp[hlmInputOtp], brn-input-otp[hlm]',
-	host: {
-		'data-slot': 'input-otp',
-	},
+	host: { 'data-slot': 'input-otp' },
 })
 export class HlmInputOtp {
 	constructor() {
-		classes(() => 'flex items-center gap-2 has-disabled:opacity-50');
+		classes(() => 'spartan-input-otp flex items-center has-disabled:opacity-50');
 	}
 }

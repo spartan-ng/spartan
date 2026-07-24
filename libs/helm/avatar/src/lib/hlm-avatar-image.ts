@@ -4,7 +4,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
 	selector: 'img[hlmAvatarImage]',
-	exportAs: 'avatarImage',
+	exportAs: 'hlmAvatarImage',
 	hostDirectives: [BrnAvatarImage],
 	host: {
 		'data-slot': 'avatar-image',
@@ -14,6 +14,6 @@ export class HlmAvatarImage {
 	public readonly canShow = inject(BrnAvatarImage).canShow;
 
 	constructor() {
-		classes(() => 'aspect-square size-full rounded-full object-cover');
+		classes(() => 'spartan-avatar-image aspect-square size-full object-cover');
 	}
 }

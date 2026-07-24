@@ -1,0 +1,16 @@
+{
+	"name": "registry",
+	"$schema": "../../node_modules/nx/schemas/project-schema.json",
+	"sourceRoot": "libs/registry/src",
+	"projectType": "library",
+	"tags": [],
+	"targets": {
+		"test": {
+			"executor": "@nx/vitest:test",
+			"outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+			"options": {
+				"configFile": "libs/registry/vite.config.mts"
+			}
+		}
+	}
+}

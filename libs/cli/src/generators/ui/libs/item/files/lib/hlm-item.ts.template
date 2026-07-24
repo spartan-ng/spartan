@@ -4,17 +4,18 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { injectHlmItemConfig } from './hlm-item-token';
 
 const itemVariants = cva(
-	'group/item [a]:hover:bg-accent/50 focus-visible:border-ring focus-visible:ring-ring/50 flex flex-wrap items-center rounded-md border border-transparent text-sm transition-colors duration-100 outline-none focus-visible:ring-[3px] [a]:transition-colors',
+	'spartan-item group/item focus-visible:border-ring focus-visible:ring-ring/50 flex w-full flex-wrap items-center transition-colors duration-100 outline-none focus-visible:ring-[3px] [a]:transition-colors',
 	{
 		variants: {
 			variant: {
-				default: 'bg-transparent',
-				outline: 'border-border',
-				muted: 'bg-muted/50',
+				default: 'spartan-item-variant-default',
+				outline: 'spartan-item-variant-outline',
+				muted: 'spartan-item-variant-muted',
 			},
 			size: {
-				default: 'gap-4 p-4',
-				sm: 'gap-2.5 px-4 py-3',
+				default: 'spartan-item-size-default',
+				sm: 'spartan-item-size-sm',
+				xs: 'spartan-item-size-xs',
 			},
 		},
 		defaultVariants: {
@@ -27,7 +28,7 @@ const itemVariants = cva(
 export type ItemVariants = VariantProps<typeof itemVariants>;
 
 @Directive({
-	selector: 'div[hlmItem], a[hlmItem]',
+	selector: '[hlmItem],hlm-item',
 	host: {
 		'data-slot': 'item',
 		'[attr.data-variant]': 'variant()',

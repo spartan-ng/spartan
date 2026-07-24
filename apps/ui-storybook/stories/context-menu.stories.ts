@@ -3,8 +3,8 @@ import { NgIcon } from '@ng-icons/core';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmContextMenuImports } from '@spartan-ng/helm/context-menu';
 import { HlmDropdownMenu, HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
-import { HlmIcon } from '@spartan-ng/helm/icon';
-import { type Meta, type StoryObj, argsToTemplate, moduleMetadata } from '@storybook/angular';
+
+import { argsToTemplate, type Meta, moduleMetadata, type StoryObj } from '@storybook/angular';
 
 const meta: Meta<HlmDropdownMenu> = {
 	title: 'Context Menu',
@@ -23,7 +23,7 @@ const meta: Meta<HlmDropdownMenu> = {
 	},
 	decorators: [
 		moduleMetadata({
-			imports: [HlmDropdownMenuImports, HlmContextMenuImports, HlmButton, NgIcon, HlmIcon],
+			imports: [HlmDropdownMenuImports, HlmContextMenuImports, HlmButton, NgIcon],
 		}),
 	],
 };
@@ -58,7 +58,7 @@ export const Default: Story = {
             <hlm-dropdown-menu-shortcut>⌘R</hlm-dropdown-menu-shortcut>
           </button>
 
-          <button inset hlmDropdownMenuItem [hlmDropdownMenuTrigger]='moreTools'>
+          <button inset hlmDropdownMenuItem [hlmDropdownMenuSubTrigger]='moreTools'>
             More Tools
             <hlm-dropdown-menu-item-sub-indicator />
           </button>

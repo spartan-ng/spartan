@@ -1,5 +1,5 @@
-import { formatFiles, type Tree } from '@nx/devkit';
-import { getOrCreateConfig } from '../../utils/config';
+import { formatFiles, readJson, type Tree } from '@nx/devkit';
+import { loadOrInitConfig } from '../../utils/config';
 import { visitFiles } from '../../utils/visit-files';
 import type { SupportedLibraries } from '../base/lib/supported-libs';
 import { createPrimitiveLibraries } from '../ui/generator';
@@ -26,7 +26,8 @@ async function ensureHelmUtilsInstalled(tree: Tree, angularCli: boolean) {
 		throw new Error('Could not find tsconfig.base.json or tsconfig.json to verify @spartan-ng/helm/utils.');
 	}
 
-	const tsconfig = JSON.parse(tree.read(tsconfigPath, 'utf-8') || '{}');
+	// readJson tolerates JSONC (comments / trailing commas), which real tsconfig files often contain.
+	const tsconfig = readJson(tree, tsconfigPath);
 
 	// Check compilerOptions.paths for @spartan-ng/helm/utils
 	const paths = tsconfig.compilerOptions?.paths || {};
@@ -36,7 +37,7 @@ async function ensureHelmUtilsInstalled(tree: Tree, angularCli: boolean) {
 		const supportedLibraries = (await import('../ui/supported-ui-libraries.json').then(
 			(m) => m.default,
 		)) as SupportedLibraries;
-		const config = await getOrCreateConfig(tree, { angularCli });
+		const config = await loadOrInitConfig(tree, { angularCli });
 
 		await createPrimitiveLibraries(
 			{

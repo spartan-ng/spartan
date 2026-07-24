@@ -1,16 +1,13 @@
-import { Directive, inject } from '@angular/core';
-import { BrnLabel } from '@spartan-ng/brain/label';
-import { BrnSelectGroup } from './brn-select-group';
+import { Directive, input } from '@angular/core';
 
 @Directive({
 	selector: '[brnSelectLabel]',
-	hostDirectives: [BrnLabel],
+	host: {
+		'[id]': 'id()',
+	},
 })
 export class BrnSelectLabel {
-	private readonly _group = inject(BrnSelectGroup, { optional: true });
-	private readonly _label = inject(BrnLabel, { host: true });
+	private static _id = 0;
 
-	constructor() {
-		this._group?.labelledBy.set(this._label.id());
-	}
+	public readonly id = input<string>(`brn-select-label-${++BrnSelectLabel._id}`);
 }

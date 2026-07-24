@@ -7,6 +7,6 @@ import { classes } from '@spartan-ng/helm/utils';
 })
 export class HlmItemGroup {
 	constructor() {
-		classes(() => 'group/item-group flex flex-col');
+		classes(() => 'spartan-item-group group/item-group flex w-full flex-col');
 	}
 }

@@ -1,6 +1,10 @@
 import { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
+import { injectComponentDocs } from '@spartan-ng/app/app/core/services/component-docs';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
+import { CodeRtlPreview } from '@spartan-ng/app/app/shared/code/code-rtl-preview';
+import { RtlHeader } from '@spartan-ng/app/app/shared/code/rtl-header';
+import { InstallTabs } from '@spartan-ng/app/app/shared/layout/install-tabs';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
 import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
@@ -13,7 +17,6 @@ import { PageNav } from '../../../../shared/layout/page-nav/page-nav';
 import { SectionIntro } from '../../../../shared/layout/section-intro';
 import { SectionSubHeading } from '../../../../shared/layout/section-sub-heading';
 import { Tabs } from '../../../../shared/layout/tabs';
-import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { ButtonGroupDropdownMenu } from './button-group--dropdown-menu.example';
 import { ButtonGroupInputGroup } from './button-group--input-group.example';
@@ -21,6 +24,7 @@ import { ButtonGroupInput } from './button-group--input.example';
 import { ButtonGroupNested } from './button-group--nested.example';
 import { ButtonGroupOrientation } from './button-group--orientation.example';
 import { ButtonGroupPopover } from './button-group--popover.example';
+import { ButtonGroupRtl } from './button-group--rtl.example';
 import { ButtonGroupSelect } from './button-group--select.example';
 import { ButtonGroupSeparator } from './button-group--separator.example';
 import { ButtonGroupSize } from './button-group--size.example';
@@ -40,11 +44,11 @@ export const routeMeta: RouteMeta = {
 	imports: [
 		UIApiDocs,
 		MainSection,
+		InstallTabs,
 		Code,
 		SectionIntro,
 		SectionSubHeading,
 		Tabs,
-		TabsCli,
 		CodePreview,
 		PageNav,
 		PageBottomNav,
@@ -62,10 +66,14 @@ export const routeMeta: RouteMeta = {
 		ButtonGroupWithText,
 		ButtonGroupInputGroup,
 		SectionSubSubHeading,
+		RtlHeader,
+		CodeRtlPreview,
+		ButtonGroupRtl,
 	],
 	template: `
 		<section spartanMainSection>
 			<spartan-section-intro
+				showThemeToggle
 				name="Button Group"
 				lead="A container that groups related buttons together with consistent styling."
 			/>
@@ -75,12 +83,8 @@ export const routeMeta: RouteMeta = {
 				</div>
 				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
-			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
-			<spartan-cli-tabs
-				class="mt-4"
-				nxCode="npx nx g @spartan-ng/cli:ui button-group"
-				ngCode="ng g @spartan-ng/cli:ui button-group"
-			/>
+
+			<spartan-install-tabs primitive="button-group" />
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="mt-6 space-y-4">
@@ -283,6 +287,14 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_popoverCode()" />
 			</spartan-tabs>
 
+			<spartan-header-rtl />
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanRtlCodePreview firstTab>
+					<spartan-button-group-rtl-preview />
+				</div>
+				<spartan-code secondTab [code]="_rtlCode()" />
+			</spartan-tabs>
+
 			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="helm" />
 
@@ -295,6 +307,10 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class ButtonGroupPage {
+	constructor() {
+		injectComponentDocs();
+	}
+
 	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('button-group');
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
 	protected readonly _defaultImports = defaultImports;
@@ -311,4 +327,5 @@ export default class ButtonGroupPage {
 	protected readonly _dropdownMenuCode = computed(() => this._snippets()['dropdownMenu']);
 	protected readonly _selectCode = computed(() => this._snippets()['select']);
 	protected readonly _popoverCode = computed(() => this._snippets()['popover']);
+	protected readonly _rtlCode = computed(() => this._snippets()['rtl']);
 }

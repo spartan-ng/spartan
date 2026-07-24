@@ -27,29 +27,14 @@
 			"inputs": ["default", "^production", "{projectRoot}/.storybook/**/*", "{projectRoot}/tsconfig.storybook.json"],
 			"cache": true
 		},
-		"@nx/jest:jest": {
-			"inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"],
-			"cache": true,
-			"options": {
-				"passWithNoTests": true
-			},
-			"configurations": {
-				"ci": {
-					"ci": true,
-					"codeCoverage": true
-				}
-			}
-		},
-		"@nx/vite:test": {
-			"inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"],
-			"cache": true
-		},
 		"@nx/eslint:lint": {
 			"inputs": [
 				"default",
+				"^default",
 				"{workspaceRoot}/.eslintrc.json",
 				"{workspaceRoot}/.eslintignore",
-				"{workspaceRoot}/eslint.config.js"
+				"{workspaceRoot}/eslint.config.js",
+				"{workspaceRoot}/tools/eslint-rules/**/*"
 			],
 			"cache": true
 		},
@@ -57,6 +42,15 @@
 			"cache": true,
 			"dependsOn": ["^build"],
 			"inputs": ["production", "^production"]
+		},
+		"@nx/js:tsc": {
+			"cache": true,
+			"dependsOn": ["^build"],
+			"inputs": ["production", "^production"]
+		},
+		"@nx/vitest:test": {
+			"inputs": ["default", "^production"],
+			"cache": true
 		}
 	},
 	"namedInputs": {
@@ -65,7 +59,6 @@
 			"default",
 			"!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
 			"!{projectRoot}/tsconfig.spec.json",
-			"!{projectRoot}/jest.config.[jt]s",
 			"!{projectRoot}/.eslintrc.json",
 			"!{projectRoot}/**/*.stories.@(js|jsx|ts|tsx|mdx)",
 			"!{projectRoot}/.storybook/**/*",
@@ -78,12 +71,12 @@
 		"@nx/angular:application": {
 			"style": "css",
 			"linter": "eslint",
-			"unitTestRunner": "jest",
+			"unitTestRunner": "vitest",
 			"e2eTestRunner": "cypress"
 		},
 		"@nx/angular:library": {
 			"linter": "eslint",
-			"unitTestRunner": "jest"
+			"unitTestRunner": "vitest"
 		},
 		"@nx/angular:component": {
 			"style": "css",
@@ -94,5 +87,14 @@
 		"version": {
 			"preVersionCommand": "pnpm dlx nx run-many -t build"
 		}
-	}
+	},
+	"plugins": [
+		{
+			"plugin": "@nx/eslint/plugin",
+			"options": {
+				"targetName": "eslint:lint"
+			}
+		}
+	],
+	"analytics": false
 }

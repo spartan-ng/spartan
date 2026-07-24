@@ -1,6 +1,10 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
+import { injectComponentDocs } from '@spartan-ng/app/app/core/services/component-docs';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
+import { CodeRtlPreview } from '@spartan-ng/app/app/shared/code/code-rtl-preview';
+import { RtlHeader } from '@spartan-ng/app/app/shared/code/rtl-header';
+import { InstallTabs } from '@spartan-ng/app/app/shared/layout/install-tabs';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
@@ -12,16 +16,19 @@ import { PageNav } from '../../../../shared/layout/page-nav/page-nav';
 import { SectionIntro } from '../../../../shared/layout/section-intro';
 import { SectionSubHeading } from '../../../../shared/layout/section-sub-heading';
 import { Tabs } from '../../../../shared/layout/tabs';
-import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { FieldCheckboxPreview } from './field--checkbox.preview';
 import { FieldChoiceCardPreview } from './field--choice-card.preview';
+import { FieldDatePickerPreview } from './field--date-picker.preview';
 import { FieldGroupPreview } from './field--group.preview';
 import { FieldInputPreview } from './field--input.preview';
+import { FieldNativeSelectPreview } from './field--native-select.preview';
 import { FieldRadioPreview } from './field--radio.preview';
 import { FieldResponsiveLayoutPreview } from './field--responsive-layout.preview';
+import { FieldRtl } from './field--rtl.preview';
 import { FieldSelectPreview } from './field--select.preview';
+import { FieldSeparatorPreview } from './field--separator.preview';
 import { FieldSetPreview } from './field--set.preview';
 import { FieldSliderPreview } from './field--slider.preview';
 import { FieldSwitchPreview } from './field--switch.preview';
@@ -41,20 +48,25 @@ export const routeMeta: RouteMeta = {
 	imports: [
 		UIApiDocs,
 		MainSection,
+		InstallTabs,
 		Code,
 		SectionIntro,
 		SectionSubHeading,
 		Tabs,
-		TabsCli,
+
 		CodePreview,
 		PageNav,
 		PageBottomNav,
 		PageBottomNavLink,
 		SectionSubSubHeading,
+		RtlHeader,
+		CodeRtlPreview,
 		FieldPreview,
 		FieldInputPreview,
 		FieldTextareaPreview,
 		FieldSelectPreview,
+		FieldNativeSelectPreview,
+		FieldDatePickerPreview,
 		FieldSliderPreview,
 		FieldSetPreview,
 		FieldCheckboxPreview,
@@ -62,13 +74,16 @@ export const routeMeta: RouteMeta = {
 		FieldSwitchPreview,
 		FieldChoiceCardPreview,
 		FieldGroupPreview,
+		FieldSeparatorPreview,
 		FieldResponsiveLayoutPreview,
+		FieldRtl,
 	],
 	template: `
 		<section spartanMainSection>
 			<spartan-section-intro
 				name="Field"
 				lead="Combine labels, controls, and help text to compose accessible form fields and grouped inputs."
+				showThemeToggle
 			/>
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
@@ -78,12 +93,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
-			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
-			<spartan-cli-tabs
-				class="mt-4"
-				nxCode="npx nx g @spartan-ng/cli:ui field"
-				ngCode="ng g @spartan-ng/cli:ui field"
-			/>
+			<spartan-install-tabs primitive="field" />
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="mt-6 space-y-4">
@@ -143,6 +153,22 @@ export const routeMeta: RouteMeta = {
 					<spartan-field-select-preview />
 				</div>
 				<spartan-code secondTab [code]="_selectCode()" />
+			</spartan-tabs>
+
+			<h3 id="examples__native-select" spartanH4>Native Select</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-field-native-select-preview />
+				</div>
+				<spartan-code secondTab [code]="_nativeSelectCode()" />
+			</spartan-tabs>
+
+			<h3 id="examples__date-picker" spartanH4>Date Picker</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-field-date-picker-preview />
+				</div>
+				<spartan-code secondTab [code]="_datePickerCode()" />
 			</spartan-tabs>
 
 			<h3 id="examples__slider" spartanH4>Slider</h3>
@@ -223,7 +249,28 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_groupCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__responsive-layout" spartanH4>Responsive Layout</h3>
+			<h3 id="examples__field-separator" spartanH4>Field Separator</h3>
+			<p class="${hlmP} mb-2">
+				Visual divider to separate sections inside a
+				<code class="${hlmCode}">HlmFieldGroup</code>
+				. Accepts optional inline content.
+			</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-field-separator-preview />
+				</div>
+				<spartan-code secondTab [code]="_separatorCode()" />
+			</spartan-tabs>
+
+			<spartan-header-rtl />
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanRtlCodePreview firstTab>
+					<spartan-field-rtl />
+				</div>
+				<spartan-code secondTab [code]="_rtlCode()" />
+			</spartan-tabs>
+
+			<spartan-section-sub-heading id="responsive-layout">Responsive Layout</spartan-section-sub-heading>
 			<ul class="my-6 ml-6 list-disc">
 				<li class="mt-2">
 					<strong class="font-medium">Vertical fields:</strong>
@@ -257,7 +304,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_responsiveLayoutCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__validation-and-errors" spartanH4>Validation and Errors</h3>
+			<spartan-section-sub-heading id="validation-and-errors">Validation and Errors</spartan-section-sub-heading>
 			<ul class="my-6 ml-6 list-disc">
 				<li class="mt-2">
 					Add
@@ -278,10 +325,23 @@ export const routeMeta: RouteMeta = {
 					<code class="${hlmCode} mr-0.5">FieldContent</code>
 					to keep error messages aligned with the field.
 				</li>
+				<li class="mt-2">
+					For checkbox or radio groups wrapped in a
+					<code class="${hlmCode} mr-0.5">fieldset</code>
+					, render
+					<code class="${hlmCode} mr-0.5">FieldError</code>
+					as a sibling of the
+					<code class="${hlmCode} mr-0.5">fieldset</code>
+					, not inside it. Because
+					<code class="${hlmCode} mr-0.5">FieldGroup</code>
+					is a container-query context, an error nested in the
+					<code class="${hlmCode} mr-0.5">fieldset</code>
+					triggers a Chrome layout bug that collapses the controls on toggle.
+				</li>
 			</ul>
 			<spartan-code [code]="_validationAndErrorCode" />
 
-			<h3 id="examples__accessibility" spartanH4>Accessibility</h3>
+			<spartan-section-sub-heading id="accessibility">Accessibility</spartan-section-sub-heading>
 			<ul class="my-6 ml-6 list-disc">
 				<li class="mt-2">
 					<code class="${hlmCode} mr-0.5">HlmFieldSet</code>
@@ -300,17 +360,33 @@ export const routeMeta: RouteMeta = {
 					when combined.
 				</li>
 				<li class="mt-2">
+					When a control and a
+					<code class="${hlmCode} mr-0.5">HlmFieldLabel</code>
+					are placed inside the same
+					<code class="${hlmCode} mr-0.5">HlmField</code>
+					, the label's
+					<code class="${hlmCode} mr-0.5">for</code>
+					attribute is automatically set to the control's
+					<code class="${hlmCode} mr-0.5">id</code>
+					. There is no need to set
+					<code class="${hlmCode} mr-0.5">for</code>
+					manually.
+				</li>
+				<li class="mt-2">
 					Apply
 					<code class="${hlmCode} mr-0.5">HlmFieldSeparator</code>
 					sparingly to ensure screen readers encounter clear section boundaries.
 				</li>
 			</ul>
 
+			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
+			<spartan-ui-api-docs docType="brain" />
+
 			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="helm" />
 
 			<spartan-page-bottom-nav>
-				<spartan-page-bottom-nav-link href="form-field" label="Form Field" />
+				<spartan-page-bottom-nav-link href="hover-card" label="Hover Card" />
 				<spartan-page-bottom-nav-link direction="previous" href="empty" label="Empty" />
 			</spartan-page-bottom-nav>
 		</section>
@@ -318,11 +394,17 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class FieldPage {
+	constructor() {
+		injectComponentDocs();
+	}
+
 	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('field');
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
 	protected readonly _inputCode = computed(() => this._snippets()['input']);
 	protected readonly _textareaCode = computed(() => this._snippets()['textarea']);
 	protected readonly _selectCode = computed(() => this._snippets()['select']);
+	protected readonly _nativeSelectCode = computed(() => this._snippets()['nativeSelect']);
+	protected readonly _datePickerCode = computed(() => this._snippets()['datePicker']);
 	protected readonly _sliderCode = computed(() => this._snippets()['slider']);
 	protected readonly _fieldsetCode = computed(() => this._snippets()['set']);
 	protected readonly _checkboxCode = computed(() => this._snippets()['checkbox']);
@@ -330,6 +412,8 @@ export default class FieldPage {
 	protected readonly _switchCode = computed(() => this._snippets()['switch']);
 	protected readonly _choiceCardCode = computed(() => this._snippets()['choiceCard']);
 	protected readonly _groupCode = computed(() => this._snippets()['group']);
+	protected readonly _separatorCode = computed(() => this._snippets()['separator']);
+	protected readonly _rtlCode = computed(() => this._snippets()['rtl']);
 	protected readonly _responsiveLayoutCode = computed(() => this._snippets()['responsiveLayout']);
 
 	protected readonly _defaultSkeleton = defaultSkeleton;

@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`migrate-naming-conventions generator should not replace helm identifiers 1`] = `
+exports[`migrate-naming-conventions generator > should not replace helm identifiers 1`] = `
 "import { Component } from '@angular/core';
 import { NgIcon } from '@ng-icons/core';
 import {
@@ -78,7 +78,7 @@ import { HlmIcon } from '@spartan-ng/helm/icon';
 export class AccordionPreviewComponent {}"
 `;
 
-exports[`migrate-naming-conventions generator should rename the identifiers that changed name 1`] = `
+exports[`migrate-naming-conventions generator > should rename the identifiers that changed name 1`] = `
 "import { Component } from '@angular/core';
 import { BrnTooltipContentTemplate } from '@spartan-ng/brain/tooltip';
 import {HlmMenuItemRadioIndicator} from '@spartan-ng/helm/menu';
@@ -99,7 +99,7 @@ import { BrnSelectValueTemplate } from '@spartan-ng/brain/select';
 export class TooltipPreviewComponent {}"
 `;
 
-exports[`migrate-naming-conventions generator should replace brain identifiers 1`] = `
+exports[`migrate-naming-conventions generator > should replace brain identifiers 1`] = `
 "
 import { Component, signal } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
@@ -138,7 +138,7 @@ type Framework = { label: string; value: string };
 				hlmBtn
 			>
 				{{ currentFramework() ? currentFramework()?.label : 'Select framework...' }}
-				<ng-icon hlm size="sm" name="lucideChevronsUpDown" class="opacity-50" />
+				<ng-icon name="lucideChevronsUpDown" class="opacity-50" />
 			</button>
 			<hlm-command *brnPopoverContent="let ctx" hlmPopoverContent class="w-[200px] p-0">
 				<hlm-command-search>

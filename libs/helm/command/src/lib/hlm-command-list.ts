@@ -16,6 +16,6 @@ import { classes } from '@spartan-ng/helm/utils';
 })
 export class HlmCommandList {
 	constructor() {
-		classes(() => 'max-h-[300px] scroll-py-1 overflow-x-hidden overflow-y-auto');
+		classes(() => 'spartan-command-list overflow-x-hidden overflow-y-auto');
 	}
 }

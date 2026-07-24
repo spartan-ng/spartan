@@ -11,6 +11,6 @@ import { classes } from '<%- importAlias %>/utils';
 })
 export class HlmMenubar {
 	constructor() {
-		classes(() => 'bg-background flex h-9 items-center gap-1 rounded-md border p-1 shadow-xs');
+		classes(() => 'spartan-menubar flex items-center');
 	}
 }

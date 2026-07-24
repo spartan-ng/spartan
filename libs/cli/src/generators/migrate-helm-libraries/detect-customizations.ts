@@ -1,6 +1,8 @@
-import { logger, type Tree } from '@nx/devkit';
-import { createHash } from 'crypto';
-import { join } from 'path';
+import { joinPathFragments, logger, type Tree } from '@nx/devkit';
+import { createHash } from 'node:crypto';
+import { dirname } from 'node:path';
+import { readTsConfigPathsFromTree } from '../../utils/tsconfig';
+import { getCliPackageVersion, getInstalledPackageVersion } from '../../utils/version-utils';
 import type { Primitive } from '../ui/primitives';
 
 export type LibraryMetadata = {
@@ -14,14 +16,14 @@ export type SpartanMetadata = {
 	libraries: Record<string, LibraryMetadata>;
 };
 
-type LibraryCustomizationDetails = {
+export type LibraryCustomizationDetails = {
 	isCustomized: boolean;
 	addedFiles: string[];
 	modifiedFiles: string[];
 	deletedFiles: string[];
 };
 
-type CategorizedLibraries = {
+export type CategorizedLibraries = {
 	unchanged: Primitive[];
 	customized: Array<{
 		primitive: Primitive;
@@ -29,7 +31,8 @@ type CategorizedLibraries = {
 	}>;
 };
 
-const METADATA_FILE = '.spartan/library-metadata.json';
+export const METADATA_FILE = '.spartan/library-metadata.json';
+const METADATA_GITIGNORE_ENTRY = '.spartan/';
 
 /**
  * Get the metadata file for tracking library versions and hashes
@@ -41,7 +44,15 @@ export function getMetadata(tree: Tree): SpartanMetadata {
 
 	try {
 		const content = tree.read(METADATA_FILE, 'utf-8');
-		return JSON.parse(content);
+		const metadata: unknown = JSON.parse(content);
+		if (!metadata || typeof metadata !== 'object' || !('libraries' in metadata)) {
+			throw new Error('Metadata does not contain a libraries object');
+		}
+		const libraries = (metadata as { libraries: unknown }).libraries;
+		if (!libraries || typeof libraries !== 'object' || Array.isArray(libraries)) {
+			throw new Error('Metadata libraries value is invalid');
+		}
+		return metadata as SpartanMetadata;
 	} catch (error) {
 		logger.warn(`Failed to read metadata file: ${error}`);
 		return { libraries: {} };
@@ -49,7 +60,19 @@ export function getMetadata(tree: Tree): SpartanMetadata {
 }
 
 export function saveMetadata(tree: Tree, metadata: SpartanMetadata): void {
-	tree.write(METADATA_FILE, JSON.stringify(metadata, null, 2));
+	ensureMetadataIgnored(tree);
+	tree.write(METADATA_FILE, `${JSON.stringify(metadata, null, 2)}\n`);
+}
+
+function ensureMetadataIgnored(tree: Tree): void {
+	const gitignorePath = '.gitignore';
+	const gitignore = tree.exists(gitignorePath) ? tree.read(gitignorePath, 'utf-8') : '';
+	const alreadyIgnored = gitignore.split(/\r?\n/).some((line) => /^\/?\.spartan\/?$/.test(line.trim()));
+
+	if (!alreadyIgnored) {
+		const prefix = gitignore.length > 0 && !gitignore.endsWith('\n') ? '\n' : '';
+		tree.write(gitignorePath, `${gitignore}${prefix}${METADATA_GITIGNORE_ENTRY}\n`);
+	}
 }
 
 function computeHash(content: string): string {
@@ -90,10 +113,10 @@ function getFilesRecursively(tree: Tree, directory: string): string[] {
 		return files;
 	}
 
-	const children = tree.children(directory);
+	const children = tree.children(directory).sort();
 
 	for (const child of children) {
-		const childPath = join(directory, child);
+		const childPath = joinPathFragments(directory, child);
 
 		if (tree.isFile(childPath)) {
 			files.push(childPath);
@@ -132,7 +155,7 @@ export function generateLibraryMetadata(tree: Tree, libraryPath: string, version
 		}
 
 		const content = tree.read(filePath, 'utf-8');
-		if (content) {
+		if (typeof content === 'string') {
 			const relativePath = getRelativePath(filePath, libraryPath);
 			files[relativePath] = getHashedFileContent(content);
 		}
@@ -268,6 +291,30 @@ export function categorizeLibraries(
 	return { unchanged, customized };
 }
 
+/** Resolve the generated library root for all supported legacy and current aliases. */
+export function getLibraryPathFromPrimitive(tree: Tree, primitive: Primitive, importAlias: string): string {
+	const tsconfigPaths = readTsConfigPathsFromTree(tree);
+	const compatLibrary = primitive.replaceAll('-', '');
+	const importPath = [
+		`${importAlias}/${primitive}`,
+		`@spartan-ng/helm/${primitive}`,
+		`@spartan-ng/ui-${primitive}-helm`,
+		`@spartan-ng/ui-${compatLibrary}-helm`,
+	].find((candidate) => candidate in tsconfigPaths);
+	const path = importPath ? tsconfigPaths[importPath]?.[0] : undefined;
+
+	if (!path) {
+		throw new Error(`Could not find tsconfig path for library ${primitive}`);
+	}
+
+	return normalizePath(dirname(normalizePath(path))).replace(/\/src$/, '');
+}
+
+/** Return the installed CLI version, falling back to the version running the generator. */
+export function getCurrentCliVersion(tree: Tree): string {
+	return getInstalledPackageVersion(tree, '@spartan-ng/cli') ?? getCliPackageVersion();
+}
+
 /**
  * Regenerate metadata for all libraries.
  *
@@ -293,5 +340,5 @@ export function regenerateAllMetadata(
 	}
 
 	saveMetadata(tree, metadata);
-	logger.info(`\n✓ Regenerated metadata for ${libraries.length} libraries`);
+	logger.info(`\n✓ Updated customization metadata for ${libraries.length} libraries`);
 }

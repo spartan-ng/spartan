@@ -1,6 +1,6 @@
+import { axe } from '@spartan-ng/brain/testing';
 import { render, screen } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
-import { axe } from 'jest-axe';
 import { BrnSwitch } from './brn-switch';
 import { BrnSwitchThumb } from './brn-switch-thumb';
 
@@ -8,14 +8,16 @@ describe('BrnSwitchComponent', () => {
 	const setup = async () => {
 		const container = await render(
 			`
-     <brn-switch id='switchId' name='switchName' data-testid='brnSwitch' aria-label='switch'>
-             <brn-switch-thumb />
+			<brn-switch id='switchId' name='switchName' data-testid='brnSwitch' aria-label='switch'>
+			  <brn-switch-thumb />
       </brn-switch>
-    `,
+			`,
 			{
 				imports: [BrnSwitch, BrnSwitchThumb],
 			},
 		);
+		container.detectChanges();
+
 		return {
 			user: userEvent.setup(),
 			container,
@@ -26,17 +28,19 @@ describe('BrnSwitchComponent', () => {
 	const setupInsideLabel = async () => {
 		const container = await render(
 			`
-     <label>
-     Switch Inside Label
-     <brn-switch id='switchId' data-testid='brnSwitch' name='switchName'>
-             <brn-switch-thumb />
-      </brn-switch>
+			<label>
+			  Switch Inside Label
+			  <brn-switch id='switchId' data-testid='brnSwitch' name='switchName'>
+			    <brn-switch-thumb />
+				</brn-switch>
       </label>
     `,
 			{
 				imports: [BrnSwitch, BrnSwitchThumb],
 			},
 		);
+		container.detectChanges();
+
 		return {
 			user: userEvent.setup(),
 			container,
@@ -48,18 +52,20 @@ describe('BrnSwitchComponent', () => {
 	const setupOutsideLabelWithAriaLabelledBy = async () => {
 		const container = await render(
 			`
-     <!-- need for because arialabelledby only provides accessible name -->
-     <label id='labelId' for='switchId'>
-     Switch Outside Label with ariaLabelledBy
-     </label>
-     <brn-switch id='switchId' name='switchName' data-testid='brnSwitch' aria-labelledby='labelId'>
-             <brn-switch-thumb />
-      </brn-switch>
+			<!-- need for because arialabelledby only provides accessible name -->
+			<label id='labelId' for='switchId'>
+			  Switch Outside Label with ariaLabelledBy
+			</label>
+			<brn-switch id='switchId' name='switchName' data-testid='brnSwitch' aria-labelledby='labelId'>
+		    <brn-switch-thumb />
+			</brn-switch>
     `,
 			{
 				imports: [BrnSwitch, BrnSwitchThumb],
 			},
 		);
+		container.detectChanges();
+
 		return {
 			user: userEvent.setup(),
 			container,
@@ -71,17 +77,19 @@ describe('BrnSwitchComponent', () => {
 	const setupOutsideLabelWithForAndId = async () => {
 		const container = await render(
 			`
-     <label for='switchId'>
-     Switch Outside Label with id
-     </label>
-     <brn-switch id='switchId' name='switchName' data-testid='brnSwitch'>
-             <brn-switch-thumb />
+			<label for='switchId'>
+			  Switch Outside Label with id
+			</label>
+			<brn-switch id='switchId' name='switchName' data-testid='brnSwitch'>
+			  <brn-switch-thumb />
       </brn-switch>
     `,
 			{
 				imports: [BrnSwitch, BrnSwitchThumb],
 			},
 		);
+		container.detectChanges();
+
 		return {
 			user: userEvent.setup(),
 			container,
@@ -270,6 +278,48 @@ describe('BrnSwitchComponent', () => {
 			await validateSwitchOff(options);
 			await user.keyboard('[Space]');
 			await validateSwitchOn(options);
+		});
+	});
+
+	describe('size', () => {
+		const renderWithSize = async (size?: string) => {
+			const view = await render(
+				`<brn-switch ${size ? `size='${size}'` : ''} aria-label='switch'><brn-switch-thumb /></brn-switch>`,
+				{ imports: [BrnSwitch, BrnSwitchThumb] },
+			);
+			view.detectChanges();
+			return view;
+		};
+
+		it('defaults data-size to "default" on the button', async () => {
+			await renderWithSize();
+			expect(screen.getByRole('switch')).toHaveAttribute('data-size', 'default');
+		});
+
+		it('reflects the size input on the button', async () => {
+			await renderWithSize('sm');
+			expect(screen.getByRole('switch')).toHaveAttribute('data-size', 'sm');
+		});
+	});
+
+	describe('thumb data-state', () => {
+		const renderThumb = async (checked: boolean) => {
+			const view = await render(
+				`<brn-switch [checked]='${checked}' aria-label='switch'><brn-switch-thumb data-testid='thumb' /></brn-switch>`,
+				{ imports: [BrnSwitch, BrnSwitchThumb] },
+			);
+			view.detectChanges();
+			return view;
+		};
+
+		it('is unchecked by default', async () => {
+			await renderThumb(false);
+			expect(screen.getByTestId('thumb')).toHaveAttribute('data-state', 'unchecked');
+		});
+
+		it('reflects the checked state', async () => {
+			await renderThumb(true);
+			expect(screen.getByTestId('thumb')).toHaveAttribute('data-state', 'checked');
 		});
 	});
 });

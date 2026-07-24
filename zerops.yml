@@ -3,11 +3,11 @@ zerops:
     build:
       base: nodejs@22
       envVariables:
-        NODE_OPTIONS: --max-old-space-size=8192
+        NODE_OPTIONS: --max-old-space-size=6000
       buildCommands:
         # install dev dependencies & build app
         - corepack enable
-        - corepack prepare pnpm@9.11.0 --activate
+        - corepack prepare pnpm@10.30.3 --activate
         - pnpm i
         - npx nx build app --prod
         # clean up dev dependencies

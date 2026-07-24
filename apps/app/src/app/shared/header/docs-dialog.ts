@@ -1,14 +1,11 @@
 import { searchClient, SearchHits } from '@algolia/client-search';
-import { Component, computed, resource, signal, viewChild } from '@angular/core';
+import { Component, computed, resource, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideArrowRight, lucideCornerDownLeft, lucideSearch } from '@ng-icons/lucide';
-import { BrnCommandImports } from '@spartan-ng/brain/command';
-import { BrnDialogImports, BrnDialogTrigger } from '@spartan-ng/brain/dialog';
+import type { BrnDialogState } from '@spartan-ng/brain/dialog';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmCommandImports } from '@spartan-ng/helm/command';
-import { HlmDialogImports } from '@spartan-ng/helm/dialog';
-import { HlmIconImports } from '@spartan-ng/helm/icon';
 import { HlmKbdImports } from '@spartan-ng/helm/kbd';
 
 type AlgoliaHits = {
@@ -82,17 +79,7 @@ type AlgoliaHits = {
 
 @Component({
 	selector: 'spartan-docs-dialog',
-	imports: [
-		HlmButtonImports,
-		HlmKbdImports,
-		HlmDialogImports,
-		BrnDialogImports,
-		HlmIconImports,
-		HlmCommandImports,
-		NgIcon,
-		BrnCommandImports,
-		FormsModule,
-	],
+	imports: [HlmButtonImports, HlmKbdImports, HlmCommandImports, NgIcon, FormsModule],
 	providers: [
 		provideIcons({
 			lucideSearch,
@@ -104,117 +91,121 @@ type AlgoliaHits = {
 		'(window:keydown)': '_onKeyDown($event)',
 	},
 	template: `
-		<hlm-dialog>
-			<button
-				hlmDialogTrigger
-				hlmBtn
-				variant="secondary"
-				class="bg-surface text-foreground dark:bg-card relative h-8 w-full justify-start pl-3 font-medium shadow-none sm:pr-12 md:w-48 lg:w-60 xl:w-64"
-			>
-				<span class="hidden lg:inline-flex">Search documentation...</span>
-				<span class="inline-flex lg:hidden">Search...</span>
-				<div class="absolute top-1.5 right-1.5 hidden gap-1 sm:flex">
-					<kbd hlmKbdGroup>
-						<kbd hlmKbd class="hidden border [html[style*='--is-mac']_&]:inline">⌘</kbd>
-						<kbd hlmKbd class="border [html[style*='--is-mac']_&]:hidden">Ctrl</kbd>
-						<kbd hlmKbd class="border">K</kbd>
-					</kbd>
-				</div>
-			</button>
+		<button
+			hlmBtn
+			variant="outline"
+			class="bg-input/30 border-input/30 text-muted-foreground hover:bg-input/50 hover:text-muted-foreground relative h-8 w-full justify-start gap-2 pl-2.5 font-normal shadow-none active:translate-y-px sm:pr-12 md:w-48 lg:w-60 xl:w-64"
+			(click)="_state.set('open')"
+		>
+			<ng-icon name="lucideSearch" class="shrink-0 opacity-50" />
+			<span class="hidden lg:inline-flex">Search documentation...</span>
+			<span class="inline-flex lg:hidden">Search...</span>
+			<div class="absolute top-1.5 right-1.5 hidden gap-1 sm:flex">
+				<kbd hlmKbdGroup>
+					<kbd hlmKbd class="hidden [html[style*='--is-mac']_&]:inline-flex">⌘</kbd>
+					<kbd hlmKbd class="[html[style*='--is-mac']_&]:hidden">Ctrl</kbd>
+					<kbd hlmKbd>K</kbd>
+				</kbd>
+			</div>
+		</button>
 
-			<hlm-dialog-content class="border-ring/50 rounded-xl! border-4 p-2 [&>button]:hidden" *brnDialogContent="let ctx">
-				<hlm-command class="min-h-[400px] md:min-w-[450px]">
-					<hlm-command-search>
-						<ng-icon hlm name="lucideSearch" class="shrink-0 opacity-50" />
-						<input
-							type="text"
-							hlm-command-search-input
-							placeholder="Type a command or search..."
-							[(ngModel)]="_searchVal"
-						/>
-					</hlm-command-search>
-
-					<hlm-command-list>
-						@for (item of _values(); track item.objectID) {
-							<hlm-command-group>
-								@if (item.url) {
-									<!-- lvl1 -->
-									@if (item.type === 'lvl1' && item.hierarchy[item.type]) {
-										<button hlm-command-item (selected)="onSelect(item.url)" [value]="item.hierarchy['lvl1']">
-											<a [href]="item.url" class="flex w-full items-center gap-2">
-												<ng-icon hlm name="lucideArrowRight" size="sm" class="shrink-0" />
-												<div class="flex flex-col items-start gap-0.5 text-left">
-													<span class="font-semibold">{{ item.hierarchy['lvl1'] }}</span>
-													@if (item.content) {
-														<span class="text-sm">{{ item['content'] }}</span>
-													}
-												</div>
-											</a>
-										</button>
-									}
-
-									<!-- askAI -->
-									@if (item.type === 'askAI') {
-										<button hlm-command-item (selected)="onSelect(item.url)" [value]="item.hierarchy['lvl1']">
-											<a [href]="item.url" class="flex w-full items-center gap-2">
-												{{ item.hierarchy['lvl1'] }}
-											</a>
-										</button>
-									}
-
-									@if (['lvl2', 'lvl3', 'lvl4', 'lvl5', 'lvl6'].includes(item.type) && item.hierarchy[item.type]) {
-										<button hlm-command-item (selected)="onSelect(item.url)" [value]="item.hierarchy['lvl1']">
-											<a [href]="item.url" class="flex w-full items-center gap-2">
-												<ng-icon hlm name="lucideArrowRight" size="sm" class="shrink-0" />
-												<div class="flex flex-col items-start gap-0.5 text-left">
-													<span class="font-semibold">{{ item.hierarchy[item.type] }}</span>
-													<span class="text-sm">{{ item.hierarchy['lvl1'] }}</span>
-												</div>
-											</a>
-										</button>
-									}
-
-									<!-- content -->
-									@if (item.type === 'content') {
-										<button
-											hlm-command-item
-											(selected)="onSelect(item.url)"
-											[value]="item.content ?? item.hierarchy['lvl1']"
-										>
-											<a [href]="item.url" class="flex w-full items-center gap-2">
-												<ng-icon hlm name="lucideArrowRight" size="sm" class="shrink-0" />
-												<div class="flex flex-col items-start gap-0.5 text-left">
-													<span class="font-semibold">{{ item.content }}</span>
-													<span class="text-sm">{{ item.hierarchy['lvl1'] }}</span>
-												</div>
-											</a>
-										</button>
-									}
+		<hlm-command-dialog
+			[state]="_state()"
+			(stateChange)="_state.set($event)"
+			dialogContentClass="border-ring/50 w-full rounded-xl! border-4 p-1 sm:max-w-lg"
+		>
+			<hlm-command class="min-h-[400px] w-full pb-10" [(search)]="_searchVal">
+				<hlm-command-input placeholder="Type a command or search..." />
+				<hlm-command-list class="max-h-[400px] pt-1">
+					@for (item of _values(); track item.objectID) {
+						<hlm-command-group>
+							@if (item.url) {
+								<!-- lvl1 -->
+								@if (item.type === 'lvl1' && item.hierarchy[item.type]) {
+									<button hlm-command-item (selected)="onSelect(item.url)" [value]="cleanLabel(item.hierarchy['lvl1'])">
+										<a [href]="item.url" class="flex w-full min-w-0 items-center gap-2">
+											<ng-icon name="lucideArrowRight" class="shrink-0" />
+											<div class="flex min-w-0 flex-col items-start gap-0.5 text-left">
+												<span class="w-full truncate font-semibold">{{ cleanLabel(item.hierarchy['lvl1']) }}</span>
+												@if (item.content) {
+													<span class="w-full truncate text-sm">{{ item['content'] }}</span>
+												}
+											</div>
+										</a>
+									</button>
 								}
-							</hlm-command-group>
-						}
-					</hlm-command-list>
-					<!-- Empty state -->
-					<div *brnCommandEmpty hlmCommandEmpty>No results found.</div>
-				</hlm-command>
 
-				<div
-					class="text-muted-foreground absolute inset-x-0 bottom-0 z-20 flex h-10 items-center gap-2 rounded-b-xl border-t border-t-neutral-100 bg-neutral-50 px-4 text-xs font-medium dark:border-t-neutral-700 dark:bg-neutral-800"
-				>
-					<div class="flex items-center gap-2">
-						<kbd hlmKbd>
-							<ng-icon name="lucideCornerDownLeft" />
-						</kbd>
-						<span>Go to Page</span>
-					</div>
+								<!-- askAI -->
+								@if (item.type === 'askAI') {
+									<button hlm-command-item (selected)="onSelect(item.url)" [value]="cleanLabel(item.hierarchy['lvl1'])">
+										<a [href]="item.url" class="flex w-full min-w-0 items-center gap-2">
+											{{ cleanLabel(item.hierarchy['lvl1']) }}
+										</a>
+									</button>
+								}
+
+								@if (['lvl2', 'lvl3', 'lvl4', 'lvl5', 'lvl6'].includes(item.type) && item.hierarchy[item.type]) {
+									<button hlm-command-item (selected)="onSelect(item.url)" [value]="cleanLabel(item.hierarchy['lvl1'])">
+										<a [href]="item.url" class="flex w-full min-w-0 items-center gap-2">
+											<ng-icon name="lucideArrowRight" class="shrink-0" />
+											<div class="flex min-w-0 flex-col items-start gap-0.5 text-left">
+												<span class="w-full truncate font-semibold">{{ item.hierarchy[item.type] }}</span>
+												<span class="w-full truncate text-sm">{{ cleanLabel(item.hierarchy['lvl1']) }}</span>
+											</div>
+										</a>
+									</button>
+								}
+
+								<!-- content -->
+								@if (item.type === 'content') {
+									<button
+										hlm-command-item
+										(selected)="onSelect(item.url)"
+										[value]="item.content ?? cleanLabel(item.hierarchy['lvl1'])"
+									>
+										<a [href]="item.url" class="flex w-full min-w-0 items-center gap-2">
+											<ng-icon name="lucideArrowRight" class="shrink-0" />
+											<div class="flex min-w-0 flex-col items-start gap-0.5 text-left">
+												<span class="w-full truncate font-semibold">{{ item.content }}</span>
+												<span class="w-full truncate text-sm">{{ cleanLabel(item.hierarchy['lvl1']) }}</span>
+											</div>
+										</a>
+									</button>
+								}
+							}
+						</hlm-command-group>
+					}
+				</hlm-command-list>
+				<!-- Empty state -->
+				<div *hlmCommandEmptyState hlmCommandEmpty>No results found.</div>
+			</hlm-command>
+
+			<div
+				class="text-muted-foreground absolute inset-x-0 bottom-0 z-20 flex h-10 items-center gap-2 rounded-b-lg border-t border-t-neutral-100 bg-neutral-50 px-4 text-xs font-medium dark:border-t-neutral-700 dark:bg-neutral-800"
+			>
+				<div class="flex items-center gap-2">
+					<kbd hlmKbd>
+						<ng-icon name="lucideCornerDownLeft" />
+					</kbd>
+					<span>Go to Page</span>
 				</div>
-			</hlm-dialog-content>
-		</hlm-dialog>
+				<a
+					href="https://www.algolia.com/"
+					target="_blank"
+					rel="noopener noreferrer"
+					aria-label="Search by Algolia"
+					class="ms-auto inline-flex items-center gap-1.5 opacity-80 transition-opacity hover:opacity-100"
+				>
+					<span>Search by</span>
+					<img src="/assets/algolia-logo.svg" alt="Algolia" class="h-3.5 w-auto" />
+				</a>
+			</div>
+		</hlm-command-dialog>
 	`,
 })
 export class DocsDialog {
 	private readonly _client = searchClient('JJRQPPSU45', '0fe1bcb9dbe76b2a149f00bc0709c5fd');
-	private readonly _brnDialogTrigger = viewChild.required(BrnDialogTrigger);
+	protected readonly _state = signal<BrnDialogState>('closed');
 
 	protected readonly _values = computed(() => {
 		const value = this._algoliaResource.value();
@@ -229,7 +220,14 @@ export class DocsDialog {
 						isPageNotFound = value.toLowerCase().includes('page not found');
 					}
 				}
-				return url.hash !== '#spartan-main' && url.pathname !== '/' && !isPageNotFound;
+				return (
+					url.hash !== '#spartan-main' &&
+					url.pathname !== '/' &&
+					!isPageNotFound &&
+					// iframe-only preview routes are indexed by the crawler but should not surface in search
+					!url.pathname.startsWith('/sidebar-preview') &&
+					!url.pathname.startsWith('/blocks-preview')
+				);
 			})
 			.map((h) => {
 				const u = new URL(h.url);
@@ -303,11 +301,16 @@ export class DocsDialog {
 			}
 
 			e.preventDefault();
-			this._brnDialogTrigger().open();
+			this._state.set('open');
 		}
 	}
 
 	protected onSelect(url: string): void {
 		window.location.href = url;
+	}
+
+	/** Strip the "spartan -" / "spartan/ui -" title prefix so results read cleanly in the search palette. */
+	protected cleanLabel(value: string | undefined): string {
+		return (value ?? '').replace(/^spartan(\/ui)?\s*-\s*/i, '');
 	}
 }

@@ -2,10 +2,13 @@ import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideTriangleAlert } from '@ng-icons/lucide';
+import { injectComponentDocs } from '@spartan-ng/app/app/core/services/component-docs';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
+import { CodeRtlPreview } from '@spartan-ng/app/app/shared/code/code-rtl-preview';
+import { RtlHeader } from '@spartan-ng/app/app/shared/code/rtl-header';
+import { InstallTabs } from '@spartan-ng/app/app/shared/layout/install-tabs';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
-import { HlmAlert, HlmAlertDescription, HlmAlertIcon, HlmAlertTitle } from '@spartan-ng/helm/alert';
-import { HlmIcon } from '@spartan-ng/helm/icon';
+import { HlmAlertImports } from '@spartan-ng/helm/alert';
 import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
@@ -16,9 +19,12 @@ import { PageNav } from '../../../../shared/layout/page-nav/page-nav';
 import { SectionIntro } from '../../../../shared/layout/section-intro';
 import { SectionSubHeading } from '../../../../shared/layout/section-sub-heading';
 import { Tabs } from '../../../../shared/layout/tabs';
-import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
+import { DialogNoCloseButton } from './dialog--no-close-button.preview';
+import { DialogRtl } from './dialog--rtl.preview';
+import { DialogScrollableContent } from './dialog--scrollable-content.preview';
+import { DialogStickyFooter } from './dialog--sticky-footer.preview';
 import { DialogClosePreview } from './dialog-close.preview';
 import { DialogContextMenuPreview } from './dialog-context-menu.preview';
 import { DialogDeclarativePreview } from './dialog-declarative.preview';
@@ -38,28 +44,30 @@ export const routeMeta: RouteMeta = {
 	imports: [
 		UIApiDocs,
 		MainSection,
+		InstallTabs,
 		Code,
 		SectionIntro,
 		SectionSubHeading,
 		Tabs,
-		TabsCli,
+
 		CodePreview,
 		PageNav,
 		PageBottomNav,
 		PageBottomNavLink,
-		DialogPreview,
+		NgIcon,
+		HlmAlertImports,
+		SectionSubSubHeading,
+		RtlHeader,
+		CodeRtlPreview,
 		DialogPreview,
 		DialogContextMenuPreview,
 		DialogDynamicPreview,
-		HlmAlert,
-		HlmAlertDescription,
-		NgIcon,
-		HlmIcon,
-		HlmAlertIcon,
-		HlmAlertTitle,
 		DialogDeclarativePreview,
 		DialogClosePreview,
-		SectionSubSubHeading,
+		DialogNoCloseButton,
+		DialogStickyFooter,
+		DialogScrollableContent,
+		DialogRtl,
 	],
 	providers: [provideIcons({ lucideTriangleAlert })],
 	template: `
@@ -67,6 +75,7 @@ export const routeMeta: RouteMeta = {
 			<spartan-section-intro
 				name="Dialog"
 				lead="A window overlaid on either the primary window or another dialog window, rendering the content underneath inert."
+				showThemeToggle
 			/>
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
@@ -76,8 +85,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
-			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
-			<spartan-cli-tabs nxCode="npx nx g @spartan-ng/cli:ui dialog" ngCode="ng g @spartan-ng/cli:ui dialog" />
+			<spartan-install-tabs primitive="dialog" />
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="mt-6 space-y-4">
@@ -86,7 +94,31 @@ export const routeMeta: RouteMeta = {
 			</div>
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
-			<h3 id="examples__declarative-usage" spartanH4>Declarative Usage</h3>
+			<h3 id="no-close-button" spartanH4>No Close Button</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-dialog-no-close-button />
+				</div>
+				<spartan-code secondTab [code]="_noCloseButtonCode()" />
+			</spartan-tabs>
+
+			<h3 id="sticky-footer" spartanH4>Sticky Footer</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-dialog-sticky-footer />
+				</div>
+				<spartan-code secondTab [code]="_stickyFooterCode()" />
+			</spartan-tabs>
+
+			<h3 id="scrollable-content" spartanH4>Scrollable Content</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-dialog-scrollable-content />
+				</div>
+				<spartan-code secondTab [code]="_scrollableContentCode()" />
+			</spartan-tabs>
+
+			<h3 id="declarative-usage" spartanH4>Declarative Usage</h3>
 			<p class="${hlmP} mb-6">
 				Spartan's dialog supports declarative usage. Simply set it's state
 				<code class="${hlmCode}">input</code>
@@ -105,32 +137,12 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_declarativeCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__inside-menu" spartanH4>Inside Menu</h3>
+			<h3 id="inside-menu" spartanH4>Inside Menu</h3>
 			<p class="${hlmP} mb-6">
-				You can nest dialogs inside context or dropdown menus. Make sure to wrap the menu-item inside the
-				<code class="${hlmCode}">hlm-dialog</code>
-				component and apply the
-				<code class="${hlmCode}">HlmDialogTrigger</code>
-				directive. Another option is to use the
+				Use the
 				<code class="${hlmCode}">hlmDialogTriggerFor</code>
-				alternative, which takes in a reference to the hlm-dialog. That way you can avoid nesting the template.
+				on the menu button, which takes in a reference to the hlm-dialog, to open the dialog from within a menu.
 			</p>
-			<div hlmAlert class="mb-6" variant="destructive">
-				<ng-icon hlm name="lucideTriangleAlert" hlmAlertIcon />
-				<p hlmAlertTitle>Note</p>
-				<div hlmAlertDescription class="leading-loose">
-					<p>
-						Do not use the
-						<code class="${hlmCode}">HlmDropdownMenuItem</code>
-						directives as they conflict with
-						<code class="${hlmCode}">HlmDialogTrigger</code>
-						&
-						<code class="${hlmCode}">hlmDialogTriggerFor</code>
-						! We expose the hlm variants so you can directly use them to style your elements. Check out the code of the
-						example below!
-					</p>
-				</div>
-			</div>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-dialog-context-menu />
@@ -138,7 +150,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_contextMenuCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__dynamic-component" spartanH4>Dynamic Component</h3>
+			<h3 id="dynamic-component" spartanH4>Dynamic Component</h3>
 			<p class="${hlmP} mb-6">
 				You can dynamically open a dialog with a component rendered as the content. The dialog context can be injected
 				into the dynamic component using the provided
@@ -146,7 +158,7 @@ export const routeMeta: RouteMeta = {
 				function.
 			</p>
 			<div hlmAlert class="mb-6" variant="destructive">
-				<ng-icon hlm name="lucideTriangleAlert" hlmAlertIcon />
+				<ng-icon name="lucideTriangleAlert" />
 				<p hlmAlertTitle>Note</p>
 				<div hlmAlertDescription class="leading-loose">
 					<p>
@@ -165,7 +177,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_dynamicComponentCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__close-dialog" spartanH4>Close Dialog</h3>
+			<h3 id="close-dialog" spartanH4>Close Dialog</h3>
 			<p class="${hlmP} mb-6">
 				You can close the dialog by using a directive, a template reference, or a viewchild/contentchild reference to
 				the dialog.
@@ -175,6 +187,14 @@ export const routeMeta: RouteMeta = {
 					<spartan-dialog-close-preview />
 				</div>
 				<spartan-code secondTab [code]="_closeCode()" />
+			</spartan-tabs>
+
+			<spartan-header-rtl />
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanRtlCodePreview firstTab>
+					<spartan-dialog-rtl />
+				</div>
+				<spartan-code secondTab [code]="_rtlCode()" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
@@ -192,12 +212,20 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class DialogPage {
+	constructor() {
+		injectComponentDocs();
+	}
+
 	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('dialog');
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
+	protected readonly _noCloseButtonCode = computed(() => this._snippets()['noCloseButton']);
+	protected readonly _stickyFooterCode = computed(() => this._snippets()['stickyFooter']);
+	protected readonly _scrollableContentCode = computed(() => this._snippets()['scrollableContent']);
 	protected readonly _contextMenuCode = computed(() => this._snippets()['contextMenu']);
 	protected readonly _dynamicComponentCode = computed(() => this._snippets()['dynamicComponent']);
 	protected readonly _declarativeCode = computed(() => this._snippets()['declarative']);
 	protected readonly _closeCode = computed(() => this._snippets()['close']);
+	protected readonly _rtlCode = computed(() => this._snippets()['rtl']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
 }

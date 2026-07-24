@@ -8,15 +8,13 @@ import {
 	lucideCircleHelp,
 	lucideCircleOff,
 } from '@ng-icons/lucide';
-import type { Task } from '../services/tasks.models';
-
-import { HlmIcon } from '@spartan-ng/helm/icon';
 import { type CellContext, injectFlexRenderContext } from '@tanstack/angular-table';
 import { StatusIconPipe } from '../pipes/status-icon.pipe';
+import type { Task } from '../services/tasks.models';
 
 @Component({
 	selector: 'spartan-status-icon-cell',
-	imports: [StatusIconPipe, NgIcon, HlmIcon],
+	imports: [StatusIconPipe, NgIcon],
 	providers: [
 		provideIcons({
 			lucideCircle,
@@ -29,7 +27,7 @@ import { StatusIconPipe } from '../pipes/status-icon.pipe';
 	],
 	template: `
 		<div class="flex items-center">
-			<ng-icon hlm class="text-muted-foreground mr-2" size="sm" [name]="_element.status | statusIcon" />
+			<ng-icon class="text-muted-foreground mr-2" [name]="_element.status | statusIcon" />
 			{{ _element.status }}
 		</div>
 	`,

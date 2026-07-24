@@ -14,6 +14,6 @@ import { BrnSheet } from './brn-sheet';
 		provideExposedSideProviderExisting(() => BrnSheetContent),
 	],
 })
-export class BrnSheetContent<T> extends BrnDialogContent<T> implements ExposesSide {
+export class BrnSheetContent<T extends Record<string, unknown>> extends BrnDialogContent<T> implements ExposesSide {
 	public readonly side = inject(BrnSheet).sideState;
 }

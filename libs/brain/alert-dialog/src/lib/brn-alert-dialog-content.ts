@@ -6,4 +6,4 @@ import { BrnDialogContent } from '@spartan-ng/brain/dialog';
 	selector: '[brnAlertDialogContent]',
 	providers: [provideExposesStateProviderExisting(() => BrnAlertDialogContent)],
 })
-export class BrnAlertDialogContent<T> extends BrnDialogContent<T> {}
+export class BrnAlertDialogContent<T extends Record<string, unknown>> extends BrnDialogContent<T> {}

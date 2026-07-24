@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { provideIcons } from '@ng-icons/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
 	lucideCalculator,
 	lucideCalendar,
@@ -10,12 +10,12 @@ import {
 	lucideUser,
 	lucideWallet,
 } from '@ng-icons/lucide';
+import { HlmCard, HlmCardImports } from '@spartan-ng/helm/card';
 import { HlmCommandImports } from '@spartan-ng/helm/command';
-import { HlmIconImports } from '@spartan-ng/helm/icon';
 
 @Component({
 	selector: 'spartan-command-preview',
-	imports: [HlmCommandImports, HlmIconImports],
+	imports: [HlmCommandImports, HlmCardImports, NgIcon],
 	providers: [
 		provideIcons({
 			lucideSearch,
@@ -28,61 +28,56 @@ import { HlmIconImports } from '@spartan-ng/helm/icon';
 			lucideCalculator,
 		}),
 	],
+	hostDirectives: [HlmCard],
 	host: {
-		class: 'block w-full',
+		class: 'w-full py-0',
 	},
 	template: `
-		<hlm-command class="rounded-lg border shadow-md md:min-w-[450px]">
-			<hlm-command-search>
-				<ng-icon hlm name="lucideSearch" class="shrink-0 opacity-50" />
+		<div hlmCardContent class="p-0">
+			<hlm-command>
+				<hlm-command-input placeholder="Type a command or search..." />
+				<hlm-command-list>
+					<div *hlmCommandEmptyState hlmCommandEmpty>No results found.</div>
+					<hlm-command-group>
+						<hlm-command-group-label>Suggestions</hlm-command-group-label>
+						<button hlm-command-item value="Calendar">
+							<ng-icon name="lucideCalendar" />
+							Calendar
+						</button>
+						<button hlm-command-item value="Search Emoji">
+							<ng-icon name="lucideSmile" />
+							Search Emoji
+						</button>
+						<button hlm-command-item value="Calculator" disabled>
+							<ng-icon name="lucideCalculator" />
+							Calculator
+						</button>
+					</hlm-command-group>
 
-				<input type="text" hlm-command-search-input placeholder="Type a command or search..." />
-			</hlm-command-search>
+					<hlm-command-separator />
 
-			<hlm-command-list>
-				<hlm-command-group>
-					<hlm-command-group-label>Suggestions</hlm-command-group-label>
+					<hlm-command-group>
+						<hlm-command-group-label>Settings</hlm-command-group-label>
 
-					<button hlm-command-item value="Calendar">
-						<ng-icon name="lucideCalendar" />
-						Calendar
-					</button>
-					<button hlm-command-item value="Search Emoji">
-						<ng-icon name="lucideSmile" />
-						Search Emoji
-					</button>
-					<button hlm-command-item value="Calculator" disabled>
-						<ng-icon name="lucideCalculator" />
-						Calculator
-					</button>
-				</hlm-command-group>
-
-				<hlm-command-separator />
-
-				<hlm-command-group>
-					<hlm-command-group-label>Settings</hlm-command-group-label>
-
-					<button hlm-command-item value="Profile">
-						<ng-icon name="lucideUser" />
-						Profile
-						<hlm-command-shortcut>⌘P</hlm-command-shortcut>
-					</button>
-					<button hlm-command-item value="Billing">
-						<ng-icon name="lucideWallet" />
-						Billing
-						<hlm-command-shortcut>⌘B</hlm-command-shortcut>
-					</button>
-					<button hlm-command-item value="Settings">
-						<ng-icon name="lucideCog" />
-						Settings
-						<hlm-command-shortcut>⌘S</hlm-command-shortcut>
-					</button>
-				</hlm-command-group>
-			</hlm-command-list>
-
-			<!-- Empty state -->
-			<div *hlmCommandEmptyState hlmCommandEmpty>No results found.</div>
-		</hlm-command>
+						<button hlm-command-item value="Profile">
+							<ng-icon name="lucideUser" />
+							Profile
+							<hlm-command-shortcut>⌘P</hlm-command-shortcut>
+						</button>
+						<button hlm-command-item value="Billing">
+							<ng-icon name="lucideWallet" />
+							Billing
+							<hlm-command-shortcut>⌘B</hlm-command-shortcut>
+						</button>
+						<button hlm-command-item value="Settings">
+							<ng-icon name="lucideCog" />
+							Settings
+							<hlm-command-shortcut>⌘S</hlm-command-shortcut>
+						</button>
+					</hlm-command-group>
+				</hlm-command-list>
+			</hlm-command>
+		</div>
 	`,
 })
 export class CommandPreview {}
@@ -93,27 +88,19 @@ import { HlmCommandImports } from '@spartan-ng/helm/command';
 
 export const defaultSkeleton = `
 <hlm-command>
-  <hlm-command-search>
-    <ng-icon hlm name="lucideSearch" />
-
-    <input type="text" hlm-command-search-input placeholder="Type a command or search..." />
-  </hlm-command-search>
-
+  <hlm-command-input placeholder="Type a command or search..." />
   <hlm-command-list>
+  	<div *hlmCommandEmptyState hlmCommandEmpty>No results found.</div>
     <hlm-command-group>
       <hlm-command-group-label>Suggestions</hlm-command-group-label>
-
       <button hlm-command-item value="Calendar">
         <ng-icon name="lucideCalendar" />
         Calendar
       </button>
     </hlm-command-group>
-
     <hlm-command-separator />
-
     <hlm-command-group>
       <hlm-command-group-label>Settings</hlm-command-group-label>
-
       <button hlm-command-item value="Profile">
         <ng-icon name="lucideUser" />
         Profile
@@ -121,8 +108,5 @@ export const defaultSkeleton = `
       </button>
     </hlm-command-group>
   </hlm-command-list>
-
-  <!-- Empty state -->
-  <div *brnCommandEmpty hlmCommandEmpty>No results found.</div>
 </hlm-command>
 `;

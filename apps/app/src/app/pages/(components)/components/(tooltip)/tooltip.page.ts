@@ -1,22 +1,30 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
+import { injectComponentDocs } from '@spartan-ng/app/app/core/services/component-docs';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
+import { TooltipDisabledButtonWithTooltip } from '@spartan-ng/app/app/pages/(components)/components/(tooltip)/tooltip--disabled-button-with-tooltip.example';
+import { TooltipDisabled } from '@spartan-ng/app/app/pages/(components)/components/(tooltip)/tooltip--disabled.example';
+import { TooltipPosition } from '@spartan-ng/app/app/pages/(components)/components/(tooltip)/tooltip--position.example';
+import { TooltipRtlPreview } from '@spartan-ng/app/app/pages/(components)/components/(tooltip)/tooltip--rtl.example';
+import { TooltipTemplate } from '@spartan-ng/app/app/pages/(components)/components/(tooltip)/tooltip--template.example';
+import { CodeRtlPreview } from '@spartan-ng/app/app/shared/code/code-rtl-preview';
+import { RtlHeader } from '@spartan-ng/app/app/shared/code/rtl-header';
+import { InstallTabs } from '@spartan-ng/app/app/shared/layout/install-tabs';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
 import { MainSection } from '../../../../shared/layout/main-section';
-import { PageBottomNavPlaceholder } from '../../../../shared/layout/page-bottom-nav-placeholder';
 import { PageBottomNav } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav';
 import { PageBottomNavLink } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav-link';
 import { PageNav } from '../../../../shared/layout/page-nav/page-nav';
 import { SectionIntro } from '../../../../shared/layout/section-intro';
 import { SectionSubHeading } from '../../../../shared/layout/section-sub-heading';
 import { Tabs } from '../../../../shared/layout/tabs';
-import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
+import { TooltipGroup } from './tooltip--group.example';
 import { TooltipSimple } from './tooltip--simple.example';
-import { TooltipPreview, defaultImports, defaultSkeleton } from './tooltip.preview';
+import { defaultImports, defaultSkeleton, TooltipPreview } from './tooltip.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Tooltip', api: 'tooltip' },
@@ -31,25 +39,36 @@ export const routeMeta: RouteMeta = {
 	imports: [
 		UIApiDocs,
 		MainSection,
+		InstallTabs,
 		Code,
 		SectionIntro,
 		SectionSubHeading,
 		Tabs,
-		TabsCli,
+
 		CodePreview,
 		PageNav,
 		PageBottomNav,
 		PageBottomNavLink,
 		TooltipPreview,
-		PageBottomNavPlaceholder,
 		TooltipSimple,
 		SectionSubSubHeading,
+		TooltipSimple,
+		TooltipGroup,
+		TooltipPosition,
+		TooltipSimple,
+		TooltipDisabled,
+		TooltipTemplate,
+		TooltipDisabledButtonWithTooltip,
+		RtlHeader,
+		CodeRtlPreview,
+		TooltipRtlPreview,
 	],
 	template: `
 		<section spartanMainSection>
 			<spartan-section-intro
 				name="Tooltip"
 				lead="A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it."
+				showThemeToggle
 			/>
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
@@ -59,8 +78,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
-			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
-			<spartan-cli-tabs nxCode="npx nx g @spartan-ng/cli:ui tooltip" ngCode="ng g @spartan-ng/cli:ui tooltip" />
+			<spartan-install-tabs primitive="tooltip" />
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="mt-6 space-y-4">
@@ -78,6 +96,60 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_simpleCode()" />
 			</spartan-tabs>
 
+			<h3 id="examples__group" spartanH4>Group</h3>
+			<p class="text-muted-foreground mt-2 mb-4 text-sm">
+				Provide
+				<code>provideBrnTooltipGroup</code>
+				on a wrapping component so that once one tooltip opens, the others in the group open instantly until the
+				skip-delay window elapses.
+			</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-tooltip-group />
+				</div>
+				<spartan-code secondTab [code]="_groupCode()" />
+			</spartan-tabs>
+
+			<h3 id="examples__position" spartanH4>Positions</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-tooltip-position />
+				</div>
+				<spartan-code secondTab [code]="_positionCode()" />
+			</spartan-tabs>
+
+			<h3 id="examples__disabled" spartanH4>Disabled</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-tooltip-disabled />
+				</div>
+				<spartan-code secondTab [code]="_disabledCode()" />
+			</spartan-tabs>
+
+			<h3 id="examples__disabled-button-with-tooltip" spartanH4>Disabled Button with Tooltip</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-tooltip-disabled-button-with-tooltip />
+				</div>
+				<spartan-code secondTab [code]="_disabledBtnCode()" />
+			</spartan-tabs>
+
+			<h3 id="examples__template" spartanH4>Template</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-tooltip-template />
+				</div>
+				<spartan-code secondTab [code]="_templateCode()" />
+			</spartan-tabs>
+
+			<spartan-header-rtl />
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanRtlCodePreview firstTab>
+					<spartan-tooltip-rtl-preview />
+				</div>
+				<spartan-code secondTab [code]="_rtlCode()" />
+			</spartan-tabs>
+
 			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="brain" />
 
@@ -93,9 +165,19 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class TooltipPage {
+	constructor() {
+		injectComponentDocs();
+	}
+
 	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('tooltip');
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
 	protected readonly _simpleCode = computed(() => this._snippets()['simple']);
+	protected readonly _groupCode = computed(() => this._snippets()['group']);
+	protected readonly _positionCode = computed(() => this._snippets()['position']);
+	protected readonly _templateCode = computed(() => this._snippets()['template']);
+	protected readonly _disabledCode = computed(() => this._snippets()['disabled']);
+	protected readonly _disabledBtnCode = computed(() => this._snippets()['disabledButtonWithTooltip']);
+	protected readonly _rtlCode = computed(() => this._snippets()['rtl']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
 }

@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { HlmBreadCrumbImports } from '@spartan-ng/helm/breadcrumb';
+import { HlmBreadcrumbImports } from '@spartan-ng/helm/breadcrumb';
 import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
 
 @Component({
 	selector: 'spartan-breadcrumb-preview',
-	imports: [HlmBreadCrumbImports, HlmDropdownMenuImports],
+	imports: [HlmBreadcrumbImports, HlmDropdownMenuImports],
 	template: `
 		<nav hlmBreadcrumb>
 			<ol hlmBreadcrumbList>
@@ -14,7 +14,7 @@ import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
 				<li hlmBreadcrumbSeparator></li>
 				<li hlmBreadcrumbItem>
 					<button [hlmDropdownMenuTrigger]="breadcrumbDropdown">
-						<hlm-breadcrumb-ellipsis class="size-4" />
+						<hlm-breadcrumb-ellipsis />
 						<span class="sr-only">Toggle menu</span>
 					</button>
 					<ng-template #breadcrumbDropdown>
@@ -46,7 +46,7 @@ import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
 export class BreadcrumbPreview {}
 
 export const defaultImports = `
-import { HlmBreadCrumbImports } from '@spartan-ng/helm/breadcrumb';
+import { HlmBreadcrumbImports } from '@spartan-ng/helm/breadcrumb';
 `;
 
 export const defaultSkeleton = `

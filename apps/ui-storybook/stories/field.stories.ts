@@ -1,6 +1,5 @@
 import { JsonPipe } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
-import { BrnSelectImports } from '@spartan-ng/brain/select';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmCheckbox } from '@spartan-ng/helm/checkbox';
 import { HlmFieldImports } from '@spartan-ng/helm/field';
@@ -9,7 +8,7 @@ import { HlmRadioGroupImports } from '@spartan-ng/helm/radio-group';
 import { HlmSelectImports } from '@spartan-ng/helm/select';
 import { HlmSwitch } from '@spartan-ng/helm/switch';
 import { HlmTextarea } from '@spartan-ng/helm/textarea';
-import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';
+import { type Meta, moduleMetadata, type StoryObj } from '@storybook/angular';
 
 const meta: Meta = {
 	title: 'Field',
@@ -23,7 +22,6 @@ const meta: Meta = {
 				HlmSwitch,
 				HlmTextarea,
 				HlmButton,
-				BrnSelectImports,
 				HlmSelectImports,
 				HlmRadioGroupImports,
 				ReactiveFormsModule,
@@ -93,26 +91,26 @@ export const WithCheckbox: Story = {
 						<p hlmFieldDescription>Select the items you want to show on the desktop.</p>
 						<div hlmFieldGroup class="gap-3">
 							<div hlmField orientation="horizontal">
-								<hlm-checkbox id="field-hard-disks" />
+								<hlm-checkbox inputId="field-hard-disks" />
 								<label hlmFieldLabel for="field-hard-disks" class="font-normal">Hard disks</label>
 							</div>
 							<div hlmField orientation="horizontal">
-								<hlm-checkbox id="field-external-disks" />
+								<hlm-checkbox inputId="field-external-disks" />
 								<label hlmFieldLabel for="field-external-disks" class="font-normal">External disks</label>
 							</div>
 							<div hlmField orientation="horizontal">
-								<hlm-checkbox id="field-cds-dvds-ipods" />
+								<hlm-checkbox inputId="field-cds-dvds-ipods" />
 								<label hlmFieldLabel for="field-cds-dvds-ipods" class="font-normal">CDs, DVDs, and IPods</label>
 							</div>
 							<div hlmField orientation="horizontal">
-								<hlm-checkbox id="field-connected-servers" />
+								<hlm-checkbox inputId="field-connected-servers" />
 								<label hlmFieldLabel for="field-connected-servers" class="font-normal">Connected servers</label>
 							</div>
 						</div>
 					</fieldset>
 					<hlm-field-separator />
 					<div hlmField orientation="horizontal">
-						<hlm-checkbox id="field-sync-desktop-documents" [checked]="true" />
+						<hlm-checkbox inputId="field-sync-desktop-documents" [checked]="true" />
 						<div hlmFieldContent>
 							<label hlmFieldLabel for="field-sync-desktop-documents">Sync Desktop & Documents folders</label>
 							<p hlmFieldDescription>
@@ -140,7 +138,7 @@ export const WithSwitch: Story = {
 							sent to your email.
 						</p>
 					</div>
-					<hlm-switch id="field-2fa" />
+					<hlm-switch inputId="field-2fa" />
 				</div>
 			</div>
 		`,
@@ -157,19 +155,19 @@ export const WithRadio: Story = {
 					<p hlmFieldDescription>Yearly and lifetime plans offer significant savings.</p>
 					<hlm-radio-group data-slot="radio-group" value="monthly">
 						<div hlmField orientation="horizontal">
-							<hlm-radio value="monthly" id="plan-monthly">
+							<hlm-radio value="monthly" inputId="plan-monthly">
 								<hlm-radio-indicator indicator />
 							</hlm-radio>
 							<label hlmFieldLabel for="plan-monthly" class="font-normal">Monthly ($9.99/month)</label>
 						</div>
 						<div hlmField orientation="horizontal">
-							<hlm-radio value="yearly" id="plan-yearly">
+							<hlm-radio value="yearly" inputId="plan-yearly">
 								<hlm-radio-indicator indicator />
 							</hlm-radio>
 							<label hlmFieldLabel for="plan-yearly" class="font-normal">Yearly ($99.99/year)</label>
 						</div>
 						<div hlmField orientation="horizontal">
-							<hlm-radio value="lifetime" id="plan-lifetime">
+							<hlm-radio value="lifetime" inputId="plan-lifetime">
 								<hlm-radio-indicator indicator />
 							</hlm-radio>
 							<label hlmFieldLabel for="plan-lifetime" class="font-normal">Lifetime ($299.99/lifetime)</label>
@@ -190,18 +188,20 @@ export const WithSelect: Story = {
 					<div hlmFieldGroup>
 						<div hlmField>
 							<label hlmFieldLabel for="field-select-country">Country</label>
-							<brn-select class="inline-block" placeholder="Select a country">
-								<hlm-select-trigger class="w-full" id="field-select-country">
-									<hlm-select-value />
+							<hlm-select class="inline-block">
+								<hlm-select-trigger class="w-full" buttonId="field-select-country">
+									<hlm-select-value placeholder="Select a country" />
 								</hlm-select-trigger>
-								<hlm-select-content>
-									<hlm-option value="us">United States</hlm-option>
-									<hlm-option value="uk">United Kingdom</hlm-option>
-									<hlm-option value="ca">Canada</hlm-option>
-									<hlm-option value="au">Australia</hlm-option>
-									<hlm-option value="de">Germany</hlm-option>
+								<hlm-select-content *hlmSelectPortal>
+									<hlm-select-group>
+										<hlm-select-item value="us">United States</hlm-select-item>
+										<hlm-select-item value="uk">United Kingdom</hlm-select-item>
+										<hlm-select-item value="ca">Canada</hlm-select-item>
+										<hlm-select-item value="au">Australia</hlm-select-item>
+										<hlm-select-item value="de">Germany</hlm-select-item>
+									</hlm-select-group>
 								</hlm-select-content>
-							</brn-select>
+							</hlm-select>
 							<p hlmFieldDescription>Select your country of residence.</p>
 						</div>
 					</div>
@@ -232,26 +232,43 @@ export const WithTextarea: Story = {
 
 export const WithError: Story = {
 	name: 'With Error',
-	render: () => ({
-		template: `
+	render: () => {
+		const form = new FormGroup({
+			email: new FormControl('', { validators: [Validators.required, Validators.email] }),
+			username: new FormControl('', { validators: [Validators.required, Validators.minLength(3)] }),
+		});
+		return {
+			props: {
+				form,
+			},
+			template: `
 			<div class="w-full max-w-md">
+			<form [formGroup]="form">
 				<fieldset hlmFieldSet>
 					<div hlmFieldGroup>
-						<div hlmField data-invalid="true">
-							<label hlmFieldLabel for="field-email-error">Email</label>
-							<input hlmInput id="field-email-error" type="email" aria-invalid="true" value="invalid-email" />
-							<hlm-field-error>Enter a valid email address.</hlm-field-error>
+						<div hlmField>
+							<label hlmFieldLabel>Email</label>
+							<input hlmInput id="field-email-error" type="email" formControlName="email" />
+							<hlm-field-error validator="required">Email must be entered.</hlm-field-error>
+							<hlm-field-error validator="email">Enter a valid email address.</hlm-field-error>
 						</div>
-						<div hlmField data-invalid="true">
-							<label hlmFieldLabel for="field-username-error">Username</label>
-							<input hlmInput id="field-username-error" type="text" aria-invalid="true" value="ab" />
-							<hlm-field-error>Username must be at least 3 characters.</hlm-field-error>
+						<div hlmField>
+							<label hlmFieldLabel>Username</label>
+							<input hlmInput id="field-username-error" type="text" formControlName="username" />
+							<hlm-field-error validator="required">Username must be entered.</hlm-field-error>
+							<hlm-field-error validator="minlength">Username must be at least 3 characters.</hlm-field-error>
 						</div>
 					</div>
 				</fieldset>
+				<hlm-field orientation="horizontal" class="mt-3">
+					<button id="validate" hlmBtn type="button" (click)="form.markAllAsTouched()">Validate</button>
+					<button hlmBtn variant="outline" type="button" (click)="form.reset()">Reset</button>
+				</hlm-field>
+			</form>
 			</div>
 		`,
-	}),
+		};
+	},
 };
 
 export const FieldGroup: Story = {
@@ -267,7 +284,7 @@ export const FieldGroup: Story = {
 						</p>
 						<div hlmFieldGroup data-slot="checkbox-group">
 							<div hlmField orientation="horizontal">
-								<hlm-checkbox id="field-group-push-notifications" disabled [checked]="true" />
+								<hlm-checkbox inputId="field-group-push-notifications" disabled [checked]="true" />
 								<label hlmFieldLabel for="field-group-push-notifications" class="font-normal">Push notifications</label>
 							</div>
 						</div>
@@ -281,11 +298,11 @@ export const FieldGroup: Story = {
 						</p>
 						<div hlmFieldGroup class="gap-3" data-slot="checkbox-group">
 							<div hlmField orientation="horizontal">
-								<hlm-checkbox id="field-group-push-task" />
+								<hlm-checkbox inputId="field-group-push-task" />
 								<label hlmFieldLabel for="field-group-push-task" class="font-normal">Push notifications</label>
 							</div>
 							<div hlmField orientation="horizontal">
-								<hlm-checkbox id="field-group-email-task" />
+								<hlm-checkbox inputId="field-group-email-task" />
 								<label hlmFieldLabel for="field-group-email-task" class="font-normal">Email notifications</label>
 							</div>
 						</div>
@@ -320,41 +337,45 @@ export const ComplexForm: Story = {
 								<div class="grid grid-cols-3 gap-4">
 									<div hlmField>
 										<label hlmFieldLabel for="field-complex-expiration-month">Month</label>
-										<brn-select class="inline-block" placeholder="MM">
+										<hlm-select class="inline-block">
 											<hlm-select-trigger class="w-full" id="field-complex-expiration-month">
-												<hlm-select-value />
+												<hlm-select-value placeholder="MM" />
 											</hlm-select-trigger>
-											<hlm-select-content>
-												<hlm-option value="01">01</hlm-option>
-												<hlm-option value="02">02</hlm-option>
-												<hlm-option value="03">03</hlm-option>
-												<hlm-option value="04">04</hlm-option>
-												<hlm-option value="05">05</hlm-option>
-												<hlm-option value="06">06</hlm-option>
-												<hlm-option value="07">07</hlm-option>
-												<hlm-option value="08">08</hlm-option>
-												<hlm-option value="09">09</hlm-option>
-												<hlm-option value="10">10</hlm-option>
-												<hlm-option value="11">11</hlm-option>
-												<hlm-option value="12">12</hlm-option>
-											</hlm-select-content>
-										</brn-select>
+											<hlm-select-content *hlmSelectPortal>
+<hlm-select-group>
+												<hlm-select-item value="01">01</hlm-select-item>
+												<hlm-select-item value="02">02</hlm-select-item>
+												<hlm-select-item value="03">03</hlm-select-item>
+												<hlm-select-item value="04">04</hlm-select-item>
+												<hlm-select-item value="05">05</hlm-select-item>
+												<hlm-select-item value="06">06</hlm-select-item>
+												<hlm-select-item value="07">07</hlm-select-item>
+												<hlm-select-item value="08">08</hlm-select-item>
+												<hlm-select-item value="09">09</hlm-select-item>
+												<hlm-select-item value="10">10</hlm-select-item>
+												<hlm-select-item value="11">11</hlm-select-item>
+												<hlm-select-item value="12">12</hlm-select-item>
+											</hlm-select-group>
+</hlm-select-content>
+										</hlm-select>
 									</div>
 									<div hlmField>
 										<label hlmFieldLabel for="field-complex-expiration-year">Year</label>
-										<brn-select class="inline-block" placeholder="YYYY">
+										<hlm-select class="inline-block">
 											<hlm-select-trigger class="w-full" id="field-complex-expiration-year">
-												<hlm-select-value />
+												<hlm-select-value placeholder="YYYY" />
 											</hlm-select-trigger>
-											<hlm-select-content>
-												<hlm-option value="2024">2024</hlm-option>
-												<hlm-option value="2025">2025</hlm-option>
-												<hlm-option value="2026">2026</hlm-option>
-												<hlm-option value="2027">2027</hlm-option>
-												<hlm-option value="2028">2028</hlm-option>
-												<hlm-option value="2029">2029</hlm-option>
-											</hlm-select-content>
-										</brn-select>
+											<hlm-select-content *hlmSelectPortal>
+<hlm-select-group>
+												<hlm-select-item value="2024">2024</hlm-select-item>
+												<hlm-select-item value="2025">2025</hlm-select-item>
+												<hlm-select-item value="2026">2026</hlm-select-item>
+												<hlm-select-item value="2027">2027</hlm-select-item>
+												<hlm-select-item value="2028">2028</hlm-select-item>
+												<hlm-select-item value="2029">2029</hlm-select-item>
+											</hlm-select-group>
+</hlm-select-content>
+										</hlm-select>
 									</div>
 									<div hlmField>
 										<label hlmFieldLabel for="field-complex-cvv">CVV</label>
@@ -369,7 +390,7 @@ export const ComplexForm: Story = {
 							<p hlmFieldDescription>The billing address associated with your payment method</p>
 							<div hlmFieldGroup>
 								<div hlmField orientation="horizontal">
-									<hlm-checkbox id="field-complex-billing-address" [checked]="true" />
+									<hlm-checkbox inputId="field-complex-billing-address" [checked]="true" />
 									<label hlmFieldLabel for="field-complex-billing-address">Same as shipping address.</label>
 								</div>
 							</div>
@@ -400,15 +421,15 @@ export const HorizontalOrientation: Story = {
 			<div class="w-full max-w-md">
 				<div hlmFieldGroup>
 					<div hlmField orientation="horizontal">
-						<hlm-switch id="field-horizontal-notifications" />
+						<hlm-switch inputId="field-horizontal-notifications" />
 						<label hlmFieldLabel for="field-horizontal-notifications">Enable notifications</label>
 					</div>
 					<div hlmField orientation="horizontal">
-						<hlm-checkbox id="field-horizontal-marketing" />
+						<hlm-checkbox inputId="field-horizontal-marketing" />
 						<label hlmFieldLabel for="field-horizontal-marketing" class="font-normal">Receive marketing emails</label>
 					</div>
 					<div hlmField orientation="horizontal">
-						<hlm-checkbox id="field-horizontal-updates" />
+						<hlm-checkbox inputId="field-horizontal-updates" />
 						<label hlmFieldLabel for="field-horizontal-updates" class="font-normal">Product updates</label>
 					</div>
 				</div>
@@ -424,14 +445,14 @@ export const WithFieldContent: Story = {
 			<div class="w-full max-w-md">
 				<div hlmFieldGroup class="gap-4">
 					<div hlmField orientation="horizontal">
-						<hlm-checkbox id="field-content-security-updates" [checked]="true" />
+						<hlm-checkbox inputId="field-content-security-updates" [checked]="true" />
 						<div hlmFieldContent>
 							<label hlmFieldLabel for="field-content-security-updates">Security Updates</label>
 							<p hlmFieldDescription>Receive emails about your account security and important updates.</p>
 						</div>
 					</div>
 					<div hlmField orientation="horizontal">
-						<hlm-switch id="field-content-two-factor" />
+						<hlm-switch inputId="field-content-two-factor" />
 						<div hlmFieldContent>
 							<label hlmFieldLabel for="field-content-two-factor">Two-Factor Authentication</label>
 							<p hlmFieldDescription>

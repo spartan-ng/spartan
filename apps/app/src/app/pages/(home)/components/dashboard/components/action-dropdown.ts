@@ -3,18 +3,17 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronRight, lucideEllipsis } from '@ng-icons/lucide';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
-import { HlmIcon } from '@spartan-ng/helm/icon';
 import { type CellContext, injectFlexRenderContext } from '@tanstack/angular-table';
 import type { DashboardData } from './dashboard-data.model';
 
 @Component({
 	selector: 'spartan-action-dropdown-dashboard',
-	imports: [HlmButton, NgIcon, HlmIcon, HlmDropdownMenuImports],
+	imports: [HlmButton, NgIcon, HlmDropdownMenuImports],
 	providers: [provideIcons({ lucideEllipsis, lucideChevronRight })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<button hlmBtn variant="ghost" class="h-6 w-6 p-0.5" align="end" [hlmDropdownMenuTrigger]="menu">
-			<ng-icon hlm size="sm" name="lucideEllipsis" />
+			<ng-icon name="lucideEllipsis" />
 		</button>
 		<ng-template #menu>
 			<hlm-dropdown-menu>

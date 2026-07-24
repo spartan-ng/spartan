@@ -4,30 +4,32 @@ import type { RouterLink } from '@angular/router';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronLeft } from '@ng-icons/lucide';
 import type { ButtonVariants } from '@spartan-ng/helm/button';
-import { HlmIcon } from '@spartan-ng/helm/icon';
-import { classes } from '@spartan-ng/helm/utils';
+import { hlm } from '@spartan-ng/helm/utils';
+import type { ClassValue } from 'clsx';
 import { HlmPaginationLink } from './hlm-pagination-link';
 
 @Component({
 	selector: 'hlm-pagination-previous',
-	imports: [HlmPaginationLink, NgIcon, HlmIcon],
+	imports: [HlmPaginationLink, NgIcon],
 	providers: [provideIcons({ lucideChevronLeft })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<a
 			hlmPaginationLink
+			[class]="_computedClass()"
 			[link]="link()"
 			[queryParams]="queryParams()"
 			[queryParamsHandling]="queryParamsHandling()"
 			[size]="_size()"
 			[attr.aria-label]="ariaLabel()"
 		>
-			<ng-icon hlm size="sm" name="lucideChevronLeft" />
+			<ng-icon name="lucideChevronLeft" class="spartan-rtl-flip" />
 			<span [class]="_labelClass()">{{ text() }}</span>
 		</a>
 	`,
 })
 export class HlmPaginationPrevious {
+	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	/** The link to navigate to the previous page. */
 	public readonly link = input<RouterLink['routerLink']>();
 	/** The query parameters to pass to the previous page. */
@@ -43,10 +45,13 @@ export class HlmPaginationPrevious {
 	public readonly iconOnly = input<boolean, BooleanInput>(false, {
 		transform: booleanAttribute,
 	});
-	protected readonly _labelClass = computed(() => (this.iconOnly() ? 'sr-only' : 'hidden sm:block'));
+	protected readonly _labelClass = computed(() =>
+		hlm(this.iconOnly() ? 'sr-only' : 'spartan-pagination-previous-text hidden sm:block'),
+	);
+
 	protected readonly _size = computed<ButtonVariants['size']>(() => (this.iconOnly() ? 'icon' : 'default'));
 
-	constructor() {
-		classes(() => ['gap-1 px-2.5', !this.iconOnly() ? 'sm:pl-2.5' : '']);
-	}
+	protected readonly _computedClass = computed(() =>
+		hlm(!this.iconOnly() && 'spartan-pagination-previous', this.userClass()),
+	);
 }

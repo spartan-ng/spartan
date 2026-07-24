@@ -9,13 +9,12 @@ import {
 	forwardRef,
 	input,
 	linkedSignal,
-	model,
 	numberAttribute,
 	output,
 	signal,
 	viewChild,
 } from '@angular/core';
-import { type ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
 import type { ClassValue } from 'clsx';
 import { provideBrnInputOtp } from './brn-input-otp.token';
@@ -30,7 +29,6 @@ export type InputMode = 'text' | 'tel' | 'url' | 'email' | 'numeric' | 'decimal'
 
 @Component({
 	selector: 'brn-input-otp',
-	imports: [FormsModule],
 	providers: [BRN_INPUT_OTP_VALUE_ACCESSOR, provideBrnInputOtp(BrnInputOtp)],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
@@ -42,14 +40,14 @@ export type InputMode = 'text' | 'tel' | 'url' | 'email' | 'numeric' | 'decimal'
 		<div [style]="containerStyles()">
 			<input
 				#otpInput
+				data-slot="input-otp"
 				[id]="inputId()"
 				[class]="inputClass()"
 				[autocomplete]="inputAutocomplete()"
-				data-slot="input-otp"
 				[style]="inputStyles()"
 				[disabled]="_disabled()"
 				[inputMode]="inputMode()"
-				[ngModel]="value()"
+				[value]="value() ?? ''"
 				(input)="onInputChange($event)"
 				(paste)="onPaste($event)"
 				(focus)="_focused.set(true)"
@@ -111,7 +109,8 @@ export class BrnInputOtp implements ControlValueAccessor {
 	public readonly transformPaste = input<(pastedText: string, maxLength: number) => string>((text) => text);
 
 	/** The value controlling the input */
-	public readonly value = model<string | null>(null);
+	public readonly valueInput = input<string | null>(null, { alias: 'value' });
+	public readonly value = linkedSignal(this.valueInput);
 
 	/** Emits when the value changes. */
 	public readonly valueChange = output<string>();
@@ -204,6 +203,7 @@ export class BrnInputOtp implements ControlValueAccessor {
 		const previousValue = this.value() ?? '';
 
 		this.value.set(newValue);
+		this.valueChange.emit(newValue);
 		this._onChange?.(newValue);
 
 		if (this.isCompleted(newValue, previousValue, maxLength)) {

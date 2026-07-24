@@ -27,12 +27,47 @@ describe('combobox--default', () => {
 			cy.findByText('Angular').should('not.be.visible');
 		});
 
-		it('should open the framework dropdown, and a scrollbar should be shown', () => {
+		it('should open the framework dropdown, and the list should be scrollable', () => {
 			cy.findByText(/Angular/i).should('not.exist');
 			cy.get('input[placeholder="Select framework..."]').should('be.visible').realClick();
 			cy.get('[role="listbox"]').should(($el) => {
 				expect($el[0].scrollHeight).to.be.greaterThan($el[0].clientHeight);
 			});
 		});
+
+		it('clicking outside should close the content', () => {
+			cy.get('input[placeholder="Select framework..."]').should('be.visible').realClick();
+			cy.findByText('Angular').should('be.visible');
+			cy.get('body').realClick({ position: 'topLeft' });
+			cy.findByText('Angular').should('not.exist');
+		});
+
+		it('clicking the input while open keeps it open (closeOnTriggerClick is false)', () => {
+			cy.get('input[placeholder="Select framework..."]').should('be.visible').realClick();
+			cy.findByText('Angular').should('be.visible');
+			cy.get('input[placeholder="Select framework..."]').realClick();
+			cy.findByText('Angular').should('be.visible');
+		});
+	});
+});
+
+describe('combobox--popup', () => {
+	beforeEach(() => {
+		cy.visit('/iframe.html?id=combobox--popup');
+	});
+
+	it('clicking the button trigger again should close the content (closeOnTriggerClick is true)', () => {
+		cy.findByText(/Angular/i).should('not.exist');
+		cy.get('hlm-combobox-trigger button').realClick();
+		cy.findByText('Angular').should('be.visible');
+		cy.get('hlm-combobox-trigger button').realClick();
+		cy.findByText('Angular').should('not.exist');
+	});
+
+	it('clicking outside should close the content', () => {
+		cy.get('hlm-combobox-trigger button').realClick();
+		cy.findByText('Angular').should('be.visible');
+		cy.get('body').realClick({ position: 'topLeft' });
+		cy.findByText('Angular').should('not.exist');
 	});
 });

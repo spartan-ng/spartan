@@ -1,10 +1,13 @@
-import type { RouteMeta } from '@analogjs/router';
-import { Component, inject } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { type RouteMeta } from '@analogjs/router';
+import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronRight } from '@ng-icons/lucide';
+import { PackageInstallerTabs } from '@spartan-ng/app/app/shared/layout/package-installer-tabs';
+import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
+import { HlmAlert, HlmAlertDescription, HlmAlertTitle } from '@spartan-ng/helm/alert';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
-import { HlmIconImports } from '@spartan-ng/helm/icon';
+
 import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { MainSection } from '../../../../shared/layout/main-section';
@@ -14,11 +17,14 @@ import { PageNav } from '../../../../shared/layout/page-nav/page-nav';
 import { SectionIntro } from '../../../../shared/layout/section-intro';
 import { SectionSubHeading } from '../../../../shared/layout/section-sub-heading';
 import { TabsCli } from '../../../../shared/layout/tabs-cli';
-
-import { PackageInstallerTabs } from '@spartan-ng/app/app/shared/layout/package-installer-tabs';
-import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
-import { HlmAlert, HlmAlertDescription, HlmAlertTitle } from '@spartan-ng/helm/alert';
 import { metaWith } from '../../../../shared/meta/meta.util';
+import {
+	cssVariables,
+	spartanPresetImport,
+	tailwindAutocompletion,
+	tailwindImports,
+	tailwindPrettierSorting,
+} from './installation-snippets';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Installation' },
@@ -38,7 +44,7 @@ export const routeMeta: RouteMeta = {
 		Code,
 		HlmButtonImports,
 		NgIcon,
-		HlmIconImports,
+
 		RouterLink,
 		TabsCli,
 		SectionSubSubHeading,
@@ -98,7 +104,7 @@ export const routeMeta: RouteMeta = {
 			<div class="my-2 flex items-center justify-end">
 				<a routerLink="/components" variant="outline" size="sm" hlmBtn outline="">
 					Check out the Components
-					<ng-icon hlm name="lucideChevronRight" class="ml-2" size="sm" />
+					<ng-icon name="lucideChevronRight" class="ml-2" />
 				</a>
 			</div>
 
@@ -113,15 +119,7 @@ export const routeMeta: RouteMeta = {
 
 			<h3 spartanH4 id="configure-tailwind-css">2. Configure Tailwind CSS</h3>
 
-			<div hlmAlert variant="destructive" class="mt-6">
-				<h4 hlmAlertTitle>Use Tailwind CSS v4</h4>
-				<div hlmAlertDescription>
-					<p>We recommend Tailwind CSS v4. Some features may not work correctly with v3.</p>
-					<a [routerLink]="[]" [relativeTo]="_activatedRoute" fragment="tailwind-v3" class="${hlmCode} underline">
-						See Tailwind v3 guide
-					</a>
-				</div>
-			</div>
+			<p class="${hlmP}">spartan/ui requires Tailwind CSS v4.</p>
 
 			<h4 spartanH4 id="configure-layers">2.1 Configure CSS Layers</h4>
 			<p class="${hlmP}">
@@ -129,24 +127,14 @@ export const routeMeta: RouteMeta = {
 				<code class="${hlmCode}">styles.css</code>
 				to ensure ng-icons styles load correctly:
 			</p>
-			<spartan-code
-				class="mt-4 w-full"
-				code='@layer theme, base, components, utilities;
-@import "tailwindcss/theme.css" layer(theme);
-@import "tailwindcss/preflight.css" layer(base);
-@import "tailwindcss/utilities.css";'
-			/>
+			<spartan-code class="mt-4" [code]="_tailwindImports" fileName="src/styles.css" />
 
-			<h4 spartanH4 id="import-preset" class="mt-8">2.2 Import spartan Preset</h4>
+			<h4 spartanH4 id="import-preset" class="mt-8">2.2 Import spartan/ui preset</h4>
 			<p class="${hlmP}">Add the spartan preset to your CSS file:</p>
-			<spartan-code
-				class="mt-4"
-				code='@import "@spartan-ng/brain/hlm-tailwind-preset.css";'
-				fileName="src/styles.css"
-			/>
+			<spartan-code class="mt-4" [code]="_spartanPresetImport" fileName="src/styles.css" />
 
 			<div hlmAlert class="mt-6">
-				<h4 hlmAlertTitle>Spartan preset</h4>
+				<h4 hlmAlertTitle>spartan/ui preset</h4>
 				<div hlmAlertDescription>
 					<p class="${hlmP}">Our preset already includes tw-animate-css and &#64;angular/cdk/overlay-prebuilt.css</p>
 				</div>
@@ -165,7 +153,7 @@ export const routeMeta: RouteMeta = {
 			<div class="my-2 flex items-center justify-end">
 				<a routerLink="/documentation/cli" variant="outline" size="sm" hlmBtn outline="">
 					CLI documentation
-					<ng-icon hlm name="lucideChevronRight" class="ml-2" size="sm" />
+					<ng-icon name="lucideChevronRight" class="ml-2" />
 				</a>
 			</div>
 
@@ -176,71 +164,7 @@ export const routeMeta: RouteMeta = {
 				:
 			</p>
 
-			<spartan-code
-				class="mt-6"
-				fileName="styles.css"
-				code=":root {
-  color-scheme: light;
-  --font-sans: 'Geist Sans', sans-serif;
-  --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
-}
-
-.dark {
-  color-scheme: dark;
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.985 0 0);
-  --sidebar-primary-foreground: oklch(0.205 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
-}"
-			/>
+			<spartan-code class="mt-6" fileName="styles.css" [code]="_cssVariables" />
 
 			<p class="${hlmP}">
 				Learn how to customize these variables in the
@@ -266,13 +190,13 @@ export const routeMeta: RouteMeta = {
 			<div class="my-2 flex items-center justify-end">
 				<a routerLink="/documentation/cli" variant="outline" size="sm" hlmBtn outline="">
 					CLI documentation
-					<ng-icon hlm name="lucideChevronRight" class="ml-2" size="sm" />
+					<ng-icon name="lucideChevronRight" class="ml-2" />
 				</a>
 			</div>
 
 			<spartan-section-sub-heading id="editor-setup">Editor Setup (Optional)</spartan-section-sub-heading>
 
-			<h3 spartanH4 id="intellisense">IntelliSense</h3>
+			<h3 spartanH4 id="tailwind-autocompletion">Tailwind autocompletion</h3>
 			<p class="${hlmP}">
 				Enable Tailwind autocompletion in
 				<code class="${hlmCode}">hlm</code>
@@ -282,6 +206,8 @@ export const routeMeta: RouteMeta = {
 				<code class="${hlmCode}">classes</code>
 				functions:
 			</p>
+
+			<h4 spartanH4>Intellisense (VSCode)</h4>
 
 			<ol class="my-6 ml-6 list-decimal [&>li]:mt-2">
 				<li>
@@ -303,12 +229,20 @@ export const routeMeta: RouteMeta = {
 				</li>
 			</ol>
 
-			<spartan-code
-				class="mt-4"
-				code='{
-  "tailwindCSS.classFunctions": ["hlm", "cva", "classes"]
-}'
-			/>
+			<spartan-code class="mt-4" [code]="_tailwindAutocompletion" />
+
+			<h4 spartanH4>Tailwind CSS plugin (Jetbrains)</h4>
+
+			<ol class="my-6 ml-6 list-decimal [&>li]:mt-2">
+				<li>
+					Open Tailwind configuration (
+					<code>Settings > Language & Frameworks > Style sheets > Tailwind CSS</code>
+					)
+				</li>
+				<li>Add this to the configuration:</li>
+			</ol>
+
+			<spartan-code class="mt-4" [code]="_tailwindAutocompletion" />
 
 			<h3 spartanH4 id="sorting-classes" class="mt-8">Class Sorting</h3>
 			<p class="${hlmP}">Automatically sort Tailwind classes with Prettier:</p>
@@ -326,72 +260,20 @@ export const routeMeta: RouteMeta = {
 					</a>
 				</li>
 				<li>
+					(Optional) For Jetbrains-based IDEs: configure Prettier. Go to
+					<code>Settings > Language & Frameworks > JavaScript > Prettier</code>
+					, check "Automatic Prettier configuration" and add
+					<code>html</code>
+					in the "Run for files" pattern.
+				</li>
+				<li>
 					Add this to your
 					<code class="${hlmCode}">.prettierrc</code>
 					:
 				</li>
 			</ol>
 
-			<spartan-code
-				class="mt-4"
-				code='{
-  "tailwindFunctions": ["hlm", "cva", "classes"]
-}'
-			/>
-
-			<spartan-section-sub-heading id="tailwind-v3" class="text-destructive">
-				Tailwind CSS v3 (Not Recommended)
-			</spartan-section-sub-heading>
-
-			<div hlmAlert variant="destructive" class="mt-4 mb-6">
-				<h4 hlmAlertTitle>Limited v3 Support</h4>
-				<div hlmAlertDescription>
-					<p>
-						Tailwind CSS v3 support is not guaranteed. Some components may not work as expected. We strongly recommend
-						upgrading to v4.
-					</p>
-				</div>
-			</div>
-
-			<p class="${hlmP}">If you must use Tailwind v3, add this to your config:</p>
-			<spartan-cli-tabs
-				language="js"
-				class="mt-4 mb-6"
-				nxCode="
-const { createGlobPatternsForDependencies } = require('@nx/angular/tailwind');
-const { join } = require('path');
-
-/** @type {import('tailwindcss').Config} */
-module.exports = {
-  presets: [require('@spartan-ng/brain/hlm-tailwind-preset')],
-  content: [
-    join(__dirname, 'src/**/!(*.stories|*.spec).{ts,html}'),
-    ...createGlobPatternsForDependencies(__dirname),
-  ],
-  theme: {
-    extend: {},
-  },
-  plugins: [],
-};
-"
-				ngCode="
-/** @type {import('tailwindcss').Config} */
-module.exports = {
-  presets: [require('@spartan-ng/brain/hlm-tailwind-preset')],
-  content: [
-    './src/**/*.{html,ts}',
-    './REPLACE_WITH_PATH_TO_YOUR_COMPONENTS_DIRECTORY/**/*.{html,ts}',
-  ],
-  theme: {
-    extend: {},
-  },
-  plugins: [],
-};
-"
-			/>
-
-			<p class="${hlmP}">Also make sure to import the Angular CDK overlay styles:</p>
-			<spartan-code class="mt-4 mb-6" code="@import '@angular/cdk/overlay-prebuilt.css';" />
+			<spartan-code class="mt-4" [code]="_tailwindPrettierSorting" />
 
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="components-json" label="components.json" />
@@ -403,5 +285,9 @@ module.exports = {
 	`,
 })
 export default class InstallationPage {
-	protected readonly _activatedRoute = inject(ActivatedRoute);
+	protected readonly _tailwindImports = tailwindImports;
+	protected readonly _spartanPresetImport = spartanPresetImport;
+	protected readonly _cssVariables = cssVariables;
+	protected readonly _tailwindAutocompletion = tailwindAutocompletion;
+	protected readonly _tailwindPrettierSorting = tailwindPrettierSorting;
 }

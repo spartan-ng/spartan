@@ -2,16 +2,15 @@ import { Component, inject } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideMoon } from '@ng-icons/lucide';
 import { HlmButton } from '@spartan-ng/helm/button';
-import { HlmIcon } from '@spartan-ng/helm/icon';
 import { ThemeService } from '../theme.service';
 
 @Component({
 	selector: 'spartan-dark-mode',
-	imports: [HlmButton, NgIcon, HlmIcon],
+	imports: [HlmButton, NgIcon],
 	providers: [provideIcons({ lucideMoon })],
 	template: `
 		<button size="sm" variant="ghost" hlmBtn (click)="toggleMode()">
-			<ng-icon hlm [svg]="_themeIcon" size="19px" />
+			<ng-icon [svg]="_themeIcon" />
 			<span class="sr-only">Toggle theme</span>
 		</button>
 	`,

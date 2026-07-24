@@ -1,11 +1,17 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
+import { injectComponentDocs } from '@spartan-ng/app/app/core/services/component-docs';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
+import { CalendarMonthAndYearExample } from '@spartan-ng/app/app/pages/(components)/components/(calendar)/calendar--month-and-year.example';
 import { CalendarRangeExample } from '@spartan-ng/app/app/pages/(components)/components/(calendar)/calendar--range.example';
-import { CalendarYearAndMonthExample } from '@spartan-ng/app/app/pages/(components)/components/(calendar)/calendar--year-and-month.example';
+import { CalendarYearAndMonthDropdownsExample } from '@spartan-ng/app/app/pages/(components)/components/(calendar)/calendar--year-and-month-dropdowns.example';
 import { CodePreview } from '@spartan-ng/app/app/shared/code/code-preview';
+import { CodeRtlPreview } from '@spartan-ng/app/app/shared/code/code-rtl-preview';
+import { RtlHeader } from '@spartan-ng/app/app/shared/code/rtl-header';
+import { InstallTabs } from '@spartan-ng/app/app/shared/layout/install-tabs';
 import { MainSection } from '@spartan-ng/app/app/shared/layout/main-section';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
+import { link } from '@spartan-ng/app/app/shared/typography/link';
 import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { PageBottomNav } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav';
@@ -14,10 +20,10 @@ import { PageNav } from '../../../../shared/layout/page-nav/page-nav';
 import { SectionIntro } from '../../../../shared/layout/section-intro';
 import { SectionSubHeading } from '../../../../shared/layout/section-sub-heading';
 import { Tabs } from '../../../../shared/layout/tabs';
-import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { CalendarMultipleExample } from './calendar--multiple.example';
+import { CalendarRtl } from './calendar--rtl.preview';
 import { CalendarPreview, defaultImports, defaultSkeleton, i18nProviders, i18nRuntimeChange } from './calendar.preview';
 
 export const routeMeta: RouteMeta = {
@@ -36,19 +42,28 @@ export const routeMeta: RouteMeta = {
 		Code,
 		CodePreview,
 		SectionSubHeading,
-		TabsCli,
+
 		PageBottomNav,
 		PageBottomNavLink,
 		PageNav,
+		SectionSubSubHeading,
+		InstallTabs,
+		MainSection,
+		RtlHeader,
+		CodeRtlPreview,
 		CalendarMultipleExample,
 		CalendarRangeExample,
-		CalendarYearAndMonthExample,
-		MainSection,
-		SectionSubSubHeading,
+		CalendarYearAndMonthDropdownsExample,
+		CalendarRtl,
+		CalendarMonthAndYearExample,
 	],
 	template: `
 		<section spartanMainSection>
-			<spartan-section-intro name="Calendar" lead="A date field component that allows users to enter and edit date." />
+			<spartan-section-intro
+				name="Calendar"
+				lead="A date field component that allows users to enter and edit date."
+				showThemeToggle
+			/>
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
@@ -57,8 +72,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
-			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
-			<spartan-cli-tabs nxCode="npx nx g @spartan-ng/cli:ui calendar" ngCode="ng g @spartan-ng/cli:ui calendar" />
+			<spartan-install-tabs primitive="calendar" />
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="mt-6 space-y-4">
@@ -139,10 +153,34 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
-					<spartan-calendar-year-and-month />
+					<spartan-calendar-year-and-month-dropdown />
+				</div>
+				<spartan-code secondTab [code]="_yearAndMonthDropdownsCode()" />
+			</spartan-tabs>
+
+			<h3 id="examples__month_and_year" spartanH4>Month and Year</h3>
+
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-month-year-example />
 				</div>
 				<spartan-code secondTab [code]="_yearAndMonthCode()" />
 			</spartan-tabs>
+
+			<spartan-header-rtl />
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanRtlCodePreview firstTab>
+					<spartan-calendar-rtl />
+				</div>
+				<spartan-code secondTab [code]="_rtlCode()" />
+			</spartan-tabs>
+
+			<p class="${hlmP}">
+				For another RTL example please look at the
+				<a href="/blocks/calendar#calendar-12" target="_blank" rel="noreferrer" class="${link}">
+					Jalali (Persian) calendar.
+				</a>
+			</p>
 
 			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="brain" />
@@ -159,11 +197,17 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class CardPage {
+	constructor() {
+		injectComponentDocs();
+	}
+
 	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('calendar');
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
 	protected readonly _multipleCode = computed(() => this._snippets()['multiple']);
 	protected readonly _rangeCode = computed(() => this._snippets()['range']);
+	protected readonly _yearAndMonthDropdownsCode = computed(() => this._snippets()['yearAndMonthDropdowns']);
 	protected readonly _yearAndMonthCode = computed(() => this._snippets()['yearAndMonth']);
+	protected readonly _rtlCode = computed(() => this._snippets()['rtl']);
 	protected readonly _defaultImports = defaultImports;
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _i18nProviders = i18nProviders;

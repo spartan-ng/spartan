@@ -21,6 +21,11 @@ export const routeMeta: RouteMeta = {
 			title="A simple login form (Reactive forms)"
 			id="login-1"
 		/>
+		<spartan-block-viewer
+			block="login-two-column-reactive-form"
+			title="A two-column login form (Reactive forms)"
+			id="login-2"
+		/>
 	`,
 })
 export default class LoginPage {}

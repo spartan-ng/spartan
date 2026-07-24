@@ -5,7 +5,6 @@ import {
 	ChangeDetectorRef,
 	computed,
 	contentChild,
-	contentChildren,
 	Directive,
 	inject,
 	Injector,
@@ -19,6 +18,7 @@ import { BrnCalendarCellButton } from './brn-calendar-cell-button';
 import { BrnCalendarHeader } from './brn-calendar-header';
 import { type BrnCalendarBase, provideBrnCalendar } from './brn-calendar.token';
 import { injectBrnCalendarI18n, type Weekday } from './i18n/calendar-i18n';
+import { compareDays } from './utils/compare-days';
 
 @Directive({
 	selector: '[brnCalendar]',
@@ -35,6 +35,9 @@ export class BrnCalendar<T> implements BrnCalendarBase<T> {
 
 	/** Access the injector */
 	private readonly _injector = inject(Injector);
+
+	/** The days to highlight. */
+	public readonly highlightDays = input<T[]>([]);
 
 	/** The minimum date that can be selected.*/
 	public readonly min = input<T>();
@@ -66,10 +69,7 @@ export class BrnCalendar<T> implements BrnCalendarBase<T> {
 	/** @internal Access the header */
 	public readonly header = contentChild(BrnCalendarHeader);
 
-	/** Store the cells */
-	protected readonly _cells = contentChildren<BrnCalendarCellButton<T>>(BrnCalendarCellButton, {
-		descendants: true,
-	});
+	private readonly _cells: BrnCalendarCellButton<T>[] = [];
 
 	/**
 	 * The focused date.
@@ -82,35 +82,40 @@ export class BrnCalendar<T> implements BrnCalendarBase<T> {
 	 * Get all the days to display, this is the days of the current month
 	 * and the days of the previous and next month to fill the grid.
 	 */
-	public readonly days = computed(() => {
-		const weekStartsOn = this._weekStartsOn();
-		const month = this.focusedDate();
-		const days: T[] = [];
+	public readonly days = computed(
+		() => {
+			const weekStartsOn = this._weekStartsOn();
+			const month = this.focusedDate();
+			const days: T[] = [];
 
-		// Get the first and last day of the month.
-		let firstDay = this._dateAdapter.startOfMonth(month);
-		let lastDay = this._dateAdapter.endOfMonth(month);
+			// Get the first and last day of the month.
+			let firstDay = this._dateAdapter.startOfMonth(month);
+			let lastDay = this._dateAdapter.endOfMonth(month);
 
-		// we need to subtract until we get the to starting day before or on the start of the month.
-		while (this._dateAdapter.getDay(firstDay) !== weekStartsOn) {
-			firstDay = this._dateAdapter.subtract(firstDay, { days: 1 });
-		}
+			// we need to subtract until we get the to starting day before or on the start of the month.
+			while (this._dateAdapter.getDay(firstDay) !== weekStartsOn) {
+				firstDay = this._dateAdapter.subtract(firstDay, { days: 1 });
+			}
 
-		const weekEndsOn = (weekStartsOn + 6) % 7;
+			const weekEndsOn = (weekStartsOn + 6) % 7;
 
-		// we need to add until we get to the ending day after or on the end of the month.
-		while (this._dateAdapter.getDay(lastDay) !== weekEndsOn) {
-			lastDay = this._dateAdapter.add(lastDay, { days: 1 });
-		}
+			// we need to add until we get to the ending day after or on the end of the month.
+			while (this._dateAdapter.getDay(lastDay) !== weekEndsOn) {
+				lastDay = this._dateAdapter.add(lastDay, { days: 1 });
+			}
 
-		// collect all the days to display.
-		while (firstDay <= lastDay) {
-			days.push(firstDay);
-			firstDay = this._dateAdapter.add(firstDay, { days: 1 });
-		}
+			// collect all the days to display.
+			while (firstDay <= lastDay) {
+				days.push(firstDay);
+				firstDay = this._dateAdapter.add(firstDay, { days: 1 });
+			}
 
-		return days;
-	});
+			return days;
+		},
+		{
+			equal: (a, b) => compareDays(a, b, this._dateAdapter),
+		},
+	);
 
 	/** @internal Constrain a date to the min and max boundaries */
 	constrainDate(date: T): T {
@@ -187,14 +192,12 @@ export class BrnCalendar<T> implements BrnCalendarBase<T> {
 		}
 
 		this.focusedDate.set(date);
-
 		// wait until the cells have all updated
+
 		afterNextRender(
 			{
 				write: () => {
-					// focus the cell with the target date.
-					const cell = this._cells().find((c) => this._dateAdapter.isSameDay(c.date(), date));
-
+					const cell = this._cells.find((c) => this._dateAdapter.isSameDay(c.date(), date));
 					if (cell) {
 						cell.focus();
 					}
@@ -204,7 +207,6 @@ export class BrnCalendar<T> implements BrnCalendarBase<T> {
 				injector: this._injector,
 			},
 		);
-
 		// we must update the view to ensure the focused cell is visible.
 		this._changeDetector.detectChanges();
 	}
@@ -237,5 +239,15 @@ export class BrnCalendar<T> implements BrnCalendarBase<T> {
 	 */
 	isBetweenRange(_: T): boolean {
 		return false;
+	}
+
+	unregisterCalendarCell(cell: BrnCalendarCellButton<T>): void {
+		const index = this._cells.indexOf(cell);
+		if (index !== -1) {
+			this._cells.splice(index, 1);
+		}
+	}
+	registerCalendarCell(cell: BrnCalendarCellButton<T>): void {
+		this._cells.push(cell);
 	}
 }

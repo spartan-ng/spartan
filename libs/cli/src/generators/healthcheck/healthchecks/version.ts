@@ -29,14 +29,12 @@ export const versionHealthcheck: Healthcheck = {
 			const installedVersion = dependencies[dep];
 
 			// check if the installed version is the latest version
-			const request = await fetch(`https://registry.npmjs.org/${dep}/latest`);
+			const metadata = await fetchLatestMetadata(dep);
 
-			if (!request.ok) {
+			if (!metadata) {
 				failure(`Failed to fetch metadata for ${dep}.`, HealthcheckSeverity.Error, false);
 				continue;
 			}
-
-			const metadata = (await request.json()) as PackageJson;
 
 			if (!semver.satisfies(metadata.version, installedVersion)) {
 				failure(
@@ -58,18 +56,16 @@ export const versionHealthcheck: Healthcheck = {
 				return false;
 			}
 
-			const request = await fetch(`https://registry.npmjs.org/${dep}/latest`);
+			const metadata = await fetchLatestMetadata(dep);
 
-			if (!request.ok) {
+			if (!metadata) {
 				return false;
 			}
 
-			const metadata = (await request.json()) as PackageJson;
-
 			// update the dependency to the latest version in the respective section
-			if (packageJson.dependencies[dep]) {
+			if (packageJson.dependencies?.[dep]) {
 				packageJson.dependencies[dep] = `^${metadata.version}`;
-			} else {
+			} else if (packageJson.devDependencies?.[dep]) {
 				packageJson.devDependencies[dep] = `^${metadata.version}`;
 			}
 		}
@@ -80,3 +76,22 @@ export const versionHealthcheck: Healthcheck = {
 	},
 	prompt: 'Would you like to update to the latest versions of the dependencies?',
 };
+
+async function fetchLatestMetadata(dep: string): Promise<PackageJson | null> {
+	try {
+		// Respect the project's configured npm registry rather than hardcoding npmjs. This keeps the check
+		// correct against private registries, and lets the cli-smoke local registry (which publishes the
+		// freshly built packages as "latest") match the installed version instead of flagging a false drift.
+		const registry = (process.env.npm_config_registry || 'https://registry.npmjs.org').replace(/\/$/, '');
+		const request = await fetch(`${registry}/${dep}/latest`);
+
+		if (!request.ok) {
+			return null;
+		}
+
+		return (await request.json()) as PackageJson;
+	} catch {
+		// offline, DNS failure, timeout, malformed JSON - treat as "could not determine latest"
+		return null;
+	}
+}

@@ -3,12 +3,10 @@ import { classes } from '<%- importAlias %>/utils';
 
 @Directive({
 	selector: '[hlmDialogFooter],hlm-dialog-footer',
-	host: {
-		'data-slot': 'dialog-footer',
-	},
+	host: { 'data-slot': 'dialog-footer' },
 })
 export class HlmDialogFooter {
 	constructor() {
-		classes(() => 'flex flex-col-reverse gap-2 sm:flex-row sm:justify-end');
+		classes(() => 'spartan-dialog-footer flex flex-col-reverse gap-2 sm:flex-row sm:justify-end');
 	}
 }

@@ -1,24 +1,27 @@
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import type { BooleanInput } from '@angular/cdk/coercion';
 import {
+	afterNextRender,
 	booleanAttribute,
 	computed,
-	contentChild,
 	contentChildren,
 	Directive,
-	ElementRef,
+	effect,
 	forwardRef,
 	inject,
 	Injector,
 	input,
 	linkedSignal,
 	model,
+	signal,
+	untracked,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { stringifyAsLabel } from '@spartan-ng/brain/core';
+import { BrnFieldControl, provideBrnLabelable } from '@spartan-ng/brain/field';
 import { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
 import { BrnPopover } from '@spartan-ng/brain/popover';
-import { BrnAutocompleteInputWrapper } from './brn-autocomplete-input-wrapper';
+import { BrnAutocompleteInput } from './brn-autocomplete-input';
 import { BrnAutocompleteItem } from './brn-autocomplete-item';
 import { BrnAutocompleteItemToken } from './brn-autocomplete-item.token';
 import {
@@ -36,15 +39,26 @@ export const BRN_AUTOCOMPLETE_SEARCH_VALUE_ACCESSOR = {
 
 @Directive({
 	selector: '[brnAutocomplete]',
-	providers: [provideBrnAutocompleteBase(BrnAutocompleteSearch), BRN_AUTOCOMPLETE_SEARCH_VALUE_ACCESSOR],
+	providers: [
+		BRN_AUTOCOMPLETE_SEARCH_VALUE_ACCESSOR,
+		provideBrnAutocompleteBase(BrnAutocompleteSearch),
+		provideBrnLabelable(BrnAutocompleteSearch),
+	],
+	hostDirectives: [BrnFieldControl],
+	host: {
+		'(focusout)': '_onFocusOut($event)',
+	},
 })
 export class BrnAutocompleteSearch<T> implements BrnAutocompleteBase<T>, ControlValueAccessor {
 	private readonly _injector = inject(Injector);
+	private readonly _fieldControl = inject(BrnFieldControl, { optional: true });
 
 	private readonly _config = injectBrnAutocompleteConfig<T>();
 
 	/** Access the popover if present */
 	private readonly _brnPopover = inject(BrnPopover, { optional: true });
+
+	public readonly controlState = this._fieldControl?.controlState;
 
 	/** Whether the autocomplete is disabled */
 	public readonly disabled = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
@@ -57,21 +71,21 @@ export class BrnAutocompleteSearch<T> implements BrnAutocompleteBase<T>, Control
 	/** A function to convert an item to a string for display. */
 	public readonly itemToString = input<AutocompleteItemToString<T> | undefined>(this._config.itemToString);
 
+	/** Whether to auto-highlight the first matching item. */
+	public readonly autoHighlight = input<boolean, BooleanInput>(this._config.autoHighlight, {
+		transform: booleanAttribute,
+	});
+
 	/** The selected value of the autocomplete. */
-	public readonly value = model<string | null>(null);
+	public readonly value = model<string | undefined | null>(null);
 
 	/** The current search query. */
 	public readonly search = model<string>('');
 
-	private readonly _searchInputWrapper = contentChild(BrnAutocompleteInputWrapper, {
-		read: ElementRef,
-	});
+	private readonly _inputWidth = signal<number | null>(null);
 
 	/** @internal The width of the search input wrapper */
-	public readonly searchInputWrapperWidth = computed<number | null>(() => {
-		const inputElement = this._searchInputWrapper()?.nativeElement;
-		return inputElement ? (inputElement.offsetWidth as number) : null;
-	});
+	public readonly searchInputWrapperWidth = this._inputWidth.asReadonly();
 
 	/** @internal Access all the items within the autocomplete */
 	public readonly items = contentChildren<BrnAutocompleteItem<T>>(BrnAutocompleteItemToken, {
@@ -87,8 +101,12 @@ export class BrnAutocompleteSearch<T> implements BrnAutocompleteBase<T>, Control
 	/** @internal Whether the autocomplete is expanded */
 	public readonly isExpanded = computed(() => this._brnPopover?.stateComputed() === 'open');
 
-	protected _onChange?: ChangeFn<string | null>;
+	private readonly _autocompleteInput = signal<BrnAutocompleteInput<T> | undefined>(undefined);
+
+	protected _onChange?: ChangeFn<string | undefined | null>;
 	protected _onTouched?: TouchFn;
+
+	public readonly labelableId = computed(() => this._autocompleteInput()?.id());
 
 	constructor() {
 		this.keyManager
@@ -100,6 +118,33 @@ export class BrnAutocompleteSearch<T> implements BrnAutocompleteBase<T>, Control
 		this._brnPopover?.closed.subscribe(() => {
 			this.keyManager.setActiveItem(-1);
 		});
+
+		afterNextRender(() => {
+			effect(
+				() => {
+					if (!this.autoHighlight() || !this.isExpanded() || !this.search()) return;
+
+					const hasVisibleItems = this.visibleItems();
+
+					untracked(() => {
+						if (hasVisibleItems) {
+							this.keyManager.setFirstItemActive();
+						} else {
+							this.keyManager.setActiveItem(-1);
+						}
+					});
+				},
+				{ injector: this._injector },
+			);
+		});
+	}
+
+	public registerAutocompleteInput(input: BrnAutocompleteInput<T>): void {
+		return this._autocompleteInput.set(input);
+	}
+
+	public updateInputWidth(width: number | null): void {
+		this._inputWidth.set(width);
 	}
 
 	updateSearch(value: string) {
@@ -132,9 +177,11 @@ export class BrnAutocompleteSearch<T> implements BrnAutocompleteBase<T>, Control
 
 		const value = this.keyManager.activeItem?.value();
 
-		if (value === undefined) return;
-
-		this.select(value);
+		if (value) {
+			this.select(value);
+		} else {
+			this.close();
+		}
 	}
 
 	resetValue() {
@@ -162,11 +209,11 @@ export class BrnAutocompleteSearch<T> implements BrnAutocompleteBase<T>, Control
 	}
 
 	/** CONTROL VALUE ACCESSOR */
-	writeValue(value: string | null): void {
+	writeValue(value: string | undefined | null): void {
 		this.value.set(value);
 	}
 
-	registerOnChange(fn: ChangeFn<string | null>): void {
+	registerOnChange(fn: ChangeFn<string | undefined | null>): void {
 		this._onChange = fn;
 	}
 
@@ -176,5 +223,14 @@ export class BrnAutocompleteSearch<T> implements BrnAutocompleteBase<T>, Control
 
 	setDisabledState(isDisabled: boolean) {
 		this._disabled.set(isDisabled);
+	}
+
+	protected _onFocusOut(event: FocusEvent): void {
+		const currentTarget = event.currentTarget as HTMLElement;
+		const focusedEl = event.relatedTarget as HTMLElement | null;
+
+		if (!currentTarget.contains(focusedEl)) {
+			this._onTouched?.();
+		}
 	}
 }

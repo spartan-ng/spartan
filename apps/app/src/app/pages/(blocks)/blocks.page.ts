@@ -6,7 +6,8 @@ import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmTabsImports } from '@spartan-ng/helm/tabs';
 
 export const routeMeta: RouteMeta = {
-	meta: metaWith('Blocks - spartan', 'Blocks built with the spartan/ui'),
+	meta: metaWith('spartan/blocks - Blocks', 'Blocks built with the spartan/ui'),
+	title: 'spartan/blocks - Blocks',
 };
 
 @Component({
@@ -41,6 +42,7 @@ export const routeMeta: RouteMeta = {
 					<a hlmTabsTrigger="login" routerLink="/blocks/login">Login</a>
 					<a hlmTabsTrigger="signup" routerLink="/blocks/signup">Signup</a>
 					<a hlmTabsTrigger="calendar" routerLink="/blocks/calendar">Calendar</a>
+					<a hlmTabsTrigger="stepper" routerLink="/blocks/stepper">Stepper</a>
 				</hlm-tabs-list>
 			</hlm-tabs>
 

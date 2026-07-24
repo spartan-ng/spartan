@@ -4,7 +4,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
 	selector: '[hlmAvatarFallback]',
-	exportAs: 'avatarFallback',
+	exportAs: 'hlmAvatarFallback',
 	hostDirectives: [BrnAvatarFallback],
 	host: {
 		'data-slot': 'avatar-fallback',
@@ -14,7 +14,7 @@ export class HlmAvatarFallback {
 	constructor() {
 		classes(
 			() =>
-				'bg-muted text-muted-foreground flex size-full items-center justify-center rounded-full text-sm group-data-[size=sm]/avatar:text-xs',
+				'spartan-avatar-fallback flex size-full items-center justify-center text-sm group-data-[size=sm]/avatar:text-xs',
 		);
 	}
 }

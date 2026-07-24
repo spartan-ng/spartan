@@ -1,5 +1,17 @@
-export default {
-	branches: ['main', { name: 'alpha', prerelease: true }],
+// semantic-release drives versioning, changelog, npm publish and GitHub Releases.
+//
+// Branch -> channel -> npm dist-tag:
+//   main  -> (stable) -> latest
+//   beta  -> beta      -> beta
+//   alpha -> alpha     -> alpha
+//
+// The actual build + npm publish is delegated to our nx executors via the exec plugin
+// (publishCmd -> `pnpm run release`), because we publish three packages (brain, cli, mcp)
+// in lockstep off a single computed version. The version is fanned out into every
+// package.json and the CLI's generated files by `pnpm run pre-manual-release`, which
+// reads the VERSION env var.
+
+const conventionalConfig = {
 	preset: 'conventionalcommits',
 	presetConfig: {
 		types: [
@@ -13,34 +25,55 @@ export default {
 			{ type: 'test', hidden: true },
 		],
 	},
-	releaseRules: [{ type: 'refactor', release: 'patch' }],
+};
+
+export default {
+	branches: ['main', { name: 'beta', prerelease: true }, { name: 'alpha', prerelease: true }],
 	plugins: [
-		'@semantic-release/commit-analyzer',
 		[
-			'@semantic-release/changelog',
+			'@semantic-release/commit-analyzer',
 			{
-				changelogFile: './CHANGELOG.md',
+				...conventionalConfig,
+				releaseRules: [{ type: 'refactor', release: 'patch' }],
 			},
 		],
+		['@semantic-release/release-notes-generator', conventionalConfig],
+		['@semantic-release/changelog', { changelogFile: 'CHANGELOG.md' }],
 		[
 			'@semantic-release/exec',
 			{
-				prepareCmd: 'TAG=latest,VERSION=${nextRelease.version} pnpm run pre-release',
-				releaseCmd: 'TAG=latest,VERSION=${nextRelease.version} pnpm run release',
+				// Fan the computed version out into every package.json + the CLI's generated files.
+				prepareCmd: 'VERSION=${nextRelease.version} pnpm run pre-manual-release',
+				// Build + publish brain/cli/mcp. TAG is the channel (empty on main -> defaults to "latest").
+				publishCmd: 'TAG=${nextRelease.channel} pnpm run release',
 			},
 		],
 		[
 			'@semantic-release/git',
 			{
 				assets: [
+					'libs/brain/package.json',
 					'libs/cli/package.json',
-					'libs/cli/src/generators/base/versions.ts',
-					'libs/cli/src/generators/ui/supported-ui-libraries.json',
-					'libs/ui/**/package.json',
+					'libs/mcp/package.json',
+					// helm is private (not version-stamped), but its `@spartan-ng/brain` peer is bumped in
+					// lockstep by the `lint --fix` in prepare-manual-release; commit it so that sync persists
+					// (otherwise the corrected file is discarded each release and helm:lint goes stale).
+					'libs/helm/package.json',
+					'libs/cli/src/generators/ui/**',
 					'CHANGELOG.md',
 				],
-				message: 'chore: release ${nextRelease.version} [skip ci]',
+				// Keep the release notes OUT of the commit message: @semantic-release/git passes it as a
+				// single `git commit -m` argument, and the first release's notes (thousands of commits)
+				// blow past the OS arg limit -> `spawn E2BIG`. The full changelog still lands in
+				// CHANGELOG.md (committed as an asset above) and in the GitHub Release.
+				//
+				// No `[skip ci]`: that token skips ALL workflows for the commit, on push AND pull_request,
+				// so a promotion/sync PR whose tip is a release commit gets its required checks skipped and
+				// can never merge. Loop prevention lives in the workflows instead — ci/cli-smoke/release
+				// skip release commits on push via a `chore(release):`-prefix guard, leaving PR checks intact.
+				message: 'chore(release): ${nextRelease.version}',
 			},
 		],
+		'@semantic-release/github',
 	],
 };

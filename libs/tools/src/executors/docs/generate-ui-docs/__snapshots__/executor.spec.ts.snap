@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`generate-ui-docs executor produces stable output 1`] = `
+exports[`generate-ui-docs executor > produces stable output 1`] = `
 {
   "accordion": {
     "brain": {
@@ -11,11 +11,6 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "name": "type",
             "required": false,
             "type": "'single' | 'multiple'",
-          },
-          {
-            "name": "dir",
-            "required": false,
-            "type": "'ltr' | 'rtl' | null",
           },
           {
             "name": "orientation",
@@ -39,11 +34,22 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "outputs": [],
         "selector": "brn-accordion-content,[brnAccordionContent]",
       },
+      "BrnAccordionHeader": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnAccordionHeader]",
+      },
       "BrnAccordionItem": {
         "exportAs": "brnAccordionItem",
         "inputs": [
           {
             "name": "isOpened",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "disabled",
             "required": false,
             "type": "boolean",
           },
@@ -65,39 +71,72 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "[brnAccordionTrigger]",
+        "selector": "button[brnAccordionTrigger]",
       },
     },
     "helm": {
       "HlmAccordion": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "type",
+            "required": false,
+            "type": "'single' | 'multiple'",
+          },
+          {
+            "name": "orientation",
+            "required": false,
+            "type": "'horizontal' | 'vertical'",
+          },
+        ],
         "models": [],
         "outputs": [],
         "selector": "[hlmAccordion], hlm-accordion",
       },
       "HlmAccordionContent": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "style",
+            "required": false,
+            "type": "string",
+          },
+        ],
         "models": [],
         "outputs": [],
         "selector": "hlm-accordion-content",
       },
-      "HlmAccordionIcon": {
-        "inputs": [],
-        "models": [],
-        "outputs": [],
-        "selector": "ng-icon[hlmAccordionIcon], ng-icon[hlmAccIcon]",
-      },
       "HlmAccordionItem": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "isOpened",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
         "models": [],
-        "outputs": [],
-        "selector": "[hlmAccordionItem],brn-accordion-item[hlm],hlm-accordion-item",
+        "outputs": [
+          {
+            "name": "openedChange",
+            "type": "boolean",
+          },
+        ],
+        "selector": "[hlmAccordionItem],hlm-accordion-item",
       },
       "HlmAccordionTrigger": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "triggerClass",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
         "models": [],
         "outputs": [],
-        "selector": "[hlmAccordionTrigger]",
+        "selector": "hlm-accordion-trigger",
       },
     },
   },
@@ -113,19 +152,19 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "[hlmAlert]",
+        "selector": "hlm-alert,[hlmAlert]",
+      },
+      "HlmAlertAction": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmAlertAction]",
       },
       "HlmAlertDescription": {
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "[hlmAlertDesc],[hlmAlertDescription]",
-      },
-      "HlmAlertIcon": {
-        "inputs": [],
-        "models": [],
-        "outputs": [],
-        "selector": "[hlmAlertIcon]",
+        "selector": "[hlmAlertDescription]",
       },
       "HlmAlertTitle": {
         "inputs": [],
@@ -139,13 +178,114 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
     "brain": {
       "BrnAlertDialog": {
         "exportAs": "brnAlertDialog",
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "state",
+            "required": false,
+            "type": "BrnDialogState | null",
+          },
+          {
+            "name": "role",
+            "required": false,
+            "type": "BrnDialogOptions['role']",
+          },
+          {
+            "name": "hasBackdrop",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "positionStrategy",
+            "required": false,
+            "type": "BrnDialogOptions['positionStrategy']",
+          },
+          {
+            "name": "scrollStrategy",
+            "required": false,
+            "type": "BrnDialogOptions['scrollStrategy'] | 'close' | 'reposition' | null",
+          },
+          {
+            "name": "restoreFocus",
+            "required": false,
+            "type": "BrnDialogOptions['restoreFocus']",
+          },
+          {
+            "name": "closeOnOutsidePointerEvents",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "attachTo",
+            "required": false,
+            "type": "BrnDialogOptions['attachTo']",
+          },
+          {
+            "name": "attachPositions",
+            "required": false,
+            "type": "BrnDialogOptions['attachPositions']",
+          },
+          {
+            "name": "autoFocus",
+            "required": false,
+            "type": "BrnDialogOptions['autoFocus']",
+          },
+          {
+            "name": "disableClose",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "aria-describedby",
+            "required": false,
+            "type": "BrnDialogOptions['ariaDescribedBy']",
+          },
+          {
+            "name": "aria-labelledby",
+            "required": false,
+            "type": "BrnDialogOptions['ariaLabelledBy']",
+          },
+          {
+            "name": "aria-label",
+            "required": false,
+            "type": "BrnDialogOptions['ariaLabel']",
+          },
+          {
+            "name": "aria-modal",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
         "models": [],
-        "outputs": [],
+        "outputs": [
+          {
+            "name": "closed",
+            "type": "TResult",
+          },
+          {
+            "name": "stateChanged",
+            "type": "BrnDialogState",
+          },
+        ],
         "selector": "[brnAlertDialog],brn-alert-dialog",
       },
       "BrnAlertDialogContent": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "string | null | undefined",
+          },
+          {
+            "name": "context",
+            "required": false,
+            "type": "T | undefined",
+          },
+        ],
         "models": [],
         "outputs": [],
         "selector": "[brnAlertDialogContent]",
@@ -157,7 +297,13 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "selector": "[brnAlertDialogDescription]",
       },
       "BrnAlertDialogOverlay": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "string | null | undefined",
+          },
+        ],
         "models": [],
         "outputs": [],
         "selector": "[brnAlertDialogOverlay],brn-alert-dialog-overlay",
@@ -175,6 +321,21 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "required": false,
             "type": "BrnAlertDialog | undefined",
           },
+          {
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "type",
+            "required": false,
+            "type": "'button' | 'submit' | 'reset'",
+          },
+          {
+            "name": "brnDialogTriggerFor",
+            "required": false,
+            "type": "BrnDialog | undefined",
+          },
         ],
         "models": [],
         "outputs": [],
@@ -184,9 +345,99 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
     "helm": {
       "HlmAlertDialog": {
         "exportAs": "hlmAlertDialog",
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "state",
+            "required": false,
+            "type": "BrnDialogState | null",
+          },
+          {
+            "name": "role",
+            "required": false,
+            "type": "BrnDialogOptions['role']",
+          },
+          {
+            "name": "hasBackdrop",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "positionStrategy",
+            "required": false,
+            "type": "BrnDialogOptions['positionStrategy']",
+          },
+          {
+            "name": "scrollStrategy",
+            "required": false,
+            "type": "BrnDialogOptions['scrollStrategy'] | 'close' | 'reposition' | null",
+          },
+          {
+            "name": "restoreFocus",
+            "required": false,
+            "type": "BrnDialogOptions['restoreFocus']",
+          },
+          {
+            "name": "closeOnOutsidePointerEvents",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "attachTo",
+            "required": false,
+            "type": "BrnDialogOptions['attachTo']",
+          },
+          {
+            "name": "attachPositions",
+            "required": false,
+            "type": "BrnDialogOptions['attachPositions']",
+          },
+          {
+            "name": "autoFocus",
+            "required": false,
+            "type": "BrnDialogOptions['autoFocus']",
+          },
+          {
+            "name": "disableClose",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "aria-describedby",
+            "required": false,
+            "type": "BrnDialogOptions['ariaDescribedBy']",
+          },
+          {
+            "name": "aria-labelledby",
+            "required": false,
+            "type": "BrnDialogOptions['ariaLabelledBy']",
+          },
+          {
+            "name": "aria-label",
+            "required": false,
+            "type": "BrnDialogOptions['ariaLabel']",
+          },
+          {
+            "name": "aria-modal",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
         "models": [],
-        "outputs": [],
+        "outputs": [
+          {
+            "name": "closed",
+            "type": "TResult",
+          },
+          {
+            "name": "stateChanged",
+            "type": "BrnDialogState",
+          },
+        ],
         "selector": "hlm-alert-dialog",
       },
       "HlmAlertDialogAction": {
@@ -195,6 +446,16 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "name": "type",
             "required": false,
             "type": "'button' | 'submit' | 'reset'",
+          },
+          {
+            "name": "variant",
+            "required": false,
+            "type": "ButtonVariants['variant']",
+          },
+          {
+            "name": "size",
+            "required": false,
+            "type": "ButtonVariants['size']",
           },
         ],
         "models": [],
@@ -208,13 +469,29 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "required": false,
             "type": "'button' | 'submit' | 'reset'",
           },
+          {
+            "name": "variant",
+            "required": false,
+            "type": "ButtonVariants['variant']",
+          },
+          {
+            "name": "size",
+            "required": false,
+            "type": "ButtonVariants['size']",
+          },
         ],
         "models": [],
         "outputs": [],
         "selector": "button[hlmAlertDialogCancel]",
       },
       "HlmAlertDialogContent": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "size",
+            "required": false,
+            "type": "'sm' | 'default'",
+          },
+        ],
         "models": [],
         "outputs": [],
         "selector": "[hlmAlertDialogContent],hlm-alert-dialog-content",
@@ -237,6 +514,12 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "outputs": [],
         "selector": "[hlmAlertDialogHeader],hlm-alert-dialog-header",
       },
+      "HlmAlertDialogMedia": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmAlertDialogMedia],hlm-alert-dialog-media",
+      },
       "HlmAlertDialogOverlay": {
         "inputs": [
           {
@@ -249,6 +532,23 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "outputs": [],
         "selector": "[hlmAlertDialogOverlay],hlm-alert-dialog-overlay",
       },
+      "HlmAlertDialogPortal": {
+        "inputs": [
+          {
+            "name": "context",
+            "required": false,
+            "type": "T | undefined",
+          },
+          {
+            "name": "class",
+            "required": false,
+            "type": "string | null | undefined",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmAlertDialogPortal]",
+      },
       "HlmAlertDialogTitle": {
         "inputs": [],
         "models": [],
@@ -256,7 +556,23 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "selector": "[hlmAlertDialogTitle]",
       },
       "HlmAlertDialogTrigger": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "hlmAlertDialogTriggerFor",
+            "required": false,
+            "type": "BrnAlertDialog | undefined",
+          },
+          {
+            "name": "type",
+            "required": false,
+            "type": "'button' | 'submit' | 'reset'",
+          },
+        ],
         "models": [],
         "outputs": [],
         "selector": "button[hlmAlertDialogTrigger],button[hlmAlertDialogTriggerFor]",
@@ -298,14 +614,21 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "required": false,
             "type": "AutocompleteItemToString<T> | undefined",
           },
+          {
+            "name": "autoHighlight",
+            "required": false,
+            "type": "boolean",
+          },
         ],
         "models": [
           {
             "name": "value",
-            "type": "T | null",
+            "required": false,
+            "type": "T | undefined | null",
           },
           {
             "name": "search",
+            "required": false,
             "type": "string",
           },
         ],
@@ -350,16 +673,20 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "required": false,
             "type": "string",
           },
+          {
+            "name": "aria-invalid",
+            "required": false,
+            "type": "boolean | undefined",
+          },
+          {
+            "name": "forceInvalid",
+            "required": false,
+            "type": "boolean",
+          },
         ],
         "models": [],
         "outputs": [],
         "selector": "input[brnAutocompleteInput]",
-      },
-      "BrnAutocompleteInputWrapper": {
-        "inputs": [],
-        "models": [],
-        "outputs": [],
-        "selector": "[brnAutocompleteInputWrapper]",
       },
       "BrnAutocompleteItem": {
         "inputs": [
@@ -419,14 +746,21 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "required": false,
             "type": "AutocompleteItemToString<T> | undefined",
           },
+          {
+            "name": "autoHighlight",
+            "required": false,
+            "type": "boolean",
+          },
         ],
         "models": [
           {
             "name": "value",
-            "type": "string | null",
+            "required": false,
+            "type": "string | undefined | null",
           },
           {
             "name": "search",
+            "required": false,
             "type": "string",
           },
         ],
@@ -454,16 +788,89 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
     },
     "helm": {
       "HlmAutocomplete": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "autoHighlight",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "value",
+            "required": false,
+            "type": "T | undefined | null",
+          },
+          {
+            "name": "search",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "itemToString",
+            "required": false,
+            "type": "AutocompleteItemToString<T> | undefined",
+          },
+          {
+            "name": "isItemEqualToValue",
+            "required": false,
+            "type": "AutocompleteItemEqualToValue<T>",
+          },
+          {
+            "name": "align",
+            "required": false,
+            "type": "BrnPopoverAlign",
+          },
+          {
+            "name": "closeOnOutsidePointerEvents",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "sideOffset",
+            "required": false,
+            "type": "number",
+          },
+          {
+            "name": "state",
+            "required": false,
+            "type": "BrnOverlayState | null",
+          },
+          {
+            "name": "offsetX",
+            "required": false,
+            "type": "number",
+          },
+        ],
         "models": [],
-        "outputs": [],
+        "outputs": [
+          {
+            "name": "valueChange",
+            "type": "T | undefined | null",
+          },
+          {
+            "name": "searchChange",
+            "type": "string",
+          },
+          {
+            "name": "stateChanged",
+            "type": "BrnOverlayState",
+          },
+          {
+            "name": "closed",
+            "type": "TResult",
+          },
+        ],
         "selector": "[hlmAutocomplete],hlm-autocomplete",
       },
       "HlmAutocompleteContent": {
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "[hlmAutocompleteContent]",
+        "selector": "[hlmAutocompleteContent],hlm-autocomplete-content",
       },
       "HlmAutocompleteEmpty": {
         "inputs": [],
@@ -480,6 +887,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       "HlmAutocompleteInput": {
         "inputs": [
           {
+            "name": "inputId",
+            "required": false,
+            "type": "string",
+          },
+          {
             "name": "placeholder",
             "required": false,
             "type": "string",
@@ -495,9 +907,14 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "boolean",
           },
           {
-            "name": "aria-invalid",
+            "name": "forceInvalid",
             "required": false,
             "type": "boolean",
+          },
+          {
+            "name": "aria-invalid",
+            "required": false,
+            "type": "boolean | undefined",
           },
         ],
         "models": [],
@@ -505,31 +922,150 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "selector": "hlm-autocomplete-input",
       },
       "HlmAutocompleteItem": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "value",
+            "required": true,
+            "type": "T",
+          },
+        ],
         "models": [],
         "outputs": [],
         "selector": "hlm-autocomplete-item",
       },
       "HlmAutocompleteLabel": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+        ],
         "models": [],
         "outputs": [],
         "selector": "[hlmAutocompleteLabel]",
       },
       "HlmAutocompleteList": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+        ],
         "models": [],
         "outputs": [],
         "selector": "[hlmAutocompleteList]",
       },
-      "HlmAutocompleteSearch": {
-        "inputs": [],
+      "HlmAutocompletePortal": {
+        "inputs": [
+          {
+            "name": "context",
+            "required": false,
+            "type": "T | undefined",
+          },
+          {
+            "name": "class",
+            "required": false,
+            "type": "string | null | undefined",
+          },
+        ],
         "models": [],
         "outputs": [],
+        "selector": "[hlmAutocompletePortal]",
+      },
+      "HlmAutocompleteSearch": {
+        "inputs": [
+          {
+            "name": "autoHighlight",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "value",
+            "required": false,
+            "type": "string | undefined | null",
+          },
+          {
+            "name": "search",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "itemToString",
+            "required": false,
+            "type": "AutocompleteItemToString<T> | undefined",
+          },
+          {
+            "name": "align",
+            "required": false,
+            "type": "BrnPopoverAlign",
+          },
+          {
+            "name": "closeOnOutsidePointerEvents",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "sideOffset",
+            "required": false,
+            "type": "number",
+          },
+          {
+            "name": "state",
+            "required": false,
+            "type": "BrnOverlayState | null",
+          },
+          {
+            "name": "offsetX",
+            "required": false,
+            "type": "number",
+          },
+        ],
+        "models": [],
+        "outputs": [
+          {
+            "name": "valueChange",
+            "type": "string | undefined | null",
+          },
+          {
+            "name": "searchChange",
+            "type": "string",
+          },
+          {
+            "name": "stateChanged",
+            "type": "BrnOverlayState",
+          },
+          {
+            "name": "closed",
+            "type": "TResult",
+          },
+        ],
         "selector": "[hlmAutocompleteSearch],hlm-autocomplete-search",
       },
       "HlmAutocompleteSeparator": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "orientation",
+            "required": false,
+            "type": "'horizontal' | 'vertical'",
+          },
+        ],
         "models": [],
         "outputs": [],
         "selector": "[hlmAutocompleteSeparator]",
@@ -551,14 +1087,14 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "selector": "brn-avatar",
       },
       "BrnAvatarFallback": {
-        "exportAs": "avatarFallback",
+        "exportAs": "brnAvatarFallback",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[brnAvatarFallback]",
       },
       "BrnAvatarImage": {
-        "exportAs": "avatarImage",
+        "exportAs": "brnAvatarImage",
         "inputs": [],
         "models": [],
         "outputs": [],
@@ -585,7 +1121,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "selector": "[hlmAvatarBadge],hlm-avatar-badge",
       },
       "HlmAvatarFallback": {
-        "exportAs": "avatarFallback",
+        "exportAs": "hlmAvatarFallback",
         "inputs": [],
         "models": [],
         "outputs": [],
@@ -604,7 +1140,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "selector": "[hlmAvatarGroupCount],hlm-avatar-group-count",
       },
       "HlmAvatarImage": {
-        "exportAs": "avatarImage",
+        "exportAs": "hlmAvatarImage",
         "inputs": [],
         "models": [],
         "outputs": [],
@@ -644,11 +1180,6 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       },
       "HlmBreadcrumbEllipsis": {
         "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
           {
             "name": "srOnlyText",
             "required": false,
@@ -726,6 +1257,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "required": false,
             "type": "ButtonVariants['size']",
           },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
         ],
         "models": [],
         "outputs": [],
@@ -748,7 +1284,18 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "selector": "[hlmButtonGroup],hlm-button-group",
       },
       "HlmButtonGroupSeparator": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "orientation",
+            "required": false,
+            "type": "SeparatorOrientation",
+          },
+          {
+            "name": "decorative",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
         "models": [],
         "outputs": [],
         "selector": "[hlmButtonGroupSeparator],hlm-button-group-separator",
@@ -765,6 +1312,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
     "brain": {
       "BrnCalendar": {
         "inputs": [
+          {
+            "name": "highlightDays",
+            "required": false,
+            "type": "T[]",
+          },
           {
             "name": "min",
             "required": false,
@@ -799,6 +1351,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "models": [
           {
             "name": "date",
+            "required": false,
             "type": "T",
           },
         ],
@@ -845,10 +1398,15 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "brn-select[brnCalendarMonthSelect]",
+        "selector": "brnSelect[brnCalendarMonthSelect],hlm-select[brnCalendarMonthSelect]",
       },
       "BrnCalendarMulti": {
         "inputs": [
+          {
+            "name": "highlightDays",
+            "required": false,
+            "type": "T[]",
+          },
           {
             "name": "min",
             "required": false,
@@ -893,6 +1451,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "models": [
           {
             "name": "date",
+            "required": false,
             "type": "T[]",
           },
         ],
@@ -913,6 +1472,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       },
       "BrnCalendarRange": {
         "inputs": [
+          {
+            "name": "highlightDays",
+            "required": false,
+            "type": "T[]",
+          },
           {
             "name": "min",
             "required": false,
@@ -947,10 +1511,12 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "models": [
           {
             "name": "startDate",
+            "required": false,
             "type": "T",
           },
           {
             "name": "endDate",
+            "required": false,
             "type": "T",
           },
         ],
@@ -973,16 +1539,108 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "brn-select[brnCalendarYearSelect]",
+        "selector": "brnSelect[brnCalendarYearSelect],hlm-select[brnCalendarYearSelect]",
+      },
+      "BrnMonthYearCalendar": {
+        "inputs": [
+          {
+            "name": "min",
+            "required": false,
+            "type": "T",
+          },
+          {
+            "name": "max",
+            "required": false,
+            "type": "T",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "defaultFocusedDate",
+            "required": false,
+            "type": "T",
+          },
+          {
+            "name": "view",
+            "required": false,
+            "type": "BrnMonthYearCalendarView",
+          },
+        ],
+        "models": [
+          {
+            "name": "date",
+            "required": false,
+            "type": "T",
+          },
+        ],
+        "outputs": [],
+        "selector": "[brnMonthYearCalendar]",
+      },
+      "BrnMonthYearCalendarGrid": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnMonthYearCalendarGrid]",
+      },
+      "BrnMonthYearCalendarHeader": {
+        "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "button[brnMonthYearCalendarHeader]",
+      },
+      "BrnMonthYearCalendarMonthButton": {
+        "inputs": [
+          {
+            "name": "date",
+            "required": true,
+            "type": "T",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "button[brnMonthYearCalendarMonthButton]",
+      },
+      "BrnMonthYearCalendarNextButton": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "button[brnMonthYearCalendarNextButton]",
+      },
+      "BrnMonthYearCalendarPreviousButton": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "button[brnMonthYearCalendarPreviousButton]",
+      },
+      "BrnMonthYearCalendarYearButton": {
+        "inputs": [
+          {
+            "name": "date",
+            "required": true,
+            "type": "T",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "button[brnMonthYearCalendarYearButton]",
       },
     },
     "helm": {
       "HlmCalendar": {
         "inputs": [
           {
-            "name": "calendarClass",
+            "name": "captionLayout",
             "required": false,
-            "type": "ClassValue",
+            "type": "'dropdown' | 'label' | 'dropdown-months' | 'dropdown-years'",
           },
           {
             "name": "min",
@@ -995,14 +1653,14 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "T",
           },
           {
-            "name": "captionLayout",
-            "required": false,
-            "type": "'dropdown' | 'label' | 'dropdown-months' | 'dropdown-years'",
-          },
-          {
             "name": "disabled",
             "required": false,
             "type": "boolean",
+          },
+          {
+            "name": "date",
+            "required": false,
+            "type": "T",
           },
           {
             "name": "dateDisabled",
@@ -1015,26 +1673,31 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "Weekday",
           },
           {
+            "name": "highlightDays",
+            "required": false,
+            "type": "T[]",
+          },
+          {
             "name": "defaultFocusedDate",
             "required": false,
             "type": "T",
           },
         ],
-        "models": [
+        "models": [],
+        "outputs": [
           {
-            "name": "date",
+            "name": "dateChange",
             "type": "T",
           },
         ],
-        "outputs": [],
         "selector": "hlm-calendar",
       },
       "HlmCalendarMulti": {
         "inputs": [
           {
-            "name": "calendarClass",
+            "name": "captionLayout",
             "required": false,
-            "type": "ClassValue",
+            "type": "'dropdown' | 'label' | 'dropdown-months' | 'dropdown-years'",
           },
           {
             "name": "min",
@@ -1045,11 +1708,6 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "name": "max",
             "required": false,
             "type": "T",
-          },
-          {
-            "name": "captionLayout",
-            "required": false,
-            "type": "'dropdown' | 'label' | 'dropdown-months' | 'dropdown-years'",
           },
           {
             "name": "minSelection",
@@ -1067,6 +1725,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "boolean",
           },
           {
+            "name": "date",
+            "required": false,
+            "type": "T[]",
+          },
+          {
             "name": "dateDisabled",
             "required": false,
             "type": "(date: T) => boolean",
@@ -1077,26 +1740,31 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "Weekday",
           },
           {
+            "name": "highlightDays",
+            "required": false,
+            "type": "T[]",
+          },
+          {
             "name": "defaultFocusedDate",
             "required": false,
             "type": "T",
           },
         ],
-        "models": [
+        "models": [],
+        "outputs": [
           {
-            "name": "date",
+            "name": "dateChange",
             "type": "T[]",
           },
         ],
-        "outputs": [],
         "selector": "hlm-calendar-multi",
       },
       "HlmCalendarRange": {
         "inputs": [
           {
-            "name": "calendarClass",
+            "name": "captionLayout",
             "required": false,
-            "type": "ClassValue",
+            "type": "'dropdown' | 'label' | 'dropdown-months' | 'dropdown-years'",
           },
           {
             "name": "min",
@@ -1109,14 +1777,19 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "T",
           },
           {
-            "name": "captionLayout",
-            "required": false,
-            "type": "'dropdown' | 'label' | 'dropdown-months' | 'dropdown-years'",
-          },
-          {
             "name": "disabled",
             "required": false,
             "type": "boolean",
+          },
+          {
+            "name": "startDate",
+            "required": false,
+            "type": "T",
+          },
+          {
+            "name": "endDate",
+            "required": false,
+            "type": "T",
           },
           {
             "name": "dateDisabled",
@@ -1129,23 +1802,70 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "Weekday",
           },
           {
+            "name": "highlightDays",
+            "required": false,
+            "type": "T[]",
+          },
+          {
             "name": "defaultFocusedDate",
             "required": false,
             "type": "T",
           },
         ],
-        "models": [
+        "models": [],
+        "outputs": [
           {
-            "name": "startDate",
+            "name": "endDateChange",
             "type": "T",
           },
           {
-            "name": "endDate",
+            "name": "startDateChange",
             "type": "T",
           },
         ],
-        "outputs": [],
         "selector": "hlm-calendar-range",
+      },
+      "HlmMonthYearCalendar": {
+        "inputs": [
+          {
+            "name": "min",
+            "required": false,
+            "type": "T",
+          },
+          {
+            "name": "max",
+            "required": false,
+            "type": "T",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "date",
+            "required": false,
+            "type": "T",
+          },
+          {
+            "name": "defaultFocusedDate",
+            "required": false,
+            "type": "T",
+          },
+          {
+            "name": "view",
+            "required": false,
+            "type": "BrnMonthYearCalendarView",
+          },
+        ],
+        "models": [],
+        "outputs": [
+          {
+            "name": "dateChange",
+            "type": "T",
+          },
+        ],
+        "selector": "hlm-month-year-calendar",
       },
     },
   },
@@ -1156,7 +1876,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           {
             "name": "size",
             "required": false,
-            "type": "'sm' | 'default'",
+            "type": "HlmCardConfig['size']",
           },
         ],
         "models": [],
@@ -1238,13 +1958,35 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "selector": "[hlmCarouselItem],hlm-carousel-item",
       },
       "HlmCarouselNext": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "variant",
+            "required": false,
+            "type": "ButtonVariants['variant']",
+          },
+          {
+            "name": "size",
+            "required": false,
+            "type": "ButtonVariants['size']",
+          },
+        ],
         "models": [],
         "outputs": [],
         "selector": "button[hlm-carousel-next], button[hlmCarouselNext]",
       },
       "HlmCarouselPrevious": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "variant",
+            "required": false,
+            "type": "ButtonVariants['variant']",
+          },
+          {
+            "name": "size",
+            "required": false,
+            "type": "ButtonVariants['size']",
+          },
+        ],
         "models": [],
         "outputs": [],
         "selector": "button[hlm-carousel-previous], button[hlmCarouselPrevious]",
@@ -1273,6 +2015,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       "BrnCheckbox": {
         "inputs": [
           {
+            "name": "checked",
+            "required": false,
+            "type": "boolean",
+          },
+          {
             "name": "id",
             "required": false,
             "type": "string | null",
@@ -1286,6 +2033,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "name": "class",
             "required": false,
             "type": "string | null",
+          },
+          {
+            "name": "hostStyles",
+            "required": false,
+            "type": "string",
           },
           {
             "name": "aria-label",
@@ -1312,14 +2064,16 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "required": false,
             "type": "boolean",
           },
+          {
+            "name": "forceInvalid",
+            "required": false,
+            "type": "boolean",
+          },
         ],
         "models": [
           {
-            "name": "checked",
-            "type": "boolean",
-          },
-          {
             "name": "indeterminate",
+            "required": false,
             "type": "boolean",
           },
         ],
@@ -1345,7 +2099,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "ClassValue",
           },
           {
-            "name": "id",
+            "name": "inputId",
             "required": false,
             "type": "string | null",
           },
@@ -1365,6 +2119,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "string | null",
           },
           {
+            "name": "checked",
+            "required": false,
+            "type": "boolean",
+          },
+          {
             "name": "name",
             "required": false,
             "type": "string | null",
@@ -1379,14 +2138,16 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "required": false,
             "type": "boolean",
           },
+          {
+            "name": "forceInvalid",
+            "required": false,
+            "type": "boolean",
+          },
         ],
         "models": [
           {
-            "name": "checked",
-            "type": "boolean",
-          },
-          {
             "name": "indeterminate",
+            "required": false,
             "type": "boolean",
           },
         ],
@@ -1403,6 +2164,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
   "collapsible": {
     "brain": {
       "BrnCollapsible": {
+        "exportAs": "brnCollapsible",
         "inputs": [
           {
             "name": "disabled",
@@ -1413,6 +2175,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "models": [
           {
             "name": "expanded",
+            "required": false,
             "type": "boolean",
           },
         ],
@@ -1446,19 +2209,47 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
     },
     "helm": {
       "HlmCollapsible": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "expanded",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
         "models": [],
-        "outputs": [],
+        "outputs": [
+          {
+            "name": "expandedChange",
+            "type": "boolean",
+          },
+        ],
         "selector": "[hlmCollapsible],hlm-collapsible",
       },
       "HlmCollapsibleContent": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "string | null | undefined",
+          },
+        ],
         "models": [],
         "outputs": [],
         "selector": "[hlmCollapsibleContent],hlm-collapsible-content",
       },
       "HlmCollapsibleTrigger": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "type",
+            "required": false,
+            "type": "'button' | 'submit' | 'reset'",
+          },
+        ],
         "models": [],
         "outputs": [],
         "selector": "button[hlmCollapsibleTrigger]",
@@ -1494,14 +2285,31 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "required": false,
             "type": "ComboboxFilter<T>",
           },
+          {
+            "name": "autoHighlight",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "closeOnSelect",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "isSingleValuePresent",
+            "required": false,
+            "type": "(value: T | undefined | null) => boolean",
+          },
         ],
         "models": [
           {
             "name": "value",
-            "type": "T | null",
+            "required": false,
+            "type": "T | undefined | null",
           },
           {
             "name": "search",
+            "required": false,
             "type": "string",
           },
         ],
@@ -1532,6 +2340,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "name": "id",
             "required": false,
             "type": "string",
+          },
+          {
+            "name": "aria-invalid",
+            "required": false,
+            "type": "boolean | undefined",
           },
         ],
         "models": [],
@@ -1576,16 +2389,20 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "required": false,
             "type": "string",
           },
+          {
+            "name": "aria-invalid",
+            "required": false,
+            "type": "boolean | undefined",
+          },
+          {
+            "name": "forceInvalid",
+            "required": false,
+            "type": "boolean",
+          },
         ],
         "models": [],
         "outputs": [],
         "selector": "input[brnComboboxInput]",
-      },
-      "BrnComboboxInputWrapper": {
-        "inputs": [],
-        "models": [],
-        "outputs": [],
-        "selector": "[brnComboboxInputWrapper]",
       },
       "BrnComboboxItem": {
         "inputs": [
@@ -1660,22 +2477,51 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "required": false,
             "type": "ComboboxFilter<T>",
           },
+          {
+            "name": "autoHighlight",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "closeOnSelect",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "isValuePresent",
+            "required": false,
+            "type": "(value: T | undefined | null) => boolean",
+          },
         ],
         "models": [
           {
             "name": "value",
-            "type": "T[] | null",
+            "required": false,
+            "type": "T[] | undefined | null",
           },
           {
             "name": "search",
+            "required": false,
             "type": "string",
           },
         ],
         "outputs": [],
         "selector": "[brnCombobox]",
       },
-      "BrnComboboxPopoverTrigger": {
+      "BrnComboboxPlaceholder": {
         "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnComboboxPlaceholder]",
+      },
+      "BrnComboboxPopoverTrigger": {
+        "inputs": [
+          {
+            "name": "closeOnTriggerClick",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
         "models": [],
         "outputs": [],
         "selector": "[brnComboboxPopoverTrigger]",
@@ -1699,16 +2545,34 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "selector": "[brnComboboxStatus]",
       },
       "BrnComboboxTrigger": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "forceInvalid",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
         "models": [],
         "outputs": [],
         "selector": "button[brnComboboxTrigger]",
       },
       "BrnComboboxValue": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "placeholder",
+            "required": false,
+            "type": "string",
+          },
+        ],
         "models": [],
         "outputs": [],
         "selector": "[brnComboboxValue]",
+      },
+      "BrnComboboxValueTemplate": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnComboboxValueTemplate]",
       },
       "BrnComboboxValues": {
         "inputs": [],
@@ -1719,9 +2583,92 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
     },
     "helm": {
       "HlmCombobox": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "autoHighlight",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "filter",
+            "required": false,
+            "type": "ComboboxFilter<T>",
+          },
+          {
+            "name": "search",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "value",
+            "required": false,
+            "type": "T | undefined | null",
+          },
+          {
+            "name": "itemToString",
+            "required": false,
+            "type": "ComboboxItemToString<T> | undefined",
+          },
+          {
+            "name": "filterOptions",
+            "required": false,
+            "type": "ComboboxFilterOptions",
+          },
+          {
+            "name": "isItemEqualToValue",
+            "required": false,
+            "type": "ComboboxItemEqualToValue<T>",
+          },
+          {
+            "name": "align",
+            "required": false,
+            "type": "BrnPopoverAlign",
+          },
+          {
+            "name": "closeOnOutsidePointerEvents",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "sideOffset",
+            "required": false,
+            "type": "number",
+          },
+          {
+            "name": "state",
+            "required": false,
+            "type": "BrnOverlayState | null",
+          },
+          {
+            "name": "offsetX",
+            "required": false,
+            "type": "number",
+          },
+        ],
         "models": [],
-        "outputs": [],
+        "outputs": [
+          {
+            "name": "searchChange",
+            "type": "string",
+          },
+          {
+            "name": "valueChange",
+            "type": "T | undefined | null",
+          },
+          {
+            "name": "stateChanged",
+            "type": "BrnOverlayState",
+          },
+          {
+            "name": "closed",
+            "type": "TResult",
+          },
+        ],
         "selector": "[hlmCombobox],hlm-combobox",
       },
       "HlmComboboxChip": {
@@ -1731,13 +2678,29 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "required": false,
             "type": "boolean",
           },
+          {
+            "name": "value",
+            "required": true,
+            "type": "T",
+          },
         ],
         "models": [],
         "outputs": [],
         "selector": "hlm-combobox-chip",
       },
       "HlmComboboxChipInput": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "aria-invalid",
+            "required": false,
+            "type": "boolean | undefined",
+          },
+        ],
         "models": [],
         "outputs": [],
         "selector": "input[hlmComboboxChipInput]",
@@ -1749,7 +2712,13 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "selector": "button[hlmComboboxChipRemove]",
       },
       "HlmComboboxChips": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "forceInvalid",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
         "models": [],
         "outputs": [],
         "selector": "[hlmComboboxChips],hlm-combobox-chips",
@@ -1758,7 +2727,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "[hlmComboboxContent]",
+        "selector": "[hlmComboboxContent],hlm-combobox-content",
       },
       "HlmComboboxEmpty": {
         "inputs": [],
@@ -1775,6 +2744,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       "HlmComboboxInput": {
         "inputs": [
           {
+            "name": "inputId",
+            "required": false,
+            "type": "string",
+          },
+          {
             "name": "placeholder",
             "required": false,
             "type": "string",
@@ -1790,9 +2764,14 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "boolean",
           },
           {
-            "name": "aria-invalid",
+            "name": "forceInvalid",
             "required": false,
             "type": "boolean",
+          },
+          {
+            "name": "aria-invalid",
+            "required": false,
+            "type": "boolean | undefined",
           },
         ],
         "models": [],
@@ -1800,31 +2779,171 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "selector": "hlm-combobox-input",
       },
       "HlmComboboxItem": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "value",
+            "required": true,
+            "type": "T",
+          },
+        ],
         "models": [],
         "outputs": [],
         "selector": "hlm-combobox-item",
       },
       "HlmComboboxLabel": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+        ],
         "models": [],
         "outputs": [],
         "selector": "[hlmComboboxLabel]",
       },
       "HlmComboboxList": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+        ],
         "models": [],
         "outputs": [],
         "selector": "[hlmComboboxList]",
       },
       "HlmComboboxMultiple": {
+        "inputs": [
+          {
+            "name": "autoHighlight",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "filter",
+            "required": false,
+            "type": "ComboboxFilter<T>",
+          },
+          {
+            "name": "search",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "value",
+            "required": false,
+            "type": "T[] | undefined | null",
+          },
+          {
+            "name": "itemToString",
+            "required": false,
+            "type": "ComboboxItemToString<T> | undefined",
+          },
+          {
+            "name": "filterOptions",
+            "required": false,
+            "type": "ComboboxFilterOptions",
+          },
+          {
+            "name": "isItemEqualToValue",
+            "required": false,
+            "type": "ComboboxItemEqualToValue<T>",
+          },
+          {
+            "name": "align",
+            "required": false,
+            "type": "BrnPopoverAlign",
+          },
+          {
+            "name": "closeOnOutsidePointerEvents",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "sideOffset",
+            "required": false,
+            "type": "number",
+          },
+          {
+            "name": "state",
+            "required": false,
+            "type": "BrnOverlayState | null",
+          },
+          {
+            "name": "offsetX",
+            "required": false,
+            "type": "number",
+          },
+        ],
+        "models": [],
+        "outputs": [
+          {
+            "name": "searchChange",
+            "type": "string",
+          },
+          {
+            "name": "valueChange",
+            "type": "T[] | undefined | null",
+          },
+          {
+            "name": "stateChanged",
+            "type": "BrnOverlayState",
+          },
+          {
+            "name": "closed",
+            "type": "TResult",
+          },
+        ],
+        "selector": "[hlmComboboxMultiple],hlm-combobox-multiple",
+      },
+      "HlmComboboxPlaceholder": {
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "[hlmComboboxMultiple],hlm-combobox-multiple",
+        "selector": "[hlmComboboxPlaceholder],hlm-combobox-placeholder",
+      },
+      "HlmComboboxPortal": {
+        "inputs": [
+          {
+            "name": "context",
+            "required": false,
+            "type": "T | undefined",
+          },
+          {
+            "name": "class",
+            "required": false,
+            "type": "string | null | undefined",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmComboboxPortal]",
       },
       "HlmComboboxSeparator": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "orientation",
+            "required": false,
+            "type": "'horizontal' | 'vertical'",
+          },
+        ],
         "models": [],
         "outputs": [],
         "selector": "[hlmComboboxSeparator]",
@@ -1843,9 +2962,19 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "ClassValue",
           },
           {
+            "name": "buttonId",
+            "required": false,
+            "type": "string",
+          },
+          {
             "name": "variant",
             "required": false,
             "type": "ButtonVariants['variant']",
+          },
+          {
+            "name": "forceInvalid",
+            "required": false,
+            "type": "boolean",
           },
         ],
         "models": [],
@@ -1853,10 +2982,22 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "selector": "hlm-combobox-trigger",
       },
       "HlmComboboxValue": {
+        "inputs": [
+          {
+            "name": "placeholder",
+            "required": false,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmComboboxValue],hlm-combobox-value",
+      },
+      "HlmComboboxValueTemplate": {
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "[hlmComboboxValue]",
+        "selector": "[hlmComboboxValueTemplate]",
       },
       "HlmComboboxValues": {
         "inputs": [],
@@ -1880,8 +3021,19 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "required": false,
             "type": "CommandFilter",
           },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
         ],
-        "models": [],
+        "models": [
+          {
+            "name": "search",
+            "required": false,
+            "type": "string",
+          },
+        ],
         "outputs": [
           {
             "name": "valueChange",
@@ -1907,6 +3059,18 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "models": [],
         "outputs": [],
         "selector": "[brnCommandGroup]",
+      },
+      "BrnCommandInput": {
+        "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "input[brnCommandInput]",
       },
       "BrnCommandItem": {
         "inputs": [
@@ -1947,18 +3111,6 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "outputs": [],
         "selector": "[brnCommandList]",
       },
-      "BrnCommandSearchInput": {
-        "inputs": [
-          {
-            "name": "value",
-            "required": false,
-            "type": "string",
-          },
-        ],
-        "models": [],
-        "outputs": [],
-        "selector": "input[brnCommandSearchInput]",
-      },
       "BrnCommandSeparator": {
         "inputs": [],
         "models": [],
@@ -1968,16 +3120,77 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
     },
     "helm": {
       "HlmCommand": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "filter",
+            "required": false,
+            "type": "CommandFilter",
+          },
+          {
+            "name": "search",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
         "models": [],
-        "outputs": [],
+        "outputs": [
+          {
+            "name": "valueChange",
+            "type": "string",
+          },
+          {
+            "name": "searchChange",
+            "type": "string",
+          },
+        ],
         "selector": "[hlmCommand],hlm-command",
       },
       "HlmCommandDialog": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "title",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "description",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "state",
+            "required": false,
+            "type": "BrnDialogState",
+          },
+          {
+            "name": "showCloseButton",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "dialogContentClass",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
         "models": [],
-        "outputs": [],
-        "selector": "[hlmCommandDialog]",
+        "outputs": [
+          {
+            "name": "stateChange",
+            "type": "BrnDialogState",
+          },
+        ],
+        "selector": "hlm-command-dialog",
       },
       "HlmCommandEmpty": {
         "inputs": [],
@@ -1992,7 +3205,13 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "selector": "[hlmCommandEmptyState]",
       },
       "HlmCommandGroup": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+        ],
         "models": [],
         "outputs": [],
         "selector": "[hlmCommandGroup],hlm-command-group",
@@ -2003,29 +3222,61 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "outputs": [],
         "selector": "[hlmCommandGroupLabel],hlm-command-group-label",
       },
-      "HlmCommandItem": {
-        "inputs": [],
+      "HlmCommandInput": {
+        "inputs": [
+          {
+            "name": "inputId",
+            "required": false,
+            "type": "string | undefined",
+          },
+          {
+            "name": "placeholder",
+            "required": false,
+            "type": "string",
+          },
+        ],
         "models": [],
         "outputs": [],
+        "selector": "hlm-command-input",
+      },
+      "HlmCommandItem": {
+        "inputs": [
+          {
+            "name": "value",
+            "required": true,
+            "type": "string",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [
+          {
+            "name": "selected",
+            "type": "void",
+          },
+        ],
         "selector": "button[hlmCommandItem],button[hlm-command-item]",
       },
       "HlmCommandList": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+        ],
         "models": [],
         "outputs": [],
         "selector": "[hlmCommandList],hlm-command-list",
-      },
-      "HlmCommandSearch": {
-        "inputs": [],
-        "models": [],
-        "outputs": [],
-        "selector": "[hlmCommandSearch],hlm-command-search",
-      },
-      "HlmCommandSearchInput": {
-        "inputs": [],
-        "models": [],
-        "outputs": [],
-        "selector": "input[hlmCommandSearchInput],input[hlm-command-search-input]",
       },
       "HlmCommandSeparator": {
         "inputs": [],
@@ -2068,19 +3319,116 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
     },
   },
   "date-picker": {
-    "helm": {
-      "HlmDatePicker": {
+    "brain": {
+      "BrnDateInput": {
+        "exportAs": null,
         "inputs": [
           {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-          {
-            "name": "buttonId",
+            "name": "inputId",
             "required": false,
             "type": "string",
           },
+          {
+            "name": "inputValue",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "showClear",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "openOnClick",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "forceInvalid",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "clearAriaLabel",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "calendarAriaLabel",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "placeholder",
+            "required": false,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": null,
+      },
+    },
+    "helm": {
+      "HlmDateMultiInput": {
+        "inputs": [
+          {
+            "name": "parseDate",
+            "required": false,
+            "type": "(value: string) => T[] | null",
+          },
+          {
+            "name": "formatInputDates",
+            "required": false,
+            "type": "(dates: T[]) => string",
+          },
+          {
+            "name": "inputId",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "inputValue",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "showClear",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "openOnClick",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "forceInvalid",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "clearAriaLabel",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "calendarAriaLabel",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "placeholder",
+            "required": false,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-date-multi-input",
+      },
+      "HlmDatePicker": {
+        "inputs": [
           {
             "name": "captionLayout",
             "required": false,
@@ -2107,6 +3455,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "T",
           },
           {
+            "name": "defaultFocusedDate",
+            "required": false,
+            "type": "T",
+          },
+          {
             "name": "autoCloseOnSelect",
             "required": false,
             "type": "boolean",
@@ -2126,23 +3479,82 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "outputs": [
           {
             "name": "dateChange",
-            "type": "T",
+            "type": "T | null",
           },
         ],
         "selector": "hlm-date-picker",
       },
-      "HlmDatePickerMulti": {
+      "HlmDatePickerAnchor": {
         "inputs": [
           {
-            "name": "class",
+            "name": "hlmDatePickerAnchorFor",
             "required": false,
-            "type": "ClassValue",
+            "type": "BrnPopover | undefined",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmDatePickerAnchor]",
+      },
+      "HlmDatePickerInput": {
+        "inputs": [
+          {
+            "name": "parseDate",
+            "required": false,
+            "type": "(value: string) => T | null",
           },
           {
-            "name": "buttonId",
+            "name": "formatInputDate",
+            "required": false,
+            "type": "(date: T) => string",
+          },
+          {
+            "name": "inputId",
             "required": false,
             "type": "string",
           },
+          {
+            "name": "inputValue",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "showClear",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "openOnClick",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "forceInvalid",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "clearAriaLabel",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "calendarAriaLabel",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "placeholder",
+            "required": false,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-date-picker-input",
+      },
+      "HlmDatePickerMulti": {
+        "inputs": [
           {
             "name": "captionLayout",
             "required": false,
@@ -2203,7 +3615,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "selector": "hlm-date-picker-multi",
       },
-      "HlmDateRangePicker": {
+      "HlmDatePickerTrigger": {
         "inputs": [
           {
             "name": "class",
@@ -2215,6 +3627,85 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "required": false,
             "type": "string",
           },
+          {
+            "name": "forceInvalid",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "variant",
+            "required": false,
+            "type": "ButtonVariants['variant']",
+          },
+          {
+            "name": "showTrigger",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-date-picker-trigger",
+      },
+      "HlmDateRangeInput": {
+        "inputs": [
+          {
+            "name": "parseDate",
+            "required": false,
+            "type": "(value: string) => [T, T] | null",
+          },
+          {
+            "name": "formatInputDates",
+            "required": false,
+            "type": "(dates: [T | null, T | null]) => string",
+          },
+          {
+            "name": "inputId",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "inputValue",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "showClear",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "openOnClick",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "forceInvalid",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "clearAriaLabel",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "calendarAriaLabel",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "placeholder",
+            "required": false,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-date-range-input",
+      },
+      "HlmDateRangePicker": {
+        "inputs": [
           {
             "name": "captionLayout",
             "required": false,
@@ -2248,7 +3739,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           {
             "name": "formatDates",
             "required": false,
-            "type": "(dates: [T | undefined, T | undefined]) => string",
+            "type": "(dates: [T | null, T | null]) => string",
           },
           {
             "name": "transformDates",
@@ -2265,6 +3756,115 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "selector": "hlm-date-range-picker",
       },
+      "HlmMonthYearInput": {
+        "inputs": [
+          {
+            "name": "parseDate",
+            "required": false,
+            "type": "(value: string) => T | null",
+          },
+          {
+            "name": "formatInputDate",
+            "required": false,
+            "type": "(date: T) => string",
+          },
+          {
+            "name": "inputId",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "inputValue",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "showClear",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "openOnClick",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "forceInvalid",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "clearAriaLabel",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "calendarAriaLabel",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "placeholder",
+            "required": false,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-month-year-input",
+      },
+      "HlmMonthYearPicker": {
+        "inputs": [
+          {
+            "name": "min",
+            "required": false,
+            "type": "T",
+          },
+          {
+            "name": "max",
+            "required": false,
+            "type": "T",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "date",
+            "required": false,
+            "type": "T",
+          },
+          {
+            "name": "defaultFocusedDate",
+            "required": false,
+            "type": "T",
+          },
+          {
+            "name": "autoCloseOnSelect",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "formatDate",
+            "required": false,
+            "type": "(date: T) => string",
+          },
+          {
+            "name": "transformDate",
+            "required": false,
+            "type": "(date: T) => T",
+          },
+        ],
+        "models": [],
+        "outputs": [
+          {
+            "name": "dateChange",
+            "type": "T | null",
+          },
+        ],
+        "selector": "hlm-month-year-picker",
+      },
     },
   },
   "dialog": {
@@ -2272,6 +3872,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       "BrnDialog": {
         "exportAs": "brnDialog",
         "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
           {
             "name": "state",
             "required": false,
@@ -2308,11 +3913,6 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "boolean",
           },
           {
-            "name": "closeOnBackdropClick",
-            "required": false,
-            "type": "boolean",
-          },
-          {
             "name": "attachTo",
             "required": false,
             "type": "BrnDialogOptions['attachTo']",
@@ -2326,11 +3926,6 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "name": "autoFocus",
             "required": false,
             "type": "BrnDialogOptions['autoFocus']",
-          },
-          {
-            "name": "closeDelay",
-            "required": false,
-            "type": "number",
           },
           {
             "name": "disableClose",
@@ -2372,13 +3967,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "selector": "[brnDialog],brn-dialog",
       },
       "BrnDialogClose": {
-        "inputs": [
-          {
-            "name": "delay",
-            "required": false,
-            "type": "number | undefined",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "button[brnDialogClose]",
@@ -2451,9 +4040,99 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
     "helm": {
       "HlmDialog": {
         "exportAs": "hlmDialog",
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "state",
+            "required": false,
+            "type": "BrnDialogState | null",
+          },
+          {
+            "name": "role",
+            "required": false,
+            "type": "BrnDialogOptions['role']",
+          },
+          {
+            "name": "hasBackdrop",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "positionStrategy",
+            "required": false,
+            "type": "BrnDialogOptions['positionStrategy']",
+          },
+          {
+            "name": "scrollStrategy",
+            "required": false,
+            "type": "BrnDialogOptions['scrollStrategy'] | 'close' | 'reposition' | null",
+          },
+          {
+            "name": "restoreFocus",
+            "required": false,
+            "type": "BrnDialogOptions['restoreFocus']",
+          },
+          {
+            "name": "closeOnOutsidePointerEvents",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "attachTo",
+            "required": false,
+            "type": "BrnDialogOptions['attachTo']",
+          },
+          {
+            "name": "attachPositions",
+            "required": false,
+            "type": "BrnDialogOptions['attachPositions']",
+          },
+          {
+            "name": "autoFocus",
+            "required": false,
+            "type": "BrnDialogOptions['autoFocus']",
+          },
+          {
+            "name": "disableClose",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "aria-describedby",
+            "required": false,
+            "type": "BrnDialogOptions['ariaDescribedBy']",
+          },
+          {
+            "name": "aria-labelledby",
+            "required": false,
+            "type": "BrnDialogOptions['ariaLabelledBy']",
+          },
+          {
+            "name": "aria-label",
+            "required": false,
+            "type": "BrnDialogOptions['ariaLabel']",
+          },
+          {
+            "name": "aria-modal",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
         "models": [],
-        "outputs": [],
+        "outputs": [
+          {
+            "name": "closed",
+            "type": "TResult",
+          },
+          {
+            "name": "stateChanged",
+            "type": "BrnDialogState",
+          },
+        ],
         "selector": "hlm-dialog",
       },
       "HlmDialogClose": {
@@ -2504,6 +4183,23 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "outputs": [],
         "selector": "[hlmDialogOverlay],hlm-dialog-overlay",
       },
+      "HlmDialogPortal": {
+        "inputs": [
+          {
+            "name": "context",
+            "required": false,
+            "type": "T | undefined",
+          },
+          {
+            "name": "class",
+            "required": false,
+            "type": "string | null | undefined",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmDialogPortal]",
+      },
       "HlmDialogTitle": {
         "inputs": [],
         "models": [],
@@ -2511,10 +4207,415 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "selector": "[hlmDialogTitle]",
       },
       "HlmDialogTrigger": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "hlmDialogTriggerFor",
+            "required": false,
+            "type": "BrnDialog | undefined",
+          },
+          {
+            "name": "type",
+            "required": false,
+            "type": "'button' | 'submit' | 'reset'",
+          },
+        ],
         "models": [],
         "outputs": [],
         "selector": "button[hlmDialogTrigger],button[hlmDialogTriggerFor]",
+      },
+    },
+  },
+  "drawer": {
+    "brain": {
+      "BrnDrawer": {
+        "exportAs": "brnDrawer",
+        "inputs": [
+          {
+            "name": "direction",
+            "required": false,
+            "type": "'bottom' | 'top' | 'left' | 'right'",
+          },
+          {
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "state",
+            "required": false,
+            "type": "BrnDialogState | null",
+          },
+          {
+            "name": "role",
+            "required": false,
+            "type": "BrnDialogOptions['role']",
+          },
+          {
+            "name": "hasBackdrop",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "positionStrategy",
+            "required": false,
+            "type": "BrnDialogOptions['positionStrategy']",
+          },
+          {
+            "name": "scrollStrategy",
+            "required": false,
+            "type": "BrnDialogOptions['scrollStrategy'] | 'close' | 'reposition' | null",
+          },
+          {
+            "name": "restoreFocus",
+            "required": false,
+            "type": "BrnDialogOptions['restoreFocus']",
+          },
+          {
+            "name": "closeOnOutsidePointerEvents",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "attachTo",
+            "required": false,
+            "type": "BrnDialogOptions['attachTo']",
+          },
+          {
+            "name": "attachPositions",
+            "required": false,
+            "type": "BrnDialogOptions['attachPositions']",
+          },
+          {
+            "name": "autoFocus",
+            "required": false,
+            "type": "BrnDialogOptions['autoFocus']",
+          },
+          {
+            "name": "disableClose",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "aria-describedby",
+            "required": false,
+            "type": "BrnDialogOptions['ariaDescribedBy']",
+          },
+          {
+            "name": "aria-labelledby",
+            "required": false,
+            "type": "BrnDialogOptions['ariaLabelledBy']",
+          },
+          {
+            "name": "aria-label",
+            "required": false,
+            "type": "BrnDialogOptions['ariaLabel']",
+          },
+          {
+            "name": "aria-modal",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [],
+        "outputs": [
+          {
+            "name": "closed",
+            "type": "TResult",
+          },
+          {
+            "name": "stateChanged",
+            "type": "BrnDialogState",
+          },
+        ],
+        "selector": "[brnDrawer],brn-drawer",
+      },
+      "BrnDrawerClose": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "button[brnDrawerClose]",
+      },
+      "BrnDrawerContent": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "string | null | undefined",
+          },
+          {
+            "name": "context",
+            "required": false,
+            "type": "T | undefined",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnDrawerContent]",
+      },
+      "BrnDrawerDescription": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnDrawerDescription]",
+      },
+      "BrnDrawerHandle": {
+        "inputs": [
+          {
+            "name": "closeThreshold",
+            "required": false,
+            "type": "number",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnDrawerHandle]",
+      },
+      "BrnDrawerOverlay": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "string | null | undefined",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnDrawerOverlay],brn-drawer-overlay",
+      },
+      "BrnDrawerTitle": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnDrawerTitle]",
+      },
+      "BrnDrawerTrigger": {
+        "inputs": [
+          {
+            "name": "direction",
+            "required": false,
+            "type": "'bottom' | 'top' | 'left' | 'right' | undefined",
+          },
+          {
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "type",
+            "required": false,
+            "type": "'button' | 'submit' | 'reset'",
+          },
+          {
+            "name": "brnDialogTriggerFor",
+            "required": false,
+            "type": "BrnDialog | undefined",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "button[brnDrawerTrigger]",
+      },
+    },
+    "helm": {
+      "HlmDrawer": {
+        "exportAs": "hlmDrawer",
+        "inputs": [
+          {
+            "name": "direction",
+            "required": false,
+            "type": "'bottom' | 'top' | 'left' | 'right'",
+          },
+          {
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "state",
+            "required": false,
+            "type": "BrnDialogState | null",
+          },
+          {
+            "name": "role",
+            "required": false,
+            "type": "BrnDialogOptions['role']",
+          },
+          {
+            "name": "hasBackdrop",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "positionStrategy",
+            "required": false,
+            "type": "BrnDialogOptions['positionStrategy']",
+          },
+          {
+            "name": "scrollStrategy",
+            "required": false,
+            "type": "BrnDialogOptions['scrollStrategy'] | 'close' | 'reposition' | null",
+          },
+          {
+            "name": "restoreFocus",
+            "required": false,
+            "type": "BrnDialogOptions['restoreFocus']",
+          },
+          {
+            "name": "closeOnOutsidePointerEvents",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "attachTo",
+            "required": false,
+            "type": "BrnDialogOptions['attachTo']",
+          },
+          {
+            "name": "attachPositions",
+            "required": false,
+            "type": "BrnDialogOptions['attachPositions']",
+          },
+          {
+            "name": "autoFocus",
+            "required": false,
+            "type": "BrnDialogOptions['autoFocus']",
+          },
+          {
+            "name": "disableClose",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "aria-describedby",
+            "required": false,
+            "type": "BrnDialogOptions['ariaDescribedBy']",
+          },
+          {
+            "name": "aria-labelledby",
+            "required": false,
+            "type": "BrnDialogOptions['ariaLabelledBy']",
+          },
+          {
+            "name": "aria-label",
+            "required": false,
+            "type": "BrnDialogOptions['ariaLabel']",
+          },
+          {
+            "name": "aria-modal",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [],
+        "outputs": [
+          {
+            "name": "closed",
+            "type": "TResult",
+          },
+          {
+            "name": "stateChanged",
+            "type": "BrnDialogState",
+          },
+        ],
+        "selector": "hlm-drawer",
+      },
+      "HlmDrawerClose": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "button[hlmDrawerClose]",
+      },
+      "HlmDrawerContent": {
+        "inputs": [
+          {
+            "name": "closeThreshold",
+            "required": false,
+            "type": "number",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-drawer-content",
+      },
+      "HlmDrawerDescription": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmDrawerDescription]",
+      },
+      "HlmDrawerFooter": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmDrawerFooter],hlm-drawer-footer",
+      },
+      "HlmDrawerHeader": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmDrawerHeader],hlm-drawer-header",
+      },
+      "HlmDrawerOverlay": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmDrawerOverlay],hlm-drawer-overlay",
+      },
+      "HlmDrawerPortal": {
+        "inputs": [
+          {
+            "name": "context",
+            "required": false,
+            "type": "T | undefined",
+          },
+          {
+            "name": "class",
+            "required": false,
+            "type": "string | null | undefined",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmDrawerPortal]",
+      },
+      "HlmDrawerTitle": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmDrawerTitle]",
+      },
+      "HlmDrawerTrigger": {
+        "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "direction",
+            "required": false,
+            "type": "'bottom' | 'top' | 'left' | 'right' | undefined",
+          },
+          {
+            "name": "type",
+            "required": false,
+            "type": "'button' | 'submit' | 'reset'",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "button[hlmDrawerTrigger]",
       },
     },
   },
@@ -2535,25 +4636,43 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       "HlmDropdownMenuCheckbox": {
         "inputs": [
           {
-            "name": "checked",
+            "name": "inset",
             "required": false,
             "type": "boolean",
           },
           {
-            "name": "disabled",
+            "name": "keepOpen",
             "required": false,
             "type": "boolean",
           },
         ],
         "models": [],
         "outputs": [],
-        "selector": "[hlmDropdownMenuCheckbox]",
+        "selector": "[hlmDropdownMenuCheckbox],[hlmDropdownMenuCheckboxItem]",
+      },
+      "HlmDropdownMenuCheckboxCdk": {
+        "inputs": [
+          {
+            "name": "keepOpen",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmDropdownMenuCheckboxCdk]",
       },
       "HlmDropdownMenuCheckboxIndicator": {
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "hlm-dropdown-menu-checkbox-indicator",
+      },
+      "HlmDropdownMenuFocusOnHover": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmDropdownMenuFocusOnHover]",
       },
       "HlmDropdownMenuGroup": {
         "inputs": [],
@@ -2581,7 +4700,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "[hlmDropdownMenuItem]",
+        "selector": "[hlmDropdownMenuItem],hlm-dropdown-menu-item",
       },
       "HlmDropdownMenuItemSubIndicator": {
         "inputs": [],
@@ -2604,12 +4723,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       "HlmDropdownMenuRadio": {
         "inputs": [
           {
-            "name": "checked",
-            "required": false,
-            "type": "boolean",
-          },
-          {
-            "name": "disabled",
+            "name": "keepOpen",
             "required": false,
             "type": "boolean",
           },
@@ -2617,6 +4731,18 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "models": [],
         "outputs": [],
         "selector": "[hlmDropdownMenuRadio]",
+      },
+      "HlmDropdownMenuRadioCdk": {
+        "inputs": [
+          {
+            "name": "keepOpen",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmDropdownMenuRadioCdk]",
       },
       "HlmDropdownMenuRadioIndicator": {
         "inputs": [],
@@ -2641,6 +4767,23 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "models": [],
         "outputs": [],
         "selector": "[hlmDropdownMenuSub],hlm-dropdown-menu-sub",
+      },
+      "HlmDropdownMenuSubTrigger": {
+        "inputs": [
+          {
+            "name": "align",
+            "required": false,
+            "type": "MenuAlign",
+          },
+          {
+            "name": "side",
+            "required": false,
+            "type": "MenuSide",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmDropdownMenuSubTrigger]",
       },
       "HlmDropdownMenuTrigger": {
         "inputs": [
@@ -2708,6 +4851,37 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
     },
   },
   "field": {
+    "brain": {
+      "BrnField": {
+        "inputs": [
+          {
+            "name": "data-invalid",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "forceInvalid",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnField],brn-field",
+      },
+      "BrnFieldControlDescribedBy": {
+        "inputs": [
+          {
+            "name": "aria-describedby",
+            "required": false,
+            "type": "string | null",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnFieldControlDescribedBy]",
+      },
+    },
     "helm": {
       "HlmField": {
         "inputs": [
@@ -2715,6 +4889,16 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "name": "orientation",
             "required": false,
             "type": "FieldVariants['orientation']",
+          },
+          {
+            "name": "data-invalid",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "forceInvalid",
+            "required": false,
+            "type": "boolean",
           },
         ],
         "models": [],
@@ -2728,7 +4912,13 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "selector": "[hlmFieldContent],hlm-field-content",
       },
       "HlmFieldDescription": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+        ],
         "models": [],
         "outputs": [],
         "selector": "[hlmFieldDescription],hlm-field-description",
@@ -2736,14 +4926,19 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       "HlmFieldError": {
         "inputs": [
           {
-            "name": "class",
+            "name": "id",
             "required": false,
-            "type": "ClassValue",
+            "type": "string",
           },
           {
-            "name": "error",
+            "name": "validator",
             "required": false,
-            "type": "Array<{ message: string } | undefined>",
+            "type": "string",
+          },
+          {
+            "name": "forceShow",
+            "required": false,
+            "type": "boolean",
           },
         ],
         "models": [],
@@ -2794,28 +4989,6 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       },
     },
   },
-  "form-field": {
-    "helm": {
-      "HlmError": {
-        "inputs": [],
-        "models": [],
-        "outputs": [],
-        "selector": "hlm-error",
-      },
-      "HlmFormField": {
-        "inputs": [],
-        "models": [],
-        "outputs": [],
-        "selector": "hlm-form-field",
-      },
-      "HlmHint": {
-        "inputs": [],
-        "models": [],
-        "outputs": [],
-        "selector": "hlm-hint",
-      },
-    },
-  },
   "hover-card": {
     "brain": {
       "BrnHoverCard": {
@@ -2857,7 +5030,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           {
             "name": "align",
             "required": false,
-            "type": "'top' | 'bottom'",
+            "type": "'top' | 'bottom' | 'left' | 'right'",
           },
           {
             "name": "brnHoverCardTriggerFor",
@@ -2871,38 +5044,95 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       },
     },
     "helm": {
+      "HlmHoverCard": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmHoverCard],hlm-hover-card",
+      },
       "HlmHoverCardContent": {
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmHoverCardContent],hlm-hover-card-content",
       },
-    },
-  },
-  "icon": {
-    "helm": {
-      "HlmIcon": {
+      "HlmHoverCardPortal": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmHoverCardPortal],hlm-hover-card-portal",
+      },
+      "HlmHoverCardTrigger": {
         "inputs": [
           {
-            "name": "size",
+            "name": "showDelay",
             "required": false,
-            "type": "IconSize",
+            "type": "number",
+          },
+          {
+            "name": "hideDelay",
+            "required": false,
+            "type": "number",
+          },
+          {
+            "name": "animationDelay",
+            "required": false,
+            "type": "number",
+          },
+          {
+            "name": "sideOffset",
+            "required": false,
+            "type": "number",
+          },
+          {
+            "name": "align",
+            "required": false,
+            "type": "'top' | 'bottom' | 'left' | 'right'",
+          },
+          {
+            "name": "hlmHoverCardTriggerFor",
+            "required": false,
+            "type": "TemplateRef<unknown> | BrnHoverCardContent | undefined",
           },
         ],
         "models": [],
         "outputs": [],
-        "selector": "ng-icon[hlmIcon], ng-icon[hlm]",
+        "selector": "[hlmHoverCardTrigger]",
       },
     },
   },
   "input": {
+    "brain": {
+      "BrnInput": {
+        "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "string | undefined",
+          },
+          {
+            "name": "forceInvalid",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnInput]",
+      },
+    },
     "helm": {
       "HlmInput": {
         "inputs": [
           {
-            "name": "error",
+            "name": "id",
             "required": false,
-            "type": "InputVariants['error']",
+            "type": "string | undefined",
+          },
+          {
+            "name": "forceInvalid",
+            "required": false,
+            "type": "boolean",
           },
         ],
         "models": [],
@@ -2929,7 +5159,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "hlm-input-group-addon,[hlmInputGroupAddon]",
+        "selector": "[hlmInputGroupAddon],hlm-input-group-addon",
       },
       "HlmInputGroupButton": {
         "inputs": [
@@ -2942,6 +5172,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "name": "type",
             "required": false,
             "type": "'button' | 'submit' | 'reset'",
+          },
+          {
+            "name": "variant",
+            "required": false,
+            "type": "ButtonVariants['variant']",
           },
         ],
         "models": [],
@@ -2958,7 +5193,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "span[hlmInputGroupText]",
+        "selector": "[hlmInputGroupText],hlm-input-group-text",
       },
       "HlmInputGroupTextarea": {
         "inputs": [],
@@ -3027,13 +5262,13 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "required": false,
             "type": "(pastedText: string, maxLength: number) => string",
           },
-        ],
-        "models": [
           {
             "name": "value",
+            "required": false,
             "type": "string | null",
           },
         ],
+        "models": [],
         "outputs": [
           {
             "name": "valueChange",
@@ -3076,7 +5311,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "[hlmInputOtpGroup]",
+        "selector": "[hlmInputOtpGroup],hlm-input-otp-group",
       },
       "HlmInputOtpSeparator": {
         "inputs": [],
@@ -3115,7 +5350,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "div[hlmItem], a[hlmItem]",
+        "selector": "[hlmItem],hlm-item",
       },
       "HlmItemActions": {
         "inputs": [],
@@ -3133,7 +5368,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "p[hlmItemDescription]",
+        "selector": "[hlmItemDescription],hlm-item-description",
       },
       "HlmItemFooter": {
         "inputs": [],
@@ -3166,10 +5401,16 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "selector": "[hlmItemMedia],hlm-item-media",
       },
       "HlmItemSeparator": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "orientation",
+            "required": false,
+            "type": "SeparatorOrientation",
+          },
+        ],
         "models": [],
         "outputs": [],
-        "selector": "div[hlmItemSeparator]",
+        "selector": "[hlmItemSeparator],hlm-item-separator",
       },
       "HlmItemTitle": {
         "inputs": [],
@@ -3204,6 +5445,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "required": false,
             "type": "string",
           },
+          {
+            "name": "for",
+            "required": false,
+            "type": "string",
+          },
         ],
         "models": [],
         "outputs": [],
@@ -3212,7 +5458,18 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
     },
     "helm": {
       "HlmLabel": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "for",
+            "required": false,
+            "type": "string",
+          },
+        ],
         "models": [],
         "outputs": [],
         "selector": "[hlmLabel]",
@@ -3251,6 +5508,74 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       },
     },
   },
+  "native-select": {
+    "helm": {
+      "HlmNativeSelect": {
+        "inputs": [
+          {
+            "name": "selectId",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "selectClass",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "selectIconClass",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "size",
+            "required": false,
+            "type": "'sm' | 'default'",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "forceInvalid",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "aria-invalid",
+            "required": false,
+            "type": "boolean | undefined",
+          },
+          {
+            "name": "value",
+            "required": false,
+            "type": "string | undefined | null",
+          },
+        ],
+        "models": [],
+        "outputs": [
+          {
+            "name": "valueChange",
+            "type": "string | undefined | null",
+          },
+        ],
+        "selector": "hlm-native-select",
+      },
+      "HlmNativeSelectOptGroup": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "optgroup[hlmNativeSelectOptGroup]",
+      },
+      "HlmNativeSelectOption": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "option[hlmNativeSelectOption]",
+      },
+    },
+  },
   "navigation-menu": {
     "brain": {
       "BrnNavigationMenu": {
@@ -3266,6 +5591,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "number",
           },
           {
+            "name": "openOn",
+            "required": false,
+            "type": "'hover' | 'click'",
+          },
+          {
             "name": "orientation",
             "required": false,
             "type": "'horizontal' | 'vertical'",
@@ -3274,6 +5604,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "models": [
           {
             "name": "value",
+            "required": false,
             "type": "string",
           },
         ],
@@ -3305,6 +5636,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "required": false,
             "type": "boolean | undefined",
           },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
         ],
         "models": [],
         "outputs": [],
@@ -3317,7 +5653,18 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "selector": "ul[brnNavigationMenuList]",
       },
       "BrnNavigationMenuTrigger": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "align",
+            "required": false,
+            "type": "MenuAlign",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
         "models": [],
         "outputs": [],
         "selector": "button[brnNavigationMenuTrigger]",
@@ -3325,25 +5672,74 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
     },
     "helm": {
       "HlmNavigationMenu": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "value",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "delayDuration",
+            "required": false,
+            "type": "number",
+          },
+          {
+            "name": "skipDelayDuration",
+            "required": false,
+            "type": "number",
+          },
+          {
+            "name": "orientation",
+            "required": false,
+            "type": "'horizontal' | 'vertical'",
+          },
+          {
+            "name": "openOn",
+            "required": false,
+            "type": "'hover' | 'click'",
+          },
+        ],
         "models": [],
-        "outputs": [],
+        "outputs": [
+          {
+            "name": "valueChange",
+            "type": "string",
+          },
+        ],
         "selector": "nav[hlmNavigationMenu]",
       },
       "HlmNavigationMenuContent": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "navOffset",
+            "required": false,
+            "type": "number",
+          },
+        ],
         "models": [],
         "outputs": [],
-        "selector": "[hlmNavigationMenuContent]",
+        "selector": "[hlmNavigationMenuContent],hlm-navigation-menu-content",
       },
       "HlmNavigationMenuItem": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+        ],
         "models": [],
         "outputs": [],
         "selector": "li[hlmNavigationMenuItem]",
       },
       "HlmNavigationMenuLink": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "active",
+            "required": false,
+            "type": "boolean | undefined",
+          },
+        ],
         "models": [],
         "outputs": [],
         "selector": "a[hlmNavigationMenuLink]",
@@ -3354,11 +5750,145 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "outputs": [],
         "selector": "ul[hlmNavigationMenuList]",
       },
-      "HlmNavigationMenuTrigger": {
+      "HlmNavigationMenuPortal": {
         "inputs": [],
         "models": [],
         "outputs": [],
+        "selector": "[hlmNavigationMenuPortal]",
+      },
+      "HlmNavigationMenuTrigger": {
+        "inputs": [
+          {
+            "name": "align",
+            "required": false,
+            "type": "MenuAlign",
+          },
+        ],
+        "models": [],
+        "outputs": [],
         "selector": "button[hlmNavigationMenuTrigger]",
+      },
+    },
+  },
+  "overlay": {
+    "brain": {
+      "BrnOverlay": {
+        "exportAs": "brnOverlay",
+        "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "state",
+            "required": false,
+            "type": "BrnOverlayState | null",
+          },
+          {
+            "name": "role",
+            "required": false,
+            "type": "BrnOverlayOptions['role']",
+          },
+          {
+            "name": "hasBackdrop",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "positionStrategy",
+            "required": false,
+            "type": "BrnOverlayOptions['positionStrategy']",
+          },
+          {
+            "name": "scrollStrategy",
+            "required": false,
+            "type": "BrnOverlayOptions['scrollStrategy'] | 'close' | 'reposition' | null",
+          },
+          {
+            "name": "closeOnOutsidePointerEvents",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "attachTo",
+            "required": false,
+            "type": "BrnOverlayOptions['attachTo']",
+          },
+          {
+            "name": "attachPositions",
+            "required": false,
+            "type": "BrnOverlayOptions['attachPositions']",
+          },
+          {
+            "name": "disableClose",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "autoFocus",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [],
+        "outputs": [
+          {
+            "name": "closed",
+            "type": "TResult",
+          },
+          {
+            "name": "stateChanged",
+            "type": "BrnOverlayState",
+          },
+        ],
+        "selector": "[brnOverlay],brn-overlay",
+      },
+      "BrnOverlayClose": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "button[brnOverlayClose]",
+      },
+      "BrnOverlayContent": {
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "string | null | undefined",
+          },
+          {
+            "name": "context",
+            "required": false,
+            "type": "T | undefined",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnOverlayContent]",
+      },
+      "BrnOverlayTrigger": {
+        "exportAs": "brnOverlayTrigger",
+        "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "type",
+            "required": false,
+            "type": "'button' | 'submit' | 'reset'",
+          },
+          {
+            "name": "brnOverlayTriggerFor",
+            "required": false,
+            "type": "BrnOverlay | undefined",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "button[brnOverlayTrigger],button[brnOverlayTriggerFor]",
       },
     },
   },
@@ -3387,7 +5917,18 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "number[]",
           },
         ],
-        "models": [],
+        "models": [
+          {
+            "name": "currentPage",
+            "required": true,
+            "type": "number",
+          },
+          {
+            "name": "itemsPerPage",
+            "required": true,
+            "type": "number",
+          },
+        ],
         "outputs": [],
         "selector": "hlm-numbered-pagination",
       },
@@ -3419,7 +5960,18 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "number[]",
           },
         ],
-        "models": [],
+        "models": [
+          {
+            "name": "currentPage",
+            "required": true,
+            "type": "number",
+          },
+          {
+            "name": "itemsPerPage",
+            "required": true,
+            "type": "number",
+          },
+        ],
         "outputs": [],
         "selector": "hlm-numbered-pagination-query-params",
       },
@@ -3484,6 +6036,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       "HlmPaginationNext": {
         "inputs": [
           {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
             "name": "link",
             "required": false,
             "type": "RouterLink['routerLink']",
@@ -3520,6 +6077,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       },
       "HlmPaginationPrevious": {
         "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
           {
             "name": "link",
             "required": false,
@@ -3577,13 +6139,88 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "required": false,
             "type": "number",
           },
+          {
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "state",
+            "required": false,
+            "type": "BrnOverlayState | null",
+          },
+          {
+            "name": "role",
+            "required": false,
+            "type": "BrnOverlayOptions['role']",
+          },
+          {
+            "name": "hasBackdrop",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "positionStrategy",
+            "required": false,
+            "type": "BrnOverlayOptions['positionStrategy']",
+          },
+          {
+            "name": "scrollStrategy",
+            "required": false,
+            "type": "BrnOverlayOptions['scrollStrategy'] | 'close' | 'reposition' | null",
+          },
+          {
+            "name": "closeOnOutsidePointerEvents",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "attachTo",
+            "required": false,
+            "type": "BrnOverlayOptions['attachTo']",
+          },
+          {
+            "name": "attachPositions",
+            "required": false,
+            "type": "BrnOverlayOptions['attachPositions']",
+          },
+          {
+            "name": "disableClose",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "autoFocus",
+            "required": false,
+            "type": "boolean",
+          },
         ],
         "models": [],
-        "outputs": [],
+        "outputs": [
+          {
+            "name": "closed",
+            "type": "TResult",
+          },
+          {
+            "name": "stateChanged",
+            "type": "BrnOverlayState",
+          },
+        ],
         "selector": "[brnPopover],brn-popover",
       },
       "BrnPopoverContent": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "string | null | undefined",
+          },
+          {
+            "name": "context",
+            "required": false,
+            "type": "T | undefined",
+          },
+        ],
         "models": [],
         "outputs": [],
         "selector": "[brnPopoverContent]",
@@ -3595,6 +6232,21 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "required": false,
             "type": "BrnPopover | undefined",
           },
+          {
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "type",
+            "required": false,
+            "type": "'button' | 'submit' | 'reset'",
+          },
+          {
+            "name": "brnOverlayTriggerFor",
+            "required": false,
+            "type": "BrnOverlay | undefined",
+          },
         ],
         "models": [],
         "outputs": [],
@@ -3603,19 +6255,115 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
     },
     "helm": {
       "HlmPopover": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "align",
+            "required": false,
+            "type": "BrnPopoverAlign",
+          },
+          {
+            "name": "attachTo",
+            "required": false,
+            "type": "BrnOverlayOptions['attachTo']",
+          },
+          {
+            "name": "autoFocus",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "closeOnOutsidePointerEvents",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "offsetX",
+            "required": false,
+            "type": "number",
+          },
+          {
+            "name": "sideOffset",
+            "required": false,
+            "type": "number",
+          },
+          {
+            "name": "state",
+            "required": false,
+            "type": "BrnOverlayState | null",
+          },
+        ],
         "models": [],
-        "outputs": [],
+        "outputs": [
+          {
+            "name": "stateChanged",
+            "type": "BrnOverlayState",
+          },
+          {
+            "name": "closed",
+            "type": "TResult",
+          },
+        ],
         "selector": "[hlmPopover],hlm-popover",
       },
       "HlmPopoverContent": {
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "[hlmPopoverContent],[brnPopoverContent][hlm]",
+        "selector": "[hlmPopoverContent],hlm-popover-content",
+      },
+      "HlmPopoverDescription": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmPopoverDescription]",
+      },
+      "HlmPopoverHeader": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmPopoverHeader],hlm-popover-header",
+      },
+      "HlmPopoverPortal": {
+        "inputs": [
+          {
+            "name": "context",
+            "required": false,
+            "type": "T | undefined",
+          },
+          {
+            "name": "class",
+            "required": false,
+            "type": "string | null | undefined",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmPopoverPortal]",
+      },
+      "HlmPopoverTitle": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmPopoverTitle]",
       },
       "HlmPopoverTrigger": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "hlmPopoverTriggerFor",
+            "required": false,
+            "type": "BrnPopover | undefined",
+          },
+          {
+            "name": "type",
+            "required": false,
+            "type": "'button' | 'submit' | 'reset'",
+          },
+        ],
         "models": [],
         "outputs": [],
         "selector": "button[hlmPopoverTrigger],button[hlmPopoverTriggerFor]",
@@ -3656,7 +6404,23 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
     },
     "helm": {
       "HlmProgress": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "value",
+            "required": false,
+            "type": "number | null | undefined",
+          },
+          {
+            "name": "max",
+            "required": false,
+            "type": "number",
+          },
+          {
+            "name": "getValueLabel",
+            "required": false,
+            "type": "BrnProgressLabelFn",
+          },
+        ],
         "models": [],
         "outputs": [],
         "selector": "hlm-progress,[hlmProgress]",
@@ -3705,6 +6469,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "T",
           },
           {
+            "name": "inputStyles",
+            "required": false,
+            "type": "string",
+          },
+          {
             "name": "required",
             "required": false,
             "type": "boolean",
@@ -3727,6 +6496,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "string",
           },
           {
+            "name": "value",
+            "required": false,
+            "type": "T",
+          },
+          {
             "name": "disabled",
             "required": false,
             "type": "boolean",
@@ -3736,18 +6510,8 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "required": false,
             "type": "boolean",
           },
-          {
-            "name": "direction",
-            "required": false,
-            "type": "'ltr' | 'rtl' | null",
-          },
         ],
-        "models": [
-          {
-            "name": "value",
-            "type": "T",
-          },
-        ],
+        "models": [],
         "outputs": [
           {
             "name": "valueChange",
@@ -3770,7 +6534,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "ClassValue",
           },
           {
-            "name": "id",
+            "name": "inputId",
             "required": false,
             "type": "string | undefined",
           },
@@ -3815,9 +6579,40 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "selector": "hlm-radio",
       },
       "HlmRadioGroup": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "name",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "value",
+            "required": false,
+            "type": "T",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "required",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
         "models": [],
-        "outputs": [],
+        "outputs": [
+          {
+            "name": "valueChange",
+            "type": "T",
+          },
+        ],
         "selector": "[hlmRadioGroup],hlm-radio-group",
       },
       "HlmRadioIndicator": {
@@ -3847,6 +6642,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "models": [
           {
             "name": "layout",
+            "required": false,
             "type": "number[]",
           },
         ],
@@ -3920,21 +6716,82 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
     },
     "helm": {
       "HlmResizableGroup": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "direction",
+            "required": false,
+            "type": "'horizontal' | 'vertical'",
+          },
+          {
+            "name": "layout",
+            "required": false,
+            "type": "number[]",
+          },
+        ],
         "models": [],
-        "outputs": [],
+        "outputs": [
+          {
+            "name": "dragEnd",
+            "type": "void",
+          },
+          {
+            "name": "dragStart",
+            "type": "void",
+          },
+          {
+            "name": "layoutChange",
+            "type": "number[]",
+          },
+        ],
         "selector": "[hlmResizableGroup],hlm-resizable-group",
       },
       "HlmResizableHandle": {
         "exportAs": "hlmResizableHandle",
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "withHandle",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
         "models": [],
         "outputs": [],
         "selector": "hlm-resizable-handle",
       },
       "HlmResizablePanel": {
         "exportAs": "hlmResizablePanel",
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "defaultSize",
+            "required": false,
+            "type": "number",
+          },
+          {
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "collapsible",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "maxSize",
+            "required": false,
+            "type": "number",
+          },
+          {
+            "name": "minSize",
+            "required": false,
+            "type": "number",
+          },
+        ],
         "models": [],
         "outputs": [],
         "selector": "[hlmResizablePanel],hlm-resizable-panel",
@@ -3956,59 +6813,41 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       "BrnSelect": {
         "inputs": [
           {
-            "name": "id",
-            "required": false,
-            "type": "string",
-          },
-          {
-            "name": "multiple",
-            "required": false,
-            "type": "boolean",
-          },
-          {
-            "name": "placeholder",
-            "required": false,
-            "type": "string",
-          },
-          {
             "name": "disabled",
             "required": false,
             "type": "boolean",
           },
           {
-            "name": "closeDelay",
+            "name": "isSingleValuePresent",
             "required": false,
-            "type": "number",
+            "type": "(value: T | undefined | null) => boolean",
           },
           {
-            "name": "compareWith",
+            "name": "isItemEqualToValue",
             "required": false,
-            "type": "(o1: T, o2: T) => boolean",
+            "type": "SelectItemEqualToValue<T>",
+          },
+          {
+            "name": "itemToString",
+            "required": false,
+            "type": "SelectItemToString<T> | undefined",
           },
         ],
         "models": [
           {
-            "name": "open",
-            "type": "boolean",
-          },
-          {
             "name": "value",
-            "type": "T | T[]",
+            "required": false,
+            "type": "T | undefined | null",
           },
         ],
-        "outputs": [
-          {
-            "name": "valueChange",
-            "type": "T | T[]",
-          },
-        ],
-        "selector": "brn-select, hlm-select",
+        "outputs": [],
+        "selector": "[brnSelect]",
       },
       "BrnSelectContent": {
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "brn-select-content, hlm-select-content:not(noHlm)",
+        "selector": "[brnSelectContent]",
       },
       "BrnSelectGroup": {
         "inputs": [],
@@ -4016,13 +6855,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "outputs": [],
         "selector": "[brnSelectGroup]",
       },
-      "BrnSelectLabel": {
-        "inputs": [],
-        "models": [],
-        "outputs": [],
-        "selector": "[brnSelectLabel]",
-      },
-      "BrnSelectOption": {
+      "BrnSelectItem": {
         "inputs": [
           {
             "name": "id",
@@ -4031,7 +6864,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
           },
           {
             "name": "value",
-            "required": false,
+            "required": true,
             "type": "T",
           },
           {
@@ -4042,87 +6875,331 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "[brnOption]",
+        "selector": "[brnSelectItem]",
+      },
+      "BrnSelectLabel": {
+        "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnSelectLabel]",
+      },
+      "BrnSelectList": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnSelectList]",
+      },
+      "BrnSelectMultiple": {
+        "inputs": [
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "isItemEqualToValue",
+            "required": false,
+            "type": "SelectItemEqualToValue<T>",
+          },
+          {
+            "name": "itemToString",
+            "required": false,
+            "type": "SelectItemToString<T> | undefined",
+          },
+        ],
+        "models": [
+          {
+            "name": "value",
+            "required": false,
+            "type": "T[] | undefined | null",
+          },
+        ],
+        "outputs": [],
+        "selector": "[brnSelectMultiple]",
       },
       "BrnSelectPlaceholder": {
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "[brnSelectPlaceholder], [hlmSelectPlaceholder]",
+        "selector": "[brnSelectPlaceholder]",
       },
       "BrnSelectScrollDown": {
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "[brnSelectScrollDown], brn-select-scroll-down, hlm-select-scroll-down:not(noHlm)",
+        "selector": "[brnSelectScrollDown]",
       },
       "BrnSelectScrollUp": {
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "[brnSelectScrollUp], brn-select-scroll-up, hlm-select-scroll-up:not(noHlm)",
+        "selector": "[brnSelectScrollUp]",
       },
-      "BrnSelectTrigger": {
-        "inputs": [],
-        "models": [],
-        "outputs": [],
-        "selector": "[brnSelectTrigger]",
-      },
-      "BrnSelectValue": {
+      "BrnSelectSeparator": {
         "inputs": [
           {
-            "name": "transformFn",
+            "name": "orientation",
             "required": false,
-            "type": "(values: (string | undefined)[]) => any",
+            "type": "'horizontal' | 'vertical'",
           },
         ],
         "models": [],
         "outputs": [],
-        "selector": "brn-select-value, hlm-select-value",
+        "selector": "[brnSelectSeparator]",
       },
-      "BrnSelectValueTemplate": {
-        "inputs": [],
-        "models": [],
-        "outputs": [],
-        "selector": "[brnSelectValue], [hlmSelectValue]",
-      },
-    },
-    "helm": {
-      "HlmSelect": {
-        "inputs": [],
-        "models": [],
-        "outputs": [],
-        "selector": "hlm-select, brn-select [hlm]",
-      },
-      "HlmSelectContent": {
+      "BrnSelectTrigger": {
         "inputs": [
           {
-            "name": "stickyLabels",
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "forceInvalid",
             "required": false,
             "type": "boolean",
           },
         ],
         "models": [],
         "outputs": [],
-        "selector": "[hlmSelectContent], hlm-select-content",
+        "selector": "button[brnSelectTrigger]",
+      },
+      "BrnSelectValue": {
+        "inputs": [
+          {
+            "name": "placeholder",
+            "required": false,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnSelectValue]",
+      },
+      "BrnSelectValueTemplate": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnSelectValueTemplate]",
+      },
+      "BrnSelectValues": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnSelectValues]",
+      },
+    },
+    "helm": {
+      "HlmSelect": {
+        "inputs": [
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "value",
+            "required": false,
+            "type": "T | undefined | null",
+          },
+          {
+            "name": "isItemEqualToValue",
+            "required": false,
+            "type": "SelectItemEqualToValue<T>",
+          },
+          {
+            "name": "itemToString",
+            "required": false,
+            "type": "SelectItemToString<T> | undefined",
+          },
+          {
+            "name": "align",
+            "required": false,
+            "type": "BrnPopoverAlign",
+          },
+          {
+            "name": "closeOnOutsidePointerEvents",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "sideOffset",
+            "required": false,
+            "type": "number",
+          },
+          {
+            "name": "state",
+            "required": false,
+            "type": "BrnOverlayState | null",
+          },
+          {
+            "name": "offsetX",
+            "required": false,
+            "type": "number",
+          },
+        ],
+        "models": [],
+        "outputs": [
+          {
+            "name": "valueChange",
+            "type": "T | undefined | null",
+          },
+          {
+            "name": "stateChanged",
+            "type": "BrnOverlayState",
+          },
+          {
+            "name": "closed",
+            "type": "TResult",
+          },
+        ],
+        "selector": "[hlmSelect],hlm-select",
+      },
+      "HlmSelectContent": {
+        "inputs": [
+          {
+            "name": "showScroll",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-select-content",
       },
       "HlmSelectGroup": {
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "[hlmSelectGroup], hlm-select-group",
+        "selector": "[hlmSelectGroup],hlm-select-group",
+      },
+      "HlmSelectItem": {
+        "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "value",
+            "required": true,
+            "type": "T",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-select-item",
       },
       "HlmSelectLabel": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+        ],
         "models": [],
         "outputs": [],
-        "selector": "[hlmSelectLabel], hlm-select-label",
+        "selector": "[hlmSelectLabel],hlm-select-label",
       },
-      "HlmSelectOption": {
+      "HlmSelectMultiple": {
+        "inputs": [
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "value",
+            "required": false,
+            "type": "T[] | undefined | null",
+          },
+          {
+            "name": "isItemEqualToValue",
+            "required": false,
+            "type": "SelectItemEqualToValue<T>",
+          },
+          {
+            "name": "itemToString",
+            "required": false,
+            "type": "SelectItemToString<T> | undefined",
+          },
+          {
+            "name": "align",
+            "required": false,
+            "type": "BrnPopoverAlign",
+          },
+          {
+            "name": "closeOnOutsidePointerEvents",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "sideOffset",
+            "required": false,
+            "type": "number",
+          },
+          {
+            "name": "state",
+            "required": false,
+            "type": "BrnOverlayState | null",
+          },
+          {
+            "name": "offsetX",
+            "required": false,
+            "type": "number",
+          },
+        ],
+        "models": [],
+        "outputs": [
+          {
+            "name": "valueChange",
+            "type": "T[] | undefined | null",
+          },
+          {
+            "name": "stateChanged",
+            "type": "BrnOverlayState",
+          },
+          {
+            "name": "closed",
+            "type": "TResult",
+          },
+        ],
+        "selector": "[hlmSelectMultiple],hlm-select-multiple",
+      },
+      "HlmSelectPlaceholder": {
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "hlm-option",
+        "selector": "[hlmSelectPlaceholder],hlm-select-placeholder",
+      },
+      "HlmSelectPortal": {
+        "inputs": [
+          {
+            "name": "context",
+            "required": false,
+            "type": "T | undefined",
+          },
+          {
+            "name": "class",
+            "required": false,
+            "type": "string | null | undefined",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmSelectPortal]",
       },
       "HlmSelectScrollDown": {
         "inputs": [],
@@ -4136,6 +7213,18 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "outputs": [],
         "selector": "hlm-select-scroll-up",
       },
+      "HlmSelectSeparator": {
+        "inputs": [
+          {
+            "name": "orientation",
+            "required": false,
+            "type": "'horizontal' | 'vertical'",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmSelectSeparator],hlm-select-separator",
+      },
       "HlmSelectTrigger": {
         "inputs": [
           {
@@ -4144,9 +7233,19 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "ClassValue",
           },
           {
+            "name": "buttonId",
+            "required": false,
+            "type": "string",
+          },
+          {
             "name": "size",
             "required": false,
             "type": "'default' | 'sm'",
+          },
+          {
+            "name": "forceInvalid",
+            "required": false,
+            "type": "boolean",
           },
         ],
         "models": [],
@@ -4154,10 +7253,34 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "selector": "hlm-select-trigger",
       },
       "HlmSelectValue": {
+        "inputs": [
+          {
+            "name": "placeholder",
+            "required": false,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmSelectValue],hlm-select-value",
+      },
+      "HlmSelectValueTemplate": {
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "hlm-select-value,[hlmSelectValue], brn-select-value[hlm]",
+        "selector": "[hlmSelectValueTemplate]",
+      },
+      "HlmSelectValues": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmSelectValues]",
+      },
+      "HlmSelectValuesContent": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmSelectValuesContent],hlm-select-values-content",
       },
     },
   },
@@ -4183,7 +7306,18 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
     },
     "helm": {
       "HlmSeparator": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "orientation",
+            "required": false,
+            "type": "SeparatorOrientation",
+          },
+          {
+            "name": "decorative",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
         "models": [],
         "outputs": [],
         "selector": "[hlmSeparator],hlm-separator",
@@ -4200,9 +7334,98 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "required": false,
             "type": "'top' | 'bottom' | 'left' | 'right'",
           },
+          {
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "state",
+            "required": false,
+            "type": "BrnDialogState | null",
+          },
+          {
+            "name": "role",
+            "required": false,
+            "type": "BrnDialogOptions['role']",
+          },
+          {
+            "name": "hasBackdrop",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "positionStrategy",
+            "required": false,
+            "type": "BrnDialogOptions['positionStrategy']",
+          },
+          {
+            "name": "scrollStrategy",
+            "required": false,
+            "type": "BrnDialogOptions['scrollStrategy'] | 'close' | 'reposition' | null",
+          },
+          {
+            "name": "restoreFocus",
+            "required": false,
+            "type": "BrnDialogOptions['restoreFocus']",
+          },
+          {
+            "name": "closeOnOutsidePointerEvents",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "attachTo",
+            "required": false,
+            "type": "BrnDialogOptions['attachTo']",
+          },
+          {
+            "name": "attachPositions",
+            "required": false,
+            "type": "BrnDialogOptions['attachPositions']",
+          },
+          {
+            "name": "autoFocus",
+            "required": false,
+            "type": "BrnDialogOptions['autoFocus']",
+          },
+          {
+            "name": "disableClose",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "aria-describedby",
+            "required": false,
+            "type": "BrnDialogOptions['ariaDescribedBy']",
+          },
+          {
+            "name": "aria-labelledby",
+            "required": false,
+            "type": "BrnDialogOptions['ariaLabelledBy']",
+          },
+          {
+            "name": "aria-label",
+            "required": false,
+            "type": "BrnDialogOptions['ariaLabel']",
+          },
+          {
+            "name": "aria-modal",
+            "required": false,
+            "type": "boolean",
+          },
         ],
         "models": [],
-        "outputs": [],
+        "outputs": [
+          {
+            "name": "closed",
+            "type": "TResult",
+          },
+          {
+            "name": "stateChanged",
+            "type": "BrnDialogState",
+          },
+        ],
         "selector": "[brnSheet],brn-sheet",
       },
       "BrnSheetClose": {
@@ -4212,7 +7435,18 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "selector": "button[brnSheetClose]",
       },
       "BrnSheetContent": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "string | null | undefined",
+          },
+          {
+            "name": "context",
+            "required": false,
+            "type": "T | undefined",
+          },
+        ],
         "models": [],
         "outputs": [],
         "selector": "[brnSheetContent]",
@@ -4224,7 +7458,13 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "selector": "[brnSheetDescription]",
       },
       "BrnSheetOverlay": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "string | null | undefined",
+          },
+        ],
         "models": [],
         "outputs": [],
         "selector": "[brnSheetOverlay],brn-sheet-overlay",
@@ -4242,6 +7482,21 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "required": false,
             "type": "'top' | 'bottom' | 'left' | 'right' | undefined",
           },
+          {
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "type",
+            "required": false,
+            "type": "'button' | 'submit' | 'reset'",
+          },
+          {
+            "name": "brnDialogTriggerFor",
+            "required": false,
+            "type": "BrnDialog | undefined",
+          },
         ],
         "models": [],
         "outputs": [],
@@ -4251,9 +7506,104 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
     "helm": {
       "HlmSheet": {
         "exportAs": "hlmSheet",
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "side",
+            "required": false,
+            "type": "'top' | 'bottom' | 'left' | 'right'",
+          },
+          {
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "state",
+            "required": false,
+            "type": "BrnDialogState | null",
+          },
+          {
+            "name": "role",
+            "required": false,
+            "type": "BrnDialogOptions['role']",
+          },
+          {
+            "name": "hasBackdrop",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "positionStrategy",
+            "required": false,
+            "type": "BrnDialogOptions['positionStrategy']",
+          },
+          {
+            "name": "scrollStrategy",
+            "required": false,
+            "type": "BrnDialogOptions['scrollStrategy'] | 'close' | 'reposition' | null",
+          },
+          {
+            "name": "restoreFocus",
+            "required": false,
+            "type": "BrnDialogOptions['restoreFocus']",
+          },
+          {
+            "name": "closeOnOutsidePointerEvents",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "attachTo",
+            "required": false,
+            "type": "BrnDialogOptions['attachTo']",
+          },
+          {
+            "name": "attachPositions",
+            "required": false,
+            "type": "BrnDialogOptions['attachPositions']",
+          },
+          {
+            "name": "autoFocus",
+            "required": false,
+            "type": "BrnDialogOptions['autoFocus']",
+          },
+          {
+            "name": "disableClose",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "aria-describedby",
+            "required": false,
+            "type": "BrnDialogOptions['ariaDescribedBy']",
+          },
+          {
+            "name": "aria-labelledby",
+            "required": false,
+            "type": "BrnDialogOptions['ariaLabelledBy']",
+          },
+          {
+            "name": "aria-label",
+            "required": false,
+            "type": "BrnDialogOptions['ariaLabel']",
+          },
+          {
+            "name": "aria-modal",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
         "models": [],
-        "outputs": [],
+        "outputs": [
+          {
+            "name": "closed",
+            "type": "TResult",
+          },
+          {
+            "name": "stateChanged",
+            "type": "BrnDialogState",
+          },
+        ],
         "selector": "hlm-sheet",
       },
       "HlmSheetClose": {
@@ -4263,7 +7613,13 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "selector": "button[hlmSheetClose]",
       },
       "HlmSheetContent": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "showCloseButton",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
         "models": [],
         "outputs": [],
         "selector": "hlm-sheet-content",
@@ -4298,6 +7654,23 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "outputs": [],
         "selector": "[hlmSheetOverlay],hlm-sheet-overlay",
       },
+      "HlmSheetPortal": {
+        "inputs": [
+          {
+            "name": "context",
+            "required": false,
+            "type": "T | undefined",
+          },
+          {
+            "name": "class",
+            "required": false,
+            "type": "string | null | undefined",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmSheetPortal]",
+      },
       "HlmSheetTitle": {
         "inputs": [],
         "models": [],
@@ -4305,7 +7678,23 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "selector": "[hlmSheetTitle]",
       },
       "HlmSheetTrigger": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "side",
+            "required": false,
+            "type": "'top' | 'bottom' | 'left' | 'right' | undefined",
+          },
+          {
+            "name": "type",
+            "required": false,
+            "type": "'button' | 'submit' | 'reset'",
+          },
+        ],
         "models": [],
         "outputs": [],
         "selector": "button[hlmSheetTrigger]",
@@ -4441,6 +7830,16 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "required": false,
             "type": "boolean",
           },
+          {
+            "name": "closeMobileSidebarOnClick",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "tooltip",
+            "required": false,
+            "type": "BrnTooltipType",
+          },
         ],
         "models": [],
         "outputs": [],
@@ -4472,6 +7871,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       },
       "HlmSidebarMenuSubButton": {
         "inputs": [
+          {
+            "name": "closeMobileSidebarOnClick",
+            "required": false,
+            "type": "boolean",
+          },
           {
             "name": "size",
             "required": false,
@@ -4512,7 +7916,23 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "selector": "[hlmSidebarSeparator],hlm-sidebar-separator",
       },
       "HlmSidebarTrigger": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "srOnlyText",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "variant",
+            "required": false,
+            "type": "ButtonVariants['variant']",
+          },
+          {
+            "name": "size",
+            "required": false,
+            "type": "ButtonVariants['size']",
+          },
+        ],
         "models": [],
         "outputs": [],
         "selector": "button[hlmSidebarTrigger]",
@@ -4552,6 +7972,26 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "exportAs": "brnSlider",
         "inputs": [
           {
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "aria-label",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "name": "aria-labelledby",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "name": "value",
+            "required": false,
+            "type": "number[]",
+          },
+          {
             "name": "min",
             "required": false,
             "type": "number",
@@ -4567,26 +8007,61 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "number",
           },
           {
+            "name": "minStepsBetweenThumbs",
+            "required": false,
+            "type": "number",
+          },
+          {
             "name": "disabled",
             "required": false,
             "type": "boolean",
+          },
+          {
+            "name": "inverted",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "orientation",
+            "required": false,
+            "type": "'horizontal' | 'vertical'",
           },
           {
             "name": "showTicks",
             "required": false,
             "type": "boolean",
           },
-        ],
-        "models": [
           {
-            "name": "value",
+            "name": "maxTicks",
+            "required": false,
             "type": "number",
           },
+          {
+            "name": "tickLabelInterval",
+            "required": false,
+            "type": "number",
+          },
+          {
+            "name": "formatTick",
+            "required": false,
+            "type": "(tick: number) => string",
+          },
+          {
+            "name": "draggableRange",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "draggableRangeOnly",
+            "required": false,
+            "type": "boolean",
+          },
         ],
+        "models": [],
         "outputs": [
           {
             "name": "valueChange",
-            "type": "number",
+            "type": "number[]",
           },
         ],
         "selector": "[brnSlider]",
@@ -4618,14 +8093,295 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
     },
     "helm": {
       "HlmSlider": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "value",
+            "required": false,
+            "type": "number[]",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "min",
+            "required": false,
+            "type": "number",
+          },
+          {
+            "name": "max",
+            "required": false,
+            "type": "number",
+          },
+          {
+            "name": "step",
+            "required": false,
+            "type": "number",
+          },
+          {
+            "name": "minStepsBetweenThumbs",
+            "required": false,
+            "type": "number",
+          },
+          {
+            "name": "inverted",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "orientation",
+            "required": false,
+            "type": "'horizontal' | 'vertical'",
+          },
+          {
+            "name": "showTicks",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "maxTicks",
+            "required": false,
+            "type": "number",
+          },
+          {
+            "name": "tickLabelInterval",
+            "required": false,
+            "type": "number",
+          },
+          {
+            "name": "formatTick",
+            "required": false,
+            "type": "(tick: number) => string",
+          },
+          {
+            "name": "draggableRange",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "draggableRangeOnly",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "aria-label",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "name": "aria-labelledby",
+            "required": false,
+            "type": "string | null",
+          },
+        ],
         "models": [],
-        "outputs": [],
+        "outputs": [
+          {
+            "name": "valueChange",
+            "type": "number[]",
+          },
+        ],
         "selector": "hlm-slider, brn-slider [hlm]",
       },
     },
   },
   "sonner": {
+    "brain": {
+      "BrnSonnerIcon": {
+        "inputs": [
+          {
+            "name": "type",
+            "required": false,
+            "type": "ToastTypes",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "brn-sonner-icon",
+      },
+      "BrnSonnerLoader": {
+        "inputs": [
+          {
+            "name": "isVisible",
+            "required": true,
+            "type": "boolean",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "brn-sonner-loader",
+      },
+      "BrnSonnerToast": {
+        "inputs": [
+          {
+            "name": "toast",
+            "required": true,
+            "type": "ToastProps['toast']",
+          },
+          {
+            "name": "index",
+            "required": true,
+            "type": "ToastProps['index']",
+          },
+          {
+            "name": "expanded",
+            "required": true,
+            "type": "ToastProps['expanded']",
+          },
+          {
+            "name": "invert",
+            "required": true,
+            "type": "ToastProps['invert']",
+          },
+          {
+            "name": "position",
+            "required": true,
+            "type": "ToastProps['position']",
+          },
+          {
+            "name": "visibleToasts",
+            "required": true,
+            "type": "ToastProps['visibleToasts']",
+          },
+          {
+            "name": "expandByDefault",
+            "required": true,
+            "type": "ToastProps['expandByDefault']",
+          },
+          {
+            "name": "closeButton",
+            "required": true,
+            "type": "ToastProps['closeButton']",
+          },
+          {
+            "name": "interacting",
+            "required": true,
+            "type": "ToastProps['interacting']",
+          },
+          {
+            "name": "cancelButtonStyle",
+            "required": false,
+            "type": "ToastProps['cancelButtonStyle']",
+          },
+          {
+            "name": "actionButtonStyle",
+            "required": false,
+            "type": "ToastProps['actionButtonStyle']",
+          },
+          {
+            "name": "duration",
+            "required": false,
+            "type": "ToastProps['duration']",
+          },
+          {
+            "name": "descriptionClass",
+            "required": false,
+            "type": "ToastProps['descriptionClass']",
+          },
+          {
+            "name": "classes",
+            "required": false,
+            "type": "ToastProps['classes']",
+          },
+          {
+            "name": "unstyled",
+            "required": false,
+            "type": "ToastProps['unstyled']",
+          },
+          {
+            "name": "class",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "style",
+            "required": false,
+            "type": "Record<string, string>",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "brn-sonner-toast",
+      },
+      "BrnSonnerToaster": {
+        "inputs": [
+          {
+            "name": "invert",
+            "required": false,
+            "type": "ToasterProps['invert']",
+          },
+          {
+            "name": "theme",
+            "required": false,
+            "type": "ToasterProps['theme']",
+          },
+          {
+            "name": "position",
+            "required": false,
+            "type": "ToasterProps['position']",
+          },
+          {
+            "name": "hotKey",
+            "required": false,
+            "type": "ToasterProps['hotkey']",
+          },
+          {
+            "name": "richColors",
+            "required": false,
+            "type": "ToasterProps['richColors']",
+          },
+          {
+            "name": "expand",
+            "required": false,
+            "type": "ToasterProps['expand']",
+          },
+          {
+            "name": "duration",
+            "required": false,
+            "type": "ToasterProps['duration']",
+          },
+          {
+            "name": "visibleToasts",
+            "required": false,
+            "type": "ToasterProps['visibleToasts']",
+          },
+          {
+            "name": "closeButton",
+            "required": false,
+            "type": "ToasterProps['closeButton']",
+          },
+          {
+            "name": "toastOptions",
+            "required": false,
+            "type": "ToasterProps['toastOptions']",
+          },
+          {
+            "name": "offset",
+            "required": false,
+            "type": "ToasterProps['offset']",
+          },
+          {
+            "name": "class",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "style",
+            "required": false,
+            "type": "Record<string, string>",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "brn-sonner-toaster",
+      },
+    },
     "helm": {
       "HlmToaster": {
         "inputs": [
@@ -4685,11 +8441,6 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "ToasterProps['offset']",
           },
           {
-            "name": "dir",
-            "required": false,
-            "type": "ToasterProps['dir']",
-          },
-          {
             "name": "class",
             "required": false,
             "type": "ClassValue",
@@ -4732,6 +8483,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
       "BrnSwitch": {
         "inputs": [
           {
+            "name": "checked",
+            "required": false,
+            "type": "boolean",
+          },
+          {
             "name": "id",
             "required": false,
             "type": "string | null",
@@ -4745,6 +8501,16 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "name": "class",
             "required": false,
             "type": "string | null",
+          },
+          {
+            "name": "hostStyles",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "size",
+            "required": false,
+            "type": "BrnSwitchSize",
           },
           {
             "name": "aria-label",
@@ -4777,12 +8543,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "number",
           },
         ],
-        "models": [
-          {
-            "name": "checked",
-            "type": "boolean",
-          },
-        ],
+        "models": [],
         "outputs": [
           {
             "name": "checkedChange",
@@ -4811,12 +8572,22 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "ClassValue",
           },
           {
+            "name": "checked",
+            "required": false,
+            "type": "boolean",
+          },
+          {
             "name": "disabled",
             "required": false,
             "type": "boolean",
           },
           {
-            "name": "id",
+            "name": "size",
+            "required": false,
+            "type": "BrnSwitchSize",
+          },
+          {
+            "name": "inputId",
             "required": false,
             "type": "string | null",
           },
@@ -4836,12 +8607,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "string | null",
           },
         ],
-        "models": [
-          {
-            "name": "checked",
-            "type": "boolean",
-          },
-        ],
+        "models": [],
         "outputs": [
           {
             "name": "checkedChange",
@@ -4864,34 +8630,28 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "caption[hlmCaption]",
+        "selector": "caption[hlmCaption],caption[hlmTableCaption]",
       },
       "HlmTBody": {
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "tbody[hlmTBody]",
+        "selector": "tbody[hlmTBody],tbody[hlmTableBody]",
       },
       "HlmTFoot": {
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "tfoot[hlmTFoot]",
+        "selector": "tfoot[hlmTFoot],tfoot[hlmTableFooter]",
       },
       "HlmTHead": {
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "thead[hlmTHead]",
+        "selector": "thead[hlmTHead],thead[hlmTableHeader]",
       },
       "HlmTable": {
-        "inputs": [
-          {
-            "name": "hlmTable",
-            "required": false,
-            "type": "Partial<HlmTableVariant> | string",
-          },
-        ],
+        "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "table[hlmTable]",
@@ -4906,19 +8666,19 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "td[hlmTd]",
+        "selector": "td[hlmTd],td[hlmTableCell]",
       },
       "HlmTh": {
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "th[hlmTh]",
+        "selector": "th[hlmTh],th[hlmTableHead]",
       },
       "HlmTr": {
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "tr[hlmTr]",
+        "selector": "tr[hlmTr],tr[hlmTableRow]",
       },
     },
   },
@@ -4940,7 +8700,8 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         ],
         "models": [
           {
-            "name": "activeTab",
+            "name": "brnTabs",
+            "required": false,
             "type": "string | undefined",
           },
         ],
@@ -4956,7 +8717,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "exportAs": "brnTabsContent",
         "inputs": [
           {
-            "name": "contentFor",
+            "name": "brnTabsContent",
             "required": true,
             "type": "string",
           },
@@ -4964,6 +8725,13 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "models": [],
         "outputs": [],
         "selector": "[brnTabsContent]",
+      },
+      "BrnTabsContentLazy": {
+        "exportAs": "brnTabsContentLazy",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "ng-template[brnTabsContentLazy]",
       },
       "BrnTabsList": {
         "exportAs": "brnTabsList",
@@ -4998,7 +8766,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "exportAs": "brnTabsTrigger",
         "inputs": [
           {
-            "name": "triggerFor",
+            "name": "brnTabsTrigger",
             "required": true,
             "type": "string",
           },
@@ -5021,15 +8789,30 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "required": true,
             "type": "string",
           },
+          {
+            "name": "orientation",
+            "required": false,
+            "type": "BrnTabsOrientation",
+          },
+          {
+            "name": "activationMode",
+            "required": false,
+            "type": "BrnActivationMode",
+          },
         ],
         "models": [],
-        "outputs": [],
+        "outputs": [
+          {
+            "name": "tabActivated",
+            "type": "string",
+          },
+        ],
         "selector": "[hlmTabs],hlm-tabs",
       },
       "HlmTabsContent": {
         "inputs": [
           {
-            "name": "contentFor",
+            "name": "hlmTabsContent",
             "required": true,
             "type": "string",
           },
@@ -5037,6 +8820,12 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "models": [],
         "outputs": [],
         "selector": "[hlmTabsContent]",
+      },
+      "HlmTabsContentLazy": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "ng-template[hlmTabsContentLazy]",
       },
       "HlmTabsList": {
         "inputs": [
@@ -5062,17 +8851,36 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "required": false,
             "type": "ClassValue",
           },
+          {
+            "name": "disablePagination",
+            "required": false,
+            "type": "boolean",
+          },
         ],
         "models": [],
-        "outputs": [],
+        "outputs": [
+          {
+            "name": "selectFocusedIndex",
+            "type": "number",
+          },
+          {
+            "name": "indexFocused",
+            "type": "number",
+          },
+        ],
         "selector": "hlm-paginated-tabs-list",
       },
       "HlmTabsTrigger": {
         "inputs": [
           {
-            "name": "triggerFor",
+            "name": "hlmTabsTrigger",
             "required": true,
             "type": "string",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
           },
         ],
         "models": [],
@@ -5082,13 +8890,37 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
     },
   },
   "textarea": {
+    "brain": {
+      "BrnTextarea": {
+        "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "string | undefined",
+          },
+          {
+            "name": "forceInvalid",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnTextarea]",
+      },
+    },
     "helm": {
       "HlmTextarea": {
         "inputs": [
           {
-            "name": "error",
+            "name": "id",
             "required": false,
-            "type": "TextareaVariants['error']",
+            "type": "string | undefined",
+          },
+          {
+            "name": "forceInvalid",
+            "required": false,
+            "type": "boolean",
           },
         ],
         "models": [],
@@ -5130,6 +8962,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "models": [
           {
             "name": "state",
+            "required": false,
             "type": "'on' | 'off'",
           },
         ],
@@ -5150,9 +8983,44 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "required": false,
             "type": "ToggleVariants['size']",
           },
+          {
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "value",
+            "required": false,
+            "type": "T",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "state",
+            "required": false,
+            "type": "'on' | 'off'",
+          },
+          {
+            "name": "aria-label",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "name": "type",
+            "required": false,
+            "type": "'button' | 'submit' | 'reset'",
+          },
         ],
         "models": [],
-        "outputs": [],
+        "outputs": [
+          {
+            "name": "stateChange",
+            "type": "'on' | 'off'",
+          },
+        ],
         "selector": "button[hlmToggle]",
       },
     },
@@ -5168,6 +9036,11 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "ToggleType",
           },
           {
+            "name": "value",
+            "required": false,
+            "type": "ToggleValue<T>",
+          },
+          {
             "name": "nullable",
             "required": false,
             "type": "boolean",
@@ -5178,12 +9051,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "type": "boolean",
           },
         ],
-        "models": [
-          {
-            "name": "value",
-            "type": "ToggleValue<T>",
-          },
-        ],
+        "models": [],
         "outputs": [
           {
             "name": "valueChange",
@@ -5227,6 +9095,7 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
         "models": [
           {
             "name": "state",
+            "required": false,
             "type": "'on' | 'off'",
           },
         ],
@@ -5252,9 +9121,39 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "required": false,
             "type": "number",
           },
+          {
+            "name": "orientation",
+            "required": false,
+            "type": "'horizontal' | 'vertical'",
+          },
+          {
+            "name": "type",
+            "required": false,
+            "type": "ToggleType",
+          },
+          {
+            "name": "value",
+            "required": false,
+            "type": "ToggleValue<T>",
+          },
+          {
+            "name": "nullable",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
         ],
         "models": [],
-        "outputs": [],
+        "outputs": [
+          {
+            "name": "valueChange",
+            "type": "ToggleValue<T>",
+          },
+        ],
         "selector": "[hlmToggleGroup],hlm-toggle-group",
       },
       "HlmToggleGroupItem": {
@@ -5269,9 +9168,44 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "required": false,
             "type": "ToggleVariants['size']",
           },
+          {
+            "name": "id",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "value",
+            "required": false,
+            "type": "T",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "state",
+            "required": false,
+            "type": "'on' | 'off'",
+          },
+          {
+            "name": "aria-label",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "name": "type",
+            "required": false,
+            "type": "'button' | 'submit' | 'reset'",
+          },
         ],
         "models": [],
-        "outputs": [],
+        "outputs": [
+          {
+            "name": "stateChange",
+            "type": "'on' | 'off'",
+          },
+        ],
         "selector": "button[hlmToggleGroupItem]",
       },
     },
@@ -5279,40 +9213,22 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
   "tooltip": {
     "brain": {
       "BrnTooltip": {
-        "inputs": [],
-        "models": [],
-        "outputs": [],
-        "selector": "[brnTooltip]",
-      },
-      "BrnTooltipContent": {
-        "inputs": [],
-        "models": [],
-        "outputs": [],
-        "selector": "brn-tooltip-content",
-      },
-      "BrnTooltipContentTemplate": {
-        "inputs": [],
-        "models": [],
-        "outputs": [],
-        "selector": "[brnTooltipContent]",
-      },
-      "BrnTooltipTrigger": {
-        "exportAs": "brnTooltipTrigger",
+        "exportAs": "brnTooltip",
         "inputs": [
+          {
+            "name": "tooltipDisabled",
+            "required": false,
+            "type": "boolean",
+          },
           {
             "name": "position",
             "required": false,
-            "type": "TooltipPosition",
+            "type": "BrnTooltipPosition",
           },
           {
-            "name": "positionAtOrigin",
+            "name": "brnTooltip",
             "required": false,
-            "type": "boolean",
-          },
-          {
-            "name": "brnTooltipDisabled",
-            "required": false,
-            "type": "boolean",
+            "type": "BrnTooltipType",
           },
           {
             "name": "showDelay",
@@ -5324,49 +9240,82 @@ exports[`generate-ui-docs executor produces stable output 1`] = `
             "required": false,
             "type": "number",
           },
+        ],
+        "models": [],
+        "outputs": [
           {
-            "name": "exitAnimationDuration",
-            "required": false,
-            "type": "number",
+            "name": "show",
+            "type": "void",
           },
           {
-            "name": "tooltipContentClasses",
+            "name": "hide",
+            "type": "void",
+          },
+        ],
+        "selector": "[brnTooltip]",
+      },
+      "BrnTooltipContent": {
+        "inputs": [
+          {
+            "name": "id",
             "required": false,
             "type": "string",
-          },
-          {
-            "name": "touchGestures",
-            "required": false,
-            "type": "TooltipTouchGestures",
-          },
-          {
-            "name": "aria-describedby",
-            "required": false,
-            "type": "string",
-          },
-          {
-            "name": "brnTooltipTrigger",
-            "required": false,
-            "type": "string | TemplateRef<unknown> | null",
           },
         ],
         "models": [],
         "outputs": [],
-        "selector": "[brnTooltipTrigger]",
+      },
+      "BrnTooltipStringTemplateOutlet": {
+        "exportAs": "brnTooltipStringTemplateOutlet",
+        "inputs": [
+          {
+            "name": "brnTooltipStringTemplateOutletContext",
+            "required": false,
+            "type": "BrnTemplateOutletContext | undefined",
+          },
+          {
+            "name": "brnTooltipStringTemplateOutlet",
+            "required": true,
+            "type": "T | TemplateRef<void>",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnTooltipStringTemplateOutlet]",
       },
     },
     "helm": {
       "HlmTooltip": {
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "hlmTooltip",
+            "required": false,
+            "type": "BrnTooltipType",
+          },
+          {
+            "name": "position",
+            "required": false,
+            "type": "BrnTooltipPosition",
+          },
+          {
+            "name": "hideDelay",
+            "required": false,
+            "type": "number",
+          },
+          {
+            "name": "showDelay",
+            "required": false,
+            "type": "number",
+          },
+          {
+            "name": "tooltipDisabled",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
         "models": [],
         "outputs": [],
-        "selector": "[hlmTooltip],hlm-tooltip",
-      },
-      "HlmTooltipTrigger": {
-        "inputs": [],
-        "models": [],
-        "outputs": [],
-        "selector": "[hlmTooltipTrigger]",
+        "selector": "[hlmTooltip]",
       },
     },
   },

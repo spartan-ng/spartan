@@ -1,62 +1,56 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { HlmContextMenuImports } from '@spartan-ng/helm/context-menu';
 import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
 
 @Component({
 	selector: 'spartan-context-menu-preview',
 	imports: [HlmDropdownMenuImports, HlmContextMenuImports],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div
 			[hlmContextMenuTrigger]="menu"
 			align="start"
 			side="right"
-			class="flex h-[150px] w-[300px] items-center justify-center rounded-md border border-dashed text-sm"
+			class="flex aspect-video w-full min-w-xs items-center justify-center rounded-xl border border-dashed text-sm"
 		>
-			Right click here
+			<span class="hidden pointer-fine:inline-block">Right click here</span>
+			<span class="hidden pointer-coarse:inline-block">Long press here</span>
 		</div>
 
 		<ng-template #menu>
 			<hlm-dropdown-menu class="w-64">
 				<hlm-dropdown-menu-group>
-					<button hlmDropdownMenuItem inset>
+					<button hlmDropdownMenuItem>
 						Back
 						<hlm-dropdown-menu-shortcut>⌘[</hlm-dropdown-menu-shortcut>
 					</button>
-
-					<button hlmDropdownMenuItem disabled inset>
+					<button hlmDropdownMenuItem disabled>
 						Forward
 						<hlm-dropdown-menu-shortcut>⌘]</hlm-dropdown-menu-shortcut>
 					</button>
-
-					<button hlmDropdownMenuItem disabled inset>
+					<button hlmDropdownMenuItem>
 						Reload
 						<hlm-dropdown-menu-shortcut>⌘R</hlm-dropdown-menu-shortcut>
 					</button>
-
-					<button inset hlmDropdownMenuItem [hlmDropdownMenuTrigger]="moreTools" align="start" side="right">
+					<button hlmDropdownMenuItem [hlmDropdownMenuSubTrigger]="moreTools" align="start" side="right">
 						More Tools
 						<hlm-dropdown-menu-item-sub-indicator />
 					</button>
 				</hlm-dropdown-menu-group>
-
 				<hlm-dropdown-menu-separator />
-
 				<hlm-dropdown-menu-group>
 					<button hlmDropdownMenuCheckbox checked>
+						Show Bookmarks Bar
 						<hlm-dropdown-menu-checkbox-indicator />
-						Show Booksmarks Bar
-						<hlm-dropdown-menu-shortcut>⌘⇧B</hlm-dropdown-menu-shortcut>
 					</button>
 					<button hlmDropdownMenuCheckbox>
-						<hlm-dropdown-menu-checkbox-indicator />
 						Show full URLs
+						<hlm-dropdown-menu-checkbox-indicator />
 					</button>
 				</hlm-dropdown-menu-group>
-
-				<hlm-dropdown-menu-separator />
-				<hlm-dropdown-menu-label inset>People</hlm-dropdown-menu-label>
 				<hlm-dropdown-menu-separator />
 				<hlm-dropdown-menu-group>
+					<hlm-dropdown-menu-label>People</hlm-dropdown-menu-label>
 					<button hlmDropdownMenuRadio checked>
 						<hlm-dropdown-menu-radio-indicator />
 						Pedro Duarte
@@ -70,15 +64,20 @@ import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
 		</ng-template>
 
 		<ng-template #moreTools>
-			<hlm-dropdown-menu-sub class="w-48">
-				<button hlmDropdownMenuItem>
-					Save Page as...
-					<hlm-dropdown-menu-shortcut>⇧⌘S</hlm-dropdown-menu-shortcut>
-				</button>
-				<button hlmDropdownMenuItem>Create Shortcut...</button>
-				<button hlmDropdownMenuItem>Name Window...</button>
+			<hlm-dropdown-menu-sub class="w-44">
+				<hlm-dropdown-menu-group>
+					<button hlmDropdownMenuItem>Save Page...</button>
+					<button hlmDropdownMenuItem>Create Shortcut...</button>
+					<button hlmDropdownMenuItem>Name Window...</button>
+				</hlm-dropdown-menu-group>
 				<hlm-dropdown-menu-separator />
-				<button hlmDropdownMenuItem>Developer Tools</button>
+				<hlm-dropdown-menu-group>
+					<button hlmDropdownMenuItem>Developer Tools</button>
+				</hlm-dropdown-menu-group>
+				<hlm-dropdown-menu-separator />
+				<hlm-dropdown-menu-group>
+					<button hlmDropdownMenuItem variant="destructive">Delete</button>
+				</hlm-dropdown-menu-group>
 			</hlm-dropdown-menu-sub>
 		</ng-template>
 	`,

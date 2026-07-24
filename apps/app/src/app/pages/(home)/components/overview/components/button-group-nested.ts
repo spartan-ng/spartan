@@ -3,11 +3,10 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideArrowLeft, lucideArrowRight } from '@ng-icons/lucide';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmButtonGroupImports } from '@spartan-ng/helm/button-group';
-import { HlmIcon } from '@spartan-ng/helm/icon';
 
 @Component({
 	selector: 'spartan-button-group-nested',
-	imports: [HlmButtonGroupImports, HlmButton, NgIcon, HlmIcon],
+	imports: [HlmButtonGroupImports, HlmButton, NgIcon],
 	providers: [provideIcons({ lucideArrowLeft, lucideArrowRight })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
@@ -19,10 +18,10 @@ import { HlmIcon } from '@spartan-ng/helm/icon';
 			</div>
 			<div hlmButtonGroup>
 				<button hlmBtn variant="outline" size="icon-sm">
-					<ng-icon hlm name="lucideArrowLeft" size="sm" />
+					<ng-icon name="lucideArrowLeft" />
 				</button>
 				<button hlmBtn variant="outline" size="icon-sm">
-					<ng-icon hlm name="lucideArrowRight" size="sm" />
+					<ng-icon name="lucideArrowRight" />
 				</button>
 			</div>
 		</div>

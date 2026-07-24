@@ -19,7 +19,12 @@ import {
 	TemplateRef,
 	ViewContainerRef,
 } from '@angular/core';
-import { createHoverObservable, waitForElementAnimations } from '@spartan-ng/brain/core';
+import {
+	createHoverObservable,
+	createMenuPosition,
+	type MenuAlign,
+	waitForElementAnimations,
+} from '@spartan-ng/brain/core';
 import { BehaviorSubject, fromEvent, Observable, of, Subject } from 'rxjs';
 import { map, share, switchMap, takeUntil } from 'rxjs/operators';
 
@@ -27,6 +32,7 @@ export type BrnNavigationMenuContentOptions = Partial<
 	{
 		attachTo: ElementRef<HTMLElement>;
 		orientation: 'horizontal' | 'vertical';
+		align: MenuAlign;
 	} & OverlayConfig
 >;
 
@@ -79,7 +85,7 @@ export class BrnNavigationMenuContentService {
 
 	private readonly _overlayHoveredObservables$ = new BehaviorSubject<Observable<boolean> | undefined>(undefined);
 
-	private readonly _overlayShiftTabObservables$ = new BehaviorSubject<Observable<KeyboardEvent> | undefined>(undefined);
+	private readonly _overlayTabObservables$ = new BehaviorSubject<Observable<KeyboardEvent> | undefined>(undefined);
 
 	private readonly _overlayEscapeObservables$ = new BehaviorSubject<Observable<KeyboardEvent> | undefined>(undefined);
 
@@ -88,22 +94,14 @@ export class BrnNavigationMenuContentService {
 		share(),
 	);
 
-	private readonly _shiftTabPressed$ = this._overlayShiftTabObservables$.pipe(
-		switchMap((contentFocused$) => (contentFocused$ !== undefined ? contentFocused$ : of())),
+	/** Emits `Tab`/`Shift+Tab` keydowns bubbling up the content panel so the trigger can manage focus. */
+	public readonly tabPressed$ = this._overlayTabObservables$.pipe(
+		switchMap((tab$) => (tab$ !== undefined ? tab$ : of())),
 	);
 
 	public readonly escapePressed$ = this._overlayEscapeObservables$.pipe(
 		switchMap((contentFocused$) => (contentFocused$ !== undefined ? contentFocused$ : of())),
 	);
-
-	constructor() {
-		this._shiftTabPressed$.pipe(takeUntil(this._destroyed$)).subscribe((e) => {
-			if (this._config.attachTo?.nativeElement) {
-				e.preventDefault();
-				this._config.attachTo.nativeElement.focus();
-			}
-		});
-	}
 
 	public setConfig(config: BrnNavigationMenuContentOptions) {
 		this._config = config;
@@ -141,6 +139,23 @@ export class BrnNavigationMenuContentService {
 		this._overlayRef?.setDirection(dir);
 	}
 
+	public updateAlign(align: MenuAlign) {
+		this._config = { ...this._config, align };
+
+		if (!this._config.attachTo) return;
+
+		const orientation = this._config.orientation;
+		const positions = this._getPositions(orientation);
+		this._positionStrategy = this._buildPositionStrategy(this._config.attachTo, positions);
+
+		this._config = {
+			...this._config,
+			positionStrategy: this._positionStrategy,
+		};
+
+		this._overlayRef?.updatePositionStrategy(this._positionStrategy);
+	}
+
 	public setContent(value: TemplateRef<unknown>, vcr: ViewContainerRef) {
 		this._content.set(new TemplatePortal<unknown>(value, vcr));
 
@@ -174,9 +189,10 @@ export class BrnNavigationMenuContentService {
 			createHoverObservable(this._overlayRef.hostElement, this._zone, this._destroyed$).pipe(map((e) => e.hover)),
 		);
 
-		this._overlayShiftTabObservables$.next(
+		this._overlayTabObservables$.next(
 			fromEvent<KeyboardEvent>(contentEl, 'keydown').pipe(
-				switchMap((e) => (e.key === 'Tab' && e.shiftKey && e.target === this.contentEl() ? of(e) : of())),
+				// Forward Tab/Shift+Tab without meta modifiers; the trigger decides how to keep focus in the menu
+				switchMap((e) => (e.key === 'Tab' && !e.altKey && !e.ctrlKey && !e.metaKey ? of(e) : of())),
 				takeUntil(this._destroyed$),
 			),
 		);
@@ -221,6 +237,11 @@ export class BrnNavigationMenuContentService {
 	}
 
 	private _getPositions(orientation?: 'horizontal' | 'vertical') {
+		const align = this._config.align;
+		if (align) {
+			const side = orientation === 'vertical' ? 'right' : 'bottom';
+			return createMenuPosition(align, side);
+		}
 		return orientation === 'vertical' ? verticalPositions : horizontalPositions;
 	}
 

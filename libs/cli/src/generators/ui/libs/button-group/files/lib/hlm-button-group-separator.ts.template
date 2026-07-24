@@ -12,9 +12,10 @@ import { classes } from '<%- importAlias %>/utils';
 })
 export class HlmButtonGroupSeparator {
 	constructor() {
-		classes(
-			() =>
-				'bg-input relative inline-flex shrink-0 self-stretch data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-auto data-[orientation=vertical]:w-px',
-		);
+		classes(() => [
+			'spartan-button-group-separator relative self-stretch data-horizontal:mx-px data-horizontal:w-auto data-vertical:my-px data-vertical:h-auto',
+			// separator classes
+			'shrink-0 data-horizontal:h-px data-vertical:w-px data-vertical:self-stretch',
+		]);
 	}
 }

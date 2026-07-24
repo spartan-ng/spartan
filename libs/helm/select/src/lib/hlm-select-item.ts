@@ -1,0 +1,32 @@
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { lucideCheck } from '@ng-icons/lucide';
+import { BrnSelectItem } from '@spartan-ng/brain/select';
+import { classes } from '@spartan-ng/helm/utils';
+
+@Component({
+	selector: 'hlm-select-item',
+	imports: [NgIcon],
+	providers: [provideIcons({ lucideCheck })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	hostDirectives: [{ directive: BrnSelectItem, inputs: ['id', 'disabled', 'value'] }],
+	host: { 'data-slot': 'select-item' },
+	template: `
+		<ng-content />
+		@if (_active()) {
+			<ng-icon name="lucideCheck" class="spartan-select-item-indicator" aria-hidden="true" />
+		}
+	`,
+})
+export class HlmSelectItem {
+	private readonly _brnSelectItem = inject(BrnSelectItem);
+
+	protected readonly _active = this._brnSelectItem.active;
+
+	constructor() {
+		classes(
+			() =>
+				'spartan-select-item relative flex w-full cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_ng-icon]:pointer-events-none [&_ng-icon]:shrink-0',
+		);
+	}
+}

@@ -1,8 +1,24 @@
 import { readJson, type Tree, writeJson } from '@nx/devkit';
 import { createTreeWithEmptyWorkspace } from '@nx/devkit/testing';
+import { prompt } from 'enquirer';
 import { healthcheckGenerator } from './generator';
 
 import moduleMap from '../migrate-module-imports/import-map';
+
+vi.mock('enquirer', () => ({
+	prompt: vi.fn(),
+}));
+
+// Stub the npm registry so the version healthcheck never makes a live network call - keeps the suite
+// deterministic and runnable offline (e.g. in a sandbox). Registry-contract coverage belongs in a
+// separate, opt-in integration test, not here.
+beforeEach(() => {
+	vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ ok: true, json: async () => ({ version: '9.9.9' }) }));
+});
+
+afterEach(() => {
+	vi.unstubAllGlobals();
+});
 
 describe('healthcheck generator', () => {
 	let tree: Tree;
@@ -15,6 +31,7 @@ describe('healthcheck generator', () => {
 			buildable: true,
 			generateAs: 'entrypoint',
 			importAlias: '@spartan-ng/helm',
+			style: 'vega',
 		});
 
 		writeJson(tree, 'package.json', {
@@ -250,6 +267,19 @@ export class HlmButtonModule {}
 		// add a file with legacy output conventions
 		tree.write('libs/my-lib/src/checkbox-legacy.component.ts', `<brn-checkbox (changed)="onChange($event)"/>`);
 
+		// add files with renamed helm id inputs
+		tree.write(
+			'libs/my-lib/src/input-id-legacy.component.html',
+			`
+				<hlm-checkbox id="checkbox-id" />
+				<hlm-switch [id]="switchId" />
+				<hlm-radio bind-id="radioId" value="monthly" />
+				<hlm-command-input id="command-id" />
+				<input id="native-input" />
+				<hlm-combobox-input id="combobox-id" />
+			`,
+		);
+
 		// add a html file with legacy brain accordion trigger
 		tree.write(
 			'libs/my-lib/src/brn-accordion-trigger-legacy.component.html',
@@ -387,6 +417,17 @@ export class HlmButtonModule {}
 		expect(contents).not.toContain('<brn-checkbox (changed)="onChange($event)"/>');
 	});
 
+	it('should update renamed helm id inputs', () => {
+		const contents = tree.read('libs/my-lib/src/input-id-legacy.component.html', 'utf-8');
+
+		expect(contents).toContain('<hlm-checkbox inputId="checkbox-id" />');
+		expect(contents).toContain('<hlm-switch [inputId]="switchId" />');
+		expect(contents).toContain('<hlm-radio bind-inputId="radioId" value="monthly" />');
+		expect(contents).toContain('<hlm-command-input inputId="command-id" />');
+		expect(contents).toContain('<input id="native-input" />');
+		expect(contents).toContain('<hlm-combobox-input id="combobox-id" />');
+	});
+
 	it('should update module imports to const imports', () => {
 		const contents = tree.read('libs/my-lib/src/modules-legacy.component.ts', 'utf-8');
 
@@ -416,5 +457,61 @@ export class HlmButtonModule {}
 
 		const uniqueComponentImports = new Set(componentImports);
 		expect(componentImports.length).toEqual(uniqueComponentImports.size);
+	});
+});
+
+describe('healthcheck generator prompt', () => {
+	let tree: Tree;
+
+	beforeEach(() => {
+		tree = createTreeWithEmptyWorkspace();
+
+		writeJson(tree, 'components.json', {
+			componentsPath: 'libs/ui',
+			buildable: true,
+			generateAs: 'entrypoint',
+			importAlias: '@spartan-ng/helm',
+			style: 'vega',
+		});
+
+		writeJson(tree, 'package.json', {
+			dependencies: { '@spartan-ng/ui-checkbox-brain': '0.0.1-alpha.300' },
+		});
+
+		// legacy brain import produces a fixable failure, which triggers the confirm prompt
+		tree.write('libs/my-lib/src/index.ts', `import { BrnCheckbox } from '@spartan-ng/ui-checkbox-brain';`);
+	});
+
+	afterEach(() => {
+		vi.restoreAllMocks();
+	});
+
+	// Regression for #906: a fixable failure must be confirmed through enquirer's confirm prompt -
+	// which puts stdin in raw mode and handles Ctrl+C - instead of a bare `process.stdin` reader that
+	// swallowed the interrupt and left the generator running after the shell had returned.
+	it('confirms fixes via enquirer rather than reading process.stdin directly', async () => {
+		vi.mocked(prompt).mockResolvedValue({ confirmed: false });
+		const stdinOnce = vi.spyOn(process.stdin, 'once');
+
+		await healthcheckGenerator(tree, { skipFormat: true });
+
+		expect(prompt).toHaveBeenCalledWith(expect.objectContaining({ type: 'confirm', name: 'confirmed' }));
+		expect(stdinOnce).not.toHaveBeenCalled();
+	});
+
+	it('skips the fix when the user declines the prompt', async () => {
+		vi.mocked(prompt).mockResolvedValue({ confirmed: false });
+
+		await healthcheckGenerator(tree, { skipFormat: true });
+
+		expect(tree.read('libs/my-lib/src/index.ts', 'utf-8')).toContain('@spartan-ng/ui-checkbox-brain');
+	});
+
+	it('applies the fix when the user confirms the prompt', async () => {
+		vi.mocked(prompt).mockResolvedValue({ confirmed: true });
+
+		await healthcheckGenerator(tree, { skipFormat: true });
+
+		expect(tree.read('libs/my-lib/src/index.ts', 'utf-8')).toContain('@spartan-ng/brain/checkbox');
 	});
 });

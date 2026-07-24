@@ -1,23 +1,23 @@
 import { Component, viewChild } from '@angular/core';
-import { BrnDialog, BrnDialogImports } from '@spartan-ng/brain/dialog';
+import { BrnDialog } from '@spartan-ng/brain/dialog';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmDialogImports } from '@spartan-ng/helm/dialog';
 import { HlmLabelImports } from '@spartan-ng/helm/label';
 
 @Component({
 	selector: 'spartan-dialog-close-preview',
-	imports: [BrnDialogImports, HlmDialogImports, HlmLabelImports, HlmButtonImports],
+	imports: [HlmDialogImports, HlmLabelImports, HlmButtonImports],
 	template: `
 		<hlm-dialog #dialogRef>
 			<button id="edit-profile" hlmDialogTrigger hlmBtn>Open</button>
-			<hlm-dialog-content class="sm:max-w-[425px]" *brnDialogContent="let ctx">
+			<hlm-dialog-content class="sm:max-w-[425px]" *hlmDialogPortal="let ctx">
 				<hlm-dialog-header>
 					<h3 hlmDialogTitle>Dialog</h3>
 				</hlm-dialog-header>
 				<div class="grid gap-4 py-4">
 					<div class="flex items-center justify-between gap-4">
 						<label hlmLabel>Close dialog by directive</label>
-						<button hlmBtn brnDialogClose>Close</button>
+						<button hlmBtn hlmDialogClose>Close</button>
 					</div>
 					<div class="flex items-center justify-between gap-4">
 						<label hlmLabel>Close dialog by reference</label>

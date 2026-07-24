@@ -1,7 +1,6 @@
 import { Directive } from '@angular/core';
 import { BrnCombobox } from '@spartan-ng/brain/combobox';
-import { provideBrnDialogDefaultOptions } from '@spartan-ng/brain/dialog';
-import { BrnPopover, provideBrnPopoverConfig } from '@spartan-ng/brain/popover';
+import { BrnPopover, provideBrnPopoverConfig, provideBrnPopoverDefaultOptions } from '@spartan-ng/brain/popover';
 import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
@@ -11,25 +10,30 @@ import { classes } from '@spartan-ng/helm/utils';
 			align: 'start',
 			sideOffset: 6,
 		}),
-		provideBrnDialogDefaultOptions({
-			autoFocus: 'first-heading',
-		}),
+		provideBrnPopoverDefaultOptions({ role: null }),
 	],
 	hostDirectives: [
 		{
 			directive: BrnCombobox,
-			inputs: ['disabled', 'filter', 'search', 'value', 'itemToString', 'filterOptions', 'isItemEqualToValue'],
+			inputs: [
+				'autoHighlight',
+				'disabled',
+				'filter',
+				'search',
+				'value',
+				'itemToString',
+				'filterOptions',
+				'isItemEqualToValue',
+			],
 			outputs: ['searchChange', 'valueChange'],
 		},
 		{
 			directive: BrnPopover,
-			inputs: ['align', 'autoFocus', 'closeDelay', 'closeOnOutsidePointerEvents', 'sideOffset', 'state', 'offsetX'],
+			inputs: ['align', 'closeOnOutsidePointerEvents', 'sideOffset', 'state', 'offsetX'],
 			outputs: ['stateChanged', 'closed'],
 		},
 	],
-	host: {
-		'data-slot': 'combobox',
-	},
+	host: { 'data-slot': 'combobox' },
 })
 export class HlmCombobox {
 	constructor() {

@@ -5,12 +5,10 @@ import { classes } from '@spartan-ng/helm/utils';
 @Directive({
 	selector: '[hlmSheetDescription]',
 	hostDirectives: [BrnSheetDescription],
-	host: {
-		'data-slot': 'sheet-description',
-	},
+	host: { 'data-slot': 'sheet-description' },
 })
 export class HlmSheetDescription {
 	constructor() {
-		classes(() => 'text-muted-foreground text-sm');
+		classes(() => 'spartan-sheet-description');
 	}
 }

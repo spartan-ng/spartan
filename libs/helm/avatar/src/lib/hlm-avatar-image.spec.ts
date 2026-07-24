@@ -30,7 +30,7 @@ describe('HlmAvatarImageDirective', () => {
 	it('should add the default classes if no inputs are provided', () => {
 		fixture.detectChanges();
 		expect(fixture.nativeElement.querySelector('img').className).toBe(
-			'aspect-square size-full rounded-full object-cover',
+			'spartan-avatar-image aspect-square size-full object-cover',
 		);
 	});
 

@@ -10,33 +10,7 @@ import {
 	lucideSearch,
 	lucideSettings,
 } from '@ng-icons/lucide';
-import { BrnSeparator } from '@spartan-ng/brain/separator';
-import { HlmIcon } from '@spartan-ng/helm/icon';
-import {
-	HlmSidebar,
-	HlmSidebarContent,
-	HlmSidebarFooter,
-	HlmSidebarGroup,
-	HlmSidebarGroupAction,
-	HlmSidebarGroupContent,
-	HlmSidebarGroupLabel,
-	HlmSidebarHeader,
-	HlmSidebarImports,
-	HlmSidebarInput,
-	HlmSidebarInset,
-	// HlmSidebarInset,
-	HlmSidebarMenu,
-	HlmSidebarMenuAction,
-	HlmSidebarMenuBadge,
-	HlmSidebarMenuButton,
-	HlmSidebarMenuItem,
-	HlmSidebarMenuSub,
-	HlmSidebarMenuSubButton,
-	HlmSidebarRail,
-	HlmSidebarSeparator,
-	HlmSidebarTrigger,
-	HlmSidebarWrapper,
-} from '@spartan-ng/helm/sidebar';
+import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 import { type Meta, moduleMetadata, type StoryObj } from '@storybook/angular';
 
 const meta: Meta<{}> = {
@@ -55,33 +29,7 @@ type Story = StoryObj<{}>;
 
 @Component({
 	selector: 'sidebar',
-	standalone: true,
-	imports: [
-		HlmSidebar,
-		HlmSidebarHeader,
-		HlmSidebarContent,
-		HlmSidebarFooter,
-		HlmSidebarMenu,
-		HlmSidebarMenuBadge,
-		HlmSidebarMenuItem,
-		HlmSidebarMenuButton,
-		HlmSidebarTrigger,
-		HlmSidebarRail,
-		HlmIcon,
-		HlmSidebarGroup,
-		HlmSidebarGroupLabel,
-		HlmSidebarGroupContent,
-		HlmSidebarSeparator,
-		BrnSeparator,
-		HlmSidebarGroupAction,
-		HlmSidebarInput,
-		HlmSidebarWrapper,
-		HlmSidebarInset,
-		HlmSidebarMenuAction,
-		HlmSidebarMenuSub,
-		HlmSidebarMenuSubButton,
-		NgIcon,
-	],
+	imports: [HlmSidebarImports, NgIcon],
 	providers: [
 		provideIcons({
 			lucideHouse,
@@ -102,9 +50,7 @@ type Story = StoryObj<{}>;
 						<div hlmSidebarGroupContent class="relative">
 							<input hlmSidebarInput placeholder="Search" class="pl-8" />
 							<ng-icon
-								hlm
 								name="lucideSearch"
-								size="sm"
 								class="pointer-events-none absolute top-1/2 left-2 size-4 -translate-y-1/2 opacity-50 select-none"
 							></ng-icon>
 						</div>
@@ -114,26 +60,26 @@ type Story = StoryObj<{}>;
 					<div hlmSidebarGroup>
 						<div hlmSidebarGroupLabel>Application</div>
 						<button hlmSidebarGroupAction>
-							<ng-icon hlm name="lucideEllipsis" size="sm"></ng-icon>
+							<ng-icon name="lucideEllipsis" />
 						</button>
 
 						<div hlmSidebarGroupContent>
 							<ul hlmSidebarMenu>
 								<li hlmSidebarMenuItem>
 									<button hlmSidebarMenuButton aria-describedby="Home" [isActive]="true">
-										<ng-icon hlm name="lucideHouse" size="sm"></ng-icon>
+										<ng-icon name="lucideHouse" />
 										<span>Home</span>
 									</button>
 									<ul hlmSidebarMenuSub>
 										<li>
 											<a hlmSidebarMenuSubButton>
-												<ng-icon hlm name="lucideHouse" size="sm"></ng-icon>
+												<ng-icon name="lucideHouse" />
 												<span>Home</span>
 											</a>
 										</li>
 										<li>
 											<a hlmSidebarMenuSubButton>
-												<ng-icon hlm name="lucideHouse" size="sm"></ng-icon>
+												<ng-icon name="lucideHouse" />
 												<span>Home</span>
 											</a>
 										</li>
@@ -143,18 +89,18 @@ type Story = StoryObj<{}>;
 								<!-- Home -->
 								<li hlmSidebarMenuItem>
 									<button hlmSidebarMenuButton aria-describedby="Home">
-										<ng-icon hlm name="lucideHouse" size="sm"></ng-icon>
+										<ng-icon name="lucideHouse" />
 										<span>Home</span>
 									</button>
 									<button hlmSidebarMenuAction aria-describedby="Home">
-										<ng-icon hlm name="lucideEllipsis" size="sm"></ng-icon>
+										<ng-icon name="lucideEllipsis" />
 									</button>
 								</li>
 
 								<!-- Inbox -->
 								<li hlmSidebarMenuItem>
 									<button hlmSidebarMenuButton tooltip="Inbox" aria-describedby="Inbox">
-										<ng-icon hlm name="lucideInbox" size="sm"></ng-icon>
+										<ng-icon name="lucideInbox" />
 										<span>Inbox</span>
 									</button>
 								</li>
@@ -162,16 +108,16 @@ type Story = StoryObj<{}>;
 								<!-- Calendar -->
 								<li hlmSidebarMenuItem>
 									<button hlmSidebarMenuButton tooltip="Calendar" aria-describedby="Calendar">
-										<ng-icon hlm name="lucideCalendar" size="sm"></ng-icon>
+										<ng-icon name="lucideCalendar" />
 										<span>Calendar</span>
 									</button>
 								</li>
-								<brn-separator hlmSidebarSeparator />
+								<hlm-sidebar-separator />
 
 								<!-- Search -->
 								<li hlmSidebarMenuItem>
 									<button hlmSidebarMenuButton tooltip="Search" aria-describedby="Search">
-										<ng-icon hlm name="lucideSearch" size="sm"></ng-icon>
+										<ng-icon name="lucideSearch" />
 										<span>Search</span>
 										<div hlmSidebarMenuBadge>10</div>
 									</button>
@@ -180,7 +126,7 @@ type Story = StoryObj<{}>;
 								<!-- Settings -->
 								<li hlmSidebarMenuItem>
 									<button hlmSidebarMenuButton tooltip="Settings" aria-describedby="Settings">
-										<ng-icon hlm name="lucideSettings" size="sm"></ng-icon>
+										<ng-icon name="lucideSettings" />
 										<span>Settings</span>
 									</button>
 								</li>
@@ -194,7 +140,7 @@ type Story = StoryObj<{}>;
 								<!-- Home -->
 								<li hlmSidebarMenuItem>
 									<button hlmSidebarMenuButton tooltip="Home" aria-describedby="Home">
-										<ng-icon hlm name="lucideHouse" size="sm"></ng-icon>
+										<ng-icon name="lucideHouse" />
 										<span>Home</span>
 									</button>
 								</li>
@@ -202,7 +148,7 @@ type Story = StoryObj<{}>;
 								<!-- Inbox -->
 								<li hlmSidebarMenuItem>
 									<button hlmSidebarMenuButton tooltip="Inbox" aria-describedby="Inbox">
-										<ng-icon hlm name="lucideInbox" size="sm"></ng-icon>
+										<ng-icon name="lucideInbox" />
 										<span>Inbox</span>
 									</button>
 								</li>
@@ -210,7 +156,7 @@ type Story = StoryObj<{}>;
 								<!-- Calendar -->
 								<li hlmSidebarMenuItem>
 									<button hlmSidebarMenuButton tooltip="Calendar" aria-describedby="Calendar">
-										<ng-icon hlm name="lucideCalendar" size="sm"></ng-icon>
+										<ng-icon name="lucideCalendar" />
 										<span>Calendar</span>
 									</button>
 								</li>
@@ -218,7 +164,7 @@ type Story = StoryObj<{}>;
 								<!-- Search -->
 								<li hlmSidebarMenuItem>
 									<button hlmSidebarMenuButton tooltip="Search" aria-describedby="Search">
-										<ng-icon hlm name="lucideSearch" size="sm"></ng-icon>
+										<ng-icon name="lucideSearch" />
 										<span>Search</span>
 									</button>
 								</li>
@@ -226,7 +172,7 @@ type Story = StoryObj<{}>;
 								<!-- Settings -->
 								<li hlmSidebarMenuItem>
 									<button hlmSidebarMenuButton tooltip="Settings" aria-describedby="Settings">
-										<ng-icon hlm name="lucideSettings" size="sm"></ng-icon>
+										<ng-icon name="lucideSettings" />
 										<span>Settings</span>
 									</button>
 								</li>
@@ -237,7 +183,7 @@ type Story = StoryObj<{}>;
 
 				<div hlmSidebarFooter>
 					<button hlmSidebarMenuButton tooltip="Settings" aria-describedby="Settings">
-						<ng-icon hlm name="lucideSettings" size="sm"></ng-icon>
+						<ng-icon name="lucideSettings" />
 						<span>Settings</span>
 					</button>
 				</div>
@@ -269,33 +215,7 @@ export const Default: Story = {
 
 @Component({
 	selector: 'sidebar',
-	standalone: true,
-	imports: [
-		HlmSidebar,
-		HlmSidebarHeader,
-		HlmSidebarContent,
-		HlmSidebarFooter,
-		HlmSidebarMenu,
-		HlmSidebarMenuBadge,
-		HlmSidebarMenuItem,
-		HlmSidebarMenuButton,
-		HlmSidebarTrigger,
-		HlmSidebarRail,
-		HlmIcon,
-		HlmSidebarGroup,
-		HlmSidebarGroupLabel,
-		HlmSidebarGroupContent,
-		HlmSidebarSeparator,
-		BrnSeparator,
-		HlmSidebarGroupAction,
-		HlmSidebarInput,
-		HlmSidebarWrapper,
-		HlmSidebarInset,
-		HlmSidebarMenuAction,
-		HlmSidebarMenuSub,
-		HlmSidebarMenuSubButton,
-		NgIcon,
-	],
+	imports: [HlmSidebarImports, NgIcon],
 	providers: [
 		provideIcons({
 			lucideHouse,
@@ -322,9 +242,7 @@ export const Default: Story = {
 						<div hlmSidebarGroupContent class="relative">
 							<input hlmSidebarInput placeholder="Search" class="pl-8" />
 							<ng-icon
-								hlm
 								name="lucideSearch"
-								size="sm"
 								class="pointer-events-none absolute top-1/2 left-2 size-4 -translate-y-1/2 opacity-50 select-none"
 							></ng-icon>
 						</div>
@@ -334,26 +252,26 @@ export const Default: Story = {
 					<div hlmSidebarGroup>
 						<div hlmSidebarGroupLabel>Application</div>
 						<button hlmSidebarGroupAction>
-							<ng-icon hlm name="lucideEllipsis" size="sm"></ng-icon>
+							<ng-icon name="lucideEllipsis" />
 						</button>
 
 						<div hlmSidebarGroupContent>
 							<ul hlmSidebarMenu>
 								<li hlmSidebarMenuItem>
 									<button hlmSidebarMenuButton aria-describedby="Home" [isActive]="true">
-										<ng-icon hlm name="lucideHouse" size="sm"></ng-icon>
+										<ng-icon name="lucideHouse" />
 										<span>Home</span>
 									</button>
 									<ul hlmSidebarMenuSub>
 										<li>
 											<a hlmSidebarMenuSubButton>
-												<ng-icon hlm name="lucideHouse" size="sm"></ng-icon>
+												<ng-icon name="lucideHouse" />
 												<span>Home</span>
 											</a>
 										</li>
 										<li>
 											<a hlmSidebarMenuSubButton>
-												<ng-icon hlm name="lucideHouse" size="sm"></ng-icon>
+												<ng-icon name="lucideHouse" />
 												<span>Home</span>
 											</a>
 										</li>
@@ -363,18 +281,18 @@ export const Default: Story = {
 								<!-- Home -->
 								<li hlmSidebarMenuItem>
 									<button hlmSidebarMenuButton aria-describedby="Home">
-										<ng-icon hlm name="lucideHouse" size="sm"></ng-icon>
+										<ng-icon name="lucideHouse" />
 										<span>Home</span>
 									</button>
 									<button hlmSidebarMenuAction aria-describedby="Home">
-										<ng-icon hlm name="lucideEllipsis" size="sm"></ng-icon>
+										<ng-icon name="lucideEllipsis" />
 									</button>
 								</li>
 
 								<!-- Inbox -->
 								<li hlmSidebarMenuItem>
 									<button hlmSidebarMenuButton tooltip="Inbox" aria-describedby="Inbox">
-										<ng-icon hlm name="lucideInbox" size="sm"></ng-icon>
+										<ng-icon name="lucideInbox" />
 										<span>Inbox</span>
 									</button>
 								</li>
@@ -382,16 +300,16 @@ export const Default: Story = {
 								<!-- Calendar -->
 								<li hlmSidebarMenuItem>
 									<button hlmSidebarMenuButton tooltip="Calendar" aria-describedby="Calendar">
-										<ng-icon hlm name="lucideCalendar" size="sm"></ng-icon>
+										<ng-icon name="lucideCalendar" />
 										<span>Calendar</span>
 									</button>
 								</li>
-								<brn-separator hlmSidebarSeparator />
+								<hlm-sidebar-separator />
 
 								<!-- Search -->
 								<li hlmSidebarMenuItem>
 									<button hlmSidebarMenuButton tooltip="Search" aria-describedby="Search">
-										<ng-icon hlm name="lucideSearch" size="sm"></ng-icon>
+										<ng-icon name="lucideSearch" />
 										<span>Search</span>
 										<div hlmSidebarMenuBadge>10</div>
 									</button>
@@ -400,7 +318,7 @@ export const Default: Story = {
 								<!-- Settings -->
 								<li hlmSidebarMenuItem>
 									<button hlmSidebarMenuButton tooltip="Settings" aria-describedby="Settings">
-										<ng-icon hlm name="lucideSettings" size="sm"></ng-icon>
+										<ng-icon name="lucideSettings" />
 										<span>Settings</span>
 									</button>
 								</li>
@@ -414,7 +332,7 @@ export const Default: Story = {
 								<!-- Home -->
 								<li hlmSidebarMenuItem>
 									<button hlmSidebarMenuButton tooltip="Home" aria-describedby="Home">
-										<ng-icon hlm name="lucideHouse" size="sm"></ng-icon>
+										<ng-icon name="lucideHouse" />
 										<span>Home</span>
 									</button>
 								</li>
@@ -422,7 +340,7 @@ export const Default: Story = {
 								<!-- Inbox -->
 								<li hlmSidebarMenuItem>
 									<button hlmSidebarMenuButton tooltip="Inbox" aria-describedby="Inbox">
-										<ng-icon hlm name="lucideInbox" size="sm"></ng-icon>
+										<ng-icon name="lucideInbox" />
 										<span>Inbox</span>
 									</button>
 								</li>
@@ -430,7 +348,7 @@ export const Default: Story = {
 								<!-- Calendar -->
 								<li hlmSidebarMenuItem>
 									<button hlmSidebarMenuButton tooltip="Calendar" aria-describedby="Calendar">
-										<ng-icon hlm name="lucideCalendar" size="sm"></ng-icon>
+										<ng-icon name="lucideCalendar" />
 										<span>Calendar</span>
 									</button>
 								</li>
@@ -438,7 +356,7 @@ export const Default: Story = {
 								<!-- Search -->
 								<li hlmSidebarMenuItem>
 									<button hlmSidebarMenuButton tooltip="Search" aria-describedby="Search">
-										<ng-icon hlm name="lucideSearch" size="sm"></ng-icon>
+										<ng-icon name="lucideSearch" />
 										<span>Search</span>
 									</button>
 								</li>
@@ -446,7 +364,7 @@ export const Default: Story = {
 								<!-- Settings -->
 								<li hlmSidebarMenuItem>
 									<button hlmSidebarMenuButton tooltip="Settings" aria-describedby="Settings">
-										<ng-icon hlm name="lucideSettings" size="sm"></ng-icon>
+										<ng-icon name="lucideSettings" />
 										<span>Settings</span>
 									</button>
 								</li>
@@ -457,7 +375,7 @@ export const Default: Story = {
 
 				<div hlmSidebarFooter>
 					<button hlmSidebarMenuButton tooltip="Settings" aria-describedby="Settings">
-						<ng-icon hlm name="lucideSettings" size="sm"></ng-icon>
+						<ng-icon name="lucideSettings" />
 						<span>Settings</span>
 					</button>
 				</div>

@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { BrnDialogImports } from '@spartan-ng/brain/dialog';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmDialogImports } from '@spartan-ng/helm/dialog';
 import { HlmInput } from '@spartan-ng/helm/input';
@@ -8,12 +7,12 @@ import { HlmTextarea } from '@spartan-ng/helm/textarea';
 
 @Component({
 	selector: 'spartan-preset-save',
-	imports: [BrnDialogImports, HlmDialogImports, HlmInput, HlmTextarea, HlmButton, HlmLabel],
+	imports: [HlmDialogImports, HlmInput, HlmTextarea, HlmButton, HlmLabel],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<hlm-dialog>
 			<button id="save-presets" hlmDialogTrigger hlmBtn variant="secondary">Save</button>
-			<hlm-dialog-content class="sm:max-w-[425px]" *brnDialogContent="let ctx">
+			<hlm-dialog-content class="sm:max-w-[425px]" *hlmDialogPortal="let ctx">
 				<hlm-dialog-header>
 					<h3 hlmDialogTitle>Save preset</h3>
 					<p hlmDialogDescription>

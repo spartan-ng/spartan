@@ -23,7 +23,7 @@ describe('sheet--default', () => {
 			cy.findByRole('dialog').should('have.attr', 'aria-modal', 'true');
 			cy.findByRole('dialog').should('have.attr', 'tabindex', '-1');
 
-			cy.findByRole('dialog').get('ng-icon').click();
+			cy.findByRole('dialog').get('button[data-slot="sheet-close"]').click();
 			cy.findAllByText(/edit profile/i).should('have.length', 1);
 			cy.findAllByText(/edit profile/i).should('have.focus');
 			cy.findByText(/edit profile/i).click();

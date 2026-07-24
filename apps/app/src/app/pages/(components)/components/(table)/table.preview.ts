@@ -1,38 +1,39 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { HlmTableImports } from '@spartan-ng/helm/table';
 
 @Component({
 	selector: 'spartan-table-preview',
 	imports: [HlmTableImports],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		class: 'w-full',
 	},
 	template: `
 		<div hlmTableContainer>
 			<table hlmTable>
-				<caption hlmCaption>A list of your recent invoices.</caption>
-				<thead hlmTHead>
-					<tr hlmTr>
-						<th hlmTh class="w-[100px]">Invoice</th>
-						<th hlmTh>Status</th>
-						<th hlmTh>Method</th>
-						<th hlmTh class="text-right">Amount</th>
+				<caption hlmTableCaption>A list of your recent invoices.</caption>
+				<thead hlmTableHeader>
+					<tr hlmTableRow>
+						<th hlmTableHead class="w-[100px]">Invoice</th>
+						<th hlmTableHead>Status</th>
+						<th hlmTableHead>Method</th>
+						<th hlmTableHead class="text-right">Amount</th>
 					</tr>
 				</thead>
-				<tbody hlmTBody>
+				<tbody hlmTableBody>
 					@for (invoice of _invoices; track invoice.invoice) {
-						<tr hlmTr>
-							<td hlmTd class="font-medium">{{ invoice.invoice }}</td>
-							<td hlmTd>{{ invoice.paymentStatus }}</td>
-							<td hlmTd>{{ invoice.paymentMethod }}</td>
-							<td hlmTd class="text-right">{{ invoice.totalAmount }}</td>
+						<tr hlmTableRow>
+							<td hlmTableCell class="font-medium">{{ invoice.invoice }}</td>
+							<td hlmTableCell>{{ invoice.paymentStatus }}</td>
+							<td hlmTableCell>{{ invoice.paymentMethod }}</td>
+							<td hlmTableCell class="text-right">{{ invoice.totalAmount }}</td>
 						</tr>
 					}
 				</tbody>
-				<tfoot hlmTFoot>
-					<tr hlmTr>
-						<td hlmTd [attr.colSpan]="3">Total</td>
-						<td hlmTd class="text-right">$2,500.00</td>
+				<tfoot hlmTableFooter>
+					<tr hlmTableRow>
+						<td hlmTableCell [attr.colSpan]="3">Total</td>
+						<td hlmTableCell class="text-right">$2,500.00</td>
 					</tr>
 				</tfoot>
 			</table>
@@ -93,31 +94,31 @@ import { HlmTableImports } from '@spartan-ng/helm/table';
 export const defaultSkeleton = `
 <div hlmTableContainer>
   <table hlmTable>
-    <caption hlmCaption>
+    <caption hlmTableCaption>
       A list of your recent invoices.
     </caption>
-    <thead hlmTHead>
-      <tr hlmTr>
-        <th hlmTh class="w-[100px]">Invoice</th>
-        <th hlmTh>Status</th>
-        <th hlmTh>Method</th>
-        <th hlmTh class="text-right">Amount</th>
+    <thead hlmTableHeader>
+      <tr hlmTableRow>
+        <th hlmTableHead class="w-[100px]">Invoice</th>
+        <th hlmTableHead>Status</th>
+        <th hlmTableHead>Method</th>
+        <th hlmTableHead class="text-right">Amount</th>
       </tr>
     </thead>
-    <tbody hlmTBody>
+    <tbody hlmTableBody>
       @for (invoice of _invoices; track invoice.invoice) {
-      <tr hlmTr>
-        <td hlmTd class="font-medium">{{ invoice.invoice }}</td>
-        <td hlmTd>{{ invoice.paymentStatus }}</td>
-        <td hlmTd>{{ invoice.paymentMethod }}</td>
-        <td hlmTd class="text-right">{{ invoice.totalAmount }}</td>
+      <tr hlmTableRow>
+        <td hlmTableCell class="font-medium">{{ invoice.invoice }}</td>
+        <td hlmTableCell>{{ invoice.paymentStatus }}</td>
+        <td hlmTableCell>{{ invoice.paymentMethod }}</td>
+        <td hlmTableCell class="text-right">{{ invoice.totalAmount }}</td>
       </tr>
       }
     </tbody>
-    <tfoot hlmTFoot>
-      <tr hlmTr>
-        <td hlmTd [attr.colSpan]="3">Total</td>
-        <td hlmTd class="text-right">$2,500.00</td>
+    <tfoot hlmTableFooter>
+      <tr hlmTableRow>
+        <td hlmTableCell [attr.colSpan]="3">Total</td>
+        <td hlmTableCell class="text-right">$2,500.00</td>
       </tr>
     </tfoot>
   </table>

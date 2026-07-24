@@ -57,4 +57,28 @@ module.exports = [
 			'@angular-eslint/template/label-has-associated-control': 'off',
 		},
 	},
+	{
+		files: ['**/*.json'],
+		rules: {
+			'@nx/dependency-checks': [
+				'error',
+				{
+					ignoredFiles: [
+						'{projectRoot}/eslint.config.{js,cjs,mjs}',
+						'{projectRoot}/vite.config.{ts,mts}',
+						'{projectRoot}/**/test-setup.ts',
+						'{projectRoot}/src/testing/**/*.ts',
+						'{projectRoot}/**/*.spec.ts',
+						'{projectRoot}/**/*.stories.ts',
+					],
+					// tailwindcss and tw-animate-css are required peer dependencies consumed through the
+					// CSS preset (@import in hlm-tailwind-preset.css), which the dependency check cannot detect.
+					ignoredDependencies: ['tailwindcss', 'tw-animate-css'],
+				},
+			],
+		},
+		languageOptions: {
+			parser: require('jsonc-eslint-parser'),
+		},
+	},
 ];

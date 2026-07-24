@@ -1,9 +1,14 @@
-import { Directive, inject, TemplateRef } from '@angular/core';
+import { Directive } from '@angular/core';
+import { injectBrnSelectBase } from './brn-select.token';
 
 @Directive({
-	selector: '[brnSelectPlaceholder], [hlmSelectPlaceholder]',
+	selector: '[brnSelectPlaceholder]',
+	host: {
+		'[attr.data-hidden]': '_hasValue() ? "" : null',
+	},
 })
 export class BrnSelectPlaceholder {
-	/** @internale */
-	public readonly templateRef = inject<TemplateRef<void>>(TemplateRef);
+	private readonly _select = injectBrnSelectBase();
+
+	protected readonly _hasValue = this._select.hasValue;
 }

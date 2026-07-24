@@ -5,7 +5,7 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronRight } from '@ng-icons/lucide';
 import { HlmAccordionImports } from '@spartan-ng/helm/accordion';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
-import { HlmIconImports } from '@spartan-ng/helm/icon';
+
 import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
 import { MainSection } from '../../../shared/layout/main-section';
 import { PageBottomNavPlaceholder } from '../../../shared/layout/page-bottom-nav-placeholder';
@@ -40,7 +40,6 @@ export const routeMeta: RouteMeta = {
 		PageBottomNavPlaceholder,
 		HlmButtonImports,
 		NgIcon,
-		HlmIconImports,
 	],
 	providers: [provideIcons({ lucideChevronRight })],
 	template: `
@@ -101,7 +100,7 @@ export const routeMeta: RouteMeta = {
 			<div class="mt-6 flex items-center justify-end">
 				<a routerLink="/documentation/installation" variant="secondary" size="sm" hlmBtn outline="">
 					Get started with spartan/ui
-					<ng-icon hlm name="lucideChevronRight" class="ml-2" size="sm" />
+					<ng-icon name="lucideChevronRight" class="ml-2" />
 				</a>
 			</div>
 
@@ -130,105 +129,69 @@ export const routeMeta: RouteMeta = {
 			<div class="mt-6 flex items-center justify-end">
 				<a routerLink="/stack" variant="secondary" size="sm" hlmBtn outline="">
 					Explore spartan/stack
-					<ng-icon hlm name="lucideChevronRight" class="ml-2" size="sm" />
+					<ng-icon name="lucideChevronRight" class="ml-2" />
 				</a>
 			</div>
 
 			<spartan-section-sub-heading id="faq">FAQ</spartan-section-sub-heading>
-			<div hlmAccordion>
-				<div hlmAccordionItem>
-					<h3 class="contents">
-						<button hlmAccordionTrigger>
-							<span>What is spartan/ui?</span>
-							<ng-icon name="lucideChevronDown" hlm hlmAccIcon />
-						</button>
-						<hlm-accordion-content>
-							A collection of accessible UI primitives for Angular. You install behavior via npm and copy styles into
-							your codebase for complete customization.
-						</hlm-accordion-content>
-					</h3>
-				</div>
+			<hlm-accordion>
+				<hlm-accordion-item>
+					<hlm-accordion-trigger>What is spartan/ui?</hlm-accordion-trigger>
+					<hlm-accordion-content>
+						A collection of accessible UI primitives for Angular. You install behavior via npm and copy styles into your
+						codebase for complete customization.
+					</hlm-accordion-content>
+				</hlm-accordion-item>
 
-				<div hlmAccordionItem>
-					<h3 class="contents">
-						<button hlmAccordionTrigger>
-							<span>Do I need AnalogJs or a full-stack setup?</span>
-							<ng-icon name="lucideChevronDown" hlm hlmAccIcon />
-						</button>
-						<hlm-accordion-content>
-							No. spartan/ui works with any Angular application. The spartan/stack is optional for full-stack
-							development.
-						</hlm-accordion-content>
-					</h3>
-				</div>
+				<hlm-accordion-item>
+					<hlm-accordion-trigger>Do I need AnalogJs or a full-stack setup?</hlm-accordion-trigger>
+					<hlm-accordion-content>
+						No. spartan/ui works with any Angular application. The spartan/stack is optional for full-stack development.
+					</hlm-accordion-content>
+				</hlm-accordion-item>
 
-				<div hlmAccordionItem>
-					<h3 class="contents">
-						<button hlmAccordionTrigger>
-							<span>What's the difference between Brain and Helm?</span>
-							<ng-icon name="lucideChevronDown" hlm hlmAccIcon />
-						</button>
-						<hlm-accordion-content>
-							Brain (brn) is the unstyled, accessible primitive you install from npm - we maintain it with updates. Helm
-							(hlm) is the styled layer you copy into your project - you own and customize it.
-						</hlm-accordion-content>
-					</h3>
-				</div>
+				<hlm-accordion-item>
+					<hlm-accordion-trigger>What's the difference between Brain and Helm?</hlm-accordion-trigger>
+					<hlm-accordion-content>
+						Brain (brn) is the unstyled, accessible primitive you install from npm - we maintain it with updates. Helm
+						(hlm) is the styled layer you copy into your project - you own and customize it.
+					</hlm-accordion-content>
+				</hlm-accordion-item>
 
-				<div hlmAccordionItem>
-					<h3 class="contents">
-						<button hlmAccordionTrigger>
-							<span>Why copy components instead of installing them?</span>
-							<ng-icon name="lucideChevronDown" hlm hlmAccIcon />
-						</button>
-						<hlm-accordion-content>
-							Copying styles gives you complete control. No theming API to learn, no version conflicts, no waiting for
-							maintainers to add features. Edit Tailwind classes directly and ship.
-						</hlm-accordion-content>
-					</h3>
-				</div>
+				<hlm-accordion-item>
+					<hlm-accordion-trigger>Why copy components instead of installing them?</hlm-accordion-trigger>
+					<hlm-accordion-content>
+						Copying styles gives you complete control. No theming API to learn, no version conflicts, no waiting for
+						maintainers to add features. Edit Tailwind classes directly and ship.
+					</hlm-accordion-content>
+				</hlm-accordion-item>
 
-				<div hlmAccordionItem>
-					<h3 class="contents">
-						<button hlmAccordionTrigger>
-							<span>Why are there so few unit tests in the codebase?</span>
-							<ng-icon name="lucideChevronDown" hlm hlmAccIcon />
-						</button>
-						<hlm-accordion-content>
-							We run comprehensive end-to-end tests in real browsers instead of JSDOM. UI components need to test
-							behavior (focus management, keyboard navigation, ARIA announcements) that only works properly in actual
-							browser environments. We found ourselves duplicating tests just to satisfy coverage metrics when the e2e
-							tests already proved the components work.
-						</hlm-accordion-content>
-					</h3>
-				</div>
+				<hlm-accordion-item>
+					<hlm-accordion-trigger>Why are there so few unit tests in the codebase?</hlm-accordion-trigger>
+					<hlm-accordion-content>
+						We run comprehensive end-to-end tests in real browsers instead of JSDOM. UI components need to test behavior
+						(focus management, keyboard navigation, ARIA announcements) that only works properly in actual browser
+						environments. We found ourselves duplicating tests just to satisfy coverage metrics when the e2e tests
+						already proved the components work.
+					</hlm-accordion-content>
+				</hlm-accordion-item>
 
-				<div hlmAccordionItem>
-					<h3 class="contents">
-						<button hlmAccordionTrigger>
-							<span>Is spartan/ui inspired by shadcn/ui?</span>
-							<ng-icon name="lucideChevronDown" hlm hlmAccIcon />
-						</button>
-						<hlm-accordion-content>
-							Yes. We adapted the copy-paste philosophy and design patterns from shadcn/ui (React) and Radix UI for
-							Angular, using signals, standalone components, and Angular-native APIs.
-						</hlm-accordion-content>
-					</h3>
-				</div>
+				<hlm-accordion-item>
+					<hlm-accordion-trigger>Is spartan/ui inspired by shadcn/ui?</hlm-accordion-trigger>
+					<hlm-accordion-content>
+						Yes. We adapted the copy-paste philosophy and design patterns from shadcn/ui (React) and Radix UI for
+						Angular, using signals, standalone components, and Angular-native APIs.
+					</hlm-accordion-content>
+				</hlm-accordion-item>
 
-				<div hlmAccordionItem>
-					<h3 class="contents">
-						<button hlmAccordionTrigger>
-							<span>What is spartan/stack?</span>
-							<ng-icon name="lucideChevronDown" hlm hlmAccIcon />
-						</button>
-						<hlm-accordion-content>
-							An optional collection of full-stack technologies for end-to-end type-safe Angular development with
-							AnalogJs. Not required for using spartan/ui.
-						</hlm-accordion-content>
-					</h3>
-				</div>
-			</div>
+				<hlm-accordion-item>
+					<hlm-accordion-trigger>What is spartan/stack?</hlm-accordion-trigger>
+					<hlm-accordion-content>
+						An optional collection of full-stack technologies for end-to-end type-safe Angular development with
+						AnalogJs. Not required for using spartan/ui.
+					</hlm-accordion-content>
+				</hlm-accordion-item>
+			</hlm-accordion>
 
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="changelog" label="Changelog" />

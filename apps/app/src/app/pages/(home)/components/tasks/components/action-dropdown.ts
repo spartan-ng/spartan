@@ -3,17 +3,16 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideEllipsis } from '@ng-icons/lucide';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
-import { HlmIcon } from '@spartan-ng/helm/icon';
 import { type CellContext, injectFlexRenderContext } from '@tanstack/angular-table';
 import type { Task } from '../services/tasks.models';
 
 @Component({
 	selector: 'spartan-action-dropdown-tasks',
-	imports: [HlmButton, NgIcon, HlmIcon, HlmDropdownMenuImports],
+	imports: [HlmButton, NgIcon, HlmDropdownMenuImports],
 	providers: [provideIcons({ lucideEllipsis })],
 	template: `
 		<button hlmBtn variant="ghost" class="h-6 w-6 p-0.5" align="end" [hlmDropdownMenuTrigger]="menu">
-			<ng-icon hlm size="sm" name="lucideEllipsis" />
+			<ng-icon name="lucideEllipsis" />
 		</button>
 		<ng-template #menu>
 			<hlm-dropdown-menu>
@@ -28,7 +27,7 @@ import type { Task } from '../services/tasks.models';
 				<hlm-dropdown-menu-group>
 					<button hlmDropdownMenuItem [hlmDropdownMenuTrigger]="labels" side="left" align="end">
 						Labels
-						<ng-icon hlm name="lucideChevronRight" class="ml-auto" size="sm" />
+						<ng-icon name="lucideChevronRight" class="ml-auto" />
 					</button>
 				</hlm-dropdown-menu-group>
 				<hlm-dropdown-menu-separator />

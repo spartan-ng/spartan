@@ -1,10 +1,15 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { injectComponentDocs } from '@spartan-ng/app/app/core/services/component-docs';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { DatePickerFormRangeExample } from '@spartan-ng/app/app/pages/(components)/components/(date-picker)/date-picker--form-range.example';
+import { DatePickerMonthYearExample } from '@spartan-ng/app/app/pages/(components)/components/(date-picker)/date-picker--month-year.example';
 import { DatePickerRangeExample } from '@spartan-ng/app/app/pages/(components)/components/(date-picker)/date-picker--range.example';
 import { CodePreview } from '@spartan-ng/app/app/shared/code/code-preview';
+import { CodeRtlPreview } from '@spartan-ng/app/app/shared/code/code-rtl-preview';
+import { RtlHeader } from '@spartan-ng/app/app/shared/code/rtl-header';
+import { InstallTabs } from '@spartan-ng/app/app/shared/layout/install-tabs';
 import { MainSection } from '@spartan-ng/app/app/shared/layout/main-section';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { HlmButton } from '@spartan-ng/helm/button';
@@ -16,16 +21,18 @@ import { PageNav } from '../../../../shared/layout/page-nav/page-nav';
 import { SectionIntro } from '../../../../shared/layout/section-intro';
 import { SectionSubHeading } from '../../../../shared/layout/section-sub-heading';
 import { Tabs } from '../../../../shared/layout/tabs';
-import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { link } from '../../../../shared/typography/link';
 import { DatePickerConfigExample } from './date-picker--config.example';
 import { DateAndTimePickerExample } from './date-picker--date-time.example';
+import { DatePickerFormInputExample } from './date-picker--form-input.example';
 import { DatePickerFormMultipleExample } from './date-picker--form-multi.example';
 import { DatePickerFormExample } from './date-picker--form.example';
 import { DatePickerFormatExample } from './date-picker--format.example';
+import { DatePickerInputExample } from './date-picker--input.example';
 import { DatePickerMultipleExample } from './date-picker--multi.example';
+import { DatePickerRtl } from './date-picker--rtl.preview';
 import { DatePickerPreview, defaultImports, defaultSkeleton } from './date-picker.preview';
 
 export const routeMeta: RouteMeta = {
@@ -43,27 +50,34 @@ export const routeMeta: RouteMeta = {
 		Tabs,
 		Code,
 		SectionSubHeading,
-		TabsCli,
+
 		PageBottomNav,
 		PageBottomNavLink,
 		CodePreview,
 		MainSection,
+		InstallTabs,
 		PageNav,
+		RouterLink,
+		HlmButton,
+		RtlHeader,
+		CodeRtlPreview,
+		SectionSubSubHeading,
+		DatePickerRangeExample,
+		DatePickerFormRangeExample,
 		DatePickerConfigExample,
 		DatePickerFormatExample,
+		DatePickerInputExample,
 		DatePickerFormExample,
+		DatePickerFormInputExample,
 		DatePickerMultipleExample,
 		DatePickerFormMultipleExample,
 		DateAndTimePickerExample,
-		RouterLink,
-		HlmButton,
-		DatePickerRangeExample,
-		DatePickerFormRangeExample,
-		SectionSubSubHeading,
+		DatePickerRtl,
+		DatePickerMonthYearExample,
 	],
 	template: `
 		<section spartanMainSection>
-			<spartan-section-intro name="Date Picker" lead="A date picker component." />
+			<spartan-section-intro name="Date Picker" lead="A date picker component." showThemeToggle />
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
@@ -72,17 +86,15 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
-			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
-
-			<p class="${hlmP} mb-6">
-				The Date Picker component is built with the
-				<a routerLink="/components/popover" hlmBtn variant="link" class="${link}">Popover</a>
-				and the
-				<a routerLink="/components/calendar" hlmBtn variant="link" class="${link}">Calendar</a>
-				components.
-			</p>
-
-			<spartan-cli-tabs nxCode="npx nx g @spartan-ng/cli:ui date-picker" ngCode="ng g @spartan-ng/cli:ui date-picker" />
+			<spartan-install-tabs primitive="date-picker">
+				<p class="${hlmP} mb-6">
+					The Date Picker component is built with the
+					<a routerLink="/components/popover" hlmBtn variant="link" class="${link}">Popover</a>
+					and the
+					<a routerLink="/components/calendar" hlmBtn variant="link" class="${link}">Calendar</a>
+					components.
+				</p>
+			</spartan-install-tabs>
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="mt-6 space-y-4">
@@ -91,7 +103,7 @@ export const routeMeta: RouteMeta = {
 			</div>
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
-			<h3 id="examples__custom_config" spartanH4>Custom Configs</h3>
+			<h3 id="custom-config" spartanH4>Custom Configs</h3>
 
 			<p class="${hlmP} mb-6">
 				Use
@@ -122,7 +134,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_configCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__multiple_selecton" spartanH4>Multiple Selection</h3>
+			<h3 id="multiple-selecton" spartanH4>Multiple Selection</h3>
 
 			<p class="${hlmP} mb-6">
 				Use
@@ -141,7 +153,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_multiCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__range" spartanH4>Range Picker</h3>
+			<h3 id="range" spartanH4>Range Picker</h3>
 
 			<p class="${hlmP} mb-6">
 				Use
@@ -160,7 +172,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_rangeCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__format_date" spartanH4>Format Date</h3>
+			<h3 id="format-date" spartanH4>Format Date</h3>
 
 			<p class="${hlmP} mb-6">
 				Use
@@ -174,7 +186,28 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_formatCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__date_and_time_picker" spartanH4>Date and Time picker</h3>
+			<h3 id="input-picker" spartanH4>Input Picker</h3>
+			<p class="${hlmP} mb-6">
+				Use
+				<code class="${hlmCode}">hlm-date-picker-input</code>
+				instead of
+				<code class="${hlmCode}">hlm-date-picker-trigger</code>
+				to let users type a date directly. Provide a
+				<code class="${hlmCode}">parseDate</code>
+				input (or set it globally via
+				<code class="${hlmCode}">provideHlmDatePickerConfig</code>
+				) to control how typed strings are parsed into dates - typically pair it with a matching
+				<code class="${hlmCode}">formatDate</code>
+				.
+			</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-date-picker-input-example />
+				</div>
+				<spartan-code secondTab [code]="_inputCode()" />
+			</spartan-tabs>
+
+			<h3 id="date-and-time-picker" spartanH4>Date and Time picker</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-date-and-time-picker />
@@ -182,7 +215,15 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_dateTimeCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__form" spartanH4>Form</h3>
+			<h3 id="date-month-year-picker" spartanH4>Month Year Picker</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-date-month-year-picker />
+				</div>
+				<spartan-code secondTab [code]="_monthYearCode()" />
+			</spartan-tabs>
+
+			<h3 id="form" spartanH4>Form</h3>
 			<p class="${hlmP} mb-6">
 				Sync the date to a form by adding
 				<code class="${hlmCode}">formControlName</code>
@@ -197,7 +238,22 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_formCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__form_multiple_selection" spartanH4>Form Multiple Selection</h3>
+			<h3 id="form-input" spartanH4>Form with Input Picker</h3>
+			<p class="${hlmP} mb-6">
+				Combine
+				<code class="${hlmCode}">formControlName</code>
+				with
+				<code class="${hlmCode}">hlm-date-picker-input</code>
+				to let users type a date or pick one from the calendar while syncing the value to a reactive form.
+			</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-date-picker-form-input />
+				</div>
+				<spartan-code secondTab [code]="_formInputCode()" />
+			</spartan-tabs>
+
+			<h3 id="form-multiple-selection" spartanH4>Form Multiple Selection</h3>
 			<p class="${hlmP} mb-6">
 				Sync the dates to a form by adding
 				<code class="${hlmCode}">formControlName</code>
@@ -212,7 +268,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_formMultiCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__form_range" spartanH4>Form Range Picker</h3>
+			<h3 id="form-range" spartanH4>Form Range Picker</h3>
 			<p class="${hlmP} mb-6">
 				Sync the dates to a form by adding
 				<code class="${hlmCode}">formControlName</code>
@@ -227,6 +283,14 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_formRangeCode()" />
 			</spartan-tabs>
 
+			<spartan-header-rtl />
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanRtlCodePreview firstTab>
+					<spartan-date-picker-rtl />
+				</div>
+				<spartan-code secondTab [code]="_rtlCode()" />
+			</spartan-tabs>
+
 			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="helm" />
 
@@ -239,16 +303,24 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class CardPage {
+	constructor() {
+		injectComponentDocs();
+	}
+
 	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('date-picker');
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
 	protected readonly _configCode = computed(() => this._snippets()['config']);
 	protected readonly _formCode = computed(() => this._snippets()['form']);
+	protected readonly _formInputCode = computed(() => this._snippets()['formInput']);
 	protected readonly _formMultiCode = computed(() => this._snippets()['formMulti']);
 	protected readonly _formRangeCode = computed(() => this._snippets()['formRange']);
 	protected readonly _formatCode = computed(() => this._snippets()['format']);
+	protected readonly _inputCode = computed(() => this._snippets()['input']);
 	protected readonly _multiCode = computed(() => this._snippets()['multi']);
 	protected readonly _rangeCode = computed(() => this._snippets()['range']);
 	protected readonly _dateTimeCode = computed(() => this._snippets()['dateTime']);
+	protected readonly _monthYearCode = computed(() => this._snippets()['monthYear']);
+	protected readonly _rtlCode = computed(() => this._snippets()['rtl']);
 	protected readonly _defaultImports = defaultImports;
 	protected readonly _codeSkeleton = defaultSkeleton;
 }

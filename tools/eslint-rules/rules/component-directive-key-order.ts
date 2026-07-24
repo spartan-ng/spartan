@@ -57,7 +57,7 @@ export const rule = ESLintUtils.RuleCreator(() => __filename)({
 
 				if (properties.length <= 1) return;
 
-				const sourceCode = context.getSourceCode();
+				const sourceCode = context.sourceCode;
 				const propNames = properties.map((p) => p.key['name']);
 
 				// === 1️⃣ Enforce template/templateUrl last ===

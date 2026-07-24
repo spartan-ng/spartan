@@ -9,7 +9,13 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 import { getPrerenderedRoutes } from './src/utils/prerender-routes';
 
 // https://vitejs.dev/config/
-export default defineConfig(({ mode }) => {
+export default defineConfig(({ command, mode }) => {
+	// In dev the Analog Nitro server builds its public-asset manifest from `output.publicDir`
+	// (default: dist/<app>/analog/public), which `nx serve` never populates - the docs JSON is
+	// generated into src/public (Vite's publicDir) instead. Point Nitro at the same source dir so a
+	// server-side $fetch('/data/..') from our page loaders resolves without a prior production build.
+	const isServe = command === 'serve';
+
 	return {
 		root: __dirname,
 		publicDir: 'src/public',
@@ -25,7 +31,6 @@ export default defineConfig(({ mode }) => {
 				'marked-gfm-heading-id',
 				'marked-highlight',
 				'prismjs/**/*',
-				'ngx-sonner',
 				'@ng-icons/remixicon',
 				'luxon',
 				'@angular/cdk/portal',
@@ -34,7 +39,6 @@ export default defineConfig(({ mode }) => {
 				'@angular/cdk/collections',
 				'embla-carousel-autoplay',
 				'embla-carousel-angular',
-				'ng-signal-forms',
 			],
 		},
 		ssr: {
@@ -43,14 +47,14 @@ export default defineConfig(({ mode }) => {
 				'@angular/cdk/**',
 				'@ng-icons/**',
 				'ngx-scrollbar/**',
-				'ng-signal-forms/**',
 				'@analogjs/trpc',
 				'@trpc/server',
 			],
 		},
 		build: {
 			outDir: '../../dist/apps/app/client',
-			reportCompressedSize: true,
+			// Skip computing gzip sizes for every chunk - it is only an informational report.
+			reportCompressedSize: false,
 			commonjsOptions: { transformMixedEsModules: true },
 			target: ['es2020'],
 		},
@@ -90,6 +94,7 @@ export default defineConfig(({ mode }) => {
 					routes: async () => {
 						const staticRoutes = [
 							'/',
+							'/colors',
 
 							'/documentation/introduction',
 							'/documentation/changelog',
@@ -105,9 +110,20 @@ export default defineConfig(({ mode }) => {
 							'/documentation/version-support',
 							'/documentation/health-checks',
 							'/documentation/update-guide',
+							'/documentation/mcp',
+							'/documentation/skills',
+							'/documentation/rtl',
+							'/documentation/styles',
 
 							'/blocks/sidebar',
 							'/blocks/calendar',
+							'/blocks/login',
+							'/blocks/signup',
+							'/blocks/stepper',
+
+							'/forms',
+							'/forms/reactive-forms',
+							'/forms/signal-forms',
 
 							'/stack/overview',
 							'/stack/technologies',
@@ -122,14 +138,26 @@ export default defineConfig(({ mode }) => {
 				},
 				nitro: {
 					logLevel: 4,
+					...(isServe ? { output: { publicDir: path.resolve(__dirname, 'src/public') } } : {}),
+					prerender: {
+						concurrency: 1,
+					},
+					serverAssets: [
+						{
+							baseName: 'data',
+							dir: './src/public/data',
+						},
+					],
 					rollupConfig: {
 						plugins: [],
 					},
 				},
 			}),
 			nxViteTsPaths(),
-			visualizer() as Plugin,
 			splitVendorChunkPlugin(),
+			// Bundle analysis is opt-in (ANALYZE=1) so it does not traverse the whole bundle on
+			// every production build.
+			...(process.env.ANALYZE ? [visualizer() as Plugin] : []),
 		],
 		test: {
 			reporters: ['default'],
@@ -141,6 +169,19 @@ export default defineConfig(({ mode }) => {
 			environment: 'jsdom',
 			setupFiles: ['src/test-setup.ts'],
 			include: ['**/*.spec.ts'],
+			// Run the suite in a single forked process. The AppComponent smoke test boots the full app
+			// shell, and the Analog/vite-plugin-angular transform of that deep import graph is heavy;
+			// spawning a worker per core multiplied that footprint and intermittently OOM-crashed a
+			// vitest worker in CI (exit 1, no output) when several nx projects tested in parallel. One
+			// memory-bounded fork keeps the docs app's footprint predictable. The suite is tiny, so the
+			// loss of intra-suite parallelism is negligible.
+			pool: 'forks',
+			poolOptions: {
+				forks: {
+					minForks: 1,
+					maxForks: 1,
+				},
+			},
 			cache: {
 				dir: '../../node_modules/.vitest',
 			},

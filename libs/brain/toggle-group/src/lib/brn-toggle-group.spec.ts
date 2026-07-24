@@ -22,6 +22,23 @@ class BrnToggleGroupDirectiveSpec {
 }
 
 @Component({
+	imports: [BrnToggleGroupItem, BrnToggleGroup],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<brn-toggle-group [(value)]="value" [disabled]="disabled()" [type]="type()" [nullable]="false">
+			<button brnToggleGroupItem value="option-1">Option 1</button>
+			<button brnToggleGroupItem value="option-2">Option 2</button>
+			<button brnToggleGroupItem value="option-3">Option 3</button>
+		</brn-toggle-group>
+	`,
+})
+class BrnToggleGroupNonNullableSpec {
+	public readonly value? = model<string | string[]>();
+	public readonly disabled = input(false);
+	public readonly type = input('single');
+}
+
+@Component({
 	imports: [BrnToggleGroupItem, BrnToggleGroup, FormsModule],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
@@ -151,5 +168,69 @@ describe('BrnToggleGroupDirective', () => {
 		expect(buttons[0]).toHaveAttribute('data-state', 'on');
 		expect(buttons[1]).toHaveAttribute('data-state', 'off');
 		expect(buttons[2]).toHaveAttribute('data-state', 'on');
+	});
+
+	it('should deselect a selected toggle when clicked again (type = single, nullable by default)', async () => {
+		const { getAllByRole } = await render(BrnToggleGroupDirectiveSpec);
+		const buttons = getAllByRole('button');
+
+		await fireEvent.click(buttons[0]);
+		expect(buttons[0]).toHaveAttribute('data-state', 'on');
+
+		await fireEvent.click(buttons[0]);
+		expect(buttons[0]).toHaveAttribute('data-state', 'off');
+		expect(buttons[1]).toHaveAttribute('data-state', 'off');
+		expect(buttons[2]).toHaveAttribute('data-state', 'off');
+	});
+
+	it('should deselect the last selected toggle when clicked again (type = multiple, nullable by default)', async () => {
+		const { getAllByRole, detectChanges } = await render(BrnToggleGroupDirectiveSpec, {
+			inputs: {
+				type: 'multiple',
+			},
+		});
+		const buttons = getAllByRole('button');
+
+		await fireEvent.click(buttons[0]);
+		detectChanges();
+		expect(buttons[0]).toHaveAttribute('data-state', 'on');
+
+		await fireEvent.click(buttons[0]);
+		detectChanges();
+		expect(buttons[0]).toHaveAttribute('data-state', 'off');
+		expect(buttons[1]).toHaveAttribute('data-state', 'off');
+		expect(buttons[2]).toHaveAttribute('data-state', 'off');
+	});
+
+	it('should not deselect a selected toggle when nullable is false (type = single)', async () => {
+		const { getAllByRole } = await render(BrnToggleGroupNonNullableSpec);
+		const buttons = getAllByRole('button');
+
+		await fireEvent.click(buttons[0]);
+		expect(buttons[0]).toHaveAttribute('data-state', 'on');
+
+		await fireEvent.click(buttons[0]);
+		expect(buttons[0]).toHaveAttribute('data-state', 'on');
+		expect(buttons[1]).toHaveAttribute('data-state', 'off');
+		expect(buttons[2]).toHaveAttribute('data-state', 'off');
+	});
+
+	it('should not deselect the last selected toggle when nullable is false (type = multiple)', async () => {
+		const { getAllByRole, detectChanges } = await render(BrnToggleGroupNonNullableSpec, {
+			inputs: {
+				type: 'multiple',
+			},
+		});
+		const buttons = getAllByRole('button');
+
+		await fireEvent.click(buttons[0]);
+		detectChanges();
+		expect(buttons[0]).toHaveAttribute('data-state', 'on');
+
+		await fireEvent.click(buttons[0]);
+		detectChanges();
+		expect(buttons[0]).toHaveAttribute('data-state', 'on');
+		expect(buttons[1]).toHaveAttribute('data-state', 'off');
+		expect(buttons[2]).toHaveAttribute('data-state', 'off');
 	});
 });

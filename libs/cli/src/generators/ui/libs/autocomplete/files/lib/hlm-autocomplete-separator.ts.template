@@ -5,12 +5,10 @@ import { classes } from '<%- importAlias %>/utils';
 @Directive({
 	selector: '[hlmAutocompleteSeparator]',
 	hostDirectives: [{ directive: BrnAutocompleteSeparator, inputs: ['orientation'] }],
-	host: {
-		'data-slot': 'autocomplete-separator',
-	},
+	host: { 'data-slot': 'autocomplete-separator' },
 })
 export class HlmAutocompleteSeparator {
 	constructor() {
-		classes(() => 'bg-border -mx-1 my-1 h-px');
+		classes(() => 'spartan-autocomplete-separator');
 	}
 }

@@ -5,9 +5,10 @@ import { classes } from '<%- importAlias %>/utils';
 @Directive({
 	selector: 'hlm-progress,[hlmProgress]',
 	hostDirectives: [{ directive: BrnProgress, inputs: ['value', 'max', 'getValueLabel'] }],
+	host: { 'data-slot': 'progress' },
 })
 export class HlmProgress {
 	constructor() {
-		classes(() => 'bg-primary/20 relative inline-flex h-2 w-full overflow-hidden rounded-full');
+		classes(() => 'spartan-progress relative inline-flex w-full overflow-hidden');
 	}
 }

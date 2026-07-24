@@ -1,4 +1,8 @@
 User-agent: *
 Allow: /
 
-sitemap: https://spartan.ng/sitemap.xml
+# iframe-only preview routes - not meant to be indexed or surfaced in search
+Disallow: /sidebar-preview
+Disallow: /blocks-preview
+
+sitemap: https://www.spartan.ng/sitemap.xml

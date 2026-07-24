@@ -1,8 +1,12 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
+import { injectComponentDocs } from '@spartan-ng/app/app/core/services/component-docs';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { Code } from '@spartan-ng/app/app/shared/code/code';
 import { CodePreview } from '@spartan-ng/app/app/shared/code/code-preview';
+import { CodeRtlPreview } from '@spartan-ng/app/app/shared/code/code-rtl-preview';
+import { RtlHeader } from '@spartan-ng/app/app/shared/code/rtl-header';
+import { InstallTabs } from '@spartan-ng/app/app/shared/layout/install-tabs';
 import { MainSection } from '@spartan-ng/app/app/shared/layout/main-section';
 import { PageBottomNav } from '@spartan-ng/app/app/shared/layout/page-bottom-nav/page-bottom-nav';
 import { PageBottomNavLink } from '@spartan-ng/app/app/shared/layout/page-bottom-nav/page-bottom-nav-link';
@@ -11,17 +15,17 @@ import { SectionIntro } from '@spartan-ng/app/app/shared/layout/section-intro';
 import { SectionSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-heading';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { Tabs } from '@spartan-ng/app/app/shared/layout/tabs';
-import { TabsCli } from '@spartan-ng/app/app/shared/layout/tabs-cli';
 import { UIApiDocs } from '@spartan-ng/app/app/shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
 import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
+import { ToggleGroupCustomPreview } from './toggle-group--custom.preview';
 import { ToggleGroupDisabledPreview } from './toggle-group--disabled.preview';
 import { ToggleGroupSpacingForm } from './toggle-group--form.preview';
-import { ToggleGroupLargePreview } from './toggle-group--large.preview';
 import { ToggleGroupOutlinePreview } from './toggle-group--outline.preview';
-import { ToggleGroupSinglePreview } from './toggle-group--single.preview';
-import { ToggleGroupSmallPreview } from './toggle-group--small.preview';
+import { ToggleGroupRtlPreview } from './toggle-group--rtl.preview';
+import { ToggleGroupSizePreview } from './toggle-group--size.preview';
 import { ToggleGroupSpacingPreview } from './toggle-group--spacing.preview';
+import { ToggleGroupVerticalPreview } from './toggle-group--vertical.preview';
 import { ToggleGroupPreview, defaultImports, defaultSkeleton } from './toggle-group.preview';
 
 export const routeMeta: RouteMeta = {
@@ -39,6 +43,7 @@ export const routeMeta: RouteMeta = {
 		Code,
 		CodePreview,
 		MainSection,
+		InstallTabs,
 		SectionIntro,
 		SectionSubHeading,
 		SectionSubSubHeading,
@@ -46,20 +51,23 @@ export const routeMeta: RouteMeta = {
 		PageBottomNav,
 		PageBottomNavLink,
 		Tabs,
-		TabsCli,
+		RtlHeader,
+		CodeRtlPreview,
+		UIApiDocs,
+
 		ToggleGroupPreview,
 		ToggleGroupOutlinePreview,
-		ToggleGroupSmallPreview,
-		ToggleGroupLargePreview,
+		ToggleGroupSizePreview,
 		ToggleGroupDisabledPreview,
-		ToggleGroupSinglePreview,
 		ToggleGroupSpacingPreview,
 		ToggleGroupSpacingForm,
-		UIApiDocs,
+		ToggleGroupRtlPreview,
+		ToggleGroupVerticalPreview,
+		ToggleGroupCustomPreview,
 	],
 	template: `
 		<section spartanMainSection>
-			<spartan-section-intro name="Toggle Group" lead="A group of toggle buttons." />
+			<spartan-section-intro name="Toggle Group" lead="A group of toggle buttons." showThemeToggle />
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
@@ -68,11 +76,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
-			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
-			<spartan-cli-tabs
-				nxCode="npx nx g @spartan-ng/cli:ui toggle-group"
-				ngCode="ng g @spartan-ng/cli:ui toggle-group"
-			/>
+			<spartan-install-tabs primitive="toggle-group" />
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="mt-6 space-y-4">
@@ -82,6 +86,11 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
 			<h3 id="examples__outline" spartanH4>Outline</h3>
+			<p class="${hlmP}">
+				Use
+				<code class="${hlmCode}">variant="outline"</code>
+				for an outline style.
+			</p>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-toggle-group-outline />
@@ -89,36 +98,18 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_outlineCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__single" spartanH4>Single</h3>
-			<spartan-tabs firstTab="Preview" secondTab="Code">
-				<div spartanCodePreview firstTab>
-					<spartan-toggle-group-single />
-				</div>
-				<spartan-code secondTab [code]="_singleCode()" />
-			</spartan-tabs>
+			<h3 id="examples__size" spartanH4>Size</h3>
 
-			<h3 id="examples__small" spartanH4>Small</h3>
+			<p class="${hlmP}">
+				Use the
+				<code class="${hlmCode}">size</code>
+				prop to change the size of the toggle group.
+			</p>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
-					<spartan-toggle-group-small />
+					<spartan-toggle-group-size />
 				</div>
-				<spartan-code secondTab [code]="_smallCode()" />
-			</spartan-tabs>
-
-			<h3 id="examples__large" spartanH4>Large</h3>
-			<spartan-tabs firstTab="Preview" secondTab="Code">
-				<div spartanCodePreview firstTab>
-					<spartan-toggle-group-large />
-				</div>
-				<spartan-code secondTab [code]="_largeCode()" />
-			</spartan-tabs>
-
-			<h3 id="examples__disabled" spartanH4>Disabled</h3>
-			<spartan-tabs firstTab="Preview" secondTab="Code">
-				<div spartanCodePreview firstTab>
-					<spartan-toggle-group-disabled />
-				</div>
-				<spartan-code secondTab [code]="_disabledCode()" />
+				<spartan-code secondTab [code]="_sizeCode()" />
 			</spartan-tabs>
 
 			<h3 id="examples__spacing" spartanH4>Spacing</h3>
@@ -136,12 +127,50 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_spacingCode()" />
 			</spartan-tabs>
 
+			<h3 id="examples__vertical" spartanH4>Vertical</h3>
+
+			<p class="${hlmP}">
+				Use
+				<code class="${hlmCode}">orientation="vertical"</code>
+				for vertical toggle groups.
+			</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-toggle-group-vertical />
+				</div>
+				<spartan-code secondTab [code]="_verticalCode()" />
+			</spartan-tabs>
+
+			<h3 id="examples__disabled" spartanH4>Disabled</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-toggle-group-disabled />
+				</div>
+				<spartan-code secondTab [code]="_disabledCode()" />
+			</spartan-tabs>
+
+			<h3 id="examples__custom" spartanH4>Custom</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-toggle-group-custom />
+				</div>
+				<spartan-code secondTab [code]="_customCode()" />
+			</spartan-tabs>
+
 			<h3 id="examples__form" spartanH4>Form</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-toggle-group-form />
 				</div>
 				<spartan-code secondTab [code]="_formCode()" />
+			</spartan-tabs>
+
+			<spartan-header-rtl />
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanRtlCodePreview firstTab>
+					<spartan-toggle-group-rtl />
+				</div>
+				<spartan-code secondTab [code]="_rtlCode()" />
 			</spartan-tabs>
 
 			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
@@ -160,15 +189,21 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class ToggleGroupPage {
+	constructor() {
+		injectComponentDocs();
+	}
+
 	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('toggle-group');
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
 	protected readonly _outlineCode = computed(() => this._snippets()['outline']);
-	protected readonly _smallCode = computed(() => this._snippets()['small']);
+	protected readonly _sizeCode = computed(() => this._snippets()['size']);
 	protected readonly _singleCode = computed(() => this._snippets()['single']);
-	protected readonly _largeCode = computed(() => this._snippets()['large']);
+	protected readonly _verticalCode = computed(() => this._snippets()['vertical']);
 	protected readonly _disabledCode = computed(() => this._snippets()['disabled']);
 	protected readonly _spacingCode = computed(() => this._snippets()['spacing']);
+	protected readonly _customCode = computed(() => this._snippets()['custom']);
 	protected readonly _formCode = computed(() => this._snippets()['form']);
+	protected readonly _rtlCode = computed(() => this._snippets()['rtl']);
 	protected readonly _defaultImports = defaultImports;
 	protected readonly _defaultSkeleton = defaultSkeleton;
 }

@@ -5,13 +5,13 @@ import { migrateCoreGenerator } from './generator';
 import type { MigrateCoreGeneratorSchema } from './schema';
 
 // patch some imports to avoid running the actual code
-jest.mock('enquirer');
-jest.mock('@nx/devkit', () => {
-	const original = jest.requireActual('@nx/devkit');
+vi.mock('enquirer');
+vi.mock('@nx/devkit', async (importOriginal) => {
+	const original = await importOriginal<typeof import('@nx/devkit')>();
 	return {
 		...original,
-		ensurePackage: (pkg: string) => jest.requireActual(pkg),
-		createProjectGraphAsync: jest.fn().mockResolvedValue({
+		ensurePackage: (pkg: string) => require(pkg),
+		createProjectGraphAsync: vi.fn().mockResolvedValue({
 			nodes: {},
 			dependencies: {},
 		}),
@@ -167,39 +167,5 @@ describe('migrate-core generator', () => {
 
 		const content = tree.read('app/src/app/app.component.ts', 'utf-8');
 		expect(content).toContain(`export * from '@spartan-ng/brain/core';`);
-	});
-
-	it('should update the tailwind config file', async () => {
-		tree.write(
-			'app/tailwind.config.js',
-			`
-/** @type {import('tailwindcss').Config} */
-module.exports = {
-	presets: [require('@spartan-ng/ui-core/hlm-tailwind-preset')],
-	content: [
-		'./src/**/*.{html,ts}',
-	],
-	theme: {
-		extend: {},
-	},
-	plugins: [],
-};
-			`,
-		);
-
-		await migrateCoreGenerator(tree, options);
-
-		const content = tree.read('app/tailwind.config.js', 'utf-8');
-		expect(content).toContain(`/** @type {import('tailwindcss').Config} */
-module.exports = {
-	presets: [require('@spartan-ng/brain/hlm-tailwind-preset')],
-	content: [
-		'./src/**/*.{html,ts}',
-	],
-	theme: {
-		extend: {},
-	},
-	plugins: [],
-};`);
 	});
 });

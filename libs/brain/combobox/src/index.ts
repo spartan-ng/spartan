@@ -8,16 +8,17 @@ import { BrnComboboxContent } from './lib/brn-combobox-content';
 import { BrnComboboxEmpty } from './lib/brn-combobox-empty';
 import { BrnComboboxGroup } from './lib/brn-combobox-group';
 import { BrnComboboxInput } from './lib/brn-combobox-input';
-import { BrnComboboxInputWrapper } from './lib/brn-combobox-input-wrapper';
 import { BrnComboboxItem } from './lib/brn-combobox-item';
 import { BrnComboboxLabel } from './lib/brn-combobox-label';
 import { BrnComboboxList } from './lib/brn-combobox-list';
 import { BrnComboboxMultiple } from './lib/brn-combobox-multiple';
+import { BrnComboboxPlaceholder } from './lib/brn-combobox-placeholder';
 import { BrnComboboxPopoverTrigger } from './lib/brn-combobox-popover-trigger';
 import { BrnComboboxSeparator } from './lib/brn-combobox-separator';
 import { BrnComboboxStatus } from './lib/brn-combobox-status';
 import { BrnComboboxTrigger } from './lib/brn-combobox-trigger';
 import { BrnComboboxValue } from './lib/brn-combobox-value';
+import { BrnComboboxValueTemplate } from './lib/brn-combobox-value-template';
 import { BrnComboboxValues } from './lib/brn-combobox-values';
 
 export * from './lib/brn-combobox';
@@ -31,17 +32,18 @@ export * from './lib/brn-combobox-empty';
 export * from './lib/brn-combobox-filter';
 export * from './lib/brn-combobox-group';
 export * from './lib/brn-combobox-input';
-export * from './lib/brn-combobox-input-wrapper';
 export * from './lib/brn-combobox-item';
 export * from './lib/brn-combobox-item.token';
 export * from './lib/brn-combobox-label';
 export * from './lib/brn-combobox-list';
 export * from './lib/brn-combobox-multiple';
+export * from './lib/brn-combobox-placeholder';
 export * from './lib/brn-combobox-popover-trigger';
 export * from './lib/brn-combobox-separator';
 export * from './lib/brn-combobox-status';
 export * from './lib/brn-combobox-trigger';
 export * from './lib/brn-combobox-value';
+export * from './lib/brn-combobox-value-template';
 export * from './lib/brn-combobox-values';
 export * from './lib/brn-combobox.token';
 
@@ -55,16 +57,17 @@ export const BrnComboboxImports = [
 	BrnComboboxContent,
 	BrnComboboxEmpty,
 	BrnComboboxGroup,
-	BrnComboboxInputWrapper,
 	BrnComboboxInput,
 	BrnComboboxItem,
 	BrnComboboxLabel,
 	BrnComboboxList,
 	BrnComboboxMultiple,
+	BrnComboboxPlaceholder,
 	BrnComboboxPopoverTrigger,
 	BrnComboboxSeparator,
 	BrnComboboxStatus,
 	BrnComboboxTrigger,
 	BrnComboboxValue,
+	BrnComboboxValueTemplate,
 	BrnComboboxValues,
 ] as const;

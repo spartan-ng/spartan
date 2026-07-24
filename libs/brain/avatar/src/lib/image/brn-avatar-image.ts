@@ -2,7 +2,7 @@ import { Directive, computed, signal } from '@angular/core';
 
 @Directive({
 	selector: 'img[brnAvatarImage]',
-	exportAs: 'avatarImage',
+	exportAs: 'brnAvatarImage',
 	host: {
 		'(load)': '_onLoad()',
 		'(error)': '_onError()',

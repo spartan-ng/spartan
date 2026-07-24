@@ -1,17 +1,18 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { HlmItemImports } from '@spartan-ng/helm/item';
 
 @Component({
 	selector: 'spartan-item-image-preview',
 	imports: [HlmItemImports],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		class: 'flex w-full max-w-md flex-col gap-6',
 	},
 	template: `
-		<div hlmItemGroup class="gap-4">
+		<hlm-item-group>
 			@for (song of _songs; track song.title) {
 				<a hlmItem variant="outline" role="listitem" href="#">
-					<div hlmItemMedia variant="image">
+					<hlm-item-media variant="image">
 						<img
 							[src]="'https://avatar.vercel.sh/' + song.title"
 							[alt]="song.title"
@@ -19,22 +20,22 @@ import { HlmItemImports } from '@spartan-ng/helm/item';
 							height="32"
 							class="object-cover grayscale"
 						/>
-					</div>
+					</hlm-item-media>
 
-					<div hlmItemContent>
-						<div hlmItemTitle class="line-clamp-1">
+					<hlm-item-content>
+						<hlm-item-title class="line-clamp-1">
 							{{ song.title }} -
 							<span class="text-muted-foreground">{{ song.album }}</span>
-						</div>
+						</hlm-item-title>
 						<p hlmItemDescription>{{ song.artist }}</p>
-					</div>
+					</hlm-item-content>
 
-					<div hlmItemContent class="flex-none text-center">
+					<hlm-item-content class="flex-none text-center">
 						<p hlmItemDescription>{{ song.duration }}</p>
-					</div>
+					</hlm-item-content>
 				</a>
 			}
-		</div>
+		</hlm-item-group>
 	`,
 })
 export class ItemImagePreview {

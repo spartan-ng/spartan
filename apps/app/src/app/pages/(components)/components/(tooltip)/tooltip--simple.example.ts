@@ -1,14 +1,12 @@
 import { Component } from '@angular/core';
-import { HlmButton } from '@spartan-ng/helm/button';
-import { HlmTooltipTrigger } from '@spartan-ng/helm/tooltip';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
+import { HlmTooltipImports } from '@spartan-ng/helm/tooltip';
 
 @Component({
 	selector: 'spartan-tooltip-simple',
-	imports: [HlmTooltipTrigger, HlmButton],
+	imports: [HlmButtonImports, HlmTooltipImports],
 	template: `
-		<button [hlmTooltipTrigger]="'Simple tooltip'" aria-describedby="Simple tooltip" hlmBtn variant="outline">
-			Simple
-		</button>
+		<button [hlmTooltip]="'Simple tooltip'" hlmBtn variant="outline">Simple</button>
 	`,
 })
 export class TooltipSimple {}

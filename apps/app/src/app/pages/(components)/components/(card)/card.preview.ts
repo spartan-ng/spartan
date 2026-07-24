@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import { provideIcons } from '@ng-icons/core';
-import { lucideCheck, lucideChevronDown } from '@ng-icons/lucide';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmCardImports } from '@spartan-ng/helm/card';
 import { HlmInputImports } from '@spartan-ng/helm/input';
@@ -9,23 +7,20 @@ import { HlmLabelImports } from '@spartan-ng/helm/label';
 @Component({
 	selector: 'spartan-card-preview',
 	imports: [HlmCardImports, HlmLabelImports, HlmInputImports, HlmButtonImports],
-	providers: [provideIcons({ lucideCheck, lucideChevronDown })],
-	host: {
-		class: 'contents',
-	},
+	host: { class: 'w-full max-w-md' },
 	template: `
-		<section class="w-full max-w-sm" hlmCard>
-			<div hlmCardHeader>
+		<hlm-card class="w-full max-w-sm">
+			<hlm-card-header>
 				<h3 hlmCardTitle>Login to your account</h3>
 				<p hlmCardDescription>Enter your email below to login to your account</p>
 
 				<div hlmCardAction>
 					<button hlmBtn variant="link">Sign Up</button>
 				</div>
-			</div>
+			</hlm-card-header>
 
 			<div hlmCardContent>
-				<form>
+				<form id="login-form">
 					<div class="flex flex-col gap-6">
 						<div class="grid gap-2">
 							<label hlmLabel for="email">Email</label>
@@ -45,11 +40,11 @@ import { HlmLabelImports } from '@spartan-ng/helm/label';
 				</form>
 			</div>
 
-			<div hlmCardFooter class="flex-col gap-2">
-				<button hlmBtn type="submit" class="w-full">Login</button>
+			<hlm-card-footer class="flex-col gap-2">
+				<button hlmBtn type="submit" class="w-full" form="login-form">Login</button>
 				<button hlmBtn variant="outline" class="w-full">Login with Google</button>
-			</div>
-		</section>
+			</hlm-card-footer>
+		</hlm-card>
 	`,
 })
 export class CardPreview {}
@@ -59,13 +54,13 @@ import { HlmCardImports } from '@spartan-ng/helm/card';
 `;
 
 export const defaultSkeleton = `
-<section hlmCard>
-  <div hlmCardHeader>
+<hlm-card>
+  <hlm-card-header>
     <h3 hlmCardTitle>Card Title</h3>
     <p hlmCardDescription>Card Description</p>
-		<div hlmCardAction></div>
-  </div>
-  <p hlmCardContent>Card Content</p>
-  <p hlmCardFooter>Card Footer</p>
-</section>
+    <div hlmCardAction>Card Action</div>
+  </hlm-card-header>
+  <div hlmCardContent>Card Content</div>
+  <hlm-card-footer>Card Footer</hlm-card-footer>
+</hlm-card>
 `;

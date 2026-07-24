@@ -1,6 +1,10 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
+import { injectComponentDocs } from '@spartan-ng/app/app/core/services/component-docs';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
+import { CodeRtlPreview } from '@spartan-ng/app/app/shared/code/code-rtl-preview';
+import { RtlHeader } from '@spartan-ng/app/app/shared/code/rtl-header';
+import { InstallTabs } from '@spartan-ng/app/app/shared/layout/install-tabs';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
@@ -12,12 +16,12 @@ import { PageNav } from '../../../../shared/layout/page-nav/page-nav';
 import { SectionIntro } from '../../../../shared/layout/section-intro';
 import { SectionSubHeading } from '../../../../shared/layout/section-sub-heading';
 import { Tabs } from '../../../../shared/layout/tabs';
-import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { BreadcrumbCollapsed } from './breadcrumb--collapsed.example';
 import { BreadcrumbCustomSeparator } from './breadcrumb--custom-separator.example';
 import { BreadcrumbDropdown } from './breadcrumb--dropdown.example';
+import { BreadcrumbRtl } from './breadcrumb--rtl.example';
 import { BreadcrumbPreview, defaultImports, defaultSkeleton } from './breadcrumb.preview';
 
 export const routeMeta: RouteMeta = {
@@ -31,26 +35,31 @@ export const routeMeta: RouteMeta = {
 	imports: [
 		UIApiDocs,
 		MainSection,
+		InstallTabs,
 		Code,
 		SectionIntro,
 		SectionSubHeading,
 		Tabs,
 		CodePreview,
-		TabsCli,
+
 		PageNav,
 		PageBottomNav,
 		PageBottomNavLink,
+		RtlHeader,
+		CodeRtlPreview,
+		SectionSubSubHeading,
 		BreadcrumbPreview,
 		BreadcrumbCustomSeparator,
 		BreadcrumbDropdown,
 		BreadcrumbCollapsed,
-		SectionSubSubHeading,
+		BreadcrumbRtl,
 	],
 	template: `
 		<section spartanMainSection>
 			<spartan-section-intro
 				name="Breadcrumb"
 				lead="Displays the path to the current resource using a hierarchy of links."
+				showThemeToggle
 			/>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
@@ -59,8 +68,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
-			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
-			<spartan-cli-tabs nxCode="npx nx g @spartan-ng/cli:ui breadcrumb" ngCode="ng g @spartan-ng/cli:ui breadcrumb" />
+			<spartan-install-tabs primitive="breadcrumb" />
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="mt-6 space-y-4">
@@ -116,6 +124,14 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_collapsedCode()" />
 			</spartan-tabs>
 
+			<spartan-header-rtl />
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanRtlCodePreview firstTab>
+					<spartan-breadcrumb-rtl />
+				</div>
+				<spartan-code secondTab [code]="_rtlCode()" />
+			</spartan-tabs>
+
 			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="helm" />
 
@@ -128,6 +144,10 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class BreadcrumbPage {
+	constructor() {
+		injectComponentDocs();
+	}
+
 	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('breadcrumb');
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
 	protected readonly _defaultImports = defaultImports;
@@ -136,4 +156,5 @@ export default class BreadcrumbPage {
 	protected readonly _customSeparatorCode = computed(() => this._snippets()['customSeparator']);
 	protected readonly _dropdownCode = computed(() => this._snippets()['dropdown']);
 	protected readonly _collapsedCode = computed(() => this._snippets()['collapsed']);
+	protected readonly _rtlCode = computed(() => this._snippets()['rtl']);
 }

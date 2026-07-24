@@ -1,12 +1,13 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { HlmItemImports } from '@spartan-ng/helm/item';
 import { HlmSpinnerImports } from '@spartan-ng/helm/spinner';
 
 @Component({
 	selector: 'spartan-spinner-preview',
 	imports: [HlmSpinnerImports, HlmItemImports],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<div className="flex w-full max-w-xs flex-col gap-4 [--radius:1rem]">
+		<div class="flex w-full max-w-xs flex-col gap-4 [--radius:1rem]">
 			<div hlmItem variant="muted">
 				<hlm-item-media>
 					<hlm-spinner />

@@ -1,31 +1,67 @@
-import { Component, inject } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { email, form, FormField, FormRoot, required } from '@angular/forms/signals';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
-import { HlmFormFieldImports } from '@spartan-ng/helm/form-field';
+import { HlmFieldImports } from '@spartan-ng/helm/field';
 import { HlmInputImports } from '@spartan-ng/helm/input';
-import { HlmLabelImports } from '@spartan-ng/helm/label';
 
 @Component({
 	selector: 'spartan-input-form',
-	imports: [HlmInputImports, HlmLabelImports, HlmButtonImports, HlmFormFieldImports, ReactiveFormsModule],
+	imports: [HlmInputImports, HlmButtonImports, HlmFieldImports, FormRoot, FormField],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: { class: 'min-w-xs sm:min-w-sm' },
 	template: `
-		<form class="space-y-6" [formGroup]="form" (ngSubmit)="submit()">
-			<div class="grid w-full max-w-sm items-center gap-2">
-				<label hlmLabel for="username">Username</label>
-				<input hlmInput type="text" id="username" placeholder="spartan" formControlName="username" />
-				<hlm-hint>This is your public display name.</hlm-hint>
-			</div>
-			<button hlmBtn type="submit">Submit</button>
+		<form [formRoot]="form">
+			<hlm-field-group>
+				<hlm-field>
+					<label hlmFieldLabel for="form-name">Name</label>
+					<input hlmInput type="text" id="form-name" placeholder="Leonidas" [formField]="form.name" />
+				</hlm-field>
+				<hlm-field>
+					<label hlmFieldLabel for="form-email">Email</label>
+					<input hlmInput type="email" id="form-email" placeholder="leonidas@example.com" [formField]="form.email" />
+					<hlm-field-description>We'll never share your email with anyone.</hlm-field-description>
+				</hlm-field>
+				<hlm-field>
+					<label hlmFieldLabel for="form-address">Address</label>
+					<input hlmInput type="text" id="form-address" placeholder="123 Main St" [formField]="form.address" />
+				</hlm-field>
+				<hlm-field orientation="horizontal">
+					<button hlmBtn variant="outline" type="button" (click)="reset()">Cancel</button>
+					<button hlmBtn type="submit">Submit</button>
+				</hlm-field>
+			</hlm-field-group>
 		</form>
 	`,
 })
 export class InputFormPreview {
-	private readonly _formBuilder = inject(FormBuilder);
-	public form = this._formBuilder.group({
-		username: [null, Validators.required],
+	protected readonly _model = signal({
+		name: '',
+		email: '',
+		address: '',
 	});
 
-	submit() {
-		console.log(this.form.value);
+	public readonly form = form(
+		this._model,
+		(schemaPath) => {
+			required(schemaPath.name, { message: 'Name is required' });
+			required(schemaPath.email, { message: 'Email is required' });
+			email(schemaPath.email, { message: 'Enter a valid email address' });
+		},
+		{
+			submission: {
+				action: async () => {
+					const model = this._model();
+					console.log(model);
+				},
+			},
+		},
+	);
+
+	public reset() {
+		this.form().reset({
+			name: '',
+			email: '',
+			address: '',
+		});
 	}
 }

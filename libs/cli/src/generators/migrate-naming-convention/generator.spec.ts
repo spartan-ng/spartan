@@ -4,13 +4,13 @@ import { createTreeWithEmptyWorkspace } from '@nx/devkit/testing';
 import { migrateNamingConventionGenerator } from './generator';
 
 // patch some imports to avoid running the actual code
-jest.mock('enquirer');
-jest.mock('@nx/devkit', () => {
-	const original = jest.requireActual('@nx/devkit');
+vi.mock('enquirer');
+vi.mock('@nx/devkit', async (importOriginal) => {
+	const original = await importOriginal<typeof import('@nx/devkit')>();
 	return {
 		...original,
-		ensurePackage: (pkg: string) => jest.requireActual(pkg),
-		createProjectGraphAsync: jest.fn().mockResolvedValue({
+		ensurePackage: (pkg: string) => require(pkg),
+		createProjectGraphAsync: vi.fn().mockResolvedValue({
 			nodes: {},
 			dependencies: {},
 		}),
@@ -161,7 +161,7 @@ type Framework = { label: string; value: string };
 				hlmBtn
 			>
 				{{ currentFramework() ? currentFramework()?.label : 'Select framework...' }}
-				<ng-icon hlm size="sm" name="lucideChevronsUpDown" class="opacity-50" />
+				<ng-icon name="lucideChevronsUpDown" class="opacity-50" />
 			</button>
 			<hlm-command *brnPopoverContent="let ctx" hlmPopoverContent class="w-[200px] p-0">
 				<hlm-command-search>

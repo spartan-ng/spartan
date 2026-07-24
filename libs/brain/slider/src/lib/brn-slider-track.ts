@@ -1,36 +1,176 @@
-import { Directive, ElementRef, HostListener, inject } from '@angular/core';
+import { Directive, ElementRef, inject } from '@angular/core';
 import { provideBrnSliderTrack } from './brn-slider-track.token';
 import { injectBrnSlider } from './brn-slider.token';
+import { linearScale } from './utils/linear-scale';
 
 @Directive({
 	selector: '[brnSliderTrack]',
 	providers: [provideBrnSliderTrack(BrnSliderTrack)],
 	host: {
-		'[attr.data-disabled]': '_slider.mutableDisabled()',
+		'[attr.data-disabled]': '_slider.mutableDisabled() ? "" : null',
+		'[attr.data-orientation]': '_slider.orientation()',
+		'data-slot': 'slider-track',
+		'(pointerdown)': 'onPointerDown($event)',
+		'(pointermove)': 'onPointerMove($event)',
+		'(pointerup)': 'onPointerUp($event)',
 	},
 })
 export class BrnSliderTrack {
-	/** Access the slider */
+	private readonly _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
 	protected readonly _slider = injectBrnSlider();
 
-	/** @internal Access the slider track */
-	public readonly elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+	private _rangeDragStartPointer: number | null = null;
+	private _rangeDragAccumulatedDelta = 0;
 
 	constructor() {
 		this._slider.track.set(this);
 	}
 
-	@HostListener('mousedown', ['$event'])
-	protected moveThumbToPoint(event: MouseEvent): void {
-		if (this._slider.mutableDisabled()) {
+	public onPointerDown(event: PointerEvent): void {
+		if (this._slider.mutableDisabled()) return;
+
+		const target = event.target as HTMLElement;
+		const isTrack = this._isTrack(target);
+
+		// Draggable range only: ignore empty track clicks
+		if (isTrack && this._slider.isDraggableRangeOnly()) return;
+
+		target.setPointerCapture(event.pointerId);
+		const isRange = this._isRange(target);
+
+		// Prevent browser focus behaviour because we instead focus a thumb manually when values change.
+		if (isTrack || isRange) event.preventDefault();
+
+		if ((isRange && this._slider.isDraggableRange()) || this._slider.isDraggableRangeOnly()) {
+			this._rangeDragStartPointer = this._getPointerPosition(event);
 			return;
 		}
 
-		const position = event.clientX;
-		const rect = this.elementRef.nativeElement.getBoundingClientRect();
-		const percentage = (position - rect.left) / rect.width;
+		const pointerPosition = this._getPointerPosition(event);
+		const value = this._getValueFromPointer(pointerPosition);
+		const closestIndex = getClosestValueIndex(this._slider.normalizedValue(), value);
 
-		// update the value based on the position
-		this._slider.setValue(this._slider.min() + (this._slider.max() - this._slider.min()) * percentage);
+		if (isTrack || isRange) {
+			this._slider.setValue(value, closestIndex);
+		} else {
+			this._slider.valueIndexToChange.set(closestIndex);
+		}
 	}
+
+	public onPointerMove(event: PointerEvent): void {
+		if (this._slider.mutableDisabled()) return;
+
+		const target = event.target as HTMLElement;
+		if (!target.hasPointerCapture(event.pointerId)) return;
+
+		if (this._rangeDragStartPointer !== null && this._slider.isDraggableRange()) {
+			const currentPointer = this._getPointerPosition(event);
+			const pixelDelta = currentPointer - this._rangeDragStartPointer;
+			const valueDelta = this._pixelDeltaToValueDelta(pixelDelta);
+
+			// Accumulate sub-step deltas
+			this._rangeDragAccumulatedDelta += valueDelta;
+
+			const step = this._slider.step();
+			const snappedDelta = Math.trunc(this._rangeDragAccumulatedDelta / step) * step;
+
+			if (snappedDelta !== 0) {
+				this._slider.setAllValuesByDelta(snappedDelta);
+
+				// Remove the applied delta, keep remainder
+				this._rangeDragAccumulatedDelta -= snappedDelta;
+			}
+
+			// Reset start pointer so delta stays incremental
+			this._rangeDragStartPointer = currentPointer;
+			return;
+		}
+
+		const pointerPosition = this._getPointerPosition(event);
+		const value = this._getValueFromPointer(pointerPosition);
+		this._slider.setValue(value, this._slider.valueIndexToChange());
+	}
+
+	public onPointerUp(event: PointerEvent): void {
+		const target = event.target as HTMLElement;
+
+		if (target.hasPointerCapture(event.pointerId)) {
+			target.releasePointerCapture(event.pointerId);
+		}
+
+		this._rangeDragStartPointer = null;
+		this._rangeDragAccumulatedDelta = 0;
+	}
+
+	private _getValueFromPointer(pointerPosition: number): number {
+		const rect = this._elementRef.nativeElement.getBoundingClientRect();
+		const source = this._slider.slidingSource();
+
+		const isVertical = source === 'top' || source === 'bottom';
+		const size = isVertical ? rect.height : rect.width;
+
+		const input: [number, number] = [0, size];
+		const output: [number, number] = [this._slider.min(), this._slider.max()];
+		const value = linearScale(input, output);
+
+		let relativePosition: number;
+
+		switch (source) {
+			case 'left':
+				relativePosition = pointerPosition - rect.left;
+				break;
+			case 'right':
+				relativePosition = rect.right - pointerPosition;
+				break;
+			case 'top':
+				relativePosition = pointerPosition - rect.top;
+				break;
+			case 'bottom':
+				relativePosition = rect.bottom - pointerPosition;
+				break;
+		}
+
+		return value(relativePosition);
+	}
+
+	private _pixelDeltaToValueDelta(pixelDelta: number): number {
+		const rect = this._elementRef.nativeElement.getBoundingClientRect();
+		const size = this._slider.isHorizontal() ? rect.width : rect.height;
+
+		const scale = linearScale([0, size], [this._slider.min(), this._slider.max()]);
+
+		// Determine direction multiplier based on sliding source
+		let direction = 1;
+		switch (this._slider.slidingSource()) {
+			case 'right':
+			case 'bottom':
+				direction = -1;
+				break;
+			case 'left':
+			case 'top':
+				direction = 1;
+				break;
+		}
+
+		return scale(pixelDelta * direction) - scale(0);
+	}
+
+	private _isTrack(el: HTMLElement): boolean {
+		return this._elementRef.nativeElement === el;
+	}
+
+	private _isRange(el: HTMLElement): boolean {
+		return this._slider.range()?.elementRef.nativeElement === el;
+	}
+
+	private _getPointerPosition(event: PointerEvent): number {
+		return this._slider.orientation() === 'horizontal' ? event.clientX : event.clientY;
+	}
+}
+
+function getClosestValueIndex(values: number[], nextValue: number): number {
+	if (values.length === 1) return 0;
+	const distances = values.map((value) => Math.abs(value - nextValue));
+	const closestDistance = Math.min(...distances);
+	return distances.indexOf(closestDistance);
 }

@@ -3,13 +3,12 @@ import { FormsModule } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideGithub, lucideLoaderCircle } from '@ng-icons/lucide';
 import { HlmButton } from '@spartan-ng/helm/button';
-import { HlmIcon } from '@spartan-ng/helm/icon';
 import { HlmInput } from '@spartan-ng/helm/input';
 import { HlmLabel } from '@spartan-ng/helm/label';
 
 @Component({
 	selector: 'spartan-auth-example-form',
-	imports: [HlmButton, NgIcon, HlmIcon, HlmInput, FormsModule, HlmLabel],
+	imports: [HlmButton, NgIcon, HlmInput, FormsModule, HlmLabel],
 	providers: [provideIcons({ lucideGithub, lucideLoaderCircle })],
 	host: {
 		class: 'block',
@@ -34,7 +33,7 @@ import { HlmLabel } from '@spartan-ng/helm/label';
 					/>
 					<button hlmBtn [disabled]="isLoading()" class="mt-2 w-full" type="submit">
 						@if (isLoading()) {
-							<ng-icon hlm name="lucideLoaderCircle" size="sm" class="mr-2 animate-spin" />
+							<ng-icon name="lucideLoaderCircle" class="mr-2 animate-spin" />
 						}
 						Sign In with Email
 					</button>
@@ -47,9 +46,9 @@ import { HlmLabel } from '@spartan-ng/helm/label';
 				</div>
 				<button hlmBtn variant="outline" [disabled]="isLoading()">
 					@if (isLoading()) {
-						<ng-icon hlm name="lucideLoaderCircle" size="sm" class="mr-2 animate-spin" />
+						<ng-icon name="lucideLoaderCircle" class="mr-2 animate-spin" />
 					} @else {
-						<ng-icon hlm class="mr-2" size="sm" name="lucideGithub" />
+						<ng-icon class="mr-2" name="lucideGithub" />
 					}
 					GitHub
 				</button>

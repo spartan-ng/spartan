@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { HlmBreadCrumbImports } from '@spartan-ng/helm/breadcrumb';
+import { HlmBreadcrumbImports } from '@spartan-ng/helm/breadcrumb';
 import { HlmSeparatorImports } from '@spartan-ng/helm/separator';
 import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 
 @Component({
 	selector: 'spartan-site-header-inset',
-	imports: [HlmSidebarImports, HlmSeparatorImports, HlmBreadCrumbImports],
+	imports: [HlmSidebarImports, HlmSeparatorImports, HlmBreadcrumbImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<header class="flex h-16 shrink-0 items-center gap-2">

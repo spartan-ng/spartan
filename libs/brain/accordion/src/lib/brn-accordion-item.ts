@@ -1,5 +1,5 @@
-import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
-import { computed, Directive, effect, input, output, untracked } from '@angular/core';
+import type { BooleanInput } from '@angular/cdk/coercion';
+import { booleanAttribute, computed, Directive, effect, input, output, untracked } from '@angular/core';
 import { injectBrnAccordion, provideBrnAccordionItem } from './brn-accordion-token';
 
 @Directive({
@@ -18,7 +18,14 @@ export class BrnAccordionItem {
 	 * Whether the item is opened or closed.
 	 * @default false
 	 */
-	public readonly isOpened = input<boolean, BooleanInput>(false, { transform: coerceBooleanProperty });
+	public readonly isOpened = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
+
+	/**
+	 * Whether the item is disabled.
+	 * @default false
+	 */
+	public readonly disabled = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
+
 	/**
 	 * Computed state of the item, either 'open' or 'closed'
 	 * @default closed
@@ -37,22 +44,42 @@ export class BrnAccordionItem {
 		if (!this._accordion) {
 			throw Error('Accordion item can only be used inside an Accordion. Add brnAccordion to ancestor.');
 		}
-		effect(() => {
-			const state = this.state();
-			untracked(() => {
-				this.stateChange.emit(state);
-				this.openedChange.emit(state === 'open');
-			});
-		});
+
 		effect(() => {
 			const isOpened = this.isOpened();
 			untracked(() => {
 				if (isOpened) {
-					this._accordion.openItem(this.id);
+					this._triggerOpen(false);
 				} else {
-					this._accordion.closeItem(this.id);
+					this._triggerClose(false);
 				}
 			});
 		});
+	}
+
+	public open(): void {
+		this._triggerOpen(true);
+	}
+
+	public close(): void {
+		this._triggerClose(true);
+	}
+
+	private _triggerOpen(emitEvent: boolean): void {
+		if (this.disabled() || this.state() === 'open') return;
+		this._accordion.openItem(this.id);
+		if (emitEvent) {
+			this.stateChange.emit('open');
+			this.openedChange.emit(true);
+		}
+	}
+
+	private _triggerClose(emitEvent: boolean): void {
+		if (this.disabled() || this.state() !== 'open') return;
+		this._accordion.closeItem(this.id);
+		if (emitEvent) {
+			this.stateChange.emit('closed');
+			this.openedChange.emit(false);
+		}
 	}
 }

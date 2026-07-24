@@ -46,9 +46,7 @@ body:
         - dropdown-menu
         - empty
         - field
-        - form-field
         - hover-card
-        - icon
         - input
         - input-group
         - input-otp
@@ -56,6 +54,7 @@ body:
         - kbd
         - label
         - menubar
+        - native-select
         - navigation-menu
         - pagination
         - popover

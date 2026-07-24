@@ -1,12 +1,11 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideMinus } from '@ng-icons/lucide';
-import { HlmIcon } from '@spartan-ng/helm/icon';
 import { classes } from '@spartan-ng/helm/utils';
 
 @Component({
 	selector: 'hlm-input-otp-separator',
-	imports: [HlmIcon, NgIcon],
+	imports: [NgIcon],
 	providers: [provideIcons({ lucideMinus })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
@@ -14,11 +13,11 @@ import { classes } from '@spartan-ng/helm/utils';
 		'data-slot': 'input-otp-separator',
 	},
 	template: `
-		<ng-icon hlm name="lucideMinus" />
+		<ng-icon name="lucideMinus" />
 	`,
 })
 export class HlmInputOtpSeparator {
 	constructor() {
-		classes(() => 'inline-flex');
+		classes(() => 'spartan-input-otp-separator flex items-center');
 	}
 }

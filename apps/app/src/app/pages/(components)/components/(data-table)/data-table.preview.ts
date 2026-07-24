@@ -2,12 +2,10 @@ import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronDown } from '@ng-icons/lucide';
-import { BrnSelectImports } from '@spartan-ng/brain/select';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
-import { HlmIconImports } from '@spartan-ng/helm/icon';
+
 import { HlmInputImports } from '@spartan-ng/helm/input';
-import { HlmSelectImports } from '@spartan-ng/helm/select';
 import { HlmTableImports } from '@spartan-ng/helm/table';
 import { hlmMuted } from '@spartan-ng/helm/typography';
 import {
@@ -43,10 +41,8 @@ export type Payment = {
 		HlmDropdownMenuImports,
 		HlmButtonImports,
 		NgIcon,
-		HlmIconImports,
+
 		HlmInputImports,
-		BrnSelectImports,
-		HlmSelectImports,
 		HlmTableImports,
 	],
 	providers: [provideIcons({ lucideChevronDown })],
@@ -59,7 +55,7 @@ export type Payment = {
 
 			<button hlmBtn variant="outline" align="end" [hlmDropdownMenuTrigger]="menu">
 				Columns
-				<ng-icon hlm name="lucideChevronDown" class="ml-2" size="sm" />
+				<ng-icon name="lucideChevronDown" class="ml-2" />
 			</button>
 			<ng-template #menu>
 				<hlm-dropdown-menu class="w-32">
@@ -156,8 +152,8 @@ export class DataTablePreview {
 	protected readonly _columns: ColumnDef<Payment>[] = [
 		{
 			id: 'select',
-			header: () => flexRenderComponent(TableHeadSelection),
-			cell: () => flexRenderComponent(TableRowSelection),
+			header: () => flexRenderComponent(TableHeadSelection, { inputs: {} }),
+			cell: () => flexRenderComponent(TableRowSelection, { inputs: {} }),
 			enableSorting: false,
 			enableHiding: false,
 		},
@@ -192,7 +188,7 @@ export class DataTablePreview {
 		{
 			id: 'actions',
 			enableHiding: false,
-			cell: () => flexRenderComponent(ActionDropdown),
+			cell: () => flexRenderComponent(ActionDropdown, { inputs: {} }),
 		},
 	];
 

@@ -1,21 +1,57 @@
 import { formatFiles, logger, readJson, type Tree, updateJson } from '@nx/devkit';
 import { getRootTsConfigPathInTree } from '@nx/js';
-import { removeGenerator } from '@nx/workspace';
 import { prompt } from 'enquirer';
+import { existsSync } from 'node:fs';
 import { dirname, join } from 'path';
-import { getOrCreateConfig } from '../../utils/config';
+import { loadOrInitConfig } from '../../utils/config';
 import { readTsConfigPathsFromTree } from '../../utils/tsconfig';
 import { deleteFiles } from '../base/lib/deleteFiles';
 import type { SupportedLibraries } from '../base/lib/supported-libs';
 import { createPrimitiveLibraries } from '../ui/generator';
 import type { Primitive } from '../ui/primitives';
-import { categorizeLibraries, regenerateAllMetadata } from './detect-customizations';
+import {
+	categorizeLibraries,
+	getCurrentCliVersion,
+	getLibraryPathFromPrimitive,
+	regenerateAllMetadata,
+} from './detect-customizations';
 import type { MigrateHelmLibrariesGeneratorSchema } from './schema';
+
+type RemoveGenerator = (
+	tree: Tree,
+	schema: { projectName: string; forceRemove: boolean; skipFormat: boolean; importPath: string },
+) => Promise<unknown>;
+
+// `@nx/workspace`'s `removeGenerator` is reachable two ways, each broken on a different nx version:
+// importing the package entry eagerly evaluates `convert-to-nx-project`, whose `output.js` crashes
+// ("Cannot read properties of undefined (reading 'inverse')") due to a chalk/tslib interop issue
+// (see https://github.com/nrwl/nx/issues/35521), while the deep `@nx/workspace/src/...` specifier is
+// blocked by the package's `exports` map on nx 23+ (where the compiled file also moved to `dist/`).
+// Resolve the compiled generator by absolute path instead: that bypasses the `exports` gate and never
+// loads the crashing barrel. Lazy, so it only runs when a library actually has to be removed.
+function loadRemoveGenerator(): RemoveGenerator {
+	const workspaceRoot = dirname(require.resolve('@nx/workspace/package.json'));
+	const candidates = [
+		join(workspaceRoot, 'dist', 'src', 'generators', 'remove', 'remove.js'), // nx 23+
+		join(workspaceRoot, 'src', 'generators', 'remove', 'remove.js'), // nx <= 22
+	];
+	for (const candidate of candidates) {
+		if (existsSync(candidate)) {
+			// `require` (not `import()`) so an absolute filesystem path is loaded directly: it bypasses the
+			// package `exports` gate and, unlike dynamic import, accepts native Windows paths (C:\...) without
+			// a file:// URL. This generator already runs as CommonJS.
+			return (require(candidate) as { removeGenerator: RemoveGenerator }).removeGenerator;
+		}
+	}
+	throw new Error(
+		`Could not locate the @nx/workspace remove generator (looked in: ${candidates.join(', ')}). Please report this with your nx version.`,
+	);
+}
 
 export async function migrateHelmLibrariesGenerator(tree: Tree, options: MigrateHelmLibrariesGeneratorSchema) {
 	// Detect the libraries that are already installed
 
-	const config = await getOrCreateConfig(tree, { angularCli: options.angularCli });
+	const config = await loadOrInitConfig(tree, { angularCli: options.angularCli });
 
 	const existingLibraries = await detectLibraries(tree, config.importAlias);
 
@@ -28,145 +64,104 @@ export async function migrateHelmLibrariesGenerator(tree: Tree, options: Migrate
 		getLibraryPathFromPrimitive(tree, primitive, config.importAlias),
 	);
 
-	logger.info(`\n\r📋  Migration Overview:`);
-	logger.info(`   ✓ ${unchanged.length} unchanged libraries (can be safely migrated)`);
-	logger.info(`   ⚠ ${customized.length} customized libraries (contains modifications)\n`);
+	logger.info('\n📋 Migration overview:');
+	logger.info(`   ✓ ${unchanged.length} unchanged libraries (safe to migrate)`);
+	logger.info(`   ⚠ ${customized.length} customized libraries (contain modifications)`);
 
-	// Show information about customized libraries
 	if (customized.length > 0) {
-		logger.warn('⚠️  Customized libraries detected:\n');
+		logger.warn('\n⚠️  Customized libraries detected:');
 		for (const { primitive, details } of customized) {
 			logger.warn(`   📦 ${primitive}:`);
-			if (details.modifiedFiles.length > 0) {
-				logger.warn(`      - Modified: ${details.modifiedFiles.join(', ')}`);
-			}
-			if (details.addedFiles.length > 0) {
-				logger.log(`\x1b[1;32m      - Added: ${details.addedFiles.join(', ')}\x1b[0m`);
-			}
-			if (details.deletedFiles.length > 0) {
-				logger.error(`      - Deleted: ${details.deletedFiles.join(', ')}`);
+			if (details.modifiedFiles.length > 0) logger.warn(`      - Modified: ${details.modifiedFiles.join(', ')}`);
+			if (details.addedFiles.length > 0) logger.warn(`      - Added: ${details.addedFiles.join(', ')}`);
+			if (details.deletedFiles.length > 0) logger.warn(`      - Deleted: ${details.deletedFiles.join(', ')}`);
+			if (details.modifiedFiles.length + details.addedFiles.length + details.deletedFiles.length === 0) {
+				logger.warn('      - No baseline metadata exists; treating this library as customized');
 			}
 		}
-		logger.warn('');
 	}
 
-	const choices: Array<{ name: string; message: string }> = [];
+	type MigrationChoice = Primitive | 'all' | 'all-unchanged' | 'all-customized';
+	const choices: Array<{ name: MigrationChoice; message: string }> = [{ name: 'all', message: 'all' }];
 
-	// Add "all" as first option
-	choices.push({ name: 'all', message: 'all' });
-
-	// Add category options if there are both types
 	if (unchanged.length > 0 && customized.length > 0) {
-		choices.push({ name: 'all-unchanged', message: 'all-unchanged' });
-		choices.push({ name: 'all-customized', message: 'all-customized ⚠️' });
+		choices.push({ name: 'all-unchanged', message: 'all unchanged' });
+		choices.push({ name: 'all-customized', message: 'all customized ⚠️' });
 	}
+	choices.push(...unchanged.map((primitive) => ({ name: primitive, message: primitive })));
+	choices.push(...customized.map(({ primitive }) => ({ name: primitive, message: `${primitive} ⚠️` })));
 
-	if (unchanged.length > 0) {
-		for (const lib of unchanged) {
-			choices.push({ name: lib, message: lib });
-		}
-	}
-
-	if (customized.length > 0) {
-		for (const { primitive } of customized) {
-			choices.push({ name: primitive, message: `${primitive} ⚠️` });
-		}
-	}
-
-	if (choices.length === 0) {
-		logger.info('No libraries available to migrate.');
-		return;
-	}
-
-	const selectedLibraries = await prompt<{ libraries: (Primitive | 'all' | 'all-unchanged' | 'all-customized')[] }>({
+	const { libraries } = await prompt<{ libraries: MigrationChoice[] }>({
 		type: 'multiselect',
 		name: 'libraries',
-		message: 'The following libraries are installed. Select the ones you want to replace with the latest version:',
+		message: 'Select the libraries you want to replace with the latest version:',
 		choices,
 	});
 
-	const { libraries } = selectedLibraries;
-
 	if (libraries.length === 0) {
-		logger.info('No libraries selected for migration.');
+		logger.info('No libraries will be updated.');
 		return;
 	}
 
-	const librariesToMigrate: Primitive[] = [];
-
-	if (libraries.includes('all')) {
-		librariesToMigrate.push(...unchanged);
-		librariesToMigrate.push(...customized.map((c) => c.primitive));
-	} else {
-		if (libraries.includes('all-unchanged')) {
-			librariesToMigrate.push(...unchanged);
-		}
-
-		if (libraries.includes('all-customized')) {
-			librariesToMigrate.push(...customized.map((c) => c.primitive));
-		}
+	const librariesToMigrate = new Set<Primitive>();
+	if (libraries.includes('all') || libraries.includes('all-unchanged')) {
+		unchanged.forEach((primitive) => librariesToMigrate.add(primitive));
 	}
-
-	for (const lib of libraries) {
-		if (lib !== 'all' && lib !== 'all-unchanged' && lib !== 'all-customized') {
-			librariesToMigrate.push(lib as Primitive);
-		}
+	if (libraries.includes('all') || libraries.includes('all-customized')) {
+		customized.forEach(({ primitive }) => librariesToMigrate.add(primitive));
 	}
+	libraries.forEach((library) => {
+		if (library !== 'all' && library !== 'all-unchanged' && library !== 'all-customized') {
+			librariesToMigrate.add(library);
+		}
+	});
 
-	const uniqueLibraries = [...new Set(librariesToMigrate)];
-	const customizedSelected = uniqueLibraries.filter((lib) => customized.some((c) => c.primitive === lib));
+	const selectedPrimitives = [...librariesToMigrate];
+	const customizedSelected = selectedPrimitives.filter((primitive) =>
+		customized.some(({ primitive: customizedPrimitive }) => customizedPrimitive === primitive),
+	);
 
 	if (customizedSelected.length > 0) {
 		logger.warn('\n⚠️  WARNING: The following customized libraries will be overwritten:');
-		for (const lib of customizedSelected) {
-			logger.warn(`   - ${lib}`);
-		}
-		logger.warn('\n   All customizations will be LOST!\n');
+		customizedSelected.forEach((primitive) => logger.warn(`   - ${primitive}`));
+		logger.warn('   All customizations in these libraries will be lost.');
+	}
 
-		const confirmation = await prompt<{ confirm: boolean }>({
-			type: 'confirm',
-			name: 'confirm',
-			message: 'Are you sure you want to overwrite these customized libraries?',
-			initial: false,
-		});
+	const { confirm } = await prompt<{ confirm: boolean }>({
+		type: 'confirm',
+		name: 'confirm',
+		message:
+			customizedSelected.length > 0
+				? 'Are you sure you want to overwrite these customized libraries?'
+				: `Migrate ${selectedPrimitives.length} ${selectedPrimitives.length === 1 ? 'library' : 'libraries'}?`,
+		initial: customizedSelected.length === 0,
+	});
 
-		if (!confirmation.confirm) {
-			logger.info('Aborting migration of customized libraries.');
-			return;
-		}
-	} else {
-		const confirmation = await prompt<{ confirm: boolean }>({
-			type: 'confirm',
-			name: 'confirm',
-			message: `Migrate ${uniqueLibraries.length} ${uniqueLibraries.length === 1 ? 'library' : 'libraries'}?`,
-			initial: true,
-		});
-
-		if (!confirmation.confirm) {
-			logger.info('Aborting migration.');
-			return;
-		}
+	if (!confirm) {
+		logger.info('Aborting migration.');
+		return;
 	}
 
 	await removeExistingLibraries(
 		tree,
 		{ ...options, generateAs: config.generateAs, importAlias: config.importAlias },
-		uniqueLibraries,
+		selectedPrimitives,
 	);
-
 	await regenerateLibraries(
 		tree,
 		{ ...options, generateAs: config.generateAs, buildable: config.buildable, importAlias: config.importAlias },
-		uniqueLibraries,
+		selectedPrimitives,
 	);
 
 	await formatFiles(tree);
-
-	// update metadata after we have formatted the files
-	updateMetadataForLibraries(tree, uniqueLibraries, config.importAlias);
-
+	regenerateAllMetadata(
+		tree,
+		selectedPrimitives,
+		(primitive) => getLibraryPathFromPrimitive(tree, primitive, config.importAlias),
+		getCurrentCliVersion(tree),
+	);
 	logger.info(
-		`\n✅ Successfully migrated ${uniqueLibraries.length} ${uniqueLibraries.length === 1 ? 'library' : 'libraries'}`,
+		`\n✅ Successfully migrated ${selectedPrimitives.length} ${selectedPrimitives.length === 1 ? 'library' : 'libraries'}`,
 	);
 }
 
@@ -246,6 +241,7 @@ async function removeExistingLibraries(
 				throw new Error(`Could not find the project name for library: ${library} in project root path ${projectRoot}`);
 			}
 
+			const removeGenerator = loadRemoveGenerator();
 			await removeGenerator(tree, {
 				projectName,
 				forceRemove: true,
@@ -274,7 +270,7 @@ async function regenerateLibraries(tree: Tree, options: MigrateHelmLibrariesGene
 	const supportedLibraries = (await import('../ui/supported-ui-libraries.json').then(
 		(m) => m.default,
 	)) as SupportedLibraries;
-	const config = await getOrCreateConfig(tree, { angularCli: options.angularCli });
+	const config = await loadOrInitConfig(tree, { angularCli: options.angularCli });
 
 	await createPrimitiveLibraries(
 		{
@@ -286,66 +282,4 @@ async function regenerateLibraries(tree: Tree, options: MigrateHelmLibrariesGene
 		{ ...options, installPeerDependencies: false },
 		config,
 	);
-}
-
-/**
- * Get the library path from a primitive name
- */
-function getLibraryPathFromPrimitive(tree: Tree, primitive: Primitive, importAlias: string): string {
-	const tsconfigPaths = readTsConfigPathsFromTree(tree);
-	const compatLibrary = primitive.toString().replaceAll('-', '');
-
-	let importPath: string | undefined;
-
-	if (`${importAlias}/${primitive}` in tsconfigPaths) {
-		importPath = `${importAlias}/${primitive}`;
-	} else if (`@spartan-ng/helm/${primitive}` in tsconfigPaths) {
-		importPath = `@spartan-ng/helm/${primitive}`;
-	} else if (`@spartan-ng/ui-${primitive}-helm` in tsconfigPaths) {
-		importPath = `@spartan-ng/ui-${primitive}-helm`;
-	} else if (`@spartan-ng/ui-${compatLibrary}-helm` in tsconfigPaths) {
-		importPath = `@spartan-ng/ui-${compatLibrary}-helm`;
-	}
-
-	if (!importPath) {
-		throw new Error(`Could not find tsconfig path for library ${primitive}`);
-	}
-
-	const tsconfigPath = tsconfigPaths[importPath];
-	if (!tsconfigPath) {
-		throw new Error(`Could not find tsconfig path for library ${primitive}`);
-	}
-
-	const path = tsconfigPath[0];
-	return dirname(path).replace(/\/src$/, '');
-}
-
-/**
- * Update metadata for migrated libraries
- */
-function updateMetadataForLibraries(tree: Tree, libraries: Primitive[], importAlias: string): void {
-	// Get the current package version to use as version in metadata
-	const packageJsonPath = 'package.json';
-	let version = '1.0.0';
-
-	if (tree.exists(packageJsonPath)) {
-		const packageJson = readJson(tree, packageJsonPath);
-		version =
-			packageJson.dependencies?.['@spartan-ng/cli'] ||
-			packageJson.devDependencies?.['@spartan-ng/cli'] ||
-			packageJson.version ||
-			'1.0.0';
-	}
-
-	try {
-		logger.info(`Updating metadata ${version} for libraries: ${libraries.join(', ')}`);
-		regenerateAllMetadata(
-			tree,
-			libraries,
-			(primitive) => getLibraryPathFromPrimitive(tree, primitive, importAlias),
-			version,
-		);
-	} catch (error) {
-		logger.warn(`Failed to update metadata for libraries: ${error}`);
-	}
 }

@@ -2,10 +2,14 @@ import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCircleAlert } from '@ng-icons/lucide';
+import { injectComponentDocs } from '@spartan-ng/app/app/core/services/component-docs';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
+import { TabsRtlPreview } from '@spartan-ng/app/app/pages/(components)/components/(tabs)/tabs--rtl.example';
+import { CodeRtlPreview } from '@spartan-ng/app/app/shared/code/code-rtl-preview';
+import { RtlHeader } from '@spartan-ng/app/app/shared/code/rtl-header';
+import { InstallTabs } from '@spartan-ng/app/app/shared/layout/install-tabs';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { HlmAlert, HlmAlertDescription } from '@spartan-ng/helm/alert';
-import { HlmIcon } from '@spartan-ng/helm/icon';
 import { hlmCode } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
@@ -16,12 +20,12 @@ import { PageNav } from '../../../../shared/layout/page-nav/page-nav';
 import { SectionIntro } from '../../../../shared/layout/section-intro';
 import { SectionSubHeading } from '../../../../shared/layout/section-sub-heading';
 import { Tabs } from '../../../../shared/layout/tabs';
-import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { TabsBasicPreview } from './tabs--basic.preview';
 import { TabsIconsOnlyPreview } from './tabs--icon-only.preview';
 import { TabsInputButtonPreview } from './tabs--input-button.preview';
+import { TabsLazyPreview } from './tabs--lazy.preview';
 import { TabsLinePreview } from './tabs--line.preview';
 import { TabsPaginatedPreview } from './tabs--paginated.preview';
 import { TabsVerticalPreview } from './tabs--vertical.preview';
@@ -41,11 +45,12 @@ export const routeMeta: RouteMeta = {
 	imports: [
 		UIApiDocs,
 		MainSection,
+		InstallTabs,
 		Code,
 		SectionIntro,
 		SectionSubHeading,
 		Tabs,
-		TabsCli,
+
 		CodePreview,
 		PageNav,
 		PageBottomNav,
@@ -58,11 +63,14 @@ export const routeMeta: RouteMeta = {
 		TabsWithIconsPreview,
 		TabsIconsOnlyPreview,
 		TabsInputButtonPreview,
+		TabsLazyPreview,
 		HlmAlertDescription,
 		HlmAlert,
 		NgIcon,
-		HlmIcon,
 		SectionSubSubHeading,
+		RtlHeader,
+		CodeRtlPreview,
+		TabsRtlPreview,
 	],
 	providers: [provideIcons({ lucideCircleAlert })],
 	template: `
@@ -70,6 +78,7 @@ export const routeMeta: RouteMeta = {
 			<spartan-section-intro
 				name="Tabs"
 				lead="A set of layered sections of content—known as tab panels—that are displayed one at a time."
+				showThemeToggle
 			/>
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
@@ -79,8 +88,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
-			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
-			<spartan-cli-tabs class="mt-4" nxCode="npx nx g @spartan-ng/cli:ui tabs" ngCode="ng g @spartan-ng/cli:ui tabs" />
+			<spartan-install-tabs primitive="tabs" />
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="mt-6 space-y-4">
@@ -142,6 +150,25 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_inputButtonCode()" />
 			</spartan-tabs>
 
+			<h3 id="examples__lazy_loading" spartanH4>Lazy Loading</h3>
+
+			<p class="py-2">
+				Use
+				<code class="${hlmCode}">hlmTabsContentLazy</code>
+				on an
+				<code class="${hlmCode}">ng-template</code>
+				inside a tab panel to keep its content out of the DOM until the user navigates to that tab. This is particularly
+				useful when panels trigger network requests or render expensive component trees. The content is created once on
+				first visit and remains alive for subsequent visits.
+			</p>
+
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-tabs-lazy />
+				</div>
+				<spartan-code secondTab [code]="_lazyCode()" />
+			</spartan-tabs>
+
 			<h3 id="examples__paginated_tabs" spartanH4>Paginated Tabs</h3>
 
 			<p class="pt-2">
@@ -158,7 +185,7 @@ export const routeMeta: RouteMeta = {
 			</p>
 
 			<div hlmAlert class="my-2">
-				<ng-icon hlm hlmAlertIcon name="lucideCircleAlert" />
+				<ng-icon name="lucideCircleAlert" />
 				<div hlmAlertDescription>
 					<p>
 						<strong>Padding</strong>
@@ -181,6 +208,14 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_paginatedCode()" />
 			</spartan-tabs>
 
+			<spartan-header-rtl />
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanRtlCodePreview firstTab>
+					<spartan-tabs-rtl-preview />
+				</div>
+				<spartan-code secondTab [code]="_rtlCode()" />
+			</spartan-tabs>
+
 			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="brain" />
 
@@ -196,6 +231,10 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class TabsPage {
+	constructor() {
+		injectComponentDocs();
+	}
+
 	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('tabs');
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
 	protected readonly _verticalCode = computed(() => this._snippets()['vertical']);
@@ -204,7 +243,9 @@ export default class TabsPage {
 	protected readonly _withIconsCode = computed(() => this._snippets()['withIcons']);
 	protected readonly _iconOnlyCode = computed(() => this._snippets()['iconOnly']);
 	protected readonly _inputButtonCode = computed(() => this._snippets()['inputButton']);
+	protected readonly _lazyCode = computed(() => this._snippets()['lazy']);
 	protected readonly _paginatedCode = computed(() => this._snippets()['paginated']);
+	protected readonly _rtlCode = computed(() => this._snippets()['rtl']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
 }

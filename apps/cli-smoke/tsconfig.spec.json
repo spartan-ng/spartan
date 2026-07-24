@@ -1,0 +1,13 @@
+{
+	"extends": "./tsconfig.json",
+	"compilerOptions": {
+		"outDir": "../../dist/out-tsc",
+		"module": "commonjs",
+		"types": ["vitest/globals", "node"],
+		"resolveJsonModule": true,
+		"moduleResolution": "node",
+		"esModuleInterop": true,
+		"isolatedModules": true
+	},
+	"include": ["src/**/*.ts"]
+}

@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, computed, resource, signal } from '@angular/core';
-import { BrnPopoverContent } from '@spartan-ng/brain/popover';
 import { HlmComboboxImports } from '@spartan-ng/helm/combobox';
 import { HlmSpinnerImports } from '@spartan-ng/helm/spinner';
 
@@ -13,12 +12,12 @@ interface DirectoryUser {
 
 @Component({
 	selector: 'spartan-combobox-async-preview',
-	imports: [HlmComboboxImports, BrnPopoverContent, HlmSpinnerImports],
+	imports: [HlmComboboxImports, HlmSpinnerImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<hlm-combobox [(search)]="search" [itemToString]="itemToString">
-			<hlm-combobox-input placeholder="Assign reviewer" showClear></hlm-combobox-input>
-			<div *brnPopoverContent hlmComboboxContent>
+			<hlm-combobox-input placeholder="Assign reviewer" showClear />
+			<hlm-combobox-content *hlmComboboxPortal>
 				@if (showStatus()) {
 					<hlm-combobox-status>
 						@if (users.error(); as error) {
@@ -33,9 +32,6 @@ interface DirectoryUser {
 						}
 					</hlm-combobox-status>
 				}
-				@if (!users.isLoading()) {
-					<hlm-combobox-empty>Try a different search term.</hlm-combobox-empty>
-				}
 				<div hlmComboboxList>
 					@if (users.hasValue()) {
 						@for (user of users.value(); track user.id) {
@@ -43,7 +39,7 @@ interface DirectoryUser {
 						}
 					}
 				</div>
-			</div>
+			</hlm-combobox-content>
 		</hlm-combobox>
 	`,
 })
@@ -66,13 +62,7 @@ export class ComboboxAsyncPreview {
 		},
 	});
 
-	public showStatus = computed(
-		() =>
-			this.users.error() ||
-			this.users.isLoading() ||
-			this.search().length === 0 ||
-			(this.users.hasValue() && this.users.value().length === 0),
-	);
+	public showStatus = computed(() => this.users.error() || this.users.isLoading() || this.users.value().length === 0);
 
 	async searchUsers(query: string, filter: (item: string, query: string) => boolean): Promise<DirectoryUser[]> {
 		// Simulate network delay

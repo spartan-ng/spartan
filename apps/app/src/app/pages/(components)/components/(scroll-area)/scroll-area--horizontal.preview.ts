@@ -6,7 +6,7 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
 	selector: 'spartan-scroll-area-horizontal-preview',
 	imports: [HlmScrollAreaImports, NgScrollbarModule],
 	template: `
-		<ng-scrollbar hlm class="w-96 rounded-md border whitespace-nowrap">
+		<ng-scrollbar hlm class="w-96 border whitespace-nowrap">
 			<div class="flex w-max space-x-4 p-4">
 				@for (artwork of _works; track artwork.artist) {
 					<figure class="shrink-0">

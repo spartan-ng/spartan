@@ -1,0 +1,259 @@
+name: release
+
+# Push to a release branch -> semantic-release computes the next version from the conventional
+# commits, updates the changelog + package versions, publishes brain/cli/mcp to npm, and cuts a
+# GitHub Release.
+#
+#   main  -> latest    beta -> beta dist-tag    alpha -> alpha dist-tag
+#
+# Use the manual "Run workflow" button (workflow_dispatch) with dry-run = true to preview the
+# next version on any branch without publishing anything.
+
+on:
+  # Every merge to a release branch publishes automatically (1.0.0 was cut manually via
+  # workflow_dispatch; ongoing releases are push-driven). Non-releasing commit types
+  # (ci/docs/chore/...) compute "no release" and publish nothing, so this is safe to leave on.
+  push:
+    branches:
+      - main
+      - beta
+      - alpha
+  workflow_dispatch:
+    inputs:
+      dry-run:
+        description: 'Preview the next release without publishing'
+        type: boolean
+        default: true
+
+# Read-only by default; the release job opts into the write scopes it needs. Without this, jobs
+# inherit the repository's default token scopes, so verify would run with more access than it uses.
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  # Gate the release on the publishable artifacts being sound. semantic-release pushes the tag +
+  # release commit BEFORE it publishes to npm, so a failure mid-release would leave a dangling tag;
+  # validating up front avoids that half-released state. Skipped for dry-run previews.
+  #
+  # Verification fans out into two jobs that run in parallel: verify-libs (lint + build + unit test)
+  # and verify-smoke (the CLI smoke matrix, one runner per cell). The verify aggregator gates the
+  # release on both. This mirrors .github/workflows/cli-smoke.yml so the release isn't bottlenecked
+  # on the smoke cells running serially in a single runner (~20 min -> roughly the slowest cell).
+  verify-libs:
+    if: ${{ (github.event_name != 'push' || !startsWith(github.event.head_commit.message, 'chore(release):')) && !(github.event_name == 'workflow_dispatch' && inputs.dry-run) }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - uses: ./.github/actions/setup
+      # brain's unit tests run in a real browser via Vitest browser mode, so Chromium must be present.
+      - name: Cache Playwright browsers
+        uses: actions/cache@v5
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: playwright-${{ runner.os }}-
+      - name: Install Playwright Chromium
+        run: pnpm exec playwright install --with-deps chromium
+      - name: Lint
+        run: pnpm run lint
+      - name: Build publishable libs
+        run: pnpm nx run-many -t build -p brain cli mcp --parallel=1
+      - name: Unit test publishable libs
+        run: pnpm nx run-many -t test -p brain cli mcp --parallel=3
+
+  # One runner per smoke cell, so wall-clock is the slowest single cell rather than the sum of all of
+  # them. Deliberately no git-diff gate and no nx-set-shas: a release must verify every cell. Without
+  # NX_BASE/NX_HEAD, isSmokeAffected() runs rather than skips (apps/cli-smoke/src/support/affected.ts).
+  # Keep the cell list in sync with apps/cli-smoke/src/matrix.ts and .github/workflows/cli-smoke.yml.
+  verify-smoke:
+    if: ${{ (github.event_name != 'push' || !startsWith(github.event.head_commit.message, 'chore(release):')) && !(github.event_name == 'workflow_dispatch' && inputs.dry-run) }}
+    runs-on: ubuntu-latest
+    strategy:
+      # Don't cancel the other cells when one fails - we want the full picture of which setups broke.
+      fail-fast: false
+      matrix:
+        cell:
+          - nx-lib-buildable
+          - nx-lib-nonbuildable
+          - nx-entry-buildable
+          - nx-entry-nonbuildable
+          - nx-standalone
+          - acli
+          - all-components
+          - all-components-nx-entry
+          - style-acli-nova
+          - style-nx-lyra
+          - style-acli-maia
+          - style-nx-mira
+          - style-acli-luma
+    name: smoke (${{ matrix.cell }})
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - uses: ./.github/actions/setup
+      # --testNamePattern matches against the full test name, so the trailing space anchors the
+      # pattern to this exact cell.
+      - name: smoke (${{ matrix.cell }})
+        run: pnpm nx run cli-smoke:smoke --testNamePattern="${{ matrix.cell }} "
+
+  # Single gate the release depends on: green only when both verify jobs passed (or were skipped for a
+  # dry-run preview). always() so it still reports a status when the matrix fans out or is skipped.
+  verify:
+    needs: [verify-libs, verify-smoke]
+    if: ${{ always() && (github.event_name != 'push' || !startsWith(github.event.head_commit.message, 'chore(release):')) }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Require verify-libs and verify-smoke to pass
+        run: |
+          libs="${{ needs.verify-libs.result }}"
+          smoke="${{ needs.verify-smoke.result }}"
+          echo "verify-libs:  $libs"
+          echo "verify-smoke: $smoke"
+          for result in "$libs" "$smoke"; do
+            case "$result" in
+              success | skipped) ;; # passed, or skipped for a dry-run preview
+              *)
+                echo "::error::verify dependency result was '$result'"
+                exit 1
+                ;;
+            esac
+          done
+
+  release:
+    needs: [verify]
+    # Run when verify passed (push / real dispatch) or was skipped (dry-run preview), but never
+    # when it failed or was cancelled.
+    if: ${{ always() && !contains(needs.*.result, 'failure') && !contains(needs.*.result, 'cancelled') && (github.event_name != 'push' || !startsWith(github.event.head_commit.message, 'chore(release):')) }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # create tags, commits and GitHub Releases
+      issues: write # semantic-release comments on released issues
+      pull-requests: write # semantic-release comments on released PRs
+      id-token: write # npm trusted publishing (OIDC)
+    steps:
+      # Mint a short-lived token from the release GitHub App. It is a bypass actor on the branch
+      # ruleset, so semantic-release can push the release commit + tag even when PRs are required.
+      - name: Generate app token
+        id: app-token
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ secrets.APP_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+          token: ${{ steps.app-token.outputs.token }}
+      - name: Install pnpm
+        uses: pnpm/action-setup@v5
+      - name: Install Node
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: .node-version
+          cache: 'pnpm'
+          registry-url: 'https://registry.npmjs.org'
+      - name: Upgrade npm for trusted publishing
+        run: npm i -g npm@^11.5.1
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Release
+        run: |
+          unset NODE_AUTH_TOKEN
+          unset NPM_TOKEN
+          pnpm semantic-release ${{ (github.event_name == 'workflow_dispatch' && inputs.dry-run) && '--dry-run' || '' }}
+        env:
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+          # Enable npm provenance only for the real release (OIDC id-token is available here). Keeping
+          # it out of publishConfig means local/verdaccio publishes — e.g. cli-smoke — don't attempt
+          # provenance and fail without an id-token.
+          NPM_CONFIG_PROVENANCE: 'true'
+
+  # After a release, propagate the release commit (+ any main-only hotfixes) DOWN the prerelease
+  # ladder so the branches never diverge: main -> beta -> alpha. semantic-release commits a version
+  # bump + CHANGELOG to each release branch, so without this the branches drift and the next
+  # prerelease miscomputes. We MERGE (never rebase/reset): a merge is a fast-forwardable append, so it
+  # satisfies the `non_fast_forward` ruleset that blocks force-pushes; a rebase would rewrite SHAs and
+  # confuse semantic-release's tag tracking. The App token is a bypass actor, so it pushes straight to
+  # the protected branches. The merge commits are `chore(release):`, so this workflow's prefix guard
+  # keeps them from re-firing the heavy verify+release pipeline on every sync — the change is already
+  # published on its own channel; this only keeps the downstream branches consistent. A real conflict
+  # (a code hotfix touching prerelease-only lines) stops the automation and opens a PR to resolve by
+  # hand rather than guessing.
+  backmerge:
+    needs: [release]
+    # Run after any REAL release: plain pushes, and a workflow_dispatch with dry-run=false. Skip
+    # dry-run previews. On push events `inputs` is absent, so `!inputs.dry-run` evaluates to true;
+    # gating on `event_name == 'push'` instead would wrongly skip a manual real release and let the
+    # branches drift — the exact problem this job exists to prevent.
+    if: ${{ !inputs.dry-run && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/beta') }}
+    runs-on: ubuntu-latest
+    # Every step here uses the App token (checkout, push, PR); the default GITHUB_TOKEN is unused.
+    permissions: {}
+    steps:
+      - name: Generate app token
+        id: app-token
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ secrets.APP_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+          permission-contents: write
+          permission-pull-requests: write
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          # Keep the App token out of .git/config; it's applied inline only at push time below.
+          persist-credentials: false
+          token: ${{ steps.app-token.outputs.token }}
+      - name: Backmerge down the prerelease ladder
+        env:
+          APP_TOKEN: ${{ steps.app-token.outputs.token }}
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+        run: |
+          set -euo pipefail
+          # Adjacent hops to replay top-down from the branch that just released. main fans the release
+          # all the way to alpha in one job because the guarded chore(release): merge to beta won't
+          # re-trigger a beta release to continue the chain on its own.
+          case "${GITHUB_REF_NAME}" in
+            main) hops=("main beta" "beta alpha") ;;
+            beta) hops=("beta alpha") ;;
+            *) echo "::warning::backmerge: unexpected ref '${GITHUB_REF_NAME}', nothing to do"; exit 0 ;;
+          esac
+          git config user.name Leonidas
+          git config user.email leonidas@spartan.ng
+          remote="https://x-access-token:${APP_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          for hop in "${hops[@]}"; do
+            src="${hop% *}"
+            dst="${hop#* }"
+            git fetch origin "$src"
+            # Self-heal a missing downstream branch (e.g. one deleted by a promotion PR merge) by
+            # recreating it from the source, instead of dying on "couldn't find remote ref".
+            if ! git ls-remote --exit-code --heads origin "$dst" >/dev/null 2>&1; then
+              echo "::warning::$dst is missing; recreating it at $src"
+              git push "$remote" "origin/$src:refs/heads/$dst"
+              continue
+            fi
+            git fetch origin "$dst"
+            git checkout -B "$dst" "origin/$dst"
+            if ! git merge --no-ff "origin/$src" -m "chore(release): backmerge $src into $dst"; then
+              git merge --abort
+              echo "::error::backmerge $src -> $dst conflicted; opening a PR to resolve by hand"
+              gh pr create --base "$dst" --head "$src" \
+                --title "chore(release): backmerge $src into $dst" \
+                --body "Automated backmerge hit a conflict and needs manual resolution." \
+                || echo "a backmerge PR for $src -> $dst already exists"
+              exit 1
+            fi
+            # Only push when the merge actually advanced the branch (skip no-op "already up to date").
+            if [ -n "$(git rev-list "origin/$dst"..HEAD)" ]; then
+              git push "$remote" "HEAD:refs/heads/$dst"
+            else
+              echo "$dst already contains $src; nothing to push"
+            fi
+          done

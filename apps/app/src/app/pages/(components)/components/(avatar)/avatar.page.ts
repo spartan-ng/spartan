@@ -1,8 +1,11 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
+import { injectComponentDocs } from '@spartan-ng/app/app/core/services/component-docs';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
+import { CodeRtlPreview } from '@spartan-ng/app/app/shared/code/code-rtl-preview';
+import { RtlHeader } from '@spartan-ng/app/app/shared/code/rtl-header';
+import { InstallTabs } from '@spartan-ng/app/app/shared/layout/install-tabs';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
-import { TabsCli } from '@spartan-ng/app/app/shared/layout/tabs-cli';
 import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
@@ -22,6 +25,7 @@ import { AvatarDropdownPreview } from './avatar--dropdown.preview';
 import { AvatarGroupCountPreview } from './avatar--group-count.preview';
 import { AvatarGroupIconPreview } from './avatar--group-icon.preview';
 import { AvatarGroupPreview } from './avatar--group.preview';
+import { AvatarRtlPreview } from './avatar--rtl.preview';
 import { AvatarSizesPreview } from './avatar--sizes.preview';
 import { AvatarPreview, defaultImports, defaultSkeleton } from './avatar.preview';
 
@@ -36,16 +40,19 @@ export const routeMeta: RouteMeta = {
 	imports: [
 		UIApiDocs,
 		MainSection,
+		InstallTabs,
 		Code,
 		SectionIntro,
 		SectionSubHeading,
 		Tabs,
-		TabsCli,
+
 		CodePreview,
 		PageNav,
 		PageBottomNav,
 		PageBottomNavLink,
 		SectionSubSubHeading,
+		RtlHeader,
+		CodeRtlPreview,
 		AvatarPreview,
 		AvatarBasicPreview,
 		AvatarBadgePreview,
@@ -55,10 +62,15 @@ export const routeMeta: RouteMeta = {
 		AvatarGroupCountPreview,
 		AvatarGroupIconPreview,
 		AvatarDropdownPreview,
+		AvatarRtlPreview,
 	],
 	template: `
 		<section spartanMainSection>
-			<spartan-section-intro name="Avatar" lead="An image element with a fallback for representing the user." />
+			<spartan-section-intro
+				name="Avatar"
+				lead="An image element with a fallback for representing the user."
+				showThemeToggle
+			/>
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
@@ -67,8 +79,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_defaultCode()" />
 			</spartan-tabs>
 
-			<spartan-section-sub-heading id="installation">Installation</spartan-section-sub-heading>
-			<spartan-cli-tabs nxCode="npx nx g @spartan-ng/cli:ui avatar" ngCode="ng g @spartan-ng/cli:ui avatar" />
+			<spartan-install-tabs primitive="avatar" />
 
 			<spartan-section-sub-heading id="usage">Usage</spartan-section-sub-heading>
 			<div class="mt-6 space-y-4">
@@ -176,6 +187,14 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_dropdownCode()" />
 			</spartan-tabs>
 
+			<spartan-header-rtl />
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanRtlCodePreview firstTab>
+					<spartan-avatar-rtl-preview />
+				</div>
+				<spartan-code secondTab [code]="_rtlCode()" />
+			</spartan-tabs>
+
 			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="brain" />
 
@@ -191,6 +210,10 @@ export const routeMeta: RouteMeta = {
 	`,
 })
 export default class AvatarPage {
+	constructor() {
+		injectComponentDocs();
+	}
+
 	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('avatar');
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
 	protected readonly _basicCode = computed(() => this._snippets()['basic']);
@@ -201,6 +224,7 @@ export default class AvatarPage {
 	protected readonly _groupIconCode = computed(() => this._snippets()['groupIcon']);
 	protected readonly _sizesCode = computed(() => this._snippets()['sizes']);
 	protected readonly _dropdownCode = computed(() => this._snippets()['dropdown']);
+	protected readonly _rtlCode = computed(() => this._snippets()['rtl']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
 }

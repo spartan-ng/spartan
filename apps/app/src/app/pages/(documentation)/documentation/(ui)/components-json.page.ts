@@ -1,7 +1,5 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component } from '@angular/core';
-import { provideIcons } from '@ng-icons/core';
-import { lucideTriangleAlert } from '@ng-icons/lucide';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
@@ -31,7 +29,7 @@ export const routeMeta: RouteMeta = {
 		Code,
 		SectionSubSubHeading,
 	],
-	providers: [provideIcons({ lucideTriangleAlert })],
+
 	template: `
 		<section spartanMainSection>
 			<spartan-section-intro name="components.json" lead="Manage the spartan configuration through components.json." />
@@ -66,7 +64,8 @@ export const routeMeta: RouteMeta = {
 	"componentsPath": "libs/ui",
 	"importAlias": "@spartan-ng/helm",
 	"buildable": true,
-	"generateAs": "library" | "entrypoint"
+	"generateAs": "library" | "entrypoint",
+	"style": "nova" | "vega" | "lyra" | "maia" | "mira" | "luma",
 }'
 			/>
 
@@ -79,6 +78,7 @@ export const routeMeta: RouteMeta = {
 {
 	"componentsPath": "libs/ui",
 	"importAlias": "@spartan-ng/helm",
+	"style": "nova" | "vega" | "lyra" | "maia" | "mira" | "luma",
 }'
 			/>
 

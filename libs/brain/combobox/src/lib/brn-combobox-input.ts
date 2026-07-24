@@ -1,7 +1,8 @@
-import { computed, Directive, effect, ElementRef, inject, input } from '@angular/core';
+import { BooleanInput } from '@angular/cdk/coercion';
+import { booleanAttribute, computed, Directive, effect, ElementRef, inject, input } from '@angular/core';
 import { stringifyAsLabel } from '@spartan-ng/brain/core';
 import { BrnComboboxContent } from './brn-combobox-content';
-import { injectBrnComboboxBase } from './brn-combobox.token';
+import { ComboboxInputMode, injectBrnComboboxBase } from './brn-combobox.token';
 
 @Directive({
 	selector: 'input[brnComboboxInput]',
@@ -17,6 +18,11 @@ import { injectBrnComboboxBase } from './brn-combobox.token';
 		'aria-autocomplete': 'list',
 		'aria-haspopup': 'listbox',
 		'[attr.aria-expanded]': '_isExpanded()',
+		'[attr.aria-invalid]': '_ariaInvalid() ? "true": null',
+		'[attr.data-invalid]': '_ariaInvalid() ? "true": null',
+		'[attr.data-matches-spartan-invalid]': '_spartanInvalid() ? "true": null',
+		'[attr.data-touched]': '_touched() ? "true": null',
+		'[attr.data-dirty]': '_dirty() ? "true": null',
 		'[attr.disabled]': 'disabled() ? "" : null',
 		'(keydown)': 'onKeyDown($event)',
 		'(input)': 'onInput($event)',
@@ -29,35 +35,53 @@ export class BrnComboboxInput<T> {
 
 	private readonly _content = inject(BrnComboboxContent, { optional: true });
 
-	private readonly _mode = computed(() => (this._content ? 'popup' : 'combobox'));
+	public readonly mode = computed<ComboboxInputMode>(() => (this._content ? 'popup' : 'combobox'));
 
 	/** The id of the combobox input */
 	public readonly id = input<string>(`brn-combobox-input-${++BrnComboboxInput._id}`);
+
+	/** Manual override for aria-invalid. When not set, auto-detects from the parent combobox error state. */
+	public readonly ariaInvalidOverride = input<boolean | undefined, BooleanInput>(undefined, {
+		transform: (v: BooleanInput) => (v === '' || v === undefined ? undefined : booleanAttribute(v)),
+		alias: 'aria-invalid',
+	});
+
+	/** Forces the invalid state visually, regardless of form control state. */
+	public readonly forceInvalid = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
 	public readonly disabled = this._combobox.disabledState;
 
 	/** Whether the combobox panel is expanded */
 	protected readonly _isExpanded = this._combobox.isExpanded;
 
+	/** Computed aria-invalid: uses manual override if provided, otherwise reads from parent error state. */
+	protected readonly _ariaInvalid = computed(
+		() => this.ariaInvalidOverride() ?? this._combobox.controlState?.()?.invalid,
+	);
+
+	protected readonly _dirty = computed(() => this._combobox.controlState?.()?.dirty);
+	protected readonly _touched = computed(() => this._combobox.controlState?.()?.touched);
+	protected readonly _spartanInvalid = computed(
+		() => this.forceInvalid() || this._combobox.controlState?.()?.spartanInvalid,
+	);
+
 	constructor() {
+		this._combobox.registerComboboxInput?.(this);
+
 		effect(() => {
-			const mode = this._mode();
+			const mode = this.mode();
 			const value = this._combobox.value();
 			const search = this._combobox.search();
 
-			switch (mode) {
-				case 'combobox':
-					if (value && search === '') {
-						this._el.nativeElement.value = stringifyAsLabel(value, this._combobox.itemToString());
-					} else if (search === '') {
-						this._el.nativeElement.value = '';
-					}
-					break;
-				case 'popup':
-					if (search === '') {
-						this._el.nativeElement.value = '';
-					}
-					break;
+			// In combobox mode we want to display the label of the selected value if no search is active
+			if (mode === 'combobox' && this._combobox.hasValue() && search === '') {
+				this._el.nativeElement.value = stringifyAsLabel(value, this._combobox.itemToString());
+				return;
+			}
+
+			// Otherwise we want to update the input value to the search value
+			if (this._el.nativeElement.value !== search) {
+				this._el.nativeElement.value = search;
 			}
 		});
 	}
@@ -68,7 +92,7 @@ export class BrnComboboxInput<T> {
 		this._combobox.search.set(value);
 		this._combobox.open();
 
-		if (value === '' && this._mode() === 'combobox') {
+		if (value === '' && this.mode() === 'combobox') {
 			this._combobox.resetValue();
 		}
 	}
@@ -82,8 +106,12 @@ export class BrnComboboxInput<T> {
 			this._combobox.selectActiveItem();
 		}
 
-		if (!this._isExpanded()) {
-			if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+		if (this._isExpanded()) {
+			if (event.key === 'Tab') {
+				this._combobox.selectActiveItem();
+			}
+		} else {
+			if (event.key === 'Enter' || event.key === 'ArrowDown' || event.key === 'ArrowUp') {
 				this._combobox.open();
 			}
 

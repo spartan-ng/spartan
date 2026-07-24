@@ -1,18 +1,25 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { HlmCardImports } from '@spartan-ng/helm/card';
 
 import { HlmSkeletonImports } from '@spartan-ng/helm/skeleton';
 
 @Component({
 	selector: 'spartan-skeleton-card',
-	imports: [HlmSkeletonImports],
+	imports: [HlmSkeletonImports, HlmCardImports],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: {
+		class: 'w-full max-w-xs',
+	},
 	template: `
-		<div class="flex flex-col space-y-3">
-			<hlm-skeleton class="h-[125px] w-[250px] rounded-xl" />
-			<div class="space-y-2">
-				<hlm-skeleton class="h-4 w-[250px]" />
-				<hlm-skeleton class="h-4 w-[200px]" />
+		<hlm-card class="w-full max-w-xs">
+			<hlm-card-header>
+				<hlm-skeleton class="h-4 w-2/3" />
+				<hlm-skeleton class="h-4 w-1/2" />
+			</hlm-card-header>
+			<div hlmCardContent>
+				<hlm-skeleton class="aspect-video w-full" />
 			</div>
-		</div>
+		</hlm-card>
 	`,
 })
 export class SkeletonCard {}

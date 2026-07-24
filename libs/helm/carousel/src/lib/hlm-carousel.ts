@@ -1,20 +1,18 @@
+import { Directionality } from '@angular/cdk/bidi';
 import {
 	ChangeDetectionStrategy,
 	Component,
 	type InputSignal,
 	type Signal,
 	computed,
+	inject,
 	input,
 	signal,
 	viewChild,
 } from '@angular/core';
 import { classes } from '@spartan-ng/helm/utils';
-import {
-	EmblaCarouselDirective,
-	type EmblaEventType,
-	type EmblaOptionsType,
-	type EmblaPluginType,
-} from 'embla-carousel-angular';
+import type { EmblaEventType, EmblaOptionsType, EmblaPluginType } from 'embla-carousel';
+import { EmblaCarouselDirective } from 'embla-carousel-angular';
 
 @Component({
 	selector: 'hlm-carousel',
@@ -42,6 +40,7 @@ import {
 })
 export class HlmCarousel {
 	protected readonly _emblaCarousel = viewChild.required(EmblaCarouselDirective);
+	private readonly _dir = inject(Directionality);
 
 	public readonly orientation = input<'horizontal' | 'vertical'>('horizontal');
 	public readonly options: InputSignal<Omit<EmblaOptionsType, 'axis'> | undefined> =
@@ -49,6 +48,9 @@ export class HlmCarousel {
 	public readonly plugins: InputSignal<EmblaPluginType[]> = input<EmblaPluginType[]>([]);
 
 	protected readonly _emblaOptions: Signal<EmblaOptionsType> = computed(() => ({
+		// Default embla's direction to the ambient layout direction so the carousel scrolls RTL
+		// automatically; an explicit `direction` in `options` still wins.
+		direction: this._dir.valueSignal(),
 		...this.options(),
 		axis: this.orientation() === 'horizontal' ? 'x' : 'y',
 	}));

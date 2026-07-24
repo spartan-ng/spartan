@@ -6,8 +6,22 @@ on:
       - main
   pull_request: {}
 
+# Cancel superseded runs on the same ref (e.g. rapid pushes / force-pushes to a PR) so CI minutes
+# are not spent finishing builds that are already out of date.
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  # The docs app build prerenders many pages and needs a larger heap.
+  NODE_OPTIONS: --max-old-space-size=6000
+
 jobs:
   commitlint:
+    # Skip release commits pushed to main (already validated during the release), but always run on
+    # pull_request so this required check reports and never blocks a promotion/sync PR whose tip is a
+    # `chore(release):` commit. Replaces the old `[skip ci]` token, which skipped PR checks too.
+    if: ${{ github.event_name != 'push' || !startsWith(github.event.head_commit.message, 'chore(release):') }}
     runs-on: ubuntu-latest
     permissions:
       actions: read
@@ -15,16 +29,14 @@ jobs:
       # Required by wagoid/commitlint-github-action
       pull-requests: read
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           # Required by wagoid/commitlint-github-action
           fetch-depth: 0
-      - name: Install Node v22
-        uses: actions/setup-node@v4
+      - name: Install Node
+        uses: actions/setup-node@v6
         with:
           node-version-file: .node-version
-      - name: Install pnpm globally
-        run: npm install -g pnpm
       - name: Lint commit messages
         uses: wagoid/commitlint-github-action@v5
         with:
@@ -32,77 +44,88 @@ jobs:
           helpURL: https://github.com/goetzrobin/spartan/blob/main/CONTRIBUTING.md#-commit-message-guidelines
 
   format-and-lint:
+    if: ${{ github.event_name != 'push' || !startsWith(github.event.head_commit.message, 'chore(release):') }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
-          # Required by wagoid/commitlint-github-action
+          # Full commit history so nx-set-shas can compute the affected base. `blob:none` keeps the
+          # whole commit graph (affected still diffs correctly) but downloads file contents lazily -
+          # a win for this light job that only touches the affected projects' files.
           fetch-depth: 0
-      - uses: actions/setup-node@v4
-        with:
-          node-version-file: .node-version
-      - name: Install PNPM globally
-        run: npm install -g pnpm
-      - name: Install Dependencies
-        run: pnpm install --frozen-lockfile
-      - name: lint
-        run: pnpm run lint
+          filter: blob:none
+      - uses: ./.github/actions/setup
+      - uses: nrwl/nx-set-shas@v5
       - name: format
-        run: pnpm nx format:check --base=origin/main
+        run: pnpm nx format:check --base=$NX_BASE --head=$NX_HEAD
+      - name: lint
+        run: pnpm nx affected -t lint --parallel=3
 
   build:
+    if: ${{ github.event_name != 'push' || !startsWith(github.event.head_commit.message, 'chore(release):') }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
-          # Required by wagoid/commitlint-github-action
           fetch-depth: 0
-      - uses: actions/setup-node@v4
-        with:
-          node-version-file: .node-version
-      - name: Install PNPM globally
-        run: npm install -g pnpm
-      - name: Install Dependencies
-        run: pnpm install --frozen-lockfile
+      - uses: ./.github/actions/setup
+      - uses: nrwl/nx-set-shas@v5
       - name: Build
-        run: pnpm run build
+        run: pnpm nx affected -t build --parallel=1
 
   unit:
+    if: ${{ github.event_name != 'push' || !startsWith(github.event.head_commit.message, 'chore(release):') }}
     runs-on: ubuntu-latest
-    needs:
-      - build
+    # No longer gated on `build`: vitest runs against source, so unit tests start immediately and
+    # run in parallel with the build instead of waiting ~13 min for it.
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
-          # Required by wagoid/commitlint-github-action
+          # Blobless full-history clone: nx-set-shas needs the graph; vitest only reads the
+          # affected projects' files, fetched lazily.
           fetch-depth: 0
-      - uses: actions/setup-node@v4
+          filter: blob:none
+      - uses: ./.github/actions/setup
+      - uses: nrwl/nx-set-shas@v5
+      # The brain/helm suites run in a real browser via Vitest browser mode (Playwright/Chromium),
+      # so the Chromium binary must be present. Cache it across runs (keyed on the lockfile, which
+      # pins the playwright version) to avoid re-downloading ~150 MB each time.
+      - name: Cache Playwright browsers
+        id: playwright-cache
+        uses: actions/cache@v5
         with:
-          node-version-file: .node-version
-      - name: Install PNPM globally
-        run: npm install -g pnpm
-      - name: Install Dependencies
-        run: pnpm install --frozen-lockfile
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: playwright-${{ runner.os }}-
+      - name: Install Playwright Chromium
+        # On a cache hit the browser is already present; still run install to pull any missing OS
+        # libraries (--with-deps), which are not part of the cached browser directory.
+        run: pnpm exec playwright install --with-deps chromium
       - name: Test
-        run: pnpm run test
+        run: pnpm nx affected -t test --parallel=3
 
   e2e:
+    if: ${{ github.event_name != 'push' || !startsWith(github.event.head_commit.message, 'chore(release):') }}
     runs-on: ubuntu-latest
-    needs:
-      - build
+    # Not gated on `build`: the e2e suite runs cypress against storybook (its cypress executor's
+    # devServerTarget is ui-storybook:static-storybook), so it builds/serves storybook itself and
+    # is independent of the docs-app build. It runs in parallel with the build job.
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
-          # Required by wagoid/commitlint-github-action
           fetch-depth: 0
-      - uses: actions/setup-node@v4
+      # Restore the Cypress binary cache before install so a cypress postinstall is a no-op too.
+      - name: Cache Cypress binary
+        uses: actions/cache@v5
         with:
-          node-version-file: .node-version
-      - name: Install PNPM globally
-        run: npm install -g pnpm
-      - name: Install Dependencies
-        run: pnpm install --frozen-lockfile
+          path: ~/.cache/Cypress
+          key: cypress-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: cypress-${{ runner.os }}-
+      - uses: ./.github/actions/setup
+      - uses: nrwl/nx-set-shas@v5
       - name: Install Cypress
         run: npx cypress install
       - name: End-to-end test
-        run: pnpm run e2e
+        # Exclude trpc-app-e2e: it is not tagged scope:e2e and was never run in CI (it needs a
+        # database/health endpoint that is not provisioned here). Only the storybook e2e runs.
+        run: pnpm nx affected -t e2e --exclude=trpc-app-e2e --parallel=1 --outputStyle=stream

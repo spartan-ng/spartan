@@ -22,13 +22,13 @@ export * from './lib/hlm-field-title';
 
 export const HlmFieldImports = [
 	HlmField,
-	HlmFieldTitle,
 	HlmFieldContent,
 	HlmFieldDescription,
 	HlmFieldError,
-	HlmFieldLabel,
-	HlmFieldSeparator,
 	HlmFieldGroup,
+	HlmFieldLabel,
 	HlmFieldLegend,
+	HlmFieldSeparator,
 	HlmFieldSet,
+	HlmFieldTitle,
 ] as const;

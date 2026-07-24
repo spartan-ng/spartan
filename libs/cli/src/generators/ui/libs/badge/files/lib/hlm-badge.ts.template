@@ -3,15 +3,16 @@ import { classes } from '<%- importAlias %>/utils';
 import { type VariantProps, cva } from 'class-variance-authority';
 
 const badgeVariants = cva(
-	'focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive inline-flex w-fit shrink-0 items-center justify-center gap-1 overflow-hidden rounded-md border px-2 py-0.5 text-xs font-medium whitespace-nowrap transition-[color,box-shadow] focus-visible:ring-[3px] [&_ng-icon]:pointer-events-none [&_ng-icon]:size-3',
+	'spartan-badge group/badge focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:ring-[3px] [&>ng-icon]:pointer-events-none',
 	{
 		variants: {
 			variant: {
-				default: 'bg-primary text-primary-foreground [a&]:hover:bg-primary/90 border-transparent',
-				secondary: 'bg-secondary text-secondary-foreground [a&]:hover:bg-secondary/90 border-transparent',
-				destructive:
-					'bg-destructive [a&]:hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60 border-transparent text-white',
-				outline: 'text-foreground [a&]:hover:bg-accent [a&]:hover:text-accent-foreground',
+				default: 'spartan-badge-variant-default',
+				secondary: 'spartan-badge-variant-secondary',
+				destructive: 'spartan-badge-variant-destructive',
+				outline: 'spartan-badge-variant-outline',
+				ghost: 'spartan-badge-variant-ghost',
+				link: 'spartan-badge-variant-link',
 			},
 		},
 		defaultVariants: {
@@ -23,9 +24,10 @@ const badgeVariants = cva(
 export type BadgeVariants = VariantProps<typeof badgeVariants>;
 
 @Directive({
-	selector: '[hlmBadge]',
+	selector: '[hlmBadge],hlm-badge',
 	host: {
 		'data-slot': 'badge',
+		'[attr.data-variant]': 'variant()',
 	},
 })
 export class HlmBadge {

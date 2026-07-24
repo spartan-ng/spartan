@@ -10,17 +10,15 @@ import { HlmCalendar } from '@spartan-ng/helm/calendar';
 		class: 'flex justify-center items-start p-3 md:p-20 w-full h-auto md:h-[600px] bg-surface rounded-lg overflow-auto',
 	},
 	template: `
-		<hlm-calendar [min]="minDate" [max]="maxDate" [dateDisabled]="_dateDisabled" [calendarClass]="calendarClass" />
+		<hlm-calendar
+			[min]="minDate"
+			[max]="maxDate"
+			[dateDisabled]="_dateDisabled"
+			class="bg-background [&_[data-disabled][data-outside]]:opacity-50 [&_[data-outside]]:opacity-80 [&_[data-outside]:hover]:text-neutral-900 [&_[data-outside]:hover]:opacity-100"
+		/>
 	`,
 })
 export class CalendarDisabledWeekendsComponent {
-	public readonly calendarClass = `
-        [&_[data-outside]]:opacity-80 
-        [&_[data-outside]:hover]:opacity-100
-        [&_[data-outside]:hover]:text-neutral-900
-        [&_[data-disabled][data-outside]]:opacity-50
-		bg-background
-    `;
 	/** Access the date adapter */
 	protected readonly _dateAdapter = injectDateAdapter();
 

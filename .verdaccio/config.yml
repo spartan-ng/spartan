@@ -1,3 +1,7 @@
+# Verdaccio config used only by the cli-smoke harness' local registry.
+# Locally-built @spartan-ng/* packages are published here; everything else proxies to npmjs.
+# Based on the config the @nx/js:setup-verdaccio generator produces.
+
 # path to a directory with all packages
 storage: ../tmp/local-registry/storage
 
@@ -8,21 +12,24 @@ uplinks:
     maxage: 60m
 
 packages:
-  '**':
-    # give all users (including non-authenticated users) full access
-    # because it is a local registry
+  '@spartan-ng/*':
+    # Serve only locally-published versions so the e2e workspaces resolve the
+    # freshly built CLI/brain instead of whatever is on npm.
     access: $all
     publish: $all
     unpublish: $all
 
-    # if package is not available locally, proxy requests to npm registry
+  '@*/*':
+    access: $all
+    publish: $all
+    unpublish: $all
     proxy: npmjs
 
-# log settings
-logs:
-  type: stdout
-  format: pretty
-  level: warn
+  '**':
+    access: $all
+    publish: $all
+    unpublish: $all
+    proxy: npmjs
 
-publish:
-  allow_offline: true # set offline to true to allow publish offline
+# log only warnings/errors to keep CI output readable
+log: { type: stdout, format: pretty, level: warn }

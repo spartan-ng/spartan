@@ -1,11 +1,18 @@
-import { Directive } from '@angular/core';
+import { Directive, inject } from '@angular/core';
+import { BrnSelectValue } from '@spartan-ng/brain/select';
 import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
-	selector: 'hlm-select-value,[hlmSelectValue], brn-select-value[hlm]',
+	selector: '[hlmSelectValue],hlm-select-value',
+	hostDirectives: [{ directive: BrnSelectValue, inputs: ['placeholder'] }],
+	host: { '[attr.data-slot]': '!_hidden() ? "select-value" : null' },
 })
 export class HlmSelectValue {
+	private readonly _brnSelectValue = inject(BrnSelectValue);
+
+	protected readonly _hidden = this._brnSelectValue.hidden;
+
 	constructor() {
-		classes(() => 'data-[placeholder]:text-muted-foreground line-clamp-1 flex items-center gap-2 truncate');
+		classes(() => 'data-hidden:hidden');
 	}
 }

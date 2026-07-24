@@ -1,29 +1,63 @@
-@layer theme, base, components, utilities;
+/* Layer order, lowest priority (left) -> highest (right). Layers are resolved BEFORE specificity and
+   source order, so THIS line - not selector weight, not import order - is what decides which style wins.
+   - spartan-nova-baseline : nova only. Nova is the global baseline (it is the default style and matches
+       shadcn's default look), so it sits below the other styles and they override it cleanly. Must stay
+       ABOVE `base`: Tailwind's preflight reset lives in `base`, and because layers beat specificity, a
+       baseline rule below `base` would be clobbered by preflight's `*` reset.
+   - spartan-themes : the other five skins (vega, lyra, maia, mira, luma). They beat nova at the layer
+       rung, so a `.style-lyra` island overrides the nova baseline regardless of specificity ties or
+       import order.
+   `theme` is Tailwind's own layer (do not rename - Tailwind emits into it). */
+@layer theme, base, spartan-nova-baseline, spartan-themes, components, utilities;
+
+/* nova = global baseline (the default style) -> its own low-priority layer (see above). The body carries
+   `.style-nova` permanently so the baseline actually matches; islands set their own `.style-THEME`. */
+@import '../../../libs/registry/src/styles/style-nova.css' layer(spartan-nova-baseline);
+
+/* every other style -> one layer above nova; they override the baseline when applied as an island */
+@import '../../../libs/registry/src/styles/style-vega.css' layer(spartan-themes);
+@import '../../../libs/registry/src/styles/style-lyra.css' layer(spartan-themes);
+@import '../../../libs/registry/src/styles/style-maia.css' layer(spartan-themes);
+@import '../../../libs/registry/src/styles/style-mira.css' layer(spartan-themes);
+@import '../../../libs/registry/src/styles/style-luma.css' layer(spartan-themes);
 
 @import 'tailwindcss/theme.css' layer(theme);
 @import 'tailwindcss/preflight.css' layer(base);
+/* Utilities stay UNLAYERED on purpose - do NOT wrap this in layer(utilities). Angular component styles
+   such as ng-icon's `:host { display: inline-block }` are unlayered, and unlayered rules beat every named
+   layer at the cascade's layer rung (before specificity is even considered). The accordion shows a single
+   chevron by putting the `hidden` utility on the inactive <ng-icon>; layered utilities would lose to
+   ng-icon's unlayered host display and BOTH chevrons would render. Unlayered, `hidden` wins on specificity
+   instead - which is what we want. */
 @import 'tailwindcss/utilities.css';
-
-@import '../../../libs/brain/hlm-tailwind-preset.css';
 
 @import '@fontsource/geist-mono/latin';
 @import '@fontsource/geist/latin';
+@import '@fontsource-variable/noto-sans-hebrew';
+@import '@fontsource-variable/noto-sans-arabic';
+
+@import '../../../libs/brain/hlm-tailwind-preset.css';
 
 @custom-variant fixed (&:is(.layout-fixed *));
 
+@custom-variant logo-legacy (&:is(.logo-legacy *));
+
 @theme inline {
+	--font-ar: var(--font-ar);
+	--font-he: var(--font-he);
 	--breakpoint-3xl: 1600px;
 	--breakpoint-4xl: 2000px;
 
 	--color-surface: var(--surface);
 	--color-surface-foreground: var(--surface-foreground);
-	--spotlight-gradient: 68.54% 68.72% at 55.02% 31.46%, #d9d9d914 0, #8c8c8c05 50%, #73737300 80%;
 }
 
 :root {
 	color-scheme: light;
 	--font-sans: 'Geist', sans-serif;
 	--font-mono: 'Geist Mono', monospace;
+	--font-ar: 'Noto Sans Arabic', 'Noto Sans Arabic Fallback';
+	--font-he: 'Noto Sans Hebrew', 'Noto Sans Hebrew Fallback';
 	--radius: 0.625rem;
 	--background: oklch(1 0 0);
 	--foreground: oklch(0.145 0 0);
@@ -101,17 +135,6 @@
 	display: none !important;
 }
 
-select {
-	background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
-	background-position: right 0.5rem center;
-	background-repeat: no-repeat;
-	background-size: 1.5em 1.5em;
-	-webkit-print-color-adjust: exact;
-	appearance: none;
-	display: inline-flex;
-	align-items: center;
-}
-
 @utility container-wrapper {
 	@apply 3xl:fixed:max-w-[calc(var(--breakpoint-2xl)+2rem)] mx-auto w-full px-2;
 }
@@ -120,11 +143,44 @@ select {
 	@apply 3xl:max-w-screen-2xl mx-auto max-w-[1400px] px-4 lg:px-8;
 }
 
-@utility no-scrollbar {
-	-ms-overflow-style: none;
-	scrollbar-width: none;
+[data-lang='ar'] {
+	font-family: var(--font-ar);
+}
 
-	&::-webkit-scrollbar {
-		display: none;
-	}
+[data-lang='he'] {
+	font-family: var(--font-he);
+}
+
+/*
+ * Match the date-picker trigger/input width to each style's single-month
+ * calendar so the popover lines up flush with the control. The calendar grid is
+ * 7 cells of `--cell-size` plus its horizontal padding, all on the Tailwind
+ * spacing scale (`--cell-size: --spacing(n)`, `p-n`). We mirror that exact
+ * formula with the same `var(--spacing)` unit, so the control tracks the
+ * calendar (and scales with it) instead of carrying a hard-coded pixel width.
+ * Pinning the width also stops the input from reflowing when its clear button
+ * appears. These live in the docs app because the registry control is
+ * intentionally width-agnostic. The input variant is `w-full`, so it is scoped
+ * under `.style-*` to win on specificity.
+ */
+.spartan-date-picker-trigger,
+.style-vega hlm-date-picker-input,
+.style-maia hlm-date-picker-input,
+.style-luma hlm-date-picker-input {
+	/* vega, maia, luma: --cell-size 8, p-3 */
+	width: calc(7 * 8 * var(--spacing) + 2 * 3 * var(--spacing));
+}
+
+.style-mira .spartan-date-picker-trigger,
+.style-mira hlm-date-picker-input {
+	/* --cell-size 6, p-3 */
+	width: calc(7 * 6 * var(--spacing) + 2 * 3 * var(--spacing));
+}
+
+.style-lyra .spartan-date-picker-trigger,
+.style-lyra hlm-date-picker-input,
+.style-nova .spartan-date-picker-trigger,
+.style-nova hlm-date-picker-input {
+	/* --cell-size 7, p-2 */
+	width: calc(7 * 7 * var(--spacing) + 2 * 2 * var(--spacing));
 }

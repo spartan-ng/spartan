@@ -1,19 +1,9 @@
 {
 	"generators": {
-		"replace-cli-version": {
-			"factory": "./src/generators/replace-cli-version/generator",
-			"schema": "./src/generators/replace-cli-version/schema.json",
-			"description": "Updates the CLI's version"
-		},
-		"replace-ui-version": {
-			"factory": "./src/generators/replace-ui-version/generator",
-			"schema": "./src/generators/replace-ui-version/schema.json",
-			"description": "Replaces version for all UI libs and their references in the CLI"
-		},
-		"auto-increment-version": {
-			"factory": "./src/generators/auto-increment-version/generator",
-			"schema": "./src/generators/auto-increment-version/schema.json",
-			"description": "During alpha we are using this to automatically increment the version number for nightly releases"
+		"set-release-version": {
+			"factory": "./src/generators/set-release-version/generator",
+			"schema": "./src/generators/set-release-version/schema.json",
+			"description": "Sets the published @spartan-ng package versions (brain, cli, mcp) in lockstep"
 		},
 		"hlm-to-cli-generator": {
 			"factory": "./src/generators/hlm-to-cli-generator/generator",
@@ -59,6 +49,11 @@
 			"factory": "./src/generators/update-contributors/generator",
 			"schema": "./src/generators/update-contributors/schema.json",
 			"description": "Updates the README and three-hundred.ts with all Git contributors who are not already listed"
+		},
+		"generate-hlm-component-preview": {
+			"factory": "./src/generators/generate-hlm-component-preview/generator",
+			"schema": "./src/generators/generate-hlm-component-preview/schema.json",
+			"description": "Generate the hlm component with the correct tailwind classes instead of the spartan classes"
 		}
 	}
 }

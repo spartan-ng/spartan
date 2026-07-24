@@ -1,7 +1,6 @@
 import { Directive } from '@angular/core';
 import { BrnAutocompleteSearch } from '@spartan-ng/brain/autocomplete';
-import { provideBrnDialogDefaultOptions } from '@spartan-ng/brain/dialog';
-import { BrnPopover, provideBrnPopoverConfig } from '@spartan-ng/brain/popover';
+import { BrnPopover, provideBrnPopoverConfig, provideBrnPopoverDefaultOptions } from '@spartan-ng/brain/popover';
 import { classes } from '<%- importAlias %>/utils';
 
 @Directive({
@@ -11,25 +10,21 @@ import { classes } from '<%- importAlias %>/utils';
 			align: 'start',
 			sideOffset: 6,
 		}),
-		provideBrnDialogDefaultOptions({
-			autoFocus: 'first-heading',
-		}),
+		provideBrnPopoverDefaultOptions({ role: null }),
 	],
 	hostDirectives: [
 		{
 			directive: BrnAutocompleteSearch,
-			inputs: ['disabled', 'value', 'search', 'itemToString'],
+			inputs: ['autoHighlight', 'disabled', 'value', 'search', 'itemToString'],
 			outputs: ['valueChange', 'searchChange'],
 		},
 		{
 			directive: BrnPopover,
-			inputs: ['align', 'autoFocus', 'closeDelay', 'closeOnOutsidePointerEvents', 'sideOffset', 'state', 'offsetX'],
+			inputs: ['align', 'closeOnOutsidePointerEvents', 'sideOffset', 'state', 'offsetX'],
 			outputs: ['stateChanged', 'closed'],
 		},
 	],
-	host: {
-		'data-slot': 'autocomplete',
-	},
+	host: { 'data-slot': 'autocomplete' },
 })
 export class HlmAutocompleteSearch {
 	constructor() {

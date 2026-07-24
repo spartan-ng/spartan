@@ -1,56 +1,46 @@
-import { Component } from '@angular/core';
-import { provideIcons } from '@ng-icons/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideInfo } from '@ng-icons/lucide';
-import { HlmIconImports } from '@spartan-ng/helm/icon';
+
 import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 import { HlmTooltipImports } from '@spartan-ng/helm/tooltip';
 
 @Component({
 	selector: 'spartan-input-group-tooltip-preview',
-	imports: [HlmInputGroupImports, HlmTooltipImports, HlmIconImports],
-	providers: [
-		provideIcons({
-			lucideInfo,
-		}),
-	],
-	host: {
-		class: 'grid w-full max-w-sm gap-6',
-	},
+	imports: [HlmInputGroupImports, HlmTooltipImports, NgIcon],
+	providers: [provideIcons({ lucideInfo })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: { class: 'grid w-full max-w-sm gap-6' },
 	template: `
-		<div hlmInputGroup>
+		<hlm-input-group>
 			<input hlmInputGroupInput placeholder="Enter password" type="password" />
-			<div hlmInputGroupAddon align="inline-end">
+			<hlm-input-group-addon align="inline-end">
 				<button
 					hlmInputGroupButton
-					hlmTooltipTrigger="Password must be at least 8 characters"
+					[hlmTooltip]="'Password must be at least 8 characters'"
 					variant="ghost"
 					aria-label="Info"
 					size="icon-xs"
 				>
 					<ng-icon name="lucideInfo" />
 				</button>
-			</div>
-		</div>
-		<div hlmInputGroup>
+			</hlm-input-group-addon>
+		</hlm-input-group>
+		<hlm-input-group>
 			<input hlmInputGroupInput placeholder="Your email address" />
-			<div hlmInputGroupAddon align="inline-end">
-				<button
-					hlmInputGroupButton
-					hlmTooltipTrigger="We'll use this to send you notifications"
-					variant="ghost"
-					aria-label="Info"
-					size="icon-xs"
-				>
+			<hlm-input-group-addon align="inline-end">
+				<button hlmInputGroupButton [hlmTooltip]="tooltip" variant="ghost" aria-label="Info" size="icon-xs">
 					<ng-icon name="lucideInfo" />
 				</button>
-			</div>
-		</div>
-		<div hlmInputGroup>
+				<ng-template #tooltip>We'll use this to send you notifications</ng-template>
+			</hlm-input-group-addon>
+		</hlm-input-group>
+		<hlm-input-group>
 			<input hlmInputGroupInput placeholder="Enter API key" />
-			<div hlmInputGroupAddon>
+			<hlm-input-group-addon>
 				<button
 					hlmInputGroupButton
-					hlmTooltipTrigger="Click for help with API keys"
+					[hlmTooltip]="'Click for help with API keys'"
 					position="left"
 					variant="ghost"
 					aria-label="Info"
@@ -58,8 +48,8 @@ import { HlmTooltipImports } from '@spartan-ng/helm/tooltip';
 				>
 					<ng-icon name="lucideInfo" />
 				</button>
-			</div>
-		</div>
+			</hlm-input-group-addon>
+		</hlm-input-group>
 	`,
 })
 export class InputGroupTooltipPreview {}

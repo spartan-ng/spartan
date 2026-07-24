@@ -1,4 +1,3 @@
-import { BrnAlertDialogImports } from '@spartan-ng/brain/alert-dialog';
 import { HlmAlertDialog, HlmAlertDialogImports } from '@spartan-ng/helm/alert-dialog';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';
@@ -11,7 +10,7 @@ const meta: Meta<HlmAlertDialog> = {
 	argTypes: {},
 	decorators: [
 		moduleMetadata({
-			imports: [BrnAlertDialogImports, HlmAlertDialogImports, HlmButton],
+			imports: [HlmAlertDialogImports, HlmButton],
 		}),
 	],
 };
@@ -24,7 +23,7 @@ export const Default: Story = {
 		template: `
     <hlm-alert-dialog>
       <button id="delete-account" variant="outline" hlmAlertDialogTrigger hlmBtn>Delete Account</button>
-      <hlm-alert-dialog-content *brnAlertDialogContent="let ctx">
+      <hlm-alert-dialog-content *hlmAlertDialogPortal="let ctx">
            <hlm-alert-dialog-header>
             <h2 hlmAlertDialogTitle>Are you absolutely sure?</h2>
             <p hlmAlertDialogDescription>

@@ -38,7 +38,7 @@ describe('BrnButton', () => {
 	});
 
 	it('should allow click when not disabled', async () => {
-		const onClick = jest.fn();
+		const onClick = vi.fn();
 		const { fixture, container } = await render(TestHost, {
 			componentProperties: { disabled: false, onClick },
 		});
@@ -50,7 +50,7 @@ describe('BrnButton', () => {
 	});
 
 	it('should not allow click when is disabled', async () => {
-		const onClick = jest.fn();
+		const onClick = vi.fn();
 		const { fixture, container } = await render(TestHost, {
 			componentProperties: {
 				disabled: true,

@@ -10,6 +10,6 @@ import { classes } from '<%- importAlias %>/utils';
 })
 export class HlmSidebarGroup {
 	constructor() {
-		classes(() => 'relative flex w-full min-w-0 flex-col p-2');
+		classes(() => 'spartan-sidebar-group relative flex w-full min-w-0 flex-col');
 	}
 }

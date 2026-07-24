@@ -1,14 +1,13 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChartPie, lucideFrame, lucideMap, lucidePlus } from '@ng-icons/lucide';
-import { HlmIcon } from '@spartan-ng/helm/icon';
+import { toast } from '@spartan-ng/brain/sonner';
 import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 import { HlmToasterImports } from '@spartan-ng/helm/sonner';
-import { toast } from 'ngx-sonner';
 
 @Component({
 	selector: 'spartan-sidebar-group-action',
-	imports: [HlmSidebarImports, NgIcon, HlmIcon, HlmToasterImports],
+	imports: [HlmSidebarImports, NgIcon, HlmToasterImports],
 	providers: [
 		provideIcons({
 			lucideFrame,
@@ -27,26 +26,26 @@ import { toast } from 'ngx-sonner';
 					<div hlmSidebarGroup>
 						<div hlmSidebarGroupLabel>Projects</div>
 						<button hlmSidebarGroupAction title="Add Project" (click)="_onAddProject()">
-							<ng-icon hlm name="lucidePlus" />
+							<ng-icon name="lucidePlus" />
 							<span class="sr-only">Add Project</span>
 						</button>
 						<div hlmSidebarGroupContent>
 							<ul hlmSidebarMenu>
 								<li hlmSidebarMenuItem>
 									<button hlmSidebarMenuButton>
-										<ng-icon hlm name="lucideFrame" />
+										<ng-icon name="lucideFrame" />
 										<span>Design Engineering</span>
 									</button>
 								</li>
 								<li hlmSidebarMenuItem>
 									<button hlmSidebarMenuButton>
-										<ng-icon hlm name="lucideChartPie" />
+										<ng-icon name="lucideChartPie" />
 										<span>Sales & Marketing</span>
 									</button>
 								</li>
 								<li hlmSidebarMenuItem>
 									<button hlmSidebarMenuButton>
-										<ng-icon hlm name="lucideMap" />
+										<ng-icon name="lucideMap" />
 										<span>Travel</span>
 									</button>
 								</li>

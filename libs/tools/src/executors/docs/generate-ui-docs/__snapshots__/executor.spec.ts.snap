@@ -3430,6 +3430,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
       "HlmDatePicker": {
         "inputs": [
           {
+            "name": "align",
+            "required": false,
+            "type": "BrnPopoverAlign",
+          },
+          {
             "name": "captionLayout",
             "required": false,
             "type": "'dropdown' | 'label' | 'dropdown-months' | 'dropdown-years'",
@@ -3555,6 +3560,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
       },
       "HlmDatePickerMulti": {
         "inputs": [
+          {
+            "name": "align",
+            "required": false,
+            "type": "BrnPopoverAlign",
+          },
           {
             "name": "captionLayout",
             "required": false,
@@ -3707,6 +3717,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
       "HlmDateRangePicker": {
         "inputs": [
           {
+            "name": "align",
+            "required": false,
+            "type": "BrnPopoverAlign",
+          },
+          {
             "name": "captionLayout",
             "required": false,
             "type": "'dropdown' | 'label' | 'dropdown-months' | 'dropdown-years'",
@@ -3815,6 +3830,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
       },
       "HlmMonthYearPicker": {
         "inputs": [
+          {
+            "name": "align",
+            "required": false,
+            "type": "BrnPopoverAlign",
+          },
           {
             "name": "min",
             "required": false,

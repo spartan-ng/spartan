@@ -7,7 +7,6 @@ import type { Primitive } from '../ui/primitives';
 
 export type LibraryMetadata = {
 	version: string;
-	hash: string;
 	timestamp: number;
 	files: Record<string, string>; // filepath -> hash
 };
@@ -51,6 +50,15 @@ export function getMetadata(tree: Tree): SpartanMetadata {
 		const libraries = (metadata as { libraries: unknown }).libraries;
 		if (!libraries || typeof libraries !== 'object' || Array.isArray(libraries)) {
 			throw new Error('Metadata libraries value is invalid');
+		}
+		// Prune malformed entries (e.g. manual edits) so a single bad baseline degrades to
+		// "treat as customized" for that library instead of crashing the whole migration.
+		for (const [name, entry] of Object.entries(libraries as Record<string, unknown>)) {
+			const files = (entry as Partial<LibraryMetadata> | null)?.files;
+			if (!files || typeof files !== 'object' || Array.isArray(files)) {
+				logger.warn(`Ignoring invalid metadata entry for "${name}"`);
+				delete (libraries as Record<string, unknown>)[name];
+			}
 		}
 		return metadata as SpartanMetadata;
 	} catch (error) {
@@ -161,30 +169,11 @@ export function generateLibraryMetadata(tree: Tree, libraryPath: string, version
 		}
 	}
 
-	const overallHash = computeHash(JSON.stringify(files));
-
 	return {
 		version,
-		hash: overallHash,
 		timestamp: Date.now(),
 		files,
 	};
-}
-
-/**
- * Check if a library has been customized by comparing the current library hash with the metadata hash
- */
-export function isLibraryCustomized(tree: Tree, libraryPath: string, primitive: string): boolean {
-	const metadata = getMetadata(tree);
-	const libraryMetadata = metadata.libraries[primitive];
-
-	if (!libraryMetadata) {
-		// No metadata exists, assume it might be customized or was added manually
-		return true;
-	}
-
-	const currentMetadata = generateLibraryMetadata(tree, libraryPath, libraryMetadata.version);
-	return currentMetadata.hash !== libraryMetadata.hash;
 }
 
 export function getCustomizationDetails(
@@ -205,20 +194,7 @@ export function getCustomizationDetails(
 		};
 	}
 
-	const currentFiles = getFilesRecursively(tree, libraryPath);
-	const currentFileHashes: Record<string, string> = {};
-
-	for (const filePath of currentFiles) {
-		if (filePath.includes('node_modules') || filePath.includes('.spartan')) {
-			continue;
-		}
-
-		const content = tree.read(filePath, 'utf-8');
-		if (typeof content === 'string') {
-			const relativePath = getRelativePath(filePath, libraryPath);
-			currentFileHashes[relativePath] = getHashedFileContent(content);
-		}
-	}
+	const currentFileHashes = generateLibraryMetadata(tree, libraryPath, libraryMetadata.version).files;
 
 	const addedFiles: string[] = [];
 	const modifiedFiles: string[] = [];

@@ -142,12 +142,14 @@ export async function createPrimitiveLibraries(
 
 	const version = getCurrentCliVersion(tree);
 	for (const primitive of primitivesToTrack) {
+		let libraryPath: string;
 		try {
-			const libraryPath = getLibraryPathFromPrimitive(tree, primitive, importAlias);
-			updateLibraryMetadata(tree, primitive, libraryPath, version);
+			libraryPath = getLibraryPathFromPrimitive(tree, primitive, importAlias);
 		} catch {
 			// A generator may skip a primitive; only track libraries that were actually created.
+			continue;
 		}
+		updateLibraryMetadata(tree, primitive, libraryPath, version);
 	}
 
 	return tasks;

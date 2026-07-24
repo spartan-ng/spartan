@@ -65,8 +65,12 @@ export async function migrateHelmLibrariesGenerator(tree: Tree, options: Migrate
 	);
 
 	logger.info('\n📋 Migration overview:');
-	logger.info(`   ✓ ${unchanged.length} unchanged libraries (safe to migrate)`);
-	logger.info(`   ⚠ ${customized.length} customized libraries (contain modifications)`);
+	logger.info(
+		`   ✓ ${unchanged.length} unchanged ${unchanged.length === 1 ? 'library' : 'libraries'} (safe to migrate)`,
+	);
+	logger.info(
+		`   ⚠ ${customized.length} customized ${customized.length === 1 ? 'library' : 'libraries'} (contain modifications)`,
+	);
 
 	if (customized.length > 0) {
 		logger.warn('\n⚠️  Customized libraries detected:');

@@ -82,8 +82,8 @@ describe('migrate-helm-libraries generator', () => {
 			style: 'vega',
 		});
 
-		expect(infoSpy).toHaveBeenCalledWith('   ✓ 1 unchanged libraries (safe to migrate)');
-		expect(infoSpy).toHaveBeenCalledWith('   ⚠ 1 customized libraries (contain modifications)');
+		expect(infoSpy).toHaveBeenCalledWith('   ✓ 1 unchanged library (safe to migrate)');
+		expect(infoSpy).toHaveBeenCalledWith('   ⚠ 1 customized library (contain modifications)');
 		expect(warnSpy).toHaveBeenCalledWith('   📦 button:');
 		expect(warnSpy).toHaveBeenCalledWith('      - Added: src/lib/custom.ts');
 		expect(infoSpy).toHaveBeenCalledWith('No libraries will be updated.');

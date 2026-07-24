@@ -42,7 +42,7 @@ import { HlmToasterImports } from '@spartan-ng/helm/sonner';
 			<form hlmCardContent id="otp-form" [formRoot]="form">
 				<hlm-field>
 					<div class="flex items-center justify-between">
-						<label hlmFieldLabel for="otp-verification">Verification code</label>
+						<label hlmFieldLabel>Verification code</label>
 						<button hlmBtn variant="outline" size="xs" [disabled]="isResendDisabled()" (click)="resendOtp()">
 							<ng-icon name="lucideRefreshCw" />
 							Resend code
@@ -54,6 +54,7 @@ import { HlmToasterImports } from '@spartan-ng/helm/sonner';
 					<brn-input-otp
 						hlmInputOtp
 						[length]="maxLength"
+						inputId="otp-verification"
 						inputClass="disabled:cursor-not-allowed"
 						[formField]="form.otp"
 						[transformPaste]="transformPaste"

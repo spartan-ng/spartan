@@ -5288,6 +5288,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "required": true,
             "type": "number",
           },
+          {
+            "name": "forceInvalid",
+            "required": false,
+            "type": "boolean",
+          },
         ],
         "models": [],
         "outputs": [],
@@ -5325,6 +5330,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "name": "index",
             "required": true,
             "type": "number",
+          },
+          {
+            "name": "forceInvalid",
+            "required": false,
+            "type": "boolean",
           },
         ],
         "models": [],

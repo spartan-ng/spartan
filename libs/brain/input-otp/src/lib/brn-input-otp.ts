@@ -7,6 +7,7 @@ import {
 	computed,
 	ElementRef,
 	forwardRef,
+	inject,
 	input,
 	linkedSignal,
 	numberAttribute,
@@ -15,6 +16,7 @@ import {
 	viewChild,
 } from '@angular/core';
 import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { BrnFieldControl, provideBrnLabelable } from '@spartan-ng/brain/field';
 import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
 import type { ClassValue } from 'clsx';
 import { provideBrnInputOtp } from './brn-input-otp.token';
@@ -29,8 +31,9 @@ export type InputMode = 'text' | 'tel' | 'url' | 'email' | 'numeric' | 'decimal'
 
 @Component({
 	selector: 'brn-input-otp',
-	providers: [BRN_INPUT_OTP_VALUE_ACCESSOR, provideBrnInputOtp(BrnInputOtp)],
+	providers: [BRN_INPUT_OTP_VALUE_ACCESSOR, provideBrnInputOtp(BrnInputOtp), provideBrnLabelable(BrnInputOtp)],
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	hostDirectives: [BrnFieldControl],
 	host: {
 		'[style]': 'hostStyles()',
 		'data-input-otp-container': 'true',
@@ -51,13 +54,20 @@ export type InputMode = 'text' | 'tel' | 'url' | 'email' | 'numeric' | 'decimal'
 				(input)="onInputChange($event)"
 				(paste)="onPaste($event)"
 				(focus)="_focused.set(true)"
-				(blur)="_focused.set(false)"
+				(blur)="onBlur()"
 			/>
 		</div>
 	`,
 })
 export class BrnInputOtp implements ControlValueAccessor {
 	private static _id = 0;
+
+	private readonly _fieldControl = inject(BrnFieldControl, { optional: true });
+
+	public readonly invalid = this._fieldControl?.invalid;
+	public readonly touched = this._fieldControl?.touched;
+	public readonly dirty = this._fieldControl?.dirty;
+	public readonly spartanInvalid = this._fieldControl?.spartanInvalid;
 
 	/** Whether the input has focus. */
 	protected readonly _focused = signal<boolean>(false);
@@ -69,6 +79,8 @@ export class BrnInputOtp implements ControlValueAccessor {
 
 	/** Custom id applied to the input element */
 	public readonly inputId = input<string>(`brn-input-otp-${++BrnInputOtp._id}`);
+
+	public readonly labelableId = this.inputId;
 
 	/** Custom autocomplete attribute applied to the input element */
 	public readonly inputAutocomplete = input<'one-time-code' | 'off'>('one-time-code');
@@ -148,6 +160,11 @@ export class BrnInputOtp implements ControlValueAccessor {
 				this._inputComponentRef().nativeElement.focus();
 			}
 		});
+	}
+
+	protected onBlur() {
+		this._focused.set(false);
+		this._onTouched?.();
 	}
 
 	protected onInputChange(event: Event) {

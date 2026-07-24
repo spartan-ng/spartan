@@ -9,6 +9,11 @@ import {
 	numberAttribute,
 	untracked,
 } from '@angular/core';
+import {
+	BrnPaginationSize,
+	BrnPaginationSizeSource,
+	provideBrnPaginationSizeSource,
+} from '@spartan-ng/brain/pagination';
 import { HlmSelectImports } from '@spartan-ng/helm/select';
 import { classes } from '@spartan-ng/helm/utils';
 import { createPageArray, outOfBoundCorrection } from './hlm-numbered-pagination';
@@ -32,7 +37,14 @@ import { HlmPaginationPrevious } from './hlm-pagination-previous';
 		HlmPaginationEllipsis,
 		HlmSelectImports,
 	],
+	providers: [provideBrnPaginationSizeSource(HlmNumberedPaginationQueryParams)],
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	hostDirectives: [
+		{
+			directive: BrnPaginationSize,
+			inputs: ['enableSizeParams', 'sizeParamName'],
+		},
+	],
 	template: `
 		<div class="flex items-center gap-1 text-sm text-nowrap text-gray-600">
 			<b>{{ totalItems() }}</b>
@@ -98,7 +110,7 @@ import { HlmPaginationPrevious } from './hlm-pagination-previous';
 		</hlm-select>
 	`,
 })
-export class HlmNumberedPaginationQueryParams {
+export class HlmNumberedPaginationQueryParams implements BrnPaginationSizeSource {
 	/**
 	 * The current (active) page.
 	 */

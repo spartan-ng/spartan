@@ -48,8 +48,8 @@ export const HLM_MONTH_YEAR_PICKER_VALUE_ACCESSOR = {
 					class="rounded-none border-0"
 					[date]="_mutableDate()"
 					[defaultFocusedDate]="_mutableDate() ?? defaultFocusedDate()"
-					[min]="min()"
-					[max]="max()"
+					[min]="minDate()"
+					[max]="maxDate()"
 					[disabled]="_disabled()"
 					(dateChange)="_handleChange($event)"
 				/>
@@ -66,10 +66,10 @@ export class HlmMonthYearPicker<T> implements BrnDatePickerBase<T>, ControlValue
 	private readonly _trigger = contentChild(BrnDatePickerTriggerToken);
 
 	/** The minimum date that can be selected.*/
-	public readonly min = input<T>();
+	public readonly minDate = input<T>();
 
 	/** The maximum date that can be selected. */
-	public readonly max = input<T>();
+	public readonly maxDate = input<T>();
 
 	/** Determine if the date picker is disabled. */
 	public readonly disabled = input<boolean, BooleanInput>(false, {

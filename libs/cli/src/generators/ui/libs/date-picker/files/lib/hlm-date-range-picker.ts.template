@@ -51,8 +51,8 @@ export const HLM_DATE_RANGE_PICKER_VALUE_ACCESSOR = {
 					[startDate]="_start()"
 					[captionLayout]="captionLayout()"
 					[endDate]="_end()"
-					[min]="min()"
-					[max]="max()"
+					[min]="minDate()"
+					[max]="maxDate()"
 					[disabled]="_disabled()"
 					(startDateChange)="_handleStartDayChange($event)"
 					(endDateChange)="_handleEndDateChange($event)"
@@ -73,10 +73,10 @@ export class HlmDateRangePicker<T> implements BrnDatePickerBase<[T, T]>, Control
 	public readonly captionLayout = input<'dropdown' | 'label' | 'dropdown-months' | 'dropdown-years'>('label');
 
 	/** The minimum date that can be selected.*/
-	public readonly min = input<T>();
+	public readonly minDate = input<T>();
 
 	/** The maximum date that can be selected. */
-	public readonly max = input<T>();
+	public readonly maxDate = input<T>();
 
 	/** Determine if the date picker is disabled. */
 	public readonly disabled = input<boolean, BooleanInput>(false, {

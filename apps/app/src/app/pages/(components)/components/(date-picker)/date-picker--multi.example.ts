@@ -9,8 +9,8 @@ import { HlmFieldImports } from '@spartan-ng/helm/field';
 		<hlm-field>
 			<label hlmFieldLabel for="date-multi">Date Picker Multiple</label>
 			<hlm-date-picker-multi
-				[min]="minDate"
-				[max]="maxDate"
+				[minDate]="minDate"
+				[maxDate]="maxDate"
 				[autoCloseOnMaxSelection]="true"
 				[minSelection]="2"
 				[maxSelection]="6"

@@ -50,8 +50,8 @@ export const HLM_DATE_PICKER_MUTLI_VALUE_ACCESSOR = {
 					class="rounded-none border-0"
 					[date]="_mutableDate()"
 					[captionLayout]="captionLayout()"
-					[min]="min()"
-					[max]="max()"
+					[min]="minDate()"
+					[max]="maxDate()"
 					[minSelection]="minSelection()"
 					[maxSelection]="maxSelection()"
 					[disabled]="_disabled()"
@@ -73,10 +73,10 @@ export class HlmDatePickerMulti<T> implements BrnDatePickerBase<T[]>, ControlVal
 	public readonly captionLayout = input<'dropdown' | 'label' | 'dropdown-months' | 'dropdown-years'>('label');
 
 	/** The minimum date that can be selected.*/
-	public readonly min = input<T>();
+	public readonly minDate = input<T>();
 
 	/** The maximum date that can be selected. */
-	public readonly max = input<T>();
+	public readonly maxDate = input<T>();
 
 	/** The minimum selectable dates.  */
 	public readonly minSelection = input<number, NumberInput>(undefined, {

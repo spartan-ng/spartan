@@ -46,8 +46,8 @@ export const HLM_DATE_PICKER_VALUE_ACCESSOR = {
 					[captionLayout]="captionLayout()"
 					[date]="_mutableDate()"
 					[defaultFocusedDate]="_mutableDate() ?? defaultFocusedDate()"
-					[min]="min()"
-					[max]="max()"
+					[min]="minDate()"
+					[max]="maxDate()"
 					[disabled]="_disabled()"
 					(dateChange)="_handleChange($event)"
 				/>
@@ -66,11 +66,11 @@ export class HlmDatePicker<T> implements BrnDatePickerBase<T>, ControlValueAcces
 	/** Show dropdowns to navigate between months or years. */
 	public readonly captionLayout = input<'dropdown' | 'label' | 'dropdown-months' | 'dropdown-years'>('label');
 
-	/** The minimum date that can be selected.*/
-	public readonly min = input<T>();
+	/** The minimum date that can be selected. */
+	public readonly minDate = input<T>();
 
 	/** The maximum date that can be selected. */
-	public readonly max = input<T>();
+	public readonly maxDate = input<T>();
 
 	/** Determine if the date picker is disabled. */
 	public readonly disabled = input<boolean, BooleanInput>(false, {

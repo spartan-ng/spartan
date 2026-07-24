@@ -11,7 +11,7 @@ import { DateTime } from 'luxon';
 			<label hlmFieldLabel for="date-input">Date of birth</label>
 			<hlm-date-picker
 				captionLayout="dropdown"
-				[max]="maxDate"
+				[maxDate]="maxDate"
 				[defaultFocusedDate]="defaultFocusedDate"
 				[formatDate]="formatDate"
 			>

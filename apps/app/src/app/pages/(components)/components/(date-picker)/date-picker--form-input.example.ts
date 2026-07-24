@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { form, FormField, FormRoot, required } from '@angular/forms/signals';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmDatePickerImports } from '@spartan-ng/helm/date-picker';
 import { HlmFieldImports } from '@spartan-ng/helm/field';
@@ -7,20 +7,18 @@ import { DateTime } from 'luxon';
 
 @Component({
 	selector: 'spartan-date-picker-form-input',
-	imports: [HlmDatePickerImports, ReactiveFormsModule, HlmButtonImports, HlmFieldImports],
+	imports: [FormRoot, FormField, HlmDatePickerImports, HlmButtonImports, HlmFieldImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	host: {
-		class: 'w-full max-w-xs',
-	},
+	host: { class: 'w-full max-w-xs' },
 	template: `
-		<form [formGroup]="form" (ngSubmit)="submit()">
+		<form [formRoot]="form">
 			<hlm-field-group>
 				<hlm-field>
 					<label for="date-birthday-input" hlmFieldLabel>Date of birth</label>
 					<hlm-date-picker
 						captionLayout="dropdown"
-						formControlName="birthday"
-						[max]="maxDate"
+						[formField]="form.birthday"
+						[maxDate]="maxDate"
 						[defaultFocusedDate]="defaultFocusedDate"
 						[formatDate]="formatDate"
 					>
@@ -34,18 +32,29 @@ import { DateTime } from 'luxon';
 					<hlm-field-description>Type a date (dd.MM.yyyy) or pick one from the calendar.</hlm-field-description>
 				</hlm-field>
 				<hlm-field orientation="horizontal">
-					<button type="submit" hlmBtn [disabled]="form.invalid">Submit</button>
+					<button type="submit" hlmBtn [disabled]="form().submitting()">Submit</button>
 				</hlm-field>
 			</hlm-field-group>
 		</form>
 	`,
 })
 export class DatePickerFormInputExample {
-	private readonly _formBuilder = inject(FormBuilder);
+	protected readonly _model = signal<{ birthday: Date | null }>({ birthday: null });
 
-	public form = this._formBuilder.group({
-		birthday: [null, Validators.required],
-	});
+	public readonly form = form(
+		this._model,
+		(schemaPath) => {
+			required(schemaPath.birthday, { message: 'Please select a date' });
+		},
+		{
+			submission: {
+				action: async () => {
+					const model = this._model();
+					console.log(model);
+				},
+			},
+		},
+	);
 
 	/** The maximum date */
 	public maxDate = new Date();
@@ -61,8 +70,4 @@ export class DatePickerFormInputExample {
 		const dt = DateTime.fromFormat(value, 'dd.MM.yyyy');
 		return dt.isValid ? dt.toJSDate() : null;
 	};
-
-	submit() {
-		console.log(this.form.value);
-	}
 }

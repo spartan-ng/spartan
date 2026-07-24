@@ -16,16 +16,8 @@ export const routeMeta: RouteMeta = {
 		class: 'flex flex-col',
 	},
 	template: `
-		<spartan-block-viewer
-			block="signup-simple-reactive-form"
-			title="A simple signup form (Reactive forms)"
-			id="signup-1"
-		/>
-		<spartan-block-viewer
-			block="signup-two-column-reactive-form"
-			title="A two-column signup form (Reactive forms)"
-			id="signup-2"
-		/>
+		<spartan-block-viewer block="signup-simple" title="A simple signup form" id="signup-1" />
+		<spartan-block-viewer block="signup-two-column" title="A two-column signup form" id="signup-2" />
 	`,
 })
 export default class SignupPage {}

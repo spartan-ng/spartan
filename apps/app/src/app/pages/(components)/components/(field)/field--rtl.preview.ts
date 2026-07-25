@@ -1,5 +1,4 @@
 import { Component, computed, inject } from '@angular/core';
-import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TranslateService, Translations } from '@spartan-ng/app/app/shared/translate.service';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmCheckboxImports } from '@spartan-ng/helm/checkbox';
@@ -17,7 +16,6 @@ import { HlmTextareaImports } from '@spartan-ng/helm/textarea';
 		HlmInputImports,
 		HlmFieldImports,
 		HlmSelectImports,
-		ReactiveFormsModule,
 	],
 	host: {
 		class: 'w-full max-w-md',
@@ -111,8 +109,6 @@ import { HlmTextareaImports } from '@spartan-ng/helm/textarea';
 	`,
 })
 export class FieldRtl {
-	public control = new FormControl('', Validators.required);
-
 	protected readonly _months = computed(() => {
 		const t = this._t();
 		return ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'].map((m) => ({

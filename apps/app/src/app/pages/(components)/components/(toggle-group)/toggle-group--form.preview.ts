@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { form, FormField, FormRoot, required } from '@angular/forms/signals';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideBookmark, lucideHeart, lucideStar } from '@ng-icons/lucide';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
@@ -7,12 +7,12 @@ import { HlmToggleGroupImports } from '@spartan-ng/helm/toggle-group';
 
 @Component({
 	selector: 'spartan-toggle-group-form',
-	imports: [HlmToggleGroupImports, HlmButtonImports, NgIcon, ReactiveFormsModule],
+	imports: [HlmToggleGroupImports, HlmButtonImports, NgIcon, FormRoot, FormField],
 	providers: [provideIcons({ lucideStar, lucideHeart, lucideBookmark })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<form class="space-y-6" [formGroup]="form" (ngSubmit)="submit()">
-			<hlm-toggle-group formControlName="action" type="single" variant="outline" spacing="2" size="sm">
+		<form class="space-y-6" [formRoot]="form">
+			<hlm-toggle-group [formField]="form.action" type="single" variant="outline" spacing="2" size="sm">
 				<button
 					hlmToggleGroupItem
 					value="star"
@@ -47,12 +47,22 @@ import { HlmToggleGroupImports } from '@spartan-ng/helm/toggle-group';
 	`,
 })
 export class ToggleGroupSpacingForm {
-	private readonly _formBuilder = inject(FormBuilder);
-	public form = this._formBuilder.group({
-		action: ['star', Validators.required],
+	protected readonly _model = signal({
+		action: 'star',
 	});
 
-	submit() {
-		console.log(this.form.value);
-	}
+	public readonly form = form(
+		this._model,
+		(schemaPath) => {
+			required(schemaPath.action, { message: 'Please select an action' });
+		},
+		{
+			submission: {
+				action: async () => {
+					const model = this._model();
+					console.log(model);
+				},
+			},
+		},
+	);
 }

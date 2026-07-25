@@ -1,38 +1,43 @@
-import { Component, inject } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, signal } from '@angular/core';
+import { form, FormField, FormRoot, required } from '@angular/forms/signals';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmFieldImports } from '@spartan-ng/helm/field';
 import { HlmSliderImports } from '@spartan-ng/helm/slider';
 
 @Component({
 	selector: 'spartan-slider-form',
-	imports: [HlmSliderImports, ReactiveFormsModule, HlmButtonImports, HlmFieldImports],
-	styles: `
-		:host {
-			display: block;
-			width: 60%;
-		}
-	`,
+	imports: [HlmSliderImports, FormRoot, FormField, HlmButtonImports, HlmFieldImports],
+	host: { class: 'w-full max-w-xs' },
 	template: `
-		<form class="space-y-6" [formGroup]="form" (ngSubmit)="submit()">
-			<hlm-field>
-				<label hlmFieldLabel for="volume">Volume</label>
-				<hlm-slider id="volume" formControlName="volume" />
-				<p hlmFieldDescription>Set your speaker volume.</p>
-			</hlm-field>
-			<hlm-field orientation="horizontal">
-				<button hlmBtn type="submit">Submit</button>
-			</hlm-field>
+		<form [formRoot]="form">
+			<hlm-field-group>
+				<hlm-field>
+					<label hlmFieldLabel for="volume">Volume</label>
+					<hlm-slider id="volume" [formField]="form.volume" />
+					<p hlmFieldDescription>Set your speaker volume.</p>
+				</hlm-field>
+				<hlm-field orientation="horizontal">
+					<button hlmBtn type="submit">Submit</button>
+				</hlm-field>
+			</hlm-field-group>
 		</form>
 	`,
 })
 export class SliderForm {
-	private readonly _formBuilder = inject(FormBuilder);
-	public form = this._formBuilder.group({
-		volume: [[25], Validators.required],
-	});
+	protected readonly _model = signal<{ volume: number[] }>({ volume: [25] });
 
-	submit() {
-		console.log(this.form.value);
-	}
+	public readonly form = form(
+		this._model,
+		(schemaPath) => {
+			required(schemaPath.volume, { message: 'Volume is required' });
+		},
+		{
+			submission: {
+				action: async () => {
+					const model = this._model();
+					console.log(model);
+				},
+			},
+		},
+	);
 }

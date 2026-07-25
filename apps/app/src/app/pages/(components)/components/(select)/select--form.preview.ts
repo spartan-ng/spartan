@@ -1,21 +1,21 @@
-import { Component, inject } from '@angular/core';
-import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, signal } from '@angular/core';
+import { form, FormField, FormRoot, required } from '@angular/forms/signals';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmFieldImports } from '@spartan-ng/helm/field';
 import { HlmSelectImports } from '@spartan-ng/helm/select';
 
 @Component({
 	selector: 'spartan-select-form-preview',
-	imports: [HlmFieldImports, HlmSelectImports, HlmButtonImports, ReactiveFormsModule],
+	imports: [HlmFieldImports, HlmSelectImports, HlmButtonImports, FormRoot, FormField],
 	host: {
 		class: 'w-full max-w-xs',
 	},
 	template: `
-		<form [formGroup]="form" (ngSubmit)="submit()">
+		<form [formRoot]="form">
 			<hlm-field-group>
 				<hlm-field>
 					<label hlmFieldLabel for="fruit">Fruit</label>
-					<hlm-select formControlName="fruit" [itemToString]="itemToString">
+					<hlm-select [formField]="form.fruit" [itemToString]="itemToString">
 						<hlm-select-trigger buttonId="fruit" class="w-56">
 							<hlm-select-value placeholder="Select a fruit" />
 						</hlm-select-trigger>
@@ -37,11 +37,22 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 	`,
 })
 export class SelectFormPreview {
-	private readonly _formBuilder = inject(FormBuilder);
+	protected readonly _model = signal<{ fruit: string | null }>({ fruit: null });
 
-	public form = this._formBuilder.group({
-		fruit: new FormControl<string | null>(null, Validators.required),
-	});
+	public readonly form = form(
+		this._model,
+		(schemaPath) => {
+			required(schemaPath.fruit, { message: 'Please select a fruit' });
+		},
+		{
+			submission: {
+				action: async () => {
+					const model = this._model();
+					console.log(model);
+				},
+			},
+		},
+	);
 
 	public readonly items = [
 		{ label: 'Apple', value: 'apple' },
@@ -51,8 +62,4 @@ export class SelectFormPreview {
 		{ label: 'Pineapple', value: 'pineapple' },
 	];
 	public readonly itemToString = (value: string) => this.items.find((item) => item.value === value)?.label || '';
-
-	public submit() {
-		console.log(this.form.value);
-	}
 }

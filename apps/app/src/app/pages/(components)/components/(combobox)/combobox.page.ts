@@ -68,11 +68,11 @@ export const routeMeta: RouteMeta = {
 		ComboboxGroupPreview,
 		ComboboxGroupSeparatorPreview,
 		ComboboxIconAddonPreview,
-		ComboboxFormPreview,
 		ComboboxPopupPreview,
 		ComboboxPopupCustomPreview,
 		ComboboxMultiplePreview,
 		ComboboxMultipleDisabledPreview,
+		ComboboxFormPreview,
 		ComboboxFormMultiplePreview,
 		ComboboxAsyncPreview,
 		ComboboxAsyncMultiplePreview,
@@ -177,7 +177,7 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
 
-			<h3 id="examples__multiple" spartanH4>Multiple select</h3>
+			<h3 id="multiple" spartanH4>Multiple select</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-combobox-multiple-preview />
@@ -185,7 +185,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_multipleCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__objects" spartanH4>Objects (itemToString)</h3>
+			<h3 id="objects" spartanH4>Objects (itemToString)</h3>
 			<p class="${hlmP}">
 				The
 				<code class="${hlmCode}">itemToString</code>
@@ -202,7 +202,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_itemToStringCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__clear" spartanH4>With Clear Button</h3>
+			<h3 id="clear" spartanH4>With Clear Button</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-combobox-clear-preview />
@@ -210,7 +210,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_clearCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__disabled" spartanH4>Disabled (single)</h3>
+			<h3 id="disabled" spartanH4>Disabled (single)</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-combobox-disabled-preview />
@@ -218,7 +218,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_disabledCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__disabled_multiple" spartanH4>Disabled (multiple)</h3>
+			<h3 id="disabled-multiple" spartanH4>Disabled (multiple)</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-combobox-multiple-disabled-preview />
@@ -226,7 +226,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_multipleDisabledCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__autohighlight" spartanH4>Auto highlight (single)</h3>
+			<h3 id="autohighlight" spartanH4>Auto highlight (single)</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-combobox-autohighlight-preview />
@@ -234,7 +234,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_autohighlightCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__autohighlight_multiple" spartanH4>Auto highlight (multiple)</h3>
+			<h3 id="autohighlight-multiple" spartanH4>Auto highlight (multiple)</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-combobox-multiple-autohighlight-preview />
@@ -242,7 +242,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_multipleAutohighlightCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__group" spartanH4>With Groups</h3>
+			<h3 id="group" spartanH4>With Groups</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-combobox-group-preview />
@@ -250,7 +250,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_groupCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__group_separator" spartanH4>With Groups and Separators</h3>
+			<h3 id="group-separator" spartanH4>With Groups and Separators</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-combobox-group-separator-preview />
@@ -258,7 +258,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_groupSeparatorCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__icon_addon" spartanH4>With Icon Addon</h3>
+			<h3 id="icon-addon" spartanH4>With Icon Addon</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-combobox-icon-addon-preview />
@@ -266,7 +266,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_iconAddonCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__invalid" spartanH4>Invalid</h3>
+			<h3 id="invalid" spartanH4>Invalid</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-combobox-invalid-preview />
@@ -274,7 +274,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_invalidCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__popup" spartanH4>Popup</h3>
+			<h3 id="popup" spartanH4>Popup</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-combobox-popup-preview />
@@ -282,7 +282,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_popupCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__popup-custom" spartanH4>Popup Custom</h3>
+			<h3 id="popup-custom" spartanH4>Popup Custom</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-combobox-popup-custom-preview />
@@ -290,7 +290,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_popupCustomCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__async" spartanH4>Async search (single)</h3>
+			<h3 id="async" spartanH4>Async search (single)</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-combobox-async-preview />
@@ -298,7 +298,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_asyncCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__async_multiple" spartanH4>Async search (multiple)</h3>
+			<h3 id="async-multiple" spartanH4>Async search (multiple)</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-combobox-async-multiple-preview />
@@ -306,7 +306,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_asyncMultipleCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__form" spartanH4>Form (single)</h3>
+			<h3 id="form" spartanH4>Form (single)</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-combobox-form-preview />
@@ -314,7 +314,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_formCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__form_multiple" spartanH4>Form (multiple)</h3>
+			<h3 id="form-multiple" spartanH4>Form (multiple)</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-combobox-form-multiple-preview />

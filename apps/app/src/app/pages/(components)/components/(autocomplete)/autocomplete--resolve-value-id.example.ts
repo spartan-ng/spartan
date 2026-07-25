@@ -1,5 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { HlmAutocompleteImports } from '@spartan-ng/helm/autocomplete';
 
 type Assignee = {
@@ -29,8 +28,6 @@ type Assignee = {
 	`,
 })
 export class AutocompleteResolveValueIdPreview {
-	private readonly _formBuilder = inject(FormBuilder);
-
 	private readonly _assignees: Assignee[] = [
 		{ id: '1', name: 'Marty McFly' },
 		{ id: '2', name: 'Doc Brown' },
@@ -47,10 +44,6 @@ export class AutocompleteResolveValueIdPreview {
 		{ id: '13', name: 'Strickland' },
 	];
 
-	public form = this._formBuilder.group({
-		assignee: new FormControl<string>('8', Validators.required),
-	});
-
 	public readonly search = signal<string>('');
 
 	public itemToString = (assigneeId: string) =>
@@ -59,8 +52,4 @@ export class AutocompleteResolveValueIdPreview {
 	public readonly filteredOptions = computed(() => {
 		return this._assignees.filter((assignee) => assignee.name.toLowerCase().includes(this.search().toLowerCase()));
 	});
-
-	submit() {
-		console.log(this.form.value);
-	}
 }

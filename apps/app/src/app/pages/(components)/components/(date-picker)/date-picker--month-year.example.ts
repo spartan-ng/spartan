@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HlmDatePickerImports } from '@spartan-ng/helm/date-picker';
 import { HlmFieldImports } from '@spartan-ng/helm/field';
 
 @Component({
 	selector: 'spartan-date-month-year-picker',
-	imports: [HlmDatePickerImports, HlmFieldImports, FormsModule, ReactiveFormsModule],
+	imports: [HlmDatePickerImports, HlmFieldImports],
 	template: `
 		<hlm-field>
 			<label hlmFieldLabel>Month Year Picker</label>

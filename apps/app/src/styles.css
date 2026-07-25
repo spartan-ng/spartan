@@ -152,6 +152,24 @@
 }
 
 /*
+ * Blue primary used on chat docs previews so sent bubbles read more like iMessage
+ * than the page theme. Docs-only — not part of the shipped styles.
+ */
+.theme-blue {
+	--primary: oklch(0.488 0.243 264.376);
+	--primary-foreground: oklch(0.97 0.014 254.604);
+	--sidebar-primary: oklch(0.546 0.245 262.881);
+	--sidebar-primary-foreground: oklch(0.97 0.014 254.604);
+}
+
+.dark .theme-blue {
+	--primary: oklch(0.424 0.199 265.638);
+	--primary-foreground: oklch(0.97 0.014 254.604);
+	--sidebar-primary: oklch(0.623 0.214 259.815);
+	--sidebar-primary-foreground: oklch(0.97 0.014 254.604);
+}
+
+/*
  * Match the date-picker trigger/input width to each style's single-month
  * calendar so the popover lines up flush with the control. The calendar grid is
  * 7 cells of `--cell-size` plus its horizontal padding, all on the Tailwind

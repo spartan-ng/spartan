@@ -42,7 +42,7 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="/forms/reactive-forms" label="Reactive Forms" />
-				<spartan-page-bottom-nav-link direction="previous" href="/components/tooltip" label="Tooltip" />
+				<spartan-page-bottom-nav-link direction="previous" href="/documentation/shimmer" label="Shimmer" />
 			</spartan-page-bottom-nav>
 		</section>
 		<spartan-page-nav />

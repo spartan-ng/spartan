@@ -1,0 +1,15 @@
+import { Directive } from '@angular/core';
+import { classes } from '<%- importAlias %>/utils';
+
+@Directive({
+	selector: '[hlmMessageContent],hlm-message-content',
+	host: { 'data-slot': 'message-content' },
+})
+export class HlmMessageContent {
+	constructor() {
+		classes(
+			() =>
+				'spartan-message-content flex w-full min-w-0 flex-col wrap-break-word group-data-[align=end]/message:*:data-slot:self-end',
+		);
+	}
+}

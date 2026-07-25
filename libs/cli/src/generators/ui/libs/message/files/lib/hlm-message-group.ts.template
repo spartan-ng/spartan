@@ -1,0 +1,12 @@
+import { Directive } from '@angular/core';
+import { classes } from '<%- importAlias %>/utils';
+
+@Directive({
+	selector: '[hlmMessageGroup],hlm-message-group',
+	host: { 'data-slot': 'message-group' },
+})
+export class HlmMessageGroup {
+	constructor() {
+		classes(() => 'spartan-message-group flex min-w-0 flex-col');
+	}
+}

@@ -1,0 +1,17 @@
+import { Directive, input } from '@angular/core';
+import { classes } from '@spartan-ng/helm/utils';
+
+@Directive({
+	selector: 'button[hlmAttachmentTrigger],a[hlmAttachmentTrigger]',
+	host: {
+		'data-slot': 'attachment-trigger',
+		'[attr.type]': 'type()',
+	},
+})
+export class HlmAttachmentTrigger {
+	public readonly type = input<'button' | 'submit' | 'reset' | null>('button');
+
+	constructor() {
+		classes(() => 'spartan-attachment-trigger');
+	}
+}

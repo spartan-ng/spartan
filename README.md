@@ -187,6 +187,7 @@ Our initial 300 contributors and sponsors are featured here and on the front pag
 149. [SocDario](https://github.com/SocDario)
 150. [bcl-dev](https://github.com/bcl-dev)
 151. [skolldev](https://github.com/skolldev)
+152. [DanGM96](https://github.com/DanGM96)
 
 ### Sponsor spartan
 

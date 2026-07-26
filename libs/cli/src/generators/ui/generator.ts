@@ -7,6 +7,11 @@ import type { GenerateAs } from '../base/lib/generate-as';
 import { initializeAngularEntrypoint } from '../base/lib/initialize-angular-library';
 import { singleLibName } from '../base/lib/single-lib-name';
 import type { HlmBaseGeneratorSchema } from '../base/schema';
+import {
+	getCurrentCliVersion,
+	getLibraryPathFromPrimitive,
+	updateLibraryMetadata,
+} from '../migrate-helm-libraries/detect-customizations';
 import { addDependentPrimitives } from './add-dependent-primitive';
 import type { Primitive } from './primitives';
 import type { HlmUIGeneratorSchema } from './schema';
@@ -66,7 +71,9 @@ export async function createPrimitiveLibraries(
 	config: Config,
 ) {
 	const allPrimitivesSelected = response.primitives.includes('all');
-	const primitivesToCreate = allPrimitivesSelected ? availablePrimitiveNames : response.primitives;
+	const primitivesToCreate: Primitive[] = allPrimitivesSelected
+		? [...availablePrimitiveNames]
+		: response.primitives.filter((primitive): primitive is Primitive => primitive !== 'all');
 	const tasks: GeneratorCallback[] = [];
 	const installPeerDependencies =
 		options.installPeerDependencies === undefined
@@ -78,6 +85,17 @@ export async function createPrimitiveLibraries(
 	if (!response.primitives.includes('all') && installPeerDependencies) {
 		await addDependentPrimitives(primitivesToCreate, false);
 	}
+
+	const importAlias = options.importAlias ?? config.importAlias ?? '@spartan-ng/helm';
+	// Never establish a new baseline for an already installed library: doing so would hide existing customizations.
+	const primitivesToTrack = primitivesToCreate.filter((primitive) => {
+		try {
+			getLibraryPathFromPrimitive(tree, primitive, importAlias);
+			return false;
+		} catch {
+			return true;
+		}
+	});
 
 	const projects = getProjects(tree);
 
@@ -121,6 +139,18 @@ export async function createPrimitiveLibraries(
 	);
 
 	tasks.push(...installTasks.filter(Boolean));
+
+	const version = getCurrentCliVersion(tree);
+	for (const primitive of primitivesToTrack) {
+		let libraryPath: string;
+		try {
+			libraryPath = getLibraryPathFromPrimitive(tree, primitive, importAlias);
+		} catch {
+			// A generator may skip a primitive; only track libraries that were actually created.
+			continue;
+		}
+		updateLibraryMetadata(tree, primitive, libraryPath, version);
+	}
 
 	return tasks;
 }

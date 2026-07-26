@@ -29,11 +29,11 @@ const previewLength = 180;
 
 		<div hlmBubble variant="muted" align="end">
 			<div hlmBubbleContent class="whitespace-pre-line">
-				<div>{{ open() || !_isLong ? _text : _preview }}</div>
+				<div>{{ _open() || !_isLong ? _text : _preview }}</div>
 				@if (_isLong) {
-					<button hlmBtn variant="link" class="text-muted-foreground gap-1 p-0" (click)="open.set(!open())">
-						{{ open() ? 'Show less' : 'Show more' }}
-						<ng-icon name="lucideChevronDown" class="transition-transform" [class.rotate-180]="open()" />
+					<button hlmBtn variant="link" class="text-muted-foreground gap-1 p-0" (click)="_open.set(!_open())">
+						{{ _open() ? 'Show less' : 'Show more' }}
+						<ng-icon name="lucideChevronDown" class="transition-transform" [class.rotate-180]="_open()" />
 					</button>
 				}
 			</div>
@@ -41,7 +41,7 @@ const previewLength = 180;
 	`,
 })
 export class BubbleCollapsiblePreview {
-	protected readonly open = signal(false);
+	protected readonly _open = signal(false);
 	protected readonly _text = text;
 	protected readonly _isLong = text.length > previewLength;
 	protected readonly _preview = `${text.slice(0, previewLength)}...`;

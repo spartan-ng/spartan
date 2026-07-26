@@ -127,17 +127,17 @@ export const shimmerAngleCode = `<p class="shimmer shimmer-angle-45">Generating 
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: { class: 'flex flex-col items-center gap-4' },
 	template: `
-		@for (_ of [key()]; track _) {
+		@for (_ of [_key()]; track _) {
 			<p class="text-muted-foreground shimmer shimmer-duration-1100 shimmer-once text-sm">Generating response…</p>
 		}
 		<button hlmBtn variant="outline" size="sm" type="button" (click)="replay()">Replay</button>
 	`,
 })
 export class ShimmerOncePreview {
-	protected readonly key = signal(0);
+	protected readonly _key = signal(0);
 
 	protected replay(): void {
-		this.key.update((value) => value + 1);
+		this._key.update((value) => value + 1);
 	}
 }
 

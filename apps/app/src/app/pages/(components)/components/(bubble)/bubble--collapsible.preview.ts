@@ -31,7 +31,13 @@ const previewLength = 180;
 			<div hlmBubbleContent class="whitespace-pre-line">
 				<div>{{ _open() || !_isLong ? _text : _preview }}</div>
 				@if (_isLong) {
-					<button hlmBtn variant="link" class="text-muted-foreground gap-1 p-0" (click)="_open.set(!_open())">
+					<button
+						hlmBtn
+						variant="link"
+						class="text-muted-foreground gap-1 p-0"
+						[attr.aria-expanded]="_open()"
+						(click)="_open.set(!_open())"
+					>
 						{{ _open() ? 'Show less' : 'Show more' }}
 						<ng-icon name="lucideChevronDown" class="transition-transform" [class.rotate-180]="_open()" />
 					</button>

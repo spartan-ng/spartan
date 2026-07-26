@@ -141,6 +141,20 @@ export const routeMeta: RouteMeta = {
 						</tr>
 						<tr>
 							<td class="px-4 py-2">
+								<code class="${hlmCode}">scroll-fade-t-*</code>
+								/
+								<code class="${hlmCode}">scroll-fade-b-*</code>
+								/
+								<code class="${hlmCode}">scroll-fade-s-*</code>
+								/
+								<code class="${hlmCode}">scroll-fade-e-*</code>
+							</td>
+							<td class="text-muted-foreground px-4 py-2">
+								Configurable fade depth on the top, bottom, start, or end edge
+							</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-2">
 								<code class="${hlmCode}">scroll-fade-none</code>
 							</td>
 							<td class="text-muted-foreground px-4 py-2">Disable the fade</td>

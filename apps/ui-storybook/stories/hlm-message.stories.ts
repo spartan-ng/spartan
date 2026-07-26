@@ -72,7 +72,7 @@ export const Conversation: Story = {
 							</div>
 							<div hlmBubble variant="muted">
 								<div hlmBubbleContent>Alright, let me take a look.</div>
-								<div hlmBubbleReactions aria-label="Reactions: thumbs up">
+								<div hlmBubbleReactions role="img" aria-label="Reaction: thumbs up">
 									<span>👍</span>
 								</div>
 							</div>

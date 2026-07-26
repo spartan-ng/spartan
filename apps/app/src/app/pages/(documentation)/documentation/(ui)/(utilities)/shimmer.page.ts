@@ -85,7 +85,9 @@ export const routeMeta: RouteMeta = {
 				<code class="${hlmCode}">shimmer</code>
 				to a text element. The effect is built on
 				<code class="${hlmCode}">currentColor</code>
-				, so it adapts to muted text, brand colors, and dark mode automatically.
+				, so it adapts to muted text, brand colors, and dark mode automatically. It is disabled when
+				<code class="${hlmCode}">prefers-reduced-motion: reduce</code>
+				is set, so you do not need your own motion guard.
 			</p>
 			<div class="mt-4 overflow-x-auto rounded-lg border">
 				<table class="w-full text-left text-sm">

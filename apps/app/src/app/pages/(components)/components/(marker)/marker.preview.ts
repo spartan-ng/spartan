@@ -40,6 +40,7 @@ export class MarkerPreview {}
 
 export const defaultImports = `
 import { HlmMarkerImports } from '@spartan-ng/helm/marker';
+import { HlmSpinner } from '@spartan-ng/helm/spinner';
 `;
 
 export const defaultSkeleton = `

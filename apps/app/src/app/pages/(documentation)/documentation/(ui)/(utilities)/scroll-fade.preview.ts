@@ -249,8 +249,8 @@ export class ScrollFadeNonePreview {
 	protected readonly _items = items(8);
 }
 
-export const scrollFadeNoneCode = `<div class="scroll-fade overflow-y-auto md:scroll-fade-none">
-  <!-- disable the fade responsively or by state -->
+export const scrollFadeNoneCode = `<div class="scroll-fade scroll-fade-none overflow-y-auto">
+  <!-- disable the fade -->
 </div>`;
 
 @Component({

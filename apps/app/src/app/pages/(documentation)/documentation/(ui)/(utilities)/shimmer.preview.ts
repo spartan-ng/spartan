@@ -127,6 +127,7 @@ export const shimmerAngleCode = `<p class="shimmer shimmer-angle-45">Generating 
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: { class: 'flex flex-col items-center gap-4' },
 	template: `
+		<!-- Remount on _key change so shimmer-once can replay. -->
 		@for (_ of [_key()]; track _) {
 			<p class="text-muted-foreground shimmer shimmer-duration-1100 shimmer-once text-sm">Generating response…</p>
 		}

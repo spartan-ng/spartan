@@ -21,7 +21,7 @@ import { HlmBubbleImports } from '@spartan-ng/helm/bubble';
 			</div>
 			<div hlmBubble align="end">
 				<div hlmBubbleContent>Find the bug and fix it.</div>
-				<div hlmBubbleReactions aria-label="Reactions: eyes" align="start">
+				<div hlmBubbleReactions role="img" aria-label="Reactions: eyes" align="start">
 					<span>👀</span>
 				</div>
 			</div>

@@ -54,6 +54,14 @@ export type PrimitiveSnippet =
 	| 'textarea'
 	| 'toggle'
 	| 'toggle-group'
-	| 'tooltip';
+	| 'tooltip'
+	| 'bar-chart'
+	| 'area-chart'
+	| 'line-chart'
+	| 'pie-chart'
+	| 'radar-chart'
+	| 'radial-bar-chart'
+	| 'chart-tooltip'
+	| 'charts';
 
 export type PrimitiveSnippets = Record<PrimitiveSnippet, Record<string, string>>;

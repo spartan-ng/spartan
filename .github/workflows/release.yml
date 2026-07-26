@@ -2,7 +2,8 @@ name: release
 
 # Push to a release branch -> semantic-release computes the next version from the conventional
 # commits, updates the changelog + package versions, publishes brain/cli/mcp to npm, and cuts a
-# GitHub Release.
+# GitHub Release. charts ships in the same run on its own experimental alpha line (1.0.0-alpha.N),
+# always under the `alpha` dist-tag.
 #
 #   main  -> latest    beta -> beta dist-tag    alpha -> alpha dist-tag
 #
@@ -63,7 +64,7 @@ jobs:
       - name: Lint
         run: pnpm run lint
       - name: Build publishable libs
-        run: pnpm nx run-many -t build -p brain cli mcp --parallel=1
+        run: pnpm nx run-many -t build -p brain cli mcp charts --parallel=1
       - name: Unit test publishable libs
         run: pnpm nx run-many -t test -p brain cli mcp --parallel=3
 

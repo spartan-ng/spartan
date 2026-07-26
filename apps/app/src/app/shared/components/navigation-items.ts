@@ -16,6 +16,7 @@ export const pageNavs: Link[] = [
 	{ label: 'Docs', url: '/documentation' },
 	{ label: 'Components', url: '/components' },
 	{ label: 'Blocks', url: '/blocks' },
+	{ label: 'Charts', url: '/charts' },
 	{ label: 'Colors', url: '/colors' },
 	{ label: 'Stack', url: '/stack' },
 ];
@@ -34,6 +35,7 @@ export const components: Link[] = [
 	{ label: 'Calendar', url: '/calendar' },
 	{ label: 'Card', url: '/card' },
 	{ label: 'Carousel', url: '/carousel' },
+	{ label: 'Chart', url: '/charts', new: true },
 	{ label: 'Checkbox', url: '/checkbox' },
 	{ label: 'Collapsible', url: '/collapsible' },
 	{ label: 'Combobox', url: '/combobox' },
@@ -79,6 +81,16 @@ export const components: Link[] = [
 	{ label: 'Tooltip', url: '/tooltip' },
 ];
 
+export const charts: Link[] = [
+	{ label: 'Area Chart', url: '/area-chart' },
+	{ label: 'Bar Chart', url: '/bar-chart' },
+	{ label: 'Line Chart', url: '/line-chart' },
+	{ label: 'Pie Chart', url: '/pie-chart' },
+	{ label: 'Radar Chart', url: '/radar-chart' },
+	{ label: 'Radial Chart', url: '/radial-bar-chart' },
+	{ label: 'Tooltip', url: '/tooltip' },
+];
+
 export const forms: Link[] = [
 	{ label: 'Forms', url: '/', exact: true },
 	{ label: 'Reactive Forms', url: '/reactive-forms' },
@@ -119,6 +131,11 @@ export const sidenavItems: NavItem[] = [
 		label: 'Components',
 		url: '/components',
 		links: components,
+	},
+	{
+		label: 'Charts',
+		url: '/charts',
+		links: charts,
 	},
 	{
 		label: 'Forms',

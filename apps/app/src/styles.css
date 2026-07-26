@@ -50,6 +50,12 @@
 
 	--color-surface: var(--surface);
 	--color-surface-foreground: var(--surface-foreground);
+
+	--color-chart-1: var(--chart-1);
+	--color-chart-2: var(--chart-2);
+	--color-chart-3: var(--chart-3);
+	--color-chart-4: var(--chart-4);
+	--color-chart-5: var(--chart-5);
 }
 
 :root {
@@ -87,6 +93,12 @@
 	--sidebar-ring: oklch(0.708 0 0);
 	--surface: oklch(0.98 0 0);
 	--surface-foreground: var(--foreground);
+	/* charts: shadcn docs blue ramp (Tailwind blue scale, same in light + dark) */
+	--chart-1: var(--color-blue-300);
+	--chart-2: var(--color-blue-500);
+	--chart-3: var(--color-blue-600);
+	--chart-4: var(--color-blue-700);
+	--chart-5: var(--color-blue-800);
 }
 
 .dark {
@@ -119,6 +131,11 @@
 	--sidebar-ring: oklch(0.556 0 0);
 	--surface: oklch(0.2 0 0);
 	--surface-foreground: oklch(0.708 0 0);
+	--chart-1: var(--color-blue-300);
+	--chart-2: var(--color-blue-500);
+	--chart-3: var(--color-blue-600);
+	--chart-4: var(--color-blue-700);
+	--chart-5: var(--color-blue-800);
 }
 
 @layer base {

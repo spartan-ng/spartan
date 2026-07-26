@@ -1,6 +1,25 @@
+// shadcn ships the same chart palette across the neutral/stone/zinc/gray/slate base themes (it only
+// changes between light and dark), so the charts in `@spartan-ng/charts` render correctly out of the
+// box. Spread into every theme below.
+const chartColorsLight = {
+	'chart-1': 'oklch(0.646 0.222 41.116)',
+	'chart-2': 'oklch(0.6 0.118 184.704)',
+	'chart-3': 'oklch(0.398 0.07 227.392)',
+	'chart-4': 'oklch(0.828 0.189 84.429)',
+	'chart-5': 'oklch(0.769 0.188 70.08)',
+};
+const chartColorsDark = {
+	'chart-1': 'oklch(0.488 0.243 264.376)',
+	'chart-2': 'oklch(0.696 0.17 162.48)',
+	'chart-3': 'oklch(0.769 0.188 70.08)',
+	'chart-4': 'oklch(0.627 0.265 303.9)',
+	'chart-5': 'oklch(0.645 0.246 16.439)',
+};
+
 export const themes: Record<ThemeName, ColorScheme> = {
 	neutral: {
 		light: {
+			...chartColorsLight,
 			radius: '0.625rem',
 			background: 'oklch(1 0 0)',
 			foreground: 'oklch(0.145 0 0)',
@@ -30,6 +49,7 @@ export const themes: Record<ThemeName, ColorScheme> = {
 			'sidebar-ring': 'oklch(0.708 0 0)',
 		},
 		dark: {
+			...chartColorsDark,
 			background: 'oklch(0.145 0 0)',
 			foreground: 'oklch(0.985 0 0)',
 			card: 'oklch(0.205 0 0)',
@@ -60,6 +80,7 @@ export const themes: Record<ThemeName, ColorScheme> = {
 	},
 	stone: {
 		light: {
+			...chartColorsLight,
 			radius: '0.625rem',
 			background: 'oklch(1 0 0)',
 			foreground: 'oklch(0.147 0.004 49.25)',
@@ -89,6 +110,7 @@ export const themes: Record<ThemeName, ColorScheme> = {
 			'sidebar-ring': 'oklch(0.709 0.01 56.259)',
 		},
 		dark: {
+			...chartColorsDark,
 			background: 'oklch(0.147 0.004 49.25)',
 			foreground: 'oklch(0.985 0.001 106.423)',
 			card: 'oklch(0.216 0.006 56.043)',
@@ -119,6 +141,7 @@ export const themes: Record<ThemeName, ColorScheme> = {
 	},
 	zinc: {
 		light: {
+			...chartColorsLight,
 			radius: '0.625rem',
 			background: 'oklch(1 0 0)',
 			foreground: 'oklch(0.141 0.005 285.823)',
@@ -148,6 +171,7 @@ export const themes: Record<ThemeName, ColorScheme> = {
 			'sidebar-ring': 'oklch(0.705 0.015 286.067)',
 		},
 		dark: {
+			...chartColorsDark,
 			background: 'oklch(0.141 0.005 285.823)',
 			foreground: 'oklch(0.985 0 0)',
 			card: 'oklch(0.21 0.006 285.885)',
@@ -178,6 +202,7 @@ export const themes: Record<ThemeName, ColorScheme> = {
 	},
 	gray: {
 		light: {
+			...chartColorsLight,
 			radius: '0.625rem',
 			background: 'oklch(1 0 0)',
 			foreground: 'oklch(0.13 0.028 261.692)',
@@ -207,6 +232,7 @@ export const themes: Record<ThemeName, ColorScheme> = {
 			'sidebar-ring': 'oklch(0.707 0.022 261.325)',
 		},
 		dark: {
+			...chartColorsDark,
 			background: 'oklch(0.13 0.028 261.692)',
 			foreground: 'oklch(0.985 0.002 247.839)',
 			card: 'oklch(0.21 0.034 264.665)',
@@ -237,6 +263,7 @@ export const themes: Record<ThemeName, ColorScheme> = {
 	},
 	slate: {
 		light: {
+			...chartColorsLight,
 			radius: '0.625rem',
 			background: 'oklch(1 0 0)',
 			foreground: 'oklch(0.129 0.042 264.695)',
@@ -266,6 +293,7 @@ export const themes: Record<ThemeName, ColorScheme> = {
 			'sidebar-ring': 'oklch(0.704 0.04 256.788)',
 		},
 		dark: {
+			...chartColorsDark,
 			background: 'oklch(0.129 0.042 264.695)',
 			foreground: 'oklch(0.984 0.003 247.858)',
 			card: 'oklch(0.208 0.042 265.755)',

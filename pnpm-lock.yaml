@@ -111,6 +111,9 @@ importers:
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
+      d3:
+        specifier: ^7.9.0
+        version: 7.9.0
       drizzle-orm:
         specifier: ^0.33.0
         version: 0.33.0(@types/react@18.3.23)(postgres@3.4.7)(react@19.1.0)
@@ -346,6 +349,9 @@ importers:
       '@testing-library/user-event':
         specifier: ^14.5.2
         version: 14.6.1(@testing-library/dom@10.4.0)
+      '@types/d3':
+        specifier: ^7.4.3
+        version: 7.4.3
       '@types/luxon':
         specifier: ^3.4.2
         version: 3.6.2

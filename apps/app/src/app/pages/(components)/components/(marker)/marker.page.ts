@@ -2,6 +2,8 @@ import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
 import { injectComponentDocs } from '@spartan-ng/app/app/core/services/component-docs';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
+import { CodeRtlPreview } from '@spartan-ng/app/app/shared/code/code-rtl-preview';
+import { RtlHeader } from '@spartan-ng/app/app/shared/code/rtl-header';
 import { InstallTabs } from '@spartan-ng/app/app/shared/layout/install-tabs';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
@@ -19,6 +21,7 @@ import { metaWith } from '../../../../shared/meta/meta.util';
 import { MarkerBorderPreview } from './marker--border.preview';
 import { MarkerIconPreview } from './marker--icon.preview';
 import { MarkerLinkButtonPreview } from './marker--link-button.preview';
+import { MarkerRtlPreview } from './marker--rtl.preview';
 import { MarkerSeparatorPreview } from './marker--separator.preview';
 import { MarkerShimmerPreview } from './marker--shimmer.preview';
 import { MarkerStatusPreview } from './marker--status.preview';
@@ -57,6 +60,9 @@ export const routeMeta: RouteMeta = {
 		MarkerBorderPreview,
 		MarkerIconPreview,
 		MarkerLinkButtonPreview,
+		RtlHeader,
+		CodeRtlPreview,
+		MarkerRtlPreview,
 	],
 	template: `
 		<section spartanMainSection>
@@ -156,6 +162,14 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_linkButtonCode()" />
 			</spartan-tabs>
 
+			<spartan-header-rtl />
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanRtlCodePreview firstTab>
+					<spartan-marker-rtl-preview />
+				</div>
+				<spartan-code secondTab [code]="_rtlCode()" />
+			</spartan-tabs>
+
 			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="helm" />
 
@@ -183,4 +197,5 @@ export default class MarkerPage {
 	protected readonly _borderCode = computed(() => this._snippets()['border']);
 	protected readonly _iconCode = computed(() => this._snippets()['icon']);
 	protected readonly _linkButtonCode = computed(() => this._snippets()['linkButton']);
+	protected readonly _rtlCode = computed(() => this._snippets()['rtl']);
 }

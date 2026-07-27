@@ -2,6 +2,8 @@ import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
 import { injectComponentDocs } from '@spartan-ng/app/app/core/services/component-docs';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
+import { CodeRtlPreview } from '@spartan-ng/app/app/shared/code/code-rtl-preview';
+import { RtlHeader } from '@spartan-ng/app/app/shared/code/rtl-header';
 import { InstallTabs } from '@spartan-ng/app/app/shared/layout/install-tabs';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
@@ -22,6 +24,7 @@ import { BubbleGroupPreview } from './bubble--group.preview';
 import { BubbleLinkButtonPreview } from './bubble--link-button.preview';
 import { BubblePopoverPreview } from './bubble--popover.preview';
 import { BubbleReactionsPreview } from './bubble--reactions.preview';
+import { BubbleRtlPreview } from './bubble--rtl.preview';
 import { BubbleTooltipPreview } from './bubble--tooltip.preview';
 import { BubbleVariantsPreview } from './bubble--variants.preview';
 import { BubblePreview, defaultImports, defaultSkeleton } from './bubble.preview';
@@ -59,6 +62,9 @@ export const routeMeta: RouteMeta = {
 		BubbleCollapsiblePreview,
 		BubbleTooltipPreview,
 		BubblePopoverPreview,
+		RtlHeader,
+		CodeRtlPreview,
+		BubbleRtlPreview,
 	],
 	template: `
 		<section spartanMainSection>
@@ -191,6 +197,14 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_popoverCode()" />
 			</spartan-tabs>
 
+			<spartan-header-rtl />
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanRtlCodePreview firstTab>
+					<spartan-bubble-rtl-preview />
+				</div>
+				<spartan-code secondTab [code]="_rtlCode()" />
+			</spartan-tabs>
+
 			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="helm" />
 
@@ -219,4 +233,5 @@ export default class BubblePage {
 	protected readonly _collapsibleCode = computed(() => this._snippets()['collapsible']);
 	protected readonly _tooltipCode = computed(() => this._snippets()['tooltip']);
 	protected readonly _popoverCode = computed(() => this._snippets()['popover']);
+	protected readonly _rtlCode = computed(() => this._snippets()['rtl']);
 }

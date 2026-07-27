@@ -56,8 +56,8 @@
 	color-scheme: light;
 	--font-sans: 'Geist', sans-serif;
 	--font-mono: 'Geist Mono', monospace;
-	--font-ar: 'Noto Sans Arabic', 'Noto Sans Arabic Fallback';
-	--font-he: 'Noto Sans Hebrew', 'Noto Sans Hebrew Fallback';
+	--font-ar: 'Noto Sans Arabic Variable', 'Noto Sans Arabic', sans-serif;
+	--font-he: 'Noto Sans Hebrew Variable', 'Noto Sans Hebrew', sans-serif;
 	--radius: 0.625rem;
 	--background: oklch(1 0 0);
 	--foreground: oklch(0.145 0 0);

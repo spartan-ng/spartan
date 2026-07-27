@@ -600,7 +600,7 @@
 	}
 
 	.spartan-marker-variant-separator {
-		@apply before:bg-border after:bg-border before:mr-1 before:h-px before:min-w-0 before:flex-1 after:ml-1 after:h-px after:min-w-0 after:flex-1;
+		@apply before:bg-border after:bg-border before:me-1 before:h-px before:min-w-0 before:flex-1 after:ms-1 after:h-px after:min-w-0 after:flex-1;
 	}
 
 	.spartan-marker-variant-border {

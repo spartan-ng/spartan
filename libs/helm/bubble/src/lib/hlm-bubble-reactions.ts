@@ -11,8 +11,8 @@ const bubbleReactionsVariants = cva(
 				bottom: 'bottom-0 translate-y-3/4',
 			},
 			align: {
-				start: 'left-3',
-				end: 'right-3',
+				start: 'start-3',
+				end: 'end-3',
 			},
 		},
 		defaultVariants: {

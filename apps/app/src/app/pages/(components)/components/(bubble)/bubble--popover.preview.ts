@@ -20,7 +20,7 @@ import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 		<div hlmBubble variant="destructive">
 			<div hlmBubbleContent>Failed to run the command.</div>
 			<div hlmBubbleReactions>
-				<hlm-popover>
+				<hlm-popover sideOffset="5">
 					<button
 						hlmPopoverTrigger
 						hlmBtn

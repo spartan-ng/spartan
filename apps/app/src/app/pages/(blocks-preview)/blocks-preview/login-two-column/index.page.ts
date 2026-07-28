@@ -2,11 +2,11 @@ import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/
 import { RouterLink } from '@angular/router';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideGalleryVerticalEnd } from '@ng-icons/lucide';
-import { SignupForm } from './signup-form';
+import { LoginForm } from './login-form';
 
 @Component({
-	selector: 'spartan-signup-simple-reactive-form',
-	imports: [SignupForm, NgIcon, RouterLink],
+	selector: 'spartan-login-two-column',
+	imports: [RouterLink, LoginForm, NgIcon],
 	providers: [provideIcons({ lucideGalleryVerticalEnd })],
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -27,7 +27,7 @@ import { SignupForm } from './signup-form';
 				</div>
 				<div class="flex flex-1 items-center justify-center">
 					<div class="w-full max-w-xs">
-						<spartan-two-column-signup-form />
+						<spartan-two-column-login-form />
 					</div>
 				</div>
 			</div>
@@ -41,4 +41,4 @@ import { SignupForm } from './signup-form';
 		</div>
 	`,
 })
-export default class SignupTwoColumnReactiveFormPage {}
+export default class LoginTwoColumnPage {}

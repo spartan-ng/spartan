@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/
 import { LoginForm } from './login-form';
 
 @Component({
-	selector: 'spartan-login-simple-reactive-form',
+	selector: 'spartan-login-simple',
 	imports: [LoginForm],
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -18,4 +18,4 @@ import { LoginForm } from './login-form';
 		</div>
 	`,
 })
-export default class LoginSimpleReactiveFormPage {}
+export default class LoginSimplePage {}

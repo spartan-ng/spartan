@@ -11,6 +11,13 @@
 		"tags": {
 			"type": "string",
 			"description": "Add tags to the library (used for linting)."
+		},
+		"libraries": {
+			"type": "array",
+			"items": {
+				"type": "string"
+			},
+			"description": "An array of library names to migrate. When provided, the migration will run non-interactively."
 		}
 	},
 	"required": []

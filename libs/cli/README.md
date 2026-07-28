@@ -66,6 +66,7 @@ The CLI ships with a suite of generators that automate breaking changes between 
 | `migrate-brn-switch-changed-event`   | Rename `changed` to `checkedChange` on `brn-switch`.                                         |
 | `migrate-core`                       | Migrate the legacy `core` library to the `@spartan-ng/brain/core` entry point.               |
 | `migrate-date-picker`                | Rename `changed` to `dateChange` on `hlm-date-picker`.                                       |
+| `migrate-date-picker-min-max`        | Rename `min`/`max` inputs to `minDate`/`maxDate` on helm date pickers.                       |
 | `migrate-helm-imports`               | Move helm imports to the new entry-point structure.                                          |
 | `migrate-helm-libraries`             | Update helm libraries to their latest versions.                                              |
 | `migrate-hlm`                        | Move `hlm` from `@spartan-ng/brain` to `@spartan-ng/helm/utils`.                             |

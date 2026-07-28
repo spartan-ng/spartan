@@ -10,8 +10,8 @@ const meta: Meta<HlmDateRangePicker<Date>> = {
 	tags: ['autodocs'],
 	args: {
 		captionLayout: 'label',
-		min: new Date(2020, 4, 1),
-		max: new Date(2030, 6, 1),
+		minDate: new Date(2020, 4, 1),
+		maxDate: new Date(2030, 6, 1),
 	},
 	argTypes: {
 		captionLayout: {
@@ -30,7 +30,7 @@ const meta: Meta<HlmDateRangePicker<Date>> = {
 		props: args,
 		template: `
 		<div class="preview flex min-h-[350px] w-full justify-center p-10 items-center">
-			<hlm-date-range-picker [min]="min" [max]="max" [captionLayout]="captionLayout">
+			<hlm-date-range-picker [minDate]="minDate" [maxDate]="maxDate" [captionLayout]="captionLayout">
                 <hlm-date-picker-trigger buttonId="date">Pick a date</hlm-date-picker-trigger>
             </hlm-date-range-picker>
 		</div>
@@ -76,7 +76,7 @@ const parseDate = (value: string): [Date, Date] | null => {
 };
 
 export const Default: Story = {
-	args: { min: new Date(2020, 4, 1), max: new Date(2030, 6, 1), captionLayout: 'label' },
+	args: { minDate: new Date(2020, 4, 1), maxDate: new Date(2030, 6, 1), captionLayout: 'label' },
 };
 
 export const Input: Story = {
@@ -113,8 +113,8 @@ export const WithHintAndError: Story = {
 				<hlm-date-range-picker
 					formControlName="dateRange"
 					[captionLayout]="captionLayout"
-					[min]="min"
-					[max]="max">
+					[minDate]="minDate"
+					[maxDate]="maxDate">
 					<hlm-date-picker-trigger buttonId="date">Select a date range</hlm-date-picker-trigger>
 				</hlm-date-range-picker>
 

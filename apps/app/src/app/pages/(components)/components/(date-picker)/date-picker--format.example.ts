@@ -13,7 +13,7 @@ import { DateTime } from 'luxon';
 	template: `
 		<hlm-field>
 			<label hlmFieldLabel for="date-format">Date Picker with Custom Format</label>
-			<hlm-date-picker [min]="minDate" [max]="maxDate" [formatDate]="formatDate">
+			<hlm-date-picker [minDate]="minDate" [maxDate]="maxDate" [formatDate]="formatDate">
 				<hlm-date-picker-trigger buttonId="date-format">Pick a date</hlm-date-picker-trigger>
 			</hlm-date-picker>
 		</hlm-field>

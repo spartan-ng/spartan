@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/
 import { SignupForm } from './signup-form';
 
 @Component({
-	selector: 'spartan-signup-simple-reactive-form',
+	selector: 'spartan-signup-simple',
 	imports: [SignupForm],
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -18,4 +18,4 @@ import { SignupForm } from './signup-form';
 		</div>
 	`,
 })
-export default class SignupSimpleReactiveFormPage {}
+export default class SignupSimplePage {}

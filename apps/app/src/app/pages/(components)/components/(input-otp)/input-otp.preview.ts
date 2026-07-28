@@ -6,7 +6,7 @@ import { HlmInputOtpImports } from '@spartan-ng/helm/input-otp';
 	selector: 'spartan-input-otp-preview',
 	imports: [HlmInputOtpImports, BrnInputOtpImports],
 	template: `
-		<brn-input-otp hlmInputOtp maxLength="6" inputClass="disabled:cursor-not-allowed">
+		<brn-input-otp hlmInputOtp length="6" inputClass="disabled:cursor-not-allowed">
 			<hlm-input-otp-group>
 				<hlm-input-otp-slot index="0" />
 				<hlm-input-otp-slot index="1" />
@@ -28,7 +28,7 @@ import { BrnInputOtpImports } from '@spartan-ng/brain/input-otp';
 import { HlmInputOtpImports } from '@spartan-ng/helm/input-otp';
 `;
 export const defaultSkeleton = `
-<brn-input-otp hlmInputOtp maxLength="6" inputClass="disabled:cursor-not-allowed">
+<brn-input-otp hlmInputOtp length="6" inputClass="disabled:cursor-not-allowed">
   <hlm-input-otp-group>
     <hlm-input-otp-slot index="0" />
     <hlm-input-otp-slot index="1" />

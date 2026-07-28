@@ -1,3 +1,14 @@
+## 1.2.0-beta.1 (2026-07-28)
+
+- feat(input-otp): improve compatibility w/ signal forms, update invalid styles (#1648) ([6dab919](https://github.com/spartan-ng/spartan/commit/6dab919)), closes [#1648](https://github.com/spartan-ng/spartan/issues/1648)
+- chore(release): 1.1.2-beta.1 ([b240958](https://github.com/spartan-ng/spartan/commit/b240958))
+- chore(release): backmerge main into beta ([353d8aa](https://github.com/spartan-ng/spartan/commit/353d8aa))
+- chore(release): backmerge main into beta ([7f65a3d](https://github.com/spartan-ng/spartan/commit/7f65a3d))
+- chore(release): backmerge main into beta ([4528280](https://github.com/spartan-ng/spartan/commit/4528280))
+- chore(release): backmerge main into beta ([acd6691](https://github.com/spartan-ng/spartan/commit/acd6691))
+- fix(date-picker): add align option for the calendar popup (#1643) ([a58a2b2](https://github.com/spartan-ng/spartan/commit/a58a2b2)), closes [#1643](https://github.com/spartan-ng/spartan/issues/1643) [#1638](https://github.com/spartan-ng/spartan/issues/1638) [#1638](https://github.com/spartan-ng/spartan/issues/1638)
+- fix(tooltip): Don't leak hover events on mobile devices (#1590) ([93d40b7](https://github.com/spartan-ng/spartan/commit/93d40b7)), closes [#1590](https://github.com/spartan-ng/spartan/issues/1590)
+
 ## <small>1.1.2-beta.1 (2026-07-24)</small>
 
 - fix(date-picker): add align option for the calendar popup (#1643) ([a58a2b2](https://github.com/spartan-ng/spartan/commit/a58a2b2)), closes [#1643](https://github.com/spartan-ng/spartan/issues/1643) [#1638](https://github.com/spartan-ng/spartan/issues/1638) [#1638](https://github.com/spartan-ng/spartan/issues/1638)
@@ -7,6 +18,13 @@
 - chore(release): backmerge main into beta ([acd6691](https://github.com/spartan-ng/spartan/commit/acd6691))
 - Merge pull request #1644 from spartan-ng/docs/migrate-to-signal-forms ([5399f19](https://github.com/spartan-ng/spartan/commit/5399f19)), closes [#1644](https://github.com/spartan-ng/spartan/issues/1644)
 - docs: add new contributors to our 300 ([e70a171](https://github.com/spartan-ng/spartan/commit/e70a171))
+
+## <small>1.1.2 (2026-07-25)</small>
+
+- docs: add new contributors to our 300 ([fc6a715](https://github.com/spartan-ng/spartan/commit/fc6a715))
+- docs: add new contributors to our 300 ([e70a171](https://github.com/spartan-ng/spartan/commit/e70a171))
+- fix: add RouterLink and fragment inputs on styles docs page (#1647) ([10f7d5e](https://github.com/spartan-ng/spartan/commit/10f7d5e)), closes [#1647](https://github.com/spartan-ng/spartan/issues/1647)
+- Merge pull request #1644 from spartan-ng/docs/migrate-to-signal-forms ([5399f19](https://github.com/spartan-ng/spartan/commit/5399f19)), closes [#1644](https://github.com/spartan-ng/spartan/issues/1644)
 
 ## <small>1.1.1 (2026-07-17)</small>
 

@@ -625,11 +625,11 @@
 	}
 
 	.spartan-input-otp-group {
-		@apply data-[matches-spartan-invalid=true]:ring-destructive/20 dark:data-[matches-spartan-invalid=true]:ring-destructive/40 data-[matches-spartan-invalid=true]:border-destructive rounded-4xl data-[matches-spartan-invalid=true]:ring-[3px];
+		@apply has-data-[matches-spartan-invalid=true]:ring-destructive/20 dark:has-data-[matches-spartan-invalid=true]:ring-destructive/40 has-data-[matches-spartan-invalid=true]:border-destructive rounded-4xl has-data-[matches-spartan-invalid=true]:ring-[3px];
 	}
 
 	.spartan-input-otp-slot {
-		@apply bg-input/30 border-input has-[brn-input-otp-slot[data-active="true"]]:border-ring has-[brn-input-otp-slot[data-active="true"]]:ring-ring/50 has-[brn-input-otp-slot[data-active="true"]]:data-[matches-spartan-invalid=true]:ring-destructive/20 dark:has-[brn-input-otp-slot[data-active="true"]]:data-[matches-spartan-invalid=true]:ring-destructive/40 data-[matches-spartan-invalid=true]:border-destructive has-[brn-input-otp-slot[data-active="true"]]:data-[matches-spartan-invalid=true]:border-destructive size-9 border-y border-e text-sm transition-all outline-none first:rounded-s-4xl first:border-s last:rounded-e-4xl has-[brn-input-otp-slot[data-active="true"]]:ring-[3px];
+		@apply bg-input/30 border-input has-[brn-input-otp-slot[data-active="true"]]:border-ring has-[brn-input-otp-slot[data-active="true"]]:ring-ring/50 has-[brn-input-otp-slot[data-active="true"]]:has-data-[matches-spartan-invalid=true]:ring-destructive/20 dark:has-[brn-input-otp-slot[data-active="true"]]:has-data-[matches-spartan-invalid=true]:ring-destructive/40 has-data-[matches-spartan-invalid=true]:border-destructive has-[brn-input-otp-slot[data-active="true"]]:has-data-[matches-spartan-invalid=true]:border-destructive size-9 border-y border-e text-sm transition-all outline-none first:rounded-s-4xl first:border-s last:rounded-e-4xl has-[brn-input-otp-slot[data-active="true"]]:ring-[3px];
 	}
 
 	.spartan-input-otp-caret-line {

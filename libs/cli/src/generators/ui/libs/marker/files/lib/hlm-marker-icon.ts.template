@@ -1,0 +1,15 @@
+import { Directive } from '@angular/core';
+import { classes } from '<%- importAlias %>/utils';
+
+@Directive({
+	selector: '[hlmMarkerIcon],hlm-marker-icon',
+	host: {
+		'data-slot': 'marker-icon',
+		'aria-hidden': 'true',
+	},
+})
+export class HlmMarkerIcon {
+	constructor() {
+		classes(() => "spartan-marker-icon [&_ng-icon:not([class*='text-'])]:text-[length:--spacing(4)]");
+	}
+}

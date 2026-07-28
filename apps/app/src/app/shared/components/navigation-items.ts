@@ -25,10 +25,12 @@ export const components: Link[] = [
 	{ label: 'Alert', url: '/alert' },
 	{ label: 'Alert Dialog', url: '/alert-dialog' },
 	{ label: 'Aspect Ratio', url: '/aspect-ratio' },
+	{ label: 'Attachment', url: '/attachment', new: true },
 	{ label: 'Autocomplete', url: '/autocomplete' },
 	{ label: 'Avatar', url: '/avatar' },
 	{ label: 'Badge', url: '/badge' },
 	{ label: 'Breadcrumb', url: '/breadcrumb' },
+	{ label: 'Bubble', url: '/bubble', new: true },
 	{ label: 'Button', url: '/button' },
 	{ label: 'Button Group', url: '/button-group' },
 	{ label: 'Calendar', url: '/calendar' },
@@ -53,7 +55,9 @@ export const components: Link[] = [
 	{ label: 'Item', url: '/item' },
 	{ label: 'Kbd', url: '/kbd' },
 	{ label: 'Label', url: '/label' },
+	{ label: 'Marker', url: '/marker', new: true },
 	{ label: 'Menubar', url: '/menubar' },
+	{ label: 'Message', url: '/message', new: true },
 	{ label: 'Native Select', url: '/native-select' },
 	{ label: 'Navigation Menu', url: '/navigation-menu' },
 	{ label: 'Pagination', url: '/pagination' },
@@ -83,6 +87,11 @@ export const forms: Link[] = [
 	{ label: 'Forms', url: '/', exact: true },
 	{ label: 'Reactive Forms', url: '/reactive-forms' },
 	{ label: 'Signal Forms', url: '/signal-forms', new: true },
+];
+
+export const utilities: Link[] = [
+	{ label: 'Scroll Fade', url: '/scroll-fade', new: true },
+	{ label: 'Shimmer', url: '/shimmer', new: true },
 ];
 
 export const sidenavItems: NavItem[] = [
@@ -119,6 +128,11 @@ export const sidenavItems: NavItem[] = [
 		label: 'Components',
 		url: '/components',
 		links: components,
+	},
+	{
+		label: 'Utilities',
+		url: '/documentation',
+		links: utilities,
 	},
 	{
 		label: 'Forms',

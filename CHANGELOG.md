@@ -1,3 +1,7 @@
+## 1.2.0-beta.3 (2026-07-28)
+
+- feat: add message, bubble, attachment, and marker components (#1657) ([23cc83b](https://github.com/spartan-ng/spartan/commit/23cc83b)), closes [#1657](https://github.com/spartan-ng/spartan/issues/1657)
+
 ## 1.2.0-beta.2 (2026-07-28)
 
 - feat(date-picker): improve compatibility w/ signal forms (#1645) ([9741eb0](https://github.com/spartan-ng/spartan/commit/9741eb0)), closes [#1645](https://github.com/spartan-ng/spartan/issues/1645)

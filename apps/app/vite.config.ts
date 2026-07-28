@@ -114,6 +114,8 @@ export default defineConfig(({ command, mode }) => {
 							'/documentation/skills',
 							'/documentation/rtl',
 							'/documentation/styles',
+							'/documentation/scroll-fade',
+							'/documentation/shimmer',
 
 							'/blocks/sidebar',
 							'/blocks/calendar',

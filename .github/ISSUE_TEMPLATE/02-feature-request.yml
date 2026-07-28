@@ -16,10 +16,12 @@ body:
         - alert
         - alert-dialog
         - aspect-ratio
+        - attachment
         - autocomplete
         - avatar
         - badge
         - breadcrumb
+        - bubble
         - button
         - button-group
         - calendar
@@ -44,7 +46,9 @@ body:
         - item
         - kbd
         - label
+        - marker
         - menubar
+        - message
         - native-select
         - navigation-menu
         - pagination

@@ -1,0 +1,35 @@
+import { Directive, input } from '@angular/core';
+import { classes } from '<%- importAlias %>/utils';
+import { cva, type VariantProps } from 'class-variance-authority';
+
+const attachmentMediaVariants = cva(
+	"spartan-attachment-media group-data-[state=error]/attachment:bg-destructive/10 group-data-[state=error]/attachment:text-destructive relative flex aspect-square shrink-0 items-center justify-center overflow-hidden group-data-[orientation=vertical]/attachment:w-full group-data-[size=sm]/attachment:w-8 group-data-[size=xs]/attachment:w-7 [&_ng-icon]:pointer-events-none [&_ng-icon:not([class*='text-'])]:text-[length:--spacing(4)] group-data-[orientation=vertical]/attachment:[&_ng-icon:not([class*='text-'])]:text-[length:--spacing(6)] group-data-[size=xs]/attachment:[&_ng-icon:not([class*='text-'])]:text-[length:--spacing(3.5)]",
+	{
+		variants: {
+			variant: {
+				icon: 'spartan-attachment-media-variant-icon',
+				image: 'spartan-attachment-media-variant-image *:[img]:aspect-square *:[img]:w-full *:[img]:object-cover',
+			},
+		},
+		defaultVariants: {
+			variant: 'icon',
+		},
+	},
+);
+
+export type AttachmentMediaVariants = VariantProps<typeof attachmentMediaVariants>;
+
+@Directive({
+	selector: '[hlmAttachmentMedia],hlm-attachment-media',
+	host: {
+		'data-slot': 'attachment-media',
+		'[attr.data-variant]': 'variant()',
+	},
+})
+export class HlmAttachmentMedia {
+	public readonly variant = input<AttachmentMediaVariants['variant']>('icon');
+
+	constructor() {
+		classes(() => attachmentMediaVariants({ variant: this.variant() }));
+	}
+}

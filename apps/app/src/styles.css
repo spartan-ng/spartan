@@ -56,8 +56,8 @@
 	color-scheme: light;
 	--font-sans: 'Geist', sans-serif;
 	--font-mono: 'Geist Mono', monospace;
-	--font-ar: 'Noto Sans Arabic', 'Noto Sans Arabic Fallback';
-	--font-he: 'Noto Sans Hebrew', 'Noto Sans Hebrew Fallback';
+	--font-ar: 'Noto Sans Arabic Variable', 'Noto Sans Arabic', sans-serif;
+	--font-he: 'Noto Sans Hebrew Variable', 'Noto Sans Hebrew', sans-serif;
 	--radius: 0.625rem;
 	--background: oklch(1 0 0);
 	--foreground: oklch(0.145 0 0);
@@ -149,6 +149,24 @@
 
 [data-lang='he'] {
 	font-family: var(--font-he);
+}
+
+/*
+ * Blue primary used on chat docs previews so sent bubbles read more like iMessage
+ * than the page theme. Docs-only — not part of the shipped styles.
+ */
+.theme-blue {
+	--primary: oklch(0.488 0.243 264.376);
+	--primary-foreground: oklch(0.97 0.014 254.604);
+	--sidebar-primary: oklch(0.546 0.245 262.881);
+	--sidebar-primary-foreground: oklch(0.97 0.014 254.604);
+}
+
+.dark .theme-blue {
+	--primary: oklch(0.424 0.199 265.638);
+	--primary-foreground: oklch(0.97 0.014 254.604);
+	--sidebar-primary: oklch(0.623 0.214 259.815);
+	--sidebar-primary-foreground: oklch(0.97 0.014 254.604);
 }
 
 /*

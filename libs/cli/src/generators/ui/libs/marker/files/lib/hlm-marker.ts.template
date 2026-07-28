@@ -1,0 +1,36 @@
+import { Directive, input } from '@angular/core';
+import { classes } from '<%- importAlias %>/utils';
+import { cva, type VariantProps } from 'class-variance-authority';
+
+const markerVariants = cva(
+	"spartan-marker group/marker [a]:hover:text-foreground relative flex min-h-4 w-full items-center text-start text-sm [&_ng-icon:not([class*='text-'])]:text-[length:--spacing(4)] [a]:underline [a]:underline-offset-3",
+	{
+		variants: {
+			variant: {
+				default: 'spartan-marker-variant-default',
+				separator: 'spartan-marker-variant-separator',
+				border: 'spartan-marker-variant-border',
+			},
+		},
+		defaultVariants: {
+			variant: 'default',
+		},
+	},
+);
+
+export type MarkerVariants = VariantProps<typeof markerVariants>;
+
+@Directive({
+	selector: '[hlmMarker],hlm-marker',
+	host: {
+		'data-slot': 'marker',
+		'[attr.data-variant]': 'variant()',
+	},
+})
+export class HlmMarker {
+	public readonly variant = input<MarkerVariants['variant']>('default');
+
+	constructor() {
+		classes(() => markerVariants({ variant: this.variant() }));
+	}
+}

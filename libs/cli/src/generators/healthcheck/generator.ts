@@ -6,6 +6,7 @@ import { brainImportsHealthcheck } from './healthchecks/brain-imports';
 import { brainAccordionTriggerHealthcheck } from './healthchecks/brn-accordion-trigger';
 import { brnCheckboxChangedEventRename } from './healthchecks/brn-checkbox-changed-event-rename';
 import { brainCollapsibleHealthcheck } from './healthchecks/brn-collapsible';
+import { brnInputOtpMaxLengthRename } from './healthchecks/brn-input-otp-max-length-rename';
 import { brainRadioHealthcheck } from './healthchecks/brn-radio';
 import { brnSelectHealthcheck } from './healthchecks/brn-select';
 import { brainSeparatorHealthcheck } from './healthchecks/brn-separator';
@@ -67,6 +68,7 @@ export async function healthcheckGenerator(tree: Tree, options: HealthcheckGener
 		helmFormFieldHealthcheck,
 		sonnerHealthcheck,
 		brnSelectHealthcheck,
+		brnInputOtpMaxLengthRename,
 		scaffoldIntegrityHealthcheck,
 	];
 

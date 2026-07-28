@@ -21,6 +21,7 @@ import { Tabs } from '../../../../shared/layout/tabs';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { InputOtpDisabled } from './input-otp--disabled.preview';
 import { InputOtpFormExample } from './input-otp--form.example';
+import { InputOtpInvalid } from './input-otp--invalid.preview';
 import { InputOtpRtl } from './input-otp--rtl.preview';
 import { InputOtpSeparator } from './input-otp--separator.preview';
 import { defaultImports, defaultSkeleton, InputOtpPreview } from './input-otp.preview';
@@ -52,6 +53,7 @@ export const routeMeta: RouteMeta = {
 		InputOtpPreview,
 		InputOtpSeparator,
 		InputOtpDisabled,
+		InputOtpInvalid,
 		InputOtpFormExample,
 		InputOtpRtl,
 	],
@@ -136,7 +138,7 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
 
-			<h3 id="examples__separator" spartanH4>Separator</h3>
+			<h3 id="separator" spartanH4>Separator</h3>
 			<p class="${hlmP} mb-6">
 				Use the
 				<code class="${hlmCode}">hlm-input-otp-separator</code>
@@ -149,7 +151,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_separatorCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__disabled" spartanH4>Disabled</h3>
+			<h3 id="disabled" spartanH4>Disabled</h3>
 			<p class="${hlmP} mb-6">
 				Use the
 				<code class="${hlmCode}">disabled</code>
@@ -162,7 +164,20 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_disabledCode()" />
 			</spartan-tabs>
 
-			<h3 id="examples__form" spartanH4>Form</h3>
+			<h3 id="invalid" spartanH4>Invalid</h3>
+			<p class="${hlmP} mb-6">
+				Use the
+				<code class="${hlmCode}">forceInvalid</code>
+				prop to mark the slots as invalid.
+			</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-input-otp-invalid />
+				</div>
+				<spartan-code secondTab [code]="_invalidCode()" />
+			</spartan-tabs>
+
+			<h3 id="form" spartanH4>Form</h3>
 			<p class="${hlmP} mb-6">
 				Sync the otp to a form by adding
 				<code class="${hlmCode}">formControlName</code>
@@ -208,6 +223,7 @@ export default class InputOtpPage {
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
 	protected readonly _separatorCode = computed(() => this._snippets()['separator']);
 	protected readonly _disabledCode = computed(() => this._snippets()['disabled']);
+	protected readonly _invalidCode = computed(() => this._snippets()['invalid']);
 	protected readonly _formCode = computed(() => this._snippets()['form']);
 	protected readonly _rtlCode = computed(() => this._snippets()['rtl']);
 	protected readonly _defaultSkeleton = defaultSkeleton;

@@ -6,7 +6,7 @@ import { HlmInputOtp, HlmInputOtpGroup, HlmInputOtpSeparator, HlmInputOtpSlot } 
 	selector: 'spartan-input-otp-disabled',
 	imports: [HlmInputOtp, HlmInputOtpGroup, HlmInputOtpSeparator, HlmInputOtpSlot, BrnInputOtp],
 	template: `
-		<brn-input-otp hlmInputOtp value="123456" disabled maxLength="6" inputClass="disabled:cursor-not-allowed">
+		<brn-input-otp hlmInputOtp value="123456" disabled length="6" inputClass="disabled:cursor-not-allowed">
 			<hlm-input-otp-group>
 				<hlm-input-otp-slot index="0" />
 				<hlm-input-otp-slot index="1" />

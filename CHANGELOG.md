@@ -8,6 +8,13 @@
 - Merge pull request #1644 from spartan-ng/docs/migrate-to-signal-forms ([5399f19](https://github.com/spartan-ng/spartan/commit/5399f19)), closes [#1644](https://github.com/spartan-ng/spartan/issues/1644)
 - docs: add new contributors to our 300 ([e70a171](https://github.com/spartan-ng/spartan/commit/e70a171))
 
+## <small>1.1.2 (2026-07-25)</small>
+
+- docs: add new contributors to our 300 ([fc6a715](https://github.com/spartan-ng/spartan/commit/fc6a715))
+- docs: add new contributors to our 300 ([e70a171](https://github.com/spartan-ng/spartan/commit/e70a171))
+- fix: add RouterLink and fragment inputs on styles docs page (#1647) ([10f7d5e](https://github.com/spartan-ng/spartan/commit/10f7d5e)), closes [#1647](https://github.com/spartan-ng/spartan/issues/1647)
+- Merge pull request #1644 from spartan-ng/docs/migrate-to-signal-forms ([5399f19](https://github.com/spartan-ng/spartan/commit/5399f19)), closes [#1644](https://github.com/spartan-ng/spartan/issues/1644)
+
 ## <small>1.1.1 (2026-07-17)</small>
 
 - Merge pull request #1641 from spartan-ng/beta ([dd9be00](https://github.com/spartan-ng/spartan/commit/dd9be00)), closes [#1641](https://github.com/spartan-ng/spartan/issues/1641)

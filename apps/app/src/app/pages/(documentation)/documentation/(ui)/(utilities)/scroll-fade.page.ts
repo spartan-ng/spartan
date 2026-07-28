@@ -62,7 +62,7 @@ export const routeMeta: RouteMeta = {
 			/>
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
-				<div spartanCodePreview firstTab class="!h-auto !min-h-0">
+				<div spartanCodePreview firstTab>
 					<spartan-scroll-fade-preview />
 				</div>
 				<spartan-code secondTab [code]="_demoCode" />
@@ -174,7 +174,7 @@ export const routeMeta: RouteMeta = {
 			<spartan-section-sub-heading id="no-overflow">No Overflow, No Fade</spartan-section-sub-heading>
 			<p class="${hlmP}">If the content does not overflow, no fade is shown.</p>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
-				<div spartanCodePreview firstTab class="!h-auto !min-h-0">
+				<div spartanCodePreview firstTab>
 					<spartan-scroll-fade-overflow-preview />
 				</div>
 				<spartan-code secondTab [code]="_overflowCode" />
@@ -189,7 +189,7 @@ export const routeMeta: RouteMeta = {
 				.
 			</p>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
-				<div spartanCodePreview firstTab class="!h-auto !min-h-0">
+				<div spartanCodePreview firstTab>
 					<spartan-scroll-fade-x-preview />
 				</div>
 				<spartan-code secondTab [code]="_xCode" />
@@ -204,7 +204,7 @@ export const routeMeta: RouteMeta = {
 				for logical inline edges that mirror in RTL.
 			</p>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
-				<div spartanCodePreview firstTab class="!h-auto !min-h-0">
+				<div spartanCodePreview firstTab>
 					<spartan-scroll-fade-edges-preview />
 				</div>
 				<spartan-code secondTab [code]="_edgesCode" />
@@ -221,7 +221,7 @@ export const routeMeta: RouteMeta = {
 				to set a fixed size on the spacing scale.
 			</p>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
-				<div spartanCodePreview firstTab class="!h-auto !min-h-0">
+				<div spartanCodePreview firstTab>
 					<spartan-scroll-fade-size-preview />
 				</div>
 				<spartan-code secondTab [code]="_sizeCode" />
@@ -234,7 +234,7 @@ export const routeMeta: RouteMeta = {
 				to remove the fade. It works in any class order, so you can toggle it responsively or by state.
 			</p>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
-				<div spartanCodePreview firstTab class="!h-auto !min-h-0">
+				<div spartanCodePreview firstTab>
 					<spartan-scroll-fade-none-preview />
 				</div>
 				<spartan-code secondTab [code]="_noneCode" />
@@ -246,7 +246,7 @@ export const routeMeta: RouteMeta = {
 				follows the reading direction. At rest, the start edge is crisp and the end edge fades.
 			</p>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
-				<div spartanCodePreview firstTab class="!h-auto !min-h-0">
+				<div spartanCodePreview firstTab>
 					<spartan-scroll-fade-rtl-preview />
 				</div>
 				<spartan-code secondTab [code]="_rtlCode" />

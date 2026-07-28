@@ -65,7 +65,7 @@ export const routeMeta: RouteMeta = {
 			<spartan-section-intro name="Shimmer" lead="Utilities for adding a shimmer effect to text elements." />
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
-				<div spartanCodePreview firstTab class="!h-auto !min-h-0">
+				<div spartanCodePreview firstTab class="h-auto! min-h-0!">
 					<spartan-shimmer-preview />
 				</div>
 				<spartan-code secondTab [code]="_demoCode" />
@@ -153,7 +153,7 @@ export const routeMeta: RouteMeta = {
 			<spartan-section-sub-heading id="with-marker">With Marker</spartan-section-sub-heading>
 			<p class="${hlmP}">A common pattern is a Marker showing a live status while the assistant is working.</p>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
-				<div spartanCodePreview firstTab class="!h-auto !min-h-0">
+				<div spartanCodePreview firstTab class="h-auto! min-h-0!">
 					<spartan-shimmer-marker-preview />
 				</div>
 				<spartan-code secondTab [code]="_markerCode" />
@@ -167,7 +167,7 @@ export const routeMeta: RouteMeta = {
 				arbitrary color value.
 			</p>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
-				<div spartanCodePreview firstTab class="!h-auto !min-h-0">
+				<div spartanCodePreview firstTab class="h-auto! min-h-0!">
 					<spartan-shimmer-color-preview />
 				</div>
 				<spartan-code secondTab [code]="_colorCode" />
@@ -182,7 +182,7 @@ export const routeMeta: RouteMeta = {
 				.
 			</p>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
-				<div spartanCodePreview firstTab class="!h-auto !min-h-0">
+				<div spartanCodePreview firstTab class="h-auto! min-h-0!">
 					<spartan-shimmer-duration-preview />
 				</div>
 				<spartan-code secondTab [code]="_durationCode" />
@@ -195,7 +195,7 @@ export const routeMeta: RouteMeta = {
 				to set the width of the highlight band using the spacing scale.
 			</p>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
-				<div spartanCodePreview firstTab class="!h-auto !min-h-0">
+				<div spartanCodePreview firstTab class="h-auto! min-h-0!">
 					<spartan-shimmer-spread-preview />
 				</div>
 				<spartan-code secondTab [code]="_spreadCode" />
@@ -210,7 +210,7 @@ export const routeMeta: RouteMeta = {
 				.
 			</p>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
-				<div spartanCodePreview firstTab class="!h-auto !min-h-0">
+				<div spartanCodePreview firstTab class="h-auto! min-h-0!">
 					<spartan-shimmer-angle-preview />
 				</div>
 				<spartan-code secondTab [code]="_angleCode" />
@@ -223,7 +223,7 @@ export const routeMeta: RouteMeta = {
 				to play a single sweep instead of looping. Remount the element to replay.
 			</p>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
-				<div spartanCodePreview firstTab class="!h-auto !min-h-0">
+				<div spartanCodePreview firstTab class="h-auto! min-h-0!">
 					<spartan-shimmer-once-preview />
 				</div>
 				<spartan-code secondTab [code]="_onceCode" />
@@ -236,7 +236,7 @@ export const routeMeta: RouteMeta = {
 				to turn the effect off. It works in any class order.
 			</p>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
-				<div spartanCodePreview firstTab class="!h-auto !min-h-0">
+				<div spartanCodePreview firstTab class="h-auto! min-h-0!">
 					<spartan-shimmer-none-preview />
 				</div>
 				<spartan-code secondTab [code]="_noneCode" />
@@ -250,7 +250,7 @@ export const routeMeta: RouteMeta = {
 				to flip the direction manually.
 			</p>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
-				<div spartanCodePreview firstTab class="!h-auto !min-h-0">
+				<div spartanCodePreview firstTab class="h-auto! min-h-0!">
 					<spartan-shimmer-rtl-preview />
 				</div>
 				<spartan-code secondTab [code]="_rtlCode" />

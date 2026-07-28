@@ -10,6 +10,6 @@ import { classes } from '@spartan-ng/helm/utils';
 })
 export class HlmMarkerIcon {
 	constructor() {
-		classes(() => "spartan-marker-icon [&_ng-icon:not([class*='size-'])]:size-4");
+		classes(() => "spartan-marker-icon [&_ng-icon:not([class*='text-'])]:text-[length:--spacing(4)]");
 	}
 }

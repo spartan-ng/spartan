@@ -1,3 +1,8 @@
+## 1.2.0-beta.2 (2026-07-28)
+
+- feat(date-picker): improve compatibility w/ signal forms (#1645) ([9741eb0](https://github.com/spartan-ng/spartan/commit/9741eb0)), closes [#1645](https://github.com/spartan-ng/spartan/issues/1645)
+- fix(combobox): skip scrollIntoView when activated by pointer event, closes #1658 (#1666) ([66bc173](https://github.com/spartan-ng/spartan/commit/66bc173)), closes [#1658](https://github.com/spartan-ng/spartan/issues/1658) [#1666](https://github.com/spartan-ng/spartan/issues/1666)
+
 ## 1.2.0-beta.1 (2026-07-28)
 
 - feat(input-otp): improve compatibility w/ signal forms, update invalid styles (#1648) ([6dab919](https://github.com/spartan-ng/spartan/commit/6dab919)), closes [#1648](https://github.com/spartan-ng/spartan/issues/1648)

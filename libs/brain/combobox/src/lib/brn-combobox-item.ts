@@ -54,6 +54,8 @@ export class BrnComboboxItem<T> implements Highlightable {
 
 	protected readonly _highlighted = signal(false);
 
+	private _activatedByPointer = false;
+
 	/** @internal Determine if this item is visible based on the current search query */
 	public readonly visible = computed(() => {
 		return this._combobox.filter()(
@@ -68,7 +70,7 @@ export class BrnComboboxItem<T> implements Highlightable {
 		this._highlighted.set(true);
 
 		// ensure the item is in view
-		if (isPlatformBrowser(this._platform)) {
+		if (!this._activatedByPointer && isPlatformBrowser(this._platform)) {
 			this._elementRef.nativeElement.scrollIntoView({ block: 'nearest' });
 		}
 	}
@@ -95,6 +97,8 @@ export class BrnComboboxItem<T> implements Highlightable {
 			return;
 		}
 
+		this._activatedByPointer = true;
 		this._combobox.keyManager.setActiveItem(this);
+		this._activatedByPointer = false;
 	}
 }

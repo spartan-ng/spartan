@@ -108,8 +108,8 @@ export const routeMeta: RouteMeta = {
 			<spartan-ui-api-docs docType="helm" />
 
 			<spartan-page-bottom-nav>
-				<spartan-page-bottom-nav-link href="native-select" label="Native Select" />
-				<spartan-page-bottom-nav-link direction="previous" href="label" label="Label" />
+				<spartan-page-bottom-nav-link href="message" label="Message" />
+				<spartan-page-bottom-nav-link direction="previous" href="marker" label="Marker" />
 			</spartan-page-bottom-nav>
 		</section>
 		<spartan-page-nav />

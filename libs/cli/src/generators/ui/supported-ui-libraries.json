@@ -31,6 +31,13 @@
 			"@angular/cdk": ">=21.0.0 <23.0.0"
 		}
 	},
+	"attachment": {
+		"name": "attachment",
+		"peerDependencies": {
+			"@angular/core": ">=21.0.0 <23.0.0",
+			"class-variance-authority": "^0.7.0"
+		}
+	},
 	"autocomplete": {
 		"name": "autocomplete",
 		"peerDependencies": {
@@ -63,6 +70,13 @@
 			"@ng-icons/core": ">=32.0.0 <34.0.0",
 			"@ng-icons/lucide": ">=32.0.0 <34.0.0",
 			"@angular/router": ">=21.0.0 <23.0.0"
+		}
+	},
+	"bubble": {
+		"name": "bubble",
+		"peerDependencies": {
+			"@angular/core": ">=21.0.0 <23.0.0",
+			"class-variance-authority": "^0.7.0"
 		}
 	},
 	"button": {
@@ -273,12 +287,25 @@
 			"@spartan-ng/brain": "1.2.0-beta.2"
 		}
 	},
+	"marker": {
+		"name": "marker",
+		"peerDependencies": {
+			"@angular/core": ">=21.0.0 <23.0.0",
+			"class-variance-authority": "^0.7.0"
+		}
+	},
 	"menubar": {
 		"name": "menubar",
 		"peerDependencies": {
 			"@angular/core": ">=21.0.0 <23.0.0",
 			"@spartan-ng/brain": "1.2.0-beta.2",
 			"@angular/cdk": ">=21.0.0 <23.0.0"
+		}
+	},
+	"message": {
+		"name": "message",
+		"peerDependencies": {
+			"@angular/core": ">=21.0.0 <23.0.0"
 		}
 	},
 	"native-select": {

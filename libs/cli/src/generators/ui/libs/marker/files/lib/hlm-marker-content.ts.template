@@ -1,0 +1,15 @@
+import { Directive } from '@angular/core';
+import { classes } from '<%- importAlias %>/utils';
+
+@Directive({
+	selector: '[hlmMarkerContent],hlm-marker-content',
+	host: { 'data-slot': 'marker-content' },
+})
+export class HlmMarkerContent {
+	constructor() {
+		classes(
+			() =>
+				'spartan-marker-content *:[a]:hover:text-foreground wrap-break-word group-data-[variant=separator]/marker:flex-none group-data-[variant=separator]/marker:text-center *:[a]:underline *:[a]:underline-offset-3',
+		);
+	}
+}

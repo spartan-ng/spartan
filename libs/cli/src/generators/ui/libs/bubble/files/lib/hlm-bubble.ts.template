@@ -1,0 +1,46 @@
+import { Directive, input } from '@angular/core';
+import { classes } from '<%- importAlias %>/utils';
+import { cva, type VariantProps } from 'class-variance-authority';
+
+const bubbleVariants = cva(
+	'spartan-bubble group/bubble relative flex w-fit min-w-0 flex-col group-data-[align=end]/message:self-end data-[align=end]:self-end data-[variant=ghost]:max-w-full',
+	{
+		variants: {
+			variant: {
+				default: 'spartan-bubble-variant-default',
+				secondary: 'spartan-bubble-variant-secondary',
+				muted: 'spartan-bubble-variant-muted',
+				tinted: 'spartan-bubble-variant-tinted',
+				outline: 'spartan-bubble-variant-outline',
+				ghost: 'spartan-bubble-variant-ghost',
+				destructive: 'spartan-bubble-variant-destructive',
+			},
+		},
+		defaultVariants: {
+			variant: 'default',
+		},
+	},
+);
+
+export type BubbleVariants = VariantProps<typeof bubbleVariants>;
+export type BubbleAlign = 'start' | 'end';
+
+@Directive({
+	selector: '[hlmBubble],hlm-bubble',
+	host: {
+		'data-slot': 'bubble',
+		'[attr.data-variant]': 'variant()',
+		'[attr.data-align]': 'align()',
+		// Prevent the legacy HTML `align` attribute (from `align="end"` bindings) from
+		// forcing text-align on the bubble content.
+		'[attr.align]': 'null',
+	},
+})
+export class HlmBubble {
+	public readonly variant = input<BubbleVariants['variant']>('default');
+	public readonly align = input<BubbleAlign>('start');
+
+	constructor() {
+		classes(() => bubbleVariants({ variant: this.variant() }));
+	}
+}

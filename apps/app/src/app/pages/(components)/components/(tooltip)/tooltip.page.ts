@@ -1,5 +1,6 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { injectComponentDocs } from '@spartan-ng/app/app/core/services/component-docs';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
 import { TooltipDisabledButtonWithTooltip } from '@spartan-ng/app/app/pages/(components)/components/(tooltip)/tooltip--disabled-button-with-tooltip.example';
@@ -11,6 +12,8 @@ import { CodeRtlPreview } from '@spartan-ng/app/app/shared/code/code-rtl-preview
 import { RtlHeader } from '@spartan-ng/app/app/shared/code/rtl-header';
 import { InstallTabs } from '@spartan-ng/app/app/shared/layout/install-tabs';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
+import { HlmButton } from '@spartan-ng/helm/button';
+import { hlmP } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
 import { MainSection } from '../../../../shared/layout/main-section';
@@ -22,6 +25,7 @@ import { SectionSubHeading } from '../../../../shared/layout/section-sub-heading
 import { Tabs } from '../../../../shared/layout/tabs';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
+import { link } from '../../../../shared/typography/link';
 import { TooltipGroup } from './tooltip--group.example';
 import { TooltipSimple } from './tooltip--simple.example';
 import { defaultImports, defaultSkeleton, TooltipPreview } from './tooltip.preview';
@@ -62,6 +66,8 @@ export const routeMeta: RouteMeta = {
 		RtlHeader,
 		CodeRtlPreview,
 		TooltipRtlPreview,
+		RouterLink,
+		HlmButton,
 	],
 	template: `
 		<section spartanMainSection>
@@ -85,6 +91,15 @@ export const routeMeta: RouteMeta = {
 				<spartan-code [code]="_defaultImports" />
 				<spartan-code [code]="_defaultSkeleton" />
 			</div>
+
+			<spartan-section-sub-heading id="accessibility">Accessibility</spartan-section-sub-heading>
+			<p class="${hlmP} mt-6">
+				<strong>Prefer using tooltips as visual labels only</strong>
+				: Tooltips should act as supplementary visual labels for sighted mouse and keyboard users. Tooltips alone are
+				not accessible to touch users. When touch users need to read the content, use a
+				<a routerLink="/components/popover" hlmBtn variant="link" class="${link}">Popover</a>
+				instead.
+			</p>
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
 

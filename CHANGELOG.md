@@ -1,3 +1,23 @@
+## 1.2.0 (2026-07-29)
+
+- Merge pull request #1667 from spartan-ng/beta ([b27b41e](https://github.com/spartan-ng/spartan/commit/b27b41e)), closes [#1667](https://github.com/spartan-ng/spartan/issues/1667)
+- chore: allow subject uppercase (#1668) ([112d43a](https://github.com/spartan-ng/spartan/commit/112d43a)), closes [#1668](https://github.com/spartan-ng/spartan/issues/1668)
+- chore: relax subject-case rule to allow sentence-case (#1670) ([bad9db3](https://github.com/spartan-ng/spartan/commit/bad9db3)), closes [#1670](https://github.com/spartan-ng/spartan/issues/1670)
+- chore(release): 1.1.2-beta.1 ([b240958](https://github.com/spartan-ng/spartan/commit/b240958))
+- chore(release): 1.2.0-beta.1 ([62eb78a](https://github.com/spartan-ng/spartan/commit/62eb78a))
+- chore(release): 1.2.0-beta.2 ([3935d70](https://github.com/spartan-ng/spartan/commit/3935d70))
+- chore(release): 1.2.0-beta.3 ([9844e70](https://github.com/spartan-ng/spartan/commit/9844e70))
+- chore(release): backmerge main into beta ([353d8aa](https://github.com/spartan-ng/spartan/commit/353d8aa))
+- chore(release): backmerge main into beta ([7f65a3d](https://github.com/spartan-ng/spartan/commit/7f65a3d))
+- chore(release): backmerge main into beta ([4528280](https://github.com/spartan-ng/spartan/commit/4528280))
+- chore(release): backmerge main into beta ([acd6691](https://github.com/spartan-ng/spartan/commit/acd6691))
+- feat: add message, bubble, attachment, and marker components (#1657) ([23cc83b](https://github.com/spartan-ng/spartan/commit/23cc83b)), closes [#1657](https://github.com/spartan-ng/spartan/issues/1657)
+- feat(date-picker): improve compatibility w/ signal forms (#1645) ([9741eb0](https://github.com/spartan-ng/spartan/commit/9741eb0)), closes [#1645](https://github.com/spartan-ng/spartan/issues/1645)
+- feat(input-otp): improve compatibility w/ signal forms, update invalid styles (#1648) ([6dab919](https://github.com/spartan-ng/spartan/commit/6dab919)), closes [#1648](https://github.com/spartan-ng/spartan/issues/1648)
+- fix(combobox): skip scrollIntoView when activated by pointer event, closes #1658 (#1666) ([66bc173](https://github.com/spartan-ng/spartan/commit/66bc173)), closes [#1658](https://github.com/spartan-ng/spartan/issues/1658) [#1666](https://github.com/spartan-ng/spartan/issues/1666)
+- fix(date-picker): add align option for the calendar popup (#1643) ([a58a2b2](https://github.com/spartan-ng/spartan/commit/a58a2b2)), closes [#1643](https://github.com/spartan-ng/spartan/issues/1643) [#1638](https://github.com/spartan-ng/spartan/issues/1638) [#1638](https://github.com/spartan-ng/spartan/issues/1638)
+- fix(tooltip): Don't leak hover events on mobile devices (#1590) ([93d40b7](https://github.com/spartan-ng/spartan/commit/93d40b7)), closes [#1590](https://github.com/spartan-ng/spartan/issues/1590)
+
 ## 1.2.0-beta.3 (2026-07-28)
 
 - feat: add message, bubble, attachment, and marker components (#1657) ([23cc83b](https://github.com/spartan-ng/spartan/commit/23cc83b)), closes [#1657](https://github.com/spartan-ng/spartan/issues/1657)

@@ -77,6 +77,6 @@ module.exports = {
 				'release',
 			],
 		],
-		'subject-case': [2, 'always', ['sentence-case', 'lower-case']],
+		'subject-case': [2, 'never', ['start-case', 'pascal-case', 'upper-case']],
 	},
 };

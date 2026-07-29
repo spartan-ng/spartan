@@ -77,5 +77,6 @@ module.exports = {
 				'release',
 			],
 		],
+		'subject-case': [2, 'always', ['sentence-case', 'lower-case']],
 	},
 };

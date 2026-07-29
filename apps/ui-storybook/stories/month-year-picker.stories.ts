@@ -9,8 +9,8 @@ const meta: Meta<HlmMonthYearPicker<Date>> = {
 	component: HlmMonthYearPicker,
 	tags: ['autodocs'],
 	args: {
-		min: new Date(2020, 4, 1),
-		max: new Date(2030, 6, 1),
+		minDate: new Date(2020, 4, 1),
+		maxDate: new Date(2030, 6, 1),
 	},
 	decorators: [
 		moduleMetadata({
@@ -21,7 +21,7 @@ const meta: Meta<HlmMonthYearPicker<Date>> = {
 		props: args,
 		template: `
 		<div class="preview flex min-h-[350px] w-full justify-center p-10 items-center">
-			<hlm-month-year-picker [min]="min" [max]="max">
+			<hlm-month-year-picker [minDate]="minDate" [maxDate]="maxDate">
 				<hlm-date-picker-trigger buttonId="date">Pick a year and month</hlm-date-picker-trigger>
 			</hlm-month-year-picker>
 		</div>
@@ -51,7 +51,7 @@ const parseDate = (value: string): Date | null => {
 };
 
 export const Default: Story = {
-	args: { min: new Date(2020, 4, 1), max: new Date(2030, 6, 1) },
+	args: { minDate: new Date(2020, 4, 1), maxDate: new Date(2030, 6, 1) },
 };
 
 export const Input: Story = {

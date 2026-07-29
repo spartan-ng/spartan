@@ -595,6 +595,108 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
       },
     },
   },
+  "attachment": {
+    "helm": {
+      "HlmAttachment": {
+        "inputs": [
+          {
+            "name": "state",
+            "required": false,
+            "type": "AttachmentState",
+          },
+          {
+            "name": "size",
+            "required": false,
+            "type": "AttachmentVariants['size']",
+          },
+          {
+            "name": "orientation",
+            "required": false,
+            "type": "AttachmentVariants['orientation']",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmAttachment],hlm-attachment",
+      },
+      "HlmAttachmentAction": {
+        "inputs": [
+          {
+            "name": "type",
+            "required": false,
+            "type": "'button' | 'submit' | 'reset'",
+          },
+          {
+            "name": "variant",
+            "required": false,
+            "type": "ButtonVariants['variant']",
+          },
+          {
+            "name": "size",
+            "required": false,
+            "type": "ButtonVariants['size']",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "button[hlmAttachmentAction]",
+      },
+      "HlmAttachmentActions": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmAttachmentActions],hlm-attachment-actions",
+      },
+      "HlmAttachmentContent": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmAttachmentContent],hlm-attachment-content",
+      },
+      "HlmAttachmentDescription": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmAttachmentDescription],hlm-attachment-description",
+      },
+      "HlmAttachmentGroup": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmAttachmentGroup],hlm-attachment-group",
+      },
+      "HlmAttachmentMedia": {
+        "inputs": [
+          {
+            "name": "variant",
+            "required": false,
+            "type": "AttachmentMediaVariants['variant']",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmAttachmentMedia],hlm-attachment-media",
+      },
+      "HlmAttachmentTitle": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmAttachmentTitle],hlm-attachment-title",
+      },
+      "HlmAttachmentTrigger": {
+        "inputs": [
+          {
+            "name": "type",
+            "required": false,
+            "type": "'button' | 'submit' | 'reset' | null",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "button[hlmAttachmentTrigger],a[hlmAttachmentTrigger]",
+      },
+    },
+  },
   "autocomplete": {
     "brain": {
       "BrnAutocomplete": {
@@ -1225,6 +1327,56 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "models": [],
         "outputs": [],
         "selector": "[hlmBreadcrumbSeparator]",
+      },
+    },
+  },
+  "bubble": {
+    "helm": {
+      "HlmBubble": {
+        "inputs": [
+          {
+            "name": "variant",
+            "required": false,
+            "type": "BubbleVariants['variant']",
+          },
+          {
+            "name": "align",
+            "required": false,
+            "type": "BubbleAlign",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmBubble],hlm-bubble",
+      },
+      "HlmBubbleContent": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmBubbleContent],hlm-bubble-content",
+      },
+      "HlmBubbleGroup": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmBubbleGroup],hlm-bubble-group",
+      },
+      "HlmBubbleReactions": {
+        "inputs": [
+          {
+            "name": "side",
+            "required": false,
+            "type": "BubbleReactionsVariants['side']",
+          },
+          {
+            "name": "align",
+            "required": false,
+            "type": "BubbleReactionsVariants['align']",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmBubbleReactions],hlm-bubble-reactions",
       },
     },
   },
@@ -3430,17 +3582,22 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
       "HlmDatePicker": {
         "inputs": [
           {
+            "name": "align",
+            "required": false,
+            "type": "BrnPopoverAlign",
+          },
+          {
             "name": "captionLayout",
             "required": false,
             "type": "'dropdown' | 'label' | 'dropdown-months' | 'dropdown-years'",
           },
           {
-            "name": "min",
+            "name": "minDate",
             "required": false,
             "type": "T",
           },
           {
-            "name": "max",
+            "name": "maxDate",
             "required": false,
             "type": "T",
           },
@@ -3556,17 +3713,22 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
       "HlmDatePickerMulti": {
         "inputs": [
           {
+            "name": "align",
+            "required": false,
+            "type": "BrnPopoverAlign",
+          },
+          {
             "name": "captionLayout",
             "required": false,
             "type": "'dropdown' | 'label' | 'dropdown-months' | 'dropdown-years'",
           },
           {
-            "name": "min",
+            "name": "minDate",
             "required": false,
             "type": "T",
           },
           {
-            "name": "max",
+            "name": "maxDate",
             "required": false,
             "type": "T",
           },
@@ -3707,17 +3869,22 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
       "HlmDateRangePicker": {
         "inputs": [
           {
+            "name": "align",
+            "required": false,
+            "type": "BrnPopoverAlign",
+          },
+          {
             "name": "captionLayout",
             "required": false,
             "type": "'dropdown' | 'label' | 'dropdown-months' | 'dropdown-years'",
           },
           {
-            "name": "min",
+            "name": "minDate",
             "required": false,
             "type": "T",
           },
           {
-            "name": "max",
+            "name": "maxDate",
             "required": false,
             "type": "T",
           },
@@ -3816,12 +3983,17 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
       "HlmMonthYearPicker": {
         "inputs": [
           {
-            "name": "min",
+            "name": "align",
+            "required": false,
+            "type": "BrnPopoverAlign",
+          },
+          {
+            "name": "minDate",
             "required": false,
             "type": "T",
           },
           {
-            "name": "max",
+            "name": "maxDate",
             "required": false,
             "type": "T",
           },
@@ -5238,7 +5410,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "type": "boolean",
           },
           {
-            "name": "maxLength",
+            "name": "length",
             "required": true,
             "type": "number",
           },
@@ -5260,7 +5432,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
           {
             "name": "transformPaste",
             "required": false,
-            "type": "(pastedText: string, maxLength: number) => string",
+            "type": "(pastedText: string, length: number) => string",
           },
           {
             "name": "value",
@@ -5287,6 +5459,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "name": "index",
             "required": true,
             "type": "number",
+          },
+          {
+            "name": "forceInvalid",
+            "required": false,
+            "type": "boolean",
           },
         ],
         "models": [],
@@ -5325,6 +5502,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "name": "index",
             "required": true,
             "type": "number",
+          },
+          {
+            "name": "forceInvalid",
+            "required": false,
+            "type": "boolean",
           },
         ],
         "models": [],
@@ -5476,6 +5658,34 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
       },
     },
   },
+  "marker": {
+    "helm": {
+      "HlmMarker": {
+        "inputs": [
+          {
+            "name": "variant",
+            "required": false,
+            "type": "MarkerVariants['variant']",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmMarker],hlm-marker",
+      },
+      "HlmMarkerContent": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmMarkerContent],hlm-marker-content",
+      },
+      "HlmMarkerIcon": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmMarkerIcon],hlm-marker-icon",
+      },
+    },
+  },
   "menubar": {
     "helm": {
       "HlmMenubar": {
@@ -5505,6 +5715,52 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "models": [],
         "outputs": [],
         "selector": "button[hlmMenubarTrigger]",
+      },
+    },
+  },
+  "message": {
+    "helm": {
+      "HlmMessage": {
+        "inputs": [
+          {
+            "name": "align",
+            "required": false,
+            "type": "MessageAlign",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmMessage],hlm-message",
+      },
+      "HlmMessageAvatar": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmMessageAvatar],hlm-message-avatar",
+      },
+      "HlmMessageContent": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmMessageContent],hlm-message-content",
+      },
+      "HlmMessageFooter": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmMessageFooter],hlm-message-footer",
+      },
+      "HlmMessageGroup": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmMessageGroup],hlm-message-group",
+      },
+      "HlmMessageHeader": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmMessageHeader],hlm-message-header",
       },
     },
   },

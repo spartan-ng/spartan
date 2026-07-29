@@ -30,6 +30,11 @@
 			"schema": "./src/generators/migrate-brn-checkbox-changed-event/schema.json",
 			"description": "Migrate brn-checkbox changed event to checkedChange"
 		},
+		"migrate-brn-input-otp-max-length": {
+			"factory": "./src/generators/migrate-brn-input-otp-max-length/compat",
+			"schema": "./src/generators/migrate-brn-input-otp-max-length/schema.json",
+			"description": "Migrate brn-input-otp maxLength input to length"
+		},
 		"migrate-brn-switch-changed-event": {
 			"factory": "./src/generators/migrate-brn-switch-changed-event/compat",
 			"schema": "./src/generators/migrate-brn-switch-changed-event/schema.json",
@@ -44,6 +49,11 @@
 			"factory": "./src/generators/migrate-date-picker/generator",
 			"schema": "./src/generators/migrate-date-picker/schema.json",
 			"description": "Migrate hlm-date-picker changed event to dateChange"
+		},
+		"migrate-date-picker-min-max": {
+			"factory": "./src/generators/migrate-date-picker-min-max/generator",
+			"schema": "./src/generators/migrate-date-picker-min-max/schema.json",
+			"description": "Migrate hlm-date-picker min/max inputs to minDate/maxDate"
 		},
 		"migrate-helm-imports": {
 			"factory": "./src/generators/migrate-helm-imports/generator",
@@ -152,6 +162,11 @@
 			"schema": "./src/generators/migrate-brn-checkbox-changed-event/schema.json",
 			"description": "Migrate brn-checkbox changed event to checkedChange"
 		},
+		"migrate-brn-input-otp-max-length": {
+			"factory": "./src/generators/migrate-brn-input-otp-max-length/compat",
+			"schema": "./src/generators/migrate-brn-input-otp-max-length/schema.json",
+			"description": "Migrate brn-input-otp maxLength input to length"
+		},
 		"migrate-brn-switch-changed-event": {
 			"factory": "./src/generators/migrate-brn-switch-changed-event/compat",
 			"schema": "./src/generators/migrate-brn-switch-changed-event/schema.json",
@@ -166,6 +181,11 @@
 			"factory": "./src/generators/migrate-date-picker/compat",
 			"schema": "./src/generators/migrate-date-picker/schema.json",
 			"description": "Migrate hlm-date-picker changed event to dateChange"
+		},
+		"migrate-date-picker-min-max": {
+			"factory": "./src/generators/migrate-date-picker-min-max/compat",
+			"schema": "./src/generators/migrate-date-picker-min-max/schema.json",
+			"description": "Migrate hlm-date-picker min/max inputs to minDate/maxDate"
 		},
 		"migrate-helm-imports": {
 			"factory": "./src/generators/migrate-helm-imports/compat",

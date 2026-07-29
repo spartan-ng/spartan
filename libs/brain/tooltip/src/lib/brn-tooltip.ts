@@ -131,8 +131,11 @@ export class BrnTooltip {
 				});
 				this._listenersRefs = [
 					...this._listenersRefs,
-					this._renderer.listen(this._overlayRef.hostElement, 'mouseenter', () => (this._tooltipHovered = true)),
-					this._renderer.listen(this._overlayRef.hostElement, 'mouseleave', () => {
+					this._renderer.listen(this._overlayRef.hostElement, 'pointerenter', (event: PointerEvent) => {
+						if (this._isHoverPointer(event)) this._tooltipHovered = true;
+					}),
+					this._renderer.listen(this._overlayRef.hostElement, 'pointerleave', (event: PointerEvent) => {
+						if (!this._isHoverPointer(event)) return;
 						this._tooltipHovered = false;
 						this.delay(false, this.hideDelay());
 					}),
@@ -172,10 +175,48 @@ export class BrnTooltip {
 	private _getAdjustedPositionFor(pos: BrnTooltipPosition): ConnectedPosition {
 		const position = BRN_TOOLTIP_POSITIONS_MAP[pos];
 		const isLtr = this._dir.value !== 'rtl';
+		const baseOffsetX = position.offsetX != null ? (isLtr ? position.offsetX : -position.offsetX) : 0;
+		const baseOffsetY = position.offsetY ?? 0;
+		const { x: compensationX, y: compensationY } = this._getVisualViewportCompensation(position, isLtr);
 
+		// CDK renders offsetX/offsetY as a transform on the pane, so fold the viewport compensation in here.
 		return {
 			...position,
-			offsetX: position.offsetX != null ? (isLtr ? position.offsetX : -position.offsetX) : undefined,
+			offsetX: baseOffsetX + compensationX,
+			offsetY: baseOffsetY + compensationY,
+		};
+	}
+
+	/**
+	 * Corrects overlay placement for the layout-vs-visual viewport mismatch on mobile browsers.
+	 *
+	 * Tooltips only open on hover/focus, but a hovering pen (e.g. Apple Pencil on iOS Safari) can open
+	 * one on a phone/tablet where this bites: as the browser's toolbars collapse the visual viewport
+	 * grows, yet `documentElement.clientHeight`/`clientWidth` stay frozen at the toolbar-expanded size.
+	 * CDK anchors bottom/right overlays from those stale dimensions (top/left overlays measure from the
+	 * pinned top-left edge and are unaffected), so a `position: 'top'` tooltip lands shifted by the delta.
+	 *
+	 * We fold that delta back in as an offset. It is 0 whenever the viewports match (desktop, or toolbar
+	 * expanded), so this is a no-op everywhere except the collapsed-toolbar case it targets.
+	 */
+	private _getVisualViewportCompensation(position: ConnectedPosition, isLtr: boolean): { x: number; y: number } {
+		const visualViewport = this._document.defaultView?.visualViewport;
+		if (!visualViewport) return { x: 0, y: 0 };
+
+		// Only the collapsing-toolbar case is a pure height/width change with the viewport top-left still
+		// pinned (scale 1, offset 0). Pinch-zoom (scale != 1) and the software keyboard (offset != 0)
+		// shrink the visual viewport for unrelated reasons, so the delta below would shift the tooltip
+		// wrongly - bail and let CDK position normally.
+		const pinnedToTopLeft = Math.abs(visualViewport.offsetTop) < 1 && Math.abs(visualViewport.offsetLeft) < 1;
+		if (Math.abs(visualViewport.scale - 1) > 0.01 || !pinnedToTopLeft) return { x: 0, y: 0 };
+
+		const docEl = this._document.documentElement;
+		const anchorsFromBottom = position.overlayY === 'bottom';
+		const anchorsFromRight = isLtr ? position.overlayX === 'end' : position.overlayX === 'start';
+
+		return {
+			x: anchorsFromRight ? docEl.clientWidth - visualViewport.width : 0,
+			y: anchorsFromBottom ? docEl.clientHeight - visualViewport.height : 0,
 		};
 	}
 
@@ -184,14 +225,28 @@ export class BrnTooltip {
 		this._initHoverListeners();
 	}
 
+	/**
+	 * Tooltips are supplementary labels for a trigger that already has its own action, so - like Radix
+	 * and Base UI - they open only on mouse/pen hover and keyboard focus, never on touch (a touch tap
+	 * would both fire the trigger's action and the tooltip). Touch pointers are ignored via
+	 * `_isHoverPointer`; use a popover when touch users need to see the content.
+	 */
 	private _initHoverListeners(): void {
 		this._listenersRefs = [
 			...this._listenersRefs,
-			this._renderer.listen(this._elementRef.nativeElement, 'mouseenter', () => this._requestShow()),
-			this._renderer.listen(this._elementRef.nativeElement, 'mouseleave', () => this.delay(false, this.hideDelay())),
+			this._renderer.listen(this._elementRef.nativeElement, 'pointerenter', (event: PointerEvent) => {
+				if (this._isHoverPointer(event)) this._requestShow();
+			}),
+			this._renderer.listen(this._elementRef.nativeElement, 'pointerleave', (event: PointerEvent) => {
+				if (this._isHoverPointer(event)) this.delay(false, this.hideDelay());
+			}),
 			this._renderer.listen(this._elementRef.nativeElement, 'focus', () => this._requestShow()),
 			this._renderer.listen(this._elementRef.nativeElement, 'blur', () => this.delay(false, this.hideDelay())),
 		];
+	}
+
+	private _isHoverPointer(event: PointerEvent): boolean {
+		return event.pointerType === 'mouse' || event.pointerType === 'pen';
 	}
 
 	/** Snapshot the group skip decision once, so the delay and the instant-open state agree even if a
@@ -241,6 +296,9 @@ export class BrnTooltip {
 		if (!this._tooltipText() || this.mutableTooltipDisabled()) {
 			return;
 		}
+
+		// Recompute positions against the current viewport before attaching (see _getVisualViewportCompensation).
+		this._updatePosition();
 
 		// 'instant-open' suppresses the enter animation. Decided with the delay at request time so a sibling
 		// flipping the group window mid-delay can't desync the animation from the wait that actually happened.

@@ -183,9 +183,11 @@ The following is the list of supported scopes:
 - **alert**
 - **alert-dialog**
 - **aspect-ratio**
+- **attachment**
 - **avatar**
 - **badge**
 - **breadcrumb**
+- **bubble**
 - **button**
 - **button-group**
 - **calendar**
@@ -207,7 +209,9 @@ The following is the list of supported scopes:
 - **input**
 - **input-otp**
 - **label**
+- **marker**
 - **menubar**
+- **message**
 - **navigation-menu**
 - **pagination**
 - **popover**

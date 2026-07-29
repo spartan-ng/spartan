@@ -30,10 +30,12 @@ What kind of change does this PR introduce?
 - [ ] alert
 - [ ] alert-dialog
 - [ ] aspect-ratio
+- [ ] attachment
 - [ ] autocomplete
 - [ ] avatar
 - [ ] badge
 - [ ] breadcrumb
+- [ ] bubble
 - [ ] button
 - [ ] button-group
 - [ ] calendar
@@ -58,7 +60,9 @@ What kind of change does this PR introduce?
 - [ ] item
 - [ ] kbd
 - [ ] label
+- [ ] marker
 - [ ] menubar
+- [ ] message
 - [ ] native-select
 - [ ] navigation-menu
 - [ ] pagination

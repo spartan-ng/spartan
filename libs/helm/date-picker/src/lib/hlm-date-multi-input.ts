@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCalendar, lucideX } from '@ng-icons/lucide';
 import {
@@ -6,6 +6,7 @@ import {
 	type BrnDatePickerTriggerBase,
 	provideBrnDatePickerTrigger,
 } from '@spartan-ng/brain/date-picker';
+import { BrnFieldControl } from '@spartan-ng/brain/field';
 import { HlmInputGroup, HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 import { injectHlmDatePickerMultiConfig } from './hlm-date-picker-multi.token';
 
@@ -24,6 +25,11 @@ import { injectHlmDatePickerMultiConfig } from './hlm-date-picker-multi.token';
 			[placeholder]="placeholder()"
 			[disabled]="_disabled()"
 			[forceInvalid]="forceInvalid()"
+			[attr.aria-invalid]="_ariaInvalid()"
+			[attr.data-invalid]="_ariaInvalid()"
+			[attr.data-touched]="_touched?.() ? 'true' : null"
+			[attr.data-dirty]="_dirty?.() ? 'true' : null"
+			[attr.data-matches-spartan-invalid]="_spartanInvalid() ? 'true' : null"
 			(click)="_handleClick()"
 			(keydown.arrowDown)="_open()"
 			(keydown.enter)="_handleEnter($event)"
@@ -58,6 +64,14 @@ import { injectHlmDatePickerMultiConfig } from './hlm-date-picker-multi.token';
 })
 export class HlmDateMultiInput<T> extends BrnDateInput<T[]> implements BrnDatePickerTriggerBase {
 	private readonly _config = injectHlmDatePickerMultiConfig<T>();
+	private readonly _fieldControl = inject(BrnFieldControl, { optional: true });
+
+	private readonly _invalid = this._fieldControl?.invalid;
+	protected readonly _spartanInvalid = computed(() => this.forceInvalid() || this._fieldControl?.spartanInvalid());
+	protected readonly _dirty = this._fieldControl?.dirty;
+	protected readonly _touched = this._fieldControl?.touched;
+
+	protected readonly _ariaInvalid = computed(() => (this._invalid?.() ? 'true' : null));
 	/**
 	 * Parses input text into dates. Return `null` for invalid input - the
 	 * picker's dates are cleared while the text is preserved so the user can

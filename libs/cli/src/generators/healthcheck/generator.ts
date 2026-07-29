@@ -6,6 +6,7 @@ import { brainImportsHealthcheck } from './healthchecks/brain-imports';
 import { brainAccordionTriggerHealthcheck } from './healthchecks/brn-accordion-trigger';
 import { brnCheckboxChangedEventRename } from './healthchecks/brn-checkbox-changed-event-rename';
 import { brainCollapsibleHealthcheck } from './healthchecks/brn-collapsible';
+import { brnInputOtpMaxLengthRename } from './healthchecks/brn-input-otp-max-length-rename';
 import { brainRadioHealthcheck } from './healthchecks/brn-radio';
 import { brnSelectHealthcheck } from './healthchecks/brn-select';
 import { brainSeparatorHealthcheck } from './healthchecks/brn-separator';
@@ -17,6 +18,7 @@ import { coreImportsHealthcheck } from './healthchecks/core-imports';
 import { helmImportsHealthcheck } from './healthchecks/helm-imports';
 import { hlmImportHealthcheck } from './healthchecks/hlm';
 import { datePickerHealthcheck } from './healthchecks/hlm-date-picker';
+import { datePickerMinMaxHealthcheck } from './healthchecks/hlm-date-picker-min-max';
 import { helmDialogHealthcheck } from './healthchecks/hlm-dialog';
 import { helmDialogPortalHealthcheck } from './healthchecks/hlm-dialog-portal';
 import { helmFormFieldHealthcheck } from './healthchecks/hlm-form-field';
@@ -50,6 +52,7 @@ export async function healthcheckGenerator(tree: Tree, options: HealthcheckGener
 		helmImportsHealthcheck,
 		namingConventionHealthcheck,
 		datePickerHealthcheck,
+		datePickerMinMaxHealthcheck,
 		hlmInputIdHealthcheck,
 		progressHealthcheck,
 		hlmImportHealthcheck,
@@ -67,6 +70,7 @@ export async function healthcheckGenerator(tree: Tree, options: HealthcheckGener
 		helmFormFieldHealthcheck,
 		sonnerHealthcheck,
 		brnSelectHealthcheck,
+		brnInputOtpMaxLengthRename,
 		scaffoldIntegrityHealthcheck,
 	];
 

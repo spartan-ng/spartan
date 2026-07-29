@@ -64,10 +64,10 @@ describe('HlmTooltip animation-aware teardown', () => {
 	it('keeps the tooltip mounted while the exit animation runs, then disposes it', async () => {
 		await render(TooltipAnimationHost);
 
-		fireEvent.mouseEnter(triggerEl());
+		fireEvent.pointerEnter(triggerEl(), { pointerType: 'mouse' });
 		await waitFor(() => expect(tooltipEl()).toBeTruthy());
 
-		fireEvent.mouseLeave(triggerEl());
+		fireEvent.pointerLeave(triggerEl(), { pointerType: 'mouse' });
 		// Marked closed but still mounted while the exit animation runs.
 		await waitFor(() => expect(tooltipState()).toBe('closed'));
 		expect(tooltipEl()).toBeTruthy();
@@ -79,14 +79,14 @@ describe('HlmTooltip animation-aware teardown', () => {
 	it('revives the tooltip when re-hovered mid-animation', async () => {
 		await render(TooltipAnimationHost);
 
-		fireEvent.mouseEnter(triggerEl());
+		fireEvent.pointerEnter(triggerEl(), { pointerType: 'mouse' });
 		await waitFor(() => expect(tooltipEl()).toBeTruthy());
 
-		fireEvent.mouseLeave(triggerEl());
+		fireEvent.pointerLeave(triggerEl(), { pointerType: 'mouse' });
 		await waitFor(() => expect(tooltipState()).toBe('closed'));
 
 		// Re-hover before the exit animation finishes: it must flip back open...
-		fireEvent.mouseEnter(triggerEl());
+		fireEvent.pointerEnter(triggerEl(), { pointerType: 'mouse' });
 		await waitFor(() => expect(tooltipState()).toBe('open'));
 
 		// ...and survive past the moment the pending teardown would have fired.
@@ -98,16 +98,16 @@ describe('HlmTooltip animation-aware teardown', () => {
 	it('reflects a programmatic text change when revived mid-animation', async () => {
 		const { fixture } = await render(TooltipDynamicHost);
 
-		fireEvent.mouseEnter(triggerEl());
+		fireEvent.pointerEnter(triggerEl(), { pointerType: 'mouse' });
 		await waitFor(() => expect(tooltipEl()?.textContent).toContain('first'));
 
-		fireEvent.mouseLeave(triggerEl());
+		fireEvent.pointerLeave(triggerEl(), { pointerType: 'mouse' });
 		await waitFor(() => expect(tooltipState()).toBe('closed'));
 
 		// Mutate the bound text while the exit animation is in flight, then re-hover to revive.
 		fixture.componentInstance.tip.set('second');
 		fixture.detectChanges();
-		fireEvent.mouseEnter(triggerEl());
+		fireEvent.pointerEnter(triggerEl(), { pointerType: 'mouse' });
 
 		await waitFor(() => expect(tooltipState()).toBe('open'));
 		expect(tooltipEl()?.textContent).toContain('second');
@@ -122,10 +122,10 @@ describe('HlmTooltip teardown without an exit animation', () => {
 	it('detaches promptly when there is no exit animation', async () => {
 		await render(TooltipAnimationHost);
 
-		fireEvent.mouseEnter(triggerEl());
+		fireEvent.pointerEnter(triggerEl(), { pointerType: 'mouse' });
 		await waitFor(() => expect(tooltipEl()).toBeTruthy());
 
-		fireEvent.mouseLeave(triggerEl());
+		fireEvent.pointerLeave(triggerEl(), { pointerType: 'mouse' });
 		await waitFor(() => expect(tooltipEl()).toBeNull());
 	});
 });
@@ -138,7 +138,7 @@ describe('HlmTooltip dynamic text while open', () => {
 	it('updates the tooltip text when the bound string signal changes while the tooltip is open', async () => {
 		const { fixture } = await render(TooltipDynamicHost);
 
-		fireEvent.mouseEnter(triggerEl());
+		fireEvent.pointerEnter(triggerEl(), { pointerType: 'mouse' });
 		await waitFor(() => expect(tooltipEl()?.textContent).toContain('first'));
 
 		// Change the tooltip text while the tooltip is open. No mouseleave!

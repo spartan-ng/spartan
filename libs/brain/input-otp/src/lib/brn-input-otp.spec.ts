@@ -7,7 +7,7 @@ import { BrnInputOtpSlot } from './brn-input-otp-slot';
 describe('BrnInputOtp', () => {
 	const setup = async (
 		options: {
-			maxLength?: number;
+			length?: number;
 			disabled?: boolean;
 			inputMode?: InputMode;
 			inputId?: string;
@@ -16,7 +16,7 @@ describe('BrnInputOtp', () => {
 		} = {},
 	) => {
 		const {
-			maxLength = 6,
+			length = 6,
 			disabled = false,
 			inputMode = 'numeric',
 			inputId,
@@ -26,7 +26,7 @@ describe('BrnInputOtp', () => {
 
 		let template = `
       <brn-input-otp
-        [maxLength]="${maxLength}"
+        [length]="${length}"
         data-testid="brnInputOtp"
         ${disabled ? 'disabled' : ''}
         [inputMode]="'${inputMode}'"
@@ -36,7 +36,7 @@ describe('BrnInputOtp', () => {
       >
     `;
 
-		for (let i = 0; i < maxLength; i++) {
+		for (let i = 0; i < length; i++) {
 			template += `
         <brn-input-otp-slot [index]="${i}" data-testid="slot-${i}">
           <div data-testid="caret-${i}" class="caret">|</div>
@@ -64,7 +64,7 @@ describe('BrnInputOtp', () => {
 
 	describe('rendering', () => {
 		it('renders with correct number of slots', async () => {
-			await setup({ maxLength: 6 });
+			await setup({ length: 6 });
 
 			for (let i = 0; i < 6; i++) {
 				expect(screen.getByTestId(`slot-${i}`)).toBeInTheDocument();
@@ -72,7 +72,7 @@ describe('BrnInputOtp', () => {
 		});
 
 		it('renders input with correct attributes', async () => {
-			const { input } = await setup({ maxLength: 6, inputMode: 'tel', inputId: 'custom-id', inputAutocomplete: 'off' });
+			const { input } = await setup({ length: 6, inputMode: 'tel', inputId: 'custom-id', inputAutocomplete: 'off' });
 
 			expect(input).toBeInTheDocument();
 			expect(input).toHaveAttribute('id', 'custom-id');
@@ -82,7 +82,7 @@ describe('BrnInputOtp', () => {
 		});
 
 		it('renders with default input mode numeric', async () => {
-			const { input } = await setup({ maxLength: 6 });
+			const { input } = await setup({ length: 6 });
 
 			expect(input).toHaveAttribute('inputMode', 'numeric');
 		});
@@ -90,13 +90,13 @@ describe('BrnInputOtp', () => {
 
 	describe('input behavior', () => {
 		it('starts empty', async () => {
-			const { input } = await setup({ maxLength: 6 });
+			const { input } = await setup({ length: 6 });
 
 			expect(input.value).toBe('');
 		});
 
-		it('accepts typed input up to maxLength', async () => {
-			const { user, input } = await setup({ maxLength: 6 });
+		it('accepts typed input up to length', async () => {
+			const { user, input } = await setup({ length: 6 });
 
 			await user.click(input);
 			await user.keyboard('123456');
@@ -105,7 +105,7 @@ describe('BrnInputOtp', () => {
 		});
 
 		it('displays characters in slots', async () => {
-			const { user, input, getSlot } = await setup({ maxLength: 4 });
+			const { user, input, getSlot } = await setup({ length: 4 });
 
 			await user.click(input);
 			await user.keyboard('1234');
@@ -116,8 +116,8 @@ describe('BrnInputOtp', () => {
 			expect(getSlot(3)).toHaveTextContent('4');
 		});
 
-		it('enforces maxLength', async () => {
-			const { user, input } = await setup({ maxLength: 4 });
+		it('enforces length', async () => {
+			const { user, input } = await setup({ length: 4 });
 
 			await user.click(input);
 			await user.keyboard('123456789');
@@ -125,8 +125,8 @@ describe('BrnInputOtp', () => {
 			expect(input.value).toBe('1239');
 		});
 
-		it('replaces last character when exceeding maxLength', async () => {
-			const { user, input } = await setup({ maxLength: 4 });
+		it('replaces last character when exceeding length', async () => {
+			const { user, input } = await setup({ length: 4 });
 
 			await user.click(input);
 			await user.keyboard('1234');
@@ -137,7 +137,7 @@ describe('BrnInputOtp', () => {
 		});
 
 		it('moves caret as user types', async () => {
-			const { user, input, getCaret, getSlot } = await setup({ maxLength: 4 });
+			const { user, input, getCaret, getSlot } = await setup({ length: 4 });
 
 			await user.click(input);
 
@@ -155,7 +155,7 @@ describe('BrnInputOtp', () => {
 		});
 
 		it('shows caret in last slot when complete', async () => {
-			const { user, input, getSlot, getCaret } = await setup({ maxLength: 4 });
+			const { user, input, getSlot, getCaret } = await setup({ length: 4 });
 
 			await user.click(input);
 			await user.keyboard('1234');
@@ -167,7 +167,7 @@ describe('BrnInputOtp', () => {
 
 	describe('paste behavior', () => {
 		it('handles paste with exact length', async () => {
-			const { input } = await setup({ maxLength: 6 });
+			const { input } = await setup({ length: 6 });
 
 			await userEvent.click(input);
 			await userEvent.paste('123456');
@@ -175,8 +175,8 @@ describe('BrnInputOtp', () => {
 			expect(input.value).toBe('123456');
 		});
 
-		it('handles paste with content longer than maxLength', async () => {
-			const { input } = await setup({ maxLength: 6 });
+		it('handles paste with content longer than length', async () => {
+			const { input } = await setup({ length: 6 });
 
 			await userEvent.click(input);
 			await userEvent.paste('123456789');
@@ -184,8 +184,8 @@ describe('BrnInputOtp', () => {
 			expect(input.value).toBe('123456');
 		});
 
-		it('handles paste with content shorter than maxLength', async () => {
-			const { input } = await setup({ maxLength: 6 });
+		it('handles paste with content shorter than length', async () => {
+			const { input } = await setup({ length: 6 });
 
 			await userEvent.click(input);
 			await userEvent.paste('123');
@@ -194,7 +194,7 @@ describe('BrnInputOtp', () => {
 		});
 
 		it('displays pasted content in slots', async () => {
-			const { input, getSlot } = await setup({ maxLength: 4 });
+			const { input, getSlot } = await setup({ length: 4 });
 
 			await userEvent.click(input);
 			await userEvent.paste('1234');
@@ -208,13 +208,13 @@ describe('BrnInputOtp', () => {
 
 	describe('disabled state', () => {
 		it('disables input when disabled prop is true', async () => {
-			const { input } = await setup({ maxLength: 6, disabled: true });
+			const { input } = await setup({ length: 6, disabled: true });
 
 			expect(input).toBeDisabled();
 		});
 
 		it('does not accept input when disabled', async () => {
-			const { user, input } = await setup({ maxLength: 6, disabled: true });
+			const { user, input } = await setup({ length: 6, disabled: true });
 
 			await user.click(input);
 			await user.keyboard('123');
@@ -225,7 +225,7 @@ describe('BrnInputOtp', () => {
 
 	describe('focus behavior', () => {
 		it('autofocus input', async () => {
-			const { input } = await setup({ maxLength: 6, autofocus: true });
+			const { input } = await setup({ length: 6, autofocus: true });
 
 			// Wait for afterNextRender to apply the autofocus
 			await new Promise((resolve) => setTimeout(resolve, 0));
@@ -234,13 +234,13 @@ describe('BrnInputOtp', () => {
 		});
 
 		it('input should not be autofocused if not explicitly requested', async () => {
-			const { input } = await setup({ maxLength: 6 });
+			const { input } = await setup({ length: 6 });
 
 			expect(input).not.toHaveFocus();
 		});
 
 		it('applies focus state when focused', async () => {
-			const { user, input } = await setup({ maxLength: 6 });
+			const { user, input } = await setup({ length: 6 });
 
 			await user.click(input);
 
@@ -248,7 +248,7 @@ describe('BrnInputOtp', () => {
 		});
 
 		it('removes focus state on blur', async () => {
-			const { user, input } = await setup({ maxLength: 6 });
+			const { user, input } = await setup({ length: 6 });
 
 			await user.click(input);
 			expect(input).toHaveFocus();
@@ -260,7 +260,7 @@ describe('BrnInputOtp', () => {
 
 	describe('slot rendering', () => {
 		it('marks active slot correctly', async () => {
-			const { user, input, getSlot } = await setup({ maxLength: 4 });
+			const { user, input, getSlot } = await setup({ length: 4 });
 
 			await user.click(input);
 			expect(getSlot(0)).toHaveAttribute('data-active', 'true');
@@ -272,7 +272,7 @@ describe('BrnInputOtp', () => {
 		});
 
 		it('shows fake caret only in current slot', async () => {
-			const { user, input, getCaret } = await setup({ maxLength: 4 });
+			const { user, input, getCaret } = await setup({ length: 4 });
 
 			await user.click(input);
 			expect(getCaret(0)).toBeInTheDocument();
@@ -285,7 +285,7 @@ describe('BrnInputOtp', () => {
 		});
 
 		it('does not show caret when input is complete', async () => {
-			const { user, input, getCaret } = await setup({ maxLength: 4 });
+			const { user, input, getCaret } = await setup({ length: 4 });
 
 			await user.click(input);
 			await user.keyboard('1234');
@@ -297,7 +297,7 @@ describe('BrnInputOtp', () => {
 		});
 
 		it('renders empty slots correctly', async () => {
-			const { getSlot } = await setup({ maxLength: 4 });
+			const { getSlot } = await setup({ length: 4 });
 
 			expect(getSlot(0)).not.toHaveTextContent(/[0-9]/);
 			expect(getSlot(1)).not.toHaveTextContent(/[0-9]/);
@@ -306,7 +306,7 @@ describe('BrnInputOtp', () => {
 		});
 
 		it('renders partially filled slots correctly', async () => {
-			const { user, input, getSlot } = await setup({ maxLength: 4 });
+			const { user, input, getSlot } = await setup({ length: 4 });
 
 			await user.click(input);
 			await user.keyboard('12');
@@ -320,19 +320,19 @@ describe('BrnInputOtp', () => {
 
 	describe('input modes', () => {
 		it('supports numeric input mode', async () => {
-			const { input } = await setup({ maxLength: 6, inputMode: 'numeric' });
+			const { input } = await setup({ length: 6, inputMode: 'numeric' });
 
 			expect(input).toHaveAttribute('inputMode', 'numeric');
 		});
 
 		it('supports text input mode', async () => {
-			const { input } = await setup({ maxLength: 6, inputMode: 'text' });
+			const { input } = await setup({ length: 6, inputMode: 'text' });
 
 			expect(input).toHaveAttribute('inputMode', 'text');
 		});
 
 		it('supports tel input mode', async () => {
-			const { input } = await setup({ maxLength: 6, inputMode: 'tel' });
+			const { input } = await setup({ length: 6, inputMode: 'tel' });
 
 			expect(input).toHaveAttribute('inputMode', 'tel');
 		});
@@ -340,7 +340,7 @@ describe('BrnInputOtp', () => {
 
 	describe('different lengths', () => {
 		it('works with 4 digits', async () => {
-			const { user, input } = await setup({ maxLength: 4 });
+			const { user, input } = await setup({ length: 4 });
 
 			await user.click(input);
 			await user.keyboard('1234');
@@ -349,7 +349,7 @@ describe('BrnInputOtp', () => {
 		});
 
 		it('works with 8 digits', async () => {
-			const { user, input } = await setup({ maxLength: 8 });
+			const { user, input } = await setup({ length: 8 });
 
 			await user.click(input);
 			await user.keyboard('12345678');
@@ -358,7 +358,7 @@ describe('BrnInputOtp', () => {
 		});
 
 		it('creates correct number of slots for different lengths', async () => {
-			const { getSlot } = await setup({ maxLength: 3 });
+			const { getSlot } = await setup({ length: 3 });
 
 			expect(getSlot(0)).toBeInTheDocument();
 			expect(getSlot(1)).toBeInTheDocument();

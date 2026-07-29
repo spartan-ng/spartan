@@ -1,5 +1,5 @@
-import type { NumberInput } from '@angular/cdk/coercion';
-import { ChangeDetectionStrategy, Component, input, numberAttribute } from '@angular/core';
+import type { BooleanInput, NumberInput } from '@angular/cdk/coercion';
+import { booleanAttribute, ChangeDetectionStrategy, Component, input, numberAttribute } from '@angular/core';
 import { BrnInputOtpSlot } from '@spartan-ng/brain/input-otp';
 import { classes } from '<%- importAlias %>/utils';
 import { HlmInputOtpFakeCaret } from './hlm-input-otp-fake-caret';
@@ -10,7 +10,7 @@ import { HlmInputOtpFakeCaret } from './hlm-input-otp-fake-caret';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: { 'data-slot': 'input-otp-slot' },
 	template: `
-		<brn-input-otp-slot [index]="index()">
+		<brn-input-otp-slot [index]="index()" [forceInvalid]="forceInvalid()">
 			<hlm-input-otp-fake-caret />
 		</brn-input-otp-slot>
 	`,
@@ -18,6 +18,9 @@ import { HlmInputOtpFakeCaret } from './hlm-input-otp-fake-caret';
 export class HlmInputOtpSlot {
 	/** The index of the slot to render the char or a fake caret */
 	public readonly index = input.required<number, NumberInput>({ transform: numberAttribute });
+
+	/** Whether to force the input into an invalid state. */
+	public readonly forceInvalid = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
 	constructor() {
 		classes(

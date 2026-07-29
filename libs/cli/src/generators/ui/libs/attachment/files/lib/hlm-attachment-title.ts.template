@@ -1,0 +1,15 @@
+import { Directive } from '@angular/core';
+import { classes } from '<%- importAlias %>/utils';
+
+@Directive({
+	selector: '[hlmAttachmentTitle],hlm-attachment-title',
+	host: { 'data-slot': 'attachment-title' },
+})
+export class HlmAttachmentTitle {
+	constructor() {
+		classes(
+			() =>
+				'spartan-attachment-title group-data-[state=processing]/attachment:shimmer group-data-[state=uploading]/attachment:shimmer block max-w-full min-w-0',
+		);
+	}
+}

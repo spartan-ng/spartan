@@ -17,8 +17,8 @@ import { HlmFieldImports } from '@spartan-ng/helm/field';
 				<hlm-field>
 					<label for="date-birthday" hlmFieldLabel>Date of birth</label>
 					<hlm-date-picker
-						[min]="minDate"
-						[max]="maxDate"
+						[minDate]="minDate"
+						[maxDate]="maxDate"
 						captionLayout="dropdown"
 						[formField]="form.birthday"
 						[autoCloseOnSelect]="true"

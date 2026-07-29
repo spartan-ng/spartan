@@ -54,37 +54,44 @@ export async function migrateHelmLibrariesGenerator(tree: Tree, options: Migrate
 		return;
 	}
 
-	// allow the user to select which libraries to migrate
-	const selectedLibraries = await prompt({
-		type: 'multiselect',
-		name: 'libraries',
-		message: 'The following libraries are installed. Select the ones you want to replace with the latest version:',
-		choices: ['all', ...existingLibraries],
-	});
+	let libraries: (Primitive | 'all')[];
 
-	// prompt the user to confirm their actions as this will overwrite the existing libraries and remove any customizations
-	const confirmation = (await prompt({
-		type: 'confirm',
-		name: 'confirm',
-		message:
-			'Are you sure you want to update the selected libraries? This will overwrite the existing libraries and remove any customizations.',
-	})) as { confirm: boolean };
+	if (options.libraries && options.libraries.length > 0) {
+		// When libraries are provided programmatically, skip interactive prompts
+		libraries = options.libraries;
+	} else {
+		// allow the user to select which libraries to migrate
+		const selectedLibraries = await prompt({
+			type: 'multiselect',
+			name: 'libraries',
+			message: 'The following libraries are installed. Select the ones you want to replace with the latest version:',
+			choices: ['all', ...existingLibraries],
+		});
 
-	if (!confirmation.confirm) {
-		logger.info('Aborting migration.');
-		return;
-	}
+		// prompt the user to confirm their actions as this will overwrite the existing libraries and remove any customizations
+		const confirmation = (await prompt({
+			type: 'confirm',
+			name: 'confirm',
+			message:
+				'Are you sure you want to update the selected libraries? This will overwrite the existing libraries and remove any customizations.',
+		})) as { confirm: boolean };
 
-	let { libraries } = selectedLibraries as { libraries: (Primitive | 'all')[] };
+		if (!confirmation.confirm) {
+			logger.info('Aborting migration.');
+			return;
+		}
 
-	if (libraries.length === 0) {
-		logger.info('No libraries will be updated.');
-		return;
-	}
+		({ libraries } = selectedLibraries as { libraries: (Primitive | 'all')[] });
 
-	// if the user selected all libraries then we will update all libraries
-	if (libraries.includes('all')) {
-		libraries = existingLibraries;
+		if (libraries.length === 0) {
+			logger.info('No libraries will be updated.');
+			return;
+		}
+
+		// if the user selected all libraries then we will update all libraries
+		if (libraries.includes('all')) {
+			libraries = existingLibraries;
+		}
 	}
 
 	await removeExistingLibraries(

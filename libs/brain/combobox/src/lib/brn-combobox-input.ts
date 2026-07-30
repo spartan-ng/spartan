@@ -18,11 +18,11 @@ import { ComboboxInputMode, injectBrnComboboxBase } from './brn-combobox.token';
 		'aria-autocomplete': 'list',
 		'aria-haspopup': 'listbox',
 		'[attr.aria-expanded]': '_isExpanded()',
-		'[attr.aria-invalid]': '_ariaInvalid() ? "true": null',
-		'[attr.data-invalid]': '_ariaInvalid() ? "true": null',
-		'[attr.data-matches-spartan-invalid]': '_spartanInvalid() ? "true": null',
-		'[attr.data-touched]': '_touched() ? "true": null',
-		'[attr.data-dirty]': '_dirty() ? "true": null',
+		'[attr.aria-invalid]': '_isCombobox() && _ariaInvalid() ? "true": null',
+		'[attr.data-invalid]': '_isCombobox() && _ariaInvalid() ? "true": null',
+		'[attr.data-matches-spartan-invalid]': '_isCombobox() && _spartanInvalid() ? "true": null',
+		'[attr.data-touched]': '_isCombobox() && _touched() ? "true": null',
+		'[attr.data-dirty]': '_isCombobox() && _dirty() ? "true": null',
 		'[attr.disabled]': 'disabled() ? "" : null',
 		'(keydown)': 'onKeyDown($event)',
 		'(input)': 'onInput($event)',
@@ -65,16 +65,17 @@ export class BrnComboboxInput<T> {
 		() => this.forceInvalid() || this._combobox.controlState?.()?.spartanInvalid,
 	);
 
+	protected readonly _isCombobox = computed(() => this.mode() === 'combobox');
+
 	constructor() {
 		this._combobox.registerComboboxInput?.(this);
 
 		effect(() => {
-			const mode = this.mode();
 			const value = this._combobox.value();
 			const search = this._combobox.search();
 
 			// In combobox mode we want to display the label of the selected value if no search is active
-			if (mode === 'combobox' && this._combobox.hasValue() && search === '') {
+			if (this._isCombobox() && this._combobox.hasValue() && search === '') {
 				this._el.nativeElement.value = stringifyAsLabel(value, this._combobox.itemToString());
 				return;
 			}
@@ -92,7 +93,7 @@ export class BrnComboboxInput<T> {
 		this._combobox.search.set(value);
 		this._combobox.open();
 
-		if (value === '' && this.mode() === 'combobox') {
+		if (value === '' && this._isCombobox()) {
 			this._combobox.resetValue();
 		}
 	}
@@ -113,7 +114,7 @@ export class BrnComboboxInput<T> {
 				// jumps straight to the browser's address bar.  We intercept the key, select any
 				// active item, close the popup, and let BrnOverlay._restoreFocus restore focus to
 				// the trigger so the user can continue tabbing through the page normally.
-				if (this.mode() === 'popup') {
+				if (!this._isCombobox()) {
 					event.preventDefault();
 					this._combobox.selectActiveItem();
 					this._combobox.close();

@@ -195,6 +195,7 @@ export class ThreeHundred {
 		'bcl-dev',
 		'skolldev',
 		'DanGM96',
+		'possibleo',
 	];
 	protected readonly _contributorCountRoundedToNextMultipleOf10 = Math.ceil(this._contributors.length / 10) * 10;
 	protected readonly _countNeededToGetToNextMultipleOf10 =

@@ -1,3 +1,18 @@
+## 1.3.0-beta.1 (2026-07-30)
+
+- Merge pull request #1646 from PatrickLarocque/fix/1630-checkbox-destroyed-output ([fc01480](https://github.com/spartan-ng/spartan/commit/fc01480)), closes [#1646](https://github.com/spartan-ng/spartan/issues/1646)
+- Merge pull request #1673 from spartan-ng/fix-combobox-trigger-invalid-state ([8735f8f](https://github.com/spartan-ng/spartan/commit/8735f8f)), closes [#1673](https://github.com/spartan-ng/spartan/issues/1673)
+- Merge remote-tracking branch 'origin/main' into fix-combobox-trigger-invalid-state ([d95561f](https://github.com/spartan-ng/spartan/commit/d95561f))
+- fix: align isCombobox ([5b56de7](https://github.com/spartan-ng/spartan/commit/5b56de7))
+- fix: align isCombobox ([1ff99da](https://github.com/spartan-ng/spartan/commit/1ff99da))
+- fix(checkbox): guard deferred blur after destruction ([191561f](https://github.com/spartan-ng/spartan/commit/191561f)), closes [#1630](https://github.com/spartan-ng/spartan/issues/1630)
+- fix(combobox): add tests ([18b2a5f](https://github.com/spartan-ng/spartan/commit/18b2a5f))
+- fix(combobox): invalid state for brn-combobox-trigger/ ([009a438](https://github.com/spartan-ng/spartan/commit/009a438))
+- chore(release): backmerge main into beta ([ff61f60](https://github.com/spartan-ng/spartan/commit/ff61f60))
+- chore(release): backmerge main into beta ([ea7dac9](https://github.com/spartan-ng/spartan/commit/ea7dac9))
+- chore(release): backmerge main into beta ([3fc233b](https://github.com/spartan-ng/spartan/commit/3fc233b))
+- feat: add example ([c50bbbb](https://github.com/spartan-ng/spartan/commit/c50bbbb))
+
 ## <small>1.2.1 (2026-07-30)</small>
 
 - Merge pull request #1672 from spartan-ng/combobox-focus-fix ([e6ffc34](https://github.com/spartan-ng/spartan/commit/e6ffc34)), closes [#1672](https://github.com/spartan-ng/spartan/issues/1672)

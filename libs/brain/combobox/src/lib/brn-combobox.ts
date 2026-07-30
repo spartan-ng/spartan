@@ -156,6 +156,7 @@ export class BrnCombobox<T> implements BrnComboboxBase<T>, ControlValueAccessor 
 		this._brnPopover?.closed.subscribe(() => {
 			this.search.set('');
 			this.keyManager.setActiveItem(-1);
+			this._onTouched?.();
 		});
 
 		afterNextRender(() => {

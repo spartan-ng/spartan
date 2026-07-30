@@ -1,3 +1,9 @@
+## <small>1.2.1 (2026-07-30)</small>
+
+- Merge pull request #1672 from spartan-ng/combobox-focus-fix ([e6ffc34](https://github.com/spartan-ng/spartan/commit/e6ffc34)), closes [#1672](https://github.com/spartan-ng/spartan/issues/1672)
+- docs: add new contributors to our 300 ([0ace68b](https://github.com/spartan-ng/spartan/commit/0ace68b))
+- fix(combobox): prevent Tab in popup input from focusing browser address bar #1671 ([51d1d04](https://github.com/spartan-ng/spartan/commit/51d1d04)), closes [#1671](https://github.com/spartan-ng/spartan/issues/1671)
+
 ## 1.2.0 (2026-07-29)
 
 - Merge pull request #1667 from spartan-ng/beta ([b27b41e](https://github.com/spartan-ng/spartan/commit/b27b41e)), closes [#1667](https://github.com/spartan-ng/spartan/issues/1667)

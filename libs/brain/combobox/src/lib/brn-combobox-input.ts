@@ -94,7 +94,7 @@ export class BrnComboboxInput<T> {
 		this._combobox.search.set(value);
 		this._combobox.open();
 
-		if (value === '' && this.mode() === 'combobox') {
+		if (value === '' && this._isCombobox()) {
 			this._combobox.resetValue();
 		}
 	}

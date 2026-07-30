@@ -202,6 +202,22 @@ describe('BrnCheckboxComponent', () => {
 			await user.keyboard('[Space]');
 			await validateCheckboxOn(options);
 		});
+		it('does not emit touched after destruction while blur handling is deferred', async () => {
+			const consoleWarn = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
+
+			try {
+				const { container, checkboxElement } = await setup();
+
+				checkboxElement.focus();
+				checkboxElement.blur();
+				container.fixture.destroy();
+				await Promise.resolve();
+
+				expect(consoleWarn).not.toHaveBeenCalledWith(expect.stringContaining('NG0953'));
+			} finally {
+				consoleWarn.mockRestore();
+			}
+		});
 	});
 
 	describe('inside <label>', () => {

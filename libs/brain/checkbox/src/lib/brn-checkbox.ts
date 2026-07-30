@@ -294,20 +294,22 @@ export class BrnCheckbox implements ControlValueAccessor, AfterContentInit, OnDe
 					this._cdr.markForCheck();
 				}
 				if (!focusOrigin) {
-					// When a focused element becomes disabled, the browser *immediately* fires a blur event.
-					// Angular does not expect events to be raised during change detection, so any state
-					// change (such as a form control's ng-touched) will cause a changed-after-checked error.
-					// See https://github.com/angular/angular/issues/17793. To work around this, we defer
-					// telling the form control it has been touched until the next tick.
-					Promise.resolve().then(() => {
-						this._focusVisible.set(false);
-						this._focused.set(false);
-						this._onTouched();
-						this.touched.emit();
-						this._cdr.markForCheck();
-					});
+					// A focused element can blur synchronously while Angular is rendering when it becomes disabled,
+					// so defer form-state writes until the next microtask. See angular/angular#17793.
+					// The checkbox may be destroyed before that microtask runs. See spartan-ng/spartan#1630.
+					Promise.resolve().then(() => this._handleBlur());
 				}
 			});
+	}
+
+	private _handleBlur(): void {
+		if (this._destroyRef.destroyed) return;
+
+		this._focusVisible.set(false);
+		this._focused.set(false);
+		this._onTouched();
+		this.touched.emit();
+		this._cdr.markForCheck();
 	}
 
 	ngOnDestroy() {

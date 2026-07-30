@@ -110,7 +110,18 @@ export class BrnComboboxInput<T> {
 
 		if (this._isExpanded()) {
 			if (event.key === 'Tab') {
-				this._combobox.selectActiveItem();
+				// In popup mode the input lives inside a CDK overlay which is appended to <body>.
+				// Without preventDefault the browser has nowhere to Tab to inside the overlay and
+				// jumps straight to the browser's address bar.  We intercept the key, select any
+				// active item, close the popup, and let BrnOverlay._restoreFocus restore focus to
+				// the trigger so the user can continue tabbing through the page normally.
+				if (this.mode() === 'popup') {
+					event.preventDefault();
+					this._combobox.selectActiveItem();
+					this._combobox.close();
+				} else {
+					this._combobox.selectActiveItem();
+				}
 			}
 		} else {
 			if (event.key === 'Enter' || event.key === 'ArrowDown' || event.key === 'ArrowUp') {

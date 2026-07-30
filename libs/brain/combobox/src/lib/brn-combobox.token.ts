@@ -40,6 +40,8 @@ export interface BrnComboboxBase<T> {
 	resetSearch: () => void;
 	/** Select the active item with Enter key. */
 	selectActiveItem: () => void;
+	/** Close the combobox popup. */
+	close: () => void;
 	/** Remove last selected item with Backspace key. Only works with multiple selection comboboxes. */
 	removeLastSelectedItem: () => void;
 	removeValue: (value: T) => void;

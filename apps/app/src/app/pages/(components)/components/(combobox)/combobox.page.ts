@@ -2,6 +2,7 @@ import type { RouteMeta } from '@analogjs/router';
 import { Component, computed, inject } from '@angular/core';
 import { injectComponentDocs } from '@spartan-ng/app/app/core/services/component-docs';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
+import { ComboboxFormPopoverPreview } from '@spartan-ng/app/app/pages/(components)/components/(combobox)/combobox--form-popover.preview';
 import { CodeRtlPreview } from '@spartan-ng/app/app/shared/code/code-rtl-preview';
 import { RtlHeader } from '@spartan-ng/app/app/shared/code/rtl-header';
 import { InstallTabs } from '@spartan-ng/app/app/shared/layout/install-tabs';
@@ -81,6 +82,7 @@ export const routeMeta: RouteMeta = {
 		ComboboxMultipleAutoHighlightPreview,
 		ComboboxRtlPreview,
 		ComboboxInvalidPreview,
+		ComboboxFormPopoverPreview,
 	],
 	template: `
 		<section spartanMainSection>
@@ -314,6 +316,14 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_formCode()" />
 			</spartan-tabs>
 
+			<h3 id="form-popover" spartanH4>Form (popover)</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-combobox-form-popover-preview />
+				</div>
+				<spartan-code secondTab [code]="_formPopoverCode()" />
+			</spartan-tabs>
+
 			<h3 id="form-multiple" spartanH4>Form (multiple)</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
@@ -367,6 +377,7 @@ export default class ComboboxPage {
 	protected readonly _asyncCode = computed(() => this._snippets()['async']);
 	protected readonly _asyncMultipleCode = computed(() => this._snippets()['asyncMultiple']);
 	protected readonly _formCode = computed(() => this._snippets()['form']);
+	protected readonly _formPopoverCode = computed(() => this._snippets()['formPopover']);
 	protected readonly _formMultipleCode = computed(() => this._snippets()['formMultiple']);
 	protected readonly _rtlCode = computed(() => this._snippets()['rtl']);
 	protected readonly _defaultSkeleton = defaultSkeleton;

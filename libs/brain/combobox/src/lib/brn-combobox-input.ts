@@ -18,11 +18,11 @@ import { ComboboxInputMode, injectBrnComboboxBase } from './brn-combobox.token';
 		'aria-autocomplete': 'list',
 		'aria-haspopup': 'listbox',
 		'[attr.aria-expanded]': '_isExpanded()',
-		'[attr.aria-invalid]': 'mode() !== "popup" && _ariaInvalid() ? "true": null',
-		'[attr.data-invalid]': 'mode() !== "popup" && _ariaInvalid() ? "true": null',
-		'[attr.data-matches-spartan-invalid]': 'mode() !== "popup" && _spartanInvalid() ? "true": null',
-		'[attr.data-touched]': 'mode() !== "popup" && _touched() ? "true": null',
-		'[attr.data-dirty]': 'mode() !== "popup" && _dirty() ? "true": null',
+		'[attr.aria-invalid]': '_isCombobox() && _ariaInvalid() ? "true": null',
+		'[attr.data-invalid]': '_isCombobox() && _ariaInvalid() ? "true": null',
+		'[attr.data-matches-spartan-invalid]': '_isCombobox() && _spartanInvalid() ? "true": null',
+		'[attr.data-touched]': '_isCombobox() && _touched() ? "true": null',
+		'[attr.data-dirty]': '_isCombobox() && _dirty() ? "true": null',
 		'[attr.disabled]': 'disabled() ? "" : null',
 		'(keydown)': 'onKeyDown($event)',
 		'(input)': 'onInput($event)',
@@ -64,6 +64,8 @@ export class BrnComboboxInput<T> {
 	protected readonly _spartanInvalid = computed(
 		() => this.forceInvalid() || this._combobox.controlState?.()?.spartanInvalid,
 	);
+
+	protected readonly _isCombobox = computed(() => this.mode() === 'combobox');
 
 	constructor() {
 		this._combobox.registerComboboxInput?.(this);

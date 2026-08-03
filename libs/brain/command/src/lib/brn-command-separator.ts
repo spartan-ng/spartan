@@ -4,7 +4,7 @@ import { injectBrnCommand } from './brn-command.token';
 @Directive({
 	selector: '[brnCommandSeparator]',
 	host: {
-		role: 'separator',
+		role: 'presentation',
 		'[attr.data-hidden]': '_hasSearchInput() ? true : null',
 	},
 })

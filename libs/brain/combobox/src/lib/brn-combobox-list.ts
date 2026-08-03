@@ -21,4 +21,9 @@ export class BrnComboboxList {
 
 	/** The id of the combobox list */
 	public readonly id = input<string>(`brn-combobox-list-${++BrnComboboxList._id}`);
+
+	constructor() {
+		// Register the list with the combobox so the input can reference its id via aria-controls.
+		this._combobox.registerComboboxList?.(this);
+	}
 }

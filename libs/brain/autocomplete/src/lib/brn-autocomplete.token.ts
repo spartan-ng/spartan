@@ -12,6 +12,7 @@ import {
 import type { ControlState } from '@spartan-ng/brain/forms';
 import type { BrnAutocompleteInput } from './brn-autocomplete-input';
 import type { BrnAutocompleteItem } from './brn-autocomplete-item';
+import type { BrnAutocompleteList } from './brn-autocomplete-list';
 
 export interface BrnAutocompleteBase<T> {
 	itemToString: InputSignal<AutocompleteItemToString<T> | undefined>;
@@ -24,6 +25,7 @@ export interface BrnAutocompleteBase<T> {
 	isExpanded: Signal<boolean>;
 	searchInputWrapperWidth: Signal<number | null>;
 	controlState: Signal<ControlState | null> | undefined;
+	listId: Signal<string | undefined>;
 
 	updateSearch: (value: string) => void;
 	isSelected: (itemValue: T) => boolean;
@@ -33,6 +35,7 @@ export interface BrnAutocompleteBase<T> {
 	/** Select the active item with Enter key. */
 	selectActiveItem: () => void;
 	registerAutocompleteInput: (input: BrnAutocompleteInput<T>) => void;
+	registerAutocompleteList: (list: BrnAutocompleteList) => void;
 	updateInputWidth: (width: number | null) => void;
 }
 

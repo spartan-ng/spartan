@@ -21,4 +21,8 @@ export class BrnAutocompleteList {
 
 	/** The id of the autocomplete list */
 	public readonly id = input<string>(`brn-autocomplete-list-${++BrnAutocompleteList._id}`);
+
+	constructor() {
+		this._autocomplete.registerAutocompleteList(this);
+	}
 }

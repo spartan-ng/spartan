@@ -6,6 +6,7 @@ import { injectBrnCommand } from './brn-command.token';
 	host: {
 		role: 'listbox',
 		'[id]': 'id()',
+		'[attr.aria-label]': 'ariaLabel()',
 	},
 })
 export class BrnCommandList {
@@ -16,8 +17,10 @@ export class BrnCommandList {
 	/** The id of the command list */
 	public readonly id = input<string>(`brn-command-list-${++BrnCommandList._id}`);
 
+	/** Optional accessible name for the listbox. Usually not needed as the combobox names the widget. */
+	public readonly ariaLabel = input<string | undefined>(undefined, { alias: 'aria-label' });
+
 	constructor() {
-		// Register the list with the command so the input can reference its id via aria-controls.
 		this._command.registerCommandList(this);
 	}
 }

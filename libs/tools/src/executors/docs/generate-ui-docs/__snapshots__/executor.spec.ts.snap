@@ -3258,6 +3258,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "required": false,
             "type": "string",
           },
+          {
+            "name": "aria-label",
+            "required": false,
+            "type": "string | undefined",
+          },
         ],
         "models": [],
         "outputs": [],

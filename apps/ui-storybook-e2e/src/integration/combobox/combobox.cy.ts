@@ -59,6 +59,7 @@ describe('combobox--default', () => {
 			cy.findByText('Angular').should('be.visible');
 			// Let the popup's fade-in/zoom-in animation settle; scanning mid-animation
 			// blends the text with the background and falsely fails color-contrast.
+			// eslint-disable-next-line cypress/no-unnecessary-waiting
 			cy.wait(600);
 			cy.checkA11y(undefined, {
 				rules: {

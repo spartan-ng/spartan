@@ -32,6 +32,7 @@ import { classes } from '<%- importAlias %>/utils';
 					hlmInputGroupButton
 					data-slot="input-group-button"
 					[disabled]="comboboxInput.disabled()"
+					[attr.aria-label]="triggerAriaLabel()"
 					size="icon-xs"
 					variant="ghost"
 					class="group-has-data-[slot=combobox-clear]/input-group:hidden data-pressed:bg-transparent"
@@ -46,6 +47,7 @@ import { classes } from '<%- importAlias %>/utils';
 					hlmInputGroupButton
 					data-slot="combobox-clear"
 					[disabled]="comboboxInput.disabled()"
+					[attr.aria-label]="clearAriaLabel()"
 					size="icon-xs"
 					variant="ghost"
 				>
@@ -66,6 +68,12 @@ export class HlmComboboxInput {
 	public readonly showTrigger = input<boolean, BooleanInput>(true, { transform: booleanAttribute });
 	public readonly showClear = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 	public readonly forceInvalid = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
+
+	/** Accessible name for the icon-only popover trigger button. */
+	public readonly triggerAriaLabel = input<string>('Toggle options');
+
+	/** Accessible name for the icon-only clear button. */
+	public readonly clearAriaLabel = input<string>('Clear selection');
 
 	/** Manual override for aria-invalid. When not set, auto-detects from the parent combobox error state. */
 	public readonly ariaInvalidOverride = input<boolean | undefined, BooleanInput>(undefined, {

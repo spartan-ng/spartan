@@ -358,6 +358,11 @@ export const routeMeta: RouteMeta = {
 			<h3 spartanH4 id="defaults">Defaults</h3>
 			<ul class="list-inside list-disc pl-4 text-sm">
 				<li class="mt-2">
+					<span hlmCode>defaultOpen</span>
+					–
+					<span hlmCode>true</span>
+				</li>
+				<li class="mt-2">
 					<span hlmCode>sidebarWidth</span>
 					–
 					<span hlmCode>16rem</span>

@@ -149,5 +149,24 @@ describe('command', () => {
 			cy.findByText(/search emoji/i).should('have.attr', 'aria-selected', 'false');
 			cy.findByText(/calendar/i).should('have.attr', 'aria-selected', 'true');
 		});
+		it(`
+	Input, list, and items should be accessible and have no WCAG A/AA violations.
+	  `, () => {
+			// Wait for the story to render before auditing; running axe immediately after
+			// cy.visit scans an empty root and falsely passes.
+			cy.get('input').should('be.visible');
+			cy.get('[role="listbox"]').should('be.visible');
+			cy.realPress('Tab');
+			cy.realPress('Tab');
+			cy.checkA11y('#storybook-root', {
+				rules: {
+					'page-has-heading-one': { enabled: false },
+					'landmark-one-main': { enabled: false },
+				},
+			});
+			cy.get('input').should('exist').and('be.visible');
+			cy.findByRole('listbox').should('be.visible');
+			cy.findByRole('option', { name: /calendar/i }).should('be.visible');
+		});
 	});
 });

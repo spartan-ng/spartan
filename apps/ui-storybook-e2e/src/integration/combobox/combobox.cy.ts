@@ -6,6 +6,9 @@ describe('combobox--default', () => {
 		});
 
 		it('click on combobox should open, click on Angular option should closed', () => {
+			// Wait for the story to render before auditing; running axe immediately after
+			// cy.visit scans an empty root and falsely passes.
+			cy.get('input[placeholder="Select framework..."]').should('be.visible');
 			cy.checkA11y('#storybook-root', {
 				rules: {
 					'page-has-heading-one': { enabled: false },

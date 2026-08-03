@@ -40,6 +40,9 @@ describe('autocomplete', () => {
 		});
 
 		it('should pass accessibility checks', () => {
+			// Wait for the story to render before auditing; running axe immediately after
+			// cy.visit scans an empty root and falsely passes.
+			cy.get('input[hlmInputGroupInput]').should('be.visible');
 			cy.checkA11y(undefined, {
 				rules: {
 					'page-has-heading-one': { enabled: false },

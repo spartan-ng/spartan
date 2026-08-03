@@ -50,6 +50,19 @@ describe('autocomplete', () => {
 				},
 			});
 		});
+
+		it('should pass accessibility checks when opened', () => {
+			// Wait for the story to render before typing to open the popup and auditing.
+			cy.get('input[hlmInputGroupInput]').should('be.visible');
+			cy.get('input[hlmInputGroupInput]').type('Mar');
+			cy.get('hlm-autocomplete-item').should('have.length.gt', 0);
+			cy.checkA11y(undefined, {
+				rules: {
+					'page-has-heading-one': { enabled: false },
+					'landmark-one-main': { enabled: false },
+				},
+			});
+		});
 	});
 
 	describe('Form', () => {

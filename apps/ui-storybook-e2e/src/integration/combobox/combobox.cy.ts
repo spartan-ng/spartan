@@ -51,6 +51,19 @@ describe('combobox--default', () => {
 			cy.get('input[placeholder="Select framework..."]').realClick();
 			cy.findByText('Angular').should('be.visible');
 		});
+
+		it('should pass accessibility checks when opened', () => {
+			// Wait for the story to render before opening and auditing.
+			cy.get('input[placeholder="Select framework..."]').should('be.visible');
+			cy.get('input[placeholder="Select framework..."]').realClick();
+			cy.findByText('Angular').should('be.visible');
+			cy.checkA11y(undefined, {
+				rules: {
+					'page-has-heading-one': { enabled: false },
+					'landmark-one-main': { enabled: false },
+				},
+			});
+		});
 	});
 });
 

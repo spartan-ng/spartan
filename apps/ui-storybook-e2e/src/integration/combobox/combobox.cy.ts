@@ -6,6 +6,9 @@ describe('combobox--default', () => {
 		});
 
 		it('click on combobox should open, click on Angular option should closed', () => {
+			// Wait for the story to render before auditing; running axe immediately after
+			// cy.visit scans an empty root and falsely passes.
+			cy.get('input[placeholder="Select framework..."]').should('be.visible');
 			cy.checkA11y('#storybook-root', {
 				rules: {
 					'page-has-heading-one': { enabled: false },
@@ -47,6 +50,27 @@ describe('combobox--default', () => {
 			cy.findByText('Angular').should('be.visible');
 			cy.get('input[placeholder="Select framework..."]').realClick();
 			cy.findByText('Angular').should('be.visible');
+		});
+
+		it('should pass accessibility checks when opened', () => {
+			// Wait for the story to render before opening and auditing.
+			cy.get('input[placeholder="Select framework..."]').should('be.visible');
+			cy.get('input[placeholder="Select framework..."]').realClick();
+			cy.findByText('Angular').should('be.visible');
+			// Let the popup's fade-in/zoom-in animation settle; scanning mid-animation
+			// blends the text with the background and falsely fails color-contrast.
+			// eslint-disable-next-line cypress/no-unnecessary-waiting
+			cy.wait(600);
+			cy.checkA11y(undefined, {
+				rules: {
+					'page-has-heading-one': { enabled: false },
+					'landmark-one-main': { enabled: false },
+					// The open popup is a CDK overlay appended to <body>, outside any landmark.
+					// This is a Storybook-host artifact (same root cause as landmark-one-main),
+					// not a WCAG rule (region is best-practice).
+					region: { enabled: false },
+				},
+			});
 		});
 	});
 });

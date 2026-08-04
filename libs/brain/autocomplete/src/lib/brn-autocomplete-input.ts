@@ -17,6 +17,7 @@ import { injectBrnAutocompleteBase } from './brn-autocomplete.token';
 		'aria-autocomplete': 'list',
 		'aria-haspopup': 'listbox',
 		'[attr.aria-expanded]': '_isExpanded()',
+		'[attr.aria-controls]': '_autocompleteListId()',
 		'[attr.aria-invalid]': '_ariaInvalid() ? "true": null',
 		'[attr.data-invalid]': '_ariaInvalid() ? "true": null',
 		'[attr.data-matches-spartan-invalid]': '_spartanInvalid() ? "true": null',
@@ -31,6 +32,9 @@ export class BrnAutocompleteInput<T> {
 	private static _id = 0;
 	private readonly _el = inject(ElementRef);
 	private readonly _autocomplete = injectBrnAutocompleteBase<T>();
+
+	/** The id of the autocomplete list, used for aria-controls. */
+	protected readonly _autocompleteListId = this._autocomplete.listId;
 
 	/** The id of the autocomplete input */
 	public readonly id = input<string>(`brn-autocomplete-input-${++BrnAutocompleteInput._id}`);

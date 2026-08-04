@@ -25,6 +25,7 @@ import { BrnComboboxContent } from './brn-combobox-content';
 import type { BrnComboboxInput } from './brn-combobox-input';
 import { type BrnComboboxItem } from './brn-combobox-item';
 import { BrnComboboxItemToken } from './brn-combobox-item.token';
+import type { BrnComboboxList } from './brn-combobox-list';
 import {
 	type BrnComboboxBase,
 	type ComboboxFilter,
@@ -139,6 +140,11 @@ export class BrnCombobox<T> implements BrnComboboxBase<T>, ControlValueAccessor 
 
 	private readonly _comboboxInput = signal<BrnComboboxInput<T> | undefined>(undefined);
 
+	private readonly _comboboxList = signal<BrnComboboxList | undefined>(undefined);
+
+	/** @internal The id of the combobox list, registered by BrnComboboxList. Used by the input for aria-controls. */
+	public readonly listId = computed(() => this._comboboxList()?.id());
+
 	public readonly mode = computed<ComboboxInputMode>(() => this._comboboxInput()?.mode() || 'combobox');
 
 	public readonly labelableId = computed(() => this._comboboxInput()?.id());
@@ -181,6 +187,11 @@ export class BrnCombobox<T> implements BrnComboboxBase<T>, ControlValueAccessor 
 
 	public registerComboboxInput(input: BrnComboboxInput<T>): void {
 		this._comboboxInput.set(input);
+	}
+
+	/** @internal Register the combobox list. Called by BrnComboboxList in its constructor. */
+	public registerComboboxList(list: BrnComboboxList): void {
+		this._comboboxList.set(list);
 	}
 
 	public updateInputWidth(width: number | null): void {

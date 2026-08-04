@@ -9,6 +9,7 @@ import { injectBrnAutocompleteBase } from './brn-autocomplete.token';
 		'aria-orientation': 'vertical',
 		'[id]': 'id()',
 		'[attr.data-empty]': '!_visibleItems() ? "" : null',
+		'[attr.aria-label]': 'ariaLabel()',
 	},
 })
 export class BrnAutocompleteList {
@@ -21,4 +22,11 @@ export class BrnAutocompleteList {
 
 	/** The id of the autocomplete list */
 	public readonly id = input<string>(`brn-autocomplete-list-${++BrnAutocompleteList._id}`);
+
+	/** Optional accessible name for the listbox. Usually not needed as the autocomplete names the widget. */
+	public readonly ariaLabel = input<string | undefined>(undefined, { alias: 'aria-label' });
+
+	constructor() {
+		this._autocomplete.registerAutocompleteList(this);
+	}
 }

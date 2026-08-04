@@ -1,6 +1,7 @@
 import { inject, InjectionToken, type ValueProvider } from '@angular/core';
 
 export interface HlmSidebarConfig {
+	defaultOpen: boolean;
 	sidebarWidth: string;
 	sidebarWidthMobile: string;
 	sidebarWidthIcon: string;
@@ -12,6 +13,7 @@ export interface HlmSidebarConfig {
 }
 
 const defaultConfig: HlmSidebarConfig = {
+	defaultOpen: true,
 	sidebarWidth: '16rem',
 	sidebarWidthMobile: '18rem',
 	sidebarWidthIcon: '3rem',

@@ -40,10 +40,34 @@ describe('autocomplete', () => {
 		});
 
 		it('should pass accessibility checks', () => {
+			// Wait for the story to render before auditing; running axe immediately after
+			// cy.visit scans an empty root and falsely passes.
+			cy.get('input[hlmInputGroupInput]').should('be.visible');
 			cy.checkA11y(undefined, {
 				rules: {
 					'page-has-heading-one': { enabled: false },
 					'landmark-one-main': { enabled: false },
+				},
+			});
+		});
+
+		it('should pass accessibility checks when opened', () => {
+			// Wait for the story to render before typing to open the popup and auditing.
+			cy.get('input[hlmInputGroupInput]').should('be.visible');
+			cy.get('input[hlmInputGroupInput]').type('Mar');
+			cy.get('hlm-autocomplete-item').should('have.length.gt', 0);
+			// Let the popup's fade-in/zoom-in animation settle; scanning mid-animation
+			// blends the text with the background and falsely fails color-contrast.
+			// eslint-disable-next-line cypress/no-unnecessary-waiting
+			cy.wait(600);
+			cy.checkA11y(undefined, {
+				rules: {
+					'page-has-heading-one': { enabled: false },
+					'landmark-one-main': { enabled: false },
+					// The open popup is a CDK overlay appended to <body>, outside any landmark.
+					// This is a Storybook-host artifact (same root cause as landmark-one-main),
+					// not a WCAG rule (region is best-practice).
+					region: { enabled: false },
 				},
 			});
 		});

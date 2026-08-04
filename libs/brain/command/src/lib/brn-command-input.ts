@@ -11,6 +11,9 @@ import { injectBrnCommand } from './brn-command.token';
 		'[id]': 'id()',
 		role: 'combobox',
 		'aria-autocomplete': 'list',
+		'aria-haspopup': 'listbox',
+		'aria-expanded': 'true',
+		'[attr.aria-controls]': '_commandListId()',
 		'[attr.aria-activedescendant]': '_activeDescendant()',
 		'[attr.disabled]': '_disabled() ? "" : null',
 		'(keydown)': 'onKeyDown($event)',
@@ -26,13 +29,14 @@ export class BrnCommandInput {
 
 	private readonly _el = inject(ElementRef);
 	private readonly _command = injectBrnCommand();
-
 	private readonly _initialId = `brn-command-input-${++BrnCommandInput._id}`;
 
 	/** The id of the command input */
 	public readonly id = input<string, string | undefined>(this._initialId, {
 		transform: (value) => value || this._initialId,
 	});
+
+	protected readonly _commandListId = this._command.listId;
 
 	protected readonly _disabled = this._command.disabledState;
 

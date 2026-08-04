@@ -3,6 +3,7 @@ import { BooleanInput } from '@angular/cdk/coercion';
 import {
 	afterNextRender,
 	booleanAttribute,
+	computed,
 	contentChildren,
 	Directive,
 	effect,
@@ -13,12 +14,14 @@ import {
 	linkedSignal,
 	model,
 	output,
+	signal,
 	untracked,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
 import { BrnCommandItemToken } from './brn-command-item.token';
+import type { BrnCommandList } from './brn-command-list';
 import { type CommandFilter, injectBrnCommandConfig, provideBrnCommand } from './brn-command.token';
 
 export const BRN_COMMAND_VALUE_ACCESSOR = {
@@ -69,6 +72,16 @@ export class BrnCommand implements ControlValueAccessor {
 
 	/** @internal The key manager for managing active descendant */
 	public readonly keyManager = new ActiveDescendantKeyManager(this.items, this._injector);
+
+	private readonly _commandList = signal<BrnCommandList | undefined>(undefined);
+
+	/** @internal The id of the command list, registered by BrnCommandList. Used by the input for aria-controls. */
+	public readonly listId = computed(() => this._commandList()?.id());
+
+	/** @internal Register the command list. Called by BrnCommandList in its constructor. */
+	public registerCommandList(list: BrnCommandList): void {
+		this._commandList.set(list);
+	}
 
 	protected _onChange?: ChangeFn<string | null>;
 	protected _onTouched?: TouchFn;

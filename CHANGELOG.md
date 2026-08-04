@@ -1,3 +1,11 @@
+## <small>1.3.1 (2026-08-04)</small>
+
+- Merge pull request #1679 from spartan-ng/beta ([201828d](https://github.com/spartan-ng/spartan/commit/201828d)), closes [#1679](https://github.com/spartan-ng/spartan/issues/1679)
+- chore(release): 1.3.1-beta.1 ([e0769f9](https://github.com/spartan-ng/spartan/commit/e0769f9))
+- chore(release): backmerge main into beta ([6606dad](https://github.com/spartan-ng/spartan/commit/6606dad))
+- fix: autocomplete, combobox and command a11y issues (#1677) ([4a99f45](https://github.com/spartan-ng/spartan/commit/4a99f45)), closes [#1677](https://github.com/spartan-ng/spartan/issues/1677)
+- fix(sidebar): add defaultOpen option into sidebar config (#1678) ([68762db](https://github.com/spartan-ng/spartan/commit/68762db)), closes [#1678](https://github.com/spartan-ng/spartan/issues/1678)
+
 ## <small>1.3.1-beta.1 (2026-08-04)</small>
 
 - fix: autocomplete, combobox and command a11y issues (#1677) ([4a99f45](https://github.com/spartan-ng/spartan/commit/4a99f45)), closes [#1677](https://github.com/spartan-ng/spartan/issues/1677)

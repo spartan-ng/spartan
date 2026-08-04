@@ -22,6 +22,7 @@ function comboboxStub(initialValue: SimpleValue = null, state: PartialControlSta
 		disabledState: signal(false),
 		itemToString: signal(undefined),
 		mode: signal('combobox'),
+		listId: signal<string | undefined>(undefined),
 		hasValue: computed(() => value() !== undefined && value() !== null && value() !== ''),
 		controlState: signal(
 			state !== null

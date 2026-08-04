@@ -14,6 +14,7 @@ import type { BrnComboboxChipInput } from './brn-combobox-chip-input';
 import { comboboxContainsFilter } from './brn-combobox-filter';
 import type { BrnComboboxInput } from './brn-combobox-input';
 import type { BrnComboboxItem } from './brn-combobox-item';
+import type { BrnComboboxList } from './brn-combobox-list';
 
 export type ComboboxInputMode = 'combobox' | 'popup';
 
@@ -32,6 +33,7 @@ export interface BrnComboboxBase<T> {
 	mode: Signal<ComboboxInputMode>;
 	controlState?: Signal<ControlState | null>;
 	hasValue: Signal<boolean>;
+	listId: Signal<string | undefined>;
 
 	isSelected: (itemValue: T) => boolean;
 	select: (itemValue: T) => void;
@@ -49,6 +51,8 @@ export interface BrnComboboxBase<T> {
 	registerComboboxInput?: (input: BrnComboboxInput<T>) => void;
 	/** Register the combobox chip input component for multi selection mode */
 	registerComboboxChipInput?: (input: BrnComboboxChipInput<T>) => void;
+	/** Register the combobox list component so the input can reference its id via aria-controls */
+	registerComboboxList?: (list: BrnComboboxList) => void;
 	updateInputWidth: (width: number | null) => void;
 }
 

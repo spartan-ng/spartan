@@ -282,6 +282,7 @@ export const appConfig: ApplicationConfig = {
     providers: [
         provideHlmSidebarConfig({
             ...
+            defaultOpen: true,
             sidebarWidth: '16rem',
             sidebarWidthMobile: '18rem',
             sidebarWidthIcon: '3rem',

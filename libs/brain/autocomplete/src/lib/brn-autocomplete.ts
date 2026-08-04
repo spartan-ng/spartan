@@ -23,6 +23,7 @@ import { BrnPopover } from '@spartan-ng/brain/popover';
 import { BrnAutocompleteInput } from './brn-autocomplete-input';
 import { BrnAutocompleteItem } from './brn-autocomplete-item';
 import { BrnAutocompleteItemToken } from './brn-autocomplete-item.token';
+import type { BrnAutocompleteList } from './brn-autocomplete-list';
 import {
 	AutocompleteItemEqualToValue,
 	AutocompleteItemToString,
@@ -103,6 +104,11 @@ export class BrnAutocomplete<T> implements BrnAutocompleteBase<T>, ControlValueA
 
 	private readonly _autocompleteInput = signal<BrnAutocompleteInput<T> | undefined>(undefined);
 
+	private readonly _autocompleteList = signal<BrnAutocompleteList | undefined>(undefined);
+
+	/** @internal The id of the autocomplete list, registered by BrnAutocompleteList. Used by the input for aria-controls. */
+	public readonly listId = computed(() => this._autocompleteList()?.id());
+
 	protected _onChange?: ChangeFn<T | undefined | null>;
 	protected _onTouched?: TouchFn;
 
@@ -143,6 +149,11 @@ export class BrnAutocomplete<T> implements BrnAutocompleteBase<T>, ControlValueA
 
 	public registerAutocompleteInput(input: BrnAutocompleteInput<T>): void {
 		return this._autocompleteInput.set(input);
+	}
+
+	/** @internal Register the autocomplete list. Called by BrnAutocompleteList in its constructor. */
+	public registerAutocompleteList(list: BrnAutocompleteList): void {
+		this._autocompleteList.set(list);
 	}
 
 	public updateInputWidth(width: number | null): void {

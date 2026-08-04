@@ -18,6 +18,7 @@ import { ComboboxInputMode, injectBrnComboboxBase } from './brn-combobox.token';
 		'aria-autocomplete': 'list',
 		'aria-haspopup': 'listbox',
 		'[attr.aria-expanded]': '_isExpanded()',
+		'[attr.aria-controls]': '_comboboxListId()',
 		'[attr.aria-invalid]': '_isCombobox() && _ariaInvalid() ? "true": null',
 		'[attr.data-invalid]': '_isCombobox() && _ariaInvalid() ? "true": null',
 		'[attr.data-matches-spartan-invalid]': '_isCombobox() && _spartanInvalid() ? "true": null',
@@ -36,6 +37,9 @@ export class BrnComboboxInput<T> {
 	private readonly _content = inject(BrnComboboxContent, { optional: true });
 
 	public readonly mode = computed<ComboboxInputMode>(() => (this._content ? 'popup' : 'combobox'));
+
+	/** The id of the command list, used for aria-controls. */
+	protected readonly _comboboxListId = this._combobox.listId;
 
 	/** The id of the combobox input */
 	public readonly id = input<string>(`brn-combobox-input-${++BrnComboboxInput._id}`);

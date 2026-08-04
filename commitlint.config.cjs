@@ -20,6 +20,7 @@ module.exports = {
 				'button',
 				'button-group',
 				'calendar',
+				'chart',
 				'card',
 				'carousel',
 				'checkbox',

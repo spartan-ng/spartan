@@ -11,6 +11,7 @@ export type Primitive =
 	| 'bubble'
 	| 'button'
 	| 'button-group'
+	| 'chart'
 	| 'calendar'
 	| 'card'
 	| 'carousel'

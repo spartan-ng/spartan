@@ -29,6 +29,7 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 import { Directionality } from '@angular/cdk/bidi';
+import { hasModifierKey } from '@angular/cdk/keycodes';
 import { waitForElementAnimations } from '@spartan-ng/brain/core';
 import { of, Subject, Subscription, timer } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
@@ -138,6 +139,9 @@ export class BrnTooltip {
 						if (!this._isHoverPointer(event)) return;
 						this._tooltipHovered = false;
 						this.delay(false, this.hideDelay());
+					}),
+					this._renderer.listen(this._document.defaultView, 'keydown', (event: KeyboardEvent) => {
+						if (event.key === 'Escape' && !hasModifierKey(event)) this._hide(true);
 					}),
 				];
 			});
@@ -376,8 +380,8 @@ export class BrnTooltip {
 		);
 	}
 
-	private _hide(): void {
-		if (!this._componentRef || this._tooltipHovered) return;
+	private _hide(force = false): void {
+		if (!this._componentRef || (!force && this._tooltipHovered)) return;
 		// Already closing (exit animation in flight): nothing to do.
 		if (this._componentRef.instance.state() === 'closed') return;
 		this._componentRef.instance.state.set('closed');

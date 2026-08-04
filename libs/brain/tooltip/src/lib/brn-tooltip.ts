@@ -141,7 +141,7 @@ export class BrnTooltip {
 						this.delay(false, this.hideDelay());
 					}),
 					this._renderer.listen(this._document.defaultView, 'keydown', (event: KeyboardEvent) => {
-						if (event.key === 'Escape' && !hasModifierKey(event)) this._hide(true);
+						if (event.key === 'Escape' && !hasModifierKey(event)) this._dismiss();
 					}),
 				];
 			});
@@ -153,6 +153,11 @@ export class BrnTooltip {
 			this._cleanupTriggerEvents();
 			this._overlayRef?.dispose();
 		});
+	}
+
+	private _dismiss(): void {
+		this._tooltipHovered = false;
+		this.delay(false, -1);
 	}
 
 	private _updatePosition(): void {
@@ -380,8 +385,8 @@ export class BrnTooltip {
 		);
 	}
 
-	private _hide(force = false): void {
-		if (!this._componentRef || (!force && this._tooltipHovered)) return;
+	private _hide(): void {
+		if (!this._componentRef || this._tooltipHovered) return;
 		// Already closing (exit animation in flight): nothing to do.
 		if (this._componentRef.instance.state() === 'closed') return;
 		this._componentRef.instance.state.set('closed');

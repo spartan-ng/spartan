@@ -22,7 +22,7 @@ export class HlmSidebarService {
 	private readonly _config = injectHlmSidebarConfig();
 	private readonly _document = inject(DOCUMENT);
 	private readonly _window = this._document.defaultView;
-	private readonly _open = signal<boolean>(true);
+	private readonly _open = signal<boolean>(this._config.defaultOpen);
 	private readonly _openMobile = signal<boolean>(false);
 	private readonly _isMobile = signal<boolean>(false);
 	private readonly _variant = signal<SidebarVariant>('sidebar');

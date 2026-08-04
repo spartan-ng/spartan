@@ -1,3 +1,9 @@
+## <small>1.3.1-beta.1 (2026-08-04)</small>
+
+- fix: autocomplete, combobox and command a11y issues (#1677) ([4a99f45](https://github.com/spartan-ng/spartan/commit/4a99f45)), closes [#1677](https://github.com/spartan-ng/spartan/issues/1677)
+- fix(sidebar): add defaultOpen option into sidebar config (#1678) ([68762db](https://github.com/spartan-ng/spartan/commit/68762db)), closes [#1678](https://github.com/spartan-ng/spartan/issues/1678)
+- chore(release): backmerge main into beta ([6606dad](https://github.com/spartan-ng/spartan/commit/6606dad))
+
 ## 1.3.0 (2026-07-30)
 
 - Merge pull request #1646 from PatrickLarocque/fix/1630-checkbox-destroyed-output ([fc01480](https://github.com/spartan-ng/spartan/commit/fc01480)), closes [#1646](https://github.com/spartan-ng/spartan/issues/1646)

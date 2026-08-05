@@ -37,6 +37,7 @@ export const primitiveDependencies: Record<Primitive, Primitive[]> = {
 	marker: ['utils'],
 	menubar: ['utils', 'dropdown-menu'],
 	message: ['utils'],
+	'message-scroller': ['utils', 'button'],
 	'native-select': ['utils'],
 	'navigation-menu': ['utils'],
 	pagination: ['utils', 'button', 'select'],

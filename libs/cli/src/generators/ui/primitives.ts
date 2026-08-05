@@ -35,6 +35,7 @@ export type Primitive =
 	| 'marker'
 	| 'menubar'
 	| 'message'
+	| 'message-scroller'
 	| 'native-select'
 	| 'navigation-menu'
 	| 'pagination'

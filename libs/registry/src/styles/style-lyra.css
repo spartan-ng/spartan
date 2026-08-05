@@ -563,6 +563,35 @@
 		@apply min-w-0;
 	}
 
+	/* MARK: Message Scroller */
+	.spartan-message-scroller {
+		@apply relative flex size-full min-h-0 flex-col overflow-hidden;
+	}
+
+	.spartan-message-scroller-viewport {
+		@apply scroll-fade-b size-full min-h-0 min-w-0 overflow-y-auto overscroll-contain contain-content;
+		scrollbar-width: thin;
+		scrollbar-gutter: stable;
+
+		/* Keep gutter reserved — hiding via scrollbar-width:none collapses it and reflows text. */
+		&[data-autoscrolling] {
+			scrollbar-color: transparent transparent;
+		}
+	}
+
+	.spartan-message-scroller-content {
+		@apply flex h-max min-h-full flex-col gap-8;
+	}
+
+	.spartan-message-scroller-item {
+		@apply min-w-0 shrink-0 [contain-intrinsic-size:auto_10rem] [content-visibility:auto];
+	}
+
+	.spartan-message-scroller-button {
+		@apply border-border bg-background text-foreground hover:bg-muted hover:text-foreground pointer-events-none absolute -translate-x-1/2 scale-95 opacity-0 transition-[translate,scale,opacity] duration-200 data-[active=false]:duration-400 data-[active=false]:ease-[cubic-bezier(0.7,0,0.84,0)] data-[active=true]:pointer-events-auto data-[active=true]:translate-y-0 data-[active=true]:scale-100 data-[active=true]:opacity-100 data-[active=true]:ease-[cubic-bezier(0.23,1,0.32,1)] data-[direction=end]:bottom-4 data-[direction=end]:translate-y-full data-[direction=end]:data-[active=true]:translate-y-0 data-[direction=start]:top-4 data-[direction=start]:-translate-y-full data-[direction=start]:data-[active=true]:translate-y-0 rtl:translate-x-1/2 data-[direction=start]:[&_ng-icon]:rotate-180 data-[direction=start]:[&_svg]:rotate-180;
+		inset-inline-start: 50%;
+	}
+
 	/* MARK: Message */
 	.spartan-message {
 		@apply gap-2 text-xs;

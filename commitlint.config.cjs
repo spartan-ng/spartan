@@ -46,6 +46,7 @@ module.exports = {
 				'mcp',
 				'menubar',
 				'message',
+				'message-scroller',
 				'native-select',
 				'navigation-menu',
 				'pagination',

@@ -47,6 +47,7 @@ export default defineConfig(({ command, mode }) => {
 				'@angular/cdk/**',
 				'@ng-icons/**',
 				'ngx-scrollbar/**',
+				'ngx-echarts',
 				'@analogjs/trpc',
 				'@trpc/server',
 			],

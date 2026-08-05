@@ -13,6 +13,7 @@ export const primitiveDependencies: Record<Primitive, Primitive[]> = {
 	bubble: ['utils'],
 	button: ['utils'],
 	'button-group': ['utils', 'button'],
+	chart: ['utils'],
 	calendar: ['utils', 'button', 'select'],
 	card: ['utils'],
 	carousel: ['utils', 'button'],

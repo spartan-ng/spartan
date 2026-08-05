@@ -60,6 +60,7 @@
 		"@testing-library/cypress": "^10.0.2",
 		"@trpc/client": "10.45.2",
 		"@trpc/server": "10.45.2",
+		"chart.js": "^4.5.1",
 		"class-variance-authority": "^0.7.1",
 		"clsx": "^2.1.1",
 		"drizzle-orm": "^0.33.0",

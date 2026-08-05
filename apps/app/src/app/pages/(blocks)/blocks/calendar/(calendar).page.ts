@@ -12,6 +12,7 @@ import { CalendarDisabledDaysComponent } from './calendar-disabled-days/calendar
 import { CalendarDisabledWeekendsComponent } from './calendar-disabled-weekends/calendar-disabled-weekends.component';
 import { CalendarJalaliBlockComponent } from './calendar-jalali/calendar-jalali.component';
 import { CalendarLocalizedComponent } from './calendar-localized/calendar-localized.component';
+import { CalendarLunarBlockComponent } from './calendar-lunar/calendar-lunar.component';
 import { CalendarMonthAndYearComponent } from './calendar-month-year-dropdown/calendar-month-year-dropdown.component';
 import { CalendarMultiComponent } from './calendar-multi/calendar-multi.component';
 import { CalendarSimpleComponent } from './calendar-simple/calendar-simple.component';
@@ -31,6 +32,7 @@ export const routeMeta: RouteMeta = {
 		CalendarMonthAndYearComponent,
 		CalendarLocalizedComponent,
 		CalendarJalaliBlockComponent,
+		CalendarLunarBlockComponent,
 		CalendarDisabledDaysComponent,
 		CalendarDisabledWeekendsComponent,
 		CalendarDateAndTimePickerComponent,
@@ -158,6 +160,15 @@ export const routeMeta: RouteMeta = {
 			</div>
 
 			<spartan-calendar-jalali />
+		</div>
+
+		<div id="calendar-13" class="flex flex-col gap-4">
+			<div class="flex items-center justify-between px-2">
+				<spartan-block-link fragment="calendar-13">A calendar with Lunar (Hijri) date system</spartan-block-link>
+				<spartan-open-in-component-button block="calendar-lunar" />
+			</div>
+
+			<spartan-calendar-lunar />
 		</div>
 	`,
 })

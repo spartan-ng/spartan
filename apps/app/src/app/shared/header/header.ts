@@ -74,6 +74,7 @@ import { HeaderMobileNav } from './header-mobile-nav';
 					<a spartanNavLink="/blocks">Blocks</a>
 					<a spartanNavLink="/colors">Colors</a>
 					<a spartanNavLink="/stack">Stack</a>
+					<a spartanNavLink="/create" class="text-primary font-semibold">Create</a>
 				</div>
 
 				<div class="ml-auto flex items-center gap-2 md:flex-1 md:justify-end">

@@ -17,6 +17,8 @@ import { classes } from '@spartan-ng/helm/utils';
 				'max',
 				'step',
 				'minStepsBetweenThumbs',
+				'maxStepsBetweenThumbs',
+				'preventStepOverThumb',
 				'inverted',
 				'orientation',
 				'showTicks',

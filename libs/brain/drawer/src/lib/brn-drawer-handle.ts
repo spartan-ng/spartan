@@ -5,12 +5,11 @@ import { BrnDrawer } from './brn-drawer';
 
 const VELOCITY_THRESHOLD = 0.4;
 const DEFAULT_CLOSE_THRESHOLD = 0.25;
-const SCROLL_LOCK_TIMEOUT = 100;
 const TOUCH_SWIPE_THRESHOLD = 10;
 const MOUSE_SWIPE_THRESHOLD = 2;
-const OPEN_TIME_COOLDOWN = 500;
 const TRANSITION = 'transform 0.5s cubic-bezier(0.32, 0.72, 0, 1)';
-const OVERLAY_TRANSITION = 'opacity 0.5s cubic-bezier(0.32, 0.72, 0, 1)';
+const CLOSE_TRANSITION = 'transform 0.3s cubic-bezier(0.32, 0.72, 0, 1)';
+const OVERLAY_TRANSITION = 'opacity 0.3s cubic-bezier(0.32, 0.72, 0, 1)';
 
 function dampenValue(v: number): number {
 	return 8 * (Math.log(v + 1) - 2);
@@ -34,17 +33,13 @@ export class BrnDrawerHandle {
 	constructor() {
 		this._destroyRef.onDestroy(() => {
 			this._cleanup();
-			// Cancel any pending reset timeout: on destroy its target elements are gone, so the
-			// deferred style write is a stale no-op that also retains this directive for ~500ms.
 			this._clearResetTimeout();
 		});
 		effect(() => {
 			const state = this._brnDialogRef?.state();
 			untracked(() => {
-				if (state === 'open') {
-					this._openTime = Date.now();
-				} else if (state === 'closed') {
-					this._openTime = null;
+				if (state === 'closed') {
+					this._currentTranslate = 0;
 				}
 			});
 		});
@@ -63,8 +58,8 @@ export class BrnDrawerHandle {
 	private _isAllowedToDrag = false;
 	private _wasBeyondThreshold = false;
 
-	private _openTime: number | null = null;
-	private _lastTimeDragPrevented: number | null = null;
+	private _currentTranslate = 0;
+	private _scrollableAncestors: HTMLElement[] = [];
 	private _dragStartTime: number | null = null;
 	private _resetTimeout: ReturnType<typeof setTimeout> | null = null;
 
@@ -103,15 +98,17 @@ export class BrnDrawerHandle {
 		this._dragStartTime = Date.now();
 
 		this._drawerEl.style.transition = 'none';
+		this._drawerEl.style.willChange = 'transform';
 
-		if (!this._findScrollableAncestor(event.target as HTMLElement)) {
+		this._scrollableAncestors = this._findScrollableAncestors(event.target as HTMLElement);
+		if (!this._scrollableAncestors.length) {
 			this._drawerEl.style.touchAction = 'none';
 		}
 
 		const overlayWrapper = this._drawerEl.closest('.cdk-global-overlay-wrapper');
 		this._backdropEl = overlayWrapper?.querySelector('.cdk-overlay-backdrop') as HTMLElement | null;
 		if (this._backdropEl) {
-			this._initialBackdropOpacity = parseFloat(getComputedStyle(this._backdropEl).opacity) || 1;
+			this._initialBackdropOpacity = parseFloat(this._backdropEl.style.opacity) || 1;
 		}
 
 		this._pointerId = event.pointerId;
@@ -159,8 +156,7 @@ export class BrnDrawerHandle {
 		const isDraggingInDirection = draggedDistance > 0;
 		const absDraggedDistance = Math.abs(draggedDistance);
 
-		if (!this._isAllowedToDrag && !this._shouldDrag(e.target ?? this._element.nativeElement, isDraggingInDirection))
-			return;
+		if (!this._isAllowedToDrag && !this._shouldDrag(isDraggingInDirection)) return;
 
 		this._isAllowedToDrag = true;
 		try {
@@ -177,8 +173,7 @@ export class BrnDrawerHandle {
 		if (isDraggingInDirection) {
 			const dampened = dampenValue(draggedDistance);
 			const translateValue = Math.min(dampened * -1, 0) * this._dimensionMultiplier;
-			const prop = this._isVertical ? 'translateY' : 'translateX';
-			this._drawerEl.style.transform = `${prop}(${translateValue}px)`;
+			this._applyTransform(translateValue);
 			if (this._backdropEl) {
 				this._backdropEl.style.opacity = String(Math.max(this._initialBackdropOpacity - progress * 0.3, 0));
 			}
@@ -188,8 +183,7 @@ export class BrnDrawerHandle {
 		e.preventDefault();
 
 		const translateValue = absDraggedDistance * this._dimensionMultiplier;
-		const prop = this._isVertical ? 'translateY' : 'translateX';
-		this._drawerEl.style.transform = `${prop}(${translateValue}px)`;
+		this._applyTransform(translateValue);
 
 		if (this._backdropEl) {
 			this._backdropEl.style.opacity = String(Math.max(this._initialBackdropOpacity - progress, 0));
@@ -204,9 +198,9 @@ export class BrnDrawerHandle {
 
 		this._drawerEl.classList.remove('vaul-dragging');
 
-		const swipeAmount = this._getTranslate();
+		const swipeAmount = this._currentTranslate;
 
-		if (!this._isAllowedToDrag || swipeAmount === null || Number.isNaN(swipeAmount)) {
+		if (!this._isAllowedToDrag) {
 			this._resetDrawer(true);
 			this._cleanup();
 			return;
@@ -247,65 +241,33 @@ export class BrnDrawerHandle {
 		this._cleanup();
 	};
 
-	private _shouldDrag(el: EventTarget, isDraggingInDirection: boolean): boolean {
+	private _applyTransform(value: number): void {
+		if (!this._drawerEl) return;
+		this._currentTranslate = value;
+		const prop = this._isVertical ? 'translateY' : 'translateX';
+		this._drawerEl.style.transform = `${prop}(${value}px)`;
+	}
+
+	private _shouldDrag(isDraggingInDirection: boolean): boolean {
 		if (this._direction === 'left' || this._direction === 'right') return true;
 
-		const now = Date.now();
+		const isAlreadyOpen = this._isPositive ? this._currentTranslate > 0 : this._currentTranslate < 0;
+		if (isAlreadyOpen) return true;
 
-		if (this._openTime !== null && now - this._openTime < OPEN_TIME_COOLDOWN) return false;
+		if (isDraggingInDirection) return false;
 
-		const currentTranslate = this._getTranslate();
-		if (this._isPositive ? currentTranslate > 0 : currentTranslate < 0) return true;
-
-		if (
-			this._lastTimeDragPrevented !== null &&
-			now - this._lastTimeDragPrevented < SCROLL_LOCK_TIMEOUT &&
-			currentTranslate === 0
-		) {
-			this._lastTimeDragPrevented = now;
-			return false;
-		}
-
-		if (isDraggingInDirection) {
-			this._lastTimeDragPrevented = now;
-			return false;
-		}
-
-		let element = el as HTMLElement | null;
-		while (element) {
-			if (element.scrollHeight > element.clientHeight) {
-				if (element.scrollTop !== 0) {
-					this._lastTimeDragPrevented = now;
-					return false;
-				}
-				if (element.getAttribute('role') === 'dialog') return true;
-			}
-			element = element.parentElement;
+		for (const ancestor of this._scrollableAncestors) {
+			if (ancestor.scrollTop !== 0) return false;
 		}
 
 		return true;
-	}
-
-	private _getTranslate(): number {
-		if (!this._drawerEl) return 0;
-		const style = getComputedStyle(this._drawerEl);
-		const transform = style.transform || (style as any).webkitTransform;
-		if (!transform || transform === 'none') return 0;
-		let mat = transform.match(/^matrix3d\((.+)\)$/);
-		if (mat) {
-			return parseFloat(mat[1].split(', ')[this._isVertical ? 13 : 12]);
-		}
-		mat = transform.match(/^matrix\((.+)\)$/);
-		if (mat) {
-			return parseFloat(mat[1].split(', ')[this._isVertical ? 5 : 4]);
-		}
-		return 0;
 	}
 
 	private _resetDrawer(animate = true): void {
 		if (this._drawerEl) {
 			this._drawerEl.style.transition = animate ? TRANSITION : 'none';
 			this._drawerEl.style.transform = '';
+			this._currentTranslate = 0;
 		}
 		if (this._backdropEl) {
 			this._backdropEl.style.transition = animate ? OVERLAY_TRANSITION : 'none';
@@ -314,7 +276,11 @@ export class BrnDrawerHandle {
 		this._clearResetTimeout();
 		this._resetTimeout = setTimeout(() => {
 			this._resetTimeout = null;
-			if (this._drawerEl) this._drawerEl.style.transition = '';
+			if (this._drawerEl) {
+				this._drawerEl.style.transition = '';
+				this._drawerEl.style.willChange = '';
+				this._drawerEl.style.animation = '';
+			}
 			if (this._backdropEl) this._backdropEl.style.transition = '';
 		}, 500);
 	}
@@ -331,11 +297,10 @@ export class BrnDrawerHandle {
 		const dimension = this._isVertical ? this._drawerEl.offsetHeight : this._drawerEl.offsetWidth;
 		const targetClose = this._isPositive ? dimension : -dimension;
 		const prop = this._isVertical ? 'translateY' : 'translateX';
-		this._drawerEl.style.transition = 'transform 0.3s cubic-bezier(0.32, 0.72, 0, 1)';
+		this._drawerEl.style.transition = CLOSE_TRANSITION;
 		this._drawerEl.style.transform = `${prop}(${targetClose}px)`;
-		this._drawerEl.style.animation = 'none';
 		if (this._backdropEl) {
-			this._backdropEl.style.transition = 'opacity 0.3s cubic-bezier(0.32, 0.72, 0, 1)';
+			this._backdropEl.style.transition = OVERLAY_TRANSITION;
 			this._backdropEl.style.opacity = '0';
 		}
 	}
@@ -345,6 +310,7 @@ export class BrnDrawerHandle {
 		this._isAllowedToDrag = false;
 		if (this._drawerEl) {
 			this._drawerEl.style.touchAction = '';
+			this._drawerEl.style.willChange = '';
 		}
 		if (this._pointerId !== -1) {
 			try {
@@ -355,26 +321,25 @@ export class BrnDrawerHandle {
 			this._pointerId = -1;
 		}
 		this._document.removeEventListener('pointermove', this._onPointerMove);
-		// pointerup/pointercancel are registered with `{ once: true }`, but a destroy-during-drag (or a
-		// normal end where pointercancel never fired) would otherwise leave them on `document`, pinning
-		// this directive until the next global pointer release auto-removes them.
 		this._document.removeEventListener('pointerup', this._onPointerUp);
 		this._document.removeEventListener('pointercancel', this._onPointerCancel);
 	}
 
-	private _findScrollableAncestor(element: HTMLElement | null): HTMLElement | null {
-		if (!element) return null;
+	private _findScrollableAncestors(element: HTMLElement | null): HTMLElement[] {
+		const ancestors: HTMLElement[] = [];
+		if (!element) return ancestors;
 		const scrollProp = this._isVertical ? 'overflow-y' : 'overflow-x';
 		const sizeProp = this._isVertical ? 'scrollHeight' : 'scrollWidth';
 		const clientProp = this._isVertical ? 'clientHeight' : 'clientWidth';
 		let el: HTMLElement | null = element.parentElement;
 		while (el) {
-			const overflow = getComputedStyle(el)[scrollProp as any];
+			const overflow = el.style[scrollProp as any] || getComputedStyle(el)[scrollProp as any];
 			if ((overflow === 'auto' || overflow === 'scroll') && (el as any)[sizeProp] > (el as any)[clientProp]) {
-				return el;
+				ancestors.push(el);
 			}
+			if (el.getAttribute('role') === 'dialog') break;
 			el = el.parentElement;
 		}
-		return null;
+		return ancestors;
 	}
 }

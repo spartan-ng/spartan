@@ -12,10 +12,7 @@ export class HlmDrawerOverlay {
 	private readonly _classSettable = injectCustomClassSettable({ optional: true, host: true });
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	protected readonly _computedClass = computed(() =>
-		hlm(
-			'spartan-drawer-overlay transition-opacity duration-150 data-ending-style:opacity-0 data-starting-style:opacity-0',
-			this.userClass(),
-		),
+		hlm('spartan-drawer-overlay transition-opacity duration-300', this.userClass()),
 	);
 
 	constructor() {

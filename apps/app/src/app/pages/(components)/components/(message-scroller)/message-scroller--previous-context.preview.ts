@@ -157,7 +157,7 @@ const DEFAULT_PEEK = 64;
 					</hlm-card>
 
 					<div class="text-muted-foreground px-0.5 text-center text-xs">
-						Adjust the slider and send. Observe the previous message peak
+						Adjust the slider and send. Observe the previous message peek
 					</div>
 				</div>
 			</div>

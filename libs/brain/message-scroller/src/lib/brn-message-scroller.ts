@@ -116,6 +116,7 @@ export class BrnMessageScroller {
 
 		const previousAutoScroll = this._autoScroll;
 		const previousDefaultScrollPosition = this._defaultScrollPosition;
+		const previousScrollEdgeThreshold = this._scrollEdgeThreshold;
 		const previousScrollMargin = this._scrollMargin;
 		const previousScrollPreviousItemPeek = this._scrollPreviousItemPeek;
 
@@ -162,6 +163,12 @@ export class BrnMessageScroller {
 			}
 
 			this.commitScrollState();
+			return;
+		}
+
+		// Edge threshold feeds data-scrollable / jump-button active state.
+		if (this._scrollEdgeThreshold !== previousScrollEdgeThreshold) {
+			this.commitScrollState();
 		}
 	}
 
@@ -171,6 +178,10 @@ export class BrnMessageScroller {
 	 * @returns false when the id is unknown and items are already present
 	 */
 	public scrollToMessage(messageId: string, options?: BrnMessageScrollerScrollOptions): boolean {
+		if (this._destroyed) {
+			return false;
+		}
+
 		const element = this._messageElements.get(messageId);
 
 		if (!element) {
@@ -207,6 +218,10 @@ export class BrnMessageScroller {
 	 * With `autoScroll`, re-enters following-bottom mode.
 	 */
 	public scrollToEnd({ behavior = 'auto' }: BrnMessageScrollerScrollOptions = {}): boolean {
+		if (this._destroyed) {
+			return false;
+		}
+
 		const viewport = this._viewport;
 
 		if (!viewport) {
@@ -227,7 +242,7 @@ export class BrnMessageScroller {
 
 	/** Jump to the start of the transcript and leave follow/anchor modes. */
 	public scrollToStart({ behavior = 'auto' }: BrnMessageScrollerScrollOptions = {}): boolean {
-		if (!this._viewport) {
+		if (this._destroyed || !this._viewport) {
 			return false;
 		}
 
@@ -242,6 +257,10 @@ export class BrnMessageScroller {
 
 	/** @internal */
 	public registerMessage: BrnMessageScrollerRegisterMessage = (messageId, element, removedElement) => {
+		if (this._destroyed) {
+			return;
+		}
+
 		if (element) {
 			this._messageElements.set(messageId, element);
 			this._visibilityObserver?.observe(element);
@@ -264,6 +283,10 @@ export class BrnMessageScroller {
 
 	/** @internal */
 	public handleContentChange(): void {
+		if (this._destroyed) {
+			return;
+		}
+
 		const content = this._content;
 
 		if (!content) {
@@ -356,6 +379,10 @@ export class BrnMessageScroller {
 
 	/** @internal */
 	public handleResize(): void {
+		if (this._destroyed) {
+			return;
+		}
+
 		if (this._mode === 'following-bottom' && this._autoScroll) {
 			this.scrollToEnd({ behavior: 'auto' });
 			return;
@@ -380,6 +407,10 @@ export class BrnMessageScroller {
 
 	/** @internal */
 	public syncAfterScroll(): void {
+		if (this._destroyed) {
+			return;
+		}
+
 		this.commitScrollState();
 		this.scheduleVisibilitySync();
 		this.capturePrependAnchor();
@@ -387,6 +418,10 @@ export class BrnMessageScroller {
 
 	/** @internal */
 	public userScrollIntent(): void {
+		if (this._destroyed) {
+			return;
+		}
+
 		if (this._mode === 'following-bottom' || this._mode === 'anchored-to-message' || this._mode === 'settling-jump') {
 			// User gesture wins over follow / anchor / in-flight jump.
 			this._streamingTurn = null;
@@ -399,6 +434,10 @@ export class BrnMessageScroller {
 	 * Uses IntersectionObserver when available; otherwise falls back to layout.
 	 */
 	public observeVisibility(): void {
+		if (this._destroyed) {
+			return;
+		}
+
 		this._visibilityTracking = true;
 
 		const viewport = this._viewport;
@@ -604,9 +643,15 @@ export class BrnMessageScroller {
 
 		this._visibilityObserver?.disconnect();
 		this._visibilityObserver = null;
+		this._visibilityTracking = false;
+		this._visibleMessageIds.clear();
 	}
 
 	private setAutoScrolling(autoscrolling: boolean): void {
+		if (this._destroyed) {
+			return;
+		}
+
 		if (this._autoscrollingTimeout !== null) {
 			clearTimeout(this._autoscrollingTimeout);
 			this._autoscrollingTimeout = null;

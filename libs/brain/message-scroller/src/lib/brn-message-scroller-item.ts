@@ -11,12 +11,6 @@ import { injectBrnMessageScroller } from './brn-message-scroller.token';
 	},
 })
 export class BrnMessageScrollerItem {
-	private readonly _scroller = injectBrnMessageScroller();
-	private readonly _elementRef = inject<ElementRef<HTMLDivElement>>(ElementRef);
-	private readonly _destroyRef = inject(DestroyRef);
-	private _registeredMessageId: string | undefined;
-	private _registeredElement: HTMLElement | null = null;
-
 	/**
 	 * Stable row id for scrollToMessage, visibility, and prepend preservation.
 	 */
@@ -29,28 +23,33 @@ export class BrnMessageScrollerItem {
 	public readonly scrollAnchor = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
 	constructor() {
+		const scroller = injectBrnMessageScroller();
+		const elementRef = inject<ElementRef<HTMLDivElement>>(ElementRef);
+		let registeredMessageId: string | undefined;
+		let registeredElement: HTMLElement | null = null;
+
 		effect(() => {
 			const messageId = this.messageId();
-			const element = this._elementRef.nativeElement;
+			const element = elementRef.nativeElement;
 
 			untracked(() => {
-				if (this._registeredMessageId && this._registeredElement) {
-					this._scroller.registerMessage(this._registeredMessageId, null, this._registeredElement);
-					this._registeredMessageId = undefined;
-					this._registeredElement = null;
+				if (registeredMessageId && registeredElement) {
+					scroller.registerMessage(registeredMessageId, null, registeredElement);
+					registeredMessageId = undefined;
+					registeredElement = null;
 				}
 
 				if (messageId) {
-					this._scroller.registerMessage(messageId, element);
-					this._registeredMessageId = messageId;
-					this._registeredElement = element;
+					scroller.registerMessage(messageId, element);
+					registeredMessageId = messageId;
+					registeredElement = element;
 				}
 			});
 		});
 
-		this._destroyRef.onDestroy(() => {
-			if (this._registeredMessageId && this._registeredElement) {
-				this._scroller.registerMessage(this._registeredMessageId, null, this._registeredElement);
+		inject(DestroyRef).onDestroy(() => {
+			if (registeredMessageId && registeredElement) {
+				scroller.registerMessage(registeredMessageId, null, registeredElement);
 			}
 		});
 	}

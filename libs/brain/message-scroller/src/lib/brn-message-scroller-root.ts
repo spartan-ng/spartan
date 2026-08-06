@@ -6,13 +6,10 @@ import { injectBrnMessageScroller } from './brn-message-scroller.token';
 	exportAs: 'brnMessageScroller',
 })
 export class BrnMessageScrollerRoot {
-	private readonly _scroller = injectBrnMessageScroller();
-	private readonly _elementRef = inject<ElementRef<HTMLDivElement>>(ElementRef);
-	private readonly _destroyRef = inject(DestroyRef);
-
 	constructor() {
-		const root = this._elementRef.nativeElement;
-		this._scroller.setRootElement(root);
-		this._destroyRef.onDestroy(() => this._scroller.clearRootElement(root));
+		const scroller = injectBrnMessageScroller();
+		const root = inject<ElementRef<HTMLDivElement>>(ElementRef).nativeElement;
+		scroller.setRootElement(root);
+		inject(DestroyRef).onDestroy(() => scroller.clearRootElement(root));
 	}
 }

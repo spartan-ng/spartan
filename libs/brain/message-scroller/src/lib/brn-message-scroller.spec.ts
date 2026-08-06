@@ -309,9 +309,9 @@ describe('BrnMessageScroller', () => {
 			takeRecords(): IntersectionObserverEntry[] {
 				return [];
 			}
-			readonly root = null;
-			readonly rootMargin = '';
-			readonly thresholds: readonly number[] = [];
+			public readonly root = null;
+			public readonly rootMargin = '';
+			public readonly thresholds: readonly number[] = [];
 		}
 
 		window.IntersectionObserver = FakeIntersectionObserver as unknown as typeof IntersectionObserver;
@@ -328,6 +328,36 @@ describe('BrnMessageScroller', () => {
 		} finally {
 			window.IntersectionObserver = OriginalIO;
 		}
+	});
+
+	it('recommits scrollable when scrollEdgeThreshold changes', async () => {
+		const { host, viewport, content } = await setup({ autoScroll: false, contentHeight: 500 });
+
+		// Five 80px rows → contentBottom 400. scrollTop 195 leaves 5px below the fold.
+		const layout = stubViewportLayout(viewport, content, { clientHeight: 200, contentHeight: 500, scrollTop: 195 });
+		layout.refreshItemRects();
+		host.scroller.syncAfterScroll();
+
+		expect(host.scroller.scrollable().end).toBe(false);
+
+		host.scroller.configure({ scrollEdgeThreshold: 2 });
+
+		expect(host.scroller.scrollable().end).toBe(true);
+	});
+
+	it('ignores public commands after destroy', async () => {
+		const { host } = await setup({ autoScroll: true, contentHeight: 500 });
+		const setTimeoutSpy = vi.spyOn(globalThis, 'setTimeout');
+
+		host.scroller.destroy();
+
+		expect(host.scroller.scrollToEnd({ behavior: 'auto' })).toBe(false);
+		expect(host.scroller.scrollToStart({ behavior: 'auto' })).toBe(false);
+		expect(host.scroller.scrollToMessage('1')).toBe(false);
+		host.scroller.observeVisibility();
+
+		expect(setTimeoutSpy).not.toHaveBeenCalled();
+		setTimeoutSpy.mockRestore();
 	});
 
 	it('preserveScrollOnPrepend restores scroll when earlier rows are inserted', async () => {

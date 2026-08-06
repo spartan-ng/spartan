@@ -27,10 +27,6 @@ import { USER_SCROLL_KEYS } from './brn-message-scroller.types';
 })
 export class BrnMessageScrollerViewport {
 	private readonly _scroller = injectBrnMessageScroller();
-	private readonly _elementRef = inject<ElementRef<HTMLDivElement>>(ElementRef);
-	private readonly _destroyRef = inject(DestroyRef);
-	private _resizeFrame = 0;
-	private _resizeObserver: ResizeObserver | null = null;
 
 	/**
 	 * Keep the first visible messageId row stable on prepend.
@@ -56,31 +52,35 @@ export class BrnMessageScrollerViewport {
 	});
 
 	constructor() {
-		const viewport = this._elementRef.nativeElement;
-		this._scroller.setViewportElement(viewport);
+		const scroller = this._scroller;
+		const viewport = inject<ElementRef<HTMLDivElement>>(ElementRef).nativeElement;
+		let resizeFrame = 0;
+		let resizeObserver: ResizeObserver | null = null;
+
+		scroller.setViewportElement(viewport);
 
 		effect(() => {
-			this._scroller.preserveScrollOnPrepend = this.preserveScrollOnPrepend();
+			scroller.preserveScrollOnPrepend = this.preserveScrollOnPrepend();
 		});
 
 		if (typeof ResizeObserver !== 'undefined') {
 			// Coalesce into rAF: handleResize mutates the spacer inside the observed
 			// content, and resizing an observed element during delivery fires
 			// "ResizeObserver loop completed with undelivered notifications".
-			this._resizeObserver = new ResizeObserver(() => {
-				window.cancelAnimationFrame(this._resizeFrame);
-				this._resizeFrame = window.requestAnimationFrame(() => this._scroller.handleResize());
+			resizeObserver = new ResizeObserver(() => {
+				window.cancelAnimationFrame(resizeFrame);
+				resizeFrame = window.requestAnimationFrame(() => scroller.handleResize());
 			});
-			this._resizeObserver.observe(viewport);
+			resizeObserver.observe(viewport);
 		}
 
-		this._destroyRef.onDestroy(() => {
+		inject(DestroyRef).onDestroy(() => {
 			if (typeof window !== 'undefined') {
-				window.cancelAnimationFrame(this._resizeFrame);
+				window.cancelAnimationFrame(resizeFrame);
 			}
-			this._resizeObserver?.disconnect();
-			this._resizeObserver = null;
-			this._scroller.clearViewportElement(viewport);
+			resizeObserver?.disconnect();
+			resizeObserver = null;
+			scroller.clearViewportElement(viewport);
 		});
 	}
 

@@ -119,7 +119,6 @@ export class MessageScrollerAnchoringPreview {
 
 		if (next === 'user' || next === 'assistant') {
 			this._anchorRole.set(next);
-			this.reset();
 		}
 	}
 

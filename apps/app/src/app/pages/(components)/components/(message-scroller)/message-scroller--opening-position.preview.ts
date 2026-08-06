@@ -47,6 +47,9 @@ export class MessageScrollerOpeningPositionScroller {
 				return;
 			}
 
+			// Match shadcn's opening-position demo: drive start/end/last-anchor via
+			// commands after layout, not defaultScrollPosition (which can fall back to
+			// end when it thinks the last turn fits).
 			const frame = requestAnimationFrame(() => {
 				if (position === 'start') {
 					this._scroller.scrollToStart({ behavior: 'auto' });
@@ -84,7 +87,7 @@ export class MessageScrollerOpeningPositionScroller {
 				<p hlmCardDescription>Choose where a saved transcript opens.</p>
 			</hlm-card-header>
 
-			<div hlmCardContent class="flex-1 overflow-hidden p-0">
+			<div hlmCardContent class="min-h-0 flex-1 overflow-hidden p-0">
 				<div hlmMessageScrollerProvider>
 					<spartan-message-scroller-opening-position-scroller [position]="_position()" [positionKey]="_positionKey()" />
 				</div>

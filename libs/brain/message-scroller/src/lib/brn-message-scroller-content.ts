@@ -10,15 +10,6 @@ import { injectBrnMessageScroller } from './brn-message-scroller.token';
 	},
 })
 export class BrnMessageScrollerContent {
-	private readonly _scroller = injectBrnMessageScroller();
-	private readonly _elementRef = inject<ElementRef<HTMLDivElement>>(ElementRef);
-	private readonly _renderer = inject(Renderer2);
-	private readonly _destroyRef = inject(DestroyRef);
-	private _spacer: HTMLDivElement | null = null;
-	private _mutationObserver: MutationObserver | null = null;
-	private _resizeObserver: ResizeObserver | null = null;
-	private _resizeFrame = 0;
-
 	/**
 	 * aria-relevant for the live log region.
 	 * @default 'additions'
@@ -31,75 +22,81 @@ export class BrnMessageScrollerContent {
 	public readonly spacerClassName = input<string | undefined>(undefined);
 
 	constructor() {
-		const content = this._elementRef.nativeElement;
-		this._scroller.setContentElement(content);
+		const scroller = injectBrnMessageScroller();
+		const content = inject<ElementRef<HTMLDivElement>>(ElementRef).nativeElement;
+		const renderer = inject(Renderer2);
+		let spacer: HTMLDivElement | null = null;
+		let mutationObserver: MutationObserver | null = null;
+		let resizeObserver: ResizeObserver | null = null;
+		let resizeFrame = 0;
+
+		scroller.setContentElement(content);
 
 		effect(() => {
 			const spacerClass = this.spacerClassName();
-			if (!this._spacer) {
+			if (!spacer) {
 				return;
 			}
 			if (spacerClass) {
-				this._renderer.setAttribute(this._spacer, 'class', spacerClass);
+				renderer.setAttribute(spacer, 'class', spacerClass);
 			} else {
-				this._renderer.removeAttribute(this._spacer, 'class');
+				renderer.removeAttribute(spacer, 'class');
 			}
 		});
 
 		// Create the spacer after hydration. Appending it in the constructor puts an
 		// extra node in SSR HTML and breaks Angular hydration (NG0500).
 		afterNextRender(() => {
-			const spacer = this._renderer.createElement('div') as HTMLDivElement;
-			this._renderer.setAttribute(spacer, 'aria-hidden', 'true');
-			this._renderer.setAttribute(spacer, 'data-message-scroller-spacer', '');
-			this._renderer.setAttribute(spacer, 'hidden', '');
-			this._renderer.appendChild(content, spacer);
-			this._spacer = spacer;
-			this._scroller.setSpacerElement(spacer);
+			const nextSpacer = renderer.createElement('div') as HTMLDivElement;
+			renderer.setAttribute(nextSpacer, 'aria-hidden', 'true');
+			renderer.setAttribute(nextSpacer, 'data-message-scroller-spacer', '');
+			renderer.setAttribute(nextSpacer, 'hidden', '');
+			renderer.appendChild(content, nextSpacer);
+			spacer = nextSpacer;
+			scroller.setSpacerElement(nextSpacer);
 
 			const spacerClass = this.spacerClassName();
 			if (spacerClass) {
-				this._renderer.setAttribute(spacer, 'class', spacerClass);
+				renderer.setAttribute(nextSpacer, 'class', spacerClass);
 			}
 
-			this._scroller.handleContentChange();
+			scroller.handleContentChange();
 
 			if (typeof MutationObserver !== 'undefined') {
-				this._mutationObserver = new MutationObserver(() => {
-					this._scroller.handleContentChange();
+				mutationObserver = new MutationObserver(() => {
+					scroller.handleContentChange();
 				});
-				this._mutationObserver.observe(content, { childList: true });
+				mutationObserver.observe(content, { childList: true });
 			}
 
 			if (typeof ResizeObserver !== 'undefined') {
 				// Coalesce into rAF: handleResize mutates the spacer inside this observed
 				// element, and resizing an observed element during delivery fires
 				// "ResizeObserver loop completed with undelivered notifications".
-				this._resizeObserver = new ResizeObserver(() => {
-					window.cancelAnimationFrame(this._resizeFrame);
-					this._resizeFrame = window.requestAnimationFrame(() => this._scroller.handleResize());
+				resizeObserver = new ResizeObserver(() => {
+					window.cancelAnimationFrame(resizeFrame);
+					resizeFrame = window.requestAnimationFrame(() => scroller.handleResize());
 				});
-				this._resizeObserver.observe(content);
+				resizeObserver.observe(content);
 			}
 		});
 
-		this._destroyRef.onDestroy(() => {
+		inject(DestroyRef).onDestroy(() => {
 			if (typeof window !== 'undefined') {
-				window.cancelAnimationFrame(this._resizeFrame);
+				window.cancelAnimationFrame(resizeFrame);
 			}
-			this._mutationObserver?.disconnect();
-			this._mutationObserver = null;
-			this._resizeObserver?.disconnect();
-			this._resizeObserver = null;
+			mutationObserver?.disconnect();
+			mutationObserver = null;
+			resizeObserver?.disconnect();
+			resizeObserver = null;
 
-			const spacer = this._spacer;
 			if (spacer) {
-				this._renderer.removeChild(content, spacer);
-				this._spacer = null;
-				this._scroller.clearSpacerElement(spacer);
+				renderer.removeChild(content, spacer);
+				scroller.clearSpacerElement(spacer);
+				spacer = null;
 			}
 
-			this._scroller.clearContentElement(content);
+			scroller.clearContentElement(content);
 		});
 	}
 }

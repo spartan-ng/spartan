@@ -79,7 +79,7 @@ export class MessageScrollerTranscriptOutline {
 						<p hlmCardDescription>Track the current anchored turn.</p>
 					</hlm-card-header>
 
-					<div hlmCardContent class="flex-1 overflow-hidden p-0">
+					<div hlmCardContent class="min-h-0 flex-1 overflow-hidden p-0">
 						<div hlmMessageScroller>
 							<div hlmMessageScrollerViewport>
 								<div hlmMessageScrollerContent class="p-(--card-spacing)">

@@ -70,7 +70,7 @@ import { MAIN_CHAT_SCRIPT, ScriptedChatRunner } from './message-scroller.shared'
 					</div>
 				</hlm-card-header>
 
-				<div hlmCardContent class="flex-1 overflow-hidden p-0">
+				<div hlmCardContent class="min-h-0 flex-1 overflow-hidden p-0">
 					@if (_chat.messages().length === 0) {
 						<hlm-empty class="h-full">
 							<hlm-empty-header>

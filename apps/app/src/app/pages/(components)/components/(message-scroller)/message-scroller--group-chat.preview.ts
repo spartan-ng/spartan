@@ -110,48 +110,46 @@ const rockyMessage: GroupChatItem = {
 					</hlm-card-header>
 
 					<div hlmCardContent class="min-h-0 flex-1 overflow-hidden p-0">
-						<div hlmMessageScrollerProvider>
-							@for (key of [_demoKey()]; track key) {
-								<div hlmMessageScroller>
-									<div hlmMessageScrollerViewport>
-										<div hlmMessageScrollerContent class="p-(--card-spacing)">
-											@for (item of _items(); track item.id) {
-												@if (item.type === 'message') {
-													<div hlmMessageScrollerItem [messageId]="item.id" [scrollAnchor]="item.scrollAnchor ?? false">
-														<div hlmMessage [align]="item.sender === _currentUser ? 'end' : 'start'">
-															<div hlmMessageContent>
-																@if (item.sender !== _currentUser) {
-																	<div hlmMessageHeader>{{ item.sender }}</div>
-																}
-																<div
-																	hlmBubble
-																	[variant]="
-																		item.sender === _currentUser
-																			? 'muted'
-																			: item.role === 'assistant'
-																				? 'ghost'
-																				: 'tinted'
-																	"
-																>
-																	<div hlmBubbleContent>{{ item.text }}</div>
-																</div>
+						@for (key of [_demoKey()]; track key) {
+							<div hlmMessageScroller>
+								<div hlmMessageScrollerViewport>
+									<div hlmMessageScrollerContent class="p-(--card-spacing)">
+										@for (item of _items(); track item.id) {
+											@if (item.type === 'message') {
+												<div hlmMessageScrollerItem [messageId]="item.id" [scrollAnchor]="item.scrollAnchor ?? false">
+													<div hlmMessage [align]="item.sender === _currentUser ? 'end' : 'start'">
+														<div hlmMessageContent>
+															@if (item.sender !== _currentUser) {
+																<div hlmMessageHeader>{{ item.sender }}</div>
+															}
+															<div
+																hlmBubble
+																[variant]="
+																	item.sender === _currentUser
+																		? 'muted'
+																		: item.role === 'assistant'
+																			? 'ghost'
+																			: 'tinted'
+																"
+															>
+																<div hlmBubbleContent>{{ item.text }}</div>
 															</div>
 														</div>
 													</div>
-												} @else {
-													<div hlmMessageScrollerItem [messageId]="item.id" [scrollAnchor]="item.scrollAnchor ?? false">
-														<div hlmMarker variant="separator">
-															<span hlmMarkerContent>{{ item.text }}</span>
-														</div>
+												</div>
+											} @else {
+												<div hlmMessageScrollerItem [messageId]="item.id" [scrollAnchor]="item.scrollAnchor ?? false">
+													<div hlmMarker variant="separator">
+														<span hlmMarkerContent>{{ item.text }}</span>
 													</div>
-												}
+												</div>
 											}
-										</div>
+										}
 									</div>
-									<button hlmMessageScrollerButton></button>
 								</div>
-							}
-						</div>
+								<button hlmMessageScrollerButton></button>
+							</div>
+						}
 					</div>
 
 					<hlm-card-footer class="flex flex-col items-center gap-2 border-t">

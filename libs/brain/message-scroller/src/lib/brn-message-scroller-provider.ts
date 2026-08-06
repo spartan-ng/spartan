@@ -15,9 +15,6 @@ import {
 	providers: [BrnMessageScroller, provideBrnMessageScroller(BrnMessageScroller)],
 })
 export class BrnMessageScrollerProvider {
-	private readonly _scroller = inject(BrnMessageScroller);
-	private readonly _destroyRef = inject(DestroyRef);
-
 	/**
 	 * Follow new content at the bottom while the viewport is already at the end.
 	 * @default false
@@ -55,8 +52,10 @@ export class BrnMessageScrollerProvider {
 	});
 
 	constructor() {
+		const scroller = inject(BrnMessageScroller);
+
 		effect(() => {
-			this._scroller.configure({
+			scroller.configure({
 				autoScroll: this.autoScroll(),
 				defaultScrollPosition: this.defaultScrollPosition(),
 				scrollEdgeThreshold: this.scrollEdgeThreshold(),
@@ -65,6 +64,6 @@ export class BrnMessageScrollerProvider {
 			});
 		});
 
-		this._destroyRef.onDestroy(() => this._scroller.destroy());
+		inject(DestroyRef).onDestroy(() => scroller.destroy());
 	}
 }

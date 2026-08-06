@@ -63,6 +63,7 @@ What kind of change does this PR introduce?
 - [ ] marker
 - [ ] menubar
 - [ ] message
+- [ ] message-scroller
 - [ ] native-select
 - [ ] navigation-menu
 - [ ] pagination

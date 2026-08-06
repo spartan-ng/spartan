@@ -5789,6 +5789,260 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
       },
     },
   },
+  "message-scroller": {
+    "brain": {
+      "BrnMessageScrollerButton": {
+        "exportAs": "brnMessageScrollerButton",
+        "inputs": [
+          {
+            "name": "direction",
+            "required": false,
+            "type": "BrnMessageScrollerButtonDirection",
+          },
+          {
+            "name": "behavior",
+            "required": false,
+            "type": "ScrollBehavior",
+          },
+          {
+            "name": "aria-label",
+            "required": false,
+            "type": "string | undefined",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "button[brnMessageScrollerButton]",
+      },
+      "BrnMessageScrollerContent": {
+        "exportAs": "brnMessageScrollerContent",
+        "inputs": [
+          {
+            "name": "aria-relevant",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "spacerClassName",
+            "required": false,
+            "type": "string | undefined",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnMessageScrollerContent],brn-message-scroller-content",
+      },
+      "BrnMessageScrollerItem": {
+        "exportAs": "brnMessageScrollerItem",
+        "inputs": [
+          {
+            "name": "messageId",
+            "required": false,
+            "type": "string | undefined",
+          },
+          {
+            "name": "scrollAnchor",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnMessageScrollerItem],brn-message-scroller-item",
+      },
+      "BrnMessageScrollerProvider": {
+        "exportAs": "brnMessageScrollerProvider",
+        "inputs": [
+          {
+            "name": "autoScroll",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "defaultScrollPosition",
+            "required": false,
+            "type": "BrnMessageScrollerDefaultScrollPosition",
+          },
+          {
+            "name": "scrollEdgeThreshold",
+            "required": false,
+            "type": "number",
+          },
+          {
+            "name": "scrollPreviousItemPeek",
+            "required": false,
+            "type": "number",
+          },
+          {
+            "name": "scrollMargin",
+            "required": false,
+            "type": "number",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnMessageScrollerProvider]",
+      },
+      "BrnMessageScrollerRoot": {
+        "exportAs": "brnMessageScroller",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnMessageScroller],brn-message-scroller",
+      },
+      "BrnMessageScrollerViewport": {
+        "exportAs": "brnMessageScrollerViewport",
+        "inputs": [
+          {
+            "name": "preserveScrollOnPrepend",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "aria-label",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "tabindex",
+            "required": false,
+            "type": "number",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnMessageScrollerViewport],brn-message-scroller-viewport",
+      },
+    },
+    "helm": {
+      "HlmMessageScroller": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmMessageScroller],hlm-message-scroller",
+      },
+      "HlmMessageScrollerButton": {
+        "inputs": [
+          {
+            "name": "variant",
+            "required": false,
+            "type": "ButtonVariants['variant']",
+          },
+          {
+            "name": "size",
+            "required": false,
+            "type": "ButtonVariants['size']",
+          },
+          {
+            "name": "direction",
+            "required": false,
+            "type": "BrnMessageScrollerButtonDirection",
+          },
+          {
+            "name": "behavior",
+            "required": false,
+            "type": "ScrollBehavior",
+          },
+          {
+            "name": "aria-label",
+            "required": false,
+            "type": "string | undefined",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "button[hlmMessageScrollerButton]",
+      },
+      "HlmMessageScrollerContent": {
+        "inputs": [
+          {
+            "name": "aria-relevant",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "spacerClassName",
+            "required": false,
+            "type": "string | undefined",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmMessageScrollerContent],hlm-message-scroller-content",
+      },
+      "HlmMessageScrollerItem": {
+        "inputs": [
+          {
+            "name": "messageId",
+            "required": false,
+            "type": "string | undefined",
+          },
+          {
+            "name": "scrollAnchor",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmMessageScrollerItem],hlm-message-scroller-item",
+      },
+      "HlmMessageScrollerProvider": {
+        "inputs": [
+          {
+            "name": "autoScroll",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "defaultScrollPosition",
+            "required": false,
+            "type": "BrnMessageScrollerDefaultScrollPosition",
+          },
+          {
+            "name": "scrollEdgeThreshold",
+            "required": false,
+            "type": "number",
+          },
+          {
+            "name": "scrollPreviousItemPeek",
+            "required": false,
+            "type": "number",
+          },
+          {
+            "name": "scrollMargin",
+            "required": false,
+            "type": "number",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmMessageScrollerProvider]",
+      },
+      "HlmMessageScrollerViewport": {
+        "inputs": [
+          {
+            "name": "preserveScrollOnPrepend",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "aria-label",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "tabindex",
+            "required": false,
+            "type": "number",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmMessageScrollerViewport],hlm-message-scroller-viewport",
+      },
+    },
+  },
   "native-select": {
     "helm": {
       "HlmNativeSelect": {

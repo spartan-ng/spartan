@@ -1,0 +1,45 @@
+import { afterNextRender, ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { lucideArrowDown } from '@ng-icons/lucide';
+import { BrnMessageScrollerButton } from '@spartan-ng/brain/message-scroller';
+import { HlmButton, provideBrnButtonConfig } from '<%- importAlias %>/button';
+
+@Component({
+	// eslint-disable-next-line @angular-eslint/component-selector -- attribute selector on native button
+	selector: 'button[hlmMessageScrollerButton]',
+	imports: [NgIcon],
+	providers: [provideIcons({ lucideArrowDown }), provideBrnButtonConfig({ variant: 'secondary', size: 'icon-sm' })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	hostDirectives: [
+		{ directive: HlmButton, inputs: ['variant', 'size'] },
+		{
+			directive: BrnMessageScrollerButton,
+			inputs: ['direction', 'behavior', 'aria-label'],
+		},
+	],
+	host: {
+		'data-slot': 'message-scroller-button',
+		'[attr.data-direction]': '_brn.direction()',
+		// Keep the control painted hidden until after the first frame so remounts
+		// (reset/demoKey) cannot flash the visible HlmButton before scroller styles win.
+		'[style.opacity]': '_pending() ? "0" : null',
+		'[style.transition]': '_pending() ? "none" : null',
+	},
+	template: `
+		<ng-icon name="lucideArrowDown" />
+		<span class="sr-only">{{ _brn.resolvedAriaLabel() }}</span>
+	`,
+})
+export class HlmMessageScrollerButton {
+	private readonly _button = inject(HlmButton);
+	protected readonly _brn = inject(BrnMessageScrollerButton);
+	protected readonly _pending = signal(true);
+
+	constructor() {
+		this._button.setClass('spartan-message-scroller-button');
+
+		afterNextRender(() => {
+			requestAnimationFrame(() => this._pending.set(false));
+		});
+	}
+}

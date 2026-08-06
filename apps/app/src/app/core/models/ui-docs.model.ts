@@ -50,6 +50,7 @@ export type Primitives =
 	| 'marker'
 	| 'menubar'
 	| 'message'
+	| 'message-scroller'
 	| 'pagination'
 	| 'popover'
 	| 'progress'

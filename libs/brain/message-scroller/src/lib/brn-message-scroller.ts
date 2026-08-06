@@ -148,8 +148,7 @@ export class BrnMessageScroller {
 		// IntersectionObserver rootMargin is fixed at construction. Rebuild when the
 		// reading-line inputs change so visibleMessageIds stay aligned with geometry.
 		const visibilityMarginsChanged =
-			this._scrollMargin !== previousScrollMargin ||
-			this._scrollPreviousItemPeek !== previousScrollPreviousItemPeek;
+			this._scrollMargin !== previousScrollMargin || this._scrollPreviousItemPeek !== previousScrollPreviousItemPeek;
 		if (this._visibilityTracking && visibilityMarginsChanged) {
 			this._visibilityObserver?.disconnect();
 			this._visibilityObserver = null;

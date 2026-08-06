@@ -116,6 +116,8 @@ export class BrnMessageScroller {
 
 		const previousAutoScroll = this._autoScroll;
 		const previousDefaultScrollPosition = this._defaultScrollPosition;
+		const previousScrollMargin = this._scrollMargin;
+		const previousScrollPreviousItemPeek = this._scrollPreviousItemPeek;
 
 		if (props.autoScroll !== undefined) {
 			this._autoScroll = props.autoScroll;
@@ -140,6 +142,17 @@ export class BrnMessageScroller {
 		if (previousDefaultScrollPosition !== this._defaultScrollPosition) {
 			this._defaultScrollPositionApplied = false;
 			this.applyDefaultScrollPosition();
+		}
+
+		// IntersectionObserver rootMargin is fixed at construction. Rebuild when the
+		// reading-line inputs change so visibleMessageIds stay aligned with geometry.
+		const visibilityMarginsChanged =
+			this._scrollMargin !== previousScrollMargin ||
+			this._scrollPreviousItemPeek !== previousScrollPreviousItemPeek;
+		if (this._visibilityTracking && visibilityMarginsChanged) {
+			this._visibilityObserver?.disconnect();
+			this._visibilityObserver = null;
+			this.observeVisibility();
 		}
 
 		if (props.autoScroll !== undefined && props.autoScroll !== previousAutoScroll) {

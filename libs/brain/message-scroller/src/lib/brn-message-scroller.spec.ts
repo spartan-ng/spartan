@@ -289,6 +289,47 @@ describe('BrnMessageScroller', () => {
 		expect(layout.getScrollTop()).toBe(before);
 	});
 
+	it('rebuilds the visibility observer when scrollMargin or peek changes', async () => {
+		const rootMargins: string[] = [];
+		const OriginalIO = window.IntersectionObserver;
+
+		class FakeIntersectionObserver {
+			constructor(_cb: IntersectionObserverCallback, options?: IntersectionObserverInit) {
+				rootMargins.push(options?.rootMargin ?? '');
+			}
+			observe(): void {
+				/* noop */
+			}
+			unobserve(): void {
+				/* noop */
+			}
+			disconnect(): void {
+				/* noop */
+			}
+			takeRecords(): IntersectionObserverEntry[] {
+				return [];
+			}
+			readonly root = null;
+			readonly rootMargin = '';
+			readonly thresholds: readonly number[] = [];
+		}
+
+		window.IntersectionObserver = FakeIntersectionObserver as unknown as typeof IntersectionObserver;
+
+		try {
+			const { host } = await setup({ autoScroll: false, contentHeight: 500 });
+
+			host.scroller.observeVisibility();
+			expect(rootMargins.at(-1)).toBe('-64px 0px 0px 0px'); // default peek 64 + margin 0
+
+			host.scroller.configure({ scrollMargin: 24, scrollPreviousItemPeek: 80 });
+			expect(rootMargins).toHaveLength(2);
+			expect(rootMargins.at(-1)).toBe('-104px 0px 0px 0px'); // -(24 + 80)
+		} finally {
+			window.IntersectionObserver = OriginalIO;
+		}
+	});
+
 	it('preserveScrollOnPrepend restores scroll when earlier rows are inserted', async () => {
 		const { host, content, viewport } = await setup({
 			autoScroll: false,

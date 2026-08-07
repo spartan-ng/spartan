@@ -1,0 +1,22 @@
+import { Directive } from '@angular/core';
+import { BrnQuestionnaireDescription } from '@spartan-ng/brain/questionnaire';
+import { classes } from '<%- importAlias %>/utils';
+
+@Directive({
+	selector: '[hlmQuestionnaireDescription]',
+	exportAs: 'hlmQuestionnaireDescription',
+	hostDirectives: [
+		{
+			directive: BrnQuestionnaireDescription,
+			inputs: ['id'],
+		},
+	],
+	host: {
+		'data-slot': 'questionnaire-description',
+	},
+})
+export class HlmQuestionnaireDescription {
+	constructor() {
+		classes(() => 'spartan-questionnaire-description');
+	}
+}

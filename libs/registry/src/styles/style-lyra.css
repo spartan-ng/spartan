@@ -959,6 +959,77 @@
 		@apply text-muted-foreground ms-auto text-xs tabular-nums;
 	}
 
+	/* MARK: Questionnaire */
+	.spartan-questionnaire {
+		@apply flex w-full min-w-0 flex-col gap-4;
+	}
+
+	.spartan-questionnaire-progress {
+		@apply text-muted-foreground min-h-[1lh] w-fit min-w-[14ch] text-xs font-medium tabular-nums;
+	}
+
+	.spartan-questionnaire-item {
+		@apply flex min-w-0 flex-col gap-4 border-0 p-0 outline-none;
+	}
+
+	.spartan-questionnaire-title {
+		@apply text-sm font-medium text-pretty [&:not(:has(~[data-slot=questionnaire-description]))]:mb-4;
+	}
+
+	.spartan-questionnaire-description {
+		@apply text-muted-foreground text-xs/relaxed text-pretty;
+	}
+
+	.spartan-questionnaire-choices {
+		@apply grid min-w-0 gap-2;
+	}
+
+	.spartan-questionnaire-choice {
+		@apply border-input hover:bg-muted/50 has-[>input:focus-visible]:border-ring has-[>input:focus-visible]:ring-ring/50 data-invalid:border-destructive data-checked:border-foreground/30 data-checked:bg-muted relative flex min-h-11 cursor-pointer items-start gap-2.5 rounded-none border bg-transparent px-3 py-2.5 text-start text-xs transition-colors outline-none select-none has-[>input:focus-visible]:ring-1 data-disabled:pointer-events-none data-disabled:cursor-not-allowed data-disabled:opacity-50;
+	}
+
+	.spartan-questionnaire-choice-input {
+		@apply absolute inset-0 z-10 size-full cursor-pointer opacity-0;
+	}
+
+	.spartan-questionnaire-choice-indicator {
+		@apply border-input group-data-checked/questionnaire-choice:border-primary group-data-checked/questionnaire-choice:bg-primary group-data-checked/questionnaire-choice:text-primary-foreground pointer-events-none relative flex size-4 shrink-0 translate-y-[--spacing(0.45)] items-center justify-center rounded-none border group-has-data-[slot=questionnaire-choice-description]/questionnaire-choice:translate-y-0.5 group-data-[type=radio]/questionnaire-choice:rounded-full;
+	}
+
+	.spartan-questionnaire-choice-indicator-dot {
+		@apply bg-primary-foreground size-2 rounded-full;
+	}
+
+	.spartan-questionnaire-choice-indicator-check {
+		@apply size-3.5;
+	}
+
+	.spartan-questionnaire-choice-label,
+	.spartan-questionnaire-choice-content {
+		@apply flex min-w-0 flex-1 flex-col gap-0.5 leading-snug;
+	}
+
+	.spartan-questionnaire-choice-description {
+		@apply text-muted-foreground;
+	}
+
+	.spartan-questionnaire-choice-shortcut,
+	.spartan-questionnaire-shortcut {
+		@apply border-input bg-background text-muted-foreground pointer-events-none ms-auto inline-flex size-4 shrink-0 translate-y-[--spacing(0.45)] items-center justify-center rounded-none border font-mono text-[0.625rem] leading-none font-medium group-has-data-[slot=questionnaire-choice-description]/questionnaire-choice:translate-y-0.5;
+	}
+
+	.spartan-questionnaire-input {
+		@apply border-input focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 disabled:bg-input/50 dark:bg-input/30 dark:disabled:bg-input/80 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 selection:bg-primary selection:text-primary-foreground placeholder:text-muted-foreground h-8 min-h-11 w-full min-w-0 rounded-none border bg-transparent px-2.5 py-1 text-xs transition-[color,box-shadow,background-color] outline-none focus-visible:ring-1 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:ring-1 sm:min-h-0 md:text-xs;
+	}
+
+	.spartan-questionnaire-error {
+		@apply text-destructive mt-2 text-xs;
+	}
+
+	.spartan-questionnaire-actions {
+		@apply grid min-h-11 w-full grid-cols-[minmax(0,1fr)_auto_auto] items-center gap-1.5 sm:min-h-8;
+	}
+
 	/* MARK: Radio Group */
 	.spartan-radio-group {
 		@apply grid gap-2;

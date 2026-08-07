@@ -150,7 +150,7 @@ export const routeMeta: RouteMeta = {
 			<spartan-ui-api-docs docType="helm" />
 
 			<spartan-page-bottom-nav>
-				<spartan-page-bottom-nav-link href="radio-group" label="Radio Group" />
+				<spartan-page-bottom-nav-link href="questionnaire" label="Questionnaire" />
 				<spartan-page-bottom-nav-link direction="previous" href="popover" label="Popover" />
 			</spartan-page-bottom-nav>
 		</section>

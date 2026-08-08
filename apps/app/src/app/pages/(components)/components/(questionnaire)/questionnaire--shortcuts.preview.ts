@@ -68,7 +68,7 @@ type ShortcutSelectValue = 'none' | 'letters' | 'numbers';
 export class QuestionnaireShortcutsPreview {
 	private readonly _form = viewChild<ElementRef<HTMLFormElement>>('questionnaireForm');
 
-	protected readonly items: readonly BrnQuestionnaireItemDefinition[] = [
+	public readonly items: readonly BrnQuestionnaireItemDefinition[] = [
 		{
 			name: 'action',
 			required: true,
@@ -76,14 +76,14 @@ export class QuestionnaireShortcutsPreview {
 		},
 	];
 
-	protected readonly shortcutOptions: readonly { value: ShortcutSelectValue; label: string }[] = [
+	public readonly shortcutOptions: readonly { value: ShortcutSelectValue; label: string }[] = [
 		{ value: 'none', label: 'No shortcuts' },
 		{ value: 'letters', label: 'Letters' },
 		{ value: 'numbers', label: 'Numbers' },
 	];
 
-	protected readonly shortcuts = signal<QuestionnaireShortcutMode>('letters');
-	protected readonly shortcutsSelectValue = computed<ShortcutSelectValue>(() => this.shortcuts() ?? 'none');
+	public readonly shortcuts = signal<QuestionnaireShortcutMode>('letters');
+	public readonly shortcutsSelectValue = computed<ShortcutSelectValue>(() => this.shortcuts() ?? 'none');
 
 	protected readonly shortcutLabel = (value: ShortcutSelectValue) =>
 		this.shortcutOptions.find((option) => option.value === value)?.label ?? '';

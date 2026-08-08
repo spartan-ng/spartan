@@ -37,7 +37,7 @@ import { formValue } from './questionnaire.shared';
 	`,
 })
 export class QuestionnaireFreeformPreview {
-	protected readonly items: readonly BrnQuestionnaireItemDefinition[] = [
+	public readonly items: readonly BrnQuestionnaireItemDefinition[] = [
 		{
 			name: 'approach',
 			required: true,

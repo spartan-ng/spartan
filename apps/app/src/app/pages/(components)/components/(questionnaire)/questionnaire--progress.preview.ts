@@ -92,7 +92,7 @@ export class QuestionnaireCheckpointProgress {
 	`,
 })
 export class QuestionnaireProgressPreview {
-	protected readonly items: readonly BrnQuestionnaireItemDefinition[] = [
+	public readonly items: readonly BrnQuestionnaireItemDefinition[] = [
 		{ name: 'scope', required: true },
 		{ name: 'strategy', required: true },
 		{ name: 'tests', required: true },

@@ -68,14 +68,14 @@ const itemLabels: Record<string, string> = {
 	`,
 })
 export class QuestionnaireControlledPreview {
-	protected readonly items: readonly BrnQuestionnaireItemDefinition[] = [
+	public readonly items: readonly BrnQuestionnaireItemDefinition[] = [
 		{ name: 'scope', required: true },
 		{ name: 'checks', required: true },
 		{ name: 'output', required: true },
 	];
 
-	protected readonly item = signal('scope');
-	protected readonly currentLabel = computed(() => itemLabels[this.item()] ?? this.item());
+	public readonly item = signal('scope');
+	public readonly currentLabel = computed(() => itemLabels[this.item()] ?? this.item());
 
 	protected onSubmit(event: Event): void {
 		event.preventDefault();

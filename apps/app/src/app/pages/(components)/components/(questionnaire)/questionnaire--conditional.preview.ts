@@ -74,9 +74,9 @@ import { formValue } from './questionnaire.shared';
 	`,
 })
 export class QuestionnaireConditionalPreview {
-	protected readonly runtime = signal('local');
+	public readonly runtime = signal('local');
 
-	protected readonly items = computed(() => [
+	public readonly items = computed(() => [
 		{ name: 'runtime', required: true },
 		{
 			name: 'environment',

@@ -33,7 +33,7 @@ import { formValues } from './questionnaire.shared';
 	`,
 })
 export class QuestionnaireMultiplePreview {
-	protected readonly items: readonly BrnQuestionnaireItemDefinition[] = [
+	public readonly items: readonly BrnQuestionnaireItemDefinition[] = [
 		{
 			name: 'context',
 			required: true,

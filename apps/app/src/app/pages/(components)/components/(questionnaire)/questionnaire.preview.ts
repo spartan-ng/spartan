@@ -77,7 +77,7 @@ import { formValue, formValues } from './questionnaire.shared';
 	`,
 })
 export class QuestionnairePreview {
-	protected readonly items: readonly BrnQuestionnaireItemDefinition[] = [
+	public readonly items: readonly BrnQuestionnaireItemDefinition[] = [
 		{
 			name: 'direction',
 			required: true,

@@ -63,7 +63,7 @@ import { formValue, type QuestionnaireItemStatus } from './questionnaire.shared'
 	`,
 })
 export class QuestionnaireSkipPreview {
-	protected readonly items: readonly BrnQuestionnaireItemDefinition[] = [
+	public readonly items: readonly BrnQuestionnaireItemDefinition[] = [
 		{ name: 'task', required: true },
 		{ name: 'constraints' },
 		{ name: 'review', required: true },

@@ -56,19 +56,19 @@ type ItemName = 'permission' | 'verification';
 	`,
 })
 export class QuestionnaireNavigationStatePreview {
-	protected readonly items: readonly BrnQuestionnaireItemDefinition[] = [
+	public readonly items: readonly BrnQuestionnaireItemDefinition[] = [
 		{ name: 'permission', required: true },
 		{ name: 'verification', required: true },
 	];
 
-	protected readonly item = signal<ItemName>('permission');
+	public readonly item = signal<ItemName>('permission');
 	private readonly _statuses = signal<Record<ItemName, QuestionnaireItemStatus>>({
 		permission: 'unanswered',
 		verification: 'unanswered',
 	});
 
-	protected readonly activeStatus = computed(() => this._statuses()[this.item()]);
-	protected readonly unanswered = computed(() => this.activeStatus() === 'unanswered');
+	public readonly activeStatus = computed(() => this._statuses()[this.item()]);
+	public readonly unanswered = computed(() => this.activeStatus() === 'unanswered');
 
 	protected setStatus(name: ItemName, status: QuestionnaireItemStatus): void {
 		this._statuses.update((current) => ({ ...current, [name]: status }));

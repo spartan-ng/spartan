@@ -66,13 +66,13 @@ import { formValue, formValues } from './questionnaire.shared';
 	`,
 })
 export class QuestionnaireResumePreview {
-	protected readonly items: readonly BrnQuestionnaireItemDefinition[] = [
+	public readonly items: readonly BrnQuestionnaireItemDefinition[] = [
 		{ name: 'change', required: true },
 		{ name: 'verification', required: true },
 		{ name: 'notes' },
 	];
 
-	protected readonly noteDefault = 'Keep the existing public API stable.';
+	public readonly noteDefault = 'Keep the existing public API stable.';
 
 	protected onReset(): void {
 		toast('Saved answers restored');

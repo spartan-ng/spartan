@@ -61,7 +61,7 @@ const itemClassName =
 	`,
 })
 export class QuestionnaireAnimatedPreview {
-	protected readonly items: readonly BrnQuestionnaireItemDefinition[] = [
+	public readonly items: readonly BrnQuestionnaireItemDefinition[] = [
 		{ name: 'task', required: true },
 		{ name: 'review', required: true },
 		{ name: 'delivery', required: true },

@@ -107,9 +107,9 @@ export class QuestionnaireValidationProgress {
 	`,
 })
 export class QuestionnaireValidationPreview {
-	protected readonly items = items;
-	protected readonly item = signal('detail');
-	protected readonly errors = signal<QuestionnaireErrors>({});
+	public readonly items = items;
+	public readonly item = signal('detail');
+	public readonly errors = signal<QuestionnaireErrors>({});
 
 	protected clearError(name: QuestionnaireItemName): void {
 		this.errors.update((currentErrors) => {

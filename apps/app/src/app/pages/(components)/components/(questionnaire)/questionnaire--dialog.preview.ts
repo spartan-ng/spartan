@@ -68,7 +68,7 @@ import { formValue } from './questionnaire.shared';
 export class QuestionnaireDialogPreview {
 	private readonly _dialog = viewChild(BrnDialog);
 
-	protected readonly items: readonly BrnQuestionnaireItemDefinition[] = [
+	public readonly items: readonly BrnQuestionnaireItemDefinition[] = [
 		{ name: 'scope', required: true },
 		{ name: 'tests', required: true },
 	];

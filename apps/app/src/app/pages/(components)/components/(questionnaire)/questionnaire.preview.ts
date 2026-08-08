@@ -105,6 +105,7 @@ export class QuestionnairePreview {
 }
 
 export const defaultImports = `
+import { FormsModule } from '@angular/forms';
 import { HlmQuestionnaireImports } from '@spartan-ng/helm/questionnaire';
 `;
 

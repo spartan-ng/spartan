@@ -38,7 +38,7 @@ describe('BrnQuestionnaire', () => {
 			defaultItem="color"
 			shortcuts="letters"
 			data-testid="form"
-			(ngSubmit)="$event.preventDefault()"
+			(submit)="$event.preventDefault()"
 		>
 			<div brnQuestionnaireProgress data-testid="progress"></div>
 
@@ -353,6 +353,38 @@ describe('BrnQuestionnaire', () => {
 
 		expect(progress.getAttribute('aria-valuenow')).toBe('2');
 		expect(progress.getAttribute('aria-valuetext')).toBe('Question 2 of 3');
+	});
+
+	it('recovers when the active definition has no rendered item', async () => {
+		const view = await render(
+			`
+			<form brnQuestionnaire [items]="items" defaultItem="missing" data-testid="form">
+				<fieldset brnQuestionnaireItem name="color" required data-testid="item-color">
+					<legend brnQuestionnaireTitle>Color</legend>
+					<div brnQuestionnaireChoices>
+						<label brnQuestionnaireChoice value="red">
+							<input brnQuestionnaireChoiceInput />
+							<span brnQuestionnaireChoiceLabel>Red</span>
+						</label>
+					</div>
+				</fieldset>
+				<button type="button" brnQuestionnaireNext data-testid="next">Next</button>
+			</form>
+			`,
+			{
+				imports: [...BrnQuestionnaireImports],
+				componentProperties: {
+					items: [
+						{ name: 'missing', required: true, choices: [{ value: 'x' }] },
+						{ name: 'color', required: true, choices: [{ value: 'red' }] },
+					],
+				},
+			},
+		);
+		view.detectChanges();
+
+		expect(screen.getByTestId('item-color').hidden).toBe(false);
+		expect(screen.getByTestId('next')).not.toBeDisabled();
 	});
 
 	it('supports controlled item binding', async () => {

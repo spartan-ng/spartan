@@ -32,8 +32,7 @@ export class BrnQuestionnaireInput {
 	public readonly value = input<string | undefined>(undefined);
 	public readonly defaultValue = input<string | undefined>(undefined);
 
-	private readonly _initialDefaultFilled = hasInputValue(this.defaultValue());
-	private readonly _uncontrolledFilled = signal(this._initialDefaultFilled);
+	private readonly _uncontrolledFilled = signal(hasInputValue(this.defaultValue()));
 
 	public readonly disabled = computed(() => this._item.disabled() || this.disabledInput());
 	public readonly invalid = computed(() => this._item.invalid());
@@ -51,11 +50,9 @@ export class BrnQuestionnaireInput {
 
 	constructor() {
 		effect((onCleanup) => {
-			onCleanup(this._item.registerAnswerSelection(this._answerId, this._initialDefaultFilled));
-		});
-
-		effect(() => {
-			this._item.setAnswerDefault(this._answerId, hasInputValue(this.defaultValue()));
+			const defaultFilled = hasInputValue(this.defaultValue());
+			this._uncontrolledFilled.set(defaultFilled);
+			onCleanup(this._item.registerBoundAnswerDefault(this._answerId, defaultFilled));
 		});
 
 		effect((onCleanup) => {
@@ -75,7 +72,9 @@ export class BrnQuestionnaireInput {
 
 			if (controlledValue !== undefined) {
 				this._item.syncControlledAnswerSelection(this._answerId, hasInputValue(controlledValue));
-				this._elementRef.nativeElement.defaultValue = String(controlledValue);
+				const nextValue = String(controlledValue);
+				this._elementRef.nativeElement.defaultValue = nextValue;
+				this._elementRef.nativeElement.value = nextValue;
 				return;
 			}
 

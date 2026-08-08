@@ -29,7 +29,6 @@ export class BrnQuestionnaireChoice {
 	public readonly checkedChange = output<Event>();
 
 	private readonly _inputElement = signal<HTMLInputElement | null>(null);
-	private readonly _initialDefaultChecked = this.defaultChecked();
 
 	public readonly disabled = computed(() => this._item.disabled() || this.disabledInput());
 	public readonly invalid = computed(() => this._item.invalid());
@@ -67,11 +66,7 @@ export class BrnQuestionnaireChoice {
 
 	constructor() {
 		effect((onCleanup) => {
-			onCleanup(this._item.registerAnswerSelection(this._answerId, this._initialDefaultChecked));
-		});
-
-		effect(() => {
-			this._item.setAnswerDefault(this._answerId, this.defaultChecked());
+			onCleanup(this._item.registerBoundAnswerDefault(this._answerId, this.defaultChecked()));
 		});
 
 		effect((onCleanup) => {

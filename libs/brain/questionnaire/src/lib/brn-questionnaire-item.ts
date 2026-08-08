@@ -238,6 +238,15 @@ export class BrnQuestionnaireItem {
 		};
 	}
 
+	/**
+	 * Registers the bound default for reset and applies the initial-only selection path
+	 * in one place so cleanup cannot run before defaults are recorded.
+	 */
+	public registerBoundAnswerDefault(answerId: string, defaultSelected: boolean): () => void {
+		this.setAnswerDefault(answerId, defaultSelected);
+		return this.registerAnswerSelection(answerId, defaultSelected);
+	}
+
 	public setAnswerDefault(answerId: string, defaultSelected: boolean): void {
 		if (defaultSelected) {
 			this._defaultSelectedAnswerIds.update((ids) => (ids.includes(answerId) ? ids : [...ids, answerId]));

@@ -28,9 +28,9 @@ import {
 	providers: [provideBrnQuestionnaire(BrnQuestionnaire)],
 	host: {
 		'[attr.data-shortcuts]': 'shortcuts() ?? null',
-		// When shortcuts are enabled, keep the form focusable so letter/number keys reach
-		// the root keydown handler without requiring a nested control to be focused first.
-		'[attr.tabindex]': 'shortcuts() ? 0 : null',
+		// When shortcuts are enabled, allow programmatic focus without adding a Tab stop
+		// (keydown still bubbles from focused descendants / the focused form).
+		'[attr.tabindex]': 'shortcuts() ? -1 : null',
 		'[attr.novalidate]': 'noValidate() ? "" : null',
 		'(keydown)': 'onKeyDown($event)',
 		'(submit)': 'onSubmit($event)',
@@ -222,6 +222,17 @@ export class BrnQuestionnaire {
 				return;
 			}
 
+			// An enabled definition without a rendered item leaves navigation inert — recover.
+			if (!activeItem) {
+				const recoveryName = this.getRecoveryItemName(currentIndex);
+
+				if (recoveryName && recoveryName !== activeItemName) {
+					this.setItem(recoveryName);
+				}
+
+				return;
+			}
+
 			const pendingFocus = this._pendingFocus();
 			const activeItemChanged = this._previousActiveItemName !== activeItemName;
 			this._previousActiveItemName = activeItemName;
@@ -229,19 +240,46 @@ export class BrnQuestionnaire {
 			if (!pendingFocus || pendingFocus.name !== activeItemName) {
 				if (activeItemChanged) {
 					this._pendingFocus.set(null);
-					activeItem?.focus();
+					activeItem.focus();
 				}
 				return;
 			}
 
 			if (pendingFocus.target === 'invalid') {
-				activeItem?.focusInvalid();
+				activeItem.focusInvalid();
 			} else {
-				activeItem?.focus();
+				activeItem.focus();
 			}
 
 			this._pendingFocus.set(null);
 		});
+	}
+
+	private getRecoveryItemName(currentIndex: number): string | null {
+		const ordered = this._orderedRegistrations();
+
+		if (!ordered.length) {
+			return null;
+		}
+
+		const logicalNames = this._logicalItems().map((logicalItem) => logicalItem.name);
+		let recoveryName = ordered[0].name;
+
+		for (const registration of ordered) {
+			const registrationIndex = logicalNames.indexOf(registration.name);
+
+			if (registrationIndex < 0) {
+				continue;
+			}
+
+			recoveryName = registration.name;
+
+			if (registrationIndex >= currentIndex) {
+				break;
+			}
+		}
+
+		return recoveryName;
 	}
 
 	public registerItem(registration: BrnItemRegistration): () => void {

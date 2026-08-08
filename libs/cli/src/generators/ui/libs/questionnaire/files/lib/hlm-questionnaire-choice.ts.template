@@ -1,0 +1,79 @@
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { lucideCheck } from '@ng-icons/lucide';
+import {
+	BrnQuestionnaireChoice,
+	BrnQuestionnaireChoiceInput,
+	BrnQuestionnaireChoiceLabel,
+	BrnQuestionnaireChoiceShortcut,
+} from '@spartan-ng/brain/questionnaire';
+import { classes } from '<%- importAlias %>/utils';
+
+@Component({
+	// eslint-disable-next-line @angular-eslint/component-selector -- attribute selector on native label
+	selector: 'label[hlmQuestionnaireChoice]',
+	exportAs: 'hlmQuestionnaireChoice',
+	imports: [BrnQuestionnaireChoiceInput, BrnQuestionnaireChoiceLabel, BrnQuestionnaireChoiceShortcut, NgIcon],
+	viewProviders: [provideIcons({ lucideCheck })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	hostDirectives: [
+		{
+			directive: BrnQuestionnaireChoice,
+			inputs: ['value', 'disabled', 'defaultChecked', 'checked'],
+			outputs: ['checkedChange'],
+		},
+	],
+	host: {
+		'data-slot': 'questionnaire-choice',
+		// Mirror brain state onto the host so Tailwind group-data-* styles resolve reliably
+		// when this component wraps BrnQuestionnaireChoice via hostDirectives.
+		'[attr.data-checked]': '_choice.checked() ? "" : null',
+		'[attr.data-unchecked]': '_choice.checked() ? null : ""',
+		'[attr.data-disabled]': '_choice.disabled() ? "" : null',
+		'[attr.data-invalid]': '_choice.invalid() ? "" : null',
+		'[attr.data-type]': '_choice.type()',
+		'[attr.data-shortcut]': '_choice.shortcut()',
+	},
+	template: `
+		<input
+			brnQuestionnaireChoiceInput
+			data-slot="questionnaire-choice-input"
+			class="spartan-questionnaire-choice-input"
+		/>
+		<span aria-hidden="true" data-slot="questionnaire-choice-indicator" class="spartan-questionnaire-choice-indicator">
+			@if (_choice.checked() && _choice.type() === 'radio') {
+				<span data-slot="questionnaire-choice-indicator-dot" class="spartan-questionnaire-choice-indicator-dot"></span>
+			}
+			@if (_choice.checked() && _choice.type() === 'checkbox') {
+				<ng-icon
+					name="lucideCheck"
+					data-slot="questionnaire-choice-indicator-check"
+					class="spartan-questionnaire-choice-indicator-check"
+				/>
+			}
+		</span>
+		<span
+			brnQuestionnaireChoiceLabel
+			data-slot="questionnaire-choice-label"
+			class="spartan-questionnaire-choice-label spartan-questionnaire-choice-content"
+		>
+			<ng-content />
+		</span>
+		@if (_choice.shortcut(); as shortcut) {
+			<span
+				brnQuestionnaireChoiceShortcut
+				data-slot="questionnaire-choice-shortcut"
+				class="spartan-questionnaire-choice-shortcut spartan-questionnaire-shortcut"
+			>
+				{{ shortcut }}
+			</span>
+		}
+	`,
+})
+export class HlmQuestionnaireChoice {
+	protected readonly _choice = inject(BrnQuestionnaireChoice);
+
+	constructor() {
+		classes(() => 'spartan-questionnaire-choice group/questionnaire-choice');
+	}
+}

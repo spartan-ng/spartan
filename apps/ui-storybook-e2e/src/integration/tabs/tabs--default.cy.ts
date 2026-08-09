@@ -71,7 +71,7 @@ describe('tabs--default', () => {
 			cy.findByRole('tabpanel').should('have.attr', 'tabindex', '0');
 			cy.findByRole('heading', { name: /password/i }).should('exist');
 
-			// should wrap arround
+			// should wrap around
 			cy.realPress('ArrowRight');
 			cy.findByRole('tabpanel').should('have.attr', 'aria-labelledby', 'brn-tabs-label-account');
 			cy.findByRole('tabpanel').should('have.attr', 'tabindex', '0');

@@ -69,7 +69,7 @@ export const Default: Story = {
         <hlm-dropdown-menu-group>
           <button hlmDropdownMenuCheckbox checked>
             <hlm-dropdown-menu-checkbox-indicator />
-            Show Booksmarks Bar
+            Show Bookmarks Bar
             <hlm-dropdown-menu-shortcut>⌘⇧B</hlm-dropdown-menu-shortcut>
           </button>
           <button hlmDropdownMenuCheckbox>

@@ -4,7 +4,6 @@ import {
 	lucideAtSign,
 	lucideArrowUp,
 	lucideCheck,
-	lucideChevronDown,
 	lucideCode,
 	lucideCopy,
 	lucideGlobe,
@@ -12,10 +11,10 @@ import {
 	lucideMonitor,
 	lucidePaperclip,
 	lucidePlus,
-	lucideSearch,
-	lucideSparkles,
+	lucideX,
 } from '@ng-icons/lucide';
 import { HlmCommandImports } from '@spartan-ng/helm/command';
+import { HlmDialogImports } from '@spartan-ng/helm/dialog';
 import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
 import { HlmHoverCardImports } from '@spartan-ng/helm/hover-card';
 import { HlmInputGroup, HlmInputGroupImports } from '@spartan-ng/helm/input-group';
@@ -31,6 +30,7 @@ const meta: Meta<HlmInputGroup> = {
 			imports: [
 				HlmInputGroupImports,
 				HlmCommandImports,
+				HlmDialogImports,
 				HlmDropdownMenuImports,
 				HlmHoverCardImports,
 				NgIcon,
@@ -40,7 +40,6 @@ const meta: Meta<HlmInputGroup> = {
 					lucideAtSign,
 					lucideArrowUp,
 					lucideCheck,
-					lucideChevronDown,
 					lucideCode,
 					lucideCopy,
 					lucideGlobe,
@@ -48,8 +47,7 @@ const meta: Meta<HlmInputGroup> = {
 					lucideMonitor,
 					lucidePaperclip,
 					lucidePlus,
-					lucideSearch,
-					lucideSparkles,
+					lucideX,
 				}),
 			],
 		}),
@@ -75,10 +73,14 @@ const handlePromptKeydown = (event: KeyboardEvent) => {
 export const BasicComposer: Story = {
 	render: () => ({
 		props: (() => {
-			const selectedModel = signal('Auto');
+			const selectedModel = signal('GPT-4o');
 			const storyProps = {
 				handlePromptKeydown,
-				modelOptions: ['Auto', 'Fast', 'Thinking'],
+				modelGroups: [
+					{ name: 'OpenAI', models: ['GPT-4o', 'GPT-4o Mini'] },
+					{ name: 'Anthropic', models: ['Claude 4 Opus', 'Claude 4 Sonnet'] },
+					{ name: 'Google', models: ['Gemini 2.0 Flash'] },
+				],
 				selectedModel,
 				selectModel: (model: string) => {
 					selectedModel.set(model);
@@ -97,7 +99,7 @@ export const BasicComposer: Story = {
 						class="h-18 max-h-18 w-full min-w-0 field-sizing-fixed overflow-y-auto resize-none"
 						(keydown)="handlePromptKeydown($event)"
 					></textarea>
-					<div hlmInputGroupAddon align="block-end">
+					<div hlmInputGroupAddon align="block-end" class="gap-1 px-1.5 pb-1.5">
 						<button
 							hlmInputGroupButton
 							variant="ghost"
@@ -120,24 +122,42 @@ export const BasicComposer: Story = {
 								</button>
 							</hlm-dropdown-menu>
 						</ng-template>
-						<button hlmInputGroupButton class="rounded-full" size="sm" [hlmDropdownMenuTrigger]="modelMenu">
-							{{ selectedModel() }}
-							<ng-icon name="lucideChevronDown" />
-						</button>
-						<ng-template #modelMenu>
-							<hlm-dropdown-menu class="w-44">
-								<hlm-dropdown-menu-label class="text-muted-foreground text-xs">Mode</hlm-dropdown-menu-label>
-								<hlm-dropdown-menu-separator />
-								@for (model of modelOptions; track model) {
-									<button hlmDropdownMenuItem class="flex justify-between" (click)="selectModel(model)">
-										<span>{{ model }}</span>
-										@if (selectedModel() === model) {
-											<ng-icon name="lucideCheck" />
+						<hlm-dialog>
+							<button hlmInputGroupButton class="h-8 rounded-full px-3" size="sm" hlmDialogTrigger>
+								{{ selectedModel() }}
+							</button>
+							<hlm-dialog-content class="sm:!w-[24rem] sm:!max-w-[24rem]" [showCloseButton]="false" *hlmDialogPortal="let ctx">
+								<hlm-dialog-header class="sr-only">
+									<h3 hlmDialogTitle>Select model</h3>
+									<p hlmDialogDescription>Choose the model for this prompt.</p>
+								</hlm-dialog-header>
+								<hlm-command>
+									<div class="flex items-center gap-2">
+										<hlm-command-input class="min-w-0 flex-1" placeholder="Search models..." />
+										<button hlmInputGroupButton variant="ghost" size="icon-sm" class="shrink-0 rounded-full" (click)="ctx.close()">
+											<ng-icon name="lucideX" />
+										</button>
+									</div>
+									<hlm-command-list class="mt-3">
+										@for (group of modelGroups; track group.name) {
+											<hlm-command-group>
+												<hlm-command-group-label>{{ group.name }}</hlm-command-group-label>
+												@for (model of group.models; track model) {
+													<button hlm-command-item class="w-full" [value]="model" (click)="selectModel(model); ctx.close()">
+														<span>{{ model }}</span>
+														@if (selectedModel() === model) {
+															<hlm-command-shortcut>
+																<ng-icon name="lucideCheck" />
+															</hlm-command-shortcut>
+														}
+													</button>
+												}
+											</hlm-command-group>
 										}
-									</button>
-								}
-							</hlm-dropdown-menu>
-						</ng-template>
+									</hlm-command-list>
+								</hlm-command>
+							</hlm-dialog-content>
+						</hlm-dialog>
 						<span class="ml-auto"></span>
 						<button hlmInputGroupButton variant="default" class="rounded-full" size="icon-sm" aria-label="Submit prompt">
 							<ng-icon name="lucideArrowUp" />
@@ -151,7 +171,20 @@ export const BasicComposer: Story = {
 
 export const WithTools: Story = {
 	render: () => ({
-		props: { handlePromptKeydown },
+		props: (() => {
+			const selectedModel = signal('GPT-4o');
+			const storyProps = {
+				handlePromptKeydown,
+				modelGroups: [
+					{ name: 'OpenAI', models: ['GPT-4o', 'GPT-4o Mini'] },
+					{ name: 'Anthropic', models: ['Claude 4 Opus', 'Claude 4 Sonnet'] },
+					{ name: 'Google', models: ['Gemini 2.0 Flash'] },
+				],
+				selectedModel,
+				selectModel: (model: string) => selectedModel.set(model),
+			};
+			return storyProps;
+		})(),
 		template: `
 			<div class="w-full max-w-3xl p-4">
 				<div hlmInputGroup class="[--radius:1.2rem]">
@@ -228,11 +261,43 @@ export const WithTools: Story = {
 						class="h-18 max-h-18 w-full min-w-0 field-sizing-fixed overflow-y-auto resize-none"
 						(keydown)="handlePromptKeydown($event)"
 					></textarea>
-					<div hlmInputGroupAddon align="block-end">
-						<button hlmInputGroupButton variant="ghost" class="rounded-full" size="sm">
-							<ng-icon name="lucideSparkles" />
-							GPT-4o
-						</button>
+					<div hlmInputGroupAddon align="block-end" class="gap-1 px-1.5 pb-1.5">
+						<hlm-dialog>
+							<button hlmInputGroupButton variant="ghost" class="h-8 rounded-full px-3" size="sm" hlmDialogTrigger>
+								{{ selectedModel() }}
+							</button>
+							<hlm-dialog-content class="sm:!w-[24rem] sm:!max-w-[24rem]" [showCloseButton]="false" *hlmDialogPortal="let ctx">
+								<hlm-dialog-header class="sr-only">
+									<h3 hlmDialogTitle>Select model</h3>
+									<p hlmDialogDescription>Choose the model for this prompt.</p>
+								</hlm-dialog-header>
+								<hlm-command>
+									<div class="flex items-center gap-2">
+										<hlm-command-input class="min-w-0 flex-1" placeholder="Search models..." />
+										<button hlmInputGroupButton variant="ghost" size="icon-sm" class="shrink-0 rounded-full" (click)="ctx.close()">
+											<ng-icon name="lucideX" />
+										</button>
+									</div>
+									<hlm-command-list class="mt-3">
+										@for (group of modelGroups; track group.name) {
+											<hlm-command-group>
+												<hlm-command-group-label>{{ group.name }}</hlm-command-group-label>
+												@for (model of group.models; track model) {
+													<button hlm-command-item class="w-full" [value]="model" (click)="selectModel(model); ctx.close()">
+														<span>{{ model }}</span>
+														@if (selectedModel() === model) {
+															<hlm-command-shortcut>
+																<ng-icon name="lucideCheck" />
+															</hlm-command-shortcut>
+														}
+													</button>
+												}
+											</hlm-command-group>
+										}
+									</hlm-command-list>
+								</hlm-command>
+							</hlm-dialog-content>
+						</hlm-dialog>
 						<span class="ml-auto"></span>
 						<button hlmInputGroupButton variant="default" class="rounded-full ms-auto" size="icon-sm" aria-label="Submit prompt">
 							<ng-icon name="lucideArrowUp" />

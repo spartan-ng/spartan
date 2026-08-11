@@ -99,7 +99,7 @@ export const BasicComposer: Story = {
 						class="h-18 max-h-18 w-full min-w-0 field-sizing-fixed overflow-y-auto resize-none"
 						(keydown)="handlePromptKeydown($event)"
 					></textarea>
-					<div hlmInputGroupAddon align="block-end" class="gap-1 px-1.5 pb-1.5">
+					<div hlmInputGroupAddon align="block-end" class="gap-0.5 px-1.5 pb-1.5">
 						<button
 							hlmInputGroupButton
 							variant="ghost"

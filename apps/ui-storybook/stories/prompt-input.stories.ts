@@ -13,6 +13,7 @@ import {
 	lucidePlus,
 	lucideX,
 } from '@ng-icons/lucide';
+import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmCommandImports } from '@spartan-ng/helm/command';
 import { HlmDialogImports } from '@spartan-ng/helm/dialog';
 import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
@@ -46,7 +47,7 @@ function handlePromptKeydown(event: KeyboardEvent): void {
 
 @Component({
 	selector: 'prompt-input-basic-composer-story',
-	imports: [HlmInputGroupImports, HlmCommandImports, HlmDialogImports, HlmDropdownMenuImports, NgIcon],
+	imports: [HlmButton, HlmInputGroupImports, HlmCommandImports, HlmDialogImports, HlmDropdownMenuImports, NgIcon],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div class="w-full max-w-3xl p-4">
@@ -85,28 +86,17 @@ function handlePromptKeydown(event: KeyboardEvent): void {
 						<button hlmInputGroupButton class="h-8 rounded-full px-3" size="sm" hlmDialogTrigger>
 							{{ selectedModel() }}
 						</button>
-						<hlm-dialog-content
-							class="sm:!w-[24rem] sm:!max-w-[24rem]"
-							[showCloseButton]="false"
-							*hlmDialogPortal="let ctx"
-						>
-							<hlm-dialog-header class="sr-only">
-								<h3 hlmDialogTitle>Select model</h3>
-								<p hlmDialogDescription>Choose the model for this prompt.</p>
-							</hlm-dialog-header>
+						<hlm-dialog-content class="sm:!w-[24rem] sm:!max-w-[24rem]" [showCloseButton]="false" *hlmDialogPortal="let ctx">
 							<hlm-command>
-								<div class="flex items-center gap-2">
-									<hlm-command-input class="min-w-0 flex-1" placeholder="Search models..." />
-									<button
-										hlmInputGroupButton
-										variant="ghost"
-										size="icon-sm"
-										class="shrink-0 rounded-full"
-										(click)="ctx.close()"
-									>
+								<hlm-dialog-header class="flex-row items-center gap-2">
+									<h3 hlmDialogTitle class="sr-only">Select model</h3>
+									<p hlmDialogDescription class="sr-only">Choose the model for this prompt.</p>
+									<hlm-command-input placeholder="Search models..." class="flex-1" />
+									<button hlmBtn variant="ghost" size="icon-sm" hlmDialogClose>
+										<span class="sr-only">Close</span>
 										<ng-icon name="lucideX" />
 									</button>
-								</div>
+								</hlm-dialog-header>
 								<hlm-command-list class="mt-3">
 									@for (group of modelGroups; track group.name) {
 										<hlm-command-group>
@@ -160,7 +150,7 @@ class PromptInputBasicComposerStory {
 
 @Component({
 	selector: 'prompt-input-with-tools-story',
-	imports: [HlmInputGroupImports, HlmCommandImports, HlmDialogImports, HlmHoverCardImports, NgIcon],
+	imports: [HlmButton, HlmInputGroupImports, HlmCommandImports, HlmDialogImports, HlmHoverCardImports, NgIcon],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div class="w-full max-w-3xl p-4">
@@ -243,28 +233,17 @@ class PromptInputBasicComposerStory {
 						<button hlmInputGroupButton variant="ghost" class="h-8 rounded-full px-3" size="sm" hlmDialogTrigger>
 							{{ selectedModel() }}
 						</button>
-						<hlm-dialog-content
-							class="sm:!w-[24rem] sm:!max-w-[24rem]"
-							[showCloseButton]="false"
-							*hlmDialogPortal="let ctx"
-						>
-							<hlm-dialog-header class="sr-only">
-								<h3 hlmDialogTitle>Select model</h3>
-								<p hlmDialogDescription>Choose the model for this prompt.</p>
-							</hlm-dialog-header>
+						<hlm-dialog-content class="sm:!w-[24rem] sm:!max-w-[24rem]" [showCloseButton]="false" *hlmDialogPortal="let ctx">
 							<hlm-command>
-								<div class="flex items-center gap-2">
-									<hlm-command-input class="min-w-0 flex-1" placeholder="Search models..." />
-									<button
-										hlmInputGroupButton
-										variant="ghost"
-										size="icon-sm"
-										class="shrink-0 rounded-full"
-										(click)="ctx.close()"
-									>
+								<hlm-dialog-header class="flex-row items-center gap-2">
+									<h3 hlmDialogTitle class="sr-only">Select model</h3>
+									<p hlmDialogDescription class="sr-only">Choose the model for this prompt.</p>
+									<hlm-command-input placeholder="Search models..." class="flex-1" />
+									<button hlmBtn variant="ghost" size="icon-sm" hlmDialogClose>
+										<span class="sr-only">Close</span>
 										<ng-icon name="lucideX" />
 									</button>
-								</div>
+								</hlm-dialog-header>
 								<hlm-command-list class="mt-3">
 									@for (group of modelGroups; track group.name) {
 										<hlm-command-group>

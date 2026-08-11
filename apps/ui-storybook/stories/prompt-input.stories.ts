@@ -70,7 +70,7 @@ function handlePromptKeydown(event: KeyboardEvent): void {
 						<ng-icon name="lucidePlus" />
 					</button>
 					<ng-template #attachMenu>
-						<hlm-dropdown-menu class="w-56">
+						<hlm-dropdown-menu>
 							<button hlmDropdownMenuItem>
 								<ng-icon name="lucideImage" />
 								<span>Add photos or files</span>

@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'Progress Sans Text';
-  src: url('/fonts/progress-sans/ProgressSansText-Regular.woff2') format('woff2');
+  src: url('../public/fonts/progress-sans/ProgressSansText-Regular.woff2') format('woff2');
   font-style: normal;
   font-weight: 400;
   font-display: swap;
@@ -8,7 +8,7 @@
 
 @font-face {
   font-family: 'Progress Sans Text';
-  src: url('/fonts/progress-sans/ProgressSansText-Medium.woff2') format('woff2');
+  src: url('../public/fonts/progress-sans/ProgressSansText-Medium.woff2') format('woff2');
   font-style: normal;
   font-weight: 500;
   font-display: swap;
@@ -16,7 +16,7 @@
 
 @font-face {
   font-family: 'Progress Sans Text';
-  src: url('/fonts/progress-sans/ProgressSansText-Bold.woff2') format('woff2');
+  src: url('../public/fonts/progress-sans/ProgressSansText-Bold.woff2') format('woff2');
   font-style: normal;
   font-weight: 700;
   font-display: swap;
@@ -24,7 +24,7 @@
 
 @font-face {
   font-family: 'Progress Sans Text';
-  src: url('/fonts/progress-sans/ProgressSansText-ExtraBold.woff2') format('woff2');
+  src: url('../public/fonts/progress-sans/ProgressSansText-ExtraBold.woff2') format('woff2');
   font-style: normal;
   font-weight: 800;
   font-display: swap;

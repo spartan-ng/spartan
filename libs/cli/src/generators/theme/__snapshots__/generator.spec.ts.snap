@@ -9,6 +9,11 @@ color-scheme: light;
 
 --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 
+--chart-1: oklch(0.646 0.222 41.116);
+--chart-2: oklch(0.6 0.118 184.704);
+--chart-3: oklch(0.398 0.07 227.392);
+--chart-4: oklch(0.828 0.189 84.429);
+--chart-5: oklch(0.769 0.188 70.08);
 --radius: 0.625rem;
 --background: oklch(1 0 0);
 --foreground: oklch(0.13 0.028 261.692);
@@ -41,6 +46,11 @@ color-scheme: light;
 :root.dark {
 color-scheme: dark;
 
+--chart-1: oklch(0.488 0.243 264.376);
+--chart-2: oklch(0.696 0.17 162.48);
+--chart-3: oklch(0.769 0.188 70.08);
+--chart-4: oklch(0.627 0.265 303.9);
+--chart-5: oklch(0.645 0.246 16.439);
 --background: oklch(0.13 0.028 261.692);
 --foreground: oklch(0.985 0.002 247.839);
 --card: oklch(0.21 0.034 264.665);
@@ -88,6 +98,11 @@ color-scheme: light;
 
 --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 
+--chart-1: oklch(0.646 0.222 41.116);
+--chart-2: oklch(0.6 0.118 184.704);
+--chart-3: oklch(0.398 0.07 227.392);
+--chart-4: oklch(0.828 0.189 84.429);
+--chart-5: oklch(0.769 0.188 70.08);
 --radius: 0.625rem;
 --background: oklch(1 0 0);
 --foreground: oklch(0.145 0 0);
@@ -120,6 +135,11 @@ color-scheme: light;
 :root.dark {
 color-scheme: dark;
 
+--chart-1: oklch(0.488 0.243 264.376);
+--chart-2: oklch(0.696 0.17 162.48);
+--chart-3: oklch(0.769 0.188 70.08);
+--chart-4: oklch(0.627 0.265 303.9);
+--chart-5: oklch(0.645 0.246 16.439);
 --background: oklch(0.145 0 0);
 --foreground: oklch(0.985 0 0);
 --card: oklch(0.205 0 0);
@@ -167,6 +187,11 @@ color-scheme: light;
 
 --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 
+--chart-1: oklch(0.646 0.222 41.116);
+--chart-2: oklch(0.6 0.118 184.704);
+--chart-3: oklch(0.398 0.07 227.392);
+--chart-4: oklch(0.828 0.189 84.429);
+--chart-5: oklch(0.769 0.188 70.08);
 --radius: 0.625rem;
 --background: oklch(1 0 0);
 --foreground: oklch(0.129 0.042 264.695);
@@ -199,6 +224,11 @@ color-scheme: light;
 :root.dark {
 color-scheme: dark;
 
+--chart-1: oklch(0.488 0.243 264.376);
+--chart-2: oklch(0.696 0.17 162.48);
+--chart-3: oklch(0.769 0.188 70.08);
+--chart-4: oklch(0.627 0.265 303.9);
+--chart-5: oklch(0.645 0.246 16.439);
 --background: oklch(0.129 0.042 264.695);
 --foreground: oklch(0.984 0.003 247.858);
 --card: oklch(0.208 0.042 265.755);
@@ -246,6 +276,11 @@ color-scheme: light;
 
 --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 
+--chart-1: oklch(0.646 0.222 41.116);
+--chart-2: oklch(0.6 0.118 184.704);
+--chart-3: oklch(0.398 0.07 227.392);
+--chart-4: oklch(0.828 0.189 84.429);
+--chart-5: oklch(0.769 0.188 70.08);
 --radius: 0.625rem;
 --background: oklch(1 0 0);
 --foreground: oklch(0.147 0.004 49.25);
@@ -278,6 +313,11 @@ color-scheme: light;
 :root.dark {
 color-scheme: dark;
 
+--chart-1: oklch(0.488 0.243 264.376);
+--chart-2: oklch(0.696 0.17 162.48);
+--chart-3: oklch(0.769 0.188 70.08);
+--chart-4: oklch(0.627 0.265 303.9);
+--chart-5: oklch(0.645 0.246 16.439);
 --background: oklch(0.147 0.004 49.25);
 --foreground: oklch(0.985 0.001 106.423);
 --card: oklch(0.216 0.006 56.043);
@@ -325,6 +365,11 @@ color-scheme: light;
 
 --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 
+--chart-1: oklch(0.646 0.222 41.116);
+--chart-2: oklch(0.6 0.118 184.704);
+--chart-3: oklch(0.398 0.07 227.392);
+--chart-4: oklch(0.828 0.189 84.429);
+--chart-5: oklch(0.769 0.188 70.08);
 --radius: 0.625rem;
 --background: oklch(1 0 0);
 --foreground: oklch(0.141 0.005 285.823);
@@ -357,6 +402,11 @@ color-scheme: light;
 :root.dark {
 color-scheme: dark;
 
+--chart-1: oklch(0.488 0.243 264.376);
+--chart-2: oklch(0.696 0.17 162.48);
+--chart-3: oklch(0.769 0.188 70.08);
+--chart-4: oklch(0.627 0.265 303.9);
+--chart-5: oklch(0.645 0.246 16.439);
 --background: oklch(0.141 0.005 285.823);
 --foreground: oklch(0.985 0 0);
 --card: oklch(0.21 0.006 285.885);

@@ -40,6 +40,7 @@
     --font-weight-semibold: 500;
     --pdp-prompt-control-px: 1rem;
     --pdp-prompt-control-py: 1rem;
+    --pdp-placeholder: #9ca3af;
 
     --radius: 0.5rem;
 
@@ -144,6 +145,7 @@
 
   .style-pdp .spartan-input-group-input::placeholder,
   .style-pdp .spartan-input-group-textarea::placeholder {
+    color: var(--pdp-placeholder) !important;
     font-weight: 400 !important;
   }
 }

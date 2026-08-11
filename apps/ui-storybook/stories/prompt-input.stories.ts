@@ -1,11 +1,12 @@
 import { signal } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
+	lucideAtSign,
 	lucideArrowUp,
 	lucideCheck,
 	lucideChevronDown,
 	lucideCode,
-	lucideFileText,
+	lucideCopy,
 	lucideGlobe,
 	lucideImage,
 	lucideMonitor,
@@ -13,12 +14,11 @@ import {
 	lucidePlus,
 	lucideSearch,
 	lucideSparkles,
-	lucideX,
 } from '@ng-icons/lucide';
-import { HlmAttachmentImports } from '@spartan-ng/helm/attachment';
+import { HlmCommandImports } from '@spartan-ng/helm/command';
 import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
+import { HlmHoverCardImports } from '@spartan-ng/helm/hover-card';
 import { HlmInputGroup, HlmInputGroupImports } from '@spartan-ng/helm/input-group';
-import { HlmSeparator } from '@spartan-ng/helm/separator';
 import type { Meta, StoryObj } from '@storybook/angular';
 import { moduleMetadata } from '@storybook/angular';
 
@@ -28,14 +28,21 @@ const meta: Meta<HlmInputGroup> = {
 	tags: ['autodocs'],
 	decorators: [
 		moduleMetadata({
-			imports: [HlmInputGroupImports, HlmAttachmentImports, HlmDropdownMenuImports, HlmSeparator, NgIcon],
+			imports: [
+				HlmInputGroupImports,
+				HlmCommandImports,
+				HlmDropdownMenuImports,
+				HlmHoverCardImports,
+				NgIcon,
+			],
 			providers: [
 				provideIcons({
+					lucideAtSign,
 					lucideArrowUp,
 					lucideCheck,
 					lucideChevronDown,
 					lucideCode,
-					lucideFileText,
+					lucideCopy,
 					lucideGlobe,
 					lucideImage,
 					lucideMonitor,
@@ -43,7 +50,6 @@ const meta: Meta<HlmInputGroup> = {
 					lucidePlus,
 					lucideSearch,
 					lucideSparkles,
-					lucideX,
 				}),
 			],
 		}),
@@ -94,7 +100,7 @@ export const BasicComposer: Story = {
 					<div hlmInputGroupAddon align="block-end">
 						<button
 							hlmInputGroupButton
-							variant="outline"
+							variant="ghost"
 							class="rounded-full"
 							size="icon-sm"
 							aria-label="Add attachment"
@@ -150,98 +156,85 @@ export const WithTools: Story = {
 			<div class="w-full max-w-3xl p-4">
 				<div hlmInputGroup class="[--radius:1.2rem]">
 					<div hlmInputGroupAddon align="block-start" class="no-scrollbar overflow-y-auto">
-						<button hlmInputGroupButton variant="secondary" class="rounded-full" size="sm">
-							<ng-icon name="lucideSearch" />
-							Search
+						<hlm-hover-card>
+							<button
+								hlmInputGroupButton
+								variant="outline"
+								class="rounded-[12px]"
+								size="icon-sm"
+								hlmHoverCardTrigger
+								[showDelay]="120"
+								[hideDelay]="100"
+								[animationDelay]="0"
+							>
+								<ng-icon name="lucideAtSign" />
+							</button>
+							<hlm-hover-card-content *hlmHoverCardPortal class="w-[700px] max-w-[90vw] p-0">
+								<hlm-command class="rounded-xl border-0 text-left shadow-none">
+									<hlm-command-input placeholder="Add files, folders, docs..." />
+									<hlm-command-list>
+										<hlm-command-group>
+											<hlm-command-group-label>Added</hlm-command-group-label>
+											<button hlm-command-item value="active-tabs" class="text-left">
+												<ng-icon name="lucideGlobe" />
+												<span>Active Tabs</span>
+												<hlm-command-shortcut>
+													<ng-icon name="lucideCheck" />
+												</hlm-command-shortcut>
+											</button>
+										</hlm-command-group>
+										<hlm-command-separator />
+										<hlm-command-group>
+											<hlm-command-group-label>Other Files</hlm-command-group-label>
+											<button hlm-command-item value="prompt-input-tsx" class="items-start text-left">
+												<ng-icon name="lucideGlobe" />
+												<span class="min-w-0 flex flex-1 flex-col">
+													<span>prompt-input.tsx</span>
+													<span class="text-muted-foreground text-xs">packages/elements/src</span>
+												</span>
+											</button>
+											<button hlm-command-item value="queue-tsx-examples" class="items-start text-left">
+												<ng-icon name="lucideGlobe" />
+												<span class="min-w-0 flex flex-1 flex-col">
+													<span>queue.tsx</span>
+													<span class="text-muted-foreground text-xs">apps/test/app/examples</span>
+												</span>
+											</button>
+											<button hlm-command-item value="queue-tsx-elements" class="items-start text-left">
+												<ng-icon name="lucideGlobe" />
+												<span class="min-w-0 flex flex-1 flex-col">
+													<span>queue.tsx</span>
+													<span class="text-muted-foreground text-xs">packages/elements/src</span>
+												</span>
+											</button>
+										</hlm-command-group>
+									</hlm-command-list>
+								</hlm-command>
+							</hlm-hover-card-content>
+						</hlm-hover-card>
+						<button hlmInputGroupButton variant="outline" class="rounded-[12px]" size="sm" aria-label="Attachments">
+							<ng-icon name="lucidePaperclip" />
+							<span>1</span>
 						</button>
-						<button hlmInputGroupButton variant="secondary" class="rounded-full" size="sm">
-							<ng-icon name="lucideSparkles" />
-							Reason
-						</button>
-						<button hlmInputGroupButton variant="secondary" class="rounded-full" size="sm">
-							<ng-icon name="lucideCode" />
-							Code
+						<button hlmInputGroupButton variant="outline" class="rounded-[12px]" size="sm" aria-label="Tab count">
+							<ng-icon name="lucideCopy" />
+							<span>1 Tab</span>
 						</button>
 					</div>
 					<textarea
 						hlmInputGroupTextarea
 						rows="2"
-						placeholder="Ask, Search, or make anything..."
+						placeholder="Plan, search, build anything"
 						class="h-18 max-h-18 w-full min-w-0 field-sizing-fixed overflow-y-auto resize-none"
 						(keydown)="handlePromptKeydown($event)"
 					></textarea>
 					<div hlmInputGroupAddon align="block-end">
-						<button hlmInputGroupButton class="rounded-full" size="sm">
+						<button hlmInputGroupButton variant="ghost" class="rounded-full" size="sm">
 							<ng-icon name="lucideSparkles" />
-							Auto
+							GPT-4o
 						</button>
-						<button hlmInputGroupButton class="rounded-full" size="sm">
-							<ng-icon name="lucideGlobe" />
-							All sources
-						</button>
-						<button hlmInputGroupButton variant="outline" class="rounded-full" size="icon-sm" aria-label="Attach file">
-							<ng-icon name="lucidePaperclip" />
-						</button>
+						<span class="ml-auto"></span>
 						<button hlmInputGroupButton variant="default" class="rounded-full ms-auto" size="icon-sm" aria-label="Submit prompt">
-							<ng-icon name="lucideArrowUp" />
-						</button>
-					</div>
-				</div>
-			</div>
-		`,
-	}),
-};
-
-export const WithAttachments: Story = {
-	render: () => ({
-		props: { handlePromptKeydown },
-		template: `
-			<div class="w-full max-w-3xl p-4">
-				<div hlmInputGroup class="[--radius:1.2rem]">
-					<div hlmInputGroupAddon align="block-start" class="flex-col">
-						<div hlmAttachment size="sm">
-							<div hlmAttachmentMedia>
-								<ng-icon name="lucideFileText" />
-							</div>
-							<div hlmAttachmentContent>
-								<span hlmAttachmentTitle>dashboard-spec.md</span>
-								<span hlmAttachmentDescription>Markdown · 148 KB</span>
-							</div>
-							<div hlmAttachmentActions>
-								<button hlmAttachmentAction aria-label="Remove attachment">
-									<ng-icon name="lucideX" />
-								</button>
-							</div>
-						</div>
-						<div hlmAttachment size="sm">
-							<div hlmAttachmentMedia>
-								<ng-icon name="lucideFileText" />
-							</div>
-							<div hlmAttachmentContent>
-								<span hlmAttachmentTitle>search-ux-notes.txt</span>
-								<span hlmAttachmentDescription>Text · 19 KB</span>
-							</div>
-							<div hlmAttachmentActions>
-								<button hlmAttachmentAction aria-label="Remove attachment">
-									<ng-icon name="lucideX" />
-								</button>
-							</div>
-						</div>
-					</div>
-					<textarea
-						hlmInputGroupTextarea
-						rows="2"
-						placeholder="Summarize these files and propose next steps..."
-						class="h-18 max-h-18 w-full min-w-0 field-sizing-fixed overflow-y-auto resize-none"
-						(keydown)="handlePromptKeydown($event)"
-					></textarea>
-					<div hlmInputGroupAddon align="block-end">
-						<button hlmInputGroupButton variant="outline" class="rounded-full" size="icon-sm" aria-label="Attach file">
-							<ng-icon name="lucidePaperclip" />
-						</button>
-						<span hlmInputGroupText class="text-muted-foreground ml-auto">2 attachments</span>
-						<hlm-separator orientation="vertical" class="!h-4" />
-						<button hlmInputGroupButton variant="default" class="rounded-full" size="icon-sm" aria-label="Submit prompt">
 							<ng-icon name="lucideArrowUp" />
 						</button>
 					</div>

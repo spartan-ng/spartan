@@ -32,6 +32,7 @@ Adds components. Installs the Brain dependency from npm and copies the Helm code
 ```bash
 npx nx g @spartan-ng/cli:ui                 # interactive multiselect (choose 'all' or specific)
 npx nx g @spartan-ng/cli:ui --name=dialog   # add a single component
+npx nx g @spartan-ng/cli:ui all             # add every component non-interactively
 ng g @spartan-ng/cli:ui --name=button
 ```
 

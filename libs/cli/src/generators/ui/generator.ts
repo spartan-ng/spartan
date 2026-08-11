@@ -27,7 +27,9 @@ export default async function hlmUIGenerator(tree: Tree, options: HlmUIGenerator
 	const availablePrimitiveNames: Primitive[] = Object.keys(availablePrimitives) as Primitive[];
 
 	let response: { primitives: PrimitiveResponse[] } = { primitives: [] };
-	if (options.name && availablePrimitiveNames.includes(options.name)) {
+	if (options.name === 'all') {
+		response.primitives.push('all');
+	} else if (options.name && availablePrimitiveNames.includes(options.name)) {
 		response.primitives.push(options.name);
 	} else {
 		if (options.name) {

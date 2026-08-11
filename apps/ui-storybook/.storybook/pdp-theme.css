@@ -38,6 +38,8 @@
     --font-mono: 'Progress Sans Text', monospace;
     --font-weight-medium: 400;
     --font-weight-semibold: 500;
+    --pdp-prompt-control-px: 1rem;
+    --pdp-prompt-control-py: 1rem;
 
     --radius: 0.5rem;
 
@@ -127,5 +129,21 @@
     --sidebar-accent-foreground: oklch(0.955 0.003 264.5);
     --sidebar-border: oklch(0.434 0.008 255.5);
     --sidebar-ring: oklch(0.554 0.246 264.1);
+  }
+
+  .style-pdp .spartan-input-group-input,
+  .style-pdp .spartan-input-group-textarea {
+    padding-inline: var(--pdp-prompt-control-px) !important;
+    padding-left: var(--pdp-prompt-control-px) !important;
+    padding-right: var(--pdp-prompt-control-px) !important;
+    padding-block: var(--pdp-prompt-control-py) !important;
+    padding-top: var(--pdp-prompt-control-py) !important;
+    padding-bottom: var(--pdp-prompt-control-py) !important;
+    font-weight: 400 !important;
+  }
+
+  .style-pdp .spartan-input-group-input::placeholder,
+  .style-pdp .spartan-input-group-textarea::placeholder {
+    font-weight: 400 !important;
   }
 }

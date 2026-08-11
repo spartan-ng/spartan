@@ -34,6 +34,7 @@ npx nx g @spartan-ng/cli:ui                 # interactive multiselect (choose 'a
 npx nx g @spartan-ng/cli:ui --name=dialog   # add a single component
 npx nx g @spartan-ng/cli:ui all             # add every component non-interactively
 ng g @spartan-ng/cli:ui --name=button
+ng g @spartan-ng/cli:ui all
 ```
 
 Dependent components are pulled in automatically.

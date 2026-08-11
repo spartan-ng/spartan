@@ -39,6 +39,7 @@ ng g @spartan-ng/cli:ui button
 
 # Or add every component non-interactively
 ng g @spartan-ng/cli:ui all
+# Nx: npx nx g @spartan-ng/cli:ui all
 ```
 
 The CLI installs the relevant `@spartan-ng/brain` entry points as npm dependencies and copies the helm component code straight into your project so you can edit every style.

@@ -3,8 +3,8 @@ import { withThemeByClassName } from '@storybook/addon-themes';
 export const decorators = [
 	withThemeByClassName({
 		themes: {
-			light: 'light',
-			dark: 'dark',
+			light: 'light style-nova style-pdp',
+			dark: 'dark style-nova style-pdp',
 		},
 		defaultTheme: 'light',
 	}),

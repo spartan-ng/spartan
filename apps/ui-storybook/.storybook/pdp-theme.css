@@ -1,0 +1,131 @@
+@font-face {
+  font-family: 'Progress Sans Text';
+  src: url('/fonts/progress-sans/ProgressSansText-Regular.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Progress Sans Text';
+  src: url('/fonts/progress-sans/ProgressSansText-Medium.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Progress Sans Text';
+  src: url('/fonts/progress-sans/ProgressSansText-Bold.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Progress Sans Text';
+  src: url('/fonts/progress-sans/ProgressSansText-ExtraBold.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+}
+
+@layer spartan-themes {
+  .style-pdp {
+    color-scheme: light;
+
+    --font-sans: 'Progress Sans Text', sans-serif;
+    --font-mono: 'Progress Sans Text', monospace;
+    --font-weight-medium: 400;
+    --font-weight-semibold: 500;
+
+    --radius: 0.5rem;
+
+    --background: oklch(1 0 89.9);
+    --foreground: oklch(0.26 0.004 264.5);
+
+    --card: oklch(1 0 89.9);
+    --card-foreground: oklch(0.26 0.004 264.5);
+
+    --popover: oklch(1 0 89.9);
+    --popover-foreground: oklch(0.26 0.004 264.5);
+
+    --primary: oklch(0.554 0.246 264.1);
+    --primary-foreground: oklch(1 0 89.9);
+
+    --secondary: oklch(0.955 0.003 264.5);
+    --secondary-foreground: oklch(0.26 0.004 264.5);
+
+    --muted: oklch(0.955 0.003 264.5);
+    --muted-foreground: oklch(0.562 0.011 243);
+
+    --accent: oklch(0.955 0.003 264.5);
+    --accent-foreground: oklch(0.26 0.004 264.5);
+
+    --destructive: oklch(0.538 0.187 20.4);
+
+    --border: oklch(0.909 0.006 255.5);
+    --input: oklch(0.909 0.006 255.5);
+
+    --ring: oklch(0.493 0.216 264.1);
+
+    --surface: oklch(0.988 0.001 286.4);
+    --surface-foreground: var(--foreground);
+
+    --sidebar: oklch(0.988 0.001 286.4);
+    --sidebar-foreground: oklch(0.26 0.004 264.5);
+    --sidebar-primary: oklch(0.554 0.246 264.1);
+    --sidebar-primary-foreground: oklch(1 0 89.9);
+    --sidebar-accent: oklch(0.955 0.003 264.5);
+    --sidebar-accent-foreground: oklch(0.26 0.004 264.5);
+    --sidebar-border: oklch(0.909 0.006 255.5);
+    --sidebar-ring: oklch(0.493 0.216 264.1);
+  }
+
+  .style-pdp.dark {
+    color-scheme: dark;
+
+    --font-weight-medium: 400;
+    --font-weight-semibold: 500;
+
+    --background: oklch(0.26 0.004 264.5);
+    --foreground: oklch(0.955 0.003 264.5);
+
+    --card: oklch(0.332 0.006 258.4);
+    --card-foreground: oklch(0.955 0.003 264.5);
+
+    --popover: oklch(0.332 0.006 258.4);
+    --popover-foreground: oklch(0.955 0.003 264.5);
+
+    --primary: oklch(0.715 0.147 267.3);
+    --primary-foreground: oklch(0.26 0.004 264.5);
+
+    --secondary: oklch(0.296 0.005 248);
+    --secondary-foreground: oklch(0.955 0.003 264.5);
+
+    --muted: oklch(0.296 0.005 248);
+    --muted-foreground: oklch(0.562 0.011 243);
+
+    --accent: oklch(0.296 0.005 248);
+    --accent-foreground: oklch(0.955 0.003 264.5);
+
+    --destructive: oklch(0.635 0.223 20.8);
+
+    --border: oklch(0.434 0.008 255.5);
+    --input: oklch(0.434 0.008 255.5 / 15%);
+
+    --ring: oklch(0.554 0.246 264.1);
+
+    --surface: oklch(0.332 0.006 258.4);
+    --surface-foreground: var(--foreground);
+
+    --sidebar: oklch(0.332 0.006 258.4);
+    --sidebar-foreground: oklch(0.955 0.003 264.5);
+    --sidebar-primary: oklch(0.715 0.147 267.3);
+    --sidebar-primary-foreground: oklch(0.26 0.004 264.5);
+    --sidebar-accent: oklch(0.296 0.005 248);
+    --sidebar-accent-foreground: oklch(0.955 0.003 264.5);
+    --sidebar-border: oklch(0.434 0.008 255.5);
+    --sidebar-ring: oklch(0.554 0.246 264.1);
+  }
+}

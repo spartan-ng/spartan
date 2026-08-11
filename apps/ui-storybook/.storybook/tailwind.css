@@ -6,6 +6,7 @@
 
 @import '../../../libs/brain/hlm-tailwind-preset.css';
 @import '../../../libs/registry/src/styles/style-nova.css';
+@import './pdp-theme.css';
 
 @custom-variant fixed (&:is(.layout-fixed *));
 @custom-variant style-nova (&:where(body *));
@@ -21,8 +22,8 @@
 
 :root {
 	color-scheme: light;
-	--font-sans: 'Geist', sans-serif;
-	--font-mono: 'Geist Mono', monospace;
+	--font-sans: 'Progress Sans Text', sans-serif;
+	--font-mono: 'Progress Sans Text', monospace;
 	--radius: 0.625rem;
 	--background: oklch(1 0 0);
 	--foreground: oklch(0.145 0 0);

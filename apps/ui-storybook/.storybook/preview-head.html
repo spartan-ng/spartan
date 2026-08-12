@@ -1,5 +1,9 @@
 <script>
 	document.addEventListener('DOMContentLoaded', () => {
-		document.body.classList.add('style-nova', 'style-pdp');
+		// Only `style-nova` needs to live on body (its `@scope (.style-nova) to (...)` requires
+		// the scoping root there). `style-pdp` must NOT be duplicated here: it sets --background/
+		// --foreground etc. directly, and doing so on body would always beat the inherited dark-mode
+		// values coming from the `dark`/`style-pdp` classes the theme decorator toggles on <html>.
+		document.body.classList.add('style-nova');
 	});
 </script>

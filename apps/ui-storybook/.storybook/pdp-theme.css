@@ -30,7 +30,13 @@
 	font-display: swap;
 }
 
-.style-pdp {
+/* `:root.style-pdp` (not plain `.style-pdp`) is required: `tailwind.css`'s own `:root { ... }`
+   block is declared textually after this file is `@import`ed, so at equal specificity the later
+   source wins and silently overrides these tokens (this caused `--primary`/`--radius`/etc. to
+   regress back to Tailwind's defaults). Combining the `:root` pseudo-class with the `.style-pdp`
+   class raises specificity to (0,2,0), beating plain `:root`'s (0,1,0) regardless of source
+   order — mirroring how `.style-pdp.dark` already out-specifies plain `.dark` below. */
+:root.style-pdp {
 	color-scheme: light;
 
 	--font-sans: 'Progress Sans Text', sans-serif;
@@ -96,7 +102,13 @@
 
 	--font-weight-medium: 400;
 	--font-weight-semibold: 500;
-	--pdp-placeholder: oklch(1 0 0 / 60%); /* design.md Base/body-tertiary-color (white 60%) */
+	/* Design.md's dark "Base/body-tertiary-color" (white 60%) reads far brighter here than the
+	   light-mode placeholder does relative to muted-foreground (WCAG contrast ratio ~70% of
+	   muted-foreground's, vs ~45% in light mode) because it's an alpha overlay on a dark
+	   background rather than a literal hex swatch. Dropping to white 45% reproduces the same
+	   relative dimming ratio light mode has, keeping the tertiary tier visually consistent
+	   across themes. */
+	--pdp-placeholder: oklch(1 0 0 / 45%);
 
 	--background: oklch(0.26 0.004 264.5);
 	--foreground: oklch(0.955 0.003 264.5);
@@ -122,7 +134,7 @@
 	--destructive: oklch(0.635 0.223 20.8);
 
 	--border: oklch(0.434 0.008 255.5);
-	--input: oklch(0.434 0.008 255.5 / 15%);
+	--input: oklch(0.434 0.008 255.5);
 
 	--ring: oklch(0.554 0.246 264.1);
 

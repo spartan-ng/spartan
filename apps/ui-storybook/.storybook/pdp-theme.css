@@ -122,10 +122,10 @@
 	--primary: oklch(0.715 0.147 267.3);
 	--primary-foreground: oklch(0.26 0.004 264.5);
 
-	--secondary: oklch(0.296 0.005 248);
+	--secondary: oklch(0.39 0.002 248); /* design.md Dark/Variations/dark hover bg #444546 */
 	--secondary-foreground: oklch(0.955 0.003 264.5);
 
-	--muted: oklch(0.296 0.005 248);
+	--muted: oklch(0.39 0.002 248); /* design.md Dark/Variations/dark hover bg #444546 */
 	--muted-foreground: oklch(1 0 0 / 75%); /* design.md Base/body-secondary-color (white 75%) */
 
 	--accent: oklch(0.296 0.005 248);

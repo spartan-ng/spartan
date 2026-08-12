@@ -1,157 +1,157 @@
 @font-face {
-  font-family: 'Progress Sans Text';
-  src: url('../public/fonts/progress-sans/ProgressSansText-Regular.woff2') format('woff2');
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
+	font-family: 'Progress Sans Text';
+	src: url('../public/fonts/progress-sans/ProgressSansText-Regular.woff2') format('woff2');
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
 }
 
 @font-face {
-  font-family: 'Progress Sans Text';
-  src: url('../public/fonts/progress-sans/ProgressSansText-Medium.woff2') format('woff2');
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
+	font-family: 'Progress Sans Text';
+	src: url('../public/fonts/progress-sans/ProgressSansText-Medium.woff2') format('woff2');
+	font-style: normal;
+	font-weight: 500;
+	font-display: swap;
 }
 
 @font-face {
-  font-family: 'Progress Sans Text';
-  src: url('../public/fonts/progress-sans/ProgressSansText-Bold.woff2') format('woff2');
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
+	font-family: 'Progress Sans Text';
+	src: url('../public/fonts/progress-sans/ProgressSansText-Bold.woff2') format('woff2');
+	font-style: normal;
+	font-weight: 700;
+	font-display: swap;
 }
 
 @font-face {
-  font-family: 'Progress Sans Text';
-  src: url('../public/fonts/progress-sans/ProgressSansText-ExtraBold.woff2') format('woff2');
-  font-style: normal;
-  font-weight: 800;
-  font-display: swap;
+	font-family: 'Progress Sans Text';
+	src: url('../public/fonts/progress-sans/ProgressSansText-ExtraBold.woff2') format('woff2');
+	font-style: normal;
+	font-weight: 800;
+	font-display: swap;
 }
 
-@layer spartan-themes {
-  .style-pdp {
-    color-scheme: light;
+.style-pdp {
+	color-scheme: light;
 
-    --font-sans: 'Progress Sans Text', sans-serif;
-    --font-mono: 'Progress Sans Text', monospace;
-    --font-weight-medium: 400;
-    --font-weight-semibold: 500;
-    --pdp-prompt-control-px: 1rem;
-    --pdp-prompt-control-py: 1rem;
-    --pdp-placeholder: #9ca3af;
+	--font-sans: 'Progress Sans Text', sans-serif;
+	--font-mono: 'Progress Sans Text', monospace;
+	--font-weight-medium: 400;
+	--font-weight-semibold: 500;
+	--pdp-prompt-control-px: 1rem;
+	--pdp-prompt-control-py: 1rem;
+	--pdp-placeholder: oklch(0.769 0.015 248); /* design.md Body Tertiary #adb5bd */
 
-    --radius: 0.5rem;
+	--radius: 0.375rem;
+	--radius-sm: 0.25rem;
+	--radius-md: 0.25rem;
+	--radius-lg: 0.25rem;
+	--radius-xl: 0.25rem;
+	--radius-2xl: 0.375rem;
+	--radius-3xl: 0.375rem;
+	--radius-4xl: 0.5rem;
 
-    --background: oklch(1 0 89.9);
-    --foreground: oklch(0.26 0.004 264.5);
+	--background: oklch(1 0 89.9);
+	--foreground: oklch(0.26 0.004 264.5);
 
-    --card: oklch(1 0 89.9);
-    --card-foreground: oklch(0.26 0.004 264.5);
+	--card: oklch(1 0 89.9);
+	--card-foreground: oklch(0.26 0.004 264.5);
 
-    --popover: oklch(1 0 89.9);
-    --popover-foreground: oklch(0.26 0.004 264.5);
+	--popover: oklch(1 0 89.9);
+	--popover-foreground: oklch(0.26 0.004 264.5);
 
-    --primary: oklch(0.554 0.246 264.1);
-    --primary-foreground: oklch(1 0 89.9);
+	--primary: oklch(0.554 0.246 264.1);
+	--primary-foreground: oklch(1 0 89.9);
 
-    --secondary: oklch(0.955 0.003 264.5);
-    --secondary-foreground: oklch(0.26 0.004 264.5);
+	--secondary: oklch(0.955 0.003 264.5);
+	--secondary-foreground: oklch(0.26 0.004 264.5);
 
-    --muted: oklch(0.955 0.003 264.5);
-    --muted-foreground: oklch(0.562 0.011 243);
+	--muted: oklch(0.955 0.003 264.5);
+	--muted-foreground: oklch(0.562 0.011 243); /* design.md Body Secondary #6c757d */
 
-    --accent: oklch(0.955 0.003 264.5);
-    --accent-foreground: oklch(0.26 0.004 264.5);
+	--accent: oklch(0.955 0.003 264.5);
+	--accent-foreground: oklch(0.26 0.004 264.5);
 
-    --destructive: oklch(0.538 0.187 20.4);
+	--destructive: oklch(0.538 0.187 20.4);
 
-    --border: oklch(0.909 0.006 255.5);
-    --input: oklch(0.909 0.006 255.5);
+	--border: oklch(0.909 0.006 255.5);
+	--input: oklch(0.909 0.006 255.5);
 
-    --ring: oklch(0.493 0.216 264.1);
+	--ring: oklch(0.493 0.216 264.1);
 
-    --surface: oklch(0.988 0.001 286.4);
-    --surface-foreground: var(--foreground);
+	--surface: oklch(0.988 0.001 286.4);
+	--surface-foreground: var(--foreground);
 
-    --sidebar: oklch(0.988 0.001 286.4);
-    --sidebar-foreground: oklch(0.26 0.004 264.5);
-    --sidebar-primary: oklch(0.554 0.246 264.1);
-    --sidebar-primary-foreground: oklch(1 0 89.9);
-    --sidebar-accent: oklch(0.955 0.003 264.5);
-    --sidebar-accent-foreground: oklch(0.26 0.004 264.5);
-    --sidebar-border: oklch(0.909 0.006 255.5);
-    --sidebar-ring: oklch(0.493 0.216 264.1);
-  }
+	--sidebar: oklch(0.988 0.001 286.4);
+	--sidebar-foreground: oklch(0.26 0.004 264.5);
+	--sidebar-primary: oklch(0.554 0.246 264.1);
+	--sidebar-primary-foreground: oklch(1 0 89.9);
+	--sidebar-accent: oklch(0.955 0.003 264.5);
+	--sidebar-accent-foreground: oklch(0.26 0.004 264.5);
+	--sidebar-border: oklch(0.909 0.006 255.5);
+	--sidebar-ring: oklch(0.493 0.216 264.1);
+}
 
-  .style-pdp.dark {
-    color-scheme: dark;
+.style-pdp.dark {
+	color-scheme: dark;
 
-    --font-weight-medium: 400;
-    --font-weight-semibold: 500;
+	--font-weight-medium: 400;
+	--font-weight-semibold: 500;
+	--pdp-placeholder: oklch(1 0 0 / 60%); /* design.md Base/body-tertiary-color (white 60%) */
 
-    --background: oklch(0.26 0.004 264.5);
-    --foreground: oklch(0.955 0.003 264.5);
+	--background: oklch(0.26 0.004 264.5);
+	--foreground: oklch(0.955 0.003 264.5);
 
-    --card: oklch(0.332 0.006 258.4);
-    --card-foreground: oklch(0.955 0.003 264.5);
+	--card: oklch(0.332 0.006 258.4);
+	--card-foreground: oklch(0.955 0.003 264.5);
 
-    --popover: oklch(0.332 0.006 258.4);
-    --popover-foreground: oklch(0.955 0.003 264.5);
+	--popover: oklch(0.332 0.006 258.4);
+	--popover-foreground: oklch(0.955 0.003 264.5);
 
-    --primary: oklch(0.715 0.147 267.3);
-    --primary-foreground: oklch(0.26 0.004 264.5);
+	--primary: oklch(0.715 0.147 267.3);
+	--primary-foreground: oklch(0.26 0.004 264.5);
 
-    --secondary: oklch(0.296 0.005 248);
-    --secondary-foreground: oklch(0.955 0.003 264.5);
+	--secondary: oklch(0.296 0.005 248);
+	--secondary-foreground: oklch(0.955 0.003 264.5);
 
-    --muted: oklch(0.296 0.005 248);
-    --muted-foreground: oklch(0.562 0.011 243);
+	--muted: oklch(0.296 0.005 248);
+	--muted-foreground: oklch(1 0 0 / 75%); /* design.md Base/body-secondary-color (white 75%) */
 
-    --accent: oklch(0.296 0.005 248);
-    --accent-foreground: oklch(0.955 0.003 264.5);
+	--accent: oklch(0.296 0.005 248);
+	--accent-foreground: oklch(0.955 0.003 264.5);
 
-    --destructive: oklch(0.635 0.223 20.8);
+	--destructive: oklch(0.635 0.223 20.8);
 
-    --border: oklch(0.434 0.008 255.5);
-    --input: oklch(0.434 0.008 255.5 / 15%);
+	--border: oklch(0.434 0.008 255.5);
+	--input: oklch(0.434 0.008 255.5 / 15%);
 
-    --ring: oklch(0.554 0.246 264.1);
+	--ring: oklch(0.554 0.246 264.1);
 
-    --surface: oklch(0.332 0.006 258.4);
-    --surface-foreground: var(--foreground);
+	--surface: oklch(0.332 0.006 258.4);
+	--surface-foreground: var(--foreground);
 
-    --sidebar: oklch(0.332 0.006 258.4);
-    --sidebar-foreground: oklch(0.955 0.003 264.5);
-    --sidebar-primary: oklch(0.715 0.147 267.3);
-    --sidebar-primary-foreground: oklch(0.26 0.004 264.5);
-    --sidebar-accent: oklch(0.296 0.005 248);
-    --sidebar-accent-foreground: oklch(0.955 0.003 264.5);
-    --sidebar-border: oklch(0.434 0.008 255.5);
-    --sidebar-ring: oklch(0.554 0.246 264.1);
-  }
+	--sidebar: oklch(0.332 0.006 258.4);
+	--sidebar-foreground: oklch(0.955 0.003 264.5);
+	--sidebar-primary: oklch(0.715 0.147 267.3);
+	--sidebar-primary-foreground: oklch(0.26 0.004 264.5);
+	--sidebar-accent: oklch(0.296 0.005 248);
+	--sidebar-accent-foreground: oklch(0.955 0.003 264.5);
+	--sidebar-border: oklch(0.434 0.008 255.5);
+	--sidebar-ring: oklch(0.554 0.246 264.1);
+}
 
-  .style-pdp .spartan-input-group-input,
-  .style-pdp .spartan-input-group-textarea {
-    padding-inline: var(--pdp-prompt-control-px) !important;
-    padding-left: var(--pdp-prompt-control-px) !important;
-    padding-right: var(--pdp-prompt-control-px) !important;
-    padding-block: var(--pdp-prompt-control-py) !important;
-    padding-top: var(--pdp-prompt-control-py) !important;
-    padding-bottom: var(--pdp-prompt-control-py) !important;
-    font-weight: 400 !important;
-  }
+.style-pdp .spartan-input-group-input,
+.style-pdp .spartan-input-group-textarea {
+	padding-inline: var(--pdp-prompt-control-px);
+	padding-block: var(--pdp-prompt-control-py);
+}
 
-  .style-pdp .spartan-input-group-input::placeholder,
-  .style-pdp .spartan-input-group-textarea::placeholder {
-    color: var(--pdp-placeholder) !important;
-    font-weight: 400 !important;
-  }
-
-  .style-pdp .spartan-input::placeholder,
-  .style-pdp .spartan-command-input::placeholder {
-    color: var(--pdp-placeholder) !important;
-    font-weight: 400 !important;
-  }
+/* Universal placeholder styling for every native text control (input, textarea,
+   command input, input-group input/textarea) so new controls don't need to be
+   enumerated here. Kept UNLAYERED (matching style-nova.css) so it reliably wins over
+   Tailwind's unlayered `placeholder:text-muted-foreground` utility (both unlayered,
+   this file imported later = wins on source order; a `@layer` wrapper here would lose
+   to any unlayered rule regardless of order). */
+.style-pdp :where(input, textarea)::placeholder {
+	color: var(--pdp-placeholder);
+	font-weight: var(--font-weight-medium);
 }

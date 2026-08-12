@@ -51,7 +51,7 @@ function handlePromptKeydown(event: KeyboardEvent): void {
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div class="w-full max-w-3xl p-4">
-			<div hlmInputGroup class="[--radius:1.2rem]">
+			<div hlmInputGroup>
 				<textarea
 					hlmInputGroupTextarea
 					rows="2"
@@ -86,7 +86,11 @@ function handlePromptKeydown(event: KeyboardEvent): void {
 						<button hlmInputGroupButton class="h-8 rounded-full px-3" size="sm" hlmDialogTrigger>
 							{{ selectedModel() }}
 						</button>
-						<hlm-dialog-content class="sm:!w-[24rem] sm:!max-w-[24rem]" [showCloseButton]="false" *hlmDialogPortal="let ctx">
+						<hlm-dialog-content
+							class="sm:!w-[24rem] sm:!max-w-[24rem]"
+							[showCloseButton]="false"
+							*hlmDialogPortal="let ctx"
+						>
 							<hlm-command>
 								<hlm-dialog-header class="flex-row items-center gap-2">
 									<h3 hlmDialogTitle class="sr-only">Select model</h3>
@@ -154,13 +158,13 @@ class PromptInputBasicComposerStory {
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div class="w-full max-w-3xl p-4">
-			<div hlmInputGroup class="[--radius:1.2rem]">
+			<div hlmInputGroup>
 				<div hlmInputGroupAddon align="block-start" class="no-scrollbar overflow-y-auto">
 					<hlm-hover-card>
 						<button
 							hlmInputGroupButton
 							variant="outline"
-							class="rounded-[12px]"
+							class="rounded-full"
 							size="icon-sm"
 							hlmHoverCardTrigger
 							[showDelay]="120"
@@ -212,11 +216,11 @@ class PromptInputBasicComposerStory {
 							</hlm-command>
 						</hlm-hover-card-content>
 					</hlm-hover-card>
-					<button hlmInputGroupButton variant="outline" class="rounded-[12px]" size="sm" aria-label="Attachments">
+					<button hlmInputGroupButton variant="outline" class="rounded-full" size="sm" aria-label="Attachments">
 						<ng-icon name="lucidePaperclip" />
 						<span>1</span>
 					</button>
-					<button hlmInputGroupButton variant="outline" class="rounded-[12px]" size="sm" aria-label="Tab count">
+					<button hlmInputGroupButton variant="outline" class="rounded-full" size="sm" aria-label="Tab count">
 						<ng-icon name="lucideCopy" />
 						<span>1 Tab</span>
 					</button>
@@ -233,7 +237,11 @@ class PromptInputBasicComposerStory {
 						<button hlmInputGroupButton variant="ghost" class="h-8 rounded-full px-3" size="sm" hlmDialogTrigger>
 							{{ selectedModel() }}
 						</button>
-						<hlm-dialog-content class="sm:!w-[24rem] sm:!max-w-[24rem]" [showCloseButton]="false" *hlmDialogPortal="let ctx">
+						<hlm-dialog-content
+							class="sm:!w-[24rem] sm:!max-w-[24rem]"
+							[showCloseButton]="false"
+							*hlmDialogPortal="let ctx"
+						>
 							<hlm-command>
 								<hlm-dialog-header class="flex-row items-center gap-2">
 									<h3 hlmDialogTitle class="sr-only">Select model</h3>

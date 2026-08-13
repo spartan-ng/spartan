@@ -2167,6 +2167,16 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
       },
     },
   },
+  "chart": {
+    "helm": {
+      "HlmChart": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "tanstack-chart[hlmChart]",
+      },
+    },
+  },
   "checkbox": {
     "brain": {
       "BrnCheckbox": {

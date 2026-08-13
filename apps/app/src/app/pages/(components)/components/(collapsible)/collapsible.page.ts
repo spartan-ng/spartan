@@ -20,6 +20,7 @@ import { Tabs } from '../../../../shared/layout/tabs';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { CollapsibleDynamic } from './collapsible--dynamic.example';
+import { CollapsibleFileTree } from './collapsible--file-tree.example';
 import { CollapsibleRtl } from './collapsible--rtl.preview';
 import { CollapsibleSettingsPanel } from './collapsible--settings-panel.preview';
 import { CollapsiblePreview, defaultImports, defaultSkeleton } from './collapsible.preview';
@@ -52,6 +53,7 @@ export const routeMeta: RouteMeta = {
 		CollapsibleAnimatedExample,
 		CollapsibleSettingsPanel,
 		CollapsibleDynamic,
+		CollapsibleFileTree,
 		CollapsibleRtl,
 	],
 	template: `
@@ -113,6 +115,15 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_dynamicCode()" />
 			</spartan-tabs>
 
+			<h3 id="file-tree" spartanH4>File tree</h3>
+			<p class="py-2">Use nested collapsibles to build a file tree.</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-collapsible-file-tree />
+				</div>
+				<spartan-code secondTab [code]="_fileTreeCode()" />
+			</spartan-tabs>
+
 			<spartan-header-rtl />
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanRtlCodePreview firstTab>
@@ -145,6 +156,7 @@ export default class CollapsiblePage {
 	protected readonly _animatedCode = computed(() => this._snippets()['animated']);
 	protected readonly _settingsPanelCode = computed(() => this._snippets()['settingsPanel']);
 	protected readonly _dynamicCode = computed(() => this._snippets()['dynamic']);
+	protected readonly _fileTreeCode = computed(() => this._snippets()['fileTree']);
 	protected readonly _rtlCode = computed(() => this._snippets()['rtl']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;

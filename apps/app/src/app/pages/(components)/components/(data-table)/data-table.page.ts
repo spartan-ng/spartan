@@ -87,16 +87,10 @@ export const routeMeta: RouteMeta = {
 			<p class="${hlmP} mb-6">
 				Add
 				<code class="${hlmCode}">&#64;tanstack/angular-table</code>
-				to your project, more information in the
-				<a
-					href="https://tanstack.com/table/v8/docs/installation#angular-table"
-					target="_blank"
-					rel="noreferrer"
-					class="${link}"
-				>
-					TanStack Table
+				to your project. This guide uses
+				<a href="https://tanstack.com/table/v9/docs/framework/angular" target="_blank" rel="noreferrer" class="${link}">
+					TanStack Table v9.
 				</a>
-				documentation.
 			</p>
 
 			<spartan-code [code]="'npm install @tanstack/angular-table'" />

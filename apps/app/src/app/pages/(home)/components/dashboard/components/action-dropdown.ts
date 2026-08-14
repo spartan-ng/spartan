@@ -1,10 +1,11 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronRight, lucideEllipsis } from '@ng-icons/lucide';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
-import { type CellContext, injectFlexRenderContext } from '@tanstack/angular-table';
-import type { DashboardData } from './dashboard-data.model';
+import { type Row } from '@tanstack/angular-table';
+import { type DashboardData } from './dashboard-data.model';
+import { type DashboardFeatures } from './table-section';
 
 @Component({
 	selector: 'spartan-action-dropdown-dashboard',
@@ -12,7 +13,7 @@ import type { DashboardData } from './dashboard-data.model';
 	providers: [provideIcons({ lucideEllipsis, lucideChevronRight })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<button hlmBtn variant="ghost" class="h-6 w-6 p-0.5" align="end" [hlmDropdownMenuTrigger]="menu">
+		<button hlmBtn variant="ghost" size="icon-sm" align="end" [hlmDropdownMenuTrigger]="menu">
 			<ng-icon name="lucideEllipsis" />
 		</button>
 		<ng-template #menu>
@@ -34,6 +35,7 @@ import type { DashboardData } from './dashboard-data.model';
 	`,
 })
 export class ActionDropdown {
-	private readonly _context = injectFlexRenderContext<CellContext<DashboardData, unknown>>();
-	protected readonly _element = this._context.row.original;
+	public readonly row = input.required<Row<DashboardFeatures, DashboardData>>();
+
+	protected readonly _data = computed(() => this.row().original);
 }

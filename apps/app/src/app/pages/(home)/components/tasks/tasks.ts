@@ -75,7 +75,9 @@ const features = tableFeatures({
 	sortFns: { alphanumeric: sortFn_alphanumeric, text: sortFn_text },
 });
 
-const columnHelper = createColumnHelper<typeof features, Task>();
+export type TaskFeatures = typeof features;
+
+const columnHelper = createColumnHelper<TaskFeatures, Task>();
 
 const columns = columnHelper.columns([
 	columnHelper.display({

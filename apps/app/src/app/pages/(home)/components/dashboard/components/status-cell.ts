@@ -4,6 +4,7 @@ import { tablerCircleCheck, tablerLoader } from '@ng-icons/tabler-icons';
 import { HlmBadge } from '@spartan-ng/helm/badge';
 import { type Row } from '@tanstack/angular-table';
 import { type DashboardData } from './dashboard-data.model';
+import { type DashboardFeatures } from './table-section';
 
 @Component({
 	selector: 'spartan-status-cell',
@@ -27,7 +28,7 @@ import { type DashboardData } from './dashboard-data.model';
 	`,
 })
 export class StatusCell {
-	readonly row = input.required<Row<{}, DashboardData>>();
+	public readonly row = input.required<Row<DashboardFeatures, DashboardData>>();
 
 	protected readonly _data = computed(() => this.row().original);
 }

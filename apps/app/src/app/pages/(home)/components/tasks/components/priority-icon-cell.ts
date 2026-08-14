@@ -10,6 +10,7 @@ import {
 import { type Row } from '@tanstack/angular-table';
 import { PriorityIconPipe } from '../pipes/priority-icon.pipe';
 import type { Task } from '../services/tasks.models';
+import { type TaskFeatures } from '../tasks';
 
 @Component({
 	selector: 'spartan-priority-icon-cell',
@@ -31,7 +32,7 @@ import type { Task } from '../services/tasks.models';
 	`,
 })
 export class PriorityIconCell {
-	readonly row = input.required<Row<{}, Task>>();
+	public readonly row = input.required<Row<TaskFeatures, Task>>();
 
 	protected readonly _data = computed(() => this.row().original);
 }

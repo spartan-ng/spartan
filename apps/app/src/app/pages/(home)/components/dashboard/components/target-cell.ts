@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, computed, input } from '@angular/co
 import { HlmInput } from '@spartan-ng/helm/input';
 import { type Row } from '@tanstack/angular-table';
 import { type DashboardData } from './dashboard-data.model';
+import { type DashboardFeatures } from './table-section';
 
 @Component({
 	selector: 'spartan-target-cell',
@@ -17,7 +18,7 @@ import { type DashboardData } from './dashboard-data.model';
 	`,
 })
 export class TargetCell {
-	readonly row = input.required<Row<{}, DashboardData>>();
+	public readonly row = input.required<Row<DashboardFeatures, DashboardData>>();
 
 	protected readonly _data = computed(() => this.row().original);
 }

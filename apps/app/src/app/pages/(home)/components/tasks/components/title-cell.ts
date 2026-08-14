@@ -2,6 +2,7 @@ import { Component, computed, input } from '@angular/core';
 import { HlmBadgeImports } from '@spartan-ng/helm/badge';
 import { type Row } from '@tanstack/angular-table';
 import type { Task } from '../services/tasks.models';
+import { type TaskFeatures } from '../tasks';
 
 @Component({
 	selector: 'spartan-title-cell',
@@ -14,7 +15,7 @@ import type { Task } from '../services/tasks.models';
 	`,
 })
 export class TitleCell {
-	readonly row = input.required<Row<{}, Task>>();
+	public readonly row = input.required<Row<TaskFeatures, Task>>();
 
 	protected readonly _data = computed(() => this.row().original);
 }

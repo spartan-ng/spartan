@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, computed, input } from '@angular/co
 import { HlmSelectImports } from '@spartan-ng/helm/select';
 import { type Row } from '@tanstack/angular-table';
 import { type DashboardData } from './dashboard-data.model';
+import { type DashboardFeatures } from './table-section';
 
 @Component({
 	selector: 'spartan-reviewer-cell',
@@ -29,7 +30,7 @@ import { type DashboardData } from './dashboard-data.model';
 	`,
 })
 export class ReviewerCell {
-	readonly row = input.required<Row<{}, DashboardData>>();
+	public readonly row = input.required<Row<DashboardFeatures, DashboardData>>();
 
 	protected readonly _data = computed(() => this.row().original);
 }

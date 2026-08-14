@@ -16,7 +16,7 @@ import type { DataTableFeatures, Payment } from './data-table.preview';
 	`,
 })
 export class TableHeadSortButton {
-	readonly column = input.required<Column<DataTableFeatures, Payment, unknown>>();
+	public readonly column = input.required<Column<DataTableFeatures, Payment, unknown>>();
 
 	protected filterClick() {
 		this.column().toggleSorting(this.column().getIsSorted() === 'asc');

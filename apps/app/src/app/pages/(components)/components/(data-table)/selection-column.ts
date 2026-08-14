@@ -18,7 +18,7 @@ import type { DataTableFeatures, Payment } from './data-table.preview';
 	`,
 })
 export class TableHeadSelection {
-	readonly table = input.required<Table<DataTableFeatures, Payment>>();
+	public readonly table = input.required<Table<DataTableFeatures, Payment>>();
 }
 
 @Component({
@@ -32,5 +32,5 @@ export class TableHeadSelection {
 	`,
 })
 export class TableRowSelection {
-	readonly row = input.required<Row<DataTableFeatures, Payment>>();
+	public readonly row = input.required<Row<DataTableFeatures, Payment>>();
 }

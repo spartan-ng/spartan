@@ -28,7 +28,7 @@ import type { DataTableFeatures, Payment } from './data-table.preview';
 	`,
 })
 export class ActionDropdown {
-	readonly row = input.required<Row<DataTableFeatures, Payment>>();
+	public readonly row = input.required<Row<DataTableFeatures, Payment>>();
 
 	copyPaymentId() {
 		const payment = this.row().original;

@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { type Row } from '@tanstack/angular-table';
 import { type DashboardData } from './dashboard-data.model';
+import { type DashboardFeatures } from './table-section';
 
 @Component({
 	selector: 'spartan-header-cell',
@@ -12,7 +13,7 @@ import { type DashboardData } from './dashboard-data.model';
 	`,
 })
 export class HeaderCell {
-	readonly row = input.required<Row<{}, DashboardData>>();
+	public readonly row = input.required<Row<DashboardFeatures, DashboardData>>();
 
 	protected readonly _data = computed(() => this.row().original);
 }

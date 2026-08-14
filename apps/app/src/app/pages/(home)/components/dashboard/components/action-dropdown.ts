@@ -5,6 +5,7 @@ import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
 import { type Row } from '@tanstack/angular-table';
 import { type DashboardData } from './dashboard-data.model';
+import { type DashboardFeatures } from './table-section';
 
 @Component({
 	selector: 'spartan-action-dropdown-dashboard',
@@ -34,7 +35,7 @@ import { type DashboardData } from './dashboard-data.model';
 	`,
 })
 export class ActionDropdown {
-	readonly row = input.required<Row<{}, DashboardData>>();
+	public readonly row = input.required<Row<DashboardFeatures, DashboardData>>();
 
 	protected readonly _data = computed(() => this.row().original);
 }

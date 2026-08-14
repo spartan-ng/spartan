@@ -62,7 +62,9 @@ const features = tableFeatures({
 	sortFns: { alphanumeric: sortFn_alphanumeric, text: sortFn_text },
 });
 
-const columnHelper = createColumnHelper<typeof features, DashboardData>();
+export type DashboardFeatures = typeof features;
+
+const columnHelper = createColumnHelper<DashboardFeatures, DashboardData>();
 
 const columns = columnHelper.columns([
 	columnHelper.display({
@@ -297,17 +299,6 @@ export class DashboardTableSection {
 		const cols = this._localStorageService.getTaskTableColumns();
 		this._visibility.set(cols as ColumnVisibilityState);
 	}
-
-	// protected readonly _columns: ColumnDef<DashboardData>[] = [
-	// 	{
-	// 		accessorKey: 'reviewer',
-	// 		id: 'reviewer',
-	// 		filterFn: 'arrIncludesSome',
-	// 		header: () => 'Reviewer',
-	// 		cell: () => flexRenderComponent(ReviewerCell),
-	// 		enableSorting: false,
-	// 	},
-	// ];
 
 	public readonly table = injectTable(() => ({
 		features,

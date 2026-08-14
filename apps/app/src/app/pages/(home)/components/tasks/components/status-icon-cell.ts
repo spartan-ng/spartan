@@ -11,6 +11,7 @@ import {
 import { type Row } from '@tanstack/angular-table';
 import { StatusIconPipe } from '../pipes/status-icon.pipe';
 import type { Task } from '../services/tasks.models';
+import { type TaskFeatures } from '../tasks';
 
 @Component({
 	selector: 'spartan-status-icon-cell',
@@ -33,7 +34,7 @@ import type { Task } from '../services/tasks.models';
 	`,
 })
 export class StatusIconCell {
-	readonly row = input.required<Row<{}, Task>>();
+	public readonly row = input.required<Row<TaskFeatures, Task>>();
 
 	protected readonly _data = computed(() => this.row().original);
 }

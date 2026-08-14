@@ -1,18 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideEllipsis } from '@ng-icons/lucide';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
-
-import { type CellContext, injectFlexRenderContext } from '@tanstack/angular-table';
-import type { Payment } from './data-table.preview';
+import type { Row } from '@tanstack/angular-table';
+import type { DataTableFeatures, Payment } from './data-table.preview';
 
 @Component({
 	selector: 'spartan-action-dropdown',
 	imports: [HlmButtonImports, NgIcon, HlmDropdownMenuImports],
 	providers: [provideIcons({ lucideEllipsis })],
 	template: `
-		<button hlmBtn variant="ghost" class="h-8 w-8 p-0" [hlmDropdownMenuTrigger]="ActionDropDownMenu">
+		<button hlmBtn size="icon-sm" variant="ghost" [hlmDropdownMenuTrigger]="ActionDropDownMenu">
 			<span class="sr-only">Open menu</span>
 			<ng-icon name="lucideEllipsis" />
 		</button>
@@ -29,10 +28,10 @@ import type { Payment } from './data-table.preview';
 	`,
 })
 export class ActionDropdown {
-	private readonly _context = injectFlexRenderContext<CellContext<Payment, unknown>>();
+	public readonly row = input.required<Row<DataTableFeatures, Payment>>();
 
 	copyPaymentId() {
-		const payment = this._context.row.original;
+		const payment = this.row().original;
 		navigator.clipboard.writeText(payment.id);
 	}
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
 	lucideChevronDown,
@@ -7,9 +7,10 @@ import {
 	lucideChevronUp,
 	lucideCircleHelp,
 } from '@ng-icons/lucide';
-import { type CellContext, injectFlexRenderContext } from '@tanstack/angular-table';
+import { type Row } from '@tanstack/angular-table';
 import { PriorityIconPipe } from '../pipes/priority-icon.pipe';
 import type { Task } from '../services/tasks.models';
+import { type TaskFeatures } from '../tasks';
 
 @Component({
 	selector: 'spartan-priority-icon-cell',
@@ -25,12 +26,13 @@ import type { Task } from '../services/tasks.models';
 	],
 	template: `
 		<div class="flex items-center">
-			<ng-icon class="text-muted-foreground mr-2" [name]="_element.priority | priorityIcon" />
-			{{ _element.priority }}
+			<ng-icon class="text-muted-foreground mr-2" [name]="_data().priority | priorityIcon" />
+			{{ _data().priority }}
 		</div>
 	`,
 })
 export class PriorityIconCell {
-	private readonly _context = injectFlexRenderContext<CellContext<Task, unknown>>();
-	protected readonly _element = this._context.row.original;
+	public readonly row = input.required<Row<TaskFeatures, Task>>();
+
+	protected readonly _data = computed(() => this.row().original);
 }

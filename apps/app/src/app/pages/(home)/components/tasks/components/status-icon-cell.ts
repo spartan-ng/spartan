@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
 	lucideCircle,
@@ -8,9 +8,10 @@ import {
 	lucideCircleHelp,
 	lucideCircleOff,
 } from '@ng-icons/lucide';
-import { type CellContext, injectFlexRenderContext } from '@tanstack/angular-table';
+import { type Row } from '@tanstack/angular-table';
 import { StatusIconPipe } from '../pipes/status-icon.pipe';
 import type { Task } from '../services/tasks.models';
+import { type TaskFeatures } from '../tasks';
 
 @Component({
 	selector: 'spartan-status-icon-cell',
@@ -27,12 +28,13 @@ import type { Task } from '../services/tasks.models';
 	],
 	template: `
 		<div class="flex items-center">
-			<ng-icon class="text-muted-foreground mr-2" [name]="_element.status | statusIcon" />
-			{{ _element.status }}
+			<ng-icon class="text-muted-foreground mr-2" [name]="_data().status | statusIcon" />
+			{{ _data().status }}
 		</div>
 	`,
 })
 export class StatusIconCell {
-	private readonly _context = injectFlexRenderContext<CellContext<Task, unknown>>();
-	protected readonly _element = this._context.row.original;
+	public readonly row = input.required<Row<TaskFeatures, Task>>();
+
+	protected readonly _data = computed(() => this.row().original);
 }

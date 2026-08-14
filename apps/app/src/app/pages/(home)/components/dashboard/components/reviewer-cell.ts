@@ -1,18 +1,18 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-
+import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { HlmSelectImports } from '@spartan-ng/helm/select';
-import { type CellContext, injectFlexRenderContext } from '@tanstack/angular-table';
-import type { DashboardData } from './dashboard-data.model';
+import { type Row } from '@tanstack/angular-table';
+import { type DashboardData } from './dashboard-data.model';
+import { type DashboardFeatures } from './table-section';
 
 @Component({
 	selector: 'spartan-reviewer-cell',
 	imports: [HlmSelectImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		@if (_element.reviewer !== 'Assign reviewer') {
-			{{ _element.reviewer }}
+		@if (_data().reviewer !== 'Assign reviewer') {
+			{{ _data().reviewer }}
 		} @else {
-			<hlm-select id="{{ _element.id }}-reviewer">
+			<hlm-select id="{{ _data().id }}-reviewer">
 				<hlm-select-trigger
 					size="sm"
 					class="w-38 **:data-[slot=select-value]:block **:data-[slot=select-value]:truncate"
@@ -30,6 +30,7 @@ import type { DashboardData } from './dashboard-data.model';
 	`,
 })
 export class ReviewerCell {
-	private readonly _context = injectFlexRenderContext<CellContext<DashboardData, unknown>>();
-	protected readonly _element = this._context.row.original;
+	public readonly row = input.required<Row<DashboardFeatures, DashboardData>>();
+
+	protected readonly _data = computed(() => this.row().original);
 }

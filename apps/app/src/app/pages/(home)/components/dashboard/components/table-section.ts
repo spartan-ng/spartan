@@ -14,18 +14,26 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 import { HlmTableImports } from '@spartan-ng/helm/table';
 import { HlmTabsImports } from '@spartan-ng/helm/tabs';
 import {
-	ColumnDef,
+	columnFilteringFeature,
 	ColumnFiltersState,
-	createAngularTable,
+	columnVisibilityFeature,
+	type ColumnVisibilityState,
+	createColumnHelper,
+	createFilteredRowModel,
+	createPaginatedRowModel,
+	createSortedRowModel,
+	filterFn_arrHas,
+	filterFn_includesString,
 	FlexRender,
-	flexRenderComponent,
-	getCoreRowModel,
-	getFilteredRowModel,
-	getPaginationRowModel,
-	getSortedRowModel,
-	PaginationState,
-	SortingState,
-	VisibilityState,
+	injectTable,
+	type PaginationState,
+	rowPaginationFeature,
+	rowSelectionFeature,
+	rowSortingFeature,
+	sortFn_alphanumeric,
+	sortFn_text,
+	type SortingState,
+	tableFeatures,
 } from '@tanstack/angular-table';
 import {
 	DashboardLocalStorageService,
@@ -40,6 +48,70 @@ import { ReviewerCell } from './reviewer-cell';
 import { StatusCell } from './status-cell';
 import { TargetCell } from './target-cell';
 import { TypeCell } from './type-cell';
+
+const features = tableFeatures({
+	columnFilteringFeature,
+	columnVisibilityFeature,
+	rowPaginationFeature,
+	rowSelectionFeature,
+	rowSortingFeature,
+	filteredRowModel: createFilteredRowModel(),
+	paginatedRowModel: createPaginatedRowModel(),
+	sortedRowModel: createSortedRowModel(),
+	filterFns: { includesString: filterFn_includesString, arrHas: filterFn_arrHas },
+	sortFns: { alphanumeric: sortFn_alphanumeric, text: sortFn_text },
+});
+
+const columnHelper = createColumnHelper<typeof features, DashboardData>();
+
+const columns = columnHelper.columns([
+	columnHelper.display({
+		id: 'select',
+		header: () => TableHeadSelection,
+		cell: () => TableRowSelection,
+		enableHiding: false,
+	}),
+	columnHelper.accessor('header', {
+		id: 'header',
+		header: 'Header',
+		cell: () => HeaderCell,
+	}),
+	columnHelper.accessor('type', {
+		id: 'type',
+		header: 'Type',
+		filterFn: 'arrHas',
+		cell: () => TypeCell,
+	}),
+	columnHelper.accessor('status', {
+		id: 'status',
+		header: 'Status',
+		filterFn: 'arrHas',
+		cell: () => StatusCell,
+	}),
+	columnHelper.accessor('target', {
+		id: 'target',
+		filterFn: 'arrHas',
+		header: () => TableHeadSortButton,
+		cell: () => TargetCell,
+	}),
+	columnHelper.accessor('limit', {
+		id: 'limit',
+		filterFn: 'arrHas',
+		header: () => TableHeadSortButton,
+		cell: () => LimitCell,
+	}),
+	columnHelper.accessor('reviewer', {
+		id: 'reviewer',
+		header: 'Reviewer',
+		filterFn: 'arrHas',
+		cell: () => ReviewerCell,
+	}),
+	columnHelper.display({
+		id: 'actions',
+		enableHiding: false,
+		cell: () => ActionDropdown,
+	}),
+]);
 
 @Component({
 	selector: 'spartan-dashboard-table-section',
@@ -135,7 +207,7 @@ import { TypeCell } from './type-cell';
 							<span hlmLabel>Row per page:</span>
 							<hlm-select
 								class="inline-block"
-								[ngModel]="table.getState().pagination.pageSize"
+								[ngModel]="table.atoms.pagination.get().pageSize"
 								(ngModelChange)="table.setPageSize($event); table.resetPageIndex()"
 							>
 								<hlm-select-trigger size="sm" class="mr-1 inline-flex h-8 w-fit">
@@ -153,7 +225,7 @@ import { TypeCell } from './type-cell';
 							</hlm-select>
 						</div>
 
-						<span hlmLabel>Page {{ table.getState().pagination.pageIndex + 1 }} of {{ table.getPageCount() }}</span>
+						<span hlmLabel>Page {{ table.atoms.pagination.get().pageIndex + 1 }} of {{ table.getPageCount() }}</span>
 
 						<div class="flex space-x-1">
 							<button
@@ -209,8 +281,10 @@ import { TypeCell } from './type-cell';
 	`,
 })
 export class DashboardTableSection {
+	protected readonly _columns = columns;
+
 	private readonly _localStorageService = inject(DashboardLocalStorageService);
-	private readonly _visibility = signal<VisibilityState>(DEFAULT_DASHBOARD_TABLE_COLUMNS);
+	private readonly _visibility = signal<ColumnVisibilityState>(DEFAULT_DASHBOARD_TABLE_COLUMNS);
 	private readonly _columnFilters = signal<ColumnFiltersState>([]);
 	private readonly _sorting = signal<SortingState>([]);
 	private readonly _pagination = signal<PaginationState>({
@@ -218,70 +292,27 @@ export class DashboardTableSection {
 		pageIndex: 0,
 	});
 	protected readonly _availablePageSizes = [5, 10, 20, 10000];
-	protected readonly _columns: ColumnDef<DashboardData>[] = [
-		{
-			accessorKey: 'select',
-			id: 'select',
-			header: () => flexRenderComponent(TableHeadSelection),
-			cell: () => flexRenderComponent(TableRowSelection),
-			enableSorting: false,
-			enableHiding: false,
-		},
-		{
-			accessorKey: 'header',
-			id: 'header',
-			header: () => 'Header',
-			cell: () => flexRenderComponent(HeaderCell),
-			enableSorting: false,
-		},
-		{
-			accessorKey: 'type',
-			id: 'type',
-			filterFn: 'arrIncludesSome',
-			header: () => 'Type',
-			cell: () => flexRenderComponent(TypeCell),
-			enableSorting: false,
-		},
-		{
-			accessorKey: 'status',
-			id: 'status',
-			filterFn: 'arrIncludesSome',
-			header: () => 'Status',
-			cell: () => flexRenderComponent(StatusCell),
-			enableSorting: false,
-		},
-		{
-			accessorKey: 'target',
-			id: 'target',
-			filterFn: 'arrIncludesSome',
-			header: () => flexRenderComponent(TableHeadSortButton, { inputs: { header: '' } }),
-			cell: () => flexRenderComponent(TargetCell),
-		},
-		{
-			accessorKey: 'limit',
-			id: 'limit',
-			filterFn: 'arrIncludesSome',
-			header: () => flexRenderComponent(TableHeadSortButton, { inputs: { header: '' } }),
-			cell: () => flexRenderComponent(LimitCell),
-		},
-		{
-			accessorKey: 'reviewer',
-			id: 'reviewer',
-			filterFn: 'arrIncludesSome',
-			header: () => 'Reviewer',
-			cell: () => flexRenderComponent(ReviewerCell),
-			enableSorting: false,
-		},
-		{
-			id: 'action',
-			enableHiding: false,
-			cell: () => flexRenderComponent(ActionDropdown),
-		},
-	];
 
-	public readonly table = createAngularTable<DashboardData>(() => ({
+	constructor() {
+		const cols = this._localStorageService.getTaskTableColumns();
+		this._visibility.set(cols as ColumnVisibilityState);
+	}
+
+	// protected readonly _columns: ColumnDef<DashboardData>[] = [
+	// 	{
+	// 		accessorKey: 'reviewer',
+	// 		id: 'reviewer',
+	// 		filterFn: 'arrIncludesSome',
+	// 		header: () => 'Reviewer',
+	// 		cell: () => flexRenderComponent(ReviewerCell),
+	// 		enableSorting: false,
+	// 	},
+	// ];
+
+	public readonly table = injectTable(() => ({
+		features,
+		columns,
 		data: DASHBOARD_DATA,
-		columns: this._columns,
 		state: {
 			columnFilters: this._columnFilters(),
 			sorting: this._sorting(),
@@ -292,7 +323,6 @@ export class DashboardTableSection {
 			updater instanceof Function ? this._visibility.update(updater) : this._visibility.set(updater);
 			this._localStorageService.saveTaskTableColumns(this._visibility());
 		},
-
 		onColumnFiltersChange: (updater) => {
 			updater instanceof Function ? this._columnFilters.update(updater) : this._columnFilters.set(updater);
 		},
@@ -302,12 +332,9 @@ export class DashboardTableSection {
 		onPaginationChange: (updater) => {
 			updater instanceof Function ? this._pagination.update(updater) : this._pagination.set(updater);
 		},
-		getCoreRowModel: getCoreRowModel(),
-		getFilteredRowModel: getFilteredRowModel(),
-		getSortedRowModel: getSortedRowModel(),
-		getPaginationRowModel: getPaginationRowModel(),
 		initialState: {
 			pagination: {
+				pageIndex: 0,
 				pageSize: 10,
 			},
 		},

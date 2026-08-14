@@ -142,6 +142,7 @@ jobs:
       # ruleset, so semantic-release can push the release commit + tag even when PRs are required.
       - name: Generate app token
         id: app-token
+        if: ${{ secrets.APP_ID != '' && secrets.APP_PRIVATE_KEY != '' }}
         uses: actions/create-github-app-token@v2
         with:
           app-id: ${{ secrets.APP_ID }}
@@ -150,7 +151,7 @@ jobs:
         with:
           fetch-depth: 0
           persist-credentials: false
-          token: ${{ steps.app-token.outputs.token }}
+          token: ${{ steps.app-token.outputs.token || github.token }}
       - name: Install pnpm
         uses: pnpm/action-setup@v5
       - name: Install Node
@@ -169,7 +170,7 @@ jobs:
           unset NPM_TOKEN
           pnpm semantic-release ${{ (github.event_name == 'workflow_dispatch' && inputs.dry-run) && '--dry-run' || '' }}
         env:
-          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token || github.token }}
           # Enable npm provenance only for the real release (OIDC id-token is available here). Keeping
           # it out of publishConfig means local/verdaccio publishes — e.g. cli-smoke — don't attempt
           # provenance and fail without an id-token.
@@ -194,11 +195,14 @@ jobs:
     # branches drift — the exact problem this job exists to prevent.
     if: ${{ !inputs.dry-run && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/beta') }}
     runs-on: ubuntu-latest
-    # Every step here uses the App token (checkout, push, PR); the default GITHUB_TOKEN is unused.
-    permissions: {}
+    # Prefer the App token when configured; otherwise fall back to GITHUB_TOKEN.
+    permissions:
+      contents: write
+      pull-requests: write
     steps:
       - name: Generate app token
         id: app-token
+        if: ${{ secrets.APP_ID != '' && secrets.APP_PRIVATE_KEY != '' }}
         uses: actions/create-github-app-token@v2
         with:
           app-id: ${{ secrets.APP_ID }}
@@ -210,11 +214,11 @@ jobs:
           fetch-depth: 0
           # Keep the App token out of .git/config; it's applied inline only at push time below.
           persist-credentials: false
-          token: ${{ steps.app-token.outputs.token }}
+          token: ${{ steps.app-token.outputs.token || github.token }}
       - name: Backmerge down the prerelease ladder
         env:
-          APP_TOKEN: ${{ steps.app-token.outputs.token }}
-          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          APP_TOKEN: ${{ steps.app-token.outputs.token || github.token }}
+          GH_TOKEN: ${{ steps.app-token.outputs.token || github.token }}
         run: |
           set -euo pipefail
           # Adjacent hops to replay top-down from the branch that just released. main fans the release

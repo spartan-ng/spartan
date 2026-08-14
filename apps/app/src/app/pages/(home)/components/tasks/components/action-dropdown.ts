@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideEllipsis } from '@ng-icons/lucide';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
-import { type CellContext, injectFlexRenderContext } from '@tanstack/angular-table';
+import { type Row } from '@tanstack/angular-table';
 import type { Task } from '../services/tasks.models';
 
 @Component({
@@ -11,7 +11,7 @@ import type { Task } from '../services/tasks.models';
 	imports: [HlmButton, NgIcon, HlmDropdownMenuImports],
 	providers: [provideIcons({ lucideEllipsis })],
 	template: `
-		<button hlmBtn variant="ghost" class="h-6 w-6 p-0.5" align="end" [hlmDropdownMenuTrigger]="menu">
+		<button hlmBtn size="icon-sm" variant="ghost" align="end" [hlmDropdownMenuTrigger]="menu">
 			<ng-icon name="lucideEllipsis" />
 		</button>
 		<ng-template #menu>
@@ -42,15 +42,15 @@ import type { Task } from '../services/tasks.models';
 		<ng-template #labels>
 			<hlm-dropdown-menu>
 				<hlm-dropdown-menu-group>
-					<button hlmDropdownMenuCheckbox [checked]="_element.type === 'Bug'">
+					<button hlmDropdownMenuCheckbox [checked]="_data().type === 'Bug'">
 						<hlm-dropdown-menu-radio-indicator />
 						<span>Bug</span>
 					</button>
-					<button hlmDropdownMenuCheckbox [checked]="_element.type === 'Feature'">
+					<button hlmDropdownMenuCheckbox [checked]="_data().type === 'Feature'">
 						<hlm-dropdown-menu-radio-indicator />
 						<span>Feature</span>
 					</button>
-					<button hlmDropdownMenuCheckbox [checked]="_element.type === 'Documentation'">
+					<button hlmDropdownMenuCheckbox [checked]="_data().type === 'Documentation'">
 						<hlm-dropdown-menu-radio-indicator />
 						<span>Documentation</span>
 					</button>
@@ -60,6 +60,7 @@ import type { Task } from '../services/tasks.models';
 	`,
 })
 export class ActionDropdown {
-	private readonly _context = injectFlexRenderContext<CellContext<Task, unknown>>();
-	protected readonly _element = this._context.row.original;
+	readonly row = input.required<Row<{}, Task>>();
+
+	protected readonly _data = computed(() => this.row().original);
 }

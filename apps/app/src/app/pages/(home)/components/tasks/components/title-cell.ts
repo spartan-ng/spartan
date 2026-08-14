@@ -1,18 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
+import { HlmBadgeImports } from '@spartan-ng/helm/badge';
+import { type Row } from '@tanstack/angular-table';
 import type { Task } from '../services/tasks.models';
-
-import { type CellContext, injectFlexRenderContext } from '@tanstack/angular-table';
 
 @Component({
 	selector: 'spartan-title-cell',
+	imports: [HlmBadgeImports],
 	template: `
-		<div class="text-foreground inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-semibold">
-			{{ _element.type }}
+		<div hlmBadge variant="outline">
+			{{ _data().type }}
 		</div>
-		{{ _element.title }}
+		{{ _data().title }}
 	`,
 })
 export class TitleCell {
-	private readonly _context = injectFlexRenderContext<CellContext<Task, unknown>>();
-	protected readonly _element = this._context.row.original;
+	readonly row = input.required<Row<{}, Task>>();
+
+	protected readonly _data = computed(() => this.row().original);
 }

@@ -56,7 +56,7 @@
 		"@nx/plugin": "22.7.5",
 		"@stackblitz/sdk": "^1.11.0",
 		"@swc/helpers": "0.5.23",
-		"@tanstack/angular-table": "^8.21.3",
+		"@tanstack/angular-table": "9.1.2",
 		"@testing-library/cypress": "^10.0.2",
 		"@trpc/client": "10.45.2",
 		"@trpc/server": "10.45.2",

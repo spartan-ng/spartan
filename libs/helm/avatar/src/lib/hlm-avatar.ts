@@ -10,9 +10,8 @@ import { classes } from '@spartan-ng/helm/utils';
 		'[attr.data-size]': 'size()',
 	},
 	template: `
-		@if (_image()?.canShow()) {
-			<ng-content select="[hlmAvatarImage],[brnAvatarImage]" />
-		} @else {
+		<ng-content select="[hlmAvatarImage],[brnAvatarImage]" />
+		@if (!_image()?.canShow()) {
 			<ng-content select="[hlmAvatarFallback],[brnAvatarFallback]" />
 		}
 		<ng-content />

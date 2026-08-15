@@ -5,9 +5,8 @@ import { BrnAvatarImage } from './image';
 	selector: 'brn-avatar',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		@if (_image()?.canShow()) {
-			<ng-content select="[brnAvatarImage]" />
-		} @else {
+		<ng-content select="[brnAvatarImage]" />
+		@if (!_image()?.canShow()) {
 			<ng-content select="[brnAvatarFallback]" />
 		}
 	`,

@@ -1,4 +1,4 @@
-import { Directive, computed, signal } from '@angular/core';
+import { Directive, ElementRef, afterNextRender, computed, inject, signal } from '@angular/core';
 
 @Directive({
 	selector: 'img[brnAvatarImage]',
@@ -6,6 +6,8 @@ import { Directive, computed, signal } from '@angular/core';
 	host: {
 		'(load)': '_onLoad()',
 		'(error)': '_onError()',
+		class: 'absolute inset-0',
+		'[class.invisible]': '!canShow()',
 	},
 })
 export class BrnAvatarImage {

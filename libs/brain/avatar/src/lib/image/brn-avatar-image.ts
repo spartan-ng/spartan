@@ -1,4 +1,4 @@
-import { Directive, ElementRef, afterNextRender, computed, inject, signal } from '@angular/core';
+import { Directive, computed, signal } from '@angular/core';
 
 @Directive({
 	selector: 'img[brnAvatarImage]',

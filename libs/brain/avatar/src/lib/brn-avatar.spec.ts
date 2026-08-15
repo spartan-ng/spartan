@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
 import { BrnAvatar } from './brn-avatar';
 import { BrnAvatarFallback } from './fallback/brn-avatar-fallback';
 import { BrnAvatarImage } from './image/brn-avatar-image';

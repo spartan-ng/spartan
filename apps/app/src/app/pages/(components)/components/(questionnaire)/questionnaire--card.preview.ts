@@ -1,14 +1,14 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { form, FormField, FormRoot, required } from '@angular/forms/signals';
 import type { BrnQuestionnaireItemDefinition } from '@spartan-ng/brain/questionnaire';
 import { toast } from '@spartan-ng/brain/sonner';
 import { HlmCardImports } from '@spartan-ng/helm/card';
 import { HlmQuestionnaireImports } from '@spartan-ng/helm/questionnaire';
-import { formValue } from './questionnaire.shared';
+import { answerLabel } from './questionnaire.shared';
 
 @Component({
 	selector: 'spartan-questionnaire-card-preview',
-	imports: [FormsModule, HlmQuestionnaireImports, HlmCardImports],
+	imports: [FormRoot, FormField, HlmQuestionnaireImports, HlmCardImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		class: 'flex w-full justify-center py-6',
@@ -17,13 +17,13 @@ import { formValue } from './questionnaire.shared';
 		<form
 			hlmQuestionnaire
 			class="mx-auto max-w-md"
+			[formRoot]="form"
 			[items]="items"
 			defaultItem="task"
 			shortcuts="numbers"
-			(ngSubmit)="onSubmit($event)"
 		>
 			<hlm-card>
-				<fieldset hlmQuestionnaireItem name="task" required aria-labelledby="task-title">
+				<fieldset hlmQuestionnaireItem name="task" required aria-labelledby="task-title" [formField]="form.task">
 					<hlm-card-header>
 						<legend hlmQuestionnaireTitle hlmCardTitle id="task-title">What should the agent work on?</legend>
 						<p hlmQuestionnaireDescription hlmCardDescription>Choose the task that should be handled next.</p>
@@ -41,7 +41,7 @@ import { formValue } from './questionnaire.shared';
 					</div>
 				</fieldset>
 
-				<fieldset hlmQuestionnaireItem name="output" required aria-labelledby="output-title">
+				<fieldset hlmQuestionnaireItem name="output" required aria-labelledby="output-title" [formField]="form.output">
 					<hlm-card-header>
 						<legend hlmQuestionnaireTitle hlmCardTitle id="output-title">What should the final handoff include?</legend>
 						<p hlmQuestionnaireDescription hlmCardDescription>Pick the level of detail needed for review.</p>
@@ -84,11 +84,26 @@ export class QuestionnaireCardPreview {
 		},
 	];
 
-	protected onSubmit(event: Event): void {
-		event.preventDefault();
-		const form = event.target as HTMLFormElement;
-		toast('Agent task created', {
-			description: `Task: ${formValue(form, 'task')} · Handoff: ${formValue(form, 'output')}`,
-		});
-	}
+	protected readonly _model = signal({
+		task: '',
+		output: '',
+	});
+
+	public readonly form = form(
+		this._model,
+		(schemaPath) => {
+			required(schemaPath.task);
+			required(schemaPath.output);
+		},
+		{
+			submission: {
+				action: async () => {
+					const answers = this._model();
+					toast('Agent task created', {
+						description: `Task: ${answerLabel(answers.task)} · Handoff: ${answerLabel(answers.output)}`,
+					});
+				},
+			},
+		},
+	);
 }

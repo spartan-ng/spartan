@@ -1023,7 +1023,7 @@
 	}
 
 	.spartan-questionnaire-choice-indicator-check {
-		@apply size-3.5;
+		@apply text-[length:--spacing(3.5)];
 	}
 
 	.spartan-questionnaire-choice-label,

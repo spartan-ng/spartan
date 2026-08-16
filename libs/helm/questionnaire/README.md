@@ -5,10 +5,10 @@ Styled questionnaire built on `@spartan-ng/brain/questionnaire`.
 ## Anatomy
 
 ```html
-<form hlmQuestionnaire [items]="items" shortcuts="letters" (ngSubmit)="onSubmit($event)">
+<form hlmQuestionnaire [formRoot]="form" [items]="items" shortcuts="letters">
 	<div hlmQuestionnaireProgress></div>
 
-	<fieldset hlmQuestionnaireItem name="direction" required>
+	<fieldset hlmQuestionnaireItem name="direction" required [formField]="form.direction">
 		<legend hlmQuestionnaireTitle>What should we build next?</legend>
 		<p hlmQuestionnaireDescription>Choose a direction.</p>
 		<div hlmQuestionnaireChoices>
@@ -30,4 +30,4 @@ Styled questionnaire built on `@spartan-ng/brain/questionnaire`.
 </form>
 ```
 
-Import with `HlmQuestionnaireImports`. Styles live in the registry CSS as `.spartan-questionnaire*`.
+Import `form`, `FormField`, and `FormRoot` from `@angular/forms/signals` plus `HlmQuestionnaireImports`. Styles live in the registry CSS as `.spartan-questionnaire*`.

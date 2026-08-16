@@ -1,16 +1,16 @@
 import { ChangeDetectionStrategy, Component, computed, ElementRef, signal, viewChild } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { form, FormField, FormRoot, required } from '@angular/forms/signals';
 import type { BrnQuestionnaireItemDefinition } from '@spartan-ng/brain/questionnaire';
 import { toast } from '@spartan-ng/brain/sonner';
 import { HlmQuestionnaireImports } from '@spartan-ng/helm/questionnaire';
 import { HlmSelectImports } from '@spartan-ng/helm/select';
-import { formValue, type QuestionnaireShortcutMode } from './questionnaire.shared';
+import { answerLabel, type QuestionnaireShortcutMode } from './questionnaire.shared';
 
 type ShortcutSelectValue = 'none' | 'letters' | 'numbers';
 
 @Component({
 	selector: 'spartan-questionnaire-shortcuts-preview',
-	imports: [FormsModule, HlmQuestionnaireImports, HlmSelectImports],
+	imports: [FormRoot, FormField, HlmQuestionnaireImports, HlmSelectImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		class: 'relative flex min-h-[350px] w-full flex-1 self-stretch justify-center py-6',
@@ -42,12 +42,12 @@ type ShortcutSelectValue = 'none' | 'letters' | 'numbers';
 				#questionnaireForm
 				hlmQuestionnaire
 				class="mt-auto"
+				[formRoot]="form"
 				[items]="items"
 				defaultItem="action"
 				[shortcuts]="shortcuts()"
-				(ngSubmit)="onSubmit($event)"
 			>
-				<fieldset hlmQuestionnaireItem name="action" required>
+				<fieldset hlmQuestionnaireItem name="action" required [formField]="form.action">
 					<legend hlmQuestionnaireTitle>What should the agent do next?</legend>
 					<p hlmQuestionnaireDescription>Use the displayed shortcut or navigate with the keyboard.</p>
 					<div hlmQuestionnaireChoices>
@@ -66,7 +66,7 @@ type ShortcutSelectValue = 'none' | 'letters' | 'numbers';
 	`,
 })
 export class QuestionnaireShortcutsPreview {
-	private readonly _form = viewChild<ElementRef<HTMLFormElement>>('questionnaireForm');
+	private readonly _questionnaireEl = viewChild<ElementRef<HTMLFormElement>>('questionnaireForm');
 
 	public readonly items: readonly BrnQuestionnaireItemDefinition[] = [
 		{
@@ -84,6 +84,26 @@ export class QuestionnaireShortcutsPreview {
 
 	public readonly shortcuts = signal<QuestionnaireShortcutMode>('letters');
 	public readonly shortcutsSelectValue = computed<ShortcutSelectValue>(() => this.shortcuts() ?? 'none');
+
+	protected readonly _model = signal({
+		action: '',
+	});
+
+	public readonly form = form(
+		this._model,
+		(schemaPath) => {
+			required(schemaPath.action);
+		},
+		{
+			submission: {
+				action: async () => {
+					toast('Next action selected', {
+						description: `Action: ${answerLabel(this._model().action)} · Shortcuts: ${this.shortcuts() ?? 'none'}`,
+					});
+				},
+			},
+		},
+	);
 
 	protected readonly shortcutLabel = (value: ShortcutSelectValue) =>
 		this.shortcutOptions.find((option) => option.value === value)?.label ?? '';
@@ -113,15 +133,7 @@ export class QuestionnaireShortcutsPreview {
 		this.focusQuestionnaire();
 	}
 
-	protected onSubmit(event: Event): void {
-		event.preventDefault();
-		const form = event.target as HTMLFormElement;
-		toast('Next action selected', {
-			description: `Action: ${formValue(form, 'action')} · Shortcuts: ${this.shortcuts() ?? 'none'}`,
-		});
-	}
-
 	private focusQuestionnaire(): void {
-		this._form()?.nativeElement.focus({ preventScroll: true });
+		this._questionnaireEl()?.nativeElement.focus({ preventScroll: true });
 	}
 }

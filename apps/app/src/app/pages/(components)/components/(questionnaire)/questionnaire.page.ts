@@ -99,9 +99,11 @@ export const routeMeta: RouteMeta = {
 			<p class="${hlmP}">
 				Pass
 				<code class="${hlmCode}">items</code>
-				for ordered progress, shortcuts, and navigation. Read answers from
+				for ordered progress, shortcuts, and navigation. Bind each item with
+				<code class="${hlmCode}">[formField]</code>
+				and read answers from the signal model on submit. Native
 				<code class="${hlmCode}">FormData</code>
-				on submit.
+				still works because the inputs stay in the form.
 			</p>
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
@@ -160,8 +162,11 @@ export const routeMeta: RouteMeta = {
 
 			<h3 id="examples__validation" spartanH4>Custom Validation</h3>
 			<p class="${hlmP} mb-2">
-				Combine controlled navigation with an external schema such as Zod to return to an invalid item and present its
-				error.
+				Use Signal Forms
+				<code class="${hlmCode}">required()</code>
+				and
+				<code class="${hlmCode}">validate()</code>
+				to return to an invalid item and present its error.
 			</p>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab class="!h-auto !min-h-0">

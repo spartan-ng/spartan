@@ -52,7 +52,7 @@ export const Default: Story = {
 				[items]="items"
 				defaultItem="direction"
 				shortcuts="letters"
-				(ngSubmit)="$event.preventDefault()"
+				(submit)="$event.preventDefault()"
 			>
 				<div hlmQuestionnaireProgress></div>
 				<fieldset hlmQuestionnaireItem name="direction" required>
@@ -110,7 +110,7 @@ export const Multiple: Story = {
 				class="mx-auto max-w-md"
 				[items]="items"
 				shortcuts="letters"
-				(ngSubmit)="$event.preventDefault()"
+				(submit)="$event.preventDefault()"
 			>
 				<fieldset hlmQuestionnaireItem name="context" multiple required>
 					<legend hlmQuestionnaireTitle>What context should the agent inspect?</legend>
@@ -148,7 +148,7 @@ export const Freeform: Story = {
 				class="mx-auto max-w-md"
 				[items]="items"
 				shortcuts="letters"
-				(ngSubmit)="$event.preventDefault()"
+				(submit)="$event.preventDefault()"
 			>
 				<fieldset hlmQuestionnaireItem name="approach" required>
 					<legend hlmQuestionnaireTitle>How should the agent approach this refactor?</legend>

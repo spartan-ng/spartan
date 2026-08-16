@@ -1,13 +1,13 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { form, FormField, FormRoot, required } from '@angular/forms/signals';
 import type { BrnQuestionnaireItemDefinition } from '@spartan-ng/brain/questionnaire';
 import { toast } from '@spartan-ng/brain/sonner';
 import { HlmQuestionnaireImports } from '@spartan-ng/helm/questionnaire';
-import { formValue, formValues } from './questionnaire.shared';
+import { answerLabel } from './questionnaire.shared';
 
 @Component({
 	selector: 'spartan-questionnaire-preview',
-	imports: [FormsModule, HlmQuestionnaireImports],
+	imports: [FormRoot, FormField, HlmQuestionnaireImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		class: 'flex w-full justify-center py-6',
@@ -16,14 +16,14 @@ import { formValue, formValues } from './questionnaire.shared';
 		<form
 			hlmQuestionnaire
 			class="mx-auto max-w-md"
+			[formRoot]="form"
 			[items]="items"
 			defaultItem="direction"
 			shortcuts="letters"
-			(ngSubmit)="onSubmit($event)"
 		>
 			<div hlmQuestionnaireProgress></div>
 
-			<fieldset hlmQuestionnaireItem name="direction" required>
+			<fieldset hlmQuestionnaireItem name="direction" required [formField]="form.direction">
 				<legend hlmQuestionnaireTitle>What should the agent build next?</legend>
 				<p hlmQuestionnaireDescription>Choose a direction or describe another task.</p>
 				<div hlmQuestionnaireChoices>
@@ -44,7 +44,7 @@ import { formValue, formValues } from './questionnaire.shared';
 				<p hlmQuestionnaireError></p>
 			</fieldset>
 
-			<fieldset hlmQuestionnaireItem name="signals" multiple>
+			<fieldset hlmQuestionnaireItem name="signals" multiple [formField]="form.signals">
 				<legend hlmQuestionnaireTitle>What should every progress update include?</legend>
 				<p hlmQuestionnaireDescription>Select all that apply, or skip this question.</p>
 				<div hlmQuestionnaireChoices>
@@ -56,7 +56,7 @@ import { formValue, formValues } from './questionnaire.shared';
 				<p hlmQuestionnaireError></p>
 			</fieldset>
 
-			<fieldset hlmQuestionnaireItem name="timing" required>
+			<fieldset hlmQuestionnaireItem name="timing" required [formField]="form.timing">
 				<legend hlmQuestionnaireTitle>When should work begin?</legend>
 				<p hlmQuestionnaireDescription>Choose when the agent should begin the work.</p>
 				<div hlmQuestionnaireChoices>
@@ -95,24 +95,40 @@ export class QuestionnairePreview {
 		},
 	];
 
-	protected onSubmit(event: Event): void {
-		event.preventDefault();
-		const form = event.target as HTMLFormElement;
-		toast('Agent plan saved', {
-			description: `Direction: ${formValue(form, 'direction')} · Progress signals: ${formValues(form, 'signals')} · Timing: ${formValue(form, 'timing')}`,
-		});
-	}
+	protected readonly _model = signal({
+		direction: '',
+		signals: [] as string[],
+		timing: '',
+	});
+
+	public readonly form = form(
+		this._model,
+		(schemaPath) => {
+			required(schemaPath.direction);
+			required(schemaPath.timing);
+		},
+		{
+			submission: {
+				action: async () => {
+					const answers = this._model();
+					toast('Agent plan saved', {
+						description: `Direction: ${answerLabel(answers.direction)} · Progress signals: ${answerLabel(answers.signals)} · Timing: ${answerLabel(answers.timing)}`,
+					});
+				},
+			},
+		},
+	);
 }
 
 export const defaultImports = `
-import { FormsModule } from '@angular/forms';
+import { form, FormField, FormRoot, required } from '@angular/forms/signals';
 import { HlmQuestionnaireImports } from '@spartan-ng/helm/questionnaire';
 `;
 
 export const defaultSkeleton = `
-<form hlmQuestionnaire class="mx-auto max-w-md" [items]="items" defaultItem="direction" shortcuts="letters" (ngSubmit)="onSubmit($event)">
+<form hlmQuestionnaire [formRoot]="form" class="mx-auto max-w-md" [items]="items" defaultItem="direction" shortcuts="letters">
   <div hlmQuestionnaireProgress></div>
-  <fieldset hlmQuestionnaireItem name="direction" required>
+  <fieldset hlmQuestionnaireItem name="direction" required [formField]="form.direction">
     <legend hlmQuestionnaireTitle>What should the agent build next?</legend>
     <p hlmQuestionnaireDescription>Choose a direction or describe another task.</p>
     <div hlmQuestionnaireChoices>

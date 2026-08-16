@@ -5,7 +5,7 @@ Headless multi-step questionnaire primitive. Ported from [shadcn Questionnaire](
 ## Anatomy
 
 ```html
-<form brnQuestionnaire [items]="items" shortcuts="letters" (ngSubmit)="onSubmit($event)">
+<form brnQuestionnaire [items]="items" shortcuts="letters" (submit)="onSubmit($event)">
 	<div brnQuestionnaireProgress></div>
 
 	<fieldset brnQuestionnaireItem name="direction" required>
@@ -29,9 +29,9 @@ Headless multi-step questionnaire primitive. Ported from [shadcn Questionnaire](
 </form>
 ```
 
-## FormData submit
+## Form submit
 
-Answers use native form controls. On submit, read `FormData` from the form element:
+Each item implements `ControlValueAccessor`, so Signal Forms can bind `[formField]` on the fieldset. Use `name` for the questionnaire item id, not the Signal Forms field path. Answers also stay on native form controls, so `FormData` still works:
 
 ```ts
 onSubmit(event: Event) {

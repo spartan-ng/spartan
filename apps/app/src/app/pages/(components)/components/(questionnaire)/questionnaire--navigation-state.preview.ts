@@ -1,24 +1,30 @@
 import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { form, FormField, FormRoot, required } from '@angular/forms/signals';
 import type { BrnQuestionnaireItemDefinition } from '@spartan-ng/brain/questionnaire';
 import { toast } from '@spartan-ng/brain/sonner';
 import { HlmQuestionnaireImports } from '@spartan-ng/helm/questionnaire';
-import { formValue, type QuestionnaireItemStatus } from './questionnaire.shared';
+import { answerLabel, type QuestionnaireItemStatus } from './questionnaire.shared';
 
 type ItemName = 'permission' | 'verification';
 
 @Component({
 	selector: 'spartan-questionnaire-navigation-state-preview',
-	imports: [FormsModule, HlmQuestionnaireImports],
+	imports: [FormRoot, FormField, HlmQuestionnaireImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		class: 'flex w-full justify-center py-6',
 	},
 	template: `
-		<form hlmQuestionnaire class="mx-auto max-w-md" [items]="items" [(item)]="item" (ngSubmit)="onSubmit($event)">
+		<form hlmQuestionnaire class="mx-auto max-w-md" [formRoot]="form" [items]="items" [(item)]="item">
 			<div hlmQuestionnaireProgress></div>
 
-			<fieldset hlmQuestionnaireItem name="permission" required (statusChange)="setStatus('permission', $event)">
+			<fieldset
+				hlmQuestionnaireItem
+				name="permission"
+				required
+				[formField]="form.permission"
+				(statusChange)="setStatus('permission', $event)"
+			>
 				<legend hlmQuestionnaireTitle>What may the agent modify?</legend>
 				<p hlmQuestionnaireDescription>Next is intentionally disabled until an answer is selected.</p>
 				<div hlmQuestionnaireChoices>
@@ -29,7 +35,13 @@ type ItemName = 'permission' | 'verification';
 				<p hlmQuestionnaireError></p>
 			</fieldset>
 
-			<fieldset hlmQuestionnaireItem name="verification" required (statusChange)="setStatus('verification', $event)">
+			<fieldset
+				hlmQuestionnaireItem
+				name="verification"
+				required
+				[formField]="form.verification"
+				(statusChange)="setStatus('verification', $event)"
+			>
 				<legend hlmQuestionnaireTitle>What must pass before completion?</legend>
 				<div hlmQuestionnaireChoices>
 					<label hlmQuestionnaireChoice value="tests">Tests</label>
@@ -70,15 +82,30 @@ export class QuestionnaireNavigationStatePreview {
 	public readonly activeStatus = computed(() => this._statuses()[this.item()]);
 	public readonly unanswered = computed(() => this.activeStatus() === 'unanswered');
 
+	protected readonly _model = signal({
+		permission: '',
+		verification: '',
+	});
+
+	public readonly form = form(
+		this._model,
+		(schemaPath) => {
+			required(schemaPath.permission);
+			required(schemaPath.verification);
+		},
+		{
+			submission: {
+				action: async () => {
+					const answers = this._model();
+					toast('Permissions saved', {
+						description: `Permission: ${answerLabel(answers.permission)} · Verification: ${answerLabel(answers.verification)}`,
+					});
+				},
+			},
+		},
+	);
+
 	protected setStatus(name: ItemName, status: QuestionnaireItemStatus): void {
 		this._statuses.update((current) => ({ ...current, [name]: status }));
-	}
-
-	protected onSubmit(event: Event): void {
-		event.preventDefault();
-		const form = event.target as HTMLFormElement;
-		toast('Permissions saved', {
-			description: `Permission: ${formValue(form, 'permission')} · Verification: ${formValue(form, 'verification')}`,
-		});
 	}
 }

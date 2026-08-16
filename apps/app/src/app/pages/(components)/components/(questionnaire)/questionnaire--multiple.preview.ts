@@ -1,20 +1,20 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { form, FormField, FormRoot, required } from '@angular/forms/signals';
 import type { BrnQuestionnaireItemDefinition } from '@spartan-ng/brain/questionnaire';
 import { toast } from '@spartan-ng/brain/sonner';
 import { HlmQuestionnaireImports } from '@spartan-ng/helm/questionnaire';
-import { formValues } from './questionnaire.shared';
+import { answerLabel } from './questionnaire.shared';
 
 @Component({
 	selector: 'spartan-questionnaire-multiple-preview',
-	imports: [FormsModule, HlmQuestionnaireImports],
+	imports: [FormRoot, FormField, HlmQuestionnaireImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		class: 'flex w-full justify-center py-6',
 	},
 	template: `
-		<form hlmQuestionnaire class="mx-auto max-w-md" [items]="items" shortcuts="letters" (ngSubmit)="onSubmit($event)">
-			<fieldset hlmQuestionnaireItem name="context" multiple required>
+		<form hlmQuestionnaire class="mx-auto max-w-md" [formRoot]="form" [items]="items" shortcuts="letters">
+			<fieldset hlmQuestionnaireItem name="context" multiple required [formField]="form.context">
 				<legend hlmQuestionnaireTitle>What context should the agent inspect?</legend>
 				<p hlmQuestionnaireDescription>Select every source that may affect the implementation.</p>
 				<div hlmQuestionnaireChoices>
@@ -41,11 +41,23 @@ export class QuestionnaireMultiplePreview {
 		},
 	];
 
-	protected onSubmit(event: Event): void {
-		event.preventDefault();
-		const form = event.target as HTMLFormElement;
-		toast('Context selected', {
-			description: `Context: ${formValues(form, 'context')}`,
-		});
-	}
+	protected readonly _model = signal({
+		context: [] as string[],
+	});
+
+	public readonly form = form(
+		this._model,
+		(schemaPath) => {
+			required(schemaPath.context);
+		},
+		{
+			submission: {
+				action: async () => {
+					toast('Context selected', {
+						description: `Context: ${answerLabel(this._model().context)}`,
+					});
+				},
+			},
+		},
+	);
 }

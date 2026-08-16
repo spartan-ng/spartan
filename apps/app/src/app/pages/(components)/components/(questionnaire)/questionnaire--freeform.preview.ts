@@ -1,20 +1,20 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { form, FormField, FormRoot, required } from '@angular/forms/signals';
 import type { BrnQuestionnaireItemDefinition } from '@spartan-ng/brain/questionnaire';
 import { toast } from '@spartan-ng/brain/sonner';
 import { HlmQuestionnaireImports } from '@spartan-ng/helm/questionnaire';
-import { formValue } from './questionnaire.shared';
+import { answerLabel } from './questionnaire.shared';
 
 @Component({
 	selector: 'spartan-questionnaire-freeform-preview',
-	imports: [FormsModule, HlmQuestionnaireImports],
+	imports: [FormRoot, FormField, HlmQuestionnaireImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		class: 'flex w-full justify-center py-6',
 	},
 	template: `
-		<form hlmQuestionnaire class="mx-auto max-w-md" [items]="items" shortcuts="letters" (ngSubmit)="onSubmit($event)">
-			<fieldset hlmQuestionnaireItem name="approach" required>
+		<form hlmQuestionnaire class="mx-auto max-w-md" [formRoot]="form" [items]="items" shortcuts="letters">
+			<fieldset hlmQuestionnaireItem name="approach" required [formField]="form.approach">
 				<legend hlmQuestionnaireTitle>How should the agent approach this refactor?</legend>
 				<p hlmQuestionnaireDescription>Choose a strategy or write a more specific instruction.</p>
 				<div hlmQuestionnaireChoices>
@@ -45,11 +45,23 @@ export class QuestionnaireFreeformPreview {
 		},
 	];
 
-	protected onSubmit(event: Event): void {
-		event.preventDefault();
-		const form = event.target as HTMLFormElement;
-		toast('Approach selected', {
-			description: `Approach: ${formValue(form, 'approach')}`,
-		});
-	}
+	protected readonly _model = signal({
+		approach: '',
+	});
+
+	public readonly form = form(
+		this._model,
+		(schemaPath) => {
+			required(schemaPath.approach);
+		},
+		{
+			submission: {
+				action: async () => {
+					toast('Approach selected', {
+						description: `Approach: ${answerLabel(this._model().approach)}`,
+					});
+				},
+			},
+		},
+	);
 }

@@ -8,7 +8,7 @@ import { classes } from '@spartan-ng/helm/utils';
 	hostDirectives: [
 		{
 			directive: BrnQuestionnaireItem,
-			inputs: ['name', 'multiple', 'required', 'disabled', 'invalid', 'aria-describedby', 'aria-keyshortcuts'],
+			inputs: ['name', 'multiple', 'required', 'disabled', 'itemInvalid', 'aria-describedby', 'aria-keyshortcuts'],
 			outputs: ['statusChange'],
 		},
 	],

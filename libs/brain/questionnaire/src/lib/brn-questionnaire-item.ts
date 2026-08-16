@@ -4,27 +4,40 @@ import {
 	Directive,
 	effect,
 	ElementRef,
+	forwardRef,
 	inject,
 	input,
 	output,
 	signal,
+	untracked,
 } from '@angular/core';
+import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { type ChangeFn, type TouchFn } from '@spartan-ng/brain/forms';
 import { getShortcutByChoiceValue } from './brn-questionnaire.collection';
 import { injectBrnQuestionnaire, provideBrnQuestionnaireItem } from './brn-questionnaire.token';
 import type { BrnAnswerControlRegistration, BrnQuestionnaireItemStatus } from './brn-questionnaire.types';
 import {
 	compareAnswerOrder,
 	getShortcutKeys,
+	hasInputValue,
 	isAnswerFilled,
 	isEmptyNavigableInput,
 	isRadioTarget,
 	isTextEntryTarget,
 } from './brn-questionnaire.utils';
 
+export type BrnQuestionnaireItemValue = string | string[];
+
+export const BRN_QUESTIONNAIRE_ITEM_VALUE_ACCESSOR = {
+	provide: NG_VALUE_ACCESSOR,
+	useExisting: forwardRef(() => BrnQuestionnaireItem),
+	multi: true,
+};
+
 @Directive({
 	selector: 'fieldset[brnQuestionnaireItem]',
 	exportAs: 'brnQuestionnaireItem',
-	providers: [provideBrnQuestionnaireItem(BrnQuestionnaireItem)],
+	providers: [BRN_QUESTIONNAIRE_ITEM_VALUE_ACCESSOR, provideBrnQuestionnaireItem(BrnQuestionnaireItem)],
 	host: {
 		'[attr.aria-describedby]': '_describedBy()',
 		'[attr.aria-invalid]': 'invalid() ? "true" : null',
@@ -35,19 +48,42 @@ import {
 		'[attr.hidden]': '!active() || null',
 		'[attr.inert]': '!active() || null',
 		'[attr.tabindex]': '-1',
+		'(focusout)': 'onTouched()',
 	},
 })
-export class BrnQuestionnaireItem {
+export class BrnQuestionnaireItem implements ControlValueAccessor {
 	private readonly _questionnaire = injectBrnQuestionnaire();
 	private readonly _elementRef = inject<ElementRef<HTMLFieldSetElement>>(ElementRef);
 
-	public readonly name = input.required<string>();
+	/**
+	 * `[formField]` overwrites `name` / `required` / `disabled` with field state.
+	 * Prefer the host attributes so questionnaire identity and flow stay stable.
+	 */
+	public readonly nameInput = input.required<string>({ alias: 'name' });
+	private readonly _hostName = this._elementRef.nativeElement.getAttribute('name');
+	public readonly name = computed(() => this._hostName || this.nameInput());
 	public readonly multiple = input(false, { transform: booleanAttribute });
-	public readonly required = input(false, { transform: booleanAttribute });
-	public readonly disabled = input(false, { transform: booleanAttribute });
-	public readonly externallyInvalid = input(false, { alias: 'invalid', transform: booleanAttribute });
+	public readonly requiredInput = input(false, { alias: 'required', transform: booleanAttribute });
+	private readonly _hostRequired = this._elementRef.nativeElement.hasAttribute('required');
+	public readonly required = computed(() => this._hostRequired || this.requiredInput());
+	public readonly disabledInput = input(false, { alias: 'disabled', transform: booleanAttribute });
+	private readonly _hostDisabled = this._elementRef.nativeElement.hasAttribute('disabled');
+	/**
+	 * Do not alias this to `invalid` — `[formField]` would bind field.invalid()
+	 * and mark empty required items invalid before the user interacts.
+	 */
+	public readonly externallyInvalid = input(false, { alias: 'itemInvalid', transform: booleanAttribute });
 	public readonly ariaDescribedBy = input<string | undefined>(undefined, { alias: 'aria-describedby' });
 	public readonly ariaKeyShortcuts = input<string | undefined>(undefined, { alias: 'aria-keyshortcuts' });
+
+	private readonly _cvaDisabled = signal(false);
+	public readonly disabled = computed(() => this._hostDisabled || this.disabledInput() || this._cvaDisabled());
+
+	protected onChange: ChangeFn<BrnQuestionnaireItemValue> = () => undefined;
+	protected onTouched: TouchFn = () => undefined;
+
+	private _pendingControlValue: BrnQuestionnaireItemValue | undefined = undefined;
+	private readonly _writtenInputValues = signal<Readonly<Record<string, string>>>({});
 
 	public readonly statusChange = output<BrnQuestionnaireItemStatus>();
 
@@ -61,7 +97,9 @@ export class BrnQuestionnaireItem {
 	private readonly _defaultSelectedAnswerIds = signal<string[]>([]);
 	private _previousStatus: BrnQuestionnaireItemStatus | null = null;
 
-	public readonly active = computed(() => !this.disabled() && this._questionnaire.activeItemName() === this.name());
+	public readonly active = computed(
+		() => !this._hostDisabled && !this.disabledInput() && this._questionnaire.activeItemName() === this.name(),
+	);
 
 	private readonly _answerControls = computed(() => {
 		this._questionnaire.domVersion();
@@ -100,6 +138,7 @@ export class BrnQuestionnaireItem {
 
 	public readonly selectedAnswerIds = this._selectedAnswerIds.asReadonly();
 	public readonly resetVersion = this._resetVersion.asReadonly();
+	public readonly writtenInputValues = this._writtenInputValues.asReadonly();
 	public readonly shortcuts = this._questionnaire.shortcuts;
 
 	public readonly shortcutByChoiceValue = computed(() => {
@@ -166,7 +205,7 @@ export class BrnQuestionnaireItem {
 				choices: this._answerControls().flatMap((answer) =>
 					answer.type === 'choice' ? [{ disabled: answer.ownDisabled, value: answer.value }] : [],
 				),
-				disabled: this.disabled(),
+				disabled: this._hostDisabled || this.disabledInput(),
 				element: this._elementRef.nativeElement,
 				focus: () => this.focus(),
 				focusInvalid: () => this.focusInvalid(),
@@ -200,6 +239,29 @@ export class BrnQuestionnaireItem {
 				return selectedAnswer ? [selectedAnswer.id] : [];
 			});
 		});
+
+		effect(() => {
+			this._answers();
+			this.multiple();
+			untracked(() => this.applyPendingControlValue());
+		});
+	}
+
+	public writeValue(value: BrnQuestionnaireItemValue | null): void {
+		this._pendingControlValue = this.normalizeControlValue(value);
+		this.applyPendingControlValue();
+	}
+
+	public registerOnChange(fn: ChangeFn<BrnQuestionnaireItemValue>): void {
+		this.onChange = fn;
+	}
+
+	public registerOnTouched(fn: TouchFn): void {
+		this.onTouched = fn;
+	}
+
+	public setDisabledState(isDisabled: boolean): void {
+		this._cvaDisabled.set(isDisabled);
 	}
 
 	public registerAnswerControl(registration: BrnAnswerControlRegistration): () => void {
@@ -257,8 +319,10 @@ export class BrnQuestionnaireItem {
 	}
 
 	public setAnswerSelectionFromInteraction(answerId: string, selected: boolean): void {
+		this._pendingControlValue = undefined;
 		this._skipped.set(false);
 		this.updateAnswerSelected(answerId, selected);
+		this.emitControlValue();
 	}
 
 	public syncControlledAnswerSelection(answerId: string, selected: boolean): void {
@@ -318,11 +382,14 @@ export class BrnQuestionnaireItem {
 	}
 
 	public reset(): void {
+		this._pendingControlValue = undefined;
 		this._validationAttempted.set(false);
 		this._skipped.set(false);
 		const defaults = this._defaultSelectedAnswerIds();
 		this._selectedAnswerIds.set(this.multiple() ? [...defaults] : defaults.slice(0, 1));
+		this._writtenInputValues.set({});
 		this._resetVersion.update((version) => version + 1);
+		this.emitControlValue();
 	}
 
 	public skip(): void {
@@ -330,8 +397,10 @@ export class BrnQuestionnaireItem {
 			return;
 		}
 
+		this._pendingControlValue = undefined;
 		this._selectedAnswerIds.set([]);
 		this._skipped.set(true);
+		this.emitControlValue();
 	}
 
 	public getAnswerByElement(answerElement: Element): BrnAnswerControlRegistration | null {
@@ -404,5 +473,90 @@ export class BrnQuestionnaireItem {
 
 			return currentAnswerIds.includes(answerId) ? currentAnswerIds : [...currentAnswerIds, answerId];
 		});
+	}
+
+	private applyPendingControlValue(): void {
+		if (this._pendingControlValue === undefined) {
+			return;
+		}
+
+		this.applyControlValue(this._pendingControlValue);
+	}
+
+	private applyControlValue(value: BrnQuestionnaireItemValue): void {
+		const answers = this._answers();
+		const selectedValues = new Set(Array.isArray(value) ? value : hasInputValue(value) ? [value] : []);
+		const scalar = Array.isArray(value) ? (value[0] ?? '') : value;
+		const choiceMatch = answers.find((answer) => answer.type === 'choice' && answer.value === scalar);
+		const nextInputValues: Record<string, string> = {};
+
+		if (this.multiple()) {
+			for (const answer of answers) {
+				if (answer.type === 'choice') {
+					this.syncControlledAnswerSelection(answer.id, selectedValues.has(answer.value));
+					continue;
+				}
+
+				nextInputValues[answer.id] = '';
+				this.syncControlledAnswerSelection(answer.id, false);
+			}
+
+			this._writtenInputValues.set(nextInputValues);
+			return;
+		}
+
+		for (const answer of answers) {
+			if (answer.type === 'choice') {
+				this.syncControlledAnswerSelection(answer.id, answer.value === scalar);
+				continue;
+			}
+
+			const text = choiceMatch || !hasInputValue(scalar) ? '' : scalar;
+			nextInputValues[answer.id] = text;
+			this.syncControlledAnswerSelection(answer.id, hasInputValue(text));
+		}
+
+		this._writtenInputValues.set(nextInputValues);
+	}
+
+	private getControlValue(): BrnQuestionnaireItemValue {
+		if (this._skipped()) {
+			return this.emptyControlValue();
+		}
+
+		const values = this._answers()
+			.filter((answer) => this._selectedAnswerIds().includes(answer.id))
+			.map((answer) => (answer.type === 'choice' ? answer.value : answer.element.value.trim()))
+			.filter((value) => value.length > 0);
+
+		if (this.multiple()) {
+			return values;
+		}
+
+		return values[0] ?? '';
+	}
+
+	private normalizeControlValue(value: BrnQuestionnaireItemValue | null | undefined): BrnQuestionnaireItemValue {
+		if (this.multiple()) {
+			if (Array.isArray(value)) {
+				return value;
+			}
+
+			return hasInputValue(value) ? [String(value)] : [];
+		}
+
+		if (Array.isArray(value)) {
+			return value[0] ?? '';
+		}
+
+		return value ?? '';
+	}
+
+	private emptyControlValue(): BrnQuestionnaireItemValue {
+		return this.multiple() ? [] : '';
+	}
+
+	private emitControlValue(): void {
+		this.onChange(this.getControlValue());
 	}
 }

@@ -1,6 +1,9 @@
+import { ChangeDetectionStrategy, Component, signal, viewChild } from '@angular/core';
+import { form, FormField, FormRoot } from '@angular/forms/signals';
 import { render, screen } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
 import { BrnQuestionnaireImports } from '../index';
+import { BrnQuestionnaireItem } from './brn-questionnaire-item';
 import { getShortcutFromKey, getShortcutKeys, hasInputValue, isTextEntryTarget } from './brn-questionnaire.utils';
 
 describe('BrnQuestionnaire', () => {
@@ -306,7 +309,7 @@ describe('BrnQuestionnaire', () => {
 	it('honors external invalid state on an item', async () => {
 		const invalidTemplate = `
 			<form brnQuestionnaire [items]="items" defaultItem="color">
-				<fieldset brnQuestionnaireItem name="color" required [invalid]="forceInvalid" data-testid="item-color">
+				<fieldset brnQuestionnaireItem name="color" required [itemInvalid]="forceInvalid" data-testid="item-color">
 					<legend brnQuestionnaireTitle>Color</legend>
 					<div brnQuestionnaireChoices>
 						<label brnQuestionnaireChoice value="red">
@@ -533,6 +536,200 @@ describe('BrnQuestionnaire', () => {
 		view.detectChanges();
 
 		expect(blue.checked).toBe(true);
+	});
+});
+
+describe('BrnQuestionnaireItem ControlValueAccessor', () => {
+	@Component({
+		imports: [...BrnQuestionnaireImports],
+		changeDetection: ChangeDetectionStrategy.OnPush,
+		template: `
+			<form brnQuestionnaire [items]="items" defaultItem="color">
+				<fieldset brnQuestionnaireItem name="color" required #colorItem="brnQuestionnaireItem">
+					<legend brnQuestionnaireTitle>Color</legend>
+					<div brnQuestionnaireChoices>
+						<label brnQuestionnaireChoice value="red">
+							<input brnQuestionnaireChoiceInput />
+							<span brnQuestionnaireChoiceLabel>Red</span>
+						</label>
+						<label brnQuestionnaireChoice value="blue">
+							<input brnQuestionnaireChoiceInput />
+							<span brnQuestionnaireChoiceLabel>Blue</span>
+						</label>
+						<input brnQuestionnaireInput aria-label="Custom color" data-testid="color-input" />
+					</div>
+				</fieldset>
+				<fieldset brnQuestionnaireItem name="tags" multiple #tagsItem="brnQuestionnaireItem">
+					<legend brnQuestionnaireTitle>Tags</legend>
+					<div brnQuestionnaireChoices>
+						<label brnQuestionnaireChoice value="a">
+							<input brnQuestionnaireChoiceInput />
+							<span brnQuestionnaireChoiceLabel>A</span>
+						</label>
+						<label brnQuestionnaireChoice value="b">
+							<input brnQuestionnaireChoiceInput />
+							<span brnQuestionnaireChoiceLabel>B</span>
+						</label>
+					</div>
+				</fieldset>
+			</form>
+		`,
+	})
+	class QuestionnaireCvaHost {
+		public readonly colorItem = viewChild.required<BrnQuestionnaireItem>('colorItem');
+		public readonly tagsItem = viewChild.required<BrnQuestionnaireItem>('tagsItem');
+		public readonly items = [
+			{ name: 'color', required: true, choices: [{ value: 'red' }, { value: 'blue' }] },
+			{ name: 'tags', choices: [{ value: 'a' }, { value: 'b' }] },
+		];
+	}
+
+	async function setupCva() {
+		const view = await render(QuestionnaireCvaHost);
+		view.detectChanges();
+		return { user: userEvent.setup(), view, host: view.fixture.componentInstance };
+	}
+
+	it('writes a single-select value onto the matching choice', async () => {
+		const { view, host } = await setupCva();
+
+		host.colorItem().writeValue('blue');
+		view.detectChanges();
+
+		expect((screen.getByLabelText('Blue') as HTMLInputElement).checked).toBe(true);
+		expect((screen.getByLabelText('Red') as HTMLInputElement).checked).toBe(false);
+	});
+
+	it('emits the selected choice value on change', async () => {
+		const { user, host } = await setupCva();
+		const onChange = vi.fn();
+		host.colorItem().registerOnChange(onChange);
+
+		await user.click(screen.getByLabelText('Red'));
+
+		expect(onChange).toHaveBeenCalledWith('red');
+	});
+
+	it('writes and emits multiple-select values as arrays', async () => {
+		const { user, view, host } = await setupCva();
+		const onChange = vi.fn();
+		host.tagsItem().registerOnChange(onChange);
+
+		host.tagsItem().writeValue(['a', 'b']);
+		view.detectChanges();
+
+		expect((screen.getByLabelText('A') as HTMLInputElement).checked).toBe(true);
+		expect((screen.getByLabelText('B') as HTMLInputElement).checked).toBe(true);
+
+		await user.click(screen.getByLabelText('A'));
+		expect(onChange).toHaveBeenCalledWith(['b']);
+	});
+
+	it('writes a freeform value when it does not match a choice', async () => {
+		const { view, host } = await setupCva();
+
+		host.colorItem().writeValue('periwinkle');
+		view.detectChanges();
+
+		expect((screen.getByTestId('color-input') as HTMLInputElement).value).toBe('periwinkle');
+		expect((screen.getByLabelText('Red') as HTMLInputElement).checked).toBe(false);
+		expect((screen.getByLabelText('Blue') as HTMLInputElement).checked).toBe(false);
+	});
+
+	it('emits typed freeform text', async () => {
+		const { user, host } = await setupCva();
+		const onChange = vi.fn();
+		host.colorItem().registerOnChange(onChange);
+
+		await user.type(screen.getByTestId('color-input'), 'teal');
+
+		expect(onChange).toHaveBeenLastCalledWith('teal');
+	});
+});
+
+describe('BrnQuestionnaireItem Signal Forms', () => {
+	@Component({
+		imports: [...BrnQuestionnaireImports, FormField, FormRoot],
+		changeDetection: ChangeDetectionStrategy.OnPush,
+		template: `
+			<form brnQuestionnaire [formRoot]="form" [items]="items" defaultItem="color">
+				<fieldset
+					brnQuestionnaireItem
+					name="color"
+					required
+					[formField]="form.color"
+					#colorItem="brnQuestionnaireItem"
+					data-testid="item-color"
+				>
+					<legend brnQuestionnaireTitle>Color</legend>
+					<div brnQuestionnaireChoices>
+						<label brnQuestionnaireChoice value="red">
+							<input brnQuestionnaireChoiceInput />
+							<span brnQuestionnaireChoiceLabel>Red</span>
+						</label>
+						<label brnQuestionnaireChoice value="blue">
+							<input brnQuestionnaireChoiceInput />
+							<span brnQuestionnaireChoiceLabel>Blue</span>
+						</label>
+					</div>
+				</fieldset>
+				<fieldset brnQuestionnaireItem name="size" [formField]="form.size" data-testid="item-size">
+					<legend brnQuestionnaireTitle>Size</legend>
+					<div brnQuestionnaireChoices>
+						<label brnQuestionnaireChoice value="s">
+							<input brnQuestionnaireChoiceInput />
+							<span brnQuestionnaireChoiceLabel>S</span>
+						</label>
+					</div>
+				</fieldset>
+				<button brnQuestionnaireNext data-testid="next">Next</button>
+			</form>
+		`,
+	})
+	class QuestionnaireFormFieldHost {
+		public readonly colorItem = viewChild.required<BrnQuestionnaireItem>('colorItem');
+		public readonly items = [
+			{ name: 'color', required: true, choices: [{ value: 'red' }, { value: 'blue' }] },
+			{ name: 'size', choices: [{ value: 's' }] },
+		];
+
+		private readonly _model = signal({
+			color: '',
+			size: '',
+		});
+
+		public readonly form = form(this._model);
+	}
+
+	async function setupFormField() {
+		const view = await render(QuestionnaireFormFieldHost);
+		view.detectChanges();
+		return { user: userEvent.setup(), view, host: view.fixture.componentInstance };
+	}
+
+	it('keeps the active item visible when bound with [formField]', async () => {
+		await setupFormField();
+
+		expect(screen.getByTestId('item-color').hasAttribute('hidden')).toBe(false);
+		expect(screen.getByTestId('item-size').hasAttribute('hidden')).toBe(true);
+		expect(screen.getByTestId('item-color').getAttribute('name')).toBe('color');
+	});
+
+	it('writes the selected choice into the signal model', async () => {
+		const { user, host } = await setupFormField();
+
+		await user.click(screen.getByLabelText('Red'));
+
+		expect(host.form.color().value()).toBe('red');
+	});
+
+	it('does not hide the active item when the form control is disabled', async () => {
+		const { view, host } = await setupFormField();
+
+		host.colorItem().setDisabledState(true);
+		view.detectChanges();
+
+		expect(screen.getByTestId('item-color').hasAttribute('hidden')).toBe(false);
 	});
 });
 

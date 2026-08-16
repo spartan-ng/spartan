@@ -1,22 +1,22 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { form, FormField, FormRoot, required } from '@angular/forms/signals';
 import type { BrnQuestionnaireItemDefinition } from '@spartan-ng/brain/questionnaire';
 import { toast } from '@spartan-ng/brain/sonner';
 import { HlmQuestionnaireImports } from '@spartan-ng/helm/questionnaire';
-import { formValue, type QuestionnaireItemStatus } from './questionnaire.shared';
+import { answerLabel, type QuestionnaireItemStatus } from './questionnaire.shared';
 
 @Component({
 	selector: 'spartan-questionnaire-skip-preview',
-	imports: [FormsModule, HlmQuestionnaireImports],
+	imports: [FormRoot, FormField, HlmQuestionnaireImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		class: 'flex w-full justify-center py-6',
 	},
 	template: `
-		<form hlmQuestionnaire class="mx-auto max-w-md" [items]="items" defaultItem="task" (ngSubmit)="onSubmit($event)">
+		<form hlmQuestionnaire class="mx-auto max-w-md" [formRoot]="form" [items]="items" defaultItem="task">
 			<div hlmQuestionnaireProgress></div>
 
-			<fieldset hlmQuestionnaireItem name="task" required>
+			<fieldset hlmQuestionnaireItem name="task" required [formField]="form.task">
 				<legend hlmQuestionnaireTitle>What kind of change is this?</legend>
 				<p hlmQuestionnaireDescription>Choose the category that best describes the work.</p>
 				<div hlmQuestionnaireChoices>
@@ -27,7 +27,12 @@ import { formValue, type QuestionnaireItemStatus } from './questionnaire.shared'
 				<p hlmQuestionnaireError></p>
 			</fieldset>
 
-			<fieldset hlmQuestionnaireItem name="constraints" (statusChange)="onConstraintStatus($event)">
+			<fieldset
+				hlmQuestionnaireItem
+				name="constraints"
+				[formField]="form.constraints"
+				(statusChange)="onConstraintStatus($event)"
+			>
 				<legend hlmQuestionnaireTitle>Are there any implementation constraints?</legend>
 				<p hlmQuestionnaireDescription>Answer if needed, or intentionally skip this question.</p>
 				<div hlmQuestionnaireChoices>
@@ -42,7 +47,7 @@ import { formValue, type QuestionnaireItemStatus } from './questionnaire.shared'
 				</div>
 			</fieldset>
 
-			<fieldset hlmQuestionnaireItem name="review" required>
+			<fieldset hlmQuestionnaireItem name="review" required [formField]="form.review">
 				<legend hlmQuestionnaireTitle>How should the work be reviewed?</legend>
 				<p hlmQuestionnaireDescription>Choose the checks the agent should complete before handoff.</p>
 				<div hlmQuestionnaireChoices>
@@ -71,17 +76,33 @@ export class QuestionnaireSkipPreview {
 
 	private readonly _constraintStatus = signal<QuestionnaireItemStatus>('unanswered');
 
+	protected readonly _model = signal({
+		task: '',
+		constraints: '',
+		review: '',
+	});
+
+	public readonly form = form(
+		this._model,
+		(schemaPath) => {
+			required(schemaPath.task);
+			required(schemaPath.review);
+		},
+		{
+			submission: {
+				action: async () => {
+					const answers = this._model();
+					const constraints = this._constraintStatus() === 'skipped' ? 'Skipped' : answerLabel(answers.constraints);
+
+					toast('Agent brief submitted', {
+						description: `Task: ${answerLabel(answers.task)} · Constraints: ${constraints} · Review: ${answerLabel(answers.review)}`,
+					});
+				},
+			},
+		},
+	);
+
 	protected onConstraintStatus(status: QuestionnaireItemStatus): void {
 		this._constraintStatus.set(status);
-	}
-
-	protected onSubmit(event: Event): void {
-		event.preventDefault();
-		const form = event.target as HTMLFormElement;
-		const constraints = this._constraintStatus() === 'skipped' ? 'Skipped' : formValue(form, 'constraints');
-
-		toast('Agent brief submitted', {
-			description: `Task: ${formValue(form, 'task')} · Constraints: ${constraints} · Review: ${formValue(form, 'review')}`,
-		});
 	}
 }

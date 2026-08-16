@@ -69,12 +69,22 @@ export class BrnQuestionnaireInput {
 		effect(() => {
 			const controlledValue = this.value();
 			const resetVersion = this._item.resetVersion();
+			const writtenValue = this._item.writtenInputValues()[this._answerId];
 
 			if (controlledValue !== undefined) {
 				this._item.syncControlledAnswerSelection(this._answerId, hasInputValue(controlledValue));
 				const nextValue = String(controlledValue);
 				this._elementRef.nativeElement.defaultValue = nextValue;
 				this._elementRef.nativeElement.value = nextValue;
+				return;
+			}
+
+			if (writtenValue !== undefined) {
+				this._uncontrolledFilled.set(hasInputValue(writtenValue));
+				this._elementRef.nativeElement.defaultValue = writtenValue;
+				if (this._elementRef.nativeElement.value !== writtenValue) {
+					this._elementRef.nativeElement.value = writtenValue;
+				}
 				return;
 			}
 

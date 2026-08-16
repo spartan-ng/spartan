@@ -1,14 +1,14 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { form, FormField, FormRoot, required } from '@angular/forms/signals';
 import type { BrnQuestionnaireItemDefinition } from '@spartan-ng/brain/questionnaire';
 import { toast } from '@spartan-ng/brain/sonner';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmQuestionnaireImports } from '@spartan-ng/helm/questionnaire';
-import { formValue, formValues } from './questionnaire.shared';
+import { answerLabel } from './questionnaire.shared';
 
 @Component({
 	selector: 'spartan-questionnaire-resume-preview',
-	imports: [FormsModule, HlmQuestionnaireImports, HlmButtonImports],
+	imports: [FormRoot, FormField, HlmQuestionnaireImports, HlmButtonImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		class: 'flex w-full justify-center py-6',
@@ -17,14 +17,14 @@ import { formValue, formValues } from './questionnaire.shared';
 		<form
 			hlmQuestionnaire
 			class="mx-auto max-w-md"
+			[formRoot]="form"
 			[items]="items"
 			defaultItem="verification"
 			(reset)="onReset()"
-			(ngSubmit)="onSubmit($event)"
 		>
 			<div hlmQuestionnaireProgress></div>
 
-			<fieldset hlmQuestionnaireItem name="change" required>
+			<fieldset hlmQuestionnaireItem name="change" required [formField]="form.change">
 				<legend hlmQuestionnaireTitle>What kind of migration is this?</legend>
 				<p hlmQuestionnaireDescription>This answer was saved during the previous session.</p>
 				<div hlmQuestionnaireChoices>
@@ -34,7 +34,7 @@ import { formValue, formValues } from './questionnaire.shared';
 				<p hlmQuestionnaireError></p>
 			</fieldset>
 
-			<fieldset hlmQuestionnaireItem name="verification" multiple required>
+			<fieldset hlmQuestionnaireItem name="verification" multiple required [formField]="form.verification">
 				<legend hlmQuestionnaireTitle>How should the migration be verified?</legend>
 				<p hlmQuestionnaireDescription>These checks were selected during the previous session.</p>
 				<div hlmQuestionnaireChoices>
@@ -45,7 +45,7 @@ import { formValue, formValues } from './questionnaire.shared';
 				<p hlmQuestionnaireError></p>
 			</fieldset>
 
-			<fieldset hlmQuestionnaireItem name="notes">
+			<fieldset hlmQuestionnaireItem name="notes" [formField]="form.notes">
 				<legend hlmQuestionnaireTitle>Anything else the agent should remember?</legend>
 				<p hlmQuestionnaireDescription>This note was saved with the draft.</p>
 				<input
@@ -74,15 +74,31 @@ export class QuestionnaireResumePreview {
 
 	public readonly noteDefault = 'Keep the existing public API stable.';
 
+	protected readonly _model = signal({
+		change: 'incremental',
+		verification: ['tests', 'typecheck'] as string[],
+		notes: 'Keep the existing public API stable.',
+	});
+
+	public readonly form = form(
+		this._model,
+		(schemaPath) => {
+			required(schemaPath.change);
+			required(schemaPath.verification);
+		},
+		{
+			submission: {
+				action: async () => {
+					const answers = this._model();
+					toast('Draft updated', {
+						description: `Migration: ${answerLabel(answers.change)} · Verification: ${answerLabel(answers.verification)} · Notes: ${answerLabel(answers.notes)}`,
+					});
+				},
+			},
+		},
+	);
+
 	protected onReset(): void {
 		toast('Saved answers restored');
-	}
-
-	protected onSubmit(event: Event): void {
-		event.preventDefault();
-		const form = event.target as HTMLFormElement;
-		toast('Draft updated', {
-			description: `Migration: ${formValue(form, 'change')} · Verification: ${formValues(form, 'verification')} · Notes: ${formValue(form, 'notes')}`,
-		});
 	}
 }

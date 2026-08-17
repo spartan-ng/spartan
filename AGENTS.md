@@ -42,6 +42,14 @@ This file is the repo-specific contract. If anything conflicts with global/perso
 - Never create a PR unless explicitly instructed: "create PR".
 - Default is local, review-ready working changes only.
 
+## Remote target (critical — always the fork, never upstream)
+- All work in this repo happens against the `fork` remote (`dowsprogress/spartan`), never
+  `origin` (`spartan-ng/spartan`, the upstream project repo).
+- "push", "merge", "merge to fork/main", and PR instructions always mean the `fork` remote
+  and its branches, unless explicitly told otherwise.
+- Never push, merge into, or open a PR against `origin`/upstream without explicit instruction.
+- When in doubt, confirm with `git remote -v` before any push/merge and target `fork`.
+
 ## Required checks before completion
 - `pnpm run lint`
 - `pnpm nx format:write`

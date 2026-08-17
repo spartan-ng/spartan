@@ -66,9 +66,6 @@ apps/app/src/public/data/manual-install-snippets/
 .cursor/rules/nx-rules.mdc
 .github/instructions/nx.instructions.md
 
-### local-only agent guidance (personal, not shared conventions)
-instructions.local.md
-
 .claude/worktrees
 .nx/polygraph
 .nx/self-healing

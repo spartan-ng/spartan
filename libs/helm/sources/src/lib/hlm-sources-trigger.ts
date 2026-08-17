@@ -1,0 +1,46 @@
+import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { lucideChevronDown } from '@ng-icons/lucide';
+import { BrnCollapsibleTrigger, injectBrnCollapsible } from '@spartan-ng/brain/collapsible';
+import { hlm } from '@spartan-ng/helm/utils';
+import type { ClassValue } from 'clsx';
+
+/**
+ * Trigger that toggles the visibility of the sources list, showing a "Used N sources" label with a
+ * chevron by default, mirroring the AI Elements `SourcesTrigger` component.
+ */
+@Component({
+	// eslint-disable-next-line @angular-eslint/component-selector
+	selector: 'button[hlmSourcesTrigger]',
+	imports: [NgIcon],
+	providers: [provideIcons({ lucideChevronDown })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	hostDirectives: [{ directive: BrnCollapsibleTrigger, inputs: ['type'] }],
+	host: {
+		'data-slot': 'sources-trigger',
+		'[class]': '_computedClass()',
+	},
+	template: `
+		<ng-content>
+			<p class="font-medium">Used {{ count() }} sources</p>
+			<ng-icon
+				name="lucideChevronDown"
+				size="1rem"
+				class="transition-transform"
+				[class.rotate-180]="_collapsible?.expanded()"
+			/>
+		</ng-content>
+	`,
+})
+export class HlmSourcesTrigger {
+	protected readonly _collapsible = injectBrnCollapsible();
+
+	/** The number of sources to display in the trigger. */
+	public readonly count = input.required<number>();
+
+	public readonly triggerClass = input<ClassValue>('');
+
+	protected readonly _computedClass = computed(() =>
+		hlm('spartan-sources-trigger flex cursor-pointer items-center gap-2', this.triggerClass()),
+	);
+}

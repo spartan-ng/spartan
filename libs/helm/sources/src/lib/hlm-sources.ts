@@ -1,0 +1,25 @@
+import { Directive } from '@angular/core';
+import { BrnCollapsible } from '@spartan-ng/brain/collapsible';
+import { classes } from '@spartan-ng/helm/utils';
+
+/**
+ * Root container for displaying the sources or citations used to generate a response, mirroring
+ * the AI Elements `Sources` component. Composes `BrnCollapsible` for the underlying expand/collapse
+ * mechanics.
+ */
+@Directive({
+	selector: '[hlmSources],hlm-sources',
+	hostDirectives: [
+		{
+			directive: BrnCollapsible,
+			inputs: ['expanded: open', 'disabled'],
+			outputs: ['expandedChange: openChange'],
+		},
+	],
+	host: { 'data-slot': 'sources' },
+})
+export class HlmSources {
+	constructor() {
+		classes(() => 'spartan-sources not-prose mb-4 block text-xs text-primary');
+	}
+}

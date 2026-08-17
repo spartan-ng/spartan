@@ -222,6 +222,9 @@ class DialogDynamicStory {
 	selector: 'dynamic-content',
 	imports: [HlmDialogImports, HlmTableImports],
 	providers: [provideIcons({ lucideCheck })],
+	host: {
+		class: 'flex flex-col gap-4',
+	},
 	template: `
 		<hlm-dialog-header>
 			<h3 hlmDialogTitle>Select user</h3>
@@ -234,7 +237,7 @@ class DialogDynamicStory {
 				<th hlmTh>Email</th>
 				<th hlmTh>Phone</th>
 			</tr>
-			@for (user of users; track user.name) {
+			@for (user of _users; track user.name) {
 				<tr hlmTr (click)="selectUser(user)" class="cursor-pointer">
 					<td hlmTd truncate class="font-medium">{{ user.name }}</td>
 					<td hlmTd>{{ user.email }}</td>
@@ -243,15 +246,12 @@ class DialogDynamicStory {
 			}
 		</table>
 	`,
-	host: {
-		class: 'flex flex-col gap-4',
-	},
 })
 class SelectUser {
 	private readonly _hlmDialogService = inject(HlmDialogService);
 	private readonly _dialogContext = injectBrnDialogContext<{ users: ExampleUser[] }>();
 
-	protected readonly users = this._dialogContext.users;
+	protected readonly _users = this._dialogContext.users;
 
 	public selectUser(user: ExampleUser) {
 		this._hlmDialogService.open(SelectUser, { context: { users: [user] }, contentClass: 'sm:!max-w-[750px]' });
@@ -288,6 +288,9 @@ export const DynamicComponentWithDefaultOptions: Story = {
 @Component({
 	selector: 'nested-dialog-dynamic-first',
 	imports: [HlmButtonImports, HlmDialogImports],
+	host: {
+		class: 'flex flex-col gap-4',
+	},
 	template: `
 		<hlm-dialog-header>
 			<h3 hlmDialogTitle>First dialog</h3>
@@ -296,9 +299,6 @@ export const DynamicComponentWithDefaultOptions: Story = {
 
 		<button hlmBtn (click)="openNestedDialog()">Open Nested Dialog</button>
 	`,
-	host: {
-		class: 'flex flex-col gap-4',
-	},
 })
 class NestedDialogDynamicFirst {
 	private readonly _hlmDialogService = inject(HlmDialogService);
@@ -311,6 +311,9 @@ class NestedDialogDynamicFirst {
 @Component({
 	selector: 'nested-dialog-dynamic-nested',
 	imports: [HlmButtonImports, HlmDialogImports],
+	host: {
+		class: 'flex flex-col gap-4',
+	},
 	template: `
 		<hlm-dialog-header>
 			<h3 hlmDialogTitle>Nested dialog</h3>
@@ -319,9 +322,6 @@ class NestedDialogDynamicFirst {
 
 		<button hlmBtn (click)="close()">Close Nested Dialog</button>
 	`,
-	host: {
-		class: 'flex flex-col gap-4',
-	},
 })
 class NestedDialogDynamicNested {
 	private readonly _brnDialogRef = inject(BrnDialogRef);

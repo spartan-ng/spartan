@@ -26,7 +26,6 @@ const frameworks: Framework[] = [
 
 @Component({
 	selector: 'combobox-default-story',
-	standalone: true,
 	imports: [HlmComboboxImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
@@ -79,7 +78,6 @@ class ComboboxPopupStory {
 
 @Component({
 	selector: 'combobox-reactive-form-story',
-	standalone: true,
 	imports: [JsonPipe, HlmComboboxImports, HlmFieldImports, HlmButton, ReactiveFormsModule],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
@@ -123,7 +121,6 @@ class ComboboxReactiveFormStory {
 
 @Component({
 	selector: 'combobox-hint-error-story',
-	standalone: true,
 	imports: [HlmComboboxImports, HlmFieldImports, HlmButton, ReactiveFormsModule],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
@@ -164,7 +161,6 @@ class ComboboxHintErrorStory {
 
 @Component({
 	selector: 'combobox-multiple-hint-error-story',
-	standalone: true,
 	imports: [HlmComboboxImports, HlmFieldImports, HlmButton, ReactiveFormsModule],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `

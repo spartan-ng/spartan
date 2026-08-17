@@ -181,12 +181,12 @@ export const Dialog: Story = {
 	selector: 'command-dynamic-component',
 	imports: [HlmCommandImports, NgIcon, FormsModule],
 	template: `
-		<hlm-command [search]="search()">
+		<hlm-command [search]="_search()">
 			<hlm-command-input placeholder="Type a command or search..." />
 			<hlm-command-list>
 				<hlm-command-group>
 					<hlm-command-group-label>Suggestions</hlm-command-group-label>
-					@for (item of items(); track item.value) {
+					@for (item of _items(); track item.value) {
 						<button hlm-command-item [value]="item.value" data-testid="command-item">
 							<ng-icon [name]="item.icon" />
 							{{ item.label }}
@@ -201,8 +201,8 @@ export const Dialog: Story = {
 	`,
 })
 class CommandDynamic {
-	protected readonly search = signal('P');
-	protected readonly items = signal<{ label: string; value: string; icon: string; shortcut: string }[]>([
+	protected readonly _search = signal('P');
+	protected readonly _items = signal<{ label: string; value: string; icon: string; shortcut: string }[]>([
 		{ label: 'Profile', value: 'Profile', icon: 'lucideUser', shortcut: '⌘P' },
 		{ label: 'Billing', value: 'Billing', icon: 'lucideWallet', shortcut: '⌘B' },
 		{ label: 'Search Emoji', value: 'Search Emoji', icon: 'lucideSmile', shortcut: '⌘E' },
@@ -230,7 +230,7 @@ export const DynamicOptions: Story = {
 			<hlm-command-list>
 				<hlm-command-group>
 					<hlm-command-group-label>Suggestions</hlm-command-group-label>
-					@for (item of items(); track item.value) {
+					@for (item of _items(); track item.value) {
 						<button hlm-command-item [value]="item.value" data-testid="command-item">
 							<ng-icon [name]="item.icon" />
 							{{ item.label }}
@@ -245,8 +245,8 @@ export const DynamicOptions: Story = {
 	`,
 })
 class CommandReactiveForm {
-	searchControl = new FormControl('R');
-	protected readonly items = signal<{ label: string; value: string; icon: string; shortcut: string }[]>([
+	public searchControl = new FormControl('R');
+	protected readonly _items = signal<{ label: string; value: string; icon: string; shortcut: string }[]>([
 		{ label: 'Profile', value: 'Profile', icon: 'lucideUser', shortcut: '⌘P' },
 		{ label: 'Billing', value: 'Billing', icon: 'lucideWallet', shortcut: '⌘B' },
 		{ label: 'Search Emoji', value: 'Search Emoji', icon: 'lucideSmile', shortcut: '⌘E' },
@@ -270,12 +270,12 @@ export const ReactiveForm: Story = {
 	selector: 'command-bound-value-component',
 	imports: [HlmCommandImports, NgIcon],
 	template: `
-		<hlm-command [search]="search()">
+		<hlm-command [search]="_search()">
 			<hlm-command-input placeholder="Type a command or search..." />
 			<hlm-command-list>
 				<hlm-command-group>
 					<hlm-command-group-label>Suggestions</hlm-command-group-label>
-					@for (item of items(); track item.value) {
+					@for (item of _items(); track item.value) {
 						<button hlm-command-item [value]="item.value" data-testid="command-item">
 							<ng-icon [name]="item.icon" />
 							{{ item.label }}
@@ -290,8 +290,8 @@ export const ReactiveForm: Story = {
 	`,
 })
 class CommandBoundValue {
-	protected readonly search = signal('S');
-	protected readonly items = signal<{ label: string; value: string; icon: string; shortcut: string }[]>([
+	protected readonly _search = signal('S');
+	protected readonly _items = signal<{ label: string; value: string; icon: string; shortcut: string }[]>([
 		{ label: 'Profile', value: 'Profile', icon: 'lucideUser', shortcut: '⌘P' },
 		{ label: 'Billing', value: 'Billing', icon: 'lucideWallet', shortcut: '⌘B' },
 		{ label: 'Search Emoji', value: 'Search Emoji', icon: 'lucideSmile', shortcut: '⌘E' },

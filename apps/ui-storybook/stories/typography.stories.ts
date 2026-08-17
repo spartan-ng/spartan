@@ -2,7 +2,7 @@ import { hlmBlockquote, hlmH1, hlmH2, hlmH3, hlmLead, hlmP, hlmUl } from '@spart
 import type { Meta, StoryObj } from '@storybook/angular';
 import { moduleMetadata } from '@storybook/angular';
 
-const meta: Meta<{}> = {
+const meta: Meta = {
 	title: 'Typography',
 	tags: ['autodocs'],
 	decorators: [
@@ -13,7 +13,7 @@ const meta: Meta<{}> = {
 };
 
 export default meta;
-type Story = StoryObj<{}>;
+type Story = StoryObj;
 
 export const Default: Story = {
 	render: () => ({

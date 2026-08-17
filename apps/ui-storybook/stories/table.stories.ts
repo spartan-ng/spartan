@@ -13,7 +13,6 @@ const createUsers = (numUsers = 5) => {
 
 @Component({
 	selector: 'table-story',
-	standalone: true,
 	imports: [...HlmTableImports],
 	template: `
 		<table hlmTable>

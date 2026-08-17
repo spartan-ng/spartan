@@ -194,7 +194,7 @@ class HlmToggleGroupStory {
 	public readonly defaultValue = input<City | City[] | undefined>(undefined);
 	public readonly selected = signal<City | City[] | undefined>(undefined);
 
-	private _cities: City[] = [...CITIES];
+	private readonly _cities: City[] = [...CITIES];
 	public get cities(): City[] {
 		return this._cities;
 	}
@@ -203,7 +203,7 @@ class HlmToggleGroupStory {
 		this.selected.set(this.defaultValue());
 	}
 
-	get selectedCities() {
+	public get selectedCities() {
 		if (!this.selected()) {
 			return this.type() === 'multiple' ? 'No cities selected' : 'No city selected';
 		}
@@ -304,9 +304,9 @@ export const ToggleGroupMultiple: StoryObj<{ defaultValue: City[] }> = {
 	selector: 'hlm-toggle-group-form-story',
 	imports: [HlmToggleGroupImports, FormsModule, ReactiveFormsModule],
 	template: `
-		<form class="flex space-x-4 p-4" [formGroup]="citiesForm">
+		<form class="flex space-x-4 p-4" [formGroup]="_citiesForm">
 			<hlm-toggle-group formControlName="selectedCity" [nullable]="false">
-				@for (city of cities; track city.name; let last = $last) {
+				@for (city of _cities; track city.name; let last = $last) {
 					<button [value]="city" hlmToggleGroupItem>
 						{{ city.name }}
 					</button>
@@ -314,12 +314,12 @@ export const ToggleGroupMultiple: StoryObj<{ defaultValue: City[] }> = {
 			</hlm-toggle-group>
 		</form>
 
-		<pre class="${hlmP}" data-testid="selectedCity">{{ citiesForm.controls.selectedCity?.getRawValue()?.name }}</pre>
+		<pre class="${hlmP}" data-testid="selectedCity">{{ _citiesForm.controls.selectedCity?.getRawValue()?.name }}</pre>
 	`,
 })
 class HlmToggleGroupFormStory {
-	protected readonly cities: City[] = CITIES;
-	protected readonly citiesForm = new FormGroup({
+	protected readonly _cities: City[] = CITIES;
+	protected readonly _citiesForm = new FormGroup({
 		selectedCity: new FormControl(CITIES[0]),
 	});
 }

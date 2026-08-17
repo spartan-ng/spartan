@@ -23,7 +23,7 @@ import { NgScrollbar, NgScrollbarModule } from 'ngx-scrollbar';
 	`,
 })
 class ScrollAreaStories {
-	tags = Array.from({ length: 50 }).map((_, i, a) => `v1.2.0-beta.${a.length - i}`);
+	public tags = Array.from({ length: 50 }).map((_, i, a) => `v1.2.0-beta.${a.length - i}`);
 }
 
 const meta: Meta<NgScrollbar> = {

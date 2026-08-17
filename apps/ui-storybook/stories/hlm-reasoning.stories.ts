@@ -1,4 +1,5 @@
 import { Component, OnDestroy, computed, signal } from '@angular/core';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmReasoningImports } from '@spartan-ng/helm/reasoning';
 import type { Meta, StoryObj } from '@storybook/angular';
 
@@ -24,7 +25,7 @@ const STREAM_INTERVAL_MS = 30;
 
 @Component({
 	selector: 'spartan-reasoning-demo',
-	imports: [HlmReasoningImports],
+	imports: [HlmButtonImports, HlmReasoningImports],
 	template: `
 		<div class="max-w-lg p-4">
 			<hlm-reasoning [isStreaming]="_isStreaming()">
@@ -35,7 +36,7 @@ const STREAM_INTERVAL_MS = 30;
 					}
 				</div>
 			</hlm-reasoning>
-			<button class="mt-4 rounded-md border px-3 py-1.5 text-sm" type="button" (click)="reload()">Reload</button>
+			<button hlmBtn variant="outline" size="sm" class="mt-4" type="button" (click)="reload()">Reload</button>
 		</div>
 	`,
 })

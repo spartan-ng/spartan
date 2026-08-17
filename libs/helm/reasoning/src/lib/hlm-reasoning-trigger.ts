@@ -47,7 +47,7 @@ export class HlmReasoningTrigger {
 
 	protected readonly _computedClass = computed(() =>
 		hlm(
-			'spartan-reasoning-trigger flex w-full items-center gap-2 text-muted-foreground text-sm font-light transition-colors hover:text-foreground',
+			'spartan-reasoning-trigger text-muted-foreground hover:text-foreground flex w-full cursor-pointer items-center gap-2 text-sm font-light transition-colors disabled:cursor-not-allowed disabled:opacity-50',
 			this.triggerClass(),
 		),
 	);

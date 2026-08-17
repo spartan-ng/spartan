@@ -18,6 +18,6 @@ export class HlmAttachmentTrigger {
 	);
 
 	constructor() {
-		classes(() => 'spartan-attachment-trigger');
+		classes(() => 'spartan-attachment-trigger cursor-pointer');
 	}
 }

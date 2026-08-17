@@ -1,0 +1,17 @@
+import { Directive } from '@angular/core';
+import { BrnCollapsibleContent } from '@spartan-ng/brain/collapsible';
+import { classes } from '<%- importAlias %>/utils';
+
+@Directive({
+	selector: '[hlmReasoningContent],hlm-reasoning-content',
+	hostDirectives: [{ directive: BrnCollapsibleContent, inputs: ['id'] }],
+	host: { 'data-slot': 'reasoning-content' },
+})
+export class HlmReasoningContent {
+	constructor() {
+		classes(
+			() =>
+				'spartan-reasoning-content mt-4 block font-light text-muted-foreground text-sm outline-none data-[state=closed]:hidden data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:slide-out-to-top-2 data-[state=open]:animate-in data-[state=open]:slide-in-from-top-2',
+		);
+	}
+}

@@ -1,0 +1,40 @@
+import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { lucideBook } from '@ng-icons/lucide';
+import { hlm } from '<%- importAlias %>/utils';
+import type { ClassValue } from 'clsx';
+
+/**
+ * A single source or citation link, rendering a book icon and title by default, mirroring the AI
+ * Elements `Source` component. `target="_blank"` and `rel="noreferrer"` are applied by default since
+ * sources are expected to be external links; override them via the native attributes if needed.
+ */
+@Component({
+	// eslint-disable-next-line @angular-eslint/component-selector
+	selector: 'a[hlmSource]',
+	imports: [NgIcon],
+	providers: [provideIcons({ lucideBook })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: {
+		'data-slot': 'source',
+		'[class]': '_computedClass()',
+		'[attr.target]': '"_blank"',
+		'[attr.rel]': '"noreferrer"',
+	},
+	template: `
+		<ng-content>
+			<ng-icon name="lucideBook" size="1rem" />
+			<span class="block font-medium">{{ title() }}</span>
+		</ng-content>
+	`,
+})
+export class HlmSource {
+	/** The title of the source, used as the default label. */
+	public readonly title = input<string>('');
+
+	public readonly sourceClass = input<ClassValue>('');
+
+	protected readonly _computedClass = computed(() =>
+		hlm('spartan-source flex items-center gap-2', this.sourceClass()),
+	);
+}

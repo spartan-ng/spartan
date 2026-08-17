@@ -63,7 +63,7 @@ import { moduleMetadata } from '@storybook/angular';
 					<button hlmNavigationMenuTrigger>Components</button>
 					<hlm-navigation-menu-content *hlmNavigationMenuPortal>
 						<ul class="grid gap-2 sm:w-[400px] md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-							@for (component of components; track $index) {
+							@for (component of _components; track $index) {
 								<li>
 									<a hlmNavigationMenuLink [href]="component.href">
 										<div class="text-sm leading-none font-medium">{{ component.title }}</div>
@@ -142,7 +142,7 @@ import { moduleMetadata } from '@storybook/angular';
 	`,
 })
 class NavigationMenuExample {
-	protected readonly components = [
+	protected readonly _components = [
 		{
 			title: 'Alert Dialog',
 			description: 'A modal dialog that interrupts the user with important content and expects a response.',
@@ -233,7 +233,7 @@ class NavigationMenuExample {
 					<button hlmNavigationMenuTrigger>Components</button>
 					<hlm-navigation-menu-content *hlmNavigationMenuPortal>
 						<ul class="grid gap-2 sm:w-[400px] md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-							@for (component of components; track $index) {
+							@for (component of _components; track $index) {
 								<li>
 									<a hlmNavigationMenuLink [href]="component.href">
 										<div class="text-sm leading-none font-medium">{{ component.title }}</div>
@@ -312,7 +312,7 @@ class NavigationMenuExample {
 	`,
 })
 class NavigationMenuClickToOpenExample {
-	protected readonly components = [
+	protected readonly _components = [
 		{
 			title: 'Alert Dialog',
 			description: 'A modal dialog that interrupts the user with important content and expects a response.',

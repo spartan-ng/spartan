@@ -36,7 +36,7 @@ import { HlmLabel } from '@spartan-ng/helm/label';
 	`,
 })
 class HlmCheckboxTester {
-	form = inject(FormBuilder).group({
+	public form = inject(FormBuilder).group({
 		checkbox: [false],
 	});
 
@@ -47,7 +47,6 @@ class HlmCheckboxTester {
 
 @Component({
 	selector: 'hlm-checkbox-hint-error-story',
-	standalone: true,
 	imports: [HlmCheckboxImports, HlmButtonImports, HlmFieldImports, ReactiveFormsModule],
 	template: `
 		<form [formGroup]="form" class="space-y-3">

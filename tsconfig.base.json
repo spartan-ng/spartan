@@ -120,6 +120,7 @@
 			"@spartan-ng/helm/popover": ["libs/helm/popover/src/index.ts"],
 			"@spartan-ng/helm/progress": ["libs/helm/progress/src/index.ts"],
 			"@spartan-ng/helm/radio-group": ["libs/helm/radio-group/src/index.ts"],
+			"@spartan-ng/helm/reasoning": ["libs/helm/reasoning/src/index.ts"],
 			"@spartan-ng/helm/resizable": ["libs/helm/resizable/src/index.ts"],
 			"@spartan-ng/helm/scroll-area": ["libs/helm/scroll-area/src/index.ts"],
 			"@spartan-ng/helm/select": ["libs/helm/select/src/index.ts"],

@@ -12,7 +12,7 @@ const badgeVariants = cva(
 				destructive: 'spartan-badge-variant-destructive',
 				outline: 'spartan-badge-variant-outline',
 				ghost: 'spartan-badge-variant-ghost',
-				link: 'spartan-badge-variant-link',
+				link: 'spartan-badge-variant-link cursor-pointer',
 			},
 		},
 		defaultVariants: {

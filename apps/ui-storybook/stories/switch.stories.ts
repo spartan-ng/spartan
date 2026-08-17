@@ -12,6 +12,8 @@ import { HlmFieldImports } from '@spartan-ng/helm/field';
 
 @Component({
 	selector: 'hlm-switch-ng-model',
+	imports: [HlmSwitch, FormsModule, HlmLabel],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<!-- eslint-disable-next-line @angular-eslint/template/label-has-associated-control -->
 		<label class="flex items-center" hlmLabel>
@@ -20,19 +22,17 @@ import { HlmFieldImports } from '@spartan-ng/helm/field';
 		</label>
 
 		<p data-testid="switchValue">{{ switchValue }}</p>
-		<p data-testid="changedValue">{{ changedValueTo }}</p>
+		<p data-testid="changedValue">{{ _changedValueTo }}</p>
 	`,
-	imports: [HlmSwitch, FormsModule, HlmLabel],
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SwitchForm {
 	@Input()
 	public switchValue = false;
 
-	protected changedValueTo: boolean | undefined;
+	protected _changedValueTo: boolean | undefined;
 
 	handleChange(value: boolean) {
-		this.changedValueTo = value;
+		this._changedValueTo = value;
 	}
 }
 

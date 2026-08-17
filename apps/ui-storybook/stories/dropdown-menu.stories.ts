@@ -201,12 +201,12 @@ export const Default: Story = {
 	`,
 })
 class StatefulStory {
-	isStatusBar = false;
-	isPanel = false;
-	isActivityBar = false;
+	public isStatusBar = false;
+	public isPanel = false;
+	public isActivityBar = false;
 
-	panelPositions = ['Top', 'Bottom', 'Right', 'Left'] as const;
-	selectedPosition: (typeof this.panelPositions)[number] | undefined = 'Bottom';
+	public panelPositions = ['Top', 'Bottom', 'Right', 'Left'] as const;
+	public selectedPosition: (typeof this.panelPositions)[number] | undefined = 'Bottom';
 
 	reset() {
 		this.isStatusBar = false;

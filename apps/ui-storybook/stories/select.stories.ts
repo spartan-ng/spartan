@@ -637,10 +637,10 @@ export const WithLabelAndForm: Story = {
 };
 @Component({
 	selector: 'label-and-form-component',
-	encapsulation: ViewEncapsulation.None,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [FormsModule, ReactiveFormsModule, HlmSelectImports, HlmLabel, HlmButton],
 	providers: [],
+	encapsulation: ViewEncapsulation.None,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		class: '',
 	},
@@ -684,10 +684,10 @@ export const DynamicOptionsMultiSelect: Story = {
 };
 @Component({
 	selector: 'dynamic-options-multi-select-component',
-	encapsulation: ViewEncapsulation.None,
-	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [FormsModule, ReactiveFormsModule, HlmSelectImports, HlmLabel, HlmButton, JsonPipe],
 	providers: [],
+	encapsulation: ViewEncapsulation.None,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		class: '',
 	},
@@ -728,9 +728,9 @@ export const DynamicOptionsMultiSelect: Story = {
 class DynamicOptionsMultiSelectComponent implements OnInit {
 	// Checking if an issue with having options as a signal
 	public options = signal<{ value: number; label: string }[]>([]);
-	fruit = new FormControl([1, 5]);
+	public fruit = new FormControl([1, 5]);
 
-	itemToString = (value: number) => this.options().find((option) => option.value === value)?.label || '';
+	public itemToString = (value: number) => this.options().find((option) => option.value === value)?.label || '';
 
 	ngOnInit(): void {
 		this.options.set([

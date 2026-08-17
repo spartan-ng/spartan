@@ -1,0 +1,39 @@
+import { Directive, computed, input } from '@angular/core';
+import { classes } from '@spartan-ng/helm/utils';
+
+/**
+ * Angular parity for AI Elements' `<Shimmer>` (https://elements.ai-sdk.dev/components/shimmer).
+ *
+ * Unlike the React version, this composes the `shimmer` Tailwind utility already shipped in
+ * `libs/brain/hlm-tailwind-preset.css` (pure CSS + `@property`, no animation library), which is
+ * the same utility `hlmReasoningTrigger`'s "Thinking…" label and `hlmAttachmentTitle`'s
+ * processing/uploading states already use — so every shimmering surface in Spartan shares one
+ * implementation. It's also polymorphic "for free": apply `[hlmShimmer]` to any host element
+ * instead of needing a React-style `as` prop.
+ *
+ * `spread` also doesn't need to be computed from text length like the React version: the
+ * underlying utility's default (`3ch + 40px`) already scales with the element's own font size via
+ * the `ch` unit, so larger/heavier text automatically gets a proportionally wider shimmer band.
+ */
+@Directive({
+	selector: '[hlmShimmer],hlm-shimmer',
+	host: {
+		'data-slot': 'shimmer',
+		'[style.--shimmer-duration]': '_durationValue()',
+		'[style.--shimmer-spread]': 'spread()',
+	},
+})
+export class HlmShimmer {
+	/** Animation duration in seconds. Mirrors AI Elements' `duration` prop. */
+	public readonly duration = input<number>(2);
+
+	/** CSS length/percentage for the shimmer band width. Leave unset to use the automatic,
+	 * font-size-aware default (`3ch + 40px`). Mirrors AI Elements' `spread` prop. */
+	public readonly spread = input<string | undefined>(undefined);
+
+	protected readonly _durationValue = computed(() => `${this.duration()}s`);
+
+	constructor() {
+		classes(() => 'spartan-shimmer shimmer');
+	}
+}

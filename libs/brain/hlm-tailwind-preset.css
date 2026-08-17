@@ -479,7 +479,14 @@
 @utility shimmer {
 	--_spread: var(--shimmer-spread, calc(3ch + 40px));
 	--_base: currentColor;
-	--_highlight: var(--shimmer-color, oklch(from currentColor l c h / calc(alpha* 0.2)));
+	/* Highlight is currentColor at reduced alpha, not a lightness shift - this is what makes the
+	   effect theme-agnostic. The translucent band reveals whatever sits behind the text (the
+	   page/container background), so it reads as a lighter streak on dark text over a light
+	   background, or a darker streak on light text over a dark background, without needing a
+	   `dark:` variant. A prior dark-mode override tried to push lightness up instead, which
+	   collapsed to near-invisible contrast once text is already near-white (the common dark-theme
+	   foreground) - removed in favor of this single, theme-agnostic formula. */
+	--_highlight: var(--shimmer-color, oklch(from currentColor l c h / calc(alpha * 0.2)));
 
 	background-image: var(
 		--shimmer-image,
@@ -499,10 +506,6 @@
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: var(--shimmer-text-fill, transparent);
 	animation: tw-shimmer var(--shimmer-duration, 2s) linear infinite;
-
-	@variant dark {
-		--_highlight: var(--shimmer-color, oklch(from currentColor max(0.8, calc(l + 0.4)) c h / calc(alpha + 0.4)));
-	}
 
 	&:where([dir='rtl'], [dir='rtl'] *) {
 		animation-direction: reverse;

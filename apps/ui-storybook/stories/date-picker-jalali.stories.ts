@@ -1,5 +1,6 @@
 import { type BrnCalendarI18n, type MonthLabels, provideBrnCalendarI18n } from '@spartan-ng/brain/calendar';
-import { BrnJalaliDateAdapter, JalaliDate, provideDateAdapter } from '@spartan-ng/brain/date-time';
+import type { JalaliDate } from '@spartan-ng/brain/date-time';
+import { BrnJalaliDateAdapter, provideDateAdapter } from '@spartan-ng/brain/date-time';
 import { HlmDatePicker, HlmDatePickerImports, provideHlmDatePickerConfig } from '@spartan-ng/helm/date-picker';
 import { HlmFieldImports } from '@spartan-ng/helm/field';
 import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';

@@ -25,7 +25,7 @@ const meta: Meta<HlmCollapsible> = {
 };
 
 export default meta;
-type Story = StoryObj<{}>;
+type Story = StoryObj;
 
 export const Default: Story = {
 	render: ({ ...args }) => ({

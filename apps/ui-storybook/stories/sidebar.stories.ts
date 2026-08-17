@@ -13,7 +13,7 @@ import {
 import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 import { type Meta, moduleMetadata, type StoryObj } from '@storybook/angular';
 
-const meta: Meta<{}> = {
+const meta: Meta = {
 	title: 'Sidebar',
 	tags: ['autodocs'],
 
@@ -25,7 +25,7 @@ const meta: Meta<{}> = {
 };
 
 export default meta;
-type Story = StoryObj<{}>;
+type Story = StoryObj;
 
 @Component({
 	selector: 'sidebar',

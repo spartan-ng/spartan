@@ -4,7 +4,7 @@ import { HlmInput } from '@spartan-ng/helm/input';
 import { HlmLabel } from '@spartan-ng/helm/label';
 import { type Meta, type StoryObj, argsToTemplate, moduleMetadata } from '@storybook/angular';
 
-const meta: Meta<{}> = {
+const meta: Meta = {
 	title: 'Label',
 	component: HlmLabel,
 	tags: ['autodocs'],

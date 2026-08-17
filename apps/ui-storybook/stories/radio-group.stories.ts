@@ -50,12 +50,11 @@ import { type Meta, moduleMetadata, type StoryObj } from '@storybook/angular';
 	`,
 })
 class RadioGroupExample {
-	version: string | null = '16.1.4';
+	public version: string | null = '16.1.4';
 }
 
 @Component({
 	selector: 'radio-group-reactive-form-tester',
-	standalone: true,
 	imports: [HlmRadioGroupImports, ReactiveFormsModule, HlmFieldImports, HlmButton, HlmLabel],
 	template: `
 		<form [formGroup]="form" class="max-w-lg space-y-3">
@@ -106,7 +105,6 @@ class RadioGroupReactiveFormTester {
 
 @Component({
 	selector: 'radio-group-hint-error-story',
-	standalone: true,
 	imports: [HlmRadioGroupImports, ReactiveFormsModule, HlmFieldImports, HlmButton, HlmLabel],
 	template: `
 		<form [formGroup]="form" class="max-w-lg space-y-3">

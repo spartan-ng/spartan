@@ -41,17 +41,17 @@ class ResizableExample {}
 				<button
 					type="button"
 					class="rounded-md border px-3 py-2 text-sm font-medium"
-					(click)="showExtra.update((value) => !value)"
+					(click)="_showExtra.update((value) => !value)"
 				>
-					{{ showExtra() ? 'Remove' : 'Add' }} extra panel
+					{{ _showExtra() ? 'Remove' : 'Add' }} extra panel
 				</button>
-				<span class="text-muted-foreground text-sm">Layout: {{ layout().join(', ') }}</span>
+				<span class="text-muted-foreground text-sm">Layout: {{ _layout().join(', ') }}</span>
 			</div>
 
 			<hlm-resizable-group
 				direction="vertical"
 				class="h-[360px] w-[500px] max-w-md rounded-lg border"
-				[(layout)]="layout"
+				[(layout)]="_layout"
 			>
 				<hlm-resizable-panel [defaultSize]="25">
 					<div class="flex h-full items-center justify-center p-6 font-semibold">Header</div>
@@ -60,7 +60,7 @@ class ResizableExample {}
 				<hlm-resizable-panel [defaultSize]="75">
 					<div class="flex h-full items-center justify-center p-6 font-semibold">Content</div>
 				</hlm-resizable-panel>
-				@if (showExtra()) {
+				@if (_showExtra()) {
 					<hlm-resizable-handle withHandle />
 					<hlm-resizable-panel [defaultSize]="25">
 						<div class="flex h-full items-center justify-center p-6 font-semibold">Extra Dynamic Panel</div>
@@ -71,8 +71,8 @@ class ResizableExample {}
 	`,
 })
 class ResizableDynamicPanelsExample {
-	protected readonly showExtra = signal(false);
-	protected readonly layout = signal<number[]>([]);
+	protected readonly _showExtra = signal(false);
+	protected readonly _layout = signal<number[]>([]);
 }
 
 export default {

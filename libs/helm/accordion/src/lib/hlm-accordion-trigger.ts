@@ -33,7 +33,7 @@ export class HlmAccordionTrigger {
 
 	protected readonly _computedTriggerClass = computed(() =>
 		hlm(
-			'spartan-accordion-trigger group/accordion-trigger relative flex flex-1 items-start justify-between border border-transparent transition-all outline-none aria-disabled:pointer-events-none aria-disabled:opacity-50',
+			'spartan-accordion-trigger group/accordion-trigger relative flex flex-1 cursor-pointer items-start justify-between border border-transparent transition-all outline-none aria-disabled:pointer-events-none aria-disabled:opacity-50',
 			this.triggerClass(),
 		),
 	);

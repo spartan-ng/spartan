@@ -51,6 +51,7 @@
 	--font-mono: 'Progress Sans Text', monospace;
 	--font-weight-medium: 400;
 	--font-weight-semibold: 500;
+	--font-weight-extrabold: 700;
 	--pdp-prompt-control-px: 1rem;
 	--pdp-prompt-control-py: 1rem;
 	--pdp-placeholder: oklch(0.769 0.015 248); /* design.md Body Tertiary #adb5bd */
@@ -110,6 +111,7 @@
 
 	--font-weight-medium: 400;
 	--font-weight-semibold: 500;
+	--font-weight-extrabold: 700;
 	/* Design.md's dark "Base/body-tertiary-color" (white 60%) reads far brighter here than the
 	   light-mode placeholder does relative to muted-foreground (WCAG contrast ratio ~70% of
 	   muted-foreground's, vs ~45% in light mode) because it's an alpha overlay on a dark
@@ -173,5 +175,72 @@
    to any unlayered rule regardless of order). */
 .style-pdp :where(input, textarea)::placeholder {
 	color: var(--pdp-placeholder);
-	font-weight: var(--font-weight-medium);
+	font-weight: var(--font-weight-light);
+}
+
+/* PDP weight scale: passive/body/description text drops to Light (300), the lightest
+   weight Progress Sans ships. Headers, form/meta labels (spartan-label, field-title,
+   field-legend, badge, kbd, chips, group-labels, shortcuts, avatar-group-count), and
+   every interactive control (button, tabs/menubar/nav-menu triggers, toggle, accordion
+   trigger, input-group addon/button) are intentionally excluded and keep their current
+   weight — only passive reading/description copy is affected. Typed input/textarea/OTP
+   values are also excluded: they're user-entered content, not passive text, mirroring
+   the placeholder-vs-value distinction above. Uses [data-slot='tabs-content'] rather
+   than `.spartan-tabs-content` because that class is defined in the theme CSS but never
+   actually applied by HlmTabsContent — data-slot is the only stable, real hook. (There's
+   no chart-tooltip component/selector to target at all: `.spartan-chart-tooltip` is
+   dead theme CSS with no corresponding component in this repo, so it's omitted here.) */
+.style-pdp :where(
+	.spartan-accordion-content,
+	.spartan-alert,
+	.spartan-alert-description,
+	.spartan-alert-dialog-description,
+	.spartan-autocomplete-item,
+	.spartan-autocomplete-empty,
+	.spartan-autocomplete-status,
+	.spartan-card,
+	.spartan-card-description,
+	.spartan-combobox-item,
+	.spartan-combobox-empty,
+	.spartan-combobox-status,
+	.spartan-command-input,
+	.spartan-command-empty,
+	.spartan-command-item,
+	.spartan-dialog-content,
+	.spartan-dialog-description,
+	.spartan-drawer-content,
+	.spartan-drawer-description,
+	.spartan-dropdown-menu-item,
+	.spartan-dropdown-menu-checkbox-item,
+	.spartan-dropdown-menu-radio-item,
+	.spartan-empty-description,
+	.spartan-empty-content,
+	.spartan-hover-card-content,
+	.spartan-message,
+	.spartan-bubble-content,
+	.spartan-bubble-reactions,
+	.spartan-attachment-description,
+	.spartan-native-select,
+	.spartan-popover-content,
+	.spartan-select-item,
+	.spartan-sheet-content,
+	.spartan-sheet-description,
+	.spartan-sidebar-group-content,
+	.spartan-table,
+	.spartan-table-caption,
+	[data-slot='tabs-content'],
+	.spartan-tooltip-content,
+	.spartan-breadcrumb-page,
+	.spartan-field-description,
+	.spartan-field-error,
+	.spartan-item-description
+) {
+	font-weight: var(--font-weight-light);
+}
+
+/* Calendar weekday header cells (Su/Mo/Tu...) have no dedicated class to hook into;
+   scoped to brnCalendarGrid tables to avoid matching unrelated data-table headers
+   (spartan-table-head), which must stay at their current weight. */
+.style-pdp table[brncalendargrid] th[scope='col'] {
+	font-weight: var(--font-weight-light);
 }

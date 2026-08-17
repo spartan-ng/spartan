@@ -1,5 +1,13 @@
 @font-face {
 	font-family: 'Progress Sans Text';
+	src: url('../public/fonts/progress-sans/ProgressSansText-Light.woff2') format('woff2');
+	font-style: normal;
+	font-weight: 300;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Progress Sans Text';
 	src: url('../public/fonts/progress-sans/ProgressSansText-Regular.woff2') format('woff2');
 	font-style: normal;
 	font-weight: 400;

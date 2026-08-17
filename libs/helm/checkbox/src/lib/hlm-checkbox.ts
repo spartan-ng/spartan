@@ -69,7 +69,7 @@ export class HlmCheckbox implements ControlValueAccessor {
 
 	protected readonly _computedClass = computed(() =>
 		hlm(
-			'spartan-checkbox peer shrink-0 cursor-default outline-none disabled:cursor-not-allowed disabled:opacity-50',
+			'spartan-checkbox peer shrink-0 cursor-pointer outline-none disabled:cursor-not-allowed disabled:opacity-50',
 			this.userClass(),
 			this._errorStateClass(),
 		),

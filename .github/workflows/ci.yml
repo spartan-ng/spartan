@@ -26,25 +26,35 @@ jobs:
     permissions:
       actions: read
       contents: read
-      # Required by wagoid/commitlint-github-action
       pull-requests: read
     steps:
       - uses: actions/checkout@v6
         with:
-          # Required by wagoid/commitlint-github-action
           fetch-depth: 0
+      - name: Install pnpm
+        uses: pnpm/action-setup@v5
       - name: Install Node
         uses: actions/setup-node@v6
         with:
           node-version-file: .node-version
+          cache: pnpm
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      # Run commitlint locally instead of via wagoid/commitlint-github-action to avoid
+      # downloading an external action archive, which was a source of 429/503 CI failures.
       - name: Lint commit messages
-        uses: wagoid/commitlint-github-action@v5
-        with:
-          failOnWarnings: true
-          helpURL: https://github.com/goetzrobin/spartan/blob/main/CONTRIBUTING.md#-commit-message-guidelines
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            pnpm commitlint --from ${{ github.event.pull_request.base.sha }} --to ${{ github.event.pull_request.head.sha }} --verbose
+          else
+            pnpm commitlint --from ${{ github.event.before }} --to ${{ github.event.after }} --verbose
+          fi
 
   format-and-lint:
     if: ${{ github.event_name != 'push' || !startsWith(github.event.head_commit.message, 'chore(release):') }}
+    # Staggered after commitlint so the nrwl/nx-set-shas archive download in this job does not
+    # hit GitHub's codeload endpoint at the exact same moment as the build/unit/e2e jobs.
+    needs: [commitlint]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6

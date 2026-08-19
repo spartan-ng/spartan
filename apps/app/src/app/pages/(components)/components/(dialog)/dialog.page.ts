@@ -110,8 +110,8 @@ export const routeMeta: RouteMeta = {
 				<code class="${hlmCode}">disableClose</code>
 				to block every user-initiated dismissal (Escape, backdrop clicks, and outside pointer events), or
 				<code class="${hlmCode}">closeOnOutsidePointerEvents</code>
-				to only control whether clicks outside the dialog close it. Hover the toggle labels in the example for a
-				summary of each option, then open the dialog and try Escape or a backdrop click.
+				to only control whether clicks outside the dialog close it. Hover the toggle labels in the example for a summary
+				of each option, then open the dialog and try Escape or a backdrop click.
 			</p>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>

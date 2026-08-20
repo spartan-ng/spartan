@@ -1,3 +1,11 @@
+## <small>1.3.2-beta.2 (2026-08-20)</small>
+
+- fix: correct spelling and grammar mistakes (#1692) ([0a48886](https://github.com/spartan-ng/spartan/commit/0a48886)), closes [#1692](https://github.com/spartan-ng/spartan/issues/1692)
+- chore(release): backmerge main into beta ([cb8e397](https://github.com/spartan-ng/spartan/commit/cb8e397))
+- chore(release): backmerge main into beta ([040b2b7](https://github.com/spartan-ng/spartan/commit/040b2b7))
+- docs: add new contributors to our 300 ([361ce13](https://github.com/spartan-ng/spartan/commit/361ce13))
+- docs: tanstack table 9 (#1701) ([df14af1](https://github.com/spartan-ng/spartan/commit/df14af1)), closes [#1701](https://github.com/spartan-ng/spartan/issues/1701)
+
 ## <small>1.3.2-beta.1 (2026-08-14)</small>
 
 - fix(popover): anchor to the opposite edge when content does not fit (#1700) ([b7935ec](https://github.com/spartan-ng/spartan/commit/b7935ec)), closes [#1700](https://github.com/spartan-ng/spartan/issues/1700) [#1283](https://github.com/spartan-ng/spartan/issues/1283)

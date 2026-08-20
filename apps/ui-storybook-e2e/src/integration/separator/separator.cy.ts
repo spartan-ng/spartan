@@ -20,7 +20,7 @@ describe('separator', () => {
 
 		cy.findAllByRole('none').should('have.length', 2);
 		cy.findAllByRole('none').should('have.attr', 'data-orientation', 'vertical');
-		// horizontals are decorative so no aria functionalty included
+		// horizontals are decorative so no aria functionality included
 		cy.findAllByRole('none').should('not.have.attr', 'aria-orientation', 'vertical');
 	});
 });

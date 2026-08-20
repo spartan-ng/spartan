@@ -134,7 +134,7 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_configCode()" />
 			</spartan-tabs>
 
-			<h3 id="multiple-selecton" spartanH4>Multiple Selection</h3>
+			<h3 id="multiple-selection" spartanH4>Multiple Selection</h3>
 
 			<p class="${hlmP} mb-6">
 				Use

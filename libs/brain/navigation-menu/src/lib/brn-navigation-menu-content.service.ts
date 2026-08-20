@@ -170,11 +170,11 @@ export class BrnNavigationMenuContentService {
 		this._shouldDetach = false;
 
 		this._overlayRef?.detach();
-		const embededViewRef = this._overlayRef?.attach(content);
+		const embeddedViewRef = this._overlayRef?.attach(content);
 
 		this._destroyed$ = new Subject<void>();
 
-		const contentEl = embededViewRef.rootNodes[0] as HTMLElement;
+		const contentEl = embeddedViewRef.rootNodes[0] as HTMLElement;
 
 		const attachToId = this._config.attachTo?.nativeElement.id;
 

@@ -1,3 +1,21 @@
+## <small>1.3.2 (2026-08-20)</small>
+
+- Merge pull request #1707 from spartan-ng/beta ([0c00246](https://github.com/spartan-ng/spartan/commit/0c00246)), closes [#1707](https://github.com/spartan-ng/spartan/issues/1707)
+- chore(release): 1.3.2-beta.1 ([81fa379](https://github.com/spartan-ng/spartan/commit/81fa379))
+- chore(release): 1.3.2-beta.2 ([1d7b25c](https://github.com/spartan-ng/spartan/commit/1d7b25c))
+- chore(release): 1.3.2-beta.3 ([4421749](https://github.com/spartan-ng/spartan/commit/4421749))
+- chore(release): backmerge main into beta ([cb8e397](https://github.com/spartan-ng/spartan/commit/cb8e397))
+- chore(release): backmerge main into beta ([040b2b7](https://github.com/spartan-ng/spartan/commit/040b2b7))
+- chore(release): backmerge main into beta ([5e28c0b](https://github.com/spartan-ng/spartan/commit/5e28c0b))
+- chore(release): backmerge main into beta ([33b8d6a](https://github.com/spartan-ng/spartan/commit/33b8d6a))
+- fix: correct spelling and grammar mistakes (#1692) ([0a48886](https://github.com/spartan-ng/spartan/commit/0a48886)), closes [#1692](https://github.com/spartan-ng/spartan/issues/1692)
+- fix(dialog): update closeOnOutsidePointerEvents behavior for alert dialog (#1689) ([d6665a4](https://github.com/spartan-ng/spartan/commit/d6665a4)), closes [#1689](https://github.com/spartan-ng/spartan/issues/1689)
+- fix(popover): anchor to the opposite edge when content does not fit (#1700) ([b7935ec](https://github.com/spartan-ng/spartan/commit/b7935ec)), closes [#1700](https://github.com/spartan-ng/spartan/issues/1700) [#1283](https://github.com/spartan-ng/spartan/issues/1283)
+- fix(tooltip): add Escape key functionality to dismiss tooltip (#1680) ([4208683](https://github.com/spartan-ng/spartan/commit/4208683)), closes [#1680](https://github.com/spartan-ng/spartan/issues/1680)
+- docs: add new contributors to our 300 ([361ce13](https://github.com/spartan-ng/spartan/commit/361ce13))
+- docs: tanstack table 9 (#1701) ([df14af1](https://github.com/spartan-ng/spartan/commit/df14af1)), closes [#1701](https://github.com/spartan-ng/spartan/issues/1701)
+- docs(collapsible): add collapsible file tree component (#1681) ([7ca54ea](https://github.com/spartan-ng/spartan/commit/7ca54ea)), closes [#1681](https://github.com/spartan-ng/spartan/issues/1681)
+
 ## <small>1.3.2-beta.3 (2026-08-20)</small>
 
 - fix(dialog): update closeOnOutsidePointerEvents behavior for alert dialog (#1689) ([d6665a4](https://github.com/spartan-ng/spartan/commit/d6665a4)), closes [#1689](https://github.com/spartan-ng/spartan/issues/1689)

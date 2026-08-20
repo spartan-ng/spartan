@@ -21,6 +21,7 @@ import { SectionSubHeading } from '../../../../shared/layout/section-sub-heading
 import { Tabs } from '../../../../shared/layout/tabs';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
+import { DialogDismissOptions } from './dialog--dismiss-options.preview';
 import { DialogNoCloseButton } from './dialog--no-close-button.preview';
 import { DialogRtl } from './dialog--rtl.preview';
 import { DialogScrollableContent } from './dialog--scrollable-content.preview';
@@ -65,6 +66,7 @@ export const routeMeta: RouteMeta = {
 		DialogDeclarativePreview,
 		DialogClosePreview,
 		DialogNoCloseButton,
+		DialogDismissOptions,
 		DialogStickyFooter,
 		DialogScrollableContent,
 		DialogRtl,
@@ -100,6 +102,22 @@ export const routeMeta: RouteMeta = {
 					<spartan-dialog-no-close-button />
 				</div>
 				<spartan-code secondTab [code]="_noCloseButtonCode()" />
+			</spartan-tabs>
+
+			<h3 id="dismiss-options" spartanH4>Dismiss Options</h3>
+			<p class="${hlmP} mb-6">
+				Use
+				<code class="${hlmCode}">disableClose</code>
+				to block every user-initiated dismissal (Escape, backdrop clicks, and outside pointer events), or
+				<code class="${hlmCode}">closeOnOutsidePointerEvents</code>
+				to only control whether clicks outside the dialog close it. Hover the toggle labels in the example for a summary
+				of each option, then open the dialog and try Escape or a backdrop click.
+			</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-dialog-dismiss-options />
+				</div>
+				<spartan-code secondTab [code]="_dismissOptionsCode()" />
 			</spartan-tabs>
 
 			<h3 id="sticky-footer" spartanH4>Sticky Footer</h3>
@@ -219,6 +237,7 @@ export default class DialogPage {
 	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('dialog');
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
 	protected readonly _noCloseButtonCode = computed(() => this._snippets()['noCloseButton']);
+	protected readonly _dismissOptionsCode = computed(() => this._snippets()['dismissOptions']);
 	protected readonly _stickyFooterCode = computed(() => this._snippets()['stickyFooter']);
 	protected readonly _scrollableContentCode = computed(() => this._snippets()['scrollableContent']);
 	protected readonly _contextMenuCode = computed(() => this._snippets()['contextMenu']);

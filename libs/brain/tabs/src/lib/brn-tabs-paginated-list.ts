@@ -209,7 +209,7 @@ export abstract class BrnTabsPaginatedList implements AfterContentChecked, After
 		const dirChange = this._dir ? this._dir.change : observableOf('ltr');
 		// We need to debounce resize events because the alignment logic is expensive.
 		// If someone animates the width of tabs, we don't want to realign on every animation frame.
-		// Once we haven't seen any more resize events in the last 32ms (~2 animaion frames) we can
+		// Once we haven't seen any more resize events in the last 32ms (~2 animation frames) we can
 		// re-align.
 		const resize = this._sharedResizeObserver
 			.observe(this._elementRef.nativeElement)

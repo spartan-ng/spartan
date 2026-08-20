@@ -23,7 +23,7 @@ import { HlmCalendarMulti } from '@spartan-ng/helm/calendar';
 import { HlmPopoverImports } from '@spartan-ng/helm/popover';
 import { injectHlmDatePickerMultiConfig } from './hlm-date-picker-multi.token';
 
-export const HLM_DATE_PICKER_MUTLI_VALUE_ACCESSOR = {
+export const HLM_DATE_PICKER_MULTI_VALUE_ACCESSOR = {
 	provide: NG_VALUE_ACCESSOR,
 	useExisting: forwardRef(() => HlmDatePickerMulti),
 	multi: true,
@@ -33,7 +33,7 @@ export const HLM_DATE_PICKER_MUTLI_VALUE_ACCESSOR = {
 	selector: 'hlm-date-picker-multi',
 	imports: [HlmPopoverImports, HlmCalendarMulti],
 	providers: [
-		HLM_DATE_PICKER_MUTLI_VALUE_ACCESSOR,
+		HLM_DATE_PICKER_MULTI_VALUE_ACCESSOR,
 		provideBrnDatePicker(HlmDatePickerMulti),
 		provideBrnLabelable(HlmDatePickerMulti),
 	],

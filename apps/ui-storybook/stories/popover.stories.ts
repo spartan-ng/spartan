@@ -87,3 +87,28 @@ export const Default: Story = {
     `,
 	}),
 };
+
+/**
+ * Trigger pinned to the right edge with content wider than itself, inside a page tall
+ * enough to scroll. Covers both positioning cases: the overlay has to be shifted back
+ * into the viewport when it opens, and it has to keep following its trigger afterwards.
+ */
+export const NearViewportEdge: Story = {
+	args: {
+		align: 'start',
+		sideOffset: 4,
+	},
+	render: ({ ...args }) => ({
+		props: { ...args },
+		template: `
+    <hlm-popover ${argsToTemplate(args)}>
+      <div class='flex justify-end py-[900px]'>
+        <button id='edge-trigger' variant='outline' hlmPopoverTrigger hlmBtn>Edge</button>
+      </div>
+      <hlm-popover-content class='w-80' *hlmPopoverPortal='let ctx'>
+        <p id='edge-content' class='text-sm'>Content wider than its trigger.</p>
+      </hlm-popover-content>
+    </hlm-popover>
+    `,
+	}),
+};

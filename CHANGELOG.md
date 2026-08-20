@@ -1,3 +1,7 @@
+## <small>1.3.2-beta.3 (2026-08-20)</small>
+
+- fix(dialog): update closeOnOutsidePointerEvents behavior for alert dialog (#1689) ([d6665a4](https://github.com/spartan-ng/spartan/commit/d6665a4)), closes [#1689](https://github.com/spartan-ng/spartan/issues/1689)
+
 ## <small>1.3.2-beta.2 (2026-08-20)</small>
 
 - fix: correct spelling and grammar mistakes (#1692) ([0a48886](https://github.com/spartan-ng/spartan/commit/0a48886)), closes [#1692](https://github.com/spartan-ng/spartan/issues/1692)

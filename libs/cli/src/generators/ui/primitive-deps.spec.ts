@@ -42,8 +42,8 @@ describe('CLI primitive registry', () => {
 
 	it('installs the matching TanStack core and Angular adapter for chart', () => {
 		expect(supportedUiLibraries.chart.peerDependencies).toMatchObject({
-			'@tanstack/charts': '0.11.0',
-			'@tanstack/angular-charts': '0.11.0',
+			'@tanstack/charts': '0.11.1',
+			'@tanstack/angular-charts': '0.11.1',
 		});
 	});
 

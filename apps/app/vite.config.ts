@@ -44,6 +44,7 @@ export default defineConfig(({ command, mode }) => {
 		ssr: {
 			noExternal: [
 				'@spartan-ng/**',
+				'@tanstack/angular-charts',
 				'@angular/cdk/**',
 				'@ng-icons/**',
 				'ngx-scrollbar/**',

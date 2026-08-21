@@ -127,8 +127,8 @@
 	"chart": {
 		"name": "chart",
 		"peerDependencies": {
-			"@tanstack/angular-charts": "0.11.0",
-			"@tanstack/charts": "0.11.0",
+			"@tanstack/angular-charts": "0.11.1",
+			"@tanstack/charts": "0.11.1",
 			"@angular/core": ">=21.0.0 <23.0.0"
 		}
 	},

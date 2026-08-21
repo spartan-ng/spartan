@@ -18,22 +18,14 @@ import { barY, defineChart } from '@tanstack/charts';
 import { scaleBand } from '@tanstack/charts/scales/band';
 import { scaleLinear } from '@tanstack/charts/scales/linear';`;
 
-export const defaultSkeleton = `@defer {
-  <tanstack-chart hlmChart [options]="_chartOptions" />
-} @placeholder {
-  <div class="aspect-video w-full" aria-hidden="true"></div>
-}`;
+export const defaultSkeleton = `<tanstack-chart hlmChart [options]="_chartOptions" />`;
 
 @Component({
 	selector: 'spartan-chart-preview',
 	imports: [HlmChartImports],
 	host: { class: 'block w-full max-w-3xl' },
 	template: `
-		@defer {
-			<tanstack-chart hlmChart [options]="_chartOptions" />
-		} @placeholder {
-			<div class="aspect-video w-full" aria-hidden="true"></div>
-		}
+		<tanstack-chart hlmChart [options]="_chartOptions" />
 	`,
 })
 export class ChartPreview {

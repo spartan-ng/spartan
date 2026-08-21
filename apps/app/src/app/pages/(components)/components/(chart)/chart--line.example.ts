@@ -18,11 +18,7 @@ const downloads = [
 	imports: [HlmChartImports],
 	host: { class: 'block w-full max-w-3xl' },
 	template: `
-		@defer {
-			<tanstack-chart hlmChart [options]="_chartOptions" />
-		} @placeholder {
-			<div class="aspect-video w-full" aria-hidden="true"></div>
-		}
+		<tanstack-chart hlmChart [options]="_chartOptions" />
 	`,
 })
 export class ChartLine {

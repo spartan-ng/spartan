@@ -163,10 +163,9 @@ export const routeMeta: RouteMeta = {
 				<li>Do not use color as the only way to communicate meaning.</li>
 			</ul>
 			<p class="${hlmP}">
-				The Angular adapter currently verifies browser mounting, immutable updates, and teardown. Application SSR and
-				hydration are not yet part of its tested public contract. These examples use an
+				The Angular adapter renders the complete SVG during SSR and mounts it in the browser, so
 				<code class="${hlmCode}">&#64;defer</code>
-				block so Angular instantiates the adapter only in the browser; use the same pattern in SSR applications.
+				is not required. Angular hydration is not yet part of its tested public contract.
 			</p>
 
 			<p class="${hlmP}">

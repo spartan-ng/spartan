@@ -190,6 +190,8 @@ Our initial 300 contributors and sponsors are featured here and on the front pag
 152. [DanGM96](https://github.com/DanGM96)
 153. [possibleo](https://github.com/possibleo)
 154. [suprasannaojha](https://github.com/suprasannaojha)
+155. [dolanmiu](https://github.com/dolanmiu)
+156. [khocef](https://github.com/khocef)
 
 ### Sponsor spartan
 

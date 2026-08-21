@@ -5,7 +5,7 @@ import { BrnAvatarImage } from './image';
 	selector: 'brn-avatar',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
-		class: 'relative',
+		'[style.position]': "'relative'",
 	},
 	template: `
 		<ng-content select="[brnAvatarImage]" />

@@ -30,8 +30,16 @@ describe('HlmAvatarImageDirective', () => {
 	it('should add the default classes if no inputs are provided', () => {
 		fixture.detectChanges();
 		expect(fixture.nativeElement.querySelector('img').className).toBe(
-			'spartan-avatar-image aspect-square size-full object-cover absolute inset-0 invisible',
+			'spartan-avatar-image aspect-square size-full object-cover',
 		);
+	});
+
+	it('should apply positioning and visibility via inline styles', () => {
+		fixture.detectChanges();
+		const img = fixture.nativeElement.querySelector('img');
+		expect(img.style.position).toBe('absolute');
+		expect(img.style.inset).toBe('0px');
+		expect(img.style.visibility).toBe('hidden'); 
 	});
 
 	it('should add any user defined classes', async () => {

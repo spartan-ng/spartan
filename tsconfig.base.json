@@ -60,6 +60,7 @@
 			"@spartan-ng/brain/label": ["libs/brain/label/src/index.ts"],
 			"@spartan-ng/brain/navigation-menu": ["libs/brain/navigation-menu/src/index.ts"],
 			"@spartan-ng/brain/overlay": ["libs/brain/overlay/src/index.ts"],
+			"@spartan-ng/brain/pagination": ["libs/brain/pagination/src/index.ts"],
 			"@spartan-ng/brain/popover": ["libs/brain/popover/src/index.ts"],
 			"@spartan-ng/brain/progress": ["libs/brain/progress/src/index.ts"],
 			"@spartan-ng/brain/radio-group": ["libs/brain/radio-group/src/index.ts"],

@@ -112,3 +112,25 @@ export const NearViewportEdge: Story = {
     `,
 	}),
 };
+
+/**
+ * `scrollStrategy` is declared by `BrnOverlay` but was not forwarded by the helm wrapper,
+ * so an app could not opt out of the default reposition behaviour. Overlays that follow a
+ * trigger scrolling under a sticky header end up drawn over it, and closing on scroll is
+ * the usual way out.
+ */
+export const CloseOnScroll: Story = {
+	render: ({ ...args }) => ({
+		props: { ...args },
+		template: `
+    <hlm-popover ${argsToTemplate(args)} scrollStrategy='close'>
+      <div class='flex justify-center py-[900px]'>
+        <button id='closing-trigger' variant='outline' hlmPopoverTrigger hlmBtn>Closes on scroll</button>
+      </div>
+      <hlm-popover-content class='w-80' *hlmPopoverPortal='let ctx'>
+        <p id='closing-content' class='text-sm'>Dismissed as soon as the page scrolls.</p>
+      </hlm-popover-content>
+    </hlm-popover>
+    `,
+	}),
+};

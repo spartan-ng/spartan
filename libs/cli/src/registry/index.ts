@@ -8,4 +8,3 @@ export * from './lib/search';
 export * from './lib/utils';
 export * from './lib/validate';
 export * from './schema/schema';
-export * from './styles/style';

@@ -280,7 +280,7 @@ export class DataTable<TData extends RowData> {
 
 export const sortingStateCode = `
 import { Component, input, signal } from '@angular/core';
-import { injectTable, type SortingState } from '@tanstack/angular-table';
+import { injectTable, isFunction, type SortingState } from '@tanstack/angular-table';
 
 export class DataTable<TData extends RowData> {
 	private readonly _sorting = signal<SortingState>([]);
@@ -289,8 +289,7 @@ export class DataTable<TData extends RowData> {
 		features,
 		columns: this.columns(),
 		data: this.data(),
-		onSortingChange: (updater) =>
-			updater instanceof Function ? this._sorting.update(updater) : this._sorting.set(updater),
+		onSortingChange: (updater) => (isFunction(updater) ? this._sorting.update(updater) : this._sorting.set(updater)),
 		state: {
 			sorting: this._sorting(),
 		},
@@ -340,7 +339,7 @@ export const columns = columnHelper.columns([
 export const filteringCode = `
 import { Component, input, signal } from '@angular/core';
 import { HlmInputImports } from '@spartan-ng/helm/input';
-import { type ColumnFiltersState, injectTable } from '@tanstack/angular-table';
+import { type ColumnFiltersState, injectTable, isFunction } from '@tanstack/angular-table';
 
 @Component({
 	selector: 'app-data-table',
@@ -362,7 +361,7 @@ export class DataTable<TData extends RowData> {
 		columns: this.columns(),
 		data: this.data(),
 		onColumnFiltersChange: (updater) =>
-			updater instanceof Function ? this._columnFilters.update(updater) : this._columnFilters.set(updater),
+			isFunction(updater) ? this._columnFilters.update(updater) : this._columnFilters.set(updater),
 		state: {
 			columnFilters: this._columnFilters(),
 		},
@@ -379,7 +378,7 @@ import { Component, input, signal } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronDown } from '@ng-icons/lucide';
 import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
-import { type ColumnVisibilityState, injectTable } from '@tanstack/angular-table';
+import { type ColumnVisibilityState, injectTable, isFunction } from '@tanstack/angular-table';
 
 @Component({
 	selector: 'app-data-table',
@@ -422,7 +421,7 @@ export class DataTable<TData extends RowData> {
 		columns: this.columns(),
 		data: this.data(),
 		onColumnVisibilityChange: (updater) =>
-			updater instanceof Function ? this._columnVisibility.update(updater) : this._columnVisibility.set(updater),
+			isFunction(updater) ? this._columnVisibility.update(updater) : this._columnVisibility.set(updater),
 		state: {
 			columnVisibility: this._columnVisibility(),
 		},
@@ -488,7 +487,7 @@ export const columns = columnHelper.columns([
 
 export const rowSelectionStateCode = `
 import { Component, input, signal } from '@angular/core';
-import { injectTable, type RowSelectionState } from '@tanstack/angular-table';
+import { injectTable, isFunction, type RowSelectionState } from '@tanstack/angular-table';
 
 export class DataTable<TData extends RowData> {
 	private readonly _rowSelection = signal<RowSelectionState>({});
@@ -498,7 +497,7 @@ export class DataTable<TData extends RowData> {
 		columns: this.columns(),
 		data: this.data(),
 		onRowSelectionChange: (updater) =>
-			updater instanceof Function ? this._rowSelection.update(updater) : this._rowSelection.set(updater),
+			isFunction(updater) ? this._rowSelection.update(updater) : this._rowSelection.set(updater),
 		state: {
 			rowSelection: this._rowSelection(),
 		},
@@ -591,14 +590,12 @@ export const columns = columnHelper.columns([
 `;
 
 export const reusablePaginationCode = `
-import { Component, computed, input } from '@angular/core';
+import { Component, computed } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronLeft, lucideChevronRight, lucideChevronsLeft, lucideChevronsRight } from '@ng-icons/lucide';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmSelectImports } from '@spartan-ng/helm/select';
-import { type Table } from '@tanstack/angular-table';
-import { type DataTableFeatures } from './data-table-features';
-import { type Payment } from './payments';
+import { injectTableContext } from '@tanstack/angular-table';
 
 @Component({
 	selector: 'app-data-table-pagination',
@@ -678,7 +675,9 @@ import { type Payment } from './payments';
 	\`,
 })
 export class DataTablePagination {
-	public readonly table = input.required<Table<DataTableFeatures, Payment>>();
+	// Provided by the nearest \`[tanStackTable]\` directive, so no table input
+	// or generics are needed and this component works with any table.
+	protected readonly table = injectTableContext();
 
 	protected readonly pageSizes = [10, 20, 25, 30, 40, 50];
 
@@ -692,18 +691,34 @@ export class DataTablePagination {
 `;
 
 export const reusablePaginationUsageCode = `
-<app-data-table-pagination [table]="table" />
+import { TanStackTable } from '@tanstack/angular-table';
+import { DataTablePagination } from './data-table-pagination';
+
+@Component({
+	selector: 'app-data-table',
+	imports: [DataTablePagination, FlexRender, HlmTableImports, TanStackTable],
+	template: \`
+		<div class="overflow-hidden rounded-md border">
+			<!-- table -->
+		</div>
+
+		<div class="py-4" [tanStackTable]="table">
+			<app-data-table-pagination />
+		</div>
+	\`,
+})
+export class DataTable<TData extends RowData> {
+	// ...
+}
 `;
 
 export const viewOptionsCode = `
-import { Component, computed, input } from '@angular/core';
+import { Component, computed } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideSettings2 } from '@ng-icons/lucide';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
-import { type Table } from '@tanstack/angular-table';
-import { type DataTableFeatures } from './data-table-features';
-import { type Payment } from './payments';
+import { injectTableContext } from '@tanstack/angular-table';
 
 @Component({
 	selector: 'app-data-table-view-options',
@@ -741,7 +756,7 @@ import { type Payment } from './payments';
 	\`,
 })
 export class DataTableViewOptions {
-	public readonly table = input.required<Table<DataTableFeatures, Payment>>();
+	protected readonly table = injectTableContext();
 
 	protected readonly hidableColumns = computed(() =>
 		this.table()
@@ -752,5 +767,8 @@ export class DataTableViewOptions {
 `;
 
 export const viewOptionsUsageCode = `
-<app-data-table-view-options [table]="table" />
+<div class="flex items-center py-4" [tanStackTable]="table">
+	<!-- filter input -->
+	<app-data-table-view-options />
+</div>
 `;

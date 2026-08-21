@@ -94,8 +94,8 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-section-sub-heading id="introduction">Introduction</spartan-section-sub-heading>
 			<p class="${hlmP}">
-				Every data table or datagrid I've created has been unique. They all behave differently, have specific sorting
-				and filtering requirements, and work with different data sources.
+				Every data table or datagrid tends to be unique. They all behave differently, have specific sorting and
+				filtering requirements, and work with different data sources.
 			</p>
 			<p class="${hlmP}">
 				It doesn't make sense to combine all of these variations into a single component. If we do that, we'll lose the
@@ -111,8 +111,7 @@ export const routeMeta: RouteMeta = {
 				provides.
 			</p>
 			<p class="${hlmP}">
-				So instead of a data-table component, I thought it would be more helpful to provide a guide on how to build your
-				own. We'll start with the basic
+				So instead of a data-table component, this page is a guide on how to build your own. We'll start with the basic
 				<a class="${link}" routerLink="/components/table">Table</a>
 				directives and build a complex data table from scratch using
 				<a href="https://tanstack.com/table" target="_blank" rel="noreferrer" class="${link}">TanStack Table</a>
@@ -403,14 +402,14 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-section-sub-heading id="reusable-components">Reusable Components</spartan-section-sub-heading>
 			<p class="${hlmP}">
-				Here are some components you can use to build your data tables. They all share the features object (and the
-				matching
-				<code class="${hlmCode}">DataTableFeatures</code>
-				type) via the
-				<code class="${hlmCode}">data-table-features.ts</code>
-				module — the same pattern we set up in
-				<a class="${link}" routerLink="." fragment="table-features">Set up Table Features</a>
-				.
+				Here are some components you can use to build your data tables. Components rendered inside a column (like the
+				column header) receive their context from
+				<code class="${hlmCode}">*flexRender</code>
+				. Components rendered outside the table (pagination, column toggle) read the table instance from DI with
+				<code class="${hlmCode}">injectTableContext()</code>
+				, which is provided by wrapping them in the
+				<code class="${hlmCode}">[tanStackTable]</code>
+				directive. Since no table input or generics are involved, the same components work with any of your tables.
 			</p>
 
 			<h3 id="column-header" spartanH4>Column header</h3>
@@ -435,10 +434,21 @@ export const routeMeta: RouteMeta = {
 				atom, so the component stays in sync with the table.
 			</p>
 			<spartan-code fileName="data-table-pagination.ts" [code]="_reusablePaginationCode" />
-			<spartan-code class="mt-6" [code]="_reusablePaginationUsageCode" />
+			<p class="${hlmP} mb-6">
+				Add
+				<code class="${hlmCode}">TanStackTable</code>
+				to the imports of the component that owns the table and wrap the pagination in the
+				<code class="${hlmCode}">[tanStackTable]</code>
+				directive:
+			</p>
+			<spartan-code [code]="_reusablePaginationUsageCode" />
 
 			<h3 id="column-toggle" spartanH4>Column toggle</h3>
-			<p class="${hlmP} mb-6">A component to toggle column visibility.</p>
+			<p class="${hlmP} mb-6">
+				A component to toggle column visibility. Like the pagination component, it reads the table from the nearest
+				<code class="${hlmCode}">[tanStackTable]</code>
+				directive.
+			</p>
 			<spartan-code fileName="data-table-view-options.ts" [code]="_viewOptionsCode" />
 			<spartan-code class="mt-6" [code]="_viewOptionsUsageCode" />
 

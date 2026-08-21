@@ -22,6 +22,7 @@ import {
 	filterFn_includesString,
 	FlexRender,
 	injectTable,
+	isFunction,
 	type Row,
 	rowPaginationFeature,
 	rowSelectionFeature,
@@ -373,16 +374,16 @@ export class DataTableRtl {
 		columns: this._columns,
 		data: PAYMENT_DATA,
 		onSortingChange: (updater) => {
-			updater instanceof Function ? this._sorting.update(updater) : this._sorting.set(updater);
+			isFunction(updater) ? this._sorting.update(updater) : this._sorting.set(updater);
 		},
 		onColumnFiltersChange: (updater) => {
-			updater instanceof Function ? this._columnFilters.update(updater) : this._columnFilters.set(updater);
+			isFunction(updater) ? this._columnFilters.update(updater) : this._columnFilters.set(updater);
 		},
 		onColumnVisibilityChange: (updater) => {
-			updater instanceof Function ? this._columnVisibility.update(updater) : this._columnVisibility.set(updater);
+			isFunction(updater) ? this._columnVisibility.update(updater) : this._columnVisibility.set(updater);
 		},
 		onRowSelectionChange: (updater) => {
-			updater instanceof Function ? this._rowSelection.update(updater) : this._rowSelection.set(updater);
+			isFunction(updater) ? this._rowSelection.update(updater) : this._rowSelection.set(updater);
 		},
 		state: {
 			sorting: this._sorting(),

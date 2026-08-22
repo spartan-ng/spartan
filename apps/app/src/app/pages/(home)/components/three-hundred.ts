@@ -128,7 +128,7 @@ export class ThreeHundred {
 		'hitro11',
 		'GODrums',
 		'samsonkumawong',
-		'PR4SAN',
+		'suprasannaojha',
 		'JeevanMahesha',
 		'dlhck',
 		'tomer953',
@@ -196,7 +196,6 @@ export class ThreeHundred {
 		'skolldev',
 		'DanGM96',
 		'possibleo',
-		'suprasannaojha',
 		'dolanmiu',
 		'khocef',
 	];

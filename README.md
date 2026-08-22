@@ -121,7 +121,7 @@ Our initial 300 contributors and sponsors are featured here and on the front pag
 83. [hitro11](https://github.com/hitro11)
 84. [GODrums](https://github.com/GODrums)
 85. [samsonkumawong](https://github.com/samsonkumawong)
-86. [PR4SAN](https://github.com/PR4SAN)
+86. [suprasannaojha](https://github.com/suprasannaojha)
 87. [JeevanMahesha](https://github.com/JeevanMahesha)
 88. [dlhck](https://github.com/dlhck)
 89. [tomer953](https://github.com/tomer953)
@@ -189,9 +189,8 @@ Our initial 300 contributors and sponsors are featured here and on the front pag
 151. [skolldev](https://github.com/skolldev)
 152. [DanGM96](https://github.com/DanGM96)
 153. [possibleo](https://github.com/possibleo)
-154. [suprasannaojha](https://github.com/suprasannaojha)
-155. [dolanmiu](https://github.com/dolanmiu)
-156. [khocef](https://github.com/khocef)
+154. [dolanmiu](https://github.com/dolanmiu)
+155. [khocef](https://github.com/khocef)
 
 ### Sponsor spartan
 

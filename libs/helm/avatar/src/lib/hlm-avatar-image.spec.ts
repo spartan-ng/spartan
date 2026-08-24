@@ -39,7 +39,7 @@ describe('HlmAvatarImageDirective', () => {
 		const img = fixture.nativeElement.querySelector('img');
 		expect(img.style.position).toBe('absolute');
 		expect(img.style.inset).toBe('0px');
-		expect(img.style.visibility).toBe('hidden'); 
+		expect(img.style.visibility).toBe('hidden');
 	});
 
 	it('should add any user defined classes', async () => {

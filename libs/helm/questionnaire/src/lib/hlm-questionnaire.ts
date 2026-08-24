@@ -18,6 +18,6 @@ import { classes } from '@spartan-ng/helm/utils';
 })
 export class HlmQuestionnaire {
 	constructor() {
-		classes(() => 'spartan-questionnaire');
+		classes(() => 'spartan-questionnaire flex w-full min-w-0 flex-col');
 	}
 }

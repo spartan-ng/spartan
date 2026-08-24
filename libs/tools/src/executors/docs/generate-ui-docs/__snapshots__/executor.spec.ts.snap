@@ -6941,7 +6941,18 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
       },
       "BrnQuestionnaireProgress": {
         "exportAs": "brnQuestionnaireProgress",
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "ariaLabel",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "valueText",
+            "required": false,
+            "type": "unknown",
+          },
+        ],
         "models": [],
         "outputs": [],
         "selector": "[brnQuestionnaireProgress]",
@@ -7228,7 +7239,18 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
       },
       "HlmQuestionnaireProgress": {
         "exportAs": "hlmQuestionnaireProgress",
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "ariaLabel",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "valueText",
+            "required": false,
+            "type": "unknown",
+          },
+        ],
         "models": [],
         "outputs": [],
         "selector": "[hlmQuestionnaireProgress]",

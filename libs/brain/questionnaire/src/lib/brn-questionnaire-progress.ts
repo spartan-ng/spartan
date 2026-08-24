@@ -1,4 +1,4 @@
-import { computed, Directive } from '@angular/core';
+import { computed, Directive, input } from '@angular/core';
 import { injectBrnQuestionnaire } from './brn-questionnaire.token';
 
 @Directive({
@@ -6,7 +6,7 @@ import { injectBrnQuestionnaire } from './brn-questionnaire.token';
 	exportAs: 'brnQuestionnaireProgress',
 	host: {
 		role: 'progressbar',
-		'[attr.aria-label]': '"Questionnaire progress"',
+		'[attr.aria-label]': 'ariaLabel()',
 		'[attr.aria-live]': '"polite"',
 		'[attr.aria-valuemax]': '_total() || null',
 		'[attr.aria-valuemin]': '_total() ? 1 : null',
@@ -17,6 +17,9 @@ import { injectBrnQuestionnaire } from './brn-questionnaire.token';
 export class BrnQuestionnaireProgress {
 	private readonly _questionnaire = injectBrnQuestionnaire();
 
+	public readonly ariaLabel = input('Questionnaire progress');
+	public readonly valueText = input('Question %current of %total');
+
 	protected readonly _current = this._questionnaire.current;
 	protected readonly _total = this._questionnaire.total;
 	public readonly first = this._questionnaire.first;
@@ -26,7 +29,11 @@ export class BrnQuestionnaireProgress {
 
 	protected readonly _label = computed(() => {
 		const total = this._total();
-		return total ? `Question ${this._current()} of ${total}` : null;
+		if (!total) {
+			return null;
+		}
+
+		return this.valueText().replaceAll('%current', String(this._current())).replaceAll('%total', String(total));
 	});
 
 	public readonly label = this._label;

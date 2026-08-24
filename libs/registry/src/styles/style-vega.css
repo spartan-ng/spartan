@@ -1113,15 +1113,15 @@
 
 	/* MARK: Questionnaire */
 	.spartan-questionnaire {
-		@apply flex w-full min-w-0 flex-col gap-6;
+		@apply gap-6;
 	}
 
 	.spartan-questionnaire-progress {
-		@apply text-muted-foreground min-h-[1lh] w-fit min-w-[14ch] text-xs font-medium tabular-nums;
+		@apply text-muted-foreground text-xs font-medium;
 	}
 
 	.spartan-questionnaire-item {
-		@apply flex min-w-0 flex-col gap-5 border-0 p-0 outline-none;
+		@apply gap-5;
 	}
 
 	.spartan-questionnaire-title {
@@ -1133,15 +1133,11 @@
 	}
 
 	.spartan-questionnaire-choices {
-		@apply grid min-w-0 gap-3;
+		@apply gap-3;
 	}
 
 	.spartan-questionnaire-choice {
-		@apply border-input hover:bg-muted/50 has-[>input:focus-visible]:border-ring has-[>input:focus-visible]:ring-ring/50 data-invalid:border-destructive dark:bg-input/20 data-checked:border-primary/40 data-checked:bg-muted dark:data-checked:bg-muted relative flex min-h-11 cursor-pointer items-start gap-3 rounded-md border bg-transparent px-4 py-3.5 text-start text-sm shadow-xs transition-colors outline-none select-none has-[>input:focus-visible]:ring-3 data-disabled:pointer-events-none data-disabled:cursor-not-allowed data-disabled:opacity-50;
-	}
-
-	.spartan-questionnaire-choice-input {
-		@apply absolute inset-0 z-10 size-full cursor-pointer opacity-0;
+		@apply border-input hover:bg-muted/50 has-[>input:focus-visible]:border-ring has-[>input:focus-visible]:ring-ring/50 data-invalid:border-destructive dark:bg-input/20 data-checked:border-primary/40 data-checked:bg-muted dark:data-checked:bg-muted gap-3 rounded-md border bg-transparent px-4 py-3.5 text-sm shadow-xs transition-colors has-[>input:focus-visible]:ring-3 data-disabled:pointer-events-none data-disabled:cursor-not-allowed data-disabled:opacity-50;
 	}
 
 	.spartan-questionnaire-choice-indicator {
@@ -1158,7 +1154,7 @@
 
 	.spartan-questionnaire-choice-label,
 	.spartan-questionnaire-choice-content {
-		@apply flex min-w-0 flex-1 flex-col gap-1 leading-snug;
+		@apply gap-1;
 	}
 
 	.spartan-questionnaire-choice-description {
@@ -1179,7 +1175,7 @@
 	}
 
 	.spartan-questionnaire-actions {
-		@apply grid min-h-11 w-full grid-cols-[minmax(0,1fr)_auto_auto] items-center gap-2 sm:min-h-9;
+		@apply min-h-11 gap-2 sm:min-h-9;
 	}
 
 	/* MARK: Radio Group */

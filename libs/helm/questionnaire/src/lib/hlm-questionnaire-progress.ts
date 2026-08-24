@@ -7,7 +7,7 @@ import { classes } from '@spartan-ng/helm/utils';
 	selector: '[hlmQuestionnaireProgress]',
 	exportAs: 'hlmQuestionnaireProgress',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	hostDirectives: [{ directive: BrnQuestionnaireProgress }],
+	hostDirectives: [{ directive: BrnQuestionnaireProgress, inputs: ['ariaLabel', 'valueText'] }],
 	host: {
 		'data-slot': 'questionnaire-progress',
 	},
@@ -19,6 +19,6 @@ export class HlmQuestionnaireProgress {
 	protected readonly _progress = inject(BrnQuestionnaireProgress);
 
 	constructor() {
-		classes(() => 'spartan-questionnaire-progress');
+		classes(() => 'spartan-questionnaire-progress min-h-[1lh] w-fit min-w-[14ch] tabular-nums');
 	}
 }

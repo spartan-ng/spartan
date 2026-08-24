@@ -347,6 +347,7 @@ describe('BrnQuestionnaire', () => {
 		const progress = screen.getByTestId('progress');
 
 		expect(progress.getAttribute('role')).toBe('progressbar');
+		expect(progress.getAttribute('aria-label')).toBe('Questionnaire progress');
 		expect(progress.getAttribute('aria-valuenow')).toBe('1');
 		expect(progress.getAttribute('aria-valuemax')).toBe('3');
 		expect(progress.getAttribute('aria-valuetext')).toBe('Question 1 of 3');
@@ -356,6 +357,37 @@ describe('BrnQuestionnaire', () => {
 
 		expect(progress.getAttribute('aria-valuenow')).toBe('2');
 		expect(progress.getAttribute('aria-valuetext')).toBe('Question 2 of 3');
+	});
+
+	it('formats progress copy from ariaLabel and valueText', async () => {
+		const { user } = await setup(
+			baseTemplate.replace(
+				'<div brnQuestionnaireProgress data-testid="progress"></div>',
+				'<div brnQuestionnaireProgress ariaLabel="Fortschritt" valueText="Frage %current von %total" data-testid="progress"></div>',
+			),
+		);
+		const progress = screen.getByTestId('progress');
+
+		expect(progress.getAttribute('aria-label')).toBe('Fortschritt');
+		expect(progress.getAttribute('aria-valuetext')).toBe('Frage 1 von 3');
+
+		await user.click(screen.getByLabelText('Red'));
+		await user.click(screen.getByTestId('next'));
+
+		expect(progress.getAttribute('aria-valuetext')).toBe('Frage 2 von 3');
+	});
+
+	it('does not warn when every defined item is rendered', async () => {
+		const warn = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
+
+		try {
+			await setup(baseTemplate);
+			await Promise.resolve();
+
+			expect(warn).not.toHaveBeenCalled();
+		} finally {
+			warn.mockRestore();
+		}
 	});
 
 	it('recovers when the active definition has no rendered item', async () => {

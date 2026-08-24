@@ -1,4 +1,15 @@
-import { booleanAttribute, computed, Directive, effect, ElementRef, inject, input, model, signal } from '@angular/core';
+import {
+	afterNextRender,
+	booleanAttribute,
+	computed,
+	Directive,
+	effect,
+	ElementRef,
+	inject,
+	input,
+	model,
+	signal,
+} from '@angular/core';
 import { brnDevMode } from '@spartan-ng/brain/core';
 import {
 	createQuestionnaireCollection,
@@ -50,6 +61,7 @@ export class BrnQuestionnaire {
 	private readonly _domVersion = signal(0);
 	private readonly _pendingFocus = signal<BrnPendingFocus | null>(null);
 	private readonly _initialized = signal(false);
+	private readonly _warningsReady = signal(false);
 	private _previousActiveItemName: string | null = null;
 	private readonly _activeWarnings = new Set<string>();
 
@@ -142,6 +154,10 @@ export class BrnQuestionnaire {
 	});
 
 	constructor() {
+		afterNextRender(() => {
+			this._warningsReady.set(true);
+		});
+
 		effect(() => {
 			if (this._initialized()) {
 				return;
@@ -170,7 +186,7 @@ export class BrnQuestionnaire {
 		});
 
 		effect(() => {
-			if (!brnDevMode) {
+			if (!brnDevMode || !this._warningsReady()) {
 				return;
 			}
 

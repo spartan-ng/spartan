@@ -12,6 +12,6 @@ import { classes } from '@spartan-ng/helm/utils';
 })
 export class HlmQuestionnaireChoices {
 	constructor() {
-		classes(() => 'spartan-questionnaire-choices group/questionnaire-choices');
+		classes(() => 'spartan-questionnaire-choices group/questionnaire-choices grid min-w-0');
 	}
 }

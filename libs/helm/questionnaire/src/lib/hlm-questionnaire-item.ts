@@ -18,6 +18,6 @@ import { classes } from '@spartan-ng/helm/utils';
 })
 export class HlmQuestionnaireItem {
 	constructor() {
-		classes(() => 'spartan-questionnaire-item');
+		classes(() => 'spartan-questionnaire-item flex min-w-0 flex-col border-0 p-0 outline-none');
 	}
 }

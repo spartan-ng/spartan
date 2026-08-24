@@ -16,6 +16,9 @@ import { classes } from '@spartan-ng/helm/utils';
 })
 export class HlmMessageScrollerViewport {
 	constructor() {
-		classes(() => 'spartan-message-scroller-viewport');
+		classes(
+			() =>
+				'spartan-message-scroller-viewport size-full min-h-0 min-w-0 overflow-y-auto overscroll-contain contain-content',
+		);
 	}
 }

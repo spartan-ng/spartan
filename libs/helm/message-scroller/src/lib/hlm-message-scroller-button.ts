@@ -1,4 +1,4 @@
-import { afterNextRender, ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideArrowDown } from '@ng-icons/lucide';
 import { BrnMessageScrollerButton } from '@spartan-ng/brain/message-scroller';
@@ -19,11 +19,6 @@ import { HlmButton, provideBrnButtonConfig } from '@spartan-ng/helm/button';
 	],
 	host: {
 		'data-slot': 'message-scroller-button',
-		'[attr.data-direction]': '_brn.direction()',
-		// Keep the control painted hidden until after the first frame so remounts
-		// (reset/demoKey) cannot flash the visible HlmButton before scroller styles win.
-		'[style.opacity]': '_pending() ? "0" : null',
-		'[style.transition]': '_pending() ? "none" : null',
 	},
 	template: `
 		<ng-icon name="lucideArrowDown" />
@@ -33,13 +28,10 @@ import { HlmButton, provideBrnButtonConfig } from '@spartan-ng/helm/button';
 export class HlmMessageScrollerButton {
 	private readonly _button = inject(HlmButton);
 	protected readonly _brn = inject(BrnMessageScrollerButton);
-	protected readonly _pending = signal(true);
 
 	constructor() {
-		this._button.setClass('spartan-message-scroller-button');
-
-		afterNextRender(() => {
-			requestAnimationFrame(() => this._pending.set(false));
-		});
+		this._button.setClass(
+			'spartan-message-scroller-button pointer-events-none absolute -translate-x-1/2 rtl:translate-x-1/2 data-[active=true]:pointer-events-auto',
+		);
 	}
 }

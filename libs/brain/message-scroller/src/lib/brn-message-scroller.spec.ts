@@ -243,6 +243,13 @@ describe('BrnMessageScroller', () => {
 		expect(document.querySelector('[data-testid="scroll-start"]')?.getAttribute('aria-label')).toBe('Scroll to start');
 	});
 
+	it('mirrors direction on jump buttons', async () => {
+		await setup();
+
+		expect(document.querySelector('[data-testid="scroll-end"]')?.getAttribute('data-direction')).toBe('end');
+		expect(document.querySelector('[data-testid="scroll-start"]')?.getAttribute('data-direction')).toBe('start');
+	});
+
 	it('marks the end button inactive at the bottom and scrolls on click when active', async () => {
 		// autoScroll off so follow-bottom does not suppress published `end` after a jump.
 		const { host, viewport, layout, detectChanges } = await setup({ autoScroll: false, contentHeight: 500 });

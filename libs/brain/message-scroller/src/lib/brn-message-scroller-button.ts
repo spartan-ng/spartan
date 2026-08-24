@@ -1,4 +1,4 @@
-import { computed, Directive, input } from '@angular/core';
+import { afterNextRender, computed, Directive, input, signal } from '@angular/core';
 import { injectBrnMessageScroller } from './brn-message-scroller.token';
 import type { BrnMessageScrollerButtonDirection } from './brn-message-scroller.types';
 
@@ -9,13 +9,19 @@ import type { BrnMessageScrollerButtonDirection } from './brn-message-scroller.t
 		type: 'button',
 		'[attr.aria-label]': 'resolvedAriaLabel()',
 		'[attr.data-active]': 'active() ? "true" : "false"',
+		'[attr.data-direction]': 'direction()',
 		'[attr.inert]': 'active() ? null : ""',
 		'[attr.tabindex]': 'active() ? null : -1',
+		// Keep the control painted hidden until after the first frame so remounts
+		// (reset/demoKey) cannot flash the visible button before scroller styles win.
+		'[style.opacity]': '_pending() ? "0" : null',
+		'[style.transition]': '_pending() ? "none" : null',
 		'(click)': 'onClick($event)',
 	},
 })
 export class BrnMessageScrollerButton {
 	private readonly _scroller = injectBrnMessageScroller();
+	protected readonly _pending = signal(true);
 
 	/**
 	 * Transcript edge to scroll toward.
@@ -45,6 +51,12 @@ export class BrnMessageScrollerButton {
 	public readonly resolvedAriaLabel = computed(
 		() => this.ariaLabel() ?? (this.direction() === 'end' ? 'Scroll to end' : 'Scroll to start'),
 	);
+
+	constructor() {
+		afterNextRender(() => {
+			requestAnimationFrame(() => this._pending.set(false));
+		});
+	}
 
 	protected onClick(event: MouseEvent): void {
 		if (!this.active()) {

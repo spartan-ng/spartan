@@ -13,7 +13,7 @@ start/end overflow signals — with no styles.
 | `brnMessageScrollerViewport` | Scroll container (`role="region"`); wheel/touch/keydown intent; resize                                                                        |
 | `brnMessageScrollerContent`  | Log region; MutationObserver + tail spacer                                                                                                    |
 | `brnMessageScrollerItem`     | Row with `messageId` / `scrollAnchor`                                                                                                         |
-| `brnMessageScrollerButton`   | Scroll-to-start/end control (`data-active`, inert when inactive)                                                                              |
+| `brnMessageScrollerButton`   | Scroll-to-start/end control (`data-active`, `data-direction`; hidden until first frame; inert when inactive)                                  |
 
 ## Provider vs Root
 

@@ -11,6 +11,8 @@ import { classes } from '@spartan-ng/helm/utils';
 })
 export class HlmMessageScroller {
 	constructor() {
-		classes(() => 'spartan-message-scroller group/message-scroller');
+		classes(
+			() => 'spartan-message-scroller group/message-scroller relative flex size-full min-h-0 flex-col overflow-hidden',
+		);
 	}
 }

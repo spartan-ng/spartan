@@ -46,10 +46,10 @@ export class BrnCalendarPreviousButton {
 
 		if (this._dateAdapter.isSameMonth(possibleDate, targetDate)) {
 			// if this date is within the same month, then focus it
-			this._calendar.focusedDate.set(possibleDate);
+			this._calendar.setFocusedDate(possibleDate);
 			return;
 		}
 
-		this._calendar.focusedDate.set(targetDate);
+		this._calendar.setFocusedDate(targetDate);
 	}
 }

@@ -49,6 +49,6 @@ export class BrnCalendarMonthSelect {
 			.months()
 			.findIndex((month) => month === selectedMonth);
 		const targetDate = this._dateAdapter.set(this._calendar.focusedDate(), { month });
-		this._calendar.focusedDate.set(targetDate);
+		this._calendar.setFocusedDate(targetDate);
 	}
 }

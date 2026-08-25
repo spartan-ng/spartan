@@ -1,12 +1,4 @@
-import {
-	type ExistingProvider,
-	inject,
-	InjectionToken,
-	type InputSignal,
-	type Signal,
-	type Type,
-	type WritableSignal,
-} from '@angular/core';
+import { type ExistingProvider, inject, InjectionToken, type InputSignal, type Signal, type Type } from '@angular/core';
 import type { BrnCalendarCellButton } from './brn-calendar-cell-button';
 import type { BrnCalendarHeader } from './brn-calendar-header';
 
@@ -23,7 +15,7 @@ export interface BrnCalendarBase<T> {
 	isBetweenRange: (date: T) => boolean;
 
 	disabled: Signal<boolean>;
-	focusedDate: WritableSignal<T>;
+	focusedDate: Signal<T>;
 	header: Signal<BrnCalendarHeader | undefined>;
 	days: Signal<T[]>;
 	highlightDays: InputSignal<T[]>;

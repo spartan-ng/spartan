@@ -1512,7 +1512,12 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "type": "T",
           },
         ],
-        "outputs": [],
+        "outputs": [
+          {
+            "name": "focusedDateChange",
+            "type": "T",
+          },
+        ],
         "selector": "[brnCalendar]",
       },
       "BrnCalendarCell": {
@@ -1612,7 +1617,12 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "type": "T[]",
           },
         ],
-        "outputs": [],
+        "outputs": [
+          {
+            "name": "focusedDateChange",
+            "type": "T",
+          },
+        ],
         "selector": "[brnCalendarMulti]",
       },
       "BrnCalendarNextButton": {
@@ -1677,7 +1687,12 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "type": "T",
           },
         ],
-        "outputs": [],
+        "outputs": [
+          {
+            "name": "focusedDateChange",
+            "type": "T",
+          },
+        ],
         "selector": "[brnCalendarRange]",
       },
       "BrnCalendarWeek": {
@@ -1733,7 +1748,12 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "type": "T",
           },
         ],
-        "outputs": [],
+        "outputs": [
+          {
+            "name": "focusedDateChange",
+            "type": "T",
+          },
+        ],
         "selector": "[brnMonthYearCalendar]",
       },
       "BrnMonthYearCalendarGrid": {

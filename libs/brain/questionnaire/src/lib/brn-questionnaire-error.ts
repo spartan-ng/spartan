@@ -19,8 +19,11 @@ export class BrnQuestionnaireError {
 	public readonly id = input<string | undefined>(undefined);
 	protected readonly _errorId = computed(() => this.id() ?? this._generatedId);
 
+	public readonly requiredMessage = input<string>('Choose an answer to continue.');
+	public readonly optionalMessage = input<string>('Choose an answer or skip this question.');
+
 	public readonly defaultMessage = computed(() =>
-		this._item.required() ? 'Choose an answer to continue.' : 'Choose an answer or skip this question.',
+		this._item.required() ? this.requiredMessage() : this.optionalMessage(),
 	);
 
 	constructor() {

@@ -52,3 +52,26 @@ onSubmit(event: Event) {
 - Optional items can be skipped
 - Keyboard: letter/number shortcuts, Enter to confirm, arrows to move
 - Controlled active item via `[(item)]`
+
+## Copy & i18n
+
+Override progress and validation copy on the directives:
+
+```html
+<div
+	brnQuestionnaireProgress
+	aria-label="Fortschritt"
+	valueText="Frage %current von %total"
+></div>
+
+<p
+	brnQuestionnaireError
+	#error="brnQuestionnaireError"
+	requiredMessage="Choose an answer to continue."
+	optionalMessage="Choose an answer or skip this question."
+>
+	{{ error.defaultMessage() }}
+</p>
+```
+
+`valueText` replaces `%current` and `%total`. `defaultMessage()` uses `requiredMessage` or `optionalMessage` based on the item.

@@ -987,7 +987,7 @@
 	}
 
 	.spartan-questionnaire-progress {
-		@apply text-muted-foreground text-[0.625rem] font-medium;
+		@apply text-[0.625rem];
 	}
 
 	.spartan-questionnaire-item {
@@ -995,11 +995,11 @@
 	}
 
 	.spartan-questionnaire-title {
-		@apply text-sm font-semibold text-pretty [&:not(:has(~[data-slot=questionnaire-description]))]:mb-3;
+		@apply text-sm font-semibold [&:not(:has(~[data-slot=questionnaire-description]))]:mb-3;
 	}
 
 	.spartan-questionnaire-description {
-		@apply text-muted-foreground text-xs/relaxed text-pretty;
+		@apply text-xs/relaxed;
 	}
 
 	.spartan-questionnaire-choices {
@@ -1022,7 +1022,6 @@
 		@apply text-[length:--spacing(3.5)];
 	}
 
-	.spartan-questionnaire-choice-label,
 	.spartan-questionnaire-choice-content {
 		@apply gap-0.5;
 	}
@@ -1031,7 +1030,6 @@
 		@apply text-muted-foreground;
 	}
 
-	.spartan-questionnaire-choice-shortcut,
 	.spartan-questionnaire-shortcut {
 		@apply border-input bg-background/80 text-muted-foreground pointer-events-none ms-auto inline-flex size-4 shrink-0 translate-y-[--spacing(0.45)] items-center justify-center rounded-sm border font-mono text-[0.5625rem] leading-none font-medium group-has-data-[slot=questionnaire-choice-description]/questionnaire-choice:translate-y-0.5;
 	}

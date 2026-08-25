@@ -47,7 +47,7 @@ import { classes } from '@spartan-ng/helm/utils';
 		<span
 			brnQuestionnaireChoiceLabel
 			data-slot="questionnaire-choice-label"
-			class="spartan-questionnaire-choice-label spartan-questionnaire-choice-content flex min-w-0 flex-1 flex-col leading-snug"
+			class="spartan-questionnaire-choice-content flex min-w-0 flex-1 flex-col leading-snug"
 		>
 			<ng-content />
 		</span>
@@ -55,7 +55,7 @@ import { classes } from '@spartan-ng/helm/utils';
 			<span
 				brnQuestionnaireChoiceShortcut
 				data-slot="questionnaire-choice-shortcut"
-				class="spartan-questionnaire-choice-shortcut spartan-questionnaire-shortcut"
+				class="spartan-questionnaire-shortcut"
 			>
 				{{ shortcut }}
 			</span>

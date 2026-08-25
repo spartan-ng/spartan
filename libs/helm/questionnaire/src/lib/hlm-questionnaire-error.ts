@@ -10,7 +10,7 @@ import { classes } from '@spartan-ng/helm/utils';
 	hostDirectives: [
 		{
 			directive: BrnQuestionnaireError,
-			inputs: ['id'],
+			inputs: ['id', 'requiredMessage', 'optionalMessage'],
 		},
 	],
 	host: {

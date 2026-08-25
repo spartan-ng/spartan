@@ -124,6 +124,36 @@ describe('BrnQuestionnaire', () => {
 		expect(screen.getByTestId('error-color').getAttribute('role')).toBe('alert');
 	});
 
+	it('formats validation copy from requiredMessage and optionalMessage', async () => {
+		const i18nTemplate = baseTemplate
+			.replace(
+				'<p brnQuestionnaireError data-testid="error-color"></p>',
+				'<p brnQuestionnaireError #errorColor="brnQuestionnaireError" requiredMessage="Pflichtfeld." data-testid="error-color">{{ errorColor.defaultMessage() }}</p>',
+			)
+			.replace(
+				`</div>
+			</fieldset>
+
+			<fieldset brnQuestionnaireItem name="finish" required data-testid="item-finish">`,
+				`</div>
+				<p brnQuestionnaireError #errorSize="brnQuestionnaireError" optionalMessage="Optional auswählen oder überspringen." data-testid="error-size">{{ errorSize.defaultMessage() }}</p>
+			</fieldset>
+
+			<fieldset brnQuestionnaireItem name="finish" required data-testid="item-finish">`,
+			);
+
+		const { user } = await setup(i18nTemplate);
+
+		await user.click(screen.getByTestId('next'));
+		expect(screen.getByTestId('error-color').textContent).toBe('Pflichtfeld.');
+
+		await user.click(screen.getByLabelText('Red'));
+		await user.click(screen.getByTestId('next'));
+		await user.click(screen.getByTestId('next'));
+
+		expect(screen.getByTestId('error-size').textContent).toBe('Optional auswählen oder überspringen.');
+	});
+
 	it('allows skipping optional items', async () => {
 		const { user } = await setup(baseTemplate);
 
@@ -359,11 +389,11 @@ describe('BrnQuestionnaire', () => {
 		expect(progress.getAttribute('aria-valuetext')).toBe('Question 2 of 3');
 	});
 
-	it('formats progress copy from ariaLabel and valueText', async () => {
+	it('formats progress copy from aria-label and valueText', async () => {
 		const { user } = await setup(
 			baseTemplate.replace(
 				'<div brnQuestionnaireProgress data-testid="progress"></div>',
-				'<div brnQuestionnaireProgress ariaLabel="Fortschritt" valueText="Frage %current von %total" data-testid="progress"></div>',
+				'<div brnQuestionnaireProgress aria-label="Fortschritt" valueText="Frage %current von %total" data-testid="progress"></div>',
 			),
 		);
 		const progress = screen.getByTestId('progress');

@@ -17,6 +17,6 @@ import { classes } from '<%- importAlias %>/utils';
 })
 export class HlmQuestionnaireDescription {
 	constructor() {
-		classes(() => 'spartan-questionnaire-description');
+		classes(() => 'spartan-questionnaire-description text-pretty text-muted-foreground');
 	}
 }

@@ -55,7 +55,7 @@ import { classes } from '<%- importAlias %>/utils';
 		<span
 			brnQuestionnaireChoiceLabel
 			data-slot="questionnaire-choice-label"
-			class="spartan-questionnaire-choice-label spartan-questionnaire-choice-content"
+			class="spartan-questionnaire-choice-content"
 		>
 			<ng-content />
 		</span>
@@ -63,7 +63,7 @@ import { classes } from '<%- importAlias %>/utils';
 			<span
 				brnQuestionnaireChoiceShortcut
 				data-slot="questionnaire-choice-shortcut"
-				class="spartan-questionnaire-choice-shortcut spartan-questionnaire-shortcut"
+				class="spartan-questionnaire-shortcut"
 			>
 				{{ shortcut }}
 			</span>

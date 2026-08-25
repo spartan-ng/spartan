@@ -12,6 +12,6 @@ import { classes } from '@spartan-ng/helm/utils';
 })
 export class HlmQuestionnaireTitle {
 	constructor() {
-		classes(() => 'spartan-questionnaire-title');
+		classes(() => 'spartan-questionnaire-title text-pretty');
 	}
 }

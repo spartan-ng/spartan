@@ -17,8 +17,8 @@ import { injectBrnQuestionnaire } from './brn-questionnaire.token';
 export class BrnQuestionnaireProgress {
 	private readonly _questionnaire = injectBrnQuestionnaire();
 
-	public readonly ariaLabel = input('Questionnaire progress');
-	public readonly valueText = input('Question %current of %total');
+	public readonly ariaLabel = input<string>('Questionnaire progress', { alias: 'aria-label' });
+	public readonly valueText = input<string>('Question %current of %total');
 
 	protected readonly _current = this._questionnaire.current;
 	protected readonly _total = this._questionnaire.total;

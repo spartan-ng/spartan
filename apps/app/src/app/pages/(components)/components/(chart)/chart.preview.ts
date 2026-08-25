@@ -80,7 +80,7 @@ export const defaultSkeleton = `@defer {
 			<hlm-card-header class="flex flex-col items-stretch gap-0 border-b p-0! sm:flex-row">
 				<div class="flex flex-1 flex-col justify-center gap-1 px-6 pt-4 pb-3 sm:py-0!">
 					<h3 hlmCardTitle>Bar Chart - Interactive</h3>
-					<p hlmCardDescription>Showing total visitors for the last 3 months</p>
+					<p hlmCardDescription>Showing total visitors for the last 30 days</p>
 				</div>
 
 				<div class="flex">

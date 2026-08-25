@@ -17,6 +17,7 @@ import { classes } from '@spartan-ng/helm/utils';
 			directive: BrnCombobox,
 			inputs: [
 				'autoHighlight',
+				'closeOnSelect',
 				'disabled',
 				'filter',
 				'search',

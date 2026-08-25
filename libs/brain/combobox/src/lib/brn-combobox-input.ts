@@ -104,10 +104,7 @@ export class BrnComboboxInput<T> {
 
 	/** Listen for keydown events */
 	protected onKeyDown(event: KeyboardEvent): void {
-		// Snapshot the expansion state BEFORE selecting, since `selectActiveItem()` may close the
-		// popover synchronously (closeOnSelect) and flip `_isExpanded()` to false mid-handler.
-		// Branching on this snapshot keeps "Enter opens a closed combobox" without re-opening the
-		// popover on the very Enter that just selected and closed it.
+		// Snapshot the expansion state before handling selection to avoid re-opening the popover if it is closed on select
 		const wasExpanded = this._isExpanded();
 
 		if (event.key === 'Enter') {

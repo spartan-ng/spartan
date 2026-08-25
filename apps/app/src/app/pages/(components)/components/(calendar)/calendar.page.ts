@@ -164,7 +164,7 @@ export const routeMeta: RouteMeta = {
 				<div spartanCodePreview firstTab>
 					<spartan-month-year-example />
 				</div>
-				<spartan-code secondTab [code]="_yearAndMonthCode()" />
+				<spartan-code secondTab [code]="_monthAndYearCode()" />
 			</spartan-tabs>
 
 			<spartan-header-rtl />
@@ -206,7 +206,7 @@ export default class CardPage {
 	protected readonly _multipleCode = computed(() => this._snippets()['multiple']);
 	protected readonly _rangeCode = computed(() => this._snippets()['range']);
 	protected readonly _yearAndMonthDropdownsCode = computed(() => this._snippets()['yearAndMonthDropdowns']);
-	protected readonly _yearAndMonthCode = computed(() => this._snippets()['yearAndMonth']);
+	protected readonly _monthAndYearCode = computed(() => this._snippets()['monthAndYear']);
 	protected readonly _rtlCode = computed(() => this._snippets()['rtl']);
 	protected readonly _defaultImports = defaultImports;
 	protected readonly _defaultSkeleton = defaultSkeleton;

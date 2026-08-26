@@ -1,3 +1,7 @@
+## <small>1.3.3-beta.2 (2026-08-26)</small>
+
+- fix(cli): pass false for angularCli when its missing (#1714) ([45ec60d](https://github.com/spartan-ng/spartan/commit/45ec60d)), closes [#1714](https://github.com/spartan-ng/spartan/issues/1714)
+
 ## <small>1.3.3-beta.1 (2026-08-26)</small>
 
 - fix(cli): cap typescript dependency below 7.0.0 (#1640) ([578033e](https://github.com/spartan-ng/spartan/commit/578033e)), closes [#1640](https://github.com/spartan-ng/spartan/issues/1640) [#1637](https://github.com/spartan-ng/spartan/issues/1637)

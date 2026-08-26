@@ -18,7 +18,7 @@ export default async function hlmUIGenerator(tree: Tree, options: HlmUIGenerator
 	await backfillStyleInComponentsJson(tree);
 	const config = await loadOrInitConfig(tree, {
 		componentsPath: options.directory,
-		angularCli: options.angularCli ?? true,
+		angularCli: options.angularCli ?? false,
 	});
 
 	const availablePrimitives: PrimitiveDefinitions = await import('./supported-ui-libraries.json').then(

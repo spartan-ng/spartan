@@ -1,3 +1,14 @@
+## <small>1.3.3-beta.1 (2026-08-26)</small>
+
+- fix(cli): cap typescript dependency below 7.0.0 (#1640) ([578033e](https://github.com/spartan-ng/spartan/commit/578033e)), closes [#1640](https://github.com/spartan-ng/spartan/issues/1640) [#1637](https://github.com/spartan-ng/spartan/issues/1637)
+- chore: replace renamed contributor handle in the 300 (#1710) ([706ec27](https://github.com/spartan-ng/spartan/commit/706ec27)), closes [#1710](https://github.com/spartan-ng/spartan/issues/1710)
+- chore(release): backmerge main into beta ([af0d40b](https://github.com/spartan-ng/spartan/commit/af0d40b))
+- chore(release): backmerge main into beta ([dcaad73](https://github.com/spartan-ng/spartan/commit/dcaad73))
+- chore(release): backmerge main into beta ([227852f](https://github.com/spartan-ng/spartan/commit/227852f))
+- chore(release): backmerge main into beta ([eaf6a51](https://github.com/spartan-ng/spartan/commit/eaf6a51))
+- docs: add new contributors to our 300 ([850efb2](https://github.com/spartan-ng/spartan/commit/850efb2))
+- docs(data-table): update datatable docs to match shadcn (#1706) ([6f7ca80](https://github.com/spartan-ng/spartan/commit/6f7ca80)), closes [#1706](https://github.com/spartan-ng/spartan/issues/1706)
+
 ## <small>1.3.2 (2026-08-20)</small>
 
 - Merge pull request #1707 from spartan-ng/beta ([0c00246](https://github.com/spartan-ng/spartan/commit/0c00246)), closes [#1707](https://github.com/spartan-ng/spartan/issues/1707)

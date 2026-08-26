@@ -166,3 +166,20 @@ describe('popover--near-viewport-edge', () => {
 		});
 	});
 });
+
+describe('popover--close-on-scroll', () => {
+	beforeEach(() => {
+		cy.visit('/iframe.html?id=popover--close-on-scroll');
+		cy.get('#closing-trigger').click();
+		cy.get('hlm-popover-content').should('be.visible');
+	});
+
+	it('honours the scroll strategy the wrapper now forwards', () => {
+		// Cypress scrolls by assigning `scrollTop`, which never reaches the listener
+		// `ScrollDispatcher` installs, so the strategy has to be told explicitly.
+		cy.scrollTo(0, 400);
+		cy.document().then((doc) => doc.dispatchEvent(new Event('scroll')));
+
+		cy.get('hlm-popover-content').should('not.exist');
+	});
+});

@@ -951,6 +951,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "required": false,
             "type": "number",
           },
+          {
+            "name": "scrollStrategy",
+            "required": false,
+            "type": "BrnOverlayOptions['scrollStrategy'] | 'close' | 'reposition' | null",
+          },
         ],
         "models": [],
         "outputs": [
@@ -2815,6 +2820,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "name": "offsetX",
             "required": false,
             "type": "number",
+          },
+          {
+            "name": "scrollStrategy",
+            "required": false,
+            "type": "BrnOverlayOptions['scrollStrategy'] | 'close' | 'reposition' | null",
           },
         ],
         "models": [],
@@ -6573,6 +6583,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "type": "number",
           },
           {
+            "name": "scrollStrategy",
+            "required": false,
+            "type": "BrnOverlayOptions['scrollStrategy'] | 'close' | 'reposition' | null",
+          },
+          {
             "name": "sideOffset",
             "required": false,
             "type": "number",
@@ -7334,6 +7349,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "required": false,
             "type": "number",
           },
+          {
+            "name": "scrollStrategy",
+            "required": false,
+            "type": "BrnOverlayOptions['scrollStrategy'] | 'close' | 'reposition' | null",
+          },
         ],
         "models": [],
         "outputs": [
@@ -7450,6 +7470,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "name": "offsetX",
             "required": false,
             "type": "number",
+          },
+          {
+            "name": "scrollStrategy",
+            "required": false,
+            "type": "BrnOverlayOptions['scrollStrategy'] | 'close' | 'reposition' | null",
           },
         ],
         "models": [],

@@ -1,3 +1,7 @@
+## <small>1.3.4-beta.2 (2026-08-27)</small>
+
+- fix: scroll strategy (#1717) ([508cb4a](https://github.com/spartan-ng/spartan/commit/508cb4a)), closes [#1717](https://github.com/spartan-ng/spartan/issues/1717)
+
 ## <small>1.3.4-beta.1 (2026-08-26)</small>
 
 - fix: forward the scroll strategy input through the helm overlay wrappers (#1709) ([643ce28](https://github.com/spartan-ng/spartan/commit/643ce28)), closes [#1709](https://github.com/spartan-ng/spartan/issues/1709)

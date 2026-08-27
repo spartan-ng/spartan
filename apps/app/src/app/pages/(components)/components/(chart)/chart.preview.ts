@@ -125,14 +125,16 @@ export class ChartPreview {
 							inset: 1,
 						}),
 					],
-					x: {
-						scale: () => scaleBand<string>().padding(0.16),
-						axis: {
-							ticks: { format: (value) => formatDate(value, shortDate) },
-							tickLabels: { thin: { minGap: 32 } },
+					scales: {
+						x: {
+							scale: () => scaleBand<string>().padding(0.16),
+							axis: {
+								ticks: { format: (value) => formatDate(value, shortDate) },
+								tickLabels: { thin: { minGap: 32 } },
+							},
 						},
+						y: { scale: scaleLinear, nice: true, grid: true, axis: false },
 					},
-					y: { scale: scaleLinear, nice: true, grid: true, axis: false },
 					theme: HLM_CHART_THEME,
 				},
 				{

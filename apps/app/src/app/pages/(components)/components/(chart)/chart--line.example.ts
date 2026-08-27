@@ -38,8 +38,10 @@ export class ChartLine {
 						strokeWidth: 2.5,
 					}),
 				],
-				x: { scale: () => scalePoint<string>().padding(0.2) },
-				y: { scale: scaleLinear, nice: true, grid: true, axis: { label: 'Downloads (thousands)' } },
+				scales: {
+					x: { scale: () => scalePoint<string>().padding(0.2) },
+					y: { scale: scaleLinear, nice: true, grid: true, axis: { label: 'Downloads (thousands)' } },
+				},
 				theme: HLM_CHART_THEME,
 			},
 			{ focus: 'nearest-x', tooltip: hlmChartTooltip() },

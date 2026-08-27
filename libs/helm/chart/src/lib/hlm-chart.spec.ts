@@ -31,8 +31,10 @@ class ChartHost {
 		definition: defineChart(
 			{
 				marks: [barY(rows, { x: 'month', y: 'revenue' })],
-				x: { scale: () => scaleBand<string>().padding(0.16) },
-				y: { scale: scaleLinear, grid: true },
+				scales: {
+					x: { scale: () => scaleBand<string>().padding(0.16) },
+					y: { scale: scaleLinear, grid: true },
+				},
 				theme: HLM_CHART_THEME,
 			},
 			{ tooltip: hlmChartTooltip<Revenue, string, number>() },

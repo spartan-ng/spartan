@@ -32,8 +32,10 @@ export class ChartLegend {
 		definition: defineChart(
 			{
 				marks: [lineY(visitors, { x: 'month', y: 'visitors', z: 'channel', points: true, strokeWidth: 2.5 })],
-				x: { scale: () => scalePoint<string>().padding(0.2) },
-				y: { scale: scaleLinear, nice: true, grid: true, axis: { label: 'Visitors' } },
+				scales: {
+					x: { scale: () => scalePoint<string>().padding(0.2) },
+					y: { scale: scaleLinear, nice: true, grid: true, axis: { label: 'Visitors' } },
+				},
 				color: {
 					domain: ['Desktop', 'Mobile'],
 					legend: colorLegend({ label: 'Device' }),

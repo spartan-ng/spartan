@@ -191,6 +191,7 @@ Our initial 300 contributors and sponsors are featured here and on the front pag
 153. [possibleo](https://github.com/possibleo)
 154. [dolanmiu](https://github.com/dolanmiu)
 155. [khocef](https://github.com/khocef)
+156. [robmanganelly](https://github.com/robmanganelly)
 
 ### Sponsor spartan
 

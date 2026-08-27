@@ -1,3 +1,13 @@
+## <small>1.3.4 (2026-08-27)</small>
+
+- fix: 1.3.4 (#1716) ([e48f8ac](https://github.com/spartan-ng/spartan/commit/e48f8ac)), closes [#1716](https://github.com/spartan-ng/spartan/issues/1716) [#1711](https://github.com/spartan-ng/spartan/issues/1711) [#1709](https://github.com/spartan-ng/spartan/issues/1709)
+- fix: forward the scroll strategy input through the helm overlay wrappers (#1709) ([643ce28](https://github.com/spartan-ng/spartan/commit/643ce28)), closes [#1709](https://github.com/spartan-ng/spartan/issues/1709)
+- fix: scroll strategy (#1717) ([508cb4a](https://github.com/spartan-ng/spartan/commit/508cb4a)), closes [#1717](https://github.com/spartan-ng/spartan/issues/1717)
+- fix(combobox): dont reopen popover when item is selected via enter (#1711) ([3db6933](https://github.com/spartan-ng/spartan/commit/3db6933)), closes [#1711](https://github.com/spartan-ng/spartan/issues/1711)
+- chore(release): 1.3.4-beta.1 ([9e83d11](https://github.com/spartan-ng/spartan/commit/9e83d11))
+- chore(release): 1.3.4-beta.2 ([26a2d09](https://github.com/spartan-ng/spartan/commit/26a2d09))
+- chore(release): backmerge main into beta ([8d43511](https://github.com/spartan-ng/spartan/commit/8d43511))
+
 ## <small>1.3.4-beta.2 (2026-08-27)</small>
 
 - fix: scroll strategy (#1717) ([508cb4a](https://github.com/spartan-ng/spartan/commit/508cb4a)), closes [#1717](https://github.com/spartan-ng/spartan/issues/1717)

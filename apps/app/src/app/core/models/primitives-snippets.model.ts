@@ -36,6 +36,7 @@ export type PrimitiveSnippet =
 	| 'marker'
 	| 'menubar'
 	| 'message'
+	| 'message-scroller'
 	| 'native-select'
 	| 'navigation-menu'
 	| 'pagination'

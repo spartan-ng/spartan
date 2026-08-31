@@ -6832,6 +6832,16 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "required": false,
             "type": "string | undefined",
           },
+          {
+            "name": "requiredMessage",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "optionalMessage",
+            "required": false,
+            "type": "string",
+          },
         ],
         "models": [],
         "outputs": [],
@@ -6943,14 +6953,14 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "exportAs": "brnQuestionnaireProgress",
         "inputs": [
           {
-            "name": "ariaLabel",
+            "name": "aria-label",
             "required": false,
-            "type": "unknown",
+            "type": "string",
           },
           {
             "name": "valueText",
             "required": false,
-            "type": "unknown",
+            "type": "string",
           },
         ],
         "models": [],
@@ -7110,6 +7120,16 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "required": false,
             "type": "string | undefined",
           },
+          {
+            "name": "requiredMessage",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "optionalMessage",
+            "required": false,
+            "type": "string",
+          },
         ],
         "models": [],
         "outputs": [],
@@ -7241,14 +7261,14 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "exportAs": "hlmQuestionnaireProgress",
         "inputs": [
           {
-            "name": "ariaLabel",
+            "name": "aria-label",
             "required": false,
-            "type": "unknown",
+            "type": "string",
           },
           {
             "name": "valueText",
             "required": false,
-            "type": "unknown",
+            "type": "string",
           },
         ],
         "models": [],

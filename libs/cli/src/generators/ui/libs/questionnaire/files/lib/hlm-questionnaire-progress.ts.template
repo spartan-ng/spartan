@@ -21,7 +21,7 @@ export class HlmQuestionnaireProgress {
 	constructor() {
 		classes(
 			() =>
-				'spartan-questionnaire-progress min-h-[1lh] w-fit min-w-[14ch] tabular-nums text-muted-foreground font-medium',
+				'spartan-questionnaire-progress text-muted-foreground min-h-[1lh] w-fit min-w-[14ch] font-medium tabular-nums',
 		);
 	}
 }

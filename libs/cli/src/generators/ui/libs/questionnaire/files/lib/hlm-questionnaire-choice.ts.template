@@ -25,20 +25,12 @@ import { classes } from '<%- importAlias %>/utils';
 	],
 	host: {
 		'data-slot': 'questionnaire-choice',
-		// Mirror brain state onto the host so Tailwind group-data-* styles resolve reliably
-		// when this component wraps BrnQuestionnaireChoice via hostDirectives.
-		'[attr.data-checked]': '_choice.checked() ? "" : null',
-		'[attr.data-unchecked]': '_choice.checked() ? null : ""',
-		'[attr.data-disabled]': '_choice.disabled() ? "" : null',
-		'[attr.data-invalid]': '_choice.invalid() ? "" : null',
-		'[attr.data-type]': '_choice.type()',
-		'[attr.data-shortcut]': '_choice.shortcut()',
 	},
 	template: `
 		<input
 			brnQuestionnaireChoiceInput
 			data-slot="questionnaire-choice-input"
-			class="spartan-questionnaire-choice-input"
+			class="spartan-questionnaire-choice-input absolute inset-0 z-10 size-full cursor-pointer opacity-0"
 		/>
 		<span aria-hidden="true" data-slot="questionnaire-choice-indicator" class="spartan-questionnaire-choice-indicator">
 			@if (_choice.checked() && _choice.type() === 'radio') {
@@ -55,7 +47,7 @@ import { classes } from '<%- importAlias %>/utils';
 		<span
 			brnQuestionnaireChoiceLabel
 			data-slot="questionnaire-choice-label"
-			class="spartan-questionnaire-choice-content"
+			class="spartan-questionnaire-choice-content flex min-w-0 flex-1 flex-col leading-snug"
 		>
 			<ng-content />
 		</span>
@@ -74,6 +66,9 @@ export class HlmQuestionnaireChoice {
 	protected readonly _choice = inject(BrnQuestionnaireChoice);
 
 	constructor() {
-		classes(() => 'spartan-questionnaire-choice group/questionnaire-choice');
+		classes(
+			() =>
+				'spartan-questionnaire-choice group/questionnaire-choice relative flex min-h-11 cursor-pointer items-start text-start outline-none select-none',
+		);
 	}
 }

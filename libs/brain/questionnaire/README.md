@@ -58,11 +58,7 @@ onSubmit(event: Event) {
 Override progress and validation copy on the directives:
 
 ```html
-<div
-	brnQuestionnaireProgress
-	aria-label="Fortschritt"
-	valueText="Frage %current von %total"
-></div>
+<div brnQuestionnaireProgress aria-label="Fortschritt" valueText="Frage %current von %total"></div>
 
 <p
 	brnQuestionnaireError

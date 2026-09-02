@@ -41,6 +41,7 @@ What kind of change does this PR introduce?
 - [ ] calendar
 - [ ] card
 - [ ] carousel
+- [ ] chart
 - [ ] checkbox
 - [ ] collapsible
 - [ ] combobox

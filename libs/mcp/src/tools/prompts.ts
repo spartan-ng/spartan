@@ -293,7 +293,7 @@ Still stuck? Provide more details about your setup and error messages.
 					'toggle-group',
 					'slider',
 				],
-				'Data Display': ['table', 'card', 'badge', 'avatar', 'separator', 'progress', 'skeleton', 'spinner'],
+				'Data Display': ['table', 'card', 'badge', 'avatar', 'separator', 'progress', 'skeleton', 'spinner', 'chart'],
 				Navigation: ['breadcrumb', 'menubar', 'pagination', 'tabs', 'command'],
 				Feedback: ['alert', 'alert-dialog', 'dialog', 'sonner', 'tooltip', 'hover-card'],
 				Overlay: ['popover', 'dropdown-menu', 'context-menu', 'sheet'],

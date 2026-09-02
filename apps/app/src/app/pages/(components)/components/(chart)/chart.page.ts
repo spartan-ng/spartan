@@ -75,11 +75,15 @@ export const routeMeta: RouteMeta = {
 
 			<div class="mt-6" hlmAlert>
 				<div hlmAlertDescription>
-					TanStack Charts is currently pre-alpha. Its API can change between releases, so keep
+					<span class="font-semibold">Alpha.</span>
+					This integration (and TanStack Charts itself) is in alpha. Its API can change between releases, so breaking
+					changes may occur. Keep
 					<code class="${hlmCode}">&#64;tanstack/charts</code>
-					and
+					,
 					<code class="${hlmCode}">&#64;tanstack/angular-charts</code>
-					on matching versions.
+					, and
+					<code class="${hlmCode}">spartan/ui</code>
+					chart on matching versions.
 				</div>
 			</div>
 
@@ -163,10 +167,8 @@ export const routeMeta: RouteMeta = {
 				<li>Do not use color as the only way to communicate meaning.</li>
 			</ul>
 			<p class="${hlmP}">
-				The Angular adapter currently verifies browser mounting, immutable updates, and teardown. Application SSR and
-				hydration are not yet part of its tested public contract. These examples use an
-				<code class="${hlmCode}">&#64;defer</code>
-				block so Angular instantiates the adapter only in the browser; use the same pattern in SSR applications.
+				The chart component is SSR-compatible. It renders a static SVG on the server and hydrates to an interactive
+				chart on the client.
 			</p>
 
 			<p class="${hlmP}">

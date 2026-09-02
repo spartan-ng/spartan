@@ -101,7 +101,7 @@ describe('HlmChart', () => {
 		expect(HLM_CHART_THEME).toEqual({
 			foreground: 'var(--foreground)',
 			muted: 'var(--muted-foreground)',
-			grid: 'var(--border)',
+			grid: 'var(--muted-foreground)',
 			background: 'transparent',
 			palette: ['var(--chart-1)', 'var(--chart-2)', 'var(--chart-3)', 'var(--chart-4)', 'var(--chart-5)'],
 		});

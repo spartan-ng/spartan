@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { HlmCardImports } from '@spartan-ng/helm/card';
 import { HLM_CHART_THEME, HlmChartImports, hlmChartTooltip } from '@spartan-ng/helm/chart';
-import { barY, defineChart } from '@tanstack/charts';
+import { barY, ChartPoint, ChartTooltipContent, defineChart } from '@tanstack/charts';
 import { scaleBand } from '@tanstack/charts/scales/band';
 import { scaleLinear } from '@tanstack/charts/scales/linear';
 
@@ -59,17 +59,6 @@ const shortDate = new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numer
 const longDate = new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 const formatDate = (value: string, formatter: Intl.DateTimeFormat) => formatter.format(new Date(`${value}T00:00:00`));
 
-export const defaultImports = `import { HLM_CHART_THEME, HlmChartImports, hlmChartTooltip } from '@spartan-ng/helm/chart';
-import { barY, defineChart } from '@tanstack/charts';
-import { scaleBand } from '@tanstack/charts/scales/band';
-import { scaleLinear } from '@tanstack/charts/scales/linear';`;
-
-export const defaultSkeleton = `@defer {
-  <tanstack-chart hlmChart [options]="_chartOptions" />
-} @placeholder {
-  <div class="aspect-video w-full" aria-hidden="true"></div>
-}`;
-
 @Component({
 	selector: 'spartan-chart-preview',
 	imports: [HlmCardImports, HlmChartImports],
@@ -119,34 +108,30 @@ export class ChartPreview {
 				{
 					marks: [
 						barY(chartData, {
+							id: 'daily-bars',
 							x: 'date',
 							y: activeChart,
+							key: 'date',
 							fill: activeConfig.color,
-							inset: 1,
 						}),
 					],
 					scales: {
 						x: {
-							scale: () => scaleBand<string>().padding(0.16),
+							scale: () => scaleBand<string>().paddingInner(0.2).paddingOuter(0.1),
 							axis: {
-								ticks: { format: (value) => formatDate(value, shortDate) },
+								line: false,
+								ticks: { size: 0, padding: 10, format: (value) => formatDate(value, shortDate) },
 								tickLabels: { thin: { minGap: 32 } },
 							},
 						},
-						y: { scale: scaleLinear, nice: true, grid: true, axis: false },
+						y: { scale: scaleLinear, grid: true, axis: false },
 					},
 					theme: HLM_CHART_THEME,
 				},
 				{
-					focus: 'nearest-x',
+					focus: 'group-x',
 					tooltip: hlmChartTooltip<ChartDatum, string, number>({
-						className: 'w-[150px]',
-						content: ([point]) => ({
-							title: point ? formatDate(point.xValue, longDate) : undefined,
-							rows: point
-								? [{ label: activeConfig.label, value: point.yValue.toLocaleString(), color: point.color }]
-								: [],
-						}),
+						content: (points) => this.tooltipContent(points),
 					}),
 				},
 			),
@@ -155,4 +140,27 @@ export class ChartPreview {
 			height: 250,
 		};
 	});
+
+	private tooltipContent(points: readonly ChartPoint<ChartDatum, string, number>[]): ChartTooltipContent {
+		const point = points[0];
+		return {
+			title: point ? formatDate(point.xValue, longDate) : undefined,
+			rows: points.map((point) => ({
+				label: 'Page views',
+				value: point.yValue.toLocaleString(),
+				color: point.color,
+			})),
+		};
+	}
 }
+
+export const defaultImports = `
+import { HLM_CHART_THEME, HlmChartImports, hlmChartTooltip } from '@spartan-ng/helm/chart';
+import { barY, defineChart } from '@tanstack/charts';
+import { scaleBand } from '@tanstack/charts/scales/band';
+import { scaleLinear } from '@tanstack/charts/scales/linear';
+`;
+
+export const defaultSkeleton = `
+<tanstack-chart hlmChart [options]="_chartOptions" />
+`;

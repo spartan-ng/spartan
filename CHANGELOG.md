@@ -1,3 +1,7 @@
+## 1.4.0-beta.2 (2026-09-02)
+
+- fix(calendar): make default year range relative (#1721) ([81e29c9](https://github.com/spartan-ng/spartan/commit/81e29c9)), closes [#1721](https://github.com/spartan-ng/spartan/issues/1721)
+
 ## 1.4.0-beta.1 (2026-09-02)
 
 - feat(calendar): add focused date change, disable prev/next button (#1712) ([d8ed98a](https://github.com/spartan-ng/spartan/commit/d8ed98a)), closes [#1712](https://github.com/spartan-ng/spartan/issues/1712)

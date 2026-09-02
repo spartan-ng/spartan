@@ -54,6 +54,7 @@ export type Primitives =
 	| 'pagination'
 	| 'popover'
 	| 'progress'
+	| 'questionnaire'
 	| 'radio-group'
 	| 'scroll-area'
 	| 'select'

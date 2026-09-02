@@ -285,6 +285,7 @@ Still stuck? Provide more details about your setup and error messages.
 					'item',
 					'label',
 					'native-select',
+					'questionnaire',
 					'radio-group',
 					'select',
 					'switch',

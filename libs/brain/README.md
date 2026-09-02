@@ -69,7 +69,7 @@ import { BrnSelectImports } from '@spartan-ng/brain/select';
 
 Available entry points:
 
-`accordion`, `alert-dialog`, `autocomplete`, `avatar`, `button`, `calendar`, `checkbox`, `collapsible`, `combobox`, `command`, `core`, `date-time`, `date-time-luxon`, `dialog`, `field`, `forms`, `hover-card`, `input`, `input-otp`, `label`, `navigation-menu`, `popover`, `progress`, `radio-group`, `resizable`, `select`, `separator`, `sheet`, `slider`, `sonner`, `switch`, `tabs`, `textarea`, `toggle`, `toggle-group`, `tooltip`.
+`accordion`, `alert-dialog`, `autocomplete`, `avatar`, `button`, `calendar`, `checkbox`, `collapsible`, `combobox`, `command`, `core`, `date-time`, `date-time-luxon`, `dialog`, `field`, `forms`, `hover-card`, `input`, `input-otp`, `label`, `navigation-menu`, `popover`, `progress`, `questionnaire`, `radio-group`, `resizable`, `select`, `separator`, `sheet`, `slider`, `sonner`, `switch`, `tabs`, `textarea`, `toggle`, `toggle-group`, `tooltip`.
 
 Browse the [components gallery](https://www.spartan.ng/components) for live demos, API docs, and styled helm examples for each primitive.
 

@@ -1,3 +1,27 @@
+## 1.4.0-beta.5 (2026-09-02)
+
+- feat(slider): add maxStepsBetweenThumbs and preventStepOverThumb (#1625) ([0741e9d](https://github.com/spartan-ng/spartan/commit/0741e9d)), closes [#1625](https://github.com/spartan-ng/spartan/issues/1625)
+
+## 1.4.0-beta.4 (2026-09-02)
+
+- fix(calendar): clamp date selection to prevent overflow in month and year pickers (#1722) ([2421d22](https://github.com/spartan-ng/spartan/commit/2421d22)), closes [#1722](https://github.com/spartan-ng/spartan/issues/1722) [#1720](https://github.com/spartan-ng/spartan/issues/1720)
+
+## 1.4.0-beta.3 (2026-09-02)
+
+- feat(chart): add TanStack Charts integration (#1697) ([4518445](https://github.com/spartan-ng/spartan/commit/4518445)), closes [#1697](https://github.com/spartan-ng/spartan/issues/1697)
+
+## 1.4.0-beta.2 (2026-09-02)
+
+- fix(calendar): make default year range relative (#1721) ([81e29c9](https://github.com/spartan-ng/spartan/commit/81e29c9)), closes [#1721](https://github.com/spartan-ng/spartan/issues/1721)
+
+## 1.4.0-beta.1 (2026-09-02)
+
+- feat(calendar): add focused date change, disable prev/next button (#1712) ([d8ed98a](https://github.com/spartan-ng/spartan/commit/d8ed98a)), closes [#1712](https://github.com/spartan-ng/spartan/issues/1712)
+- feat(questionnaire): add brain, helm, and docs (#1690) ([f2fadcf](https://github.com/spartan-ng/spartan/commit/f2fadcf)), closes [#1690](https://github.com/spartan-ng/spartan/issues/1690)
+- chore(release): backmerge main into beta ([71de667](https://github.com/spartan-ng/spartan/commit/71de667))
+- chore(release): backmerge main into beta ([334443d](https://github.com/spartan-ng/spartan/commit/334443d))
+- docs: add new contributors to our 300 ([4fc7bb4](https://github.com/spartan-ng/spartan/commit/4fc7bb4))
+
 ## <small>1.3.4 (2026-08-27)</small>
 
 - fix: 1.3.4 (#1716) ([e48f8ac](https://github.com/spartan-ng/spartan/commit/e48f8ac)), closes [#1716](https://github.com/spartan-ng/spartan/issues/1716) [#1711](https://github.com/spartan-ng/spartan/issues/1711) [#1709](https://github.com/spartan-ng/spartan/issues/1709)

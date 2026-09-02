@@ -27,6 +27,7 @@ body:
         - calendar
         - card
         - carousel
+        - chart
         - checkbox
         - cli
         - collapsible

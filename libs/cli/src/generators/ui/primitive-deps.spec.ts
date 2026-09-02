@@ -3,6 +3,7 @@ import { dirname, join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { getDependentPrimitives, primitiveDependencies } from './primitive-deps';
 import type { Primitive } from './primitives';
+import supportedUiLibraries from './supported-ui-libraries.json';
 
 /**
  * Drift guard: every installable helm component must be registered as a CLI primitive (and have a
@@ -37,6 +38,13 @@ describe('CLI primitive registry', () => {
 		const libsDir = join(root, 'libs/cli/src/generators/ui/libs');
 		const missingTemplate = cliPrimitives.filter((p) => !existsSync(join(libsDir, p, 'generator.ts')));
 		expect(missingTemplate).toEqual([]);
+	});
+
+	it('installs the matching TanStack core and Angular adapter for chart', () => {
+		expect(supportedUiLibraries.chart.peerDependencies).toMatchObject({
+			'@tanstack/charts': '0.16.0',
+			'@tanstack/angular-charts': '0.16.0',
+		});
 	});
 
 	// Drift guard: every `<importAlias>/<primitive>` a template imports must be reachable from that

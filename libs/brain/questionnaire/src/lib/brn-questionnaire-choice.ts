@@ -1,3 +1,4 @@
+import { BooleanInput } from '@angular/cdk/coercion';
 import { booleanAttribute, computed, Directive, effect, input, output, signal } from '@angular/core';
 import { injectBrnQuestionnaireItem, provideBrnQuestionnaireChoice } from './brn-questionnaire.token';
 import { getAnswerKeyShortcuts } from './brn-questionnaire.utils';
@@ -22,8 +23,11 @@ export class BrnQuestionnaireChoice {
 	private readonly _answerId = `brn-questionnaire-choice-${++nextChoiceId}`;
 
 	public readonly value = input.required<string>();
-	public readonly disabledInput = input(false, { alias: 'disabled', transform: booleanAttribute });
-	public readonly defaultChecked = input(false, { transform: booleanAttribute });
+	public readonly disabledInput = input<boolean, BooleanInput>(false, {
+		alias: 'disabled',
+		transform: booleanAttribute,
+	});
+	public readonly defaultChecked = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 	public readonly checkedInput = input<boolean | undefined>(undefined, { alias: 'checked' });
 
 	public readonly checkedChange = output<Event>();

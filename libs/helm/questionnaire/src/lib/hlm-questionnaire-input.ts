@@ -17,6 +17,9 @@ import { classes } from '@spartan-ng/helm/utils';
 })
 export class HlmQuestionnaireInput {
 	constructor() {
-		classes(() => 'spartan-questionnaire-input');
+		classes(() => [
+			'spartan-questionnaire-input min-h-11 w-full min-w-0 transition-[color,box-shadow,background-color] outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 sm:min-h-0',
+			'selection:bg-primary selection:text-primary-foreground placeholder:text-muted-foreground',
+		]);
 	}
 }

@@ -1,3 +1,4 @@
+import { BooleanInput } from '@angular/cdk/coercion';
 import { booleanAttribute, computed, Directive, effect, ElementRef, inject, input, signal } from '@angular/core';
 import { injectBrnQuestionnaireItem } from './brn-questionnaire.token';
 import type { BrnQuestionnaireInputType } from './brn-questionnaire.types';
@@ -28,7 +29,10 @@ export class BrnQuestionnaireInput {
 	protected readonly _answerId = `brn-questionnaire-input-${++nextInputId}`;
 
 	public readonly type = input<BrnQuestionnaireInputType>('text');
-	public readonly disabledInput = input(false, { alias: 'disabled', transform: booleanAttribute });
+	public readonly disabledInput = input<boolean, BooleanInput>(false, {
+		alias: 'disabled',
+		transform: booleanAttribute,
+	});
 	public readonly value = input<string | undefined>(undefined);
 	public readonly defaultValue = input<string | undefined>(undefined);
 

@@ -1,3 +1,4 @@
+import { BooleanInput } from '@angular/cdk/coercion';
 import {
 	afterNextRender,
 	booleanAttribute,
@@ -55,7 +56,7 @@ export class BrnQuestionnaire {
 	public readonly defaultItem = input<string | undefined>(undefined);
 	public readonly item = model<string | null>(null);
 	public readonly shortcuts = input<BrnQuestionnaireShortcutMode | null>(null);
-	public readonly noValidate = input(true, { transform: booleanAttribute });
+	public readonly noValidate = input<boolean, BooleanInput>(true, { transform: booleanAttribute });
 
 	private readonly _registrations = signal<BrnItemRegistration[]>([]);
 	private readonly _domVersion = signal(0);

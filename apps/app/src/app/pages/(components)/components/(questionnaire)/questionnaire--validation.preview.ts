@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { form, FormField, FormRoot, required, validate } from '@angular/forms/signals';
-import { BrnQuestionnaireProgress, type BrnQuestionnaireItemDefinition } from '@spartan-ng/brain/questionnaire';
+import { type BrnQuestionnaireItemDefinition } from '@spartan-ng/brain/questionnaire';
 import { toast } from '@spartan-ng/brain/sonner';
 import { HlmCardImports } from '@spartan-ng/helm/card';
 import { HlmQuestionnaireImports } from '@spartan-ng/helm/questionnaire';
@@ -11,24 +11,8 @@ const items: readonly BrnQuestionnaireItemDefinition[] = [
 ];
 
 @Component({
-	selector: 'spartan-questionnaire-validation-progress',
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	hostDirectives: [{ directive: BrnQuestionnaireProgress }],
-	host: {
-		class: 'spartan-questionnaire-progress min-w-0',
-		'data-slot': 'questionnaire-progress',
-	},
-	template: `
-		{{ _progress.current() }} / {{ _progress.total() }}
-	`,
-})
-export class QuestionnaireValidationProgress {
-	protected readonly _progress = inject(BrnQuestionnaireProgress);
-}
-
-@Component({
 	selector: 'spartan-questionnaire-validation-preview',
-	imports: [FormRoot, FormField, HlmQuestionnaireImports, HlmCardImports, QuestionnaireValidationProgress],
+	imports: [FormRoot, FormField, HlmQuestionnaireImports, HlmCardImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		class: 'flex w-full justify-center py-6',
@@ -47,7 +31,7 @@ export class QuestionnaireValidationProgress {
 						<legend hlmQuestionnaireTitle>How much detail should the answer include?</legend>
 						<p hlmQuestionnaireDescription>Choose the response depth.</p>
 						<div hlmCardAction>
-							<spartan-questionnaire-validation-progress />
+							<div hlmQuestionnaireProgress class="min-w-0" valueText="%current / %total"></div>
 						</div>
 					</hlm-card-header>
 					<div hlmCardContent>
@@ -70,7 +54,7 @@ export class QuestionnaireValidationProgress {
 						<legend hlmQuestionnaireTitle>Who will read the answer?</legend>
 						<p hlmQuestionnaireDescription>Public answers require complete context.</p>
 						<div hlmCardAction>
-							<spartan-questionnaire-validation-progress />
+							<div hlmQuestionnaireProgress class="min-w-0" valueText="%current / %total"></div>
 						</div>
 					</hlm-card-header>
 					<div hlmCardContent>

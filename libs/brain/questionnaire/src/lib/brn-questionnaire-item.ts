@@ -1,3 +1,4 @@
+import { BooleanInput } from '@angular/cdk/coercion';
 import {
 	booleanAttribute,
 	computed,
@@ -62,17 +63,26 @@ export class BrnQuestionnaireItem implements ControlValueAccessor {
 	public readonly nameInput = input.required<string>({ alias: 'name' });
 	private readonly _hostName = this._elementRef.nativeElement.getAttribute('name');
 	public readonly name = computed(() => this._hostName || this.nameInput());
-	public readonly multiple = input(false, { transform: booleanAttribute });
-	public readonly requiredInput = input(false, { alias: 'required', transform: booleanAttribute });
+	public readonly multiple = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
+	public readonly requiredInput = input<boolean, BooleanInput>(false, {
+		alias: 'required',
+		transform: booleanAttribute,
+	});
 	private readonly _hostRequired = this._elementRef.nativeElement.hasAttribute('required');
 	public readonly required = computed(() => this._hostRequired || this.requiredInput());
-	public readonly disabledInput = input(false, { alias: 'disabled', transform: booleanAttribute });
+	public readonly disabledInput = input<boolean, BooleanInput>(false, {
+		alias: 'disabled',
+		transform: booleanAttribute,
+	});
 	private readonly _hostDisabled = this._elementRef.nativeElement.hasAttribute('disabled');
 	/**
 	 * Do not alias this to `invalid` — `[formField]` would bind field.invalid()
 	 * and mark empty required items invalid before the user interacts.
 	 */
-	public readonly externallyInvalid = input(false, { alias: 'itemInvalid', transform: booleanAttribute });
+	public readonly externallyInvalid = input<boolean, BooleanInput>(false, {
+		alias: 'itemInvalid',
+		transform: booleanAttribute,
+	});
 	public readonly ariaDescribedBy = input<string | undefined>(undefined, { alias: 'aria-describedby' });
 	public readonly ariaKeyShortcuts = input<string | undefined>(undefined, { alias: 'aria-keyshortcuts' });
 

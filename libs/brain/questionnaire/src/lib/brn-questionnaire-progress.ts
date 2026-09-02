@@ -37,4 +37,9 @@ export class BrnQuestionnaireProgress {
 	});
 
 	public readonly label = this._label;
+
+	/** Boolean flags marking which segments of the progress bar are filled. */
+	public readonly segments = computed(() =>
+		Array.from({ length: this._total() }, (_, index) => index < this._current()),
+	);
 }

@@ -1,3 +1,4 @@
+import { BooleanInput } from '@angular/cdk/coercion';
 import { booleanAttribute, computed, Directive, input } from '@angular/core';
 import { injectBrnQuestionnaire } from './brn-questionnaire.token';
 
@@ -20,7 +21,7 @@ import { injectBrnQuestionnaire } from './brn-questionnaire.token';
 export class BrnQuestionnaireNext {
 	private readonly _questionnaire = injectBrnQuestionnaire();
 
-	public readonly disabled = input(false, { transform: booleanAttribute });
+	public readonly disabled = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
 	public readonly visible = computed(() => this._questionnaire.total() > 1 && !this._questionnaire.last());
 	public readonly status = this._questionnaire.activeItemStatus;

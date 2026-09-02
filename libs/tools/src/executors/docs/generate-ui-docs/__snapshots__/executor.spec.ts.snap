@@ -6737,7 +6737,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
           {
             "name": "noValidate",
             "required": false,
-            "type": "unknown",
+            "type": "boolean",
           },
         ],
         "models": [
@@ -6761,12 +6761,12 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
           {
             "name": "disabled",
             "required": false,
-            "type": "unknown",
+            "type": "boolean",
           },
           {
             "name": "defaultChecked",
             "required": false,
-            "type": "unknown",
+            "type": "boolean",
           },
           {
             "name": "checked",
@@ -6858,7 +6858,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
           {
             "name": "disabled",
             "required": false,
-            "type": "unknown",
+            "type": "boolean",
           },
           {
             "name": "value",
@@ -6886,22 +6886,22 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
           {
             "name": "multiple",
             "required": false,
-            "type": "unknown",
+            "type": "boolean",
           },
           {
             "name": "required",
             "required": false,
-            "type": "unknown",
+            "type": "boolean",
           },
           {
             "name": "disabled",
             "required": false,
-            "type": "unknown",
+            "type": "boolean",
           },
           {
             "name": "itemInvalid",
             "required": false,
-            "type": "unknown",
+            "type": "boolean",
           },
           {
             "name": "aria-describedby",
@@ -6929,7 +6929,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
           {
             "name": "disabled",
             "required": false,
-            "type": "unknown",
+            "type": "boolean",
           },
         ],
         "models": [],
@@ -6942,7 +6942,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
           {
             "name": "disabled",
             "required": false,
-            "type": "unknown",
+            "type": "boolean",
           },
         ],
         "models": [],
@@ -6973,7 +6973,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
           {
             "name": "disabled",
             "required": false,
-            "type": "unknown",
+            "type": "boolean",
           },
         ],
         "models": [],
@@ -6986,7 +6986,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
           {
             "name": "disabled",
             "required": false,
-            "type": "unknown",
+            "type": "boolean",
           },
         ],
         "models": [],
@@ -7028,7 +7028,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
           {
             "name": "noValidate",
             "required": false,
-            "type": "unknown",
+            "type": "boolean",
           },
         ],
         "models": [],
@@ -7045,7 +7045,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "[hlmQuestionnaireActions]",
+        "selector": "[hlmQuestionnaireActions],hlm-questionnaire-actions",
       },
       "HlmQuestionnaireChoice": {
         "exportAs": "hlmQuestionnaireChoice",
@@ -7058,12 +7058,12 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
           {
             "name": "disabled",
             "required": false,
-            "type": "unknown",
+            "type": "boolean",
           },
           {
             "name": "defaultChecked",
             "required": false,
-            "type": "unknown",
+            "type": "boolean",
           },
           {
             "name": "checked",
@@ -7146,7 +7146,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
           {
             "name": "disabled",
             "required": false,
-            "type": "unknown",
+            "type": "boolean",
           },
           {
             "name": "value",
@@ -7174,22 +7174,22 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
           {
             "name": "multiple",
             "required": false,
-            "type": "unknown",
+            "type": "boolean",
           },
           {
             "name": "required",
             "required": false,
-            "type": "unknown",
+            "type": "boolean",
           },
           {
             "name": "disabled",
             "required": false,
-            "type": "unknown",
+            "type": "boolean",
           },
           {
             "name": "itemInvalid",
             "required": false,
-            "type": "unknown",
+            "type": "boolean",
           },
           {
             "name": "aria-describedby",
@@ -7227,7 +7227,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
           {
             "name": "disabled",
             "required": false,
-            "type": "unknown",
+            "type": "boolean",
           },
         ],
         "models": [],
@@ -7250,7 +7250,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
           {
             "name": "disabled",
             "required": false,
-            "type": "unknown",
+            "type": "boolean",
           },
         ],
         "models": [],
@@ -7291,7 +7291,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
           {
             "name": "disabled",
             "required": false,
-            "type": "unknown",
+            "type": "boolean",
           },
         ],
         "models": [],
@@ -7314,7 +7314,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
           {
             "name": "disabled",
             "required": false,
-            "type": "unknown",
+            "type": "boolean",
           },
         ],
         "models": [],

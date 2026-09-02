@@ -12,16 +12,31 @@ import { classes } from '@spartan-ng/helm/utils';
 		'data-slot': 'questionnaire-progress',
 	},
 	template: `
-		{{ _progress.label() }}
+		<ng-content>
+			{{ _progress.label() }}
+		</ng-content>
 	`,
 })
 export class HlmQuestionnaireProgress {
 	protected readonly _progress = inject(BrnQuestionnaireProgress);
 
+	/** The current step index (1-based within the active collection). */
+	public readonly current = this._progress.current;
+	/** The total number of enabled steps. */
+	public readonly total = this._progress.total;
+	/** Whether the current step is the first one. */
+	public readonly first = this._progress.first;
+	/** Whether the current step is the last one. */
+	public readonly last = this._progress.last;
+	/** The computed progression label, e.g. "Question 2 of 5". */
+	public readonly label = this._progress.label;
+
+	/** Boolean flags marking which segments of the progress bar are filled. */
+	public readonly segments = this._progress.segments;
+
 	constructor() {
 		classes(
-			() =>
-				'spartan-questionnaire-progress text-muted-foreground min-h-[1lh] w-fit min-w-[14ch] font-medium tabular-nums',
+			() => 'spartan-questionnaire-progress text-muted-foreground min-h-lh w-fit min-w-[14ch] font-medium tabular-nums',
 		);
 	}
 }

@@ -27,6 +27,6 @@ export class HlmQuestionnaireError {
 	public readonly message = input<string | undefined>(undefined);
 
 	constructor() {
-		classes(() => 'spartan-questionnaire-error');
+		classes(() => 'spartan-questionnaire-error text-destructive');
 	}
 }

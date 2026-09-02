@@ -1,9 +1,11 @@
 import { ChangeDetectionStrategy, Component, signal, viewChild } from '@angular/core';
 import { form, FormField, FormRoot } from '@angular/forms/signals';
+import { By } from '@angular/platform-browser';
 import { render, screen } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
 import { BrnQuestionnaireImports } from '../index';
 import { BrnQuestionnaireItem } from './brn-questionnaire-item';
+import { BrnQuestionnaireProgress } from './brn-questionnaire-progress';
 import { getShortcutFromKey, getShortcutKeys, hasInputValue, isTextEntryTarget } from './brn-questionnaire.utils';
 
 describe('BrnQuestionnaire', () => {
@@ -112,6 +114,24 @@ describe('BrnQuestionnaire', () => {
 
 		expect(screen.getByTestId('item-color').hasAttribute('hidden')).toBe(true);
 		expect(screen.getByTestId('item-size').hasAttribute('hidden')).toBe(false);
+	});
+
+	it('exposes filled segments for the current position', async () => {
+		const { user, view } = await setup(baseTemplate);
+
+		const progress = view.fixture.debugElement
+			.query(By.directive(BrnQuestionnaireProgress))
+			.injector.get(BrnQuestionnaireProgress);
+
+		// First item (index 0) → single filled segment.
+		expect(progress.segments()).toEqual([true, false, false]);
+
+		await user.click(screen.getByLabelText('Red'));
+		await user.click(screen.getByTestId('next'));
+
+		// Second item (index 1) → two filled segments.
+		view.detectChanges();
+		expect(progress.segments()).toEqual([true, true, false]);
 	});
 
 	it('blocks next when a required item is unanswered', async () => {

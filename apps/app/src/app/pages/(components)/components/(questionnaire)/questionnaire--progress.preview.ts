@@ -1,47 +1,30 @@
-import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { form, FormField, FormRoot, required } from '@angular/forms/signals';
-import { BrnQuestionnaireProgress, type BrnQuestionnaireItemDefinition } from '@spartan-ng/brain/questionnaire';
+import type { BrnQuestionnaireItemDefinition } from '@spartan-ng/brain/questionnaire';
 import { toast } from '@spartan-ng/brain/sonner';
 import { HlmQuestionnaireImports } from '@spartan-ng/helm/questionnaire';
 import { answerLabel } from './questionnaire.shared';
 
 @Component({
-	selector: 'spartan-questionnaire-checkpoint-progress',
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	hostDirectives: [{ directive: BrnQuestionnaireProgress }],
-	host: {
-		class: 'spartan-questionnaire-progress flex w-full min-w-0 flex-col',
-		'data-slot': 'questionnaire-progress',
-	},
-	template: `
-		<div class="mb-2 flex gap-1.5" aria-hidden="true">
-			@for (filled of _segments(); track $index) {
-				<span class="h-1.5 flex-1 rounded-full" [class]="filled ? 'bg-primary' : 'bg-muted'"></span>
-			}
-		</div>
-		<span>Checkpoint {{ _progress.current() }} of {{ _progress.total() }}</span>
-	`,
-})
-export class QuestionnaireCheckpointProgress {
-	protected readonly _progress = inject(BrnQuestionnaireProgress);
-
-	protected readonly _segments = computed(() => {
-		const total = this._progress.total();
-		const current = this._progress.current();
-		return Array.from({ length: total }, (_, index) => index < current);
-	});
-}
-
-@Component({
 	selector: 'spartan-questionnaire-progress-preview',
-	imports: [FormRoot, FormField, HlmQuestionnaireImports, QuestionnaireCheckpointProgress],
+	imports: [FormRoot, FormField, HlmQuestionnaireImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		class: 'flex w-full justify-center py-6',
 	},
 	template: `
 		<form hlmQuestionnaire class="mx-auto max-w-md" [formRoot]="form" [items]="items" defaultItem="scope">
-			<spartan-questionnaire-checkpoint-progress />
+			<div hlmQuestionnaireProgress #progress="hlmQuestionnaireProgress" class="w-full">
+				<div class="mb-2 flex gap-1.5" aria-hidden="true">
+					@for (filled of progress.segments(); track $index) {
+						<span
+							[attr.data-filled]="filled || null"
+							class="data-filled:bg-primary bg-muted h-1.5 flex-1 rounded-full transition-colors"
+						></span>
+					}
+				</div>
+				<span>Checkpoint {{ progress.current() }} of {{ progress.total() }}</span>
+			</div>
 
 			<fieldset hlmQuestionnaireItem name="scope" required [formField]="form.scope">
 				<legend hlmQuestionnaireTitle>How large is the change?</legend>

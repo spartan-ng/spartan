@@ -238,7 +238,7 @@ function writeComponentsJson(dir: string, cell: SetupCell, componentsPath: strin
 	writeFileSync(join(dir, 'components.json'), `${JSON.stringify(config, null, 2)}\n`);
 }
 
-/** Run `init` then `ui` for each component under test, non-interactively. */
+/** Run `init` then add the requested components non-interactively. */
 export function runGenerators(ws: CellWorkspace): void {
 	const gen = ws.cell.workspace === 'nx' ? 'npx nx g' : 'npx ng generate';
 	// Tag spartan libs (nx only) so buildWorkspace can build just them, ignoring the template's sample.
@@ -246,7 +246,7 @@ export function runGenerators(ws: CellWorkspace): void {
 
 	run(`${gen} @spartan-ng/cli:init --project=${ws.app} --theme=zinc`, ws.dir);
 
-	const components = ws.cell.allComponents ? readAllPrimitives() : [...componentsUnderTest];
+	const components = ws.cell.allComponents ? ['all'] : componentsUnderTest;
 	for (const component of components) {
 		run(`${gen} @spartan-ng/cli:ui ${component} --directory=${ws.componentsPath}${tags}`, ws.dir);
 	}
@@ -267,13 +267,6 @@ export function assertMigrateHelmLibrariesLoads(ws: CellWorkspace): void {
 	if (!out.includes('No libraries to migrate')) {
 		throw new Error(`Expected migrate-helm-libraries to no-op on a workspace with no spartan libraries, got:\n${out}`);
 	}
-}
-
-/** Every supported primitive name, read from the CLI source so the list stays current as primitives are
- * added (the harness lives in the same repo as the CLI). */
-function readAllPrimitives(): string[] {
-	const file = join(workspaceRootDir(), 'libs', 'cli', 'src', 'generators', 'ui', 'supported-ui-libraries.json');
-	return Object.keys(JSON.parse(readFileSync(file, 'utf-8')));
 }
 
 /**

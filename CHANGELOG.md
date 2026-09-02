@@ -1,3 +1,7 @@
+## 1.4.0-beta.5 (2026-09-02)
+
+- feat(slider): add maxStepsBetweenThumbs and preventStepOverThumb (#1625) ([0741e9d](https://github.com/spartan-ng/spartan/commit/0741e9d)), closes [#1625](https://github.com/spartan-ng/spartan/issues/1625)
+
 ## 1.4.0-beta.4 (2026-09-02)
 
 - fix(calendar): clamp date selection to prevent overflow in month and year pickers (#1722) ([2421d22](https://github.com/spartan-ng/spartan/commit/2421d22)), closes [#1722](https://github.com/spartan-ng/spartan/issues/1722) [#1720](https://github.com/spartan-ng/spartan/issues/1720)

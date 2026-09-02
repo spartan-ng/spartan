@@ -14,6 +14,7 @@ export type PrimitiveSnippet =
 	| 'calendar'
 	| 'card'
 	| 'carousel'
+	| 'chart'
 	| 'checkbox'
 	| 'collapsible'
 	| 'combobox'

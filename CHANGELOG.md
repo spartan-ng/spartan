@@ -1,3 +1,7 @@
+## 1.4.0-beta.3 (2026-09-02)
+
+- feat(chart): add TanStack Charts integration (#1697) ([4518445](https://github.com/spartan-ng/spartan/commit/4518445)), closes [#1697](https://github.com/spartan-ng/spartan/issues/1697)
+
 ## 1.4.0-beta.2 (2026-09-02)
 
 - fix(calendar): make default year range relative (#1721) ([81e29c9](https://github.com/spartan-ng/spartan/commit/81e29c9)), closes [#1721](https://github.com/spartan-ng/spartan/issues/1721)

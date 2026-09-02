@@ -1,3 +1,21 @@
+## 1.4.0 (2026-09-02)
+
+- Merge pull request #1723 from spartan-ng/beta ([3103c91](https://github.com/spartan-ng/spartan/commit/3103c91)), closes [#1723](https://github.com/spartan-ng/spartan/issues/1723)
+- chore(release): 1.4.0-beta.1 ([7e3a496](https://github.com/spartan-ng/spartan/commit/7e3a496))
+- chore(release): 1.4.0-beta.2 ([1e222d5](https://github.com/spartan-ng/spartan/commit/1e222d5))
+- chore(release): 1.4.0-beta.3 ([32f8ca0](https://github.com/spartan-ng/spartan/commit/32f8ca0))
+- chore(release): 1.4.0-beta.4 ([3059f67](https://github.com/spartan-ng/spartan/commit/3059f67))
+- chore(release): 1.4.0-beta.5 ([c656101](https://github.com/spartan-ng/spartan/commit/c656101))
+- chore(release): backmerge main into beta ([71de667](https://github.com/spartan-ng/spartan/commit/71de667))
+- chore(release): backmerge main into beta ([334443d](https://github.com/spartan-ng/spartan/commit/334443d))
+- feat(calendar): add focused date change, disable prev/next button (#1712) ([d8ed98a](https://github.com/spartan-ng/spartan/commit/d8ed98a)), closes [#1712](https://github.com/spartan-ng/spartan/issues/1712)
+- feat(chart): add TanStack Charts integration (#1697) ([4518445](https://github.com/spartan-ng/spartan/commit/4518445)), closes [#1697](https://github.com/spartan-ng/spartan/issues/1697)
+- feat(questionnaire): add brain, helm, and docs (#1690) ([f2fadcf](https://github.com/spartan-ng/spartan/commit/f2fadcf)), closes [#1690](https://github.com/spartan-ng/spartan/issues/1690)
+- feat(slider): add maxStepsBetweenThumbs and preventStepOverThumb (#1625) ([0741e9d](https://github.com/spartan-ng/spartan/commit/0741e9d)), closes [#1625](https://github.com/spartan-ng/spartan/issues/1625)
+- fix(calendar): clamp date selection to prevent overflow in month and year pickers (#1722) ([2421d22](https://github.com/spartan-ng/spartan/commit/2421d22)), closes [#1722](https://github.com/spartan-ng/spartan/issues/1722) [#1720](https://github.com/spartan-ng/spartan/issues/1720)
+- fix(calendar): make default year range relative (#1721) ([81e29c9](https://github.com/spartan-ng/spartan/commit/81e29c9)), closes [#1721](https://github.com/spartan-ng/spartan/issues/1721)
+- docs: add new contributors to our 300 ([4fc7bb4](https://github.com/spartan-ng/spartan/commit/4fc7bb4))
+
 ## 1.4.0-beta.5 (2026-09-02)
 
 - feat(slider): add maxStepsBetweenThumbs and preventStepOverThumb (#1625) ([0741e9d](https://github.com/spartan-ng/spartan/commit/0741e9d)), closes [#1625](https://github.com/spartan-ng/spartan/issues/1625)

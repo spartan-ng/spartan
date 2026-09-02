@@ -24,7 +24,7 @@ import { ChartPreview, defaultImports, defaultSkeleton } from './chart.preview';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Chart', api: 'chart' },
-	meta: metaWith('spartan/ui - Chart', 'Accessible charts powered by TanStack Charts with Spartan theming.'),
+	meta: metaWith('spartan/ui - Chart', 'Accessible charts powered by TanStack Charts.'),
 	title: 'spartan/ui - Chart',
 };
 
@@ -50,11 +50,7 @@ export const routeMeta: RouteMeta = {
 	],
 	template: `
 		<section spartanMainSection>
-			<spartan-section-intro
-				name="Chart"
-				lead="Accessible charts powered by TanStack Charts with Spartan theming."
-				showThemeToggle
-			/>
+			<spartan-section-intro name="Chart" lead="Accessible charts powered by TanStack Charts." showThemeToggle />
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>

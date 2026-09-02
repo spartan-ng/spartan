@@ -32,6 +32,7 @@ export type Primitives =
 	| 'calendar'
 	| 'card'
 	| 'carousel'
+	| 'chart'
 	| 'checkbox'
 	| 'collapsible'
 	| 'command'

@@ -151,6 +151,23 @@ export const routeMeta: RouteMeta = {
 
 			<h3 id="examples__month_and_year_selection" spartanH4>Month and Year Selector</h3>
 
+			<p class="${hlmP} mb-6">
+				Caption layouts with a year dropdown use the
+				<code class="${hlmCode}">years</code>
+				function from the calendar's i18n configuration. By default, the dropdown includes an inclusive range from 100
+				years in the past through 10 years in the future. Override
+				<code class="${hlmCode}">years</code>
+				with
+				<code class="${hlmCode}">provideBrnCalendarI18n</code>
+				if you need a different range.
+			</p>
+
+			<p class="${hlmP} mb-6">
+				See the
+				<a href="/components/calendar#i18n" class="${link}">Internationalization</a>
+				section for configuration examples.
+			</p>
+
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-calendar-year-and-month-dropdown />

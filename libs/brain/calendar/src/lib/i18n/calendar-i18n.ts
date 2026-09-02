@@ -52,8 +52,12 @@ const defaultCalendarI18n: BrnCalendarI18n = {
 		return weekdays[index];
 	},
 	months: () => ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-	years: (startYear = 1925, endYear = new Date().getFullYear() + 1) =>
-		Array.from({ length: endYear - startYear + 1 }, (_, i) => startYear + i),
+	years: (startYear?: number, endYear?: number) => {
+		const currentYear = new Date().getFullYear();
+		const firstYear = startYear ?? currentYear - 100;
+		const lastYear = endYear ?? currentYear + 10;
+		return Array.from({ length: lastYear - firstYear + 1 }, (_, i) => firstYear + i);
+	},
 	formatHeader: (month: number, year: number) => {
 		return new Date(year, month).toLocaleDateString(undefined, {
 			month: 'long',

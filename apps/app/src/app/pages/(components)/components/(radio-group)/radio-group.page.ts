@@ -110,7 +110,7 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="resizable" label="Resizable" />
-				<spartan-page-bottom-nav-link direction="previous" href="progress" label="Progress" />
+				<spartan-page-bottom-nav-link direction="previous" href="questionnaire" label="Questionnaire" />
 			</spartan-page-bottom-nav>
 		</section>
 		<spartan-page-nav />

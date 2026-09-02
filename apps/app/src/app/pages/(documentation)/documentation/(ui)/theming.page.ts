@@ -156,6 +156,11 @@ export const routeMeta: RouteMeta = {
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
 }
 
 .dark {
@@ -185,6 +190,11 @@ export const routeMeta: RouteMeta = {
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
 }"
 			/>
 
@@ -237,6 +247,8 @@ export const routeMeta: RouteMeta = {
 			<spartan-code class="mt-6" code='<div class="bg-warning text-warning-foreground">Warning message</div>' />
 
 			<spartan-section-sub-heading id="base-colors">Base Colors</spartan-section-sub-heading>
+
+			<p class="${hlmP}">The five base colors below share the light and dark chart palettes listed above.</p>
 
 			<h3 id="color-neutral" spartanH4>Neutral</h3>
 

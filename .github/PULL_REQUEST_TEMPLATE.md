@@ -41,6 +41,7 @@ What kind of change does this PR introduce?
 - [ ] calendar
 - [ ] card
 - [ ] carousel
+- [ ] chart
 - [ ] checkbox
 - [ ] collapsible
 - [ ] combobox
@@ -68,6 +69,7 @@ What kind of change does this PR introduce?
 - [ ] pagination
 - [ ] popover
 - [ ] progress
+- [ ] questionnaire
 - [ ] radio-group
 - [ ] resizable
 - [ ] scroll-area

@@ -11,6 +11,7 @@ import {
 	input,
 	linkedSignal,
 	model,
+	output,
 } from '@angular/core';
 import { injectDateAdapter } from '@spartan-ng/brain/date-time';
 import { BrnMonthYearCalendarHeader } from './brn-month-year-calendar-header';
@@ -74,6 +75,14 @@ export class BrnMonthYearCalendar<T> implements BrnMonthYearCalendarBase<T> {
 		this.constrainDate(this.defaultFocusedDate() ?? this.date() ?? this._dateAdapter.now()),
 	);
 
+	/** Emits whenever the focused date changes. */
+	public readonly focusedDateChange = output<T>();
+
+	private _setFocusedDate(date: T): void {
+		this.focusedDate.set(date);
+		this.focusedDateChange.emit(date);
+	}
+
 	private readonly _cells: BrnMonthYearCalendarCell<T>[] = [];
 
 	/** The 12 months of the currently focused year. */
@@ -129,7 +138,7 @@ export class BrnMonthYearCalendar<T> implements BrnMonthYearCalendarBase<T> {
 			this.date.set(month);
 		}
 
-		this.focusedDate.set(month);
+		this._setFocusedDate(month);
 	}
 
 	selectYear(date: T): void {
@@ -142,7 +151,7 @@ export class BrnMonthYearCalendar<T> implements BrnMonthYearCalendarBase<T> {
 		if (this.isMonthDisabled(target)) {
 			target = this._dateAdapter.set(target, { month: 0, day: 1 });
 		}
-		this.focusedDate.set(target);
+		this._setFocusedDate(target);
 		this.view.set('month');
 
 		// focus the first available month once the month view is rendered.
@@ -211,7 +220,7 @@ export class BrnMonthYearCalendar<T> implements BrnMonthYearCalendarBase<T> {
 		if (this.isMonthDisabled(date)) {
 			return;
 		}
-		this.focusedDate.set(this._dateAdapter.startOfMonth(date));
+		this._setFocusedDate(this._dateAdapter.startOfMonth(date));
 		this._focusCell((cell) => this._dateAdapter.isSameMonth(cell, date) && this._dateAdapter.isSameYear(cell, date));
 	}
 
@@ -220,7 +229,7 @@ export class BrnMonthYearCalendar<T> implements BrnMonthYearCalendarBase<T> {
 			return;
 		}
 		const year = this._dateAdapter.getYear(date);
-		this.focusedDate.set(this._dateAdapter.set(this.focusedDate(), { year }));
+		this._setFocusedDate(this._dateAdapter.set(this.focusedDate(), { year }));
 		this._focusCell((cell) => this._dateAdapter.isSameYear(cell, date));
 	}
 
@@ -229,7 +238,7 @@ export class BrnMonthYearCalendar<T> implements BrnMonthYearCalendarBase<T> {
 			return;
 		}
 		const amount = this.view() === 'month' ? 1 : YEARS_PER_PAGE;
-		this.focusedDate.set(this._dateAdapter.subtract(this.focusedDate(), { years: amount }));
+		this._setFocusedDate(this._dateAdapter.subtract(this.focusedDate(), { years: amount }));
 	}
 
 	goToNext(): void {
@@ -237,7 +246,7 @@ export class BrnMonthYearCalendar<T> implements BrnMonthYearCalendarBase<T> {
 			return;
 		}
 		const amount = this.view() === 'month' ? 1 : YEARS_PER_PAGE;
-		this.focusedDate.set(this._dateAdapter.add(this.focusedDate(), { years: amount }));
+		this._setFocusedDate(this._dateAdapter.add(this.focusedDate(), { years: amount }));
 	}
 
 	isPreviousDisabled(): boolean {

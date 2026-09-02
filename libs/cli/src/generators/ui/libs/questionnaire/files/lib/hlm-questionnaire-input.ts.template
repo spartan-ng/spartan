@@ -1,0 +1,25 @@
+import { Directive } from '@angular/core';
+import { BrnQuestionnaireInput } from '@spartan-ng/brain/questionnaire';
+import { classes } from '<%- importAlias %>/utils';
+
+@Directive({
+	selector: 'input[hlmQuestionnaireInput]',
+	exportAs: 'hlmQuestionnaireInput',
+	hostDirectives: [
+		{
+			directive: BrnQuestionnaireInput,
+			inputs: ['type', 'disabled', 'value', 'defaultValue'],
+		},
+	],
+	host: {
+		'data-slot': 'questionnaire-input',
+	},
+})
+export class HlmQuestionnaireInput {
+	constructor() {
+		classes(() => [
+			'spartan-questionnaire-input min-h-11 w-full min-w-0 transition-[color,box-shadow,background-color] outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 sm:min-h-0',
+			'selection:bg-primary selection:text-primary-foreground placeholder:text-muted-foreground',
+		]);
+	}
+}

@@ -53,6 +53,7 @@ export const KNOWN_COMPONENTS: string[] = [
 	'pagination',
 	'popover',
 	'progress',
+	'questionnaire',
 	'radio-group',
 	'resizable',
 	'scroll-area',

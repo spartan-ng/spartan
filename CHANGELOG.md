@@ -1,3 +1,7 @@
+## 1.4.0-beta.4 (2026-09-02)
+
+- fix(calendar): clamp date selection to prevent overflow in month and year pickers (#1722) ([2421d22](https://github.com/spartan-ng/spartan/commit/2421d22)), closes [#1722](https://github.com/spartan-ng/spartan/issues/1722) [#1720](https://github.com/spartan-ng/spartan/issues/1720)
+
 ## 1.4.0-beta.3 (2026-09-02)
 
 - feat(chart): add TanStack Charts integration (#1697) ([4518445](https://github.com/spartan-ng/spartan/commit/4518445)), closes [#1697](https://github.com/spartan-ng/spartan/issues/1697)

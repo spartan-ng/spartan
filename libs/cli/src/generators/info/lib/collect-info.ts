@@ -11,6 +11,7 @@ export interface SpartanInfo {
 		importAlias: string;
 		buildable?: boolean;
 		generateAs?: 'library' | 'entrypoint';
+		registries?: Record<string, unknown>;
 	};
 	/** Versions of the relevant packages as declared in `package.json`. */
 	versions: {
@@ -66,6 +67,10 @@ function readConfig(tree: Tree, angularCli: boolean): SpartanInfo['config'] {
 		importAlias: typeof source.importAlias === 'string' ? source.importAlias : DEFAULT_IMPORT_ALIAS,
 		buildable: typeof source.buildable === 'boolean' ? source.buildable : undefined,
 		generateAs: source.generateAs === 'library' || source.generateAs === 'entrypoint' ? source.generateAs : undefined,
+		registries:
+			source.registries && typeof source.registries === 'object'
+				? (source.registries as Record<string, unknown>)
+				: undefined,
 	};
 }
 

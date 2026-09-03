@@ -1,0 +1,12 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema",
+	"$id": "SpartanRegistryViewSchema",
+	"type": "object",
+	"properties": {
+		"items": {
+			"type": "string",
+			"description": "Comma-separated item addresses to view"
+		}
+	},
+	"required": ["items"]
+}

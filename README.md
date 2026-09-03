@@ -192,6 +192,8 @@ Our initial 300 contributors and sponsors are featured here and on the front pag
 154. [dolanmiu](https://github.com/dolanmiu)
 155. [khocef](https://github.com/khocef)
 156. [robmanganelly](https://github.com/robmanganelly)
+157. [PopePAF](https://github.com/PopePAF)
+158. [gerardp](https://github.com/gerardp)
 
 ### Sponsor spartan
 

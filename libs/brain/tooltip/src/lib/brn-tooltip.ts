@@ -162,9 +162,9 @@ export class BrnTooltip {
 				this._tooltipHovered = false;
 				this.delay(false, this.hideDelay());
 			}),
-					this._renderer.listen(this._document.defaultView, 'keydown', (event: KeyboardEvent) => {
-						if (event.key === 'Escape' && !hasModifierKey(event)) this._dismiss();
-					}),
+			this._renderer.listen(this._document.defaultView, 'keydown', (event: KeyboardEvent) => {
+				if (event.key === 'Escape' && !hasModifierKey(event)) this._dismiss();
+			}),
 		];
 
 		return overlayRef;

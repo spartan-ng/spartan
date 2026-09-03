@@ -46,6 +46,36 @@ describe('date picker', () => {
 		});
 	});
 
+	describe('single - trigger - navigating from a month-end date', () => {
+		beforeEach(() => {
+			cy.visit('/iframe.html?id=date-picker--preselected-end-of-month');
+		});
+
+		it('keeps the focused month when navigating to a shorter month via the dropdown', () => {
+			// The picker is preseeded with the 31st of August.
+			cy.get('#date').should('not.have.attr', 'data-placeholder');
+			cy.get('#date').click();
+			cy.get('hlm-calendar').should('exist');
+
+			const monthTrigger = () => cy.get('hlm-calendar [brnCalendarMonthSelect] [data-slot="select-trigger"]');
+
+			monthTrigger().should('contain.text', 'Aug');
+			cy.get('hlm-calendar [brnCalendarCellButton]:not([data-outside])').should('have.length', 31);
+
+			// Navigate to November, which only has 30 days. Regression for
+			// https://github.com/spartan-ng/spartan/issues/1720 - the 31st must be clamped to
+			// the last day of the target month, not rolled over into December.
+			monthTrigger().click();
+			cy.get('hlm-select-content').find('hlm-select-item').contains('Nov').click();
+
+			monthTrigger().should('contain.text', 'Nov');
+			cy.get('hlm-calendar [brnCalendarCellButton]:not([data-outside])').should('have.length', 30);
+			cy.get('hlm-calendar [brnCalendarCellButton]:not([data-outside])')
+				.filter((_, element) => element.textContent.trim() === '30')
+				.should('exist');
+		});
+	});
+
 	describe('single - input', () => {
 		beforeEach(() => {
 			cy.visit('/iframe.html?id=date-picker--input');

@@ -43,6 +43,10 @@ The CLI ships a fixed catalog of components (the `availableComponents` in `info 
 them with `ui --name=<component>`. The shipped CLI does not wire up any remote or custom registry;
 components come only from this bundled catalog.
 
+The `chart` component is a Helm integration for TanStack Charts. Its generator also installs
+`@tanstack/charts` and the official `@tanstack/angular-charts` adapter; TanStack remains responsible
+for chart rendering and interaction.
+
 ## Custom usage
 
 When generating into a non-default layout, pass `--directory` to `ui`, or set `componentsPath` /

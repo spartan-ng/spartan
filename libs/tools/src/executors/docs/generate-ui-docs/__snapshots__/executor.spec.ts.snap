@@ -951,6 +951,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "required": false,
             "type": "number",
           },
+          {
+            "name": "scrollStrategy",
+            "required": false,
+            "type": "BrnOverlayOptions['scrollStrategy'] | 'close' | 'reposition' | null",
+          },
         ],
         "models": [],
         "outputs": [
@@ -1142,6 +1147,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "name": "offsetX",
             "required": false,
             "type": "number",
+          },
+          {
+            "name": "scrollStrategy",
+            "required": false,
+            "type": "BrnOverlayOptions['scrollStrategy'] | 'close' | 'reposition' | null",
           },
         ],
         "models": [],
@@ -1512,7 +1522,12 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "type": "T",
           },
         ],
-        "outputs": [],
+        "outputs": [
+          {
+            "name": "focusedDateChange",
+            "type": "T",
+          },
+        ],
         "selector": "[brnCalendar]",
       },
       "BrnCalendarCell": {
@@ -1612,20 +1627,25 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "type": "T[]",
           },
         ],
-        "outputs": [],
+        "outputs": [
+          {
+            "name": "focusedDateChange",
+            "type": "T",
+          },
+        ],
         "selector": "[brnCalendarMulti]",
       },
       "BrnCalendarNextButton": {
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "[brnCalendarNextButton]",
+        "selector": "button[brnCalendarNextButton]",
       },
       "BrnCalendarPreviousButton": {
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "[brnCalendarPreviousButton]",
+        "selector": "button[brnCalendarPreviousButton]",
       },
       "BrnCalendarRange": {
         "inputs": [
@@ -1677,7 +1697,12 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "type": "T",
           },
         ],
-        "outputs": [],
+        "outputs": [
+          {
+            "name": "focusedDateChange",
+            "type": "T",
+          },
+        ],
         "selector": "[brnCalendarRange]",
       },
       "BrnCalendarWeek": {
@@ -1733,7 +1758,12 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "type": "T",
           },
         ],
-        "outputs": [],
+        "outputs": [
+          {
+            "name": "focusedDateChange",
+            "type": "T",
+          },
+        ],
         "selector": "[brnMonthYearCalendar]",
       },
       "BrnMonthYearCalendarGrid": {
@@ -2164,6 +2194,16 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "models": [],
         "outputs": [],
         "selector": "hlm-carousel-slide-display",
+      },
+    },
+  },
+  "chart": {
+    "helm": {
+      "HlmChart": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "tanstack-chart[hlmChart]",
       },
     },
   },
@@ -2752,6 +2792,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "type": "boolean",
           },
           {
+            "name": "closeOnSelect",
+            "required": false,
+            "type": "boolean",
+          },
+          {
             "name": "disabled",
             "required": false,
             "type": "boolean",
@@ -2810,6 +2855,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "name": "offsetX",
             "required": false,
             "type": "number",
+          },
+          {
+            "name": "scrollStrategy",
+            "required": false,
+            "type": "BrnOverlayOptions['scrollStrategy'] | 'close' | 'reposition' | null",
           },
         ],
         "models": [],
@@ -3004,6 +3054,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "type": "boolean",
           },
           {
+            "name": "closeOnSelect",
+            "required": false,
+            "type": "boolean",
+          },
+          {
             "name": "disabled",
             "required": false,
             "type": "boolean",
@@ -3062,6 +3117,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "name": "offsetX",
             "required": false,
             "type": "number",
+          },
+          {
+            "name": "scrollStrategy",
+            "required": false,
+            "type": "BrnOverlayOptions['scrollStrategy'] | 'close' | 'reposition' | null",
           },
         ],
         "models": [],
@@ -6563,6 +6623,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "type": "number",
           },
           {
+            "name": "scrollStrategy",
+            "required": false,
+            "type": "BrnOverlayOptions['scrollStrategy'] | 'close' | 'reposition' | null",
+          },
+          {
             "name": "sideOffset",
             "required": false,
             "type": "number",
@@ -6711,6 +6776,622 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "models": [],
         "outputs": [],
         "selector": "[hlmProgressIndicator],hlm-progress-indicator",
+      },
+    },
+  },
+  "questionnaire": {
+    "brain": {
+      "BrnQuestionnaire": {
+        "exportAs": "brnQuestionnaire",
+        "inputs": [
+          {
+            "name": "items",
+            "required": false,
+            "type": "readonly BrnQuestionnaireItemDefinition[] | undefined",
+          },
+          {
+            "name": "defaultItem",
+            "required": false,
+            "type": "string | undefined",
+          },
+          {
+            "name": "shortcuts",
+            "required": false,
+            "type": "BrnQuestionnaireShortcutMode | null",
+          },
+          {
+            "name": "noValidate",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [
+          {
+            "name": "item",
+            "required": false,
+            "type": "string | null",
+          },
+        ],
+        "outputs": [],
+        "selector": "form[brnQuestionnaire]",
+      },
+      "BrnQuestionnaireChoice": {
+        "exportAs": "brnQuestionnaireChoice",
+        "inputs": [
+          {
+            "name": "value",
+            "required": true,
+            "type": "string",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "defaultChecked",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "checked",
+            "required": false,
+            "type": "boolean | undefined",
+          },
+        ],
+        "models": [],
+        "outputs": [
+          {
+            "name": "checkedChange",
+            "type": "Event",
+          },
+        ],
+        "selector": "label[brnQuestionnaireChoice]",
+      },
+      "BrnQuestionnaireChoiceInput": {
+        "exportAs": "brnQuestionnaireChoiceInput",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "input[brnQuestionnaireChoiceInput]",
+      },
+      "BrnQuestionnaireChoiceLabel": {
+        "exportAs": "brnQuestionnaireChoiceLabel",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnQuestionnaireChoiceLabel]",
+      },
+      "BrnQuestionnaireChoiceShortcut": {
+        "exportAs": "brnQuestionnaireChoiceShortcut",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnQuestionnaireChoiceShortcut]",
+      },
+      "BrnQuestionnaireChoices": {
+        "exportAs": "brnQuestionnaireChoices",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnQuestionnaireChoices]",
+      },
+      "BrnQuestionnaireDescription": {
+        "exportAs": "brnQuestionnaireDescription",
+        "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "string | undefined",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnQuestionnaireDescription]",
+      },
+      "BrnQuestionnaireError": {
+        "exportAs": "brnQuestionnaireError",
+        "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "string | undefined",
+          },
+          {
+            "name": "requiredMessage",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "optionalMessage",
+            "required": false,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnQuestionnaireError]",
+      },
+      "BrnQuestionnaireInput": {
+        "exportAs": "brnQuestionnaireInput",
+        "inputs": [
+          {
+            "name": "type",
+            "required": false,
+            "type": "BrnQuestionnaireInputType",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "value",
+            "required": false,
+            "type": "string | undefined",
+          },
+          {
+            "name": "defaultValue",
+            "required": false,
+            "type": "string | undefined",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "input[brnQuestionnaireInput]",
+      },
+      "BrnQuestionnaireItem": {
+        "exportAs": "brnQuestionnaireItem",
+        "inputs": [
+          {
+            "name": "name",
+            "required": true,
+            "type": "string",
+          },
+          {
+            "name": "multiple",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "required",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "itemInvalid",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "aria-describedby",
+            "required": false,
+            "type": "string | undefined",
+          },
+          {
+            "name": "aria-keyshortcuts",
+            "required": false,
+            "type": "string | undefined",
+          },
+        ],
+        "models": [],
+        "outputs": [
+          {
+            "name": "statusChange",
+            "type": "BrnQuestionnaireItemStatus",
+          },
+        ],
+        "selector": "fieldset[brnQuestionnaireItem]",
+      },
+      "BrnQuestionnaireNext": {
+        "exportAs": "brnQuestionnaireNext",
+        "inputs": [
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "button[brnQuestionnaireNext]",
+      },
+      "BrnQuestionnairePrevious": {
+        "exportAs": "brnQuestionnairePrevious",
+        "inputs": [
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "button[brnQuestionnairePrevious]",
+      },
+      "BrnQuestionnaireProgress": {
+        "exportAs": "brnQuestionnaireProgress",
+        "inputs": [
+          {
+            "name": "aria-label",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "valueText",
+            "required": false,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnQuestionnaireProgress]",
+      },
+      "BrnQuestionnaireSkip": {
+        "exportAs": "brnQuestionnaireSkip",
+        "inputs": [
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "button[brnQuestionnaireSkip]",
+      },
+      "BrnQuestionnaireSubmit": {
+        "exportAs": "brnQuestionnaireSubmit",
+        "inputs": [
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "button[brnQuestionnaireSubmit]",
+      },
+      "BrnQuestionnaireTitle": {
+        "exportAs": "brnQuestionnaireTitle",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "legend[brnQuestionnaireTitle]",
+      },
+    },
+    "helm": {
+      "HlmQuestionnaire": {
+        "exportAs": "hlmQuestionnaire",
+        "inputs": [
+          {
+            "name": "items",
+            "required": false,
+            "type": "readonly BrnQuestionnaireItemDefinition[] | undefined",
+          },
+          {
+            "name": "defaultItem",
+            "required": false,
+            "type": "string | undefined",
+          },
+          {
+            "name": "item",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "name": "shortcuts",
+            "required": false,
+            "type": "BrnQuestionnaireShortcutMode | null",
+          },
+          {
+            "name": "noValidate",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [],
+        "outputs": [
+          {
+            "name": "itemChange",
+            "type": "string | null",
+          },
+        ],
+        "selector": "form[hlmQuestionnaire]",
+      },
+      "HlmQuestionnaireActions": {
+        "exportAs": "hlmQuestionnaireActions",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmQuestionnaireActions],hlm-questionnaire-actions",
+      },
+      "HlmQuestionnaireChoice": {
+        "exportAs": "hlmQuestionnaireChoice",
+        "inputs": [
+          {
+            "name": "value",
+            "required": true,
+            "type": "string",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "defaultChecked",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "checked",
+            "required": false,
+            "type": "boolean | undefined",
+          },
+        ],
+        "models": [],
+        "outputs": [
+          {
+            "name": "checkedChange",
+            "type": "Event",
+          },
+        ],
+        "selector": "label[hlmQuestionnaireChoice]",
+      },
+      "HlmQuestionnaireChoiceDescription": {
+        "exportAs": "hlmQuestionnaireChoiceDescription",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmQuestionnaireChoiceDescription]",
+      },
+      "HlmQuestionnaireChoices": {
+        "exportAs": "hlmQuestionnaireChoices",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmQuestionnaireChoices]",
+      },
+      "HlmQuestionnaireDescription": {
+        "exportAs": "hlmQuestionnaireDescription",
+        "inputs": [
+          {
+            "name": "id",
+            "required": false,
+            "type": "string | undefined",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmQuestionnaireDescription]",
+      },
+      "HlmQuestionnaireError": {
+        "exportAs": "hlmQuestionnaireError",
+        "inputs": [
+          {
+            "name": "message",
+            "required": false,
+            "type": "string | undefined",
+          },
+          {
+            "name": "id",
+            "required": false,
+            "type": "string | undefined",
+          },
+          {
+            "name": "requiredMessage",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "optionalMessage",
+            "required": false,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmQuestionnaireError]",
+      },
+      "HlmQuestionnaireInput": {
+        "exportAs": "hlmQuestionnaireInput",
+        "inputs": [
+          {
+            "name": "type",
+            "required": false,
+            "type": "BrnQuestionnaireInputType",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "value",
+            "required": false,
+            "type": "string | undefined",
+          },
+          {
+            "name": "defaultValue",
+            "required": false,
+            "type": "string | undefined",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "input[hlmQuestionnaireInput]",
+      },
+      "HlmQuestionnaireItem": {
+        "exportAs": "hlmQuestionnaireItem",
+        "inputs": [
+          {
+            "name": "name",
+            "required": true,
+            "type": "string",
+          },
+          {
+            "name": "multiple",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "required",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "itemInvalid",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "aria-describedby",
+            "required": false,
+            "type": "string | undefined",
+          },
+          {
+            "name": "aria-keyshortcuts",
+            "required": false,
+            "type": "string | undefined",
+          },
+        ],
+        "models": [],
+        "outputs": [
+          {
+            "name": "statusChange",
+            "type": "BrnQuestionnaireItemStatus",
+          },
+        ],
+        "selector": "fieldset[hlmQuestionnaireItem]",
+      },
+      "HlmQuestionnaireNext": {
+        "exportAs": "hlmQuestionnaireNext",
+        "inputs": [
+          {
+            "name": "variant",
+            "required": false,
+            "type": "ButtonVariants['variant']",
+          },
+          {
+            "name": "size",
+            "required": false,
+            "type": "ButtonVariants['size']",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "button[hlmQuestionnaireNext]",
+      },
+      "HlmQuestionnairePrevious": {
+        "exportAs": "hlmQuestionnairePrevious",
+        "inputs": [
+          {
+            "name": "variant",
+            "required": false,
+            "type": "ButtonVariants['variant']",
+          },
+          {
+            "name": "size",
+            "required": false,
+            "type": "ButtonVariants['size']",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "button[hlmQuestionnairePrevious]",
+      },
+      "HlmQuestionnaireProgress": {
+        "exportAs": "hlmQuestionnaireProgress",
+        "inputs": [
+          {
+            "name": "aria-label",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "valueText",
+            "required": false,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmQuestionnaireProgress]",
+      },
+      "HlmQuestionnaireSkip": {
+        "exportAs": "hlmQuestionnaireSkip",
+        "inputs": [
+          {
+            "name": "variant",
+            "required": false,
+            "type": "ButtonVariants['variant']",
+          },
+          {
+            "name": "size",
+            "required": false,
+            "type": "ButtonVariants['size']",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "button[hlmQuestionnaireSkip]",
+      },
+      "HlmQuestionnaireSubmit": {
+        "exportAs": "hlmQuestionnaireSubmit",
+        "inputs": [
+          {
+            "name": "variant",
+            "required": false,
+            "type": "ButtonVariants['variant']",
+          },
+          {
+            "name": "size",
+            "required": false,
+            "type": "ButtonVariants['size']",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "button[hlmQuestionnaireSubmit]",
+      },
+      "HlmQuestionnaireTitle": {
+        "exportAs": "hlmQuestionnaireTitle",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "legend[hlmQuestionnaireTitle]",
       },
     },
   },
@@ -7324,6 +8005,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "required": false,
             "type": "number",
           },
+          {
+            "name": "scrollStrategy",
+            "required": false,
+            "type": "BrnOverlayOptions['scrollStrategy'] | 'close' | 'reposition' | null",
+          },
         ],
         "models": [],
         "outputs": [
@@ -7440,6 +8126,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "name": "offsetX",
             "required": false,
             "type": "number",
+          },
+          {
+            "name": "scrollStrategy",
+            "required": false,
+            "type": "BrnOverlayOptions['scrollStrategy'] | 'close' | 'reposition' | null",
           },
         ],
         "models": [],
@@ -8293,6 +8984,16 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "type": "number",
           },
           {
+            "name": "maxStepsBetweenThumbs",
+            "required": false,
+            "type": "number",
+          },
+          {
+            "name": "preventStepOverThumb",
+            "required": false,
+            "type": "boolean",
+          },
+          {
             "name": "disabled",
             "required": false,
             "type": "boolean",
@@ -8409,6 +9110,16 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "name": "minStepsBetweenThumbs",
             "required": false,
             "type": "number",
+          },
+          {
+            "name": "maxStepsBetweenThumbs",
+            "required": false,
+            "type": "number",
+          },
+          {
+            "name": "preventStepOverThumb",
+            "required": false,
+            "type": "boolean",
           },
           {
             "name": "inverted",

@@ -1,3 +1,133 @@
+## 1.4.0 (2026-09-02)
+
+- Merge pull request #1723 from spartan-ng/beta ([3103c91](https://github.com/spartan-ng/spartan/commit/3103c91)), closes [#1723](https://github.com/spartan-ng/spartan/issues/1723)
+- chore(release): 1.4.0-beta.1 ([7e3a496](https://github.com/spartan-ng/spartan/commit/7e3a496))
+- chore(release): 1.4.0-beta.2 ([1e222d5](https://github.com/spartan-ng/spartan/commit/1e222d5))
+- chore(release): 1.4.0-beta.3 ([32f8ca0](https://github.com/spartan-ng/spartan/commit/32f8ca0))
+- chore(release): 1.4.0-beta.4 ([3059f67](https://github.com/spartan-ng/spartan/commit/3059f67))
+- chore(release): 1.4.0-beta.5 ([c656101](https://github.com/spartan-ng/spartan/commit/c656101))
+- chore(release): backmerge main into beta ([71de667](https://github.com/spartan-ng/spartan/commit/71de667))
+- chore(release): backmerge main into beta ([334443d](https://github.com/spartan-ng/spartan/commit/334443d))
+- feat(calendar): add focused date change, disable prev/next button (#1712) ([d8ed98a](https://github.com/spartan-ng/spartan/commit/d8ed98a)), closes [#1712](https://github.com/spartan-ng/spartan/issues/1712)
+- feat(chart): add TanStack Charts integration (#1697) ([4518445](https://github.com/spartan-ng/spartan/commit/4518445)), closes [#1697](https://github.com/spartan-ng/spartan/issues/1697)
+- feat(questionnaire): add brain, helm, and docs (#1690) ([f2fadcf](https://github.com/spartan-ng/spartan/commit/f2fadcf)), closes [#1690](https://github.com/spartan-ng/spartan/issues/1690)
+- feat(slider): add maxStepsBetweenThumbs and preventStepOverThumb (#1625) ([0741e9d](https://github.com/spartan-ng/spartan/commit/0741e9d)), closes [#1625](https://github.com/spartan-ng/spartan/issues/1625)
+- fix(calendar): clamp date selection to prevent overflow in month and year pickers (#1722) ([2421d22](https://github.com/spartan-ng/spartan/commit/2421d22)), closes [#1722](https://github.com/spartan-ng/spartan/issues/1722) [#1720](https://github.com/spartan-ng/spartan/issues/1720)
+- fix(calendar): make default year range relative (#1721) ([81e29c9](https://github.com/spartan-ng/spartan/commit/81e29c9)), closes [#1721](https://github.com/spartan-ng/spartan/issues/1721)
+- docs: add new contributors to our 300 ([4fc7bb4](https://github.com/spartan-ng/spartan/commit/4fc7bb4))
+
+## 1.4.0-beta.5 (2026-09-02)
+
+- feat(slider): add maxStepsBetweenThumbs and preventStepOverThumb (#1625) ([0741e9d](https://github.com/spartan-ng/spartan/commit/0741e9d)), closes [#1625](https://github.com/spartan-ng/spartan/issues/1625)
+
+## 1.4.0-beta.4 (2026-09-02)
+
+- fix(calendar): clamp date selection to prevent overflow in month and year pickers (#1722) ([2421d22](https://github.com/spartan-ng/spartan/commit/2421d22)), closes [#1722](https://github.com/spartan-ng/spartan/issues/1722) [#1720](https://github.com/spartan-ng/spartan/issues/1720)
+
+## 1.4.0-beta.3 (2026-09-02)
+
+- feat(chart): add TanStack Charts integration (#1697) ([4518445](https://github.com/spartan-ng/spartan/commit/4518445)), closes [#1697](https://github.com/spartan-ng/spartan/issues/1697)
+
+## 1.4.0-beta.2 (2026-09-02)
+
+- fix(calendar): make default year range relative (#1721) ([81e29c9](https://github.com/spartan-ng/spartan/commit/81e29c9)), closes [#1721](https://github.com/spartan-ng/spartan/issues/1721)
+
+## 1.4.0-beta.1 (2026-09-02)
+
+- feat(calendar): add focused date change, disable prev/next button (#1712) ([d8ed98a](https://github.com/spartan-ng/spartan/commit/d8ed98a)), closes [#1712](https://github.com/spartan-ng/spartan/issues/1712)
+- feat(questionnaire): add brain, helm, and docs (#1690) ([f2fadcf](https://github.com/spartan-ng/spartan/commit/f2fadcf)), closes [#1690](https://github.com/spartan-ng/spartan/issues/1690)
+- chore(release): backmerge main into beta ([71de667](https://github.com/spartan-ng/spartan/commit/71de667))
+- chore(release): backmerge main into beta ([334443d](https://github.com/spartan-ng/spartan/commit/334443d))
+- docs: add new contributors to our 300 ([4fc7bb4](https://github.com/spartan-ng/spartan/commit/4fc7bb4))
+
+## <small>1.3.4 (2026-08-27)</small>
+
+- fix: 1.3.4 (#1716) ([e48f8ac](https://github.com/spartan-ng/spartan/commit/e48f8ac)), closes [#1716](https://github.com/spartan-ng/spartan/issues/1716) [#1711](https://github.com/spartan-ng/spartan/issues/1711) [#1709](https://github.com/spartan-ng/spartan/issues/1709)
+- fix: forward the scroll strategy input through the helm overlay wrappers (#1709) ([643ce28](https://github.com/spartan-ng/spartan/commit/643ce28)), closes [#1709](https://github.com/spartan-ng/spartan/issues/1709)
+- fix: scroll strategy (#1717) ([508cb4a](https://github.com/spartan-ng/spartan/commit/508cb4a)), closes [#1717](https://github.com/spartan-ng/spartan/issues/1717)
+- fix(combobox): dont reopen popover when item is selected via enter (#1711) ([3db6933](https://github.com/spartan-ng/spartan/commit/3db6933)), closes [#1711](https://github.com/spartan-ng/spartan/issues/1711)
+- chore(release): 1.3.4-beta.1 ([9e83d11](https://github.com/spartan-ng/spartan/commit/9e83d11))
+- chore(release): 1.3.4-beta.2 ([26a2d09](https://github.com/spartan-ng/spartan/commit/26a2d09))
+- chore(release): backmerge main into beta ([8d43511](https://github.com/spartan-ng/spartan/commit/8d43511))
+
+## <small>1.3.4-beta.2 (2026-08-27)</small>
+
+- fix: scroll strategy (#1717) ([508cb4a](https://github.com/spartan-ng/spartan/commit/508cb4a)), closes [#1717](https://github.com/spartan-ng/spartan/issues/1717)
+
+## <small>1.3.4-beta.1 (2026-08-26)</small>
+
+- fix: forward the scroll strategy input through the helm overlay wrappers (#1709) ([643ce28](https://github.com/spartan-ng/spartan/commit/643ce28)), closes [#1709](https://github.com/spartan-ng/spartan/issues/1709)
+- fix(combobox): dont reopen popover when item is selected via enter (#1711) ([3db6933](https://github.com/spartan-ng/spartan/commit/3db6933)), closes [#1711](https://github.com/spartan-ng/spartan/issues/1711)
+- chore(release): backmerge main into beta ([8d43511](https://github.com/spartan-ng/spartan/commit/8d43511))
+
+## <small>1.3.3 (2026-08-26)</small>
+
+- Merge pull request #1715 from spartan-ng/beta ([a3d63b8](https://github.com/spartan-ng/spartan/commit/a3d63b8)), closes [#1715](https://github.com/spartan-ng/spartan/issues/1715)
+- chore: replace renamed contributor handle in the 300 (#1710) ([706ec27](https://github.com/spartan-ng/spartan/commit/706ec27)), closes [#1710](https://github.com/spartan-ng/spartan/issues/1710)
+- chore(release): 1.3.3-beta.1 ([96417c8](https://github.com/spartan-ng/spartan/commit/96417c8))
+- chore(release): 1.3.3-beta.2 ([59656c3](https://github.com/spartan-ng/spartan/commit/59656c3))
+- chore(release): backmerge main into beta ([af0d40b](https://github.com/spartan-ng/spartan/commit/af0d40b))
+- chore(release): backmerge main into beta ([dcaad73](https://github.com/spartan-ng/spartan/commit/dcaad73))
+- chore(release): backmerge main into beta ([227852f](https://github.com/spartan-ng/spartan/commit/227852f))
+- chore(release): backmerge main into beta ([eaf6a51](https://github.com/spartan-ng/spartan/commit/eaf6a51))
+- fix(cli): cap typescript dependency below 7.0.0 (#1640) ([578033e](https://github.com/spartan-ng/spartan/commit/578033e)), closes [#1640](https://github.com/spartan-ng/spartan/issues/1640) [#1637](https://github.com/spartan-ng/spartan/issues/1637)
+- fix(cli): pass false for angularCli when its missing (#1714) ([45ec60d](https://github.com/spartan-ng/spartan/commit/45ec60d)), closes [#1714](https://github.com/spartan-ng/spartan/issues/1714)
+- docs: add new contributors to our 300 ([850efb2](https://github.com/spartan-ng/spartan/commit/850efb2))
+- docs(data-table): update datatable docs to match shadcn (#1706) ([6f7ca80](https://github.com/spartan-ng/spartan/commit/6f7ca80)), closes [#1706](https://github.com/spartan-ng/spartan/issues/1706)
+
+## <small>1.3.3-beta.2 (2026-08-26)</small>
+
+- fix(cli): pass false for angularCli when its missing (#1714) ([45ec60d](https://github.com/spartan-ng/spartan/commit/45ec60d)), closes [#1714](https://github.com/spartan-ng/spartan/issues/1714)
+
+## <small>1.3.3-beta.1 (2026-08-26)</small>
+
+- fix(cli): cap typescript dependency below 7.0.0 (#1640) ([578033e](https://github.com/spartan-ng/spartan/commit/578033e)), closes [#1640](https://github.com/spartan-ng/spartan/issues/1640) [#1637](https://github.com/spartan-ng/spartan/issues/1637)
+- chore: replace renamed contributor handle in the 300 (#1710) ([706ec27](https://github.com/spartan-ng/spartan/commit/706ec27)), closes [#1710](https://github.com/spartan-ng/spartan/issues/1710)
+- chore(release): backmerge main into beta ([af0d40b](https://github.com/spartan-ng/spartan/commit/af0d40b))
+- chore(release): backmerge main into beta ([dcaad73](https://github.com/spartan-ng/spartan/commit/dcaad73))
+- chore(release): backmerge main into beta ([227852f](https://github.com/spartan-ng/spartan/commit/227852f))
+- chore(release): backmerge main into beta ([eaf6a51](https://github.com/spartan-ng/spartan/commit/eaf6a51))
+- docs: add new contributors to our 300 ([850efb2](https://github.com/spartan-ng/spartan/commit/850efb2))
+- docs(data-table): update datatable docs to match shadcn (#1706) ([6f7ca80](https://github.com/spartan-ng/spartan/commit/6f7ca80)), closes [#1706](https://github.com/spartan-ng/spartan/issues/1706)
+
+## <small>1.3.2 (2026-08-20)</small>
+
+- Merge pull request #1707 from spartan-ng/beta ([0c00246](https://github.com/spartan-ng/spartan/commit/0c00246)), closes [#1707](https://github.com/spartan-ng/spartan/issues/1707)
+- chore(release): 1.3.2-beta.1 ([81fa379](https://github.com/spartan-ng/spartan/commit/81fa379))
+- chore(release): 1.3.2-beta.2 ([1d7b25c](https://github.com/spartan-ng/spartan/commit/1d7b25c))
+- chore(release): 1.3.2-beta.3 ([4421749](https://github.com/spartan-ng/spartan/commit/4421749))
+- chore(release): backmerge main into beta ([cb8e397](https://github.com/spartan-ng/spartan/commit/cb8e397))
+- chore(release): backmerge main into beta ([040b2b7](https://github.com/spartan-ng/spartan/commit/040b2b7))
+- chore(release): backmerge main into beta ([5e28c0b](https://github.com/spartan-ng/spartan/commit/5e28c0b))
+- chore(release): backmerge main into beta ([33b8d6a](https://github.com/spartan-ng/spartan/commit/33b8d6a))
+- fix: correct spelling and grammar mistakes (#1692) ([0a48886](https://github.com/spartan-ng/spartan/commit/0a48886)), closes [#1692](https://github.com/spartan-ng/spartan/issues/1692)
+- fix(dialog): update closeOnOutsidePointerEvents behavior for alert dialog (#1689) ([d6665a4](https://github.com/spartan-ng/spartan/commit/d6665a4)), closes [#1689](https://github.com/spartan-ng/spartan/issues/1689)
+- fix(popover): anchor to the opposite edge when content does not fit (#1700) ([b7935ec](https://github.com/spartan-ng/spartan/commit/b7935ec)), closes [#1700](https://github.com/spartan-ng/spartan/issues/1700) [#1283](https://github.com/spartan-ng/spartan/issues/1283)
+- fix(tooltip): add Escape key functionality to dismiss tooltip (#1680) ([4208683](https://github.com/spartan-ng/spartan/commit/4208683)), closes [#1680](https://github.com/spartan-ng/spartan/issues/1680)
+- docs: add new contributors to our 300 ([361ce13](https://github.com/spartan-ng/spartan/commit/361ce13))
+- docs: tanstack table 9 (#1701) ([df14af1](https://github.com/spartan-ng/spartan/commit/df14af1)), closes [#1701](https://github.com/spartan-ng/spartan/issues/1701)
+- docs(collapsible): add collapsible file tree component (#1681) ([7ca54ea](https://github.com/spartan-ng/spartan/commit/7ca54ea)), closes [#1681](https://github.com/spartan-ng/spartan/issues/1681)
+
+## <small>1.3.2-beta.3 (2026-08-20)</small>
+
+- fix(dialog): update closeOnOutsidePointerEvents behavior for alert dialog (#1689) ([d6665a4](https://github.com/spartan-ng/spartan/commit/d6665a4)), closes [#1689](https://github.com/spartan-ng/spartan/issues/1689)
+
+## <small>1.3.2-beta.2 (2026-08-20)</small>
+
+- fix: correct spelling and grammar mistakes (#1692) ([0a48886](https://github.com/spartan-ng/spartan/commit/0a48886)), closes [#1692](https://github.com/spartan-ng/spartan/issues/1692)
+- chore(release): backmerge main into beta ([cb8e397](https://github.com/spartan-ng/spartan/commit/cb8e397))
+- chore(release): backmerge main into beta ([040b2b7](https://github.com/spartan-ng/spartan/commit/040b2b7))
+- docs: add new contributors to our 300 ([361ce13](https://github.com/spartan-ng/spartan/commit/361ce13))
+- docs: tanstack table 9 (#1701) ([df14af1](https://github.com/spartan-ng/spartan/commit/df14af1)), closes [#1701](https://github.com/spartan-ng/spartan/issues/1701)
+
+## <small>1.3.2-beta.1 (2026-08-14)</small>
+
+- fix(popover): anchor to the opposite edge when content does not fit (#1700) ([b7935ec](https://github.com/spartan-ng/spartan/commit/b7935ec)), closes [#1700](https://github.com/spartan-ng/spartan/issues/1700) [#1283](https://github.com/spartan-ng/spartan/issues/1283)
+- fix(tooltip): add Escape key functionality to dismiss tooltip (#1680) ([4208683](https://github.com/spartan-ng/spartan/commit/4208683)), closes [#1680](https://github.com/spartan-ng/spartan/issues/1680)
+- chore(release): backmerge main into beta ([5e28c0b](https://github.com/spartan-ng/spartan/commit/5e28c0b))
+- chore(release): backmerge main into beta ([33b8d6a](https://github.com/spartan-ng/spartan/commit/33b8d6a))
+- docs(collapsible): add collapsible file tree component (#1681) ([7ca54ea](https://github.com/spartan-ng/spartan/commit/7ca54ea)), closes [#1681](https://github.com/spartan-ng/spartan/issues/1681)
+
 ## <small>1.3.1 (2026-08-04)</small>
 
 - Merge pull request #1679 from spartan-ng/beta ([201828d](https://github.com/spartan-ng/spartan/commit/201828d)), closes [#1679](https://github.com/spartan-ng/spartan/issues/1679)

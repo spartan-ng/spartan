@@ -100,6 +100,16 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 		transform: numberAttribute,
 	});
 
+	/** Maximum number of steps allowed between thumbs in a range slider. */
+	public readonly maxStepsBetweenThumbs = input<number, NumberInput>(Number.POSITIVE_INFINITY, {
+		transform: numberAttribute,
+	});
+
+	/** Whether a thumb is prevented from being dragged past its neighbouring thumbs in a range slider. */
+	public readonly preventStepOverThumb = input<boolean, BooleanInput>(false, {
+		transform: booleanAttribute,
+	});
+
 	/** Whether the slider is disabled. */
 	public readonly disabled = input<boolean, BooleanInput>(false, {
 		transform: booleanAttribute,
@@ -285,13 +295,34 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 
 		value = clamp(snapToStep, [this.min(), this.max()]);
 
-		const newValue = [...this.normalizedValue()];
+		const currentValue = this.normalizedValue();
+
+		if (this.preventStepOverThumb() && currentValue.length > 1) {
+			const gap = this.minStepsBetweenThumbs() * this.step();
+			const lowerBound = atIndex > 0 ? Math.max(this.min(), currentValue[atIndex - 1] + gap) : this.min();
+			const upperBound =
+				atIndex < currentValue.length - 1 ? Math.min(this.max(), currentValue[atIndex + 1] - gap) : this.max();
+			value = clamp(value, [lowerBound, upperBound]);
+		}
+
+		const newValue = [...currentValue];
 		newValue[atIndex] = value;
 		newValue.sort((a, b) => a - b);
 
-		if (!hasMinStepsBetweenValues(newValue, this.minStepsBetweenThumbs() * this.step())) return;
+		let newValIndex = 0;
+		for (let i = 0; i < newValue.length; i++) {
+			if (newValue[i] < value || (newValue[i] === value && i < atIndex)) {
+				newValIndex = i + 1;
+			}
+		}
 
-		const newValIndex = newValue.findIndex((val) => val === value);
+		// Only validate the gaps adjacent to the moved thumb so that a state which already
+		// violates the constraint (e.g. set programmatically via a form control) can still be
+		// brought back into compliance by dragging.
+		if (!isGapAtIndexWithinBounds(newValue, newValIndex, this.minStepsBetweenThumbs() * this.step(), true)) return;
+
+		if (!isGapAtIndexWithinBounds(newValue, newValIndex, this.maxStepsBetweenThumbs() * this.step(), false)) return;
+
 		this.valueIndexToChange.set(newValIndex);
 
 		if (areArrsEqual(newValue, this.value())) return;
@@ -380,15 +411,27 @@ function clamp(value: number, [min, max]: [number, number]): number {
 	return Math.min(max, Math.max(min, value));
 }
 
-function getStepsBetweenValues(values: number[]): number[] {
-	return values.slice(0, -1).map((value, index) => values[index + 1]! - value);
-}
-
-function hasMinStepsBetweenValues(values: number[], minStepsBetweenValues: number): boolean {
-	if (minStepsBetweenValues > 0) {
-		const stepsBetweenValues = getStepsBetweenValues(values);
-		const actualMinStepsBetweenValues = Math.min(...stepsBetweenValues);
-		return actualMinStepsBetweenValues >= minStepsBetweenValues;
+/**
+ * Validates only the gaps immediately adjacent to `index`.
+ *
+ * Checking a single gap (instead of every gap) keeps the slider usable when its initial state
+ * already violates the constraint: the unchanged gaps are ignored, so the user can gradually drag
+ * the thumbs back into compliance.
+ *
+ * @param isMin When `true`, the adjacent gaps must be `>= bound`; otherwise they must be `<= bound`.
+ */
+function isGapAtIndexWithinBounds(values: number[], index: number, bound: number, isMin: boolean): boolean {
+	if (isMin ? bound <= 0 : !Number.isFinite(bound)) {
+		return true;
 	}
+
+	const leftGap = index > 0 ? values[index] - values[index - 1] : undefined;
+	const rightGap = index < values.length - 1 ? values[index + 1] - values[index] : undefined;
+
+	for (const gap of [leftGap, rightGap]) {
+		if (gap === undefined) continue;
+		if (isMin ? gap < bound : gap > bound) return false;
+	}
+
 	return true;
 }

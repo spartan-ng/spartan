@@ -87,3 +87,50 @@ export const Default: Story = {
     `,
 	}),
 };
+
+/**
+ * Trigger pinned to the right edge with content wider than itself, inside a page tall
+ * enough to scroll. Covers both positioning cases: the overlay has to be shifted back
+ * into the viewport when it opens, and it has to keep following its trigger afterwards.
+ */
+export const NearViewportEdge: Story = {
+	args: {
+		align: 'start',
+		sideOffset: 4,
+	},
+	render: ({ ...args }) => ({
+		props: { ...args },
+		template: `
+    <hlm-popover ${argsToTemplate(args)}>
+      <div class='flex justify-end py-[900px]'>
+        <button id='edge-trigger' variant='outline' hlmPopoverTrigger hlmBtn>Edge</button>
+      </div>
+      <hlm-popover-content class='w-80' *hlmPopoverPortal='let ctx'>
+        <p id='edge-content' class='text-sm'>Content wider than its trigger.</p>
+      </hlm-popover-content>
+    </hlm-popover>
+    `,
+	}),
+};
+
+/**
+ * `scrollStrategy` is declared by `BrnOverlay` but was not forwarded by the helm wrapper,
+ * so an app could not opt out of the default reposition behaviour. Overlays that follow a
+ * trigger scrolling under a sticky header end up drawn over it, and closing on scroll is
+ * the usual way out.
+ */
+export const CloseOnScroll: Story = {
+	render: ({ ...args }) => ({
+		props: { ...args },
+		template: `
+    <hlm-popover ${argsToTemplate(args)} scrollStrategy='close'>
+      <div class='flex justify-center py-[900px]'>
+        <button id='closing-trigger' variant='outline' hlmPopoverTrigger hlmBtn>Closes on scroll</button>
+      </div>
+      <hlm-popover-content class='w-80' *hlmPopoverPortal='let ctx'>
+        <p id='closing-content' class='text-sm'>Dismissed as soon as the page scrolls.</p>
+      </hlm-popover-content>
+    </hlm-popover>
+    `,
+	}),
+};

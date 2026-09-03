@@ -1,17 +1,19 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { type CellContext, injectFlexRenderContext } from '@tanstack/angular-table';
-import type { DashboardData } from './dashboard-data.model';
+import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { type Row } from '@tanstack/angular-table';
+import { type DashboardData } from './dashboard-data.model';
+import { type DashboardFeatures } from './table-section';
 
 @Component({
 	selector: 'spartan-header-cell',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<span id="{{ _element.id }}-header">
-			{{ _element.header }}
+		<span id="{{ _data().id }}-header">
+			{{ _data().header }}
 		</span>
 	`,
 })
 export class HeaderCell {
-	private readonly _context = injectFlexRenderContext<CellContext<DashboardData, unknown>>();
-	protected readonly _element = this._context.row.original;
+	public readonly row = input.required<Row<DashboardFeatures, DashboardData>>();
+
+	protected readonly _data = computed(() => this.row().original);
 }

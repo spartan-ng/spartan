@@ -29,6 +29,7 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 import { Directionality } from '@angular/cdk/bidi';
+import { hasModifierKey } from '@angular/cdk/keycodes';
 import { waitForElementAnimations } from '@spartan-ng/brain/core';
 import { of, Subject, Subscription, timer } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
@@ -161,9 +162,17 @@ export class BrnTooltip {
 				this._tooltipHovered = false;
 				this.delay(false, this.hideDelay());
 			}),
+					this._renderer.listen(this._document.defaultView, 'keydown', (event: KeyboardEvent) => {
+						if (event.key === 'Escape' && !hasModifierKey(event)) this._dismiss();
+					}),
 		];
 
 		return overlayRef;
+	}
+
+	private _dismiss(): void {
+		this._tooltipHovered = false;
+		this.delay(false, -1);
 	}
 
 	private _updatePosition(): void {

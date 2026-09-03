@@ -18,6 +18,7 @@ export const pageNavs: Link[] = [
 	{ label: 'Blocks', url: '/blocks' },
 	{ label: 'Colors', url: '/colors' },
 	{ label: 'Stack', url: '/stack' },
+	{ label: 'Create', url: '/create', new: true },
 ];
 
 export const components: Link[] = [

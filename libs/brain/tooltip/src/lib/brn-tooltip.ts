@@ -124,6 +124,15 @@ export class BrnTooltip {
 						this._applyContentProps(this._componentRef.instance, this._activePosition ?? this.position(), text);
 					}
 				});
+
+				// Registered eagerly (not in `_ensureOverlayRef`) so Escape can dismiss a tooltip that is
+				// still in its show delay, before the overlay/component even exists.
+				this._listenersRefs = [
+					...this._listenersRefs,
+					this._renderer.listen(this._document.defaultView, 'keydown', (event: KeyboardEvent) => {
+						if (event.key === 'Escape' && !hasModifierKey(event)) this._dismiss();
+					}),
+				];
 			});
 		});
 
@@ -142,6 +151,10 @@ export class BrnTooltip {
 	 * instance needlessly bloats the shared overlay container with empty panes. Deferring creation until
 	 * a tooltip is actually about to be shown keeps the container's DOM footprint proportional to the
 	 * tooltips a user actually triggers.
+	 *
+	 * Only listeners that require the overlay's host element (hover-tracking on the tooltip content
+	 * itself) belong here. Anything that must work before the overlay exists - e.g. Escape dismissing a
+	 * tooltip mid show-delay - is registered eagerly in the constructor instead.
 	 */
 	private _ensureOverlayRef(): OverlayRef {
 		if (this._overlayRef) return this._overlayRef;
@@ -161,9 +174,6 @@ export class BrnTooltip {
 				if (!this._isHoverPointer(event)) return;
 				this._tooltipHovered = false;
 				this.delay(false, this.hideDelay());
-			}),
-			this._renderer.listen(this._document.defaultView, 'keydown', (event: KeyboardEvent) => {
-				if (event.key === 'Escape' && !hasModifierKey(event)) this._dismiss();
 			}),
 		];
 

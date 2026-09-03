@@ -38,6 +38,19 @@ class TooltipDynamicHost {
 	public readonly tip = signal('first');
 }
 
+@Component({
+	selector: 'hlm-tooltip-show-delay-host',
+	imports: [HlmTooltip],
+	providers: [Directionality],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<div style="position: fixed; inset: 0; display: flex; align-items: center; justify-content: center">
+			<button hlmTooltip="tip" [showDelay]="200" [hideDelay]="0">trigger</button>
+		</div>
+	`,
+})
+class TooltipShowDelayHost {}
+
 const triggerEl = () => screen.getByText('trigger');
 const tooltipEl = () => document.querySelector('[role="tooltip"]');
 const tooltipState = () => tooltipEl()?.getAttribute('data-state');
@@ -147,5 +160,25 @@ describe('HlmTooltip dynamic text while open', () => {
 
 		await waitFor(() => expect(tooltipEl()?.textContent).toContain('second'));
 		expect(tooltipEl()?.textContent).not.toContain('first');
+	});
+});
+
+describe('HlmTooltip Escape during the show delay', () => {
+	afterEach(() => {
+		document.querySelectorAll('.cdk-overlay-container').forEach((el) => el.remove());
+	});
+
+	it('cancels a pending open, so the tooltip never appears once the delay elapses', async () => {
+		await render(TooltipShowDelayHost);
+
+		fireEvent.pointerEnter(triggerEl(), { pointerType: 'mouse' });
+		// Still within the 200ms show delay: nothing attached yet.
+		expect(tooltipEl()).toBeNull();
+
+		fireEvent.keyDown(document, { key: 'Escape' });
+
+		// Wait past the show delay: the tooltip must stay closed because Escape cancelled it.
+		await wait(300);
+		expect(tooltipEl()).toBeNull();
 	});
 });

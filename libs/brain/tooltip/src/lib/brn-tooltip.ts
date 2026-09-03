@@ -100,11 +100,6 @@ export class BrnTooltip {
 
 	constructor() {
 		afterNextRender(() => {
-			this._overlayRef = this._overlay.create({
-				direction: this._dir,
-				positionStrategy: this._buildPositionStrategy(),
-			});
-
 			this._dir.change.pipe(takeUntilDestroyed(this._destroyRef)).subscribe(() => {
 				if (this._overlayRef) {
 					this._updatePosition();
@@ -115,7 +110,6 @@ export class BrnTooltip {
 			});
 
 			runInInjectionContext(this._injector, () => {
-				if (!this._overlayRef) return;
 				this._setupDelayMechanism();
 				this._cleanupTriggerEvents();
 				this._initTriggers();
@@ -130,16 +124,11 @@ export class BrnTooltip {
 						this._applyContentProps(this._componentRef.instance, this._activePosition ?? this.position(), text);
 					}
 				});
+
+				// Registered eagerly (not in `_ensureOverlayRef`) so Escape can dismiss a tooltip that is
+				// still in its show delay, before the overlay/component even exists.
 				this._listenersRefs = [
 					...this._listenersRefs,
-					this._renderer.listen(this._overlayRef.hostElement, 'pointerenter', (event: PointerEvent) => {
-						if (this._isHoverPointer(event)) this._tooltipHovered = true;
-					}),
-					this._renderer.listen(this._overlayRef.hostElement, 'pointerleave', (event: PointerEvent) => {
-						if (!this._isHoverPointer(event)) return;
-						this._tooltipHovered = false;
-						this.delay(false, this.hideDelay());
-					}),
 					this._renderer.listen(this._document.defaultView, 'keydown', (event: KeyboardEvent) => {
 						if (event.key === 'Escape' && !hasModifierKey(event)) this._dismiss();
 					}),
@@ -153,6 +142,42 @@ export class BrnTooltip {
 			this._cleanupTriggerEvents();
 			this._overlayRef?.dispose();
 		});
+	}
+
+	/**
+	 * The `OverlayRef` (and its pane element in the CDK overlay container) is created lazily, on first
+	 * show, rather than eagerly for every `brnTooltip` instance. With hundreds/thousands of tooltips on a
+	 * page, most are never hovered/focused in a given session, so eagerly creating an overlay per
+	 * instance needlessly bloats the shared overlay container with empty panes. Deferring creation until
+	 * a tooltip is actually about to be shown keeps the container's DOM footprint proportional to the
+	 * tooltips a user actually triggers.
+	 *
+	 * Only listeners that require the overlay's host element (hover-tracking on the tooltip content
+	 * itself) belong here. Anything that must work before the overlay exists - e.g. Escape dismissing a
+	 * tooltip mid show-delay - is registered eagerly in the constructor instead.
+	 */
+	private _ensureOverlayRef(): OverlayRef {
+		if (this._overlayRef) return this._overlayRef;
+
+		const overlayRef = this._overlay.create({
+			direction: this._dir,
+			positionStrategy: this._buildPositionStrategy(),
+		});
+		this._overlayRef = overlayRef;
+
+		this._listenersRefs = [
+			...this._listenersRefs,
+			this._renderer.listen(overlayRef.hostElement, 'pointerenter', (event: PointerEvent) => {
+				if (this._isHoverPointer(event)) this._tooltipHovered = true;
+			}),
+			this._renderer.listen(overlayRef.hostElement, 'pointerleave', (event: PointerEvent) => {
+				if (!this._isHoverPointer(event)) return;
+				this._tooltipHovered = false;
+				this.delay(false, this.hideDelay());
+			}),
+		];
+
+		return overlayRef;
 	}
 
 	private _dismiss(): void {
@@ -306,6 +331,8 @@ export class BrnTooltip {
 			return;
 		}
 
+		const overlayRef = this._ensureOverlayRef();
+
 		// Recompute positions against the current viewport before attaching (see _getVisualViewportCompensation).
 		this._updatePosition();
 
@@ -329,7 +356,7 @@ export class BrnTooltip {
 		}
 
 		const tooltipPortal = new ComponentPortal(BrnTooltipContent);
-		this._componentRef = this._overlayRef?.attach(tooltipPortal);
+		this._componentRef = overlayRef.attach(tooltipPortal);
 		this._componentRef?.onDestroy(() => {
 			this._componentRef = undefined;
 		});
@@ -342,7 +369,7 @@ export class BrnTooltip {
 		// Subscribe to position changes for the lifetime of the tooltip so that
 		// arrow direction and CSS classes stay in sync when the CDK flips the
 		// overlay (initial show, viewport resize, scroll, etc.).
-		const strategy = this._overlayRef?.getConfig().positionStrategy as FlexibleConnectedPositionStrategy | undefined;
+		const strategy = overlayRef.getConfig().positionStrategy as FlexibleConnectedPositionStrategy | undefined;
 		if (strategy && this._componentRef) {
 			const compRef = this._componentRef;
 			this._positionChangeSub = strategy.positionChanges

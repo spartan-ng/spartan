@@ -1,3 +1,8 @@
+## <small>1.4.1 (2026-09-03)</small>
+
+- fix(tooltip): lazy load cdk overlay (#1725) ([e766c0d](https://github.com/spartan-ng/spartan/commit/e766c0d)), closes [#1725](https://github.com/spartan-ng/spartan/issues/1725)
+- docs: add new contributors to our 300 ([e8ec534](https://github.com/spartan-ng/spartan/commit/e8ec534))
+
 ## 1.4.0 (2026-09-02)
 
 - Merge pull request #1723 from spartan-ng/beta ([3103c91](https://github.com/spartan-ng/spartan/commit/3103c91)), closes [#1723](https://github.com/spartan-ng/spartan/issues/1723)

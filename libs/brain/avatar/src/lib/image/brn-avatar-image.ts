@@ -6,6 +6,9 @@ import { Directive, computed, signal } from '@angular/core';
 	host: {
 		'(load)': '_onLoad()',
 		'(error)': '_onError()',
+		'[style.position]': "'absolute'",
+		'[style.inset]': "'0'",
+		'[style.visibility]': "canShow() ? 'visible' : 'hidden'",
 	},
 })
 export class BrnAvatarImage {

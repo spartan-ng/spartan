@@ -34,6 +34,14 @@ describe('HlmAvatarImageDirective', () => {
 		);
 	});
 
+	it('should apply positioning and visibility via inline styles', () => {
+		fixture.detectChanges();
+		const img = fixture.nativeElement.querySelector('img');
+		expect(img.style.position).toBe('absolute');
+		expect(img.style.inset).toBe('0px');
+		expect(img.style.visibility).toBe('hidden');
+	});
+
 	it('should add any user defined classes', async () => {
 		component.userCls = 'test-class';
 		fixture.detectChanges();

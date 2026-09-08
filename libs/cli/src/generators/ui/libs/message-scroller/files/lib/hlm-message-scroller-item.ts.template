@@ -16,6 +16,6 @@ import { classes } from '<%- importAlias %>/utils';
 })
 export class HlmMessageScrollerItem {
 	constructor() {
-		classes(() => 'spartan-message-scroller-item');
+		classes(() => 'min-w-0 shrink-0 [contain-intrinsic-size:auto_10rem] [content-visibility:auto]');
 	}
 }

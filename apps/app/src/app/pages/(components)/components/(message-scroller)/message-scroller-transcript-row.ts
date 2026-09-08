@@ -51,6 +51,12 @@ export class MessageScrollerTranscriptRow {
 	protected readonly _bubbleVariant = computed(() => (this._isUser() ? this.userVariant() : this.assistantVariant()));
 
 	constructor() {
-		classes(() => ['spartan-message-scroller-item', 'block', this.animationClass()].filter((value) => Boolean(value)));
+		classes(() =>
+			[
+				'min-w-0 shrink-0 [contain-intrinsic-size:auto_10rem] [content-visibility:auto]',
+				'block',
+				this.animationClass(),
+			].filter((value) => Boolean(value)),
+		);
 	}
 }

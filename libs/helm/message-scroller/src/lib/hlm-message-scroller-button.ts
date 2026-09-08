@@ -31,7 +31,7 @@ export class HlmMessageScrollerButton {
 
 	constructor() {
 		this._button.setClass(
-			'spartan-message-scroller-button pointer-events-none absolute -translate-x-1/2 rtl:translate-x-1/2 data-[active=true]:pointer-events-auto',
+			'pointer-events-none absolute start-1/2 -translate-x-1/2 scale-95 opacity-0 transition-[translate,scale,opacity] duration-200 rtl:translate-x-1/2 data-[active=true]:pointer-events-auto border-border bg-background text-foreground hover:bg-muted hover:text-foreground data-[active=false]:duration-400 data-[active=false]:ease-[cubic-bezier(0.7,0,0.84,0)] data-[active=true]:translate-y-0 data-[active=true]:scale-100 data-[active=true]:opacity-100 data-[active=true]:ease-[cubic-bezier(0.23,1,0.32,1)] data-[direction=end]:bottom-4 data-[direction=end]:translate-y-full data-[direction=end]:data-[active=true]:translate-y-0 data-[direction=start]:top-4 data-[direction=start]:-translate-y-full data-[direction=start]:data-[active=true]:translate-y-0 data-[direction=start]:[&_ng-icon]:rotate-180 data-[direction=start]:[&_svg]:rotate-180',
 		);
 	}
 }

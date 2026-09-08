@@ -1,8 +1,23 @@
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { form, FormField, required } from '@angular/forms/signals';
 import { axe } from '@spartan-ng/brain/testing';
 import { render, screen } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
 import { BrnSwitch } from './brn-switch';
 import { BrnSwitchThumb } from './brn-switch-thumb';
+
+@Component({
+	selector: 'brn-switch-signal-form',
+	imports: [BrnSwitch, BrnSwitchThumb, FormField],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<brn-switch required aria-label="switch" [formField]="form.switch"><brn-switch-thumb /></brn-switch>
+	`,
+})
+class BrnSwitchSignalFormSpec {
+	private readonly _model = signal({ switch: false });
+	public readonly form = form(this._model, (schemaPath) => required(schemaPath.switch));
+}
 
 describe('BrnSwitchComponent', () => {
 	const setup = async () => {
@@ -138,6 +153,21 @@ describe('BrnSwitchComponent', () => {
 			await setup();
 			await validateSwitchOff();
 		});
+
+		it('exposes required and invalid state on the switch button', async () => {
+			const view = await render(BrnSwitchSignalFormSpec);
+			view.fixture.componentInstance.form.switch().markAsTouched();
+			view.detectChanges();
+
+			const switchElement = screen.getByRole('switch');
+			const hostElement = screen.getByLabelText('switch').closest('brn-switch');
+
+			expect(switchElement).toHaveAttribute('aria-required', 'true');
+			expect(switchElement).toHaveAttribute('aria-invalid', 'true');
+			expect(hostElement).not.toHaveAttribute('aria-required');
+			expect(hostElement).not.toHaveAttribute('aria-invalid');
+		});
+
 		it('mouse click on element toggles', async () => {
 			const { user, containerElement } = await setup();
 			await validateSwitchOff();

@@ -2,7 +2,7 @@
 
 We decided to migrate from Spartan Brain to Tanstack table.
 The Spartan Table was built when Tanstack Table was not available. While the Spartan Table Brain tried to mimic the style of Tanstack Table, it still lacks features of Tanstack Table.
-Addtionially shadcn ui, which also uses tanstack table under the hood, also uses Tanstack under the hood. So we decided to migrate to Tanstack Table.
+Additionally shadcn ui, which also uses tanstack table under the hood, also uses Tanstack under the hood. So we decided to migrate to Tanstack Table.
 
 This gives the user more Features and more similarity to shadcn ui.
 

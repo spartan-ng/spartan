@@ -176,7 +176,7 @@ describe('dialog--dynamic-component', () => {
 			cy.injectAxe();
 		});
 
-		it('click on button should open dyanmic component, click on close should close, click outside should close', () => {
+		it('click on button should open dynamic component, click on close should close, click outside should close', () => {
 			cy.findAllByText(/select user/i).click();
 			cy.findByRole('dialog');
 			cy.findByRole('dialog').should('have.attr', 'aria-labelledby', 'brn-dialog-title-1');
@@ -199,7 +199,7 @@ describe('dialog--dynamic-component', () => {
 			cy.findAllByText(/select user/i).should('have.focus');
 		});
 
-		it('click on teams button should open dyanmic component without close button', () => {
+		it('click on teams button should open dynamic component without close button', () => {
 			cy.findAllByText(/select team/i).click();
 			cy.findByRole('dialog');
 			cy.findAllByText('close').should('not.exist');

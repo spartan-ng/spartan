@@ -128,7 +128,7 @@ export class ThreeHundred {
 		'hitro11',
 		'GODrums',
 		'samsonkumawong',
-		'PR4SAN',
+		'suprasannaojha',
 		'JeevanMahesha',
 		'dlhck',
 		'tomer953',
@@ -196,6 +196,11 @@ export class ThreeHundred {
 		'skolldev',
 		'DanGM96',
 		'possibleo',
+		'dolanmiu',
+		'khocef',
+		'robmanganelly',
+		'PopePAF',
+		'gerardp',
 	];
 	protected readonly _contributorCountRoundedToNextMultipleOf10 = Math.ceil(this._contributors.length / 10) * 10;
 	protected readonly _countNeededToGetToNextMultipleOf10 =

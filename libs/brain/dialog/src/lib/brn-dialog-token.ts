@@ -12,7 +12,7 @@ export const defaultOptions: BrnDialogDefaultOptions = {
 	attachTo: null,
 	autoFocus: 'first-tabbable',
 	backdropClass: '',
-	closeOnOutsidePointerEvents: false,
+	closeOnOutsidePointerEvents: true,
 	disableClose: false,
 	hasBackdrop: true,
 	panelClass: '',

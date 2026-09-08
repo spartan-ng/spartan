@@ -124,7 +124,7 @@ Read the rule file before doing the related work:
 | Choice input           | `select`, `combobox`, `autocomplete`, `radio-group`, `checkbox`, `switch`, `slider`         |
 | Toggle 2-7 options     | `toggle-group`                                                                              |
 | Form layout/validation | `field`, `label`                                                                            |
-| Data display           | `table`, `card`, `badge`, `avatar`, `kbd`, `item`                                           |
+| Data display           | `chart`, `table`, `card`, `badge`, `avatar`, `kbd`, `item`                                  |
 | Navigation             | `sidebar`, `navigation-menu`, `breadcrumb`, `tabs`, `pagination`                            |
 | Overlays               | `dialog`, `sheet`, `alert-dialog`, `popover`, `hover-card`, `tooltip`                       |
 | Menus                  | `dropdown-menu`, `context-menu`, `menubar`, `command`                                       |

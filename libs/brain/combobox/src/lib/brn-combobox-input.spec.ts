@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
-import { render, screen } from '@testing-library/angular';
+import { fireEvent, render, screen } from '@testing-library/angular';
 import { BrnComboboxContent } from './brn-combobox-content';
 import { BrnComboboxInput } from './brn-combobox-input';
 import { BrnComboboxBaseToken } from './brn-combobox.token';
@@ -55,6 +55,33 @@ const renderInputInPopup = async (combobox: ReturnType<typeof comboboxStub>) =>
 			{ provide: BrnComboboxContent, useValue: {} },
 		],
 	});
+
+function keyboardComboboxStub(options: { expanded?: boolean } = {}) {
+	const value = signal<SimpleValue>(null);
+	const isExpanded = signal(options.expanded ?? false);
+	const selectActiveItem = vi.fn(() => {
+		if (isExpanded()) {
+			isExpanded.set(false);
+		}
+	});
+	return {
+		value,
+		search: signal(''),
+		isExpanded,
+		disabledState: signal(false),
+		itemToString: signal(undefined),
+		mode: signal('combobox'),
+		listId: signal<string | undefined>(undefined),
+		hasValue: computed(() => value() !== undefined && value() !== null && value() !== ''),
+		controlState: signal(null),
+		keyManager: { onKeydown: vi.fn() },
+		selectActiveItem,
+		close: vi.fn(() => isExpanded.set(false)),
+		open: vi.fn(() => isExpanded.set(true)),
+		resetValue: vi.fn(),
+		registerComboboxInput: vi.fn(),
+	};
+}
 
 describe('BrnComboboxInput', () => {
 	describe('value display', () => {
@@ -171,6 +198,31 @@ describe('BrnComboboxInput', () => {
 		it('does not set data-dirty even when the control is dirty', async () => {
 			await renderInputInPopup(comboboxStub(null, { dirty: true }));
 			expect(screen.getByLabelText('Test')).not.toHaveAttribute('data-dirty');
+		});
+	});
+
+	describe('keyboard selection', () => {
+		it('does not re-open the popover on the Enter that selects and closes an item', async () => {
+			const combobox = keyboardComboboxStub({ expanded: true });
+			await renderInputInPopup(combobox);
+			const input = screen.getByLabelText('Test');
+
+			fireEvent.keyDown(input, { key: 'Enter' });
+
+			expect(combobox.selectActiveItem).toHaveBeenCalledTimes(1);
+			expect(combobox.open).not.toHaveBeenCalled();
+			expect(combobox.isExpanded()).toBe(false);
+		});
+
+		it('opens a collapsed combobox on Enter', async () => {
+			const combobox = keyboardComboboxStub({ expanded: false });
+			await renderInputInPopup(combobox);
+			const input = screen.getByLabelText('Test');
+
+			fireEvent.keyDown(input, { key: 'Enter' });
+
+			expect(combobox.open).toHaveBeenCalledTimes(1);
+			expect(combobox.isExpanded()).toBe(true);
 		});
 	});
 });

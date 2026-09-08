@@ -1,0 +1,42 @@
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { BrnQuestionnaireProgress } from '@spartan-ng/brain/questionnaire';
+import { classes } from '<%- importAlias %>/utils';
+
+@Component({
+	// eslint-disable-next-line @angular-eslint/component-selector -- attribute selector matching brain API
+	selector: '[hlmQuestionnaireProgress]',
+	exportAs: 'hlmQuestionnaireProgress',
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	hostDirectives: [{ directive: BrnQuestionnaireProgress, inputs: ['aria-label', 'valueText'] }],
+	host: {
+		'data-slot': 'questionnaire-progress',
+	},
+	template: `
+		<ng-content>
+			{{ _progress.label() }}
+		</ng-content>
+	`,
+})
+export class HlmQuestionnaireProgress {
+	protected readonly _progress = inject(BrnQuestionnaireProgress);
+
+	/** The current step index (1-based within the active collection). */
+	public readonly current = this._progress.current;
+	/** The total number of enabled steps. */
+	public readonly total = this._progress.total;
+	/** Whether the current step is the first one. */
+	public readonly first = this._progress.first;
+	/** Whether the current step is the last one. */
+	public readonly last = this._progress.last;
+	/** The computed progression label, e.g. "Question 2 of 5". */
+	public readonly label = this._progress.label;
+
+	/** Boolean flags marking which segments of the progress bar are filled. */
+	public readonly segments = this._progress.segments;
+
+	constructor() {
+		classes(
+			() => 'spartan-questionnaire-progress text-muted-foreground min-h-lh w-fit min-w-[14ch] font-medium tabular-nums',
+		);
+	}
+}

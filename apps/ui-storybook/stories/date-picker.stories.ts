@@ -82,6 +82,26 @@ export const Input: Story = {
 	}),
 };
 
+/**
+ * Preseeds the picker with a month-end date (the 31st of August) and dropdown captions.
+ * Navigating to a shorter month (e.g. November) from this date used to roll the focused
+ * month forward to December because the 31st does not exist in the target month.
+ * See https://github.com/spartan-ng/spartan/issues/1720
+ */
+export const PreselectedEndOfMonth: Story = {
+	args: { captionLayout: 'dropdown' },
+	render: (args) => ({
+		props: { ...args, date: new Date(2024, 7, 31) },
+		template: `
+		<div class="preview flex min-h-[350px] w-full justify-center p-10 items-center">
+			<hlm-date-picker [minDate]="minDate" [maxDate]="maxDate" [captionLayout]="captionLayout" [date]="date">
+                <hlm-date-picker-trigger buttonId="date">Pick a date</hlm-date-picker-trigger>
+            </hlm-date-picker>
+		</div>
+		`,
+	}),
+};
+
 export const WithHintAndError: Story = {
 	render: (args) => ({
 		props: {

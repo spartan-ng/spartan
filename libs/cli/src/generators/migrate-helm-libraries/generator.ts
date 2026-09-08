@@ -152,7 +152,7 @@ async function removeExistingLibraries(
 			importPath = `@spartan-ng/helm/${library}`;
 		} else if (`@spartan-ng/ui-${library}-helm` in tsconfigPaths) {
 			importPath = `@spartan-ng/ui-${library}-helm`;
-		} // there is also a case where the library previous was added without hypens e.g. ui-aspectratio-helm
+		} // there is also a case where the library previous was added without hyphens e.g. ui-aspectratio-helm
 		else if (`@spartan-ng/ui-${compatLibrary}-helm` in tsconfigPaths) {
 			importPath = `@spartan-ng/ui-${compatLibrary}-helm`;
 		}

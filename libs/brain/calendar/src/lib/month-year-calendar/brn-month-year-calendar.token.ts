@@ -23,7 +23,7 @@ export interface BrnMonthYearCalendarBase<T> {
 	/** The current view of the month/year selector. */
 	view: WritableSignal<BrnMonthYearCalendarView>;
 	/** The currently focused date. */
-	focusedDate: WritableSignal<T>;
+	focusedDate: Signal<T>;
 	/** Whether the month/year selector is disabled. */
 	disabled: Signal<boolean>;
 	/** The header directive, used to label the grid. */

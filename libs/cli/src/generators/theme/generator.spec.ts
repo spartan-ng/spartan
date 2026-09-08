@@ -74,6 +74,8 @@ describe('Theme generator', () => {
 		await addThemeToApplicationStyles(tree, { theme: 'neutral', project: 'website' }, project);
 		const styles = tree.read('website/src/styles.css', 'utf8');
 		expect(styles).toMatchSnapshot();
+		expect(styles).toContain('--chart-1: oklch(0.646 0.222 41.116)');
+		expect(styles).toContain('--chart-5: oklch(0.645 0.246 16.439)');
 	});
 
 	it('should add the zinc theme styles to the global stylesheet', async () => {

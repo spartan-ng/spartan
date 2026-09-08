@@ -29,7 +29,7 @@ const meta: Meta<HlmAlert> = {
       <ng-icon name='lucideInfo' />
       <h4 hlmAlertTitle>Introducing SPARTAN helm & brain</h4>
       <p hlmAlertDescription>
-        The components used on this page are also the intial building blocks of a new UI library. It is made up of
+        The components used on this page are also the initial building blocks of a new UI library. It is made up of
         headless UI providers, the brain components/directives, which add ARIA compliant markup and interactions. On top
         of the brain we add helm(et) directives, which add shadcn-like styles to
         our application.

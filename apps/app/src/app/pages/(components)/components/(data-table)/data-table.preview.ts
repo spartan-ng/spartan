@@ -4,23 +4,29 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronDown } from '@ng-icons/lucide';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
-
 import { HlmInputImports } from '@spartan-ng/helm/input';
 import { HlmTableImports } from '@spartan-ng/helm/table';
 import { hlmMuted } from '@spartan-ng/helm/typography';
 import {
-	type ColumnDef,
+	columnFilteringFeature,
 	type ColumnFiltersState,
-	createAngularTable,
-	flexRenderComponent,
-	FlexRenderDirective,
-	getCoreRowModel,
-	getFilteredRowModel,
-	getPaginationRowModel,
-	getSortedRowModel,
+	columnVisibilityFeature,
+	type ColumnVisibilityState,
+	createColumnHelper,
+	createFilteredRowModel,
+	createPaginatedRowModel,
+	createSortedRowModel,
+	filterFn_includesString,
+	FlexRender,
+	injectTable,
+	rowPaginationFeature,
+	rowSelectionFeature,
 	type RowSelectionState,
+	rowSortingFeature,
+	sortFn_alphanumeric,
+	sortFn_text,
 	type SortingState,
-	type VisibilityState,
+	tableFeatures,
 } from '@tanstack/angular-table';
 import { ActionDropdown } from './action-dropdown';
 import { TableHeadSelection, TableRowSelection } from './selection-column';
@@ -33,10 +39,64 @@ export type Payment = {
 	email: string;
 };
 
+const features = tableFeatures({
+	columnFilteringFeature,
+	columnVisibilityFeature,
+	rowPaginationFeature,
+	rowSelectionFeature,
+	rowSortingFeature,
+	filteredRowModel: createFilteredRowModel(),
+	paginatedRowModel: createPaginatedRowModel(),
+	sortedRowModel: createSortedRowModel(),
+	filterFns: { includesString: filterFn_includesString },
+	sortFns: { alphanumeric: sortFn_alphanumeric, text: sortFn_text },
+});
+
+export type DataTableFeatures = typeof features;
+
+const columnHelper = createColumnHelper<DataTableFeatures, Payment>();
+
+const columns = columnHelper.columns([
+	columnHelper.display({
+		id: 'select',
+		header: () => TableHeadSelection,
+		cell: () => TableRowSelection,
+		enableHiding: false,
+	}),
+	columnHelper.accessor('status', {
+		id: 'status',
+		header: 'Status',
+		cell: (info) => `<span class="capitalize">${info.getValue<string>()}</span>`,
+	}),
+	columnHelper.accessor('email', {
+		id: 'email',
+		header: () => TableHeadSortButton,
+		cell: (info) => `<div class="lowercase">${info.getValue<string>()}</div>`,
+	}),
+	columnHelper.accessor('amount', {
+		id: 'amount',
+		header: '<div class="text-right">Amount</div>',
+		cell: (info) => {
+			const amount = parseFloat(info.getValue<string>());
+			const formatted = new Intl.NumberFormat('en-US', {
+				style: 'currency',
+				currency: 'USD',
+			}).format(amount);
+
+			return `<div class="text-right font-medium">${formatted}</div>`;
+		},
+	}),
+	columnHelper.display({
+		id: 'actions',
+		cell: () => ActionDropdown,
+		enableHiding: false,
+	}),
+]);
+
 @Component({
 	selector: 'spartan-data-table-preview',
 	imports: [
-		FlexRenderDirective,
+		FlexRender,
 		FormsModule,
 		HlmDropdownMenuImports,
 		HlmButtonImports,
@@ -74,47 +134,44 @@ export type Payment = {
 			</ng-template>
 		</div>
 		<div class="overflow-hidden rounded-md border">
-			<!-- we defer the loading of the table, because tanstack manipulates the DOM with flexRender which can cause errors during SSR -->
-			@defer {
-				<div hlmTableContainer>
-					<table hlmTable>
-						<thead hlmTHead>
-							@for (headerGroup of _table.getHeaderGroups(); track headerGroup.id) {
-								<tr hlmTr>
-									@for (header of headerGroup.headers; track header.id) {
-										<th hlmTh [attr.colSpan]="header.colSpan">
-											@if (!header.isPlaceholder) {
-												<ng-container
-													*flexRender="header.column.columnDef.header; props: header.getContext(); let headerText"
-												>
-													<div [innerHTML]="headerText"></div>
-												</ng-container>
-											}
-										</th>
-									}
-								</tr>
-							}
-						</thead>
-						<tbody hlmTBody>
-							@for (row of _table.getRowModel().rows; track row.id) {
-								<tr hlmTr [attr.key]="row.id" [attr.data-state]="row.getIsSelected() && 'selected'">
-									@for (cell of row.getVisibleCells(); track $index) {
-										<td hlmTd>
-											<ng-container *flexRender="cell.column.columnDef.cell; props: cell.getContext(); let cell">
-												<div [innerHTML]="cell"></div>
+			<div hlmTableContainer>
+				<table hlmTable>
+					<thead hlmTHead>
+						@for (headerGroup of _table.getHeaderGroups(); track headerGroup.id) {
+							<tr hlmTr>
+								@for (header of headerGroup.headers; track header.id) {
+									<th hlmTh [attr.colSpan]="header.colSpan">
+										@if (!header.isPlaceholder) {
+											<ng-container
+												*flexRender="header.column.columnDef.header; props: header.getContext(); let headerText"
+											>
+												<div [innerHTML]="headerText"></div>
 											</ng-container>
-										</td>
-									}
-								</tr>
-							} @empty {
-								<tr hlmTr>
-									<td hlmTd class="h-24 text-center" [attr.colspan]="_columns.length">No results.</td>
-								</tr>
-							}
-						</tbody>
-					</table>
-				</div>
-			}
+										}
+									</th>
+								}
+							</tr>
+						}
+					</thead>
+					<tbody hlmTBody>
+						@for (row of _table.getRowModel().rows; track row.id) {
+							<tr hlmTr [attr.key]="row.id" [attr.data-state]="row.getIsSelected() && 'selected'">
+								@for (cell of row.getVisibleCells(); track $index) {
+									<td hlmTd>
+										<ng-container *flexRender="cell.column.columnDef.cell; props: cell.getContext(); let cell">
+											<div [innerHTML]="cell"></div>
+										</ng-container>
+									</td>
+								}
+							</tr>
+						} @empty {
+							<tr hlmTr>
+								<td hlmTd class="h-24 text-center" [attr.colspan]="_columns.length">No results.</td>
+							</tr>
+						}
+					</tbody>
+				</table>
+			</div>
 		</div>
 
 		<div class="flex flex-col justify-between py-4 sm:flex-row sm:items-center">
@@ -145,71 +202,23 @@ export type Payment = {
 	`,
 })
 export class DataTablePreview {
-	protected _filterChanged(event: Event) {
-		this._table.getColumn('email')?.setFilterValue((event.target as HTMLInputElement).value);
-	}
-
-	protected readonly _columns: ColumnDef<Payment>[] = [
-		{
-			id: 'select',
-			header: () => flexRenderComponent(TableHeadSelection, { inputs: {} }),
-			cell: () => flexRenderComponent(TableRowSelection, { inputs: {} }),
-			enableSorting: false,
-			enableHiding: false,
-		},
-		{
-			accessorKey: 'status',
-			id: 'status',
-			header: 'Status',
-			enableSorting: false,
-			cell: (info) => `<span class="capitalize">${info.getValue<string>()}</span>`,
-		},
-		{
-			accessorKey: 'email',
-			id: 'email',
-			header: () => flexRenderComponent(TableHeadSortButton, { inputs: { header: '' } }),
-			cell: (info) => `<div class="lowercase">${info.getValue<string>()}</div>`,
-		},
-		{
-			accessorKey: 'amount',
-			id: 'amount',
-			header: '<div class="text-right">Amount</div>',
-			enableSorting: false,
-			cell: (info) => {
-				const amount = parseFloat(info.getValue<string>());
-				const formatted = new Intl.NumberFormat('en-US', {
-					style: 'currency',
-					currency: 'USD',
-				}).format(amount);
-
-				return `<div class="text-right">${formatted}</div>`;
-			},
-		},
-		{
-			id: 'actions',
-			enableHiding: false,
-			cell: () => flexRenderComponent(ActionDropdown, { inputs: {} }),
-		},
-	];
+	protected readonly _columns = columns;
 
 	private readonly _columnFilters = signal<ColumnFiltersState>([]);
 	private readonly _sorting = signal<SortingState>([]);
 	private readonly _rowSelection = signal<RowSelectionState>({});
-	private readonly _columnVisibility = signal<VisibilityState>({});
+	private readonly _columnVisibility = signal<ColumnVisibilityState>({});
 
-	protected readonly _table = createAngularTable<Payment>(() => ({
+	protected readonly _table = injectTable(() => ({
+		features,
+		columns,
 		data: PAYMENT_DATA,
-		columns: this._columns,
 		onSortingChange: (updater) => {
 			updater instanceof Function ? this._sorting.update(updater) : this._sorting.set(updater);
 		},
 		onColumnFiltersChange: (updater) => {
 			updater instanceof Function ? this._columnFilters.update(updater) : this._columnFilters.set(updater);
 		},
-		getCoreRowModel: getCoreRowModel(),
-		getPaginationRowModel: getPaginationRowModel(),
-		getSortedRowModel: getSortedRowModel(),
-		getFilteredRowModel: getFilteredRowModel(),
 		onColumnVisibilityChange: (updater) => {
 			updater instanceof Function ? this._columnVisibility.update(updater) : this._columnVisibility.set(updater);
 		},
@@ -225,10 +234,8 @@ export class DataTablePreview {
 	}));
 	protected readonly _hidableColumns = this._table.getAllColumns().filter((column) => column.getCanHide());
 
-	protected _filterChange(email: Event) {
-		const target = email.target as HTMLInputElement;
-		const typedValue = target.value;
-		this._table.setGlobalFilter(typedValue);
+	protected _filterChanged(event: Event) {
+		this._table.getColumn('email')?.setFilterValue((event.target as HTMLInputElement).value);
 	}
 }
 

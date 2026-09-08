@@ -73,8 +73,10 @@ export class BrnDialogRef<DialogResult = unknown> {
 
 	public dismiss(reason: BrnDialogDismissReason): boolean {
 		const options = this.initialOptions;
+		const isOutsideInteraction = reason === 'outside' || reason === 'backdrop';
+		const outsideCloseAllowed = options.closeOnOutsidePointerEvents;
 		if (!this.open || options.disableClose) return false;
-		if (reason === 'outside' && !options.closeOnOutsidePointerEvents) return false;
+		if (isOutsideInteraction && !outsideCloseAllowed) return false;
 
 		this.close();
 		return true;

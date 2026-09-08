@@ -104,6 +104,9 @@ export class BrnComboboxInput<T> {
 
 	/** Listen for keydown events */
 	protected onKeyDown(event: KeyboardEvent): void {
+		// Snapshot the expansion state before handling selection to avoid re-opening the popover if it is closed on select
+		const wasExpanded = this._isExpanded();
+
 		if (event.key === 'Enter') {
 			// prevent form submission if inside a form
 			event.preventDefault();
@@ -111,7 +114,7 @@ export class BrnComboboxInput<T> {
 			this._combobox.selectActiveItem();
 		}
 
-		if (this._isExpanded()) {
+		if (wasExpanded) {
 			if (event.key === 'Tab') {
 				// In popup mode the input lives inside a CDK overlay which is appended to <body>.
 				// Without preventDefault the browser has nowhere to Tab to inside the overlay and

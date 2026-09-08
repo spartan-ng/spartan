@@ -66,7 +66,7 @@ export default defineConfig(({ command, mode }) => {
 		plugins: [
 			tsconfigPaths(),
 			{
-				name: 'custom-url-and-date-replacer', // replaced @rollup/plugin-replace given compatability issues with latest vite
+				name: 'custom-url-and-date-replacer', // replaced @rollup/plugin-replace given compatibility issues with latest vite
 				transform(code, id) {
 					try {
 						if (id.endsWith('.js') || id.endsWith('.html')) {

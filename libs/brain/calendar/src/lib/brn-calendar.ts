@@ -12,6 +12,7 @@ import {
 	linkedSignal,
 	model,
 	numberAttribute,
+	output,
 } from '@angular/core';
 import { injectDateAdapter } from '@spartan-ng/brain/date-time';
 import { BrnCalendarCellButton } from './brn-calendar-cell-button';
@@ -77,6 +78,14 @@ export class BrnCalendar<T> implements BrnCalendarBase<T> {
 	public readonly focusedDate = linkedSignal(() =>
 		this.constrainDate(this.defaultFocusedDate() ?? this.date() ?? this._dateAdapter.now()),
 	);
+
+	/** Emits whenever the focused date changes. */
+	public readonly focusedDateChange = output<T>();
+
+	private _setFocusedDate(date: T): void {
+		this.focusedDate.set(date);
+		this.focusedDateChange.emit(date);
+	}
 
 	/**
 	 * Get all the days to display, this is the days of the current month
@@ -181,7 +190,7 @@ export class BrnCalendar<T> implements BrnCalendarBase<T> {
 		} else {
 			this.date.set(date);
 		}
-		this.focusedDate.set(date);
+		this._setFocusedDate(date);
 	}
 
 	/** @internal Set the focused date */
@@ -191,7 +200,7 @@ export class BrnCalendar<T> implements BrnCalendarBase<T> {
 			return;
 		}
 
-		this.focusedDate.set(date);
+		this._setFocusedDate(date);
 		// wait until the cells have all updated
 
 		afterNextRender(

@@ -72,7 +72,7 @@ describe('tabs--vertical', () => {
 			cy.findByRole('tabpanel').should('have.attr', 'tabindex', '0');
 			cy.findByRole('heading', { name: /delete account/i }).should('exist');
 
-			// should wrap arround
+			// should wrap around
 			cy.realPress('ArrowDown');
 			cy.findByRole('tabpanel').should('have.attr', 'aria-labelledby', 'brn-tabs-label-account');
 			cy.findByRole('tabpanel').should('have.attr', 'tabindex', '0');

@@ -53,7 +53,7 @@ describe('BrnAvatarImageDirective', () => {
 		expect(bad.querySelector('span').textContent).toEqual('false');
 	});
 
-	it('should return false when image has a valid src but isnt loaded', async () => {
+	it("should return false when image has a valid src but isn't loaded", async () => {
 		fixture.detectChanges();
 		await fixture.whenRenderingDone();
 		const unloaded = fixture.nativeElement.querySelector('#unloaded');

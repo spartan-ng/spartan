@@ -10,6 +10,7 @@ interface UpdateContributorsSchema {
 // under their current handle. Compared lowercased.
 const IGNORED_USERNAMES = new Set<string>([
 	'matznristo', // renamed to m-risto
+	'pr4san', // renamed to suprasannaojha
 	// bot accounts — not real contributors
 	'copilot',
 	'semantic-release-bot',

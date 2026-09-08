@@ -19,6 +19,19 @@ class BrnSwitchSignalFormSpec {
 	public readonly form = form(this._model, (schemaPath) => required(schemaPath.switch));
 }
 
+@Component({
+	selector: 'brn-switch-static-required-signal-form',
+	imports: [BrnSwitch, BrnSwitchThumb, FormField],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<brn-switch required aria-label="switch" [formField]="form.switch"><brn-switch-thumb /></brn-switch>
+	`,
+})
+class BrnSwitchStaticRequiredSignalFormSpec {
+	private readonly _model = signal({ switch: false });
+	public readonly form = form(this._model);
+}
+
 describe('BrnSwitchComponent', () => {
 	const setup = async () => {
 		const container = await render(
@@ -166,6 +179,12 @@ describe('BrnSwitchComponent', () => {
 			expect(switchElement).toHaveAttribute('aria-invalid', 'true');
 			expect(hostElement).not.toHaveAttribute('aria-required');
 			expect(hostElement).not.toHaveAttribute('aria-invalid');
+		});
+
+		it('preserves static required when the form field has no required validator', async () => {
+			await render(BrnSwitchStaticRequiredSignalFormSpec);
+
+			expect(screen.getByRole('switch')).toHaveAttribute('aria-required', 'true');
 		});
 
 		it('mouse click on element toggles', async () => {

@@ -18,6 +18,19 @@ class BrnCheckboxSignalFormSpec {
 	public readonly form = form(this._model, (schemaPath) => required(schemaPath.checkbox));
 }
 
+@Component({
+	selector: 'brn-checkbox-static-required-signal-form',
+	imports: [BrnCheckbox, FormField],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<brn-checkbox required aria-label="checkbox" [formField]="form.checkbox" />
+	`,
+})
+class BrnCheckboxStaticRequiredSignalFormSpec {
+	private readonly _model = signal({ checkbox: false });
+	public readonly form = form(this._model);
+}
+
 describe('BrnCheckboxComponent', () => {
 	const setup = async () => {
 		const container = await render(
@@ -200,6 +213,12 @@ describe('BrnCheckboxComponent', () => {
 			expect(checkboxElement).toHaveAttribute('aria-invalid', 'true');
 			expect(hostElement).not.toHaveAttribute('aria-required');
 			expect(hostElement).not.toHaveAttribute('aria-invalid');
+		});
+
+		it('preserves static required when the form field has no required validator', async () => {
+			await render(BrnCheckboxStaticRequiredSignalFormSpec);
+
+			expect(screen.getByRole('checkbox')).toHaveAttribute('aria-required', 'true');
 		});
 
 		it('mouse click on element toggles', async () => {

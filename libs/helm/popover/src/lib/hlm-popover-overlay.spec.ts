@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { BrnPopover } from '@spartan-ng/brain/popover';
 import { fireEvent, render, screen, waitFor } from '@testing-library/angular';
-import { HlmTooltip } from '../../../tooltip/src/lib/hlm-tooltip';
+import { HlmTooltip } from '@spartan-ng/helm/tooltip';
 import { HlmPopover } from './hlm-popover';
 import { HlmPopoverContent } from './hlm-popover-content';
 import { HlmPopoverPortal } from './hlm-popover-portal';

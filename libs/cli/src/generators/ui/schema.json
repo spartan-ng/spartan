@@ -20,6 +20,16 @@
 		"tags": {
 			"type": "string",
 			"description": "Add tags to the library (used for linting)."
+		},
+		"overwrite": {
+			"type": "boolean",
+			"description": "Overwrite existing generated files.",
+			"default": false
+		},
+		"dryRun": {
+			"type": "boolean",
+			"description": "Preview registry installation without writing files.",
+			"default": false
 		}
 	}
 }

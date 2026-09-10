@@ -1,0 +1,18 @@
+allowBuilds:
+  '@parcel/watcher': true
+  '@swc/core': true
+  '@tailwindcss/oxide': true
+  cypress: true
+  esbuild: true
+  less: true
+  lmdb: true
+  msgpackr-extract: true
+  msw: true
+  nx: true
+  unrs-resolver: true
+  core-js: true
+  sharp: true
+
+overrides:
+  form-data: '>=4.0.5'
+  handlebars: '>=4.7.9'

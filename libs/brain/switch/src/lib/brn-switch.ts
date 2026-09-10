@@ -53,7 +53,6 @@ let uniqueIdCounter = 0;
 		'[attr.aria-labelledby]': 'null',
 		'[attr.aria-label]': 'null',
 		'[attr.aria-describedby]': 'null',
-		'[attr.aria-invalid]': '_invalid?.() ? "true" : null',
 		'[attr.data-dirty]': '_dirty?.() ? "true": null',
 		'[attr.data-touched]': '_touched?.() ? "true" : null',
 		'[attr.data-matches-spartan-invalid]': '_spartanInvalid?.() ? "true" : null',
@@ -73,6 +72,7 @@ let uniqueIdCounter = 0;
 			[name]="getSwitchButtonId(_state().name) ?? ''"
 			[value]="checked() ? 'on' : 'off'"
 			[attr.aria-checked]="checked()"
+			[attr.aria-required]="required() ? 'true' : null"
 			[attr.aria-label]="ariaLabel() || null"
 			[attr.aria-labelledby]="mutableAriaLabelledby() || null"
 			[attr.aria-describedby]="ariaDescribedby() || null"
@@ -167,7 +167,12 @@ export class BrnSwitch implements AfterContentInit, OnDestroy, ControlValueAcces
 	/**
 	 * Whether switch is required in a form.
 	 */
-	public readonly required = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
+	public readonly requiredInput = input<boolean, BooleanInput>(false, {
+		alias: 'required',
+		transform: booleanAttribute,
+	});
+	private readonly _hostRequired = this._elementRef.nativeElement.hasAttribute('required');
+	public readonly required = computed(() => this._hostRequired || this.requiredInput());
 
 	/**
 	 * Whether switch is disabled.

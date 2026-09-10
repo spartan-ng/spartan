@@ -88,7 +88,7 @@ let uniqueIdCounter = 0;
 			[tabIndex]="tabIndex()"
 			(click)="$event.preventDefault(); toggle()"
 		>
-			<ng-content select="brn-switch-thumb" />
+			<ng-content select="[brnSwitchThumb],brn-switch-thumb" />
 		</button>
 	`,
 })

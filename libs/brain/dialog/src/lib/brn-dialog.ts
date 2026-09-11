@@ -130,6 +130,8 @@ export class BrnDialog<TResult = unknown, TContext extends Record<string, unknow
 		this._destroyRef.onDestroy(() => this._dialogRef()?.forceClose());
 		this._syncPanelClass();
 		this._syncOverlayClass();
+		this._syncDisableClose();
+		this._syncCloseOnOutsidePointerEvents();
 
 		afterNextRender(() => {
 			effect(
@@ -240,6 +242,36 @@ export class BrnDialog<TResult = unknown, TContext extends Record<string, unknow
 
 				const overlayClass = this._resolvedBackdropClass();
 				untracked(() => dialogRef.setOverlayClass(overlayClass));
+			},
+			{ injector: this._injector },
+		);
+	}
+
+	/**
+	 * `disableClose` is forwarded to the open ref so a change made while the dialog is open
+	 * (e.g. `[disableClose]="form.dirty()"`) is honoured by Escape/backdrop/outside dismissal.
+	 */
+	private _syncDisableClose(): void {
+		effect(
+			() => {
+				const dialogRef = this._dialogRef();
+				if (!dialogRef) return;
+
+				const disableClose = this.disableClose();
+				untracked(() => dialogRef.setDisableClose(disableClose));
+			},
+			{ injector: this._injector },
+		);
+	}
+
+	private _syncCloseOnOutsidePointerEvents(): void {
+		effect(
+			() => {
+				const dialogRef = this._dialogRef();
+				if (!dialogRef) return;
+
+				const closeOnOutsidePointerEvents = this.closeOnOutsidePointerEvents();
+				untracked(() => dialogRef.setCloseOnOutsidePointerEvents(closeOnOutsidePointerEvents));
 			},
 			{ injector: this._injector },
 		);

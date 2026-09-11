@@ -23,6 +23,10 @@ export class BrnDialogRef<DialogResult = unknown> {
 	private _closeGeneration = 0;
 	private _panelClasses: string[];
 	private _backdropClasses: string[];
+	// Dismissal options are read at dismiss time, not at open time, so a change made while the
+	// dialog is open (e.g. an unsaved-changes guard flipping `disableClose`) takes effect.
+	private _disableClose: boolean;
+	private _closeOnOutsidePointerEvents: boolean;
 
 	public get open(): boolean {
 		return this._phase() === 'open';
@@ -40,6 +44,8 @@ export class BrnDialogRef<DialogResult = unknown> {
 	) {
 		this._panelClasses = cssClassesToArray(initialOptions.panelClass);
 		this._backdropClasses = cssClassesToArray(initialOptions.backdropClass);
+		this._disableClose = initialOptions.disableClose;
+		this._closeOnOutsidePointerEvents = initialOptions.closeOnOutsidePointerEvents;
 		this._setDataState('open');
 		this._stateChanged.next('open');
 
@@ -72,11 +78,9 @@ export class BrnDialogRef<DialogResult = unknown> {
 	}
 
 	public dismiss(reason: BrnDialogDismissReason): boolean {
-		const options = this.initialOptions;
 		const isOutsideInteraction = reason === 'outside' || reason === 'backdrop';
-		const outsideCloseAllowed = options.closeOnOutsidePointerEvents;
-		if (!this.open || options.disableClose) return false;
-		if (isOutsideInteraction && !outsideCloseAllowed) return false;
+		if (!this.open || this._disableClose) return false;
+		if (isOutsideInteraction && !this._closeOnOutsidePointerEvents) return false;
 
 		this.close();
 		return true;
@@ -97,6 +101,14 @@ export class BrnDialogRef<DialogResult = unknown> {
 		this._closeGeneration++;
 		this._phase.set('closed');
 		this._cdkDialogRef.close(result);
+	}
+
+	public setDisableClose(disableClose: boolean): void {
+		this._disableClose = disableClose;
+	}
+
+	public setCloseOnOutsidePointerEvents(closeOnOutsidePointerEvents: boolean): void {
+		this._closeOnOutsidePointerEvents = closeOnOutsidePointerEvents;
 	}
 
 	public setPanelClass(panelClass: string | string[] | null | undefined): void {

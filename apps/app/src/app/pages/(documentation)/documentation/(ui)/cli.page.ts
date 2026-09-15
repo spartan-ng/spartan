@@ -65,9 +65,13 @@ export const routeMeta: RouteMeta = {
 			<spartan-cli-tabs class="mt-4" nxCode="npx nx g @spartan-ng/cli:ui" ngCode="ng g @spartan-ng/cli:ui" />
 
 			<p class="${hlmP}">
-				You'll be prompted to select components to add - choose individual components or all of them. The CLI takes care
-				of the rest.
+				You'll be prompted to select components to add - choose individual components or all of them. To add every
+				component non-interactively, pass
+				<code class="${hlmCode}">all</code>
+				:
 			</p>
+
+			<spartan-cli-tabs class="mt-4" nxCode="npx nx g @spartan-ng/cli:ui all" ngCode="ng g @spartan-ng/cli:ui all" />
 
 			<spartan-section-sub-heading id="inspect-project">Inspect Your Project</spartan-section-sub-heading>
 			<p class="${hlmP}">

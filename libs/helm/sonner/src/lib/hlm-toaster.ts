@@ -3,12 +3,13 @@ import { ChangeDetectionStrategy, Component, booleanAttribute, computed, input, 
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCircleCheck, lucideInfo, lucideLoader2, lucideOctagonX, lucideTriangleAlert } from '@ng-icons/lucide';
 import { BrnSonnerImports, type ToasterProps } from '@spartan-ng/brain/sonner';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'hlm-toaster',
-	imports: [BrnSonnerImports, NgIcon],
+	imports: [BrnSonnerImports, HlmButtonImports, NgIcon],
 	providers: [provideIcons({ lucideCircleCheck, lucideInfo, lucideTriangleAlert, lucideOctagonX, lucideLoader2 })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
@@ -42,6 +43,25 @@ import type { ClassValue } from 'clsx';
 			<ng-template #warningIcon>
 				<ng-icon name="lucideTriangleAlert" class="overflow-visible! text-base" />
 			</ng-template>
+			<button
+				*brnToastAction="let action; let toast = toast"
+				[style]="toast.actionButtonStyle"
+				hlmBtn
+				size="sm"
+				(click)="action.onClick($event)"
+			>
+				{{ action.label }}
+			</button>
+			<button
+				*brnToastCancelAction="let cancel; let toast = toast"
+				[style]="toast.cancelButtonStyle"
+				hlmBtn
+				size="sm"
+				variant="secondary"
+				(click)="cancel.onClick($event)"
+			>
+				{{ cancel.label }}
+			</button>
 		</brn-sonner-toaster>
 	`,
 })

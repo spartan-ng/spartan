@@ -1,4 +1,4 @@
-import { NgComponentOutlet } from '@angular/common';
+import { NgComponentOutlet, NgTemplateOutlet } from '@angular/common';
 import {
 	afterRenderEffect,
 	type AfterViewInit,
@@ -15,14 +15,16 @@ import {
 } from '@angular/core';
 import clsx from 'clsx';
 import { defaultClasses, injectBrnSonnerToasterConfig } from './brn-toaster.token';
+import { BrnToastAction } from './directives/brn-toast-action';
+import { BrnToastCancelAction } from './directives/brn-toast-cancel-action';
 import { AsComponentPipe } from './pipes/as-component.pipe';
 import { IsStringPipe } from './pipes/is-string.pipe';
 import { toastState } from './state';
-import type { ToastProps } from './types';
+import type { ToastAction, ToastProps, ToastT } from './types';
 
 @Component({
 	selector: 'brn-sonner-toast',
-	imports: [NgComponentOutlet, IsStringPipe, AsComponentPipe],
+	imports: [NgComponentOutlet, IsStringPipe, AsComponentPipe, NgTemplateOutlet],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<li
@@ -127,25 +129,40 @@ import type { ToastProps } from './types';
 					}
 				</div>
 				@if (toast().cancel; as cancel) {
-					<button
-						data-button
-						data-cancel
-						[style]="cancelButtonStyle() ?? toast().cancelButtonStyle"
-						[class]="_cancelButtonClasses()"
-						(click)="onCancelClick()"
-					>
-						{{ cancel.label }}
-					</button>
+					@if (cancelActionTemplate(); as cancelAction) {
+						<ng-container
+							*ngTemplateOutlet="
+								cancelAction.templateRef;
+								context: { $implicit: _wrappedCancelAction(), toast: toast() }
+							"
+						/>
+					} @else {
+						<button
+							data-button
+							data-cancel
+							[style]="cancelButtonStyle() ?? toast().cancelButtonStyle"
+							[class]="_cancelButtonClasses()"
+							(click)="onCancelClick($event)"
+						>
+							{{ cancel.label }}
+						</button>
+					}
 				}
 				@if (toast().action; as action) {
-					<button
-						data-button
-						[style]="actionButtonStyle() ?? toast().actionButtonStyle"
-						[class]="_actionButtonClasses()"
-						(click)="onActionClick($event)"
-					>
-						{{ action.label }}
-					</button>
+					@if (actionTemplate(); as actionTemplate) {
+						<ng-container
+							*ngTemplateOutlet="actionTemplate.templateRef; context: { $implicit: _wrappedAction(), toast: toast() }"
+						/>
+					} @else {
+						<button
+							data-button
+							[style]="actionButtonStyle() ?? toast().actionButtonStyle"
+							[class]="_actionButtonClasses()"
+							(click)="onActionClick($event)"
+						>
+							{{ action.label }}
+						</button>
+					}
 				}
 			}
 		</li>
@@ -177,6 +194,17 @@ export class BrnSonnerToast implements AfterViewInit, OnDestroy {
 	public readonly unstyled = input<ToastProps['unstyled']>(false);
 	public readonly userClass = input('', { alias: 'class' });
 	public readonly style = input<Record<string, string>>({});
+	public readonly actionTemplate = input<BrnToastAction>();
+	public readonly cancelActionTemplate = input<BrnToastCancelAction>();
+
+	protected readonly _wrappedAction = computed<ToastAction | null>(() => {
+		const action = this.toast().action;
+		return action ? this.wrapAction(action) : null;
+	});
+	protected readonly _wrappedCancelAction = computed<ToastAction | null>(() => {
+		const cancelAction = this.toast().cancel;
+		return cancelAction ? this.wrapCancelAction(cancelAction) : null;
+	});
 
 	protected readonly _mounted = signal(false);
 	protected readonly _removed = signal(false);
@@ -412,19 +440,35 @@ export class BrnSonnerToast implements AfterViewInit, OnDestroy {
 		this.toast().onDismiss?.(this.toast());
 	}
 
-	onCancelClick() {
+	onCancelClick(event: MouseEvent) {
 		const toast = this.toast();
 		if (!toast.dismissible) return;
 		this.deleteToast();
-		if (toast.cancel?.onClick) {
-			toast.cancel.onClick();
-		}
+		toast.cancel?.onClick?.(event);
 	}
 
 	onActionClick(event: MouseEvent) {
 		const toast = this.toast();
-		toast.action?.onClick(event);
+		toast.action?.onClick?.(event);
 		if (event.defaultPrevented) return;
 		this.deleteToast();
+	}
+
+	wrapAction(source: NonNullable<ToastT['action']>): ToastAction {
+		return {
+			...source,
+			onClick: (event: MouseEvent) => {
+				this.onActionClick(event);
+			},
+		};
+	}
+
+	wrapCancelAction(source: NonNullable<ToastT['cancel']>): ToastAction {
+		return {
+			...source,
+			onClick: (event: MouseEvent) => {
+				this.onCancelClick(event);
+			},
+		};
 	}
 }

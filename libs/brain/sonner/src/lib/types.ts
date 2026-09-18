@@ -75,7 +75,7 @@ export type ToastT = {
 	 */
 	cancel?: {
 		label: string;
-		onClick?: () => void;
+		onClick?: (event: MouseEvent) => void;
 	};
 	/**
 	 * The function gets called when either the close button is clicked, or the toast is swiped.
@@ -298,3 +298,11 @@ export type ToastProps = {
 	classes: ToastClassnames;
 	unstyled: boolean;
 };
+
+export type ToastAction = {
+	label: string;
+	onClick: (event: MouseEvent) => void;
+};
+
+export type ToastActionTemplateContext = { $implicit: ToastAction; toast: ToastT };
+export type ToastActionTemplateRef = TemplateRef<ToastActionTemplateContext>;

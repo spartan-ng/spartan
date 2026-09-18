@@ -181,7 +181,9 @@ describe('dialog--dynamic-component', () => {
 			cy.findByRole('dialog').should('have.attr', 'aria-labelledby', 'brn-dialog-title-1');
 			cy.findByRole('dialog').should('have.attr', 'aria-modal', 'true');
 			cy.findByRole('dialog').should('have.attr', 'tabindex', '-1');
-			cy.findAllByText(/close/i).should('exist');
+			cy.findByRole('dialog')
+				.findByRole('button', { name: /^close$/i })
+				.should('exist');
 			cy.get('dynamic-content');
 
 			// close on click close button
@@ -200,7 +202,9 @@ describe('dialog--dynamic-component', () => {
 		it('click on teams button should open dynamic component without close button', () => {
 			cy.findAllByText(/select team/i).click();
 			cy.findByRole('dialog');
-			cy.findAllByText(/close/i).should('not.exist');
+			cy.findByRole('dialog')
+				.findByRole('button', { name: /^close$/i })
+				.should('not.exist');
 		});
 	});
 

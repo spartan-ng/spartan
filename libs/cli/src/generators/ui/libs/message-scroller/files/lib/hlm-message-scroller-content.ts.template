@@ -16,6 +16,6 @@ import { classes } from '<%- importAlias %>/utils';
 })
 export class HlmMessageScrollerContent {
 	constructor() {
-		classes(() => 'flex h-max min-h-full flex-col gap-8');
+		classes(() => 'spartan-message-scroller-content flex h-max min-h-full flex-col');
 	}
 }

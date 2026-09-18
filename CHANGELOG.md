@@ -1,3 +1,7 @@
+## 1.5.0-beta.2 (2026-09-18)
+
+- feat(switch): turn brn-switch-thumb into directive, add forceInvalid to brn-switch (#1741) ([e066513](https://github.com/spartan-ng/spartan/commit/e066513)), closes [#1741](https://github.com/spartan-ng/spartan/issues/1741)
+
 ## 1.5.0-beta.1 (2026-09-18)
 
 - feat(tooltip): set default showDelay and hideDelay to 0 (#1739) ([3e562df](https://github.com/spartan-ng/spartan/commit/3e562df)), closes [#1739](https://github.com/spartan-ng/spartan/issues/1739)

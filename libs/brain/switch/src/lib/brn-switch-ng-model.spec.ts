@@ -14,7 +14,7 @@ import { BrnSwitchThumb } from './brn-switch-thumb';
 		<label>
 			Airplane mode is: {{ airplaneMode() ? 'on' : 'off' }}
 			<brn-switch [disabled]="disabled()" [(ngModel)]="airplaneMode">
-				<brn-switch-thumb />
+				<span brnSwitchThumb data-testid="thumb-content">O</span>
 			</brn-switch>
 		</label>
 	`,
@@ -82,5 +82,13 @@ describe('BrnSwitchComponentNgModelIntegration', () => {
 		await user.click(labelElement);
 		expect(await screen.findByRole('switch')).toHaveAttribute('value', 'off');
 		expect(container.fixture.componentInstance.airplaneMode()).toBe(false);
+	});
+
+	it('should display the thumb content', async () => {
+		const { container } = await setup(false, true);
+
+		const content = container.getByTestId('thumb-content');
+		expect(content).not.toBeNull();
+		expect(content).toContainHTML('O');
 	});
 });

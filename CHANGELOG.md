@@ -1,3 +1,8 @@
+## 1.5.0-beta.5 (2026-09-18)
+
+- fix(dialog): accessibility (#1745) ([855aae8](https://github.com/spartan-ng/spartan/commit/855aae8)), closes [#1745](https://github.com/spartan-ng/spartan/issues/1745)
+- feat(sonner): Add ng-template for action and cancelAction (#1726) (#1736) ([56825bf](https://github.com/spartan-ng/spartan/commit/56825bf)), closes [#1726](https://github.com/spartan-ng/spartan/issues/1726) [#1736](https://github.com/spartan-ng/spartan/issues/1736)
+
 ## 1.5.0-beta.4 (2026-09-18)
 
 - feat(message-scroller): add brain and helm for message scroller component (#1684) ([74baa46](https://github.com/spartan-ng/spartan/commit/74baa46)), closes [#1684](https://github.com/spartan-ng/spartan/issues/1684)

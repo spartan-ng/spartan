@@ -79,7 +79,7 @@ let uniqueIdCounter = 0;
 			[attr.aria-invalid]="_invalid?.() ? 'true' : null"
 			[attr.data-dirty]="_dirty?.() ? 'true' : null"
 			[attr.data-touched]="_touched?.() ? 'true' : null"
-			[attr.data-matches-spartan-invalid]="_spartanInvalid?.() ? 'true' : null"
+			[attr.data-matches-spartan-invalid]="_spartanInvalid() ? 'true' : null"
 			[attr.data-state]="checked() ? 'checked' : 'unchecked'"
 			[attr.data-focus-visible]="_focusVisible()"
 			[attr.data-focus]="_focused()"
@@ -88,7 +88,7 @@ let uniqueIdCounter = 0;
 			[tabIndex]="tabIndex()"
 			(click)="$event.preventDefault(); toggle()"
 		>
-			<ng-content select="[brnSwitchThumb],brn-switch-thumb" />
+			<ng-content />
 		</button>
 	`,
 })
@@ -145,6 +145,9 @@ export class BrnSwitch implements AfterContentInit, OnDestroy, ControlValueAcces
 	 * @default 'default'
 	 */
 	public readonly size = input<BrnSwitchSize>('default');
+
+	/** Whether to force the input into an invalid state. */
+	public readonly forceInvalid = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
 	/**
 	 * Accessibility label for screen readers.
@@ -211,7 +214,7 @@ export class BrnSwitch implements AfterContentInit, OnDestroy, ControlValueAcces
 	protected readonly _invalid = this._fieldControl?.invalid;
 	protected readonly _touched = this._fieldControl?.touched;
 	protected readonly _dirty = this._fieldControl?.dirty;
-	protected readonly _spartanInvalid = this._fieldControl?.spartanInvalid;
+	protected readonly _spartanInvalid = computed(() => this.forceInvalid() || this._fieldControl?.spartanInvalid());
 
 	public readonly labelableId = computed(() => this.getSwitchButtonId(this._state().id));
 

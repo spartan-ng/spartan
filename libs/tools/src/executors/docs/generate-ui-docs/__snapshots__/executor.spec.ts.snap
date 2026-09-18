@@ -4405,6 +4405,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "required": false,
             "type": "boolean",
           },
+          {
+            "name": "closeLabel",
+            "required": false,
+            "type": "string",
+          },
         ],
         "models": [],
         "outputs": [],

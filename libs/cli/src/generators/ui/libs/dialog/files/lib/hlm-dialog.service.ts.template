@@ -12,6 +12,7 @@ import { hlmDialogOverlayClass } from './hlm-dialog-overlay';
 export type HlmDialogOptions<DialogContext = unknown> = BrnDialogOptions & {
 	contentClass?: string;
 	showCloseButton?: boolean;
+	closeLabel?: string;
 	context?: DialogContext;
 };
 
@@ -33,6 +34,7 @@ export class HlmDialogService {
 				$component: component,
 				$dynamicComponentClass: options?.contentClass,
 				$showCloseButton: options?.showCloseButton,
+				$closeLabel: options?.closeLabel,
 			},
 		};
 

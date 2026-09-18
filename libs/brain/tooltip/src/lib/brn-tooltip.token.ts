@@ -18,8 +18,8 @@ export interface BrnTooltipOptions {
 }
 
 export const defaultOptions: BrnTooltipOptions = {
-	showDelay: 150,
-	hideDelay: 100,
+	showDelay: 0,
+	hideDelay: 0,
 	svgClasses: '',
 	arrowClasses: () => '',
 	tooltipContentClasses: '',

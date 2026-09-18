@@ -1,3 +1,7 @@
+## 1.5.0-beta.3 (2026-09-18)
+
+- fix(dialog): change dialog & overlay getAttachTo function (#1742) ([2807ea0](https://github.com/spartan-ng/spartan/commit/2807ea0)), closes [#1742](https://github.com/spartan-ng/spartan/issues/1742)
+
 ## 1.5.0-beta.2 (2026-09-18)
 
 - feat(switch): turn brn-switch-thumb into directive, add forceInvalid to brn-switch (#1741) ([e066513](https://github.com/spartan-ng/spartan/commit/e066513)), closes [#1741](https://github.com/spartan-ng/spartan/issues/1741)

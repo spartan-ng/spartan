@@ -46,7 +46,6 @@ import type { ClassValue } from 'clsx';
 			<button
 				*brnToastAction="let action; let toast = toast"
 				[style]="toast.actionButtonStyle"
-				data-button
 				hlmBtn
 				size="sm"
 				(click)="action.onClick($event)"
@@ -55,8 +54,6 @@ import type { ClassValue } from 'clsx';
 			</button>
 			<button
 				*brnToastCancelAction="let cancel; let toast = toast"
-				data-button
-				data-cancel
 				[style]="toast.cancelButtonStyle"
 				hlmBtn
 				size="sm"

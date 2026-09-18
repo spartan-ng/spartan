@@ -183,6 +183,7 @@ html[dir='rtl'],
 [data-sonner-toast] [data-content] {
 	display: flex;
 	flex-direction: column;
+	flex: 1;
 	gap: 2px;
 }
 

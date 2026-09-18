@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, booleanAttribute, computed, input, 
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCircleCheck, lucideInfo, lucideLoader2, lucideOctagonX, lucideTriangleAlert } from '@ng-icons/lucide';
 import { BrnSonnerImports, type ToasterProps } from '@spartan-ng/brain/sonner';
-import { HlmButtonImports } from '@spartan-ng/helm/button';
+import { HlmButtonImports } from '<%- importAlias %>/button';
 import { hlm } from '<%- importAlias %>/utils';
 import type { ClassValue } from 'clsx';
 
@@ -46,7 +46,6 @@ import type { ClassValue } from 'clsx';
 			<button
 				*brnToastAction="let action; let toast = toast"
 				[style]="toast.actionButtonStyle"
-				data-button
 				hlmBtn
 				size="sm"
 				(click)="action.onClick($event)"
@@ -55,12 +54,10 @@ import type { ClassValue } from 'clsx';
 			</button>
 			<button
 				*brnToastCancelAction="let cancel; let toast = toast"
-				data-button
-				data-cancel
 				[style]="toast.cancelButtonStyle"
 				hlmBtn
 				size="sm"
-				variant="ghost"
+				variant="secondary"
 				(click)="cancel.onClick($event)"
 			>
 				{{ cancel.label }}

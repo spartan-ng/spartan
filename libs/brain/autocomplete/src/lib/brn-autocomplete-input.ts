@@ -10,7 +10,6 @@ import { injectBrnAutocompleteBase } from './brn-autocomplete.token';
 		'[id]': 'id()',
 		type: 'text',
 		role: 'combobox',
-		autocomplete: 'off',
 		autocorrect: 'off',
 		autocapitalize: 'none',
 		spellcheck: 'false',
@@ -18,6 +17,8 @@ import { injectBrnAutocompleteBase } from './brn-autocomplete.token';
 		'aria-haspopup': 'listbox',
 		'[attr.aria-expanded]': '_isExpanded()',
 		'[attr.aria-controls]': '_autocompleteListId()',
+		'[attr.aria-activedescendant]': '_isExpanded() ? _activeDescendant?.() : null',
+		'[attr.autocomplete]': 'autocomplete()',
 		'[attr.aria-invalid]': '_ariaInvalid() ? "true": null',
 		'[attr.data-invalid]': '_ariaInvalid() ? "true": null',
 		'[attr.data-matches-spartan-invalid]': '_spartanInvalid() ? "true": null',
@@ -39,6 +40,9 @@ export class BrnAutocompleteInput<T> {
 	/** The id of the autocomplete input */
 	public readonly id = input<string>(`brn-autocomplete-input-${++BrnAutocompleteInput._id}`);
 
+	/** The autocomplete purpose token. */
+	public readonly autocomplete = input('off');
+
 	/** Manual override for aria-invalid. When not set, auto-detects from the parent autocomplete error state. */
 	public readonly ariaInvalidOverride = input<boolean | undefined, BooleanInput>(undefined, {
 		transform: (v: BooleanInput) => (v === '' || v === undefined ? undefined : booleanAttribute(v)),
@@ -52,6 +56,8 @@ export class BrnAutocompleteInput<T> {
 
 	/** Whether the autocomplete panel is expanded */
 	protected readonly _isExpanded = this._autocomplete.isExpanded;
+
+	protected readonly _activeDescendant = this._autocomplete.activeDescendantId;
 
 	/** Computed aria-invalid: uses manual override if provided, otherwise reads from parent error state. */
 	protected readonly _ariaInvalid = computed(

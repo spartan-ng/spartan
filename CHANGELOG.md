@@ -1,3 +1,7 @@
+## 1.5.0-beta.4 (2026-09-18)
+
+- feat(message-scroller): add brain and helm for message scroller component (#1684) ([74baa46](https://github.com/spartan-ng/spartan/commit/74baa46)), closes [#1684](https://github.com/spartan-ng/spartan/issues/1684)
+
 ## 1.5.0-beta.3 (2026-09-18)
 
 - fix(dialog): change dialog & overlay getAttachTo function (#1742) ([2807ea0](https://github.com/spartan-ng/spartan/commit/2807ea0)), closes [#1742](https://github.com/spartan-ng/spartan/issues/1742)

@@ -1,4 +1,5 @@
-import { Directive, input } from '@angular/core';
+import { computed, contentChild, Directive, input } from '@angular/core';
+import { BrnAutocompleteLabel } from './brn-autocomplete-label';
 import { injectBrnAutocompleteBase } from './brn-autocomplete.token';
 
 @Directive({
@@ -10,6 +11,7 @@ import { injectBrnAutocompleteBase } from './brn-autocomplete.token';
 		'[id]': 'id()',
 		'[attr.data-empty]': '!_visibleItems() ? "" : null',
 		'[attr.aria-label]': 'ariaLabel()',
+		'[attr.aria-labelledby]': '_ariaLabelledBy()',
 	},
 })
 export class BrnAutocompleteList {
@@ -25,6 +27,14 @@ export class BrnAutocompleteList {
 
 	/** Optional accessible name for the listbox. Usually not needed as the autocomplete names the widget. */
 	public readonly ariaLabel = input<string | undefined>(undefined, { alias: 'aria-label' });
+	/** Optional id of the element that labels the listbox. */
+	public readonly ariaLabelledby = input<string | undefined>(undefined, { alias: 'aria-labelledby' });
+
+	private readonly _label = contentChild(BrnAutocompleteLabel, { descendants: false });
+
+	protected readonly _ariaLabelledBy = computed(
+		() => this.ariaLabelledby() ?? (this.ariaLabel() ? undefined : this._label()?.id()),
+	);
 
 	constructor() {
 		this._autocomplete.registerAutocompleteList(this);

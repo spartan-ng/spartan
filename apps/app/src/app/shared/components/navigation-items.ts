@@ -59,6 +59,7 @@ export const components: Link[] = [
 	{ label: 'Marker', url: '/marker' },
 	{ label: 'Menubar', url: '/menubar' },
 	{ label: 'Message', url: '/message' },
+	{ label: 'Message Scroller', url: '/message-scroller', new: true },
 	{ label: 'Native Select', url: '/native-select' },
 	{ label: 'Navigation Menu', url: '/navigation-menu' },
 	{ label: 'Pagination', url: '/pagination' },

@@ -1,3 +1,12 @@
+## 1.5.0-beta.1 (2026-09-18)
+
+- feat(tooltip): set default showDelay and hideDelay to 0 (#1739) ([3e562df](https://github.com/spartan-ng/spartan/commit/3e562df)), closes [#1739](https://github.com/spartan-ng/spartan/issues/1739)
+- chore(release): backmerge main into beta ([b92433c](https://github.com/spartan-ng/spartan/commit/b92433c))
+- chore(release): backmerge main into beta ([710298b](https://github.com/spartan-ng/spartan/commit/710298b))
+- chore(release): backmerge main into beta ([0feb8f1](https://github.com/spartan-ng/spartan/commit/0feb8f1))
+- chore(release): backmerge main into beta ([0af6d22](https://github.com/spartan-ng/spartan/commit/0af6d22))
+- docs(chart): improve preview padding (#1735) ([94587d1](https://github.com/spartan-ng/spartan/commit/94587d1)), closes [#1735](https://github.com/spartan-ng/spartan/issues/1735)
+
 ## <small>1.4.1 (2026-09-03)</small>
 
 - fix(tooltip): lazy load cdk overlay (#1725) ([e766c0d](https://github.com/spartan-ng/spartan/commit/e766c0d)), closes [#1725](https://github.com/spartan-ng/spartan/issues/1725)

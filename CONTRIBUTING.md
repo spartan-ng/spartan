@@ -212,6 +212,7 @@ The following is the list of supported scopes:
 - **marker**
 - **menubar**
 - **message**
+- **message-scroller**
 - **navigation-menu**
 - **pagination**
 - **popover**

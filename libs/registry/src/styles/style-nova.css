@@ -619,6 +619,11 @@
 		@apply min-w-0;
 	}
 
+	/* MARK: Message Scroller */
+	.spartan-message-scroller-content {
+		@apply gap-6;
+	}
+
 	/* MARK: Message */
 	.spartan-message {
 		@apply gap-2 text-sm;

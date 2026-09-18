@@ -23,6 +23,7 @@ export class BrnDialogRef<DialogResult = unknown> {
 	private _closeGeneration = 0;
 	private _panelClasses: string[];
 	private _backdropClasses: string[];
+	private readonly _descriptionIds = new Set<string>();
 
 	public get open(): boolean {
 		return this._phase() === 'open';
@@ -116,6 +117,26 @@ export class BrnDialogRef<DialogResult = unknown> {
 
 	public updatePosition(): void {
 		this._cdkDialogRef.updatePosition();
+	}
+
+	public registerDescription(id: string): void {
+		this._descriptionIds.add(id);
+		this._syncAriaDescribedBy();
+	}
+
+	public unregisterDescription(id: string): void {
+		this._descriptionIds.delete(id);
+		this._syncAriaDescribedBy();
+	}
+
+	private _syncAriaDescribedBy(): void {
+		if (this.initialOptions.ariaDescribedBy !== undefined) return;
+
+		const id = this._descriptionIds.size ? [...this._descriptionIds].join(' ') : undefined;
+		this._cdkDialogRef.config.ariaDescribedBy = id;
+		const container = this._cdkDialogRef.overlayRef.overlayElement.querySelector('cdk-dialog-container');
+		if (id) container?.setAttribute('aria-describedby', id);
+		else container?.removeAttribute('aria-describedby');
 	}
 
 	private async _finishClose(

@@ -18,6 +18,10 @@ import { SectionSubSubHeading } from '../../../../shared/layout/section-sub-sub-
 import { Tabs } from '../../../../shared/layout/tabs';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
+import { SwitchChoiceCard } from './switch--choice-card.example';
+import { SwitchDescription } from './switch--description.example';
+import { SwitchDisabled } from './switch--disabled.example';
+import { SwitchInvalid } from './switch--invalid.example';
 import { SwitchSizes } from './switch--sizes.example';
 import { SwitchPreview, defaultImports, defaultSkeleton } from './switch.preview';
 
@@ -41,11 +45,15 @@ export const routeMeta: RouteMeta = {
 		PageNav,
 		PageBottomNav,
 		PageBottomNavLink,
-		SwitchPreview,
 		SectionSubSubHeading,
-		SwitchSizes,
 		RtlHeader,
 		CodeRtlPreview,
+		SwitchPreview,
+		SwitchDescription,
+		SwitchChoiceCard,
+		SwitchDisabled,
+		SwitchInvalid,
+		SwitchSizes,
 		SwitchRtlPreview,
 	],
 	template: `
@@ -72,7 +80,39 @@ export const routeMeta: RouteMeta = {
 			</div>
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
-			<h3 id="examples__sizes" spartanH4>Sizes</h3>
+			<h3 id="description" spartanH4>Description</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-switch-description />
+				</div>
+				<spartan-code secondTab [code]="_descriptionCode()" />
+			</spartan-tabs>
+
+			<h3 id="choice-card" spartanH4>Choice Card</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-switch-choice-card />
+				</div>
+				<spartan-code secondTab [code]="_choiceCardCode()" />
+			</spartan-tabs>
+
+			<h3 id="disabled" spartanH4>Disabled</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-switch-disabled />
+				</div>
+				<spartan-code secondTab [code]="_disabledCode()" />
+			</spartan-tabs>
+
+			<h3 id="invalid" spartanH4>Invalid</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-switch-invalid />
+				</div>
+				<spartan-code secondTab [code]="_invalidCode()" />
+			</spartan-tabs>
+
+			<h3 id="sizes" spartanH4>Sizes</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-switch-sizes />
@@ -110,6 +150,10 @@ export default class SkeletonPage {
 	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('switch');
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
 	protected readonly _rtlCode = computed(() => this._snippets()['rtl']);
+	protected readonly _descriptionCode = computed(() => this._snippets()['description']);
+	protected readonly _choiceCardCode = computed(() => this._snippets()['choiceCard']);
+	protected readonly _disabledCode = computed(() => this._snippets()['disabled']);
+	protected readonly _invalidCode = computed(() => this._snippets()['invalid']);
 	protected readonly _sizesCode = computed(() => this._snippets()['sizes']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;

@@ -9505,6 +9505,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "type": "BrnSwitchSize",
           },
           {
+            "name": "forceInvalid",
+            "required": false,
+            "type": "boolean",
+          },
+          {
             "name": "aria-label",
             "required": false,
             "type": "string | null",
@@ -9552,7 +9557,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "brn-switch-thumb",
+        "selector": "[brnSwitchThumb],brn-switch-thumb",
       },
     },
     "helm": {
@@ -9584,6 +9589,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "type": "string | null",
           },
           {
+            "name": "forceInvalid",
+            "required": false,
+            "type": "boolean",
+          },
+          {
             "name": "aria-label",
             "required": false,
             "type": "string | null",
@@ -9612,7 +9622,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "brn-switch-thumb[hlm],[hlmSwitchThumb]",
+        "selector": "[hlmSwitchThumb],hlm-switch-thumb",
       },
     },
   },

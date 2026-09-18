@@ -479,9 +479,9 @@
 		"name": "switch",
 		"peerDependencies": {
 			"@angular/core": ">=21.0.0 <23.0.0",
+			"@spartan-ng/brain": "1.5.0-beta.1",
 			"@angular/cdk": ">=21.0.0 <23.0.0",
 			"@angular/forms": ">=21.0.0 <23.0.0",
-			"@spartan-ng/brain": "1.5.0-beta.1",
 			"clsx": "^2.1.1"
 		}
 	},

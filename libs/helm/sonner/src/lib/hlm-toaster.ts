@@ -60,7 +60,7 @@ import type { ClassValue } from 'clsx';
 				[style]="toast.cancelButtonStyle"
 				hlmBtn
 				size="sm"
-				variant="ghost"
+				variant="secondary"
 				(click)="cancel.onClick($event)"
 			>
 				{{ cancel.label }}

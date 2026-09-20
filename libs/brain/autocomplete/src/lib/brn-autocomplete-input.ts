@@ -18,7 +18,7 @@ import { injectBrnAutocompleteBase } from './brn-autocomplete.token';
 		'aria-autocomplete': 'list',
 		'aria-haspopup': 'listbox',
 		'[attr.aria-expanded]': '_isExpanded()',
-		'[attr.aria-controls]': '_autocompleteListId()',
+		'[attr.aria-controls]': '_isExpanded() ? _autocompleteListId() : null',
 		'[attr.aria-activedescendant]': '_isExpanded() ? _activeDescendant() : null',
 		'[attr.autocomplete]': 'autocomplete()',
 		'[attr.aria-invalid]': '_ariaInvalid() ? "true": null',

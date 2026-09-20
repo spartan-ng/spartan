@@ -19,6 +19,7 @@ import { classes } from '<%- importAlias %>/utils';
 			hlmInputGroupInput
 			[id]="inputId()"
 			[placeholder]="placeholder()"
+			[autocomplete]="autocomplete()"
 			[aria-invalid]="ariaInvalidOverride()"
 			[forceInvalid]="forceInvalid()"
 		/>
@@ -52,6 +53,8 @@ export class HlmAutocompleteInput {
 	public readonly inputId = input<string>(`hlm-autocomplete-input-${HlmAutocompleteInput._id++}`);
 
 	public readonly placeholder = input<string>('');
+
+	public readonly autocomplete = input<string>('off');
 
 	public readonly showSearch = input<boolean, BooleanInput>(true, { transform: booleanAttribute });
 	public readonly showClear = input<boolean, BooleanInput>(false, { transform: booleanAttribute });

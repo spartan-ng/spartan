@@ -26,7 +26,6 @@ export interface BrnAutocompleteBase<T> {
 	searchInputWrapperWidth: Signal<number | null>;
 	controlState: Signal<ControlState | null> | undefined;
 	listId: Signal<string | undefined>;
-	activeDescendantId?: Signal<string | undefined>;
 
 	updateSearch: (value: string) => void;
 	isSelected: (itemValue: T) => boolean;

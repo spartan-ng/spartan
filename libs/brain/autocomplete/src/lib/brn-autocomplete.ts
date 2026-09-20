@@ -16,7 +16,6 @@ import {
 	signal,
 	untracked,
 } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { BrnFieldControl, provideBrnLabelable } from '@spartan-ng/brain/field';
 import { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
@@ -131,10 +130,6 @@ export class BrnAutocomplete<T> implements BrnAutocompleteBase<T>, ControlValueA
 
 		this._brnPopover?.closed.subscribe(() => {
 			this.keyManager.setActiveItem(-1);
-		});
-
-		this.keyManager.change.pipe(takeUntilDestroyed()).subscribe(() => {
-			this._activeDescendantId.set(this.keyManager.activeItem?.id());
 		});
 
 		afterNextRender(() => {

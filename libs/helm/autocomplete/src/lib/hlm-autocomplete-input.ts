@@ -54,7 +54,7 @@ export class HlmAutocompleteInput {
 
 	public readonly placeholder = input<string>('');
 
-	public readonly autocomplete = input('off');
+	public readonly autocomplete = input<string>('off');
 
 	public readonly showSearch = input<boolean, BooleanInput>(true, { transform: booleanAttribute });
 	public readonly showClear = input<boolean, BooleanInput>(false, { transform: booleanAttribute });

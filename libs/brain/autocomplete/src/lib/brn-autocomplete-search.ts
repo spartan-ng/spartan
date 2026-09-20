@@ -16,7 +16,6 @@ import {
 	signal,
 	untracked,
 } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { stringifyAsLabel } from '@spartan-ng/brain/core';
 import { BrnFieldControl, provideBrnLabelable } from '@spartan-ng/brain/field';
@@ -103,11 +102,6 @@ export class BrnAutocompleteSearch<T> implements BrnAutocompleteBase<T>, Control
 	/** @internal Whether the autocomplete is expanded */
 	public readonly isExpanded = computed(() => this._brnPopover?.stateComputed() === 'open');
 
-	private readonly _activeDescendantId = signal<string | undefined>(undefined);
-
-	/** @internal The id of the active option. */
-	public readonly activeDescendantId = this._activeDescendantId.asReadonly();
-
 	private readonly _autocompleteInput = signal<BrnAutocompleteInput<T> | undefined>(undefined);
 
 	private readonly _autocompleteList = signal<BrnAutocompleteList | undefined>(undefined);
@@ -129,10 +123,6 @@ export class BrnAutocompleteSearch<T> implements BrnAutocompleteBase<T>, Control
 
 		this._brnPopover?.closed.subscribe(() => {
 			this.keyManager.setActiveItem(-1);
-		});
-
-		this.keyManager.change.pipe(takeUntilDestroyed()).subscribe(() => {
-			this._activeDescendantId.set(this.keyManager.activeItem?.id());
 		});
 
 		afterNextRender(() => {

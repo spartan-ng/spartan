@@ -1,6 +1,8 @@
 import { BooleanInput } from '@angular/cdk/coercion';
-import { booleanAttribute, computed, Directive, effect, ElementRef, inject, input } from '@angular/core';
+import { booleanAttribute, computed, Directive, effect, ElementRef, inject, input, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { stringifyAsLabel } from '@spartan-ng/brain/core';
+import { startWith } from 'rxjs/operators';
 import { injectBrnAutocompleteBase } from './brn-autocomplete.token';
 
 @Directive({
@@ -17,7 +19,7 @@ import { injectBrnAutocompleteBase } from './brn-autocomplete.token';
 		'aria-haspopup': 'listbox',
 		'[attr.aria-expanded]': '_isExpanded()',
 		'[attr.aria-controls]': '_autocompleteListId()',
-		'[attr.aria-activedescendant]': '_isExpanded() ? _activeDescendant?.() : null',
+		'[attr.aria-activedescendant]': '_isExpanded() ? _activeDescendant() : null',
 		'[attr.autocomplete]': 'autocomplete()',
 		'[attr.aria-invalid]': '_ariaInvalid() ? "true": null',
 		'[attr.data-invalid]': '_ariaInvalid() ? "true": null',
@@ -41,7 +43,7 @@ export class BrnAutocompleteInput<T> {
 	public readonly id = input<string>(`brn-autocomplete-input-${++BrnAutocompleteInput._id}`);
 
 	/** The autocomplete purpose token. */
-	public readonly autocomplete = input('off');
+	public readonly autocomplete = input<string>('off');
 
 	/** Manual override for aria-invalid. When not set, auto-detects from the parent autocomplete error state. */
 	public readonly ariaInvalidOverride = input<boolean | undefined, BooleanInput>(undefined, {
@@ -57,7 +59,7 @@ export class BrnAutocompleteInput<T> {
 	/** Whether the autocomplete panel is expanded */
 	protected readonly _isExpanded = this._autocomplete.isExpanded;
 
-	protected readonly _activeDescendant = this._autocomplete.activeDescendantId;
+	protected readonly _activeDescendant = signal<string | undefined>(undefined);
 
 	/** Computed aria-invalid: uses manual override if provided, otherwise reads from parent error state. */
 	protected readonly _ariaInvalid = computed(
@@ -72,6 +74,12 @@ export class BrnAutocompleteInput<T> {
 
 	constructor() {
 		this._autocomplete.registerAutocompleteInput(this);
+
+		this._autocomplete.keyManager.change
+			.pipe(startWith(this._autocomplete.keyManager.activeItemIndex), takeUntilDestroyed())
+			.subscribe(() => {
+				this._activeDescendant.set(this._autocomplete.keyManager.activeItem?.id());
+			});
 
 		effect(() => {
 			const value = this._autocomplete.value();

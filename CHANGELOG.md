@@ -1,3 +1,7 @@
+## 1.5.0-beta.6 (2026-09-20)
+
+- fix(sidebar): add sheet accessible title/description, closes #1758 (#1760) ([7982db9](https://github.com/spartan-ng/spartan/commit/7982db9)), closes [#1758](https://github.com/spartan-ng/spartan/issues/1758) [#1760](https://github.com/spartan-ng/spartan/issues/1760)
+
 ## 1.5.0-beta.5 (2026-09-18)
 
 - fix(dialog): accessibility (#1745) ([855aae8](https://github.com/spartan-ng/spartan/commit/855aae8)), closes [#1745](https://github.com/spartan-ng/spartan/issues/1745)

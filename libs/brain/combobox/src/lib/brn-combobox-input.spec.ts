@@ -236,5 +236,35 @@ describe('BrnComboboxInput', () => {
 			expect(combobox.open).toHaveBeenCalledTimes(1);
 			expect(combobox.isExpanded()).toBe(true);
 		});
+
+		it('closes without selecting on Tab', async () => {
+			const combobox = keyboardComboboxStub({ expanded: true });
+			await renderInput(combobox);
+			const input = screen.getByLabelText('Test');
+
+			const event = new KeyboardEvent('keydown', { key: 'Tab', bubbles: true, cancelable: true });
+			input.dispatchEvent(event);
+
+			expect(combobox.selectActiveItem).not.toHaveBeenCalled();
+			expect(combobox.close).toHaveBeenCalledTimes(1);
+			expect(combobox.isExpanded()).toBe(false);
+			// inline mode lets the browser move focus on
+			expect(event.defaultPrevented).toBe(false);
+		});
+
+		it('closes without selecting and prevents default on Tab in popup mode', async () => {
+			const combobox = keyboardComboboxStub({ expanded: true });
+			await renderInputInPopup(combobox);
+			const input = screen.getByLabelText('Test');
+
+			const event = new KeyboardEvent('keydown', { key: 'Tab', bubbles: true, cancelable: true });
+			input.dispatchEvent(event);
+
+			expect(combobox.selectActiveItem).not.toHaveBeenCalled();
+			expect(combobox.close).toHaveBeenCalledTimes(1);
+			expect(combobox.isExpanded()).toBe(false);
+			// the input is inside the overlay, so Tab must be intercepted
+			expect(event.defaultPrevented).toBe(true);
+		});
 	});
 });

@@ -46,7 +46,7 @@ export class BrnAutocompleteInput<T> {
 	public readonly autocomplete = input<string>('off');
 
 	/** Manual override for aria-invalid. When not set, auto-detects from the parent autocomplete error state. */
-	public readonly ariaInvalidOverride = input<boolean | undefined, BooleanInput>(undefined, {
+	public readonly ariaInvalidInput = input<boolean | undefined, BooleanInput>(undefined, {
 		transform: (v: BooleanInput) => (v === '' || v === undefined ? undefined : booleanAttribute(v)),
 		alias: 'aria-invalid',
 	});
@@ -63,7 +63,7 @@ export class BrnAutocompleteInput<T> {
 
 	/** Computed aria-invalid: uses manual override if provided, otherwise reads from parent error state. */
 	protected readonly _ariaInvalid = computed(
-		() => this.ariaInvalidOverride() ?? this._autocomplete.controlState?.()?.invalid,
+		() => this.ariaInvalidInput() ?? this._autocomplete.controlState?.()?.invalid,
 	);
 
 	protected readonly _spartanInvalid = computed(
@@ -111,7 +111,9 @@ export class BrnAutocompleteInput<T> {
 
 		if (this._isExpanded()) {
 			if (event.key === 'Tab') {
-				this._autocomplete.selectActiveItem();
+				// Tab moves focus on to the next control. Close the popup without committing so
+				// the highlighted suggestion does not overwrite the typed value.
+				this._autocomplete.close();
 			}
 		} else {
 			if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {

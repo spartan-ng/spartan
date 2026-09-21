@@ -20,7 +20,7 @@ import { classes } from '@spartan-ng/helm/utils';
 			[id]="inputId()"
 			[placeholder]="placeholder()"
 			[autocomplete]="autocomplete()"
-			[aria-invalid]="ariaInvalidOverride()"
+			[aria-invalid]="ariaInvalidInput()"
 			[forceInvalid]="forceInvalid()"
 		/>
 
@@ -63,7 +63,7 @@ export class HlmAutocompleteInput {
 	public readonly forceInvalid = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
 	/** Manual override for aria-invalid. When not set, auto-detects from the parent autocomplete error state. */
-	public readonly ariaInvalidOverride = input<boolean | undefined, BooleanInput>(undefined, {
+	public readonly ariaInvalidInput = input<boolean | undefined, BooleanInput>(undefined, {
 		transform: (v: BooleanInput) => (v === '' || v === undefined ? undefined : booleanAttribute(v)),
 		alias: 'aria-invalid',
 	});

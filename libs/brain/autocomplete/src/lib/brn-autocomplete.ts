@@ -125,6 +125,7 @@ export class BrnAutocomplete<T> implements BrnAutocompleteBase<T>, ControlValueA
 		this.keyManager
 			.withVerticalOrientation()
 			.withHomeAndEnd()
+			.withPageUpDown()
 			.withWrap()
 			.skipPredicate((item) => item.disabled);
 
@@ -188,7 +189,12 @@ export class BrnAutocomplete<T> implements BrnAutocompleteBase<T>, ControlValueA
 	selectActiveItem() {
 		if (!this.isExpanded()) return;
 
-		const value = this.keyManager.activeItem?.value();
+		const activeItem = this.keyManager.activeItem;
+
+		// setActiveItem() bypasses skipPredicate, so the active item may be disabled.
+		if (activeItem?.disabled) return;
+
+		const value = activeItem?.value();
 
 		if (value) {
 			this.select(value);

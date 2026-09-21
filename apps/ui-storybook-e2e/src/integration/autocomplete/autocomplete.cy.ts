@@ -30,11 +30,22 @@ describe('autocomplete', () => {
 			cy.get('hlm-autocomplete-content').should('not.exist');
 		});
 
-		it('should select highlighted option on tab out', () => {
+		it('should not select the highlighted option on tab out', () => {
 			cy.get('input[hlmInputGroupInput]').type('Mar');
 			cy.get('hlm-autocomplete-item').should('have.length.gt', 1);
 			cy.get('input[hlmInputGroupInput]').realPress('ArrowDown');
 			cy.get('input[hlmInputGroupInput]').realPress('Tab');
+			cy.get('hlm-autocomplete-content').should('not.exist');
+			// Tab only dismisses the popup; it leaves focus to the next control without
+			// committing the highlighted suggestion, so the typed search value remains.
+			cy.get('input[hlmInputGroupInput]').should('have.value', 'Mar');
+		});
+
+		it('should select highlighted option on enter', () => {
+			cy.get('input[hlmInputGroupInput]').type('Mar');
+			cy.get('hlm-autocomplete-item').should('have.length.gt', 1);
+			cy.get('input[hlmInputGroupInput]').realPress('ArrowDown');
+			cy.get('input[hlmInputGroupInput]').realPress('Enter');
 			cy.get('hlm-autocomplete-content').should('not.exist');
 			cy.get('input[hlmInputGroupInput]').should('have.value', 'Marty McFly');
 		});

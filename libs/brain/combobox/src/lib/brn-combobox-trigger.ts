@@ -47,6 +47,13 @@ export class BrnComboboxTrigger<T> {
 	protected onKeyDown(event: KeyboardEvent): void {
 		if (!this._combobox.isExpanded() && (event.key === 'ArrowDown' || event.key === 'ArrowUp')) {
 			this._combobox.open();
+			return;
+		}
+
+		if (this._combobox.isExpanded() && event.key === 'Tab') {
+			// The trigger lives in the page, so Tab moves focus naturally. Close the popup so
+			// it is not left open with nothing focused inside it.
+			this._combobox.close();
 		}
 	}
 }

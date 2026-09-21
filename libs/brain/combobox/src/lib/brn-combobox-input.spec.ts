@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { fireEvent, render, screen } from '@testing-library/angular';
+import { Subject } from 'rxjs';
 import { BrnComboboxContent } from './brn-combobox-content';
 import { BrnComboboxInput } from './brn-combobox-input';
 import { BrnComboboxBaseToken } from './brn-combobox.token';
@@ -13,6 +14,16 @@ interface PartialControlState {
 	dirty?: boolean;
 }
 
+/** Minimal stand-in for the CDK ActiveDescendantKeyManager used by BrnComboboxInput. */
+function keyManagerStub() {
+	return {
+		change: new Subject<void>(),
+		activeItem: undefined,
+		activeItemIndex: -1,
+		onKeydown: vi.fn(),
+	};
+}
+
 function comboboxStub(initialValue: SimpleValue = null, state: PartialControlState | null = null) {
 	const value = signal<SimpleValue>(initialValue);
 	return {
@@ -24,6 +35,7 @@ function comboboxStub(initialValue: SimpleValue = null, state: PartialControlSta
 		mode: signal('combobox'),
 		listId: signal<string | undefined>(undefined),
 		hasValue: computed(() => value() !== undefined && value() !== null && value() !== ''),
+		keyManager: keyManagerStub(),
 		controlState: signal(
 			state !== null
 				? { dirty: false, errors: null, invalid: false, spartanInvalid: false, touched: false, ...state }
@@ -74,7 +86,7 @@ function keyboardComboboxStub(options: { expanded?: boolean } = {}) {
 		listId: signal<string | undefined>(undefined),
 		hasValue: computed(() => value() !== undefined && value() !== null && value() !== ''),
 		controlState: signal(null),
-		keyManager: { onKeydown: vi.fn() },
+		keyManager: keyManagerStub(),
 		selectActiveItem,
 		close: vi.fn(() => isExpanded.set(false)),
 		open: vi.fn(() => isExpanded.set(true)),

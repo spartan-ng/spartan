@@ -111,7 +111,9 @@ export class BrnAutocompleteInput<T> {
 
 		if (this._isExpanded()) {
 			if (event.key === 'Tab') {
-				this._autocomplete.selectActiveItem();
+				// Tab moves focus on to the next control. Close the popup without committing so
+				// the highlighted suggestion does not overwrite the typed value.
+				this._autocomplete.close();
 			}
 		} else {
 			if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {

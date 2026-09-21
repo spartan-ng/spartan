@@ -1,3 +1,7 @@
+## 1.5.0-beta.9 (2026-09-21)
+
+- fix: a11y and focus handling for select, autocomplete, combobox (#1762) ([7ea90d3](https://github.com/spartan-ng/spartan/commit/7ea90d3)), closes [#1762](https://github.com/spartan-ng/spartan/issues/1762) [#1754](https://github.com/spartan-ng/spartan/issues/1754) [#1746](https://github.com/spartan-ng/spartan/issues/1746) [#1748](https://github.com/spartan-ng/spartan/issues/1748) [#1687](https://github.com/spartan-ng/spartan/issues/1687) [#1747](https://github.com/spartan-ng/spartan/issues/1747) [#1749](https://github.com/spartan-ng/spartan/issues/1749) [#1751](https://github.com/spartan-ng/spartan/issues/1751) [#1753](https://github.com/spartan-ng/spartan/issues/1753) [#1751](https://github.com/spartan-ng/spartan/issues/1751)
+
 ## 1.5.0-beta.8 (2026-09-21)
 
 - feat(sonner): add data-testid attribute for e2e testing (#1761) ([fcacf0d](https://github.com/spartan-ng/spartan/commit/fcacf0d)), closes [#1761](https://github.com/spartan-ng/spartan/issues/1761)

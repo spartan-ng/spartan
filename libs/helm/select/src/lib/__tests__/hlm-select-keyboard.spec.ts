@@ -46,6 +46,25 @@ describe('HlmSelect keyboard', () => {
 		expect(document.querySelector('[role="listbox"]')).toBeTruthy();
 	});
 
+	it('links the trigger to the listbox via aria-controls while expanded', async () => {
+		const view = await render(SelectKeyboardHost);
+		trigger().focus();
+
+		fireEvent.keyDown(trigger(), { key: 'ArrowDown' });
+		view.detectChanges();
+		await flush();
+
+		const listbox = document.querySelector('[role="listbox"]') as HTMLElement;
+		expect(listbox.id).toBeTruthy();
+		expect(trigger()).toHaveAttribute('aria-controls', listbox.id);
+	});
+
+	it('omits aria-controls while collapsed', async () => {
+		await render(SelectKeyboardHost);
+
+		expect(trigger()).not.toHaveAttribute('aria-controls');
+	});
+
 	// Regression: committing a value with Enter must close the panel. Previously the trigger re-read
 	// its expanded state after the (synchronous) close and re-opened the overlay on the same keypress.
 	it('commits the active value and closes on Enter', async () => {

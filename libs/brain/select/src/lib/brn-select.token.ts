@@ -11,6 +11,7 @@ import {
 } from '@angular/core';
 import type { ControlState } from '@spartan-ng/brain/forms';
 import type { BrnSelectItem } from './brn-select-item';
+import type { BrnSelectList } from './brn-select-list';
 import type { BrnSelectTrigger } from './brn-select-trigger';
 
 export interface BrnSelectBase<T> {
@@ -22,6 +23,7 @@ export interface BrnSelectBase<T> {
 	isExpanded: Signal<boolean>;
 	triggerWidth: Signal<number | null>;
 	controlState?: Signal<ControlState | null>;
+	listId: Signal<string | undefined>;
 
 	isSelected: (itemValue: T) => boolean;
 	select: (itemValue: T) => void;
@@ -31,6 +33,8 @@ export interface BrnSelectBase<T> {
 	close: () => void;
 	toggle: () => void;
 	registerSelectTrigger: (input: BrnSelectTrigger) => void;
+	/** Register the select list component so the trigger can reference its id via aria-controls */
+	registerSelectList: (list: BrnSelectList) => void;
 	updateTriggerWidth: (width: number | null) => void;
 }
 

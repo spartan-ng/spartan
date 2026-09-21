@@ -22,6 +22,7 @@ import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
 import { BrnPopover } from '@spartan-ng/brain/popover';
 import { BrnSelectItem } from './brn-select-item';
 import { BrnSelectItemToken } from './brn-select-item.token';
+import type { BrnSelectList } from './brn-select-list';
 import { BrnSelectTrigger } from './brn-select-trigger';
 import {
 	BrnSelectBase,
@@ -100,6 +101,11 @@ export class BrnSelectMultiple<T> implements BrnSelectBase<T>, ControlValueAcces
 
 	public readonly labelableId = computed(() => this._selectTrigger()?.id());
 
+	private readonly _selectList = signal<BrnSelectList | undefined>(undefined);
+
+	/** @internal The id of the select list, registered by BrnSelectList. Used by the trigger for aria-controls. */
+	public readonly listId = computed(() => this._selectList()?.id());
+
 	protected _onChange?: ChangeFn<T[] | undefined | null>;
 	protected _onTouched?: TouchFn;
 
@@ -147,6 +153,11 @@ export class BrnSelectMultiple<T> implements BrnSelectBase<T>, ControlValueAcces
 
 	public registerSelectTrigger(input: BrnSelectTrigger): void {
 		return this._selectTrigger.set(input);
+	}
+
+	/** @internal Register the select list. Called by BrnSelectList in its constructor. */
+	public registerSelectList(list: BrnSelectList): void {
+		this._selectList.set(list);
 	}
 
 	public updateTriggerWidth(width: number | null): void {

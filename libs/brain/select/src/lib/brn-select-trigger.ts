@@ -11,6 +11,7 @@ import { injectBrnSelectBase } from './brn-select.token';
 		'aria-haspopup': 'listbox',
 		type: 'button',
 		'[id]': 'id()',
+		'[attr.aria-controls]': '_isExpanded() ? _listId() : null',
 		'[attr.aria-expanded]': '_isExpanded()',
 		'[attr.data-placeholder]': '_isPlaceholder() ? "" : null',
 		'[disabled]': '_disabled()',
@@ -39,6 +40,9 @@ export class BrnSelectTrigger {
 
 	/** Whether the combobox panel is expanded */
 	protected readonly _isExpanded = this._select.isExpanded;
+
+	/** The id of the select list, used for aria-controls. */
+	protected readonly _listId = this._select.listId;
 
 	protected readonly _disabled = this._select.disabledState;
 

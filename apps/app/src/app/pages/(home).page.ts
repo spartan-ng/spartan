@@ -86,7 +86,7 @@ const lead = 'text-foreground max-w-3xl text-base text-balance sm:text-lg';
 		<section class="container px-6">
 			<hlm-tabs [tab]="_activeTab()" class="w-full">
 				<div
-					class="w-full overflow-x-auto [mask-image:linear-gradient(to_right,transparent,#000_16px,#000_calc(100%_-_16px),transparent)] [-ms-overflow-style:none] [-webkit-mask-image:linear-gradient(to_right,transparent,#000_16px,#000_calc(100%_-_16px),transparent)] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+					class="w-full scrollbar-none overflow-x-auto [mask-image:linear-gradient(to_right,transparent,#000_16px,#000_calc(100%_-_16px),transparent)] [-ms-overflow-style:none] [-webkit-mask-image:linear-gradient(to_right,transparent,#000_16px,#000_calc(100%_-_16px),transparent)] [&::-webkit-scrollbar]:hidden"
 				>
 					<hlm-tabs-list
 						aria-label="tabs example"

@@ -1,3 +1,45 @@
+## 1.5.0-beta.9 (2026-09-21)
+
+- fix: a11y and focus handling for select, autocomplete, combobox (#1762) ([7ea90d3](https://github.com/spartan-ng/spartan/commit/7ea90d3)), closes [#1762](https://github.com/spartan-ng/spartan/issues/1762) [#1754](https://github.com/spartan-ng/spartan/issues/1754) [#1746](https://github.com/spartan-ng/spartan/issues/1746) [#1748](https://github.com/spartan-ng/spartan/issues/1748) [#1687](https://github.com/spartan-ng/spartan/issues/1687) [#1747](https://github.com/spartan-ng/spartan/issues/1747) [#1749](https://github.com/spartan-ng/spartan/issues/1749) [#1751](https://github.com/spartan-ng/spartan/issues/1751) [#1753](https://github.com/spartan-ng/spartan/issues/1753) [#1751](https://github.com/spartan-ng/spartan/issues/1751)
+
+## 1.5.0-beta.8 (2026-09-21)
+
+- feat(sonner): add data-testid attribute for e2e testing (#1761) ([fcacf0d](https://github.com/spartan-ng/spartan/commit/fcacf0d)), closes [#1761](https://github.com/spartan-ng/spartan/issues/1761)
+
+## 1.5.0-beta.7 (2026-09-21)
+
+- fix: autocomplete and combobox accessibility (#1757) ([7cb220b](https://github.com/spartan-ng/spartan/commit/7cb220b)), closes [#1757](https://github.com/spartan-ng/spartan/issues/1757)
+
+## 1.5.0-beta.6 (2026-09-20)
+
+- fix(sidebar): add sheet accessible title/description, closes #1758 (#1760) ([7982db9](https://github.com/spartan-ng/spartan/commit/7982db9)), closes [#1758](https://github.com/spartan-ng/spartan/issues/1758) [#1760](https://github.com/spartan-ng/spartan/issues/1760)
+
+## 1.5.0-beta.5 (2026-09-18)
+
+- fix(dialog): accessibility (#1745) ([855aae8](https://github.com/spartan-ng/spartan/commit/855aae8)), closes [#1745](https://github.com/spartan-ng/spartan/issues/1745)
+- feat(sonner): Add ng-template for action and cancelAction (#1726) (#1736) ([56825bf](https://github.com/spartan-ng/spartan/commit/56825bf)), closes [#1726](https://github.com/spartan-ng/spartan/issues/1726) [#1736](https://github.com/spartan-ng/spartan/issues/1736)
+
+## 1.5.0-beta.4 (2026-09-18)
+
+- feat(message-scroller): add brain and helm for message scroller component (#1684) ([74baa46](https://github.com/spartan-ng/spartan/commit/74baa46)), closes [#1684](https://github.com/spartan-ng/spartan/issues/1684)
+
+## 1.5.0-beta.3 (2026-09-18)
+
+- fix(dialog): change dialog & overlay getAttachTo function (#1742) ([2807ea0](https://github.com/spartan-ng/spartan/commit/2807ea0)), closes [#1742](https://github.com/spartan-ng/spartan/issues/1742)
+
+## 1.5.0-beta.2 (2026-09-18)
+
+- feat(switch): turn brn-switch-thumb into directive, add forceInvalid to brn-switch (#1741) ([e066513](https://github.com/spartan-ng/spartan/commit/e066513)), closes [#1741](https://github.com/spartan-ng/spartan/issues/1741)
+
+## 1.5.0-beta.1 (2026-09-18)
+
+- feat(tooltip): set default showDelay and hideDelay to 0 (#1739) ([3e562df](https://github.com/spartan-ng/spartan/commit/3e562df)), closes [#1739](https://github.com/spartan-ng/spartan/issues/1739)
+- chore(release): backmerge main into beta ([b92433c](https://github.com/spartan-ng/spartan/commit/b92433c))
+- chore(release): backmerge main into beta ([710298b](https://github.com/spartan-ng/spartan/commit/710298b))
+- chore(release): backmerge main into beta ([0feb8f1](https://github.com/spartan-ng/spartan/commit/0feb8f1))
+- chore(release): backmerge main into beta ([0af6d22](https://github.com/spartan-ng/spartan/commit/0af6d22))
+- docs(chart): improve preview padding (#1735) ([94587d1](https://github.com/spartan-ng/spartan/commit/94587d1)), closes [#1735](https://github.com/spartan-ng/spartan/issues/1735)
+
 ## <small>1.4.1 (2026-09-03)</small>
 
 - fix(tooltip): lazy load cdk overlay (#1725) ([e766c0d](https://github.com/spartan-ng/spartan/commit/e766c0d)), closes [#1725](https://github.com/spartan-ng/spartan/issues/1725)

@@ -8,9 +8,11 @@ import { injectBrnComboboxBase } from './brn-combobox.token';
 		type: 'button',
 		role: 'combobox',
 		'aria-haspopup': 'dialog',
-		'[attr.aria-expanded]': '_isExpanded() ? "true" : "false"',
-		'[attr.aria-disabled]': '_disabled() ? "true" : null',
+		'[attr.aria-controls]': '_isExpanded() ? _contentId() : null',
+		'[attr.aria-expanded]': '_isExpanded()',
+		'[attr.aria-disabled]': '_disabled() || null',
 		'[attr.disabled]': '_disabled() ? "" : null',
+		'[attr.data-disabled]': '_disabled() || null',
 		'[attr.data-placeholder]': '_isPlaceholder() ? "" : null',
 		'[attr.aria-invalid]': ' _ariaInvalid() ? "true": null',
 		'[attr.data-invalid]': ' _ariaInvalid() ? "true": null',
@@ -24,6 +26,9 @@ export class BrnComboboxTrigger<T> {
 	private readonly _combobox = injectBrnComboboxBase<T>();
 
 	protected readonly _isExpanded = this._combobox.isExpanded;
+
+	/** The id of the combobox content, used for aria-controls. */
+	protected readonly _contentId = this._combobox.contentId;
 
 	protected readonly _disabled = this._combobox.disabledState;
 
@@ -42,6 +47,13 @@ export class BrnComboboxTrigger<T> {
 	protected onKeyDown(event: KeyboardEvent): void {
 		if (!this._combobox.isExpanded() && (event.key === 'ArrowDown' || event.key === 'ArrowUp')) {
 			this._combobox.open();
+			return;
+		}
+
+		if (this._combobox.isExpanded() && event.key === 'Tab') {
+			// The trigger lives in the page, so Tab moves focus naturally. Close the popup so
+			// it is not left open with nothing focused inside it.
+			this._combobox.close();
 		}
 	}
 }

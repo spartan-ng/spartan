@@ -31,6 +31,7 @@ export interface BrnAutocompleteBase<T> {
 	isSelected: (itemValue: T) => boolean;
 	select: (itemValue: T) => void;
 	open: () => void;
+	close: () => void;
 	resetValue: () => void;
 	/** Select the active item with Enter key. */
 	selectActiveItem: () => void;

@@ -34,6 +34,7 @@ export interface BrnComboboxBase<T> {
 	controlState?: Signal<ControlState | null>;
 	hasValue: Signal<boolean>;
 	listId: Signal<string | undefined>;
+	contentId: Signal<string | undefined>;
 
 	isSelected: (itemValue: T) => boolean;
 	select: (itemValue: T) => void;

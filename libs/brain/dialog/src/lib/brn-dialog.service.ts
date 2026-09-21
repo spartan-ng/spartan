@@ -81,10 +81,7 @@ export class BrnDialogService {
 			restoreFocus: mergedOptions.restoreFocus,
 			disableClose: true,
 			autoFocus: mergedOptions.autoFocus,
-			ariaDescribedBy:
-				mergedOptions.ariaDescribedBy === undefined
-					? `brn-dialog-description-${dialogId}`
-					: mergedOptions.ariaDescribedBy,
+			ariaDescribedBy: mergedOptions.ariaDescribedBy,
 			ariaLabelledBy:
 				mergedOptions.ariaLabelledBy === undefined ? `brn-dialog-title-${dialogId}` : mergedOptions.ariaLabelledBy,
 			ariaLabel: mergedOptions.ariaLabel,

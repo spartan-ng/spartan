@@ -25,6 +25,8 @@ import { BrnSonnerIcon } from './brn-icon';
 import { BrnSonnerLoader } from './brn-loader';
 import { BrnSonnerToast } from './brn-toast';
 import { injectBrnSonnerToasterConfig } from './brn-toaster.token';
+import { BrnToastAction } from './directives/brn-toast-action';
+import { BrnToastCancelAction } from './directives/brn-toast-cancel-action';
 import { ToastFilterPipe } from './pipes/toast-filter.pipe';
 import { toastState } from './state';
 import type { Position, Theme, ToasterProps } from './types';
@@ -77,6 +79,8 @@ import type { Position, Theme, ToasterProps } from './types';
 								[classes]="toastOptions().classes ?? {}"
 								[duration]="toastOptions().duration ?? duration()"
 								[unstyled]="toastOptions().unstyled ?? false"
+								[actionTemplate]="_action()"
+								[cancelActionTemplate]="_cancelAction()"
 							>
 								@if (_loadingIcon(); as loadingIcon) {
 									<ng-container *ngTemplateOutlet="loadingIcon" loading-icon />
@@ -199,6 +203,8 @@ export class BrnSonnerToaster {
 	protected readonly _errorIcon = contentChild('errorIcon', { read: TemplateRef });
 	protected readonly _warningIcon = contentChild('warningIcon', { read: TemplateRef });
 	protected readonly _infoIcon = contentChild('infoIcon', { read: TemplateRef });
+	protected readonly _action = contentChild(BrnToastAction);
+	protected readonly _cancelAction = contentChild(BrnToastCancelAction);
 
 	constructor() {
 		this._reset();

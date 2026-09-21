@@ -205,7 +205,7 @@ export class BrnDialog<TResult = unknown, TContext extends Record<string, unknow
 	}
 
 	protected getAttachTo(): BrnDialogOptions['attachTo'] {
-		return this._origin() ?? this.attachTo();
+		return this.attachTo() ?? this._origin();
 	}
 
 	protected getPositionStrategy(): BrnDialogOptions['positionStrategy'] {

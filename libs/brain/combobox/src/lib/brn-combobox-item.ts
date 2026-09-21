@@ -20,6 +20,7 @@ import { injectBrnComboboxBase } from './brn-combobox.token';
 		'[attr.data-disabled]': '_disabled() ? "" : null',
 		'(click)': 'select()',
 		'(mouseenter)': 'activate()',
+		'(mousedown)': 'onMouseDown($event)',
 	},
 })
 export class BrnComboboxItem<T> implements Highlightable {
@@ -100,5 +101,10 @@ export class BrnComboboxItem<T> implements Highlightable {
 		this._activatedByPointer = true;
 		this._combobox.keyManager.setActiveItem(this);
 		this._activatedByPointer = false;
+	}
+
+	/** Prevent the press from moving DOM focus off the trigger (aria-activedescendant model). */
+	protected onMouseDown(event: MouseEvent): void {
+		event.preventDefault();
 	}
 }

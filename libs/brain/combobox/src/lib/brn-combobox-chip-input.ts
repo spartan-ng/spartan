@@ -35,15 +35,13 @@ export class BrnComboboxChipInput<T> {
 	public readonly id = input<string>(`brn-combobox-input-${++BrnComboboxChipInput._id}`);
 
 	/** Manual override for aria-invalid. When not set, auto-detects from the parent combobox error state. */
-	public readonly ariaInvalidOverride = input<boolean | undefined, BooleanInput>(undefined, {
+	public readonly ariaInvalidInput = input<boolean | undefined, BooleanInput>(undefined, {
 		transform: (v: BooleanInput) => (v === '' || v === undefined ? undefined : booleanAttribute(v)),
 		alias: 'aria-invalid',
 	});
 
 	/** Computed aria-invalid: uses manual override if provided, otherwise reads from parent error state. */
-	protected readonly _ariaInvalid = computed(
-		() => this.ariaInvalidOverride() ?? this._combobox.controlState?.()?.invalid,
-	);
+	protected readonly _ariaInvalid = computed(() => this.ariaInvalidInput() ?? this._combobox.controlState?.()?.invalid);
 
 	protected readonly _dirty = computed(() => this._combobox.controlState?.()?.dirty);
 	protected readonly _touched = computed(() => this._combobox.controlState?.()?.touched);
@@ -81,6 +79,12 @@ export class BrnComboboxChipInput<T> {
 			event.preventDefault();
 
 			this._combobox.selectActiveItem();
+		}
+
+		if (this._isExpanded() && event.key === 'Tab') {
+			// Tab moves focus on to the next control. Close the popup without toggling the
+			// highlighted option.
+			this._combobox.close();
 		}
 
 		if (!this._isExpanded()) {

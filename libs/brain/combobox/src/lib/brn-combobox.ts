@@ -145,6 +145,9 @@ export class BrnCombobox<T> implements BrnComboboxBase<T>, ControlValueAccessor 
 	/** @internal The id of the combobox list, registered by BrnComboboxList. Used by the input for aria-controls. */
 	public readonly listId = computed(() => this._comboboxList()?.id());
 
+	/** @internal The id of the combobox content. Used by the trigger for aria-controls. */
+	public readonly contentId = computed(() => this._content()?.id());
+
 	public readonly mode = computed<ComboboxInputMode>(() => this._comboboxInput()?.mode() || 'combobox');
 
 	public readonly labelableId = computed(() => this._comboboxInput()?.id());
@@ -156,6 +159,7 @@ export class BrnCombobox<T> implements BrnComboboxBase<T>, ControlValueAccessor 
 		this.keyManager
 			.withVerticalOrientation()
 			.withHomeAndEnd()
+			.withPageUpDown()
 			.withWrap()
 			.skipPredicate((item) => item.disabled || !item.visible());
 
@@ -214,7 +218,12 @@ export class BrnCombobox<T> implements BrnComboboxBase<T>, ControlValueAccessor 
 	public selectActiveItem(): void {
 		if (!this.isExpanded()) return;
 
-		const value = this.keyManager.activeItem?.value();
+		const activeItem = this.keyManager.activeItem;
+
+		// setActiveItem() bypasses skipPredicate, so the active item may be disabled.
+		if (activeItem?.disabled) return;
+
+		const value = activeItem?.value();
 
 		if (this.isSingleValuePresent()(value)) {
 			this.select(value as T);

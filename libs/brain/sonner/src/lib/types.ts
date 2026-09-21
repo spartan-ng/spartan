@@ -75,7 +75,7 @@ export type ToastT = {
 	 */
 	cancel?: {
 		label: string;
-		onClick?: () => void;
+		onClick?: (event: MouseEvent) => void;
 	};
 	/**
 	 * The function gets called when either the close button is clicked, or the toast is swiped.
@@ -110,6 +110,10 @@ export type ToastT = {
 	 * @internal This is used to determine if the toast has been updated to determine when to reset timer.
 	 */
 	updated?: boolean;
+	/**
+	 * Test id for the toast for reliable e2e testing with data-testid attributes.
+	 */
+	testId?: string;
 };
 
 export type Position = 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right' | 'top-center' | 'bottom-center';
@@ -298,3 +302,11 @@ export type ToastProps = {
 	classes: ToastClassnames;
 	unstyled: boolean;
 };
+
+export type ToastAction = {
+	label: string;
+	onClick: (event: MouseEvent) => void;
+};
+
+export type ToastActionTemplateContext = { $implicit: ToastAction; toast: ToastT };
+export type ToastActionTemplateRef = TemplateRef<ToastActionTemplateContext>;

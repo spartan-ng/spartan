@@ -4442,6 +4442,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "required": false,
             "type": "boolean",
           },
+          {
+            "name": "closeLabel",
+            "required": false,
+            "type": "string",
+          },
         ],
         "models": [],
         "outputs": [],
@@ -5883,6 +5888,260 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "models": [],
         "outputs": [],
         "selector": "[hlmMessageHeader],hlm-message-header",
+      },
+    },
+  },
+  "message-scroller": {
+    "brain": {
+      "BrnMessageScrollerButton": {
+        "exportAs": "brnMessageScrollerButton",
+        "inputs": [
+          {
+            "name": "direction",
+            "required": false,
+            "type": "BrnMessageScrollerButtonDirection",
+          },
+          {
+            "name": "behavior",
+            "required": false,
+            "type": "ScrollBehavior",
+          },
+          {
+            "name": "aria-label",
+            "required": false,
+            "type": "string | undefined",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "button[brnMessageScrollerButton]",
+      },
+      "BrnMessageScrollerContent": {
+        "exportAs": "brnMessageScrollerContent",
+        "inputs": [
+          {
+            "name": "aria-relevant",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "spacerClassName",
+            "required": false,
+            "type": "string | undefined",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnMessageScrollerContent],brn-message-scroller-content",
+      },
+      "BrnMessageScrollerItem": {
+        "exportAs": "brnMessageScrollerItem",
+        "inputs": [
+          {
+            "name": "messageId",
+            "required": false,
+            "type": "string | undefined",
+          },
+          {
+            "name": "scrollAnchor",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnMessageScrollerItem],brn-message-scroller-item",
+      },
+      "BrnMessageScrollerProvider": {
+        "exportAs": "brnMessageScrollerProvider",
+        "inputs": [
+          {
+            "name": "autoScroll",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "defaultScrollPosition",
+            "required": false,
+            "type": "BrnMessageScrollerDefaultScrollPosition",
+          },
+          {
+            "name": "scrollEdgeThreshold",
+            "required": false,
+            "type": "number",
+          },
+          {
+            "name": "scrollPreviousItemPeek",
+            "required": false,
+            "type": "number",
+          },
+          {
+            "name": "scrollMargin",
+            "required": false,
+            "type": "number",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnMessageScrollerProvider]",
+      },
+      "BrnMessageScrollerRoot": {
+        "exportAs": "brnMessageScroller",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnMessageScroller],brn-message-scroller",
+      },
+      "BrnMessageScrollerViewport": {
+        "exportAs": "brnMessageScrollerViewport",
+        "inputs": [
+          {
+            "name": "preserveScrollOnPrepend",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "aria-label",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "tabindex",
+            "required": false,
+            "type": "number",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnMessageScrollerViewport],brn-message-scroller-viewport",
+      },
+    },
+    "helm": {
+      "HlmMessageScroller": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmMessageScroller],hlm-message-scroller",
+      },
+      "HlmMessageScrollerButton": {
+        "inputs": [
+          {
+            "name": "variant",
+            "required": false,
+            "type": "ButtonVariants['variant']",
+          },
+          {
+            "name": "size",
+            "required": false,
+            "type": "ButtonVariants['size']",
+          },
+          {
+            "name": "direction",
+            "required": false,
+            "type": "BrnMessageScrollerButtonDirection",
+          },
+          {
+            "name": "behavior",
+            "required": false,
+            "type": "ScrollBehavior",
+          },
+          {
+            "name": "aria-label",
+            "required": false,
+            "type": "string | undefined",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "button[hlmMessageScrollerButton]",
+      },
+      "HlmMessageScrollerContent": {
+        "inputs": [
+          {
+            "name": "aria-relevant",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "spacerClassName",
+            "required": false,
+            "type": "string | undefined",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmMessageScrollerContent],hlm-message-scroller-content",
+      },
+      "HlmMessageScrollerItem": {
+        "inputs": [
+          {
+            "name": "messageId",
+            "required": false,
+            "type": "string | undefined",
+          },
+          {
+            "name": "scrollAnchor",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmMessageScrollerItem],hlm-message-scroller-item",
+      },
+      "HlmMessageScrollerProvider": {
+        "inputs": [
+          {
+            "name": "autoScroll",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "defaultScrollPosition",
+            "required": false,
+            "type": "BrnMessageScrollerDefaultScrollPosition",
+          },
+          {
+            "name": "scrollEdgeThreshold",
+            "required": false,
+            "type": "number",
+          },
+          {
+            "name": "scrollPreviousItemPeek",
+            "required": false,
+            "type": "number",
+          },
+          {
+            "name": "scrollMargin",
+            "required": false,
+            "type": "number",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmMessageScrollerProvider]",
+      },
+      "HlmMessageScrollerViewport": {
+        "inputs": [
+          {
+            "name": "preserveScrollOnPrepend",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "aria-label",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "tabindex",
+            "required": false,
+            "type": "number",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmMessageScrollerViewport],hlm-message-scroller-viewport",
       },
     },
   },
@@ -8735,6 +8994,16 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "type": "'offcanvas' | 'icon' | 'none'",
           },
           {
+            "name": "srOnlySheetTitle",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "srOnlySheetDescription",
+            "required": false,
+            "type": "string",
+          },
+          {
             "name": "sidebarContainerClass",
             "required": false,
             "type": "ClassValue",
@@ -9333,6 +9602,16 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "required": false,
             "type": "Record<string, string>",
           },
+          {
+            "name": "actionTemplate",
+            "required": false,
+            "type": "BrnToastAction",
+          },
+          {
+            "name": "cancelActionTemplate",
+            "required": false,
+            "type": "BrnToastCancelAction",
+          },
         ],
         "models": [],
         "outputs": [],
@@ -9409,6 +9688,20 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "models": [],
         "outputs": [],
         "selector": "brn-sonner-toaster",
+      },
+      "BrnToastAction": {
+        "exportAs": "toastAction",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnToastAction]",
+      },
+      "BrnToastCancelAction": {
+        "exportAs": "toastCancelAction",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnToastCancelAction]",
       },
     },
     "helm": {
@@ -9542,6 +9835,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "type": "BrnSwitchSize",
           },
           {
+            "name": "forceInvalid",
+            "required": false,
+            "type": "boolean",
+          },
+          {
             "name": "aria-label",
             "required": false,
             "type": "string | null",
@@ -9589,7 +9887,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "brn-switch-thumb",
+        "selector": "[brnSwitchThumb],brn-switch-thumb",
       },
     },
     "helm": {
@@ -9621,6 +9919,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "type": "string | null",
           },
           {
+            "name": "forceInvalid",
+            "required": false,
+            "type": "boolean",
+          },
+          {
             "name": "aria-label",
             "required": false,
             "type": "string | null",
@@ -9649,7 +9952,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "brn-switch-thumb[hlm],[hlmSwitchThumb]",
+        "selector": "[hlmSwitchThumb],hlm-switch-thumb",
       },
     },
   },

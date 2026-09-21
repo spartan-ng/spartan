@@ -1,0 +1,24 @@
+import { Directive } from '@angular/core';
+import { BrnMessageScrollerViewport } from '@spartan-ng/brain/message-scroller';
+import { classes } from '@spartan-ng/helm/utils';
+
+@Directive({
+	selector: '[hlmMessageScrollerViewport],hlm-message-scroller-viewport',
+	hostDirectives: [
+		{
+			directive: BrnMessageScrollerViewport,
+			inputs: ['preserveScrollOnPrepend', 'aria-label', 'tabindex'],
+		},
+	],
+	host: {
+		'data-slot': 'message-scroller-viewport',
+	},
+})
+export class HlmMessageScrollerViewport {
+	constructor() {
+		classes(
+			() =>
+				'scroll-fade-b size-full min-h-0 min-w-0 scrollbar-thin scrollbar-gutter-stable overflow-y-auto overscroll-contain contain-content data-autoscrolling:scrollbar-thumb-transparent data-autoscrolling:scrollbar-track-transparent',
+		);
+	}
+}

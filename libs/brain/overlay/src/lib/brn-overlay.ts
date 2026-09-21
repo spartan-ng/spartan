@@ -196,7 +196,7 @@ export class BrnOverlay<TResult = unknown, TContext extends Record<string, unkno
 	}
 
 	protected getAttachTo(): BrnOverlayOptions['attachTo'] {
-		return this._origin() ?? this.attachTo();
+		return this.attachTo() ?? this._origin();
 	}
 
 	protected getAttachPositions(): BrnOverlayOptions['attachPositions'] {

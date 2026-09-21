@@ -3,6 +3,7 @@ import { render, waitFor } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
 import { noop } from 'rxjs';
 import { BrnSonnerToaster } from './brn-toaster';
+import { BrnToastAction } from './directives/brn-toast-action';
 import { toast, toastState } from './state';
 import type { ToasterProps } from './types';
 
@@ -16,7 +17,7 @@ export type ToastTestInputs = {
 
 @Component({
 	selector: 'brn-sonner-test',
-	imports: [BrnSonnerToaster],
+	imports: [BrnSonnerToaster, BrnToastAction],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<brn-sonner-toaster [theme]="theme()" [closeButton]="closeButton()">
@@ -38,6 +39,16 @@ export type ToastTestInputs = {
 					/>
 					<path d="m9 12 2 2 4-4" />
 				</svg>
+			</ng-template>
+			<ng-template brnToastAction let-action let-toast="toast">
+				<button
+					data-button
+					[attr.data-toast-type]="toast.type"
+					[style]="toast.actionButtonStyle"
+					(click)="action.onClick($event)"
+				>
+					{{ action.label }}
+				</button>
 			</ng-template>
 		</brn-sonner-toaster>
 		<button data-testid="trigger" (click)="onClick()">Trigger</button>
@@ -314,5 +325,24 @@ describe('Toaster', () => {
 		expect(icon).toContainHTML(
 			'<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-badge-check"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" /><path d="m9 12 2 2 4-4" /></svg>',
 		);
+	});
+
+	it('should render the custom action when provided', async () => {
+		const { user, trigger, container } = await setup({
+			callback: (toast) =>
+				toast.success('Hello world', {
+					action: {
+						label: 'Action',
+						onClick: () => {
+							console.log('Action clicked');
+						},
+					},
+				}),
+		});
+		await user.click(trigger);
+		const action = container.querySelector<HTMLButtonElement>('[data-button]');
+		expect(action).not.toBeNull();
+		expect(action).toContainHTML('Action');
+		expect(action?.getAttribute('data-toast-type')).toBe('success');
 	});
 });

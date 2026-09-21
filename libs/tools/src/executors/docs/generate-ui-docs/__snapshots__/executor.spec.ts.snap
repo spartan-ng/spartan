@@ -8229,6 +8229,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "required": false,
             "type": "boolean",
           },
+          {
+            "name": "aria-invalid",
+            "required": false,
+            "type": "boolean | undefined",
+          },
         ],
         "models": [],
         "outputs": [],
@@ -8520,6 +8525,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "name": "forceInvalid",
             "required": false,
             "type": "boolean",
+          },
+          {
+            "name": "aria-invalid",
+            "required": false,
+            "type": "boolean | undefined",
           },
         ],
         "models": [],

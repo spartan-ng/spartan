@@ -18,7 +18,7 @@ import { injectBrnSelectBase } from './brn-select.token';
 		'[attr.aria-activedescendant]': '_isExpanded() ? _activeDescendant() : null',
 		'[attr.data-placeholder]': '_isPlaceholder() ? "" : null',
 		'[disabled]': '_disabled()',
-		'[attr.aria-invalid]': '_invalid?.() ? "true" : null',
+		'[attr.aria-invalid]': '_ariaInvalid() ? "true" : null',
 		'[attr.data-dirty]': '_dirty?.() ? "true": null',
 		'[attr.data-touched]': '_touched?.() ? "true" : null',
 		'[attr.data-matches-spartan-invalid]': '_spartanInvalid?.() ? "true" : null',
@@ -41,6 +41,12 @@ export class BrnSelectTrigger {
 	/** Whether to force the trigger into an invalid state. */
 	public readonly forceInvalid = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
+	/** Manual override for aria-invalid. When not set, auto-detects from the parent autocomplete error state. */
+	public readonly ariaInvalidOverride = input<boolean | undefined, BooleanInput>(undefined, {
+		transform: (v: BooleanInput) => (v === '' || v === undefined ? undefined : booleanAttribute(v)),
+		alias: 'aria-invalid',
+	});
+
 	protected readonly _activeDescendant = signal<string | undefined>(undefined);
 
 	/** Whether the combobox panel is expanded */
@@ -53,7 +59,10 @@ export class BrnSelectTrigger {
 
 	protected readonly _isPlaceholder = computed(() => !this._select.hasValue());
 
-	protected readonly _invalid = computed(() => this._select?.controlState?.()?.invalid);
+	/** Computed aria-invalid: uses manual override if provided, otherwise reads from parent error state. */
+	protected readonly _ariaInvalid = computed(
+		() => this.ariaInvalidOverride() ?? this._select.controlState?.()?.invalid,
+	);
 	protected readonly _touched = computed(() => this._select?.controlState?.()?.touched);
 	protected readonly _dirty = computed(() => this._select?.controlState?.()?.dirty);
 	protected readonly _spartanInvalid = computed(

@@ -19,6 +19,7 @@ import type { ClassValue } from 'clsx';
 			[forceInvalid]="forceInvalid()"
 			[id]="buttonId()"
 			[class]="_computedClass()"
+			[aria-invalid]="ariaInvalidOverride()"
 			[attr.data-size]="size()"
 			data-slot="select-trigger"
 		>
@@ -44,4 +45,10 @@ export class HlmSelectTrigger {
 
 	/** Whether to force the trigger into an invalid state. */
 	public readonly forceInvalid = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
+
+	/** Manual override for aria-invalid. When not set, auto-detects from the parent autocomplete error state. */
+	public readonly ariaInvalidOverride = input<boolean | undefined, BooleanInput>(undefined, {
+		transform: (v: BooleanInput) => (v === '' || v === undefined ? undefined : booleanAttribute(v)),
+		alias: 'aria-invalid',
+	});
 }

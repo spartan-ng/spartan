@@ -184,7 +184,12 @@ export class BrnSelectMultiple<T> implements BrnSelectBase<T>, ControlValueAcces
 	public selectActiveItem(): void {
 		if (!this.isExpanded()) return;
 
-		const value = this.keyManager.activeItem?.value();
+		const activeItem = this.keyManager.activeItem;
+
+		// setActiveItem() bypasses skipPredicate, so the active item may be disabled.
+		if (activeItem?.disabled) return;
+
+		const value = activeItem?.value();
 
 		if (value !== null && value !== undefined) {
 			this.select(value);

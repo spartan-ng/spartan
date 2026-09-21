@@ -46,6 +46,46 @@ class SelectMultipleKeyboardHost {
 	public readonly selected = signal<string[] | null>(null);
 }
 
+@Component({
+	selector: 'hlm-select-disabled-keyboard-host',
+	imports: [HlmSelectImports],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<hlm-select [(value)]="value" class="w-56">
+			<hlm-select-trigger>
+				<hlm-select-value placeholder="Select a fruit" />
+			</hlm-select-trigger>
+			<hlm-select-content *hlmSelectPortal>
+				<hlm-select-item value="locked" disabled>Locked</hlm-select-item>
+				<hlm-select-item value="open">Open</hlm-select-item>
+			</hlm-select-content>
+		</hlm-select>
+	`,
+})
+class SelectDisabledKeyboardHost {
+	public readonly value = signal<string | null>('locked');
+}
+
+@Component({
+	selector: 'hlm-select-multiple-disabled-keyboard-host',
+	imports: [HlmSelectImports],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<hlm-select-multiple [(value)]="selected">
+			<hlm-select-trigger class="w-56">
+				<hlm-select-placeholder>Select fruits</hlm-select-placeholder>
+			</hlm-select-trigger>
+			<hlm-select-content *hlmSelectPortal>
+				<hlm-select-item value="anna" disabled>Anna</hlm-select-item>
+				<hlm-select-item value="ben">Ben</hlm-select-item>
+			</hlm-select-content>
+		</hlm-select-multiple>
+	`,
+})
+class SelectMultipleDisabledKeyboardHost {
+	public readonly selected = signal<string[] | null>(['anna']);
+}
+
 describe('HlmSelect keyboard', () => {
 	afterEach(() => {
 		document.querySelectorAll('.cdk-overlay-container').forEach((el) => el.remove());
@@ -216,5 +256,46 @@ describe('HlmSelect keyboard', () => {
 		expect(listboxOpen()).toBe(false);
 		expect(document.querySelector('[role="listbox"]')).toBeNull();
 		expect(host.selected()).toBeNull();
+	});
+
+	// Regression (#1747): a disabled option can be the active item because the on-open effect
+	// highlights the option matching the current value, and setActiveItem ignores skipPredicate.
+	// Committing it must be a no-op.
+	it('does not commit a disabled active option on Enter', async () => {
+		const view = await render(SelectDisabledKeyboardHost);
+		const host = view.fixture.componentInstance;
+		trigger().focus();
+
+		fireEvent.click(trigger());
+		view.detectChanges();
+		await flush();
+		expect(listboxOpen()).toBe(true);
+		expect(document.querySelector('[data-highlighted]')?.getAttribute('data-value')).toBe('locked');
+
+		fireEvent.keyDown(trigger(), { key: 'Enter' });
+		view.detectChanges();
+		await flush();
+
+		expect(host.value()).toBe('locked');
+		expect(listboxOpen()).toBe(true);
+	});
+
+	it('does not toggle a disabled active option on Enter when multiple', async () => {
+		const view = await render(SelectMultipleDisabledKeyboardHost);
+		const host = view.fixture.componentInstance;
+		trigger().focus();
+
+		fireEvent.click(trigger());
+		view.detectChanges();
+		await flush();
+		expect(listboxOpen()).toBe(true);
+		expect(document.querySelector('[data-highlighted]')?.getAttribute('data-value')).toBe('anna');
+
+		fireEvent.keyDown(trigger(), { key: 'Enter' });
+		view.detectChanges();
+		await flush();
+
+		expect(host.selected()).toEqual(['anna']);
+		expect(listboxOpen()).toBe(true);
 	});
 });

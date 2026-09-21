@@ -298,4 +298,21 @@ describe('HlmSelect keyboard', () => {
 		expect(host.selected()).toEqual(['anna']);
 		expect(listboxOpen()).toBe(true);
 	});
+
+	// Regression (#1749): a press on an option must not move DOM focus off the trigger.
+	it('prevents the default of mousedown on an option', async () => {
+		const view = await render(SelectMultipleKeyboardHost);
+		trigger().focus();
+
+		fireEvent.keyDown(trigger(), { key: 'ArrowDown' });
+		view.detectChanges();
+		await flush();
+		expect(listboxOpen()).toBe(true);
+
+		const option = document.querySelector('[role="option"]') as HTMLElement;
+		const event = new MouseEvent('mousedown', { bubbles: true, cancelable: true });
+		option.dispatchEvent(event);
+
+		expect(event.defaultPrevented).toBe(true);
+	});
 });

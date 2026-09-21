@@ -1,7 +1,9 @@
 import type { BooleanInput } from '@angular/cdk/coercion';
-import { booleanAttribute, computed, Directive, effect, ElementRef, inject, input } from '@angular/core';
+import { booleanAttribute, computed, Directive, effect, ElementRef, inject, input, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { injectElementSize } from '@spartan-ng/brain/core';
 import { BrnOverlay } from '@spartan-ng/brain/overlay';
+import { startWith } from 'rxjs/operators';
 import { injectBrnSelectBase } from './brn-select.token';
 
 @Directive({
@@ -12,9 +14,11 @@ import { injectBrnSelectBase } from './brn-select.token';
 		type: 'button',
 		'[id]': 'id()',
 		'[attr.aria-expanded]': '_isExpanded()',
+		'[attr.aria-controls]': '_isExpanded() ? _listId() : null',
+		'[attr.aria-activedescendant]': '_isExpanded() ? _activeDescendant() : null',
 		'[attr.data-placeholder]': '_isPlaceholder() ? "" : null',
 		'[disabled]': '_disabled()',
-		'[attr.aria-invalid]': '_invalid?.() ? "true" : null',
+		'[attr.aria-invalid]': '_ariaInvalid() ? "true" : null',
 		'[attr.data-dirty]': '_dirty?.() ? "true": null',
 		'[attr.data-touched]': '_touched?.() ? "true" : null',
 		'[attr.data-matches-spartan-invalid]': '_spartanInvalid?.() ? "true" : null',
@@ -37,14 +41,26 @@ export class BrnSelectTrigger {
 	/** Whether to force the trigger into an invalid state. */
 	public readonly forceInvalid = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
+	/** Manual override for aria-invalid. When not set, auto-detects from the parent autocomplete error state. */
+	public readonly ariaInvalidInput = input<boolean | undefined, BooleanInput>(undefined, {
+		transform: (v: BooleanInput) => (v === '' || v === undefined ? undefined : booleanAttribute(v)),
+		alias: 'aria-invalid',
+	});
+
+	protected readonly _activeDescendant = signal<string | undefined>(undefined);
+
 	/** Whether the combobox panel is expanded */
 	protected readonly _isExpanded = this._select.isExpanded;
+
+	/** The id of the select list, used for aria-controls. */
+	protected readonly _listId = this._select.listId;
 
 	protected readonly _disabled = this._select.disabledState;
 
 	protected readonly _isPlaceholder = computed(() => !this._select.hasValue());
 
-	protected readonly _invalid = computed(() => this._select?.controlState?.()?.invalid);
+	/** Computed aria-invalid: uses manual override if provided, otherwise reads from parent error state. */
+	protected readonly _ariaInvalid = computed(() => this.ariaInvalidInput() ?? this._select.controlState?.()?.invalid);
 	protected readonly _touched = computed(() => this._select?.controlState?.()?.touched);
 	protected readonly _dirty = computed(() => this._select?.controlState?.()?.dirty);
 	protected readonly _spartanInvalid = computed(
@@ -55,6 +71,12 @@ export class BrnSelectTrigger {
 		this._select.registerSelectTrigger(this);
 
 		this._brnOverlay?.setOrigin(this._host.nativeElement);
+
+		this._select.keyManager.change
+			.pipe(startWith(this._select.keyManager.activeItemIndex), takeUntilDestroyed())
+			.subscribe(() => {
+				this._activeDescendant.set(this._select.keyManager.activeItem?.id());
+			});
 
 		effect(() => {
 			const size = this._elementSize();
@@ -75,18 +97,25 @@ export class BrnSelectTrigger {
 
 	/** Listen for keydown events */
 	protected onKeyDown(event: KeyboardEvent): void {
-		// Capture the expansion state up-front. Committing a value (Enter/Tab while open)
+		// Capture the expansion state up-front. Committing a value (Enter/Space while open)
 		// closes the panel synchronously, so re-reading the state afterwards would report
 		// the panel as closed and re-open it on the same keypress.
 		const isExpanded = this._isExpanded();
 
-		if (isExpanded && (event.key === 'Enter' || event.key === 'Tab')) {
-			// prevent form submission if inside a form
-			if (event.key === 'Enter') {
-				event.preventDefault();
-			}
+		if (isExpanded && (event.key === 'Enter' || event.key === ' ')) {
+			// Enter would submit an enclosing form and Space would trigger the native button
+			// activation on keyup (click -> toggle()), undoing the commit that happens below.
+			event.preventDefault();
 
 			this._select.selectActiveItem();
+			return;
+		}
+
+		if (isExpanded && event.key === 'Tab') {
+			// Tab moves focus to the next control. Dismiss the panel without committing so it
+			// is not left open with nothing focused inside it; the browser performs the focus
+			// move, so the default action must not be prevented.
+			this._select.close();
 			return;
 		}
 

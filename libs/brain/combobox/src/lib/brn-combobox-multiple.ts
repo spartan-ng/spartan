@@ -166,6 +166,7 @@ export class BrnComboboxMultiple<T> implements BrnComboboxBase<T>, ControlValueA
 		this.keyManager
 			.withVerticalOrientation()
 			.withHomeAndEnd()
+			.withPageUpDown()
 			.withWrap()
 			.skipPredicate((item) => item.disabled || !item.visible());
 
@@ -232,7 +233,12 @@ export class BrnComboboxMultiple<T> implements BrnComboboxBase<T>, ControlValueA
 	public selectActiveItem(): void {
 		if (!this.isExpanded()) return;
 
-		const value = this.keyManager.activeItem?.value();
+		const activeItem = this.keyManager.activeItem;
+
+		// setActiveItem() bypasses skipPredicate, so the active item may be disabled.
+		if (activeItem?.disabled) return;
+
+		const value = activeItem?.value();
 
 		if (this.isValuePresent()(value)) {
 			this.select(value as T);

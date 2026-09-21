@@ -48,7 +48,7 @@ export class BrnComboboxInput<T> {
 	public readonly id = input<string>(`brn-combobox-input-${++BrnComboboxInput._id}`);
 
 	/** Manual override for aria-invalid. When not set, auto-detects from the parent combobox error state. */
-	public readonly ariaInvalidOverride = input<boolean | undefined, BooleanInput>(undefined, {
+	public readonly ariaInvalidInput = input<boolean | undefined, BooleanInput>(undefined, {
 		transform: (v: BooleanInput) => (v === '' || v === undefined ? undefined : booleanAttribute(v)),
 		alias: 'aria-invalid',
 	});
@@ -64,9 +64,7 @@ export class BrnComboboxInput<T> {
 	protected readonly _activeDescendant = signal<string | undefined>(undefined);
 
 	/** Computed aria-invalid: uses manual override if provided, otherwise reads from parent error state. */
-	protected readonly _ariaInvalid = computed(
-		() => this.ariaInvalidOverride() ?? this._combobox.controlState?.()?.invalid,
-	);
+	protected readonly _ariaInvalid = computed(() => this.ariaInvalidInput() ?? this._combobox.controlState?.()?.invalid);
 
 	protected readonly _dirty = computed(() => this._combobox.controlState?.()?.dirty);
 	protected readonly _touched = computed(() => this._combobox.controlState?.()?.touched);
@@ -127,18 +125,19 @@ export class BrnComboboxInput<T> {
 
 		if (wasExpanded) {
 			if (event.key === 'Tab') {
+				// Tab moves focus on to the next control. Close the popup without committing so
+				// the highlighted suggestion does not overwrite the typed value.
+				//
 				// In popup mode the input lives inside a CDK overlay which is appended to <body>.
 				// Without preventDefault the browser has nowhere to Tab to inside the overlay and
-				// jumps straight to the browser's address bar.  We intercept the key, select any
-				// active item, close the popup, and let BrnOverlay._restoreFocus restore focus to
-				// the trigger so the user can continue tabbing through the page normally.
+				// jumps straight to the browser's address bar. We intercept the key and let
+				// BrnOverlay._restoreFocus restore focus to the trigger so the user can continue
+				// tabbing through the page normally.
 				if (!this._isCombobox()) {
 					event.preventDefault();
-					this._combobox.selectActiveItem();
-					this._combobox.close();
-				} else {
-					this._combobox.selectActiveItem();
 				}
+
+				this._combobox.close();
 			}
 		} else {
 			if (event.key === 'Enter' || event.key === 'ArrowDown' || event.key === 'ArrowUp') {

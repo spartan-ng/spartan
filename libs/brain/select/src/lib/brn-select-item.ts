@@ -19,6 +19,7 @@ import { injectBrnSelectBase } from './brn-select.token';
 		'[attr.data-disabled]': '_disabled() ? "" : null',
 		'(click)': 'select()',
 		'(mouseenter)': 'activate()',
+		'(mousedown)': 'onMouseDown($event)',
 	},
 })
 export class BrnSelectItem<T> implements Highlightable {
@@ -84,5 +85,10 @@ export class BrnSelectItem<T> implements Highlightable {
 		}
 
 		this._select.keyManager.setActiveItem(this);
+	}
+
+	/** Prevent the press from moving DOM focus off the trigger (aria-activedescendant model). */
+	protected onMouseDown(event: MouseEvent): void {
+		event.preventDefault();
 	}
 }

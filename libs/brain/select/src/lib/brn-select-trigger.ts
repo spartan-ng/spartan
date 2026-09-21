@@ -1,7 +1,9 @@
 import type { BooleanInput } from '@angular/cdk/coercion';
-import { booleanAttribute, computed, Directive, effect, ElementRef, inject, input } from '@angular/core';
+import { booleanAttribute, computed, Directive, effect, ElementRef, inject, input, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { injectElementSize } from '@spartan-ng/brain/core';
 import { BrnOverlay } from '@spartan-ng/brain/overlay';
+import { startWith } from 'rxjs/operators';
 import { injectBrnSelectBase } from './brn-select.token';
 
 @Directive({
@@ -11,8 +13,9 @@ import { injectBrnSelectBase } from './brn-select.token';
 		'aria-haspopup': 'listbox',
 		type: 'button',
 		'[id]': 'id()',
-		'[attr.aria-controls]': '_isExpanded() ? _listId() : null',
 		'[attr.aria-expanded]': '_isExpanded()',
+		'[attr.aria-controls]': '_isExpanded() ? _listId() : null',
+		'[attr.aria-activedescendant]': '_isExpanded() ? _activeDescendant() : null',
 		'[attr.data-placeholder]': '_isPlaceholder() ? "" : null',
 		'[disabled]': '_disabled()',
 		'[attr.aria-invalid]': '_invalid?.() ? "true" : null',
@@ -38,6 +41,8 @@ export class BrnSelectTrigger {
 	/** Whether to force the trigger into an invalid state. */
 	public readonly forceInvalid = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
+	protected readonly _activeDescendant = signal<string | undefined>(undefined);
+
 	/** Whether the combobox panel is expanded */
 	protected readonly _isExpanded = this._select.isExpanded;
 
@@ -59,6 +64,12 @@ export class BrnSelectTrigger {
 		this._select.registerSelectTrigger(this);
 
 		this._brnOverlay?.setOrigin(this._host.nativeElement);
+
+		this._select.keyManager.change
+			.pipe(startWith(this._select.keyManager.activeItemIndex), takeUntilDestroyed())
+			.subscribe(() => {
+				this._activeDescendant.set(this._select.keyManager.activeItem?.id());
+			});
 
 		effect(() => {
 			const size = this._elementSize();

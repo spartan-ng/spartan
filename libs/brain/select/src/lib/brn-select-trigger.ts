@@ -42,7 +42,7 @@ export class BrnSelectTrigger {
 	public readonly forceInvalid = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
 	/** Manual override for aria-invalid. When not set, auto-detects from the parent autocomplete error state. */
-	public readonly ariaInvalidOverride = input<boolean | undefined, BooleanInput>(undefined, {
+	public readonly ariaInvalidInput = input<boolean | undefined, BooleanInput>(undefined, {
 		transform: (v: BooleanInput) => (v === '' || v === undefined ? undefined : booleanAttribute(v)),
 		alias: 'aria-invalid',
 	});
@@ -60,9 +60,7 @@ export class BrnSelectTrigger {
 	protected readonly _isPlaceholder = computed(() => !this._select.hasValue());
 
 	/** Computed aria-invalid: uses manual override if provided, otherwise reads from parent error state. */
-	protected readonly _ariaInvalid = computed(
-		() => this.ariaInvalidOverride() ?? this._select.controlState?.()?.invalid,
-	);
+	protected readonly _ariaInvalid = computed(() => this.ariaInvalidInput() ?? this._select.controlState?.()?.invalid);
 	protected readonly _touched = computed(() => this._select?.controlState?.()?.touched);
 	protected readonly _dirty = computed(() => this._select?.controlState?.()?.dirty);
 	protected readonly _spartanInvalid = computed(

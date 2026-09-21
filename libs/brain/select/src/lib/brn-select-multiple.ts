@@ -113,6 +113,7 @@ export class BrnSelectMultiple<T> implements BrnSelectBase<T>, ControlValueAcces
 		this.keyManager
 			.withVerticalOrientation()
 			.withHomeAndEnd()
+			.withPageUpDown()
 			.withTypeAhead()
 			.withWrap()
 			.skipPredicate((item) => item.disabled);

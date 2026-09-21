@@ -79,18 +79,25 @@ export class BrnSelectTrigger {
 
 	/** Listen for keydown events */
 	protected onKeyDown(event: KeyboardEvent): void {
-		// Capture the expansion state up-front. Committing a value (Enter/Tab while open)
+		// Capture the expansion state up-front. Committing a value (Enter/Space while open)
 		// closes the panel synchronously, so re-reading the state afterwards would report
 		// the panel as closed and re-open it on the same keypress.
 		const isExpanded = this._isExpanded();
 
-		if (isExpanded && (event.key === 'Enter' || event.key === 'Tab')) {
-			// prevent form submission if inside a form
-			if (event.key === 'Enter') {
-				event.preventDefault();
-			}
+		if (isExpanded && (event.key === 'Enter' || event.key === ' ')) {
+			// Enter would submit an enclosing form and Space would trigger the native button
+			// activation on keyup (click -> toggle()), undoing the commit that happens below.
+			event.preventDefault();
 
 			this._select.selectActiveItem();
+			return;
+		}
+
+		if (isExpanded && event.key === 'Tab') {
+			// Tab moves focus to the next control. Dismiss the panel without committing so it
+			// is not left open with nothing focused inside it; the browser performs the focus
+			// move, so the default action must not be prevented.
+			this._select.close();
 			return;
 		}
 

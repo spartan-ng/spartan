@@ -173,7 +173,7 @@ export class BrnSelect<T> implements BrnSelectBase<T>, ControlValueAccessor {
 		this.close();
 	}
 
-	/** Select the active item with Enter key. */
+	/** Select the active item via keyboard (Enter or Space while expanded). */
 	public selectActiveItem(): void {
 		if (!this.isExpanded()) return;
 

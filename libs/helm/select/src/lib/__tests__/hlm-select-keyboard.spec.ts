@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { fireEvent, render } from '@testing-library/angular';
 import { HlmSelectImports } from '../../index';
 
@@ -25,6 +25,26 @@ const flush = async () => {
 	`,
 })
 class SelectKeyboardHost {}
+
+@Component({
+	selector: 'hlm-select-multiple-keyboard-host',
+	imports: [HlmSelectImports],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<hlm-select-multiple [(value)]="selected">
+			<hlm-select-trigger class="w-56">
+				<hlm-select-placeholder>Select fruits</hlm-select-placeholder>
+			</hlm-select-trigger>
+			<hlm-select-content *hlmSelectPortal>
+				<hlm-select-item value="apple">Apple</hlm-select-item>
+				<hlm-select-item value="banana">Banana</hlm-select-item>
+			</hlm-select-content>
+		</hlm-select-multiple>
+	`,
+})
+class SelectMultipleKeyboardHost {
+	public readonly selected = signal<string[] | null>(null);
+}
 
 describe('HlmSelect keyboard', () => {
 	afterEach(() => {
@@ -86,6 +106,47 @@ describe('HlmSelect keyboard', () => {
 		expect(trigger().textContent?.toLowerCase()).toContain('apple');
 	});
 
+	// Regression: Space must behave like Enter (APG select-only combobox), committing the
+	// active option instead of leaking the keystroke to type-ahead and closing via the native
+	// button activation.
+	it('commits the active value and closes on Space', async () => {
+		const view = await render(SelectKeyboardHost);
+		trigger().focus();
+
+		fireEvent.keyDown(trigger(), { key: 'ArrowDown' });
+		view.detectChanges();
+		await flush();
+		expect(listboxOpen()).toBe(true);
+
+		fireEvent.keyDown(trigger(), { key: ' ' });
+		view.detectChanges();
+		await flush();
+
+		expect(listboxOpen()).toBe(false);
+		expect(document.querySelector('[role="listbox"]')).toBeNull();
+		expect(trigger().textContent?.toLowerCase()).toContain('apple');
+	});
+
+	// Tab moves focus on to the next control and dismisses the panel without committing.
+	it('closes without committing on Tab', async () => {
+		const view = await render(SelectKeyboardHost);
+		trigger().focus();
+
+		fireEvent.keyDown(trigger(), { key: 'ArrowDown' });
+		view.detectChanges();
+		await flush();
+		expect(listboxOpen()).toBe(true);
+
+		fireEvent.keyDown(trigger(), { key: 'Tab' });
+		view.detectChanges();
+		await flush();
+
+		expect(listboxOpen()).toBe(false);
+		expect(document.querySelector('[role="listbox"]')).toBeNull();
+		// the highlighted option was not committed
+		expect(trigger().textContent?.toLowerCase()).toContain('select a fruit');
+	});
+
 	it('closes on Escape without committing', async () => {
 		const view = await render(SelectKeyboardHost);
 		trigger().focus();
@@ -114,5 +175,46 @@ describe('HlmSelect keyboard', () => {
 
 		// autoFocus must not pull focus into the listbox (it has no tabbable element).
 		expect(document.activeElement).toBe(trigger());
+	});
+
+	// In a multiple select, Space toggles the focused option and keeps the listbox open,
+	// matching the APG multi-select listbox behaviour.
+	it('toggles the active value on Space without closing when multiple', async () => {
+		const view = await render(SelectMultipleKeyboardHost);
+		const host = view.fixture.componentInstance;
+		trigger().focus();
+
+		fireEvent.keyDown(trigger(), { key: 'ArrowDown' });
+		view.detectChanges();
+		await flush();
+		expect(listboxOpen()).toBe(true);
+
+		fireEvent.keyDown(trigger(), { key: ' ' });
+		view.detectChanges();
+		await flush();
+
+		expect(host.selected()).toEqual(['apple']);
+		expect(listboxOpen()).toBe(true);
+	});
+
+	// Regression (#1748): Tab must not toggle the highlighted option in a multiple select; it
+	// leaves the control. The panel must not be left open with nothing focused inside it.
+	it('closes without toggling on Tab when multiple', async () => {
+		const view = await render(SelectMultipleKeyboardHost);
+		const host = view.fixture.componentInstance;
+		trigger().focus();
+
+		fireEvent.keyDown(trigger(), { key: 'ArrowDown' });
+		view.detectChanges();
+		await flush();
+		expect(listboxOpen()).toBe(true);
+
+		fireEvent.keyDown(trigger(), { key: 'Tab' });
+		view.detectChanges();
+		await flush();
+
+		expect(listboxOpen()).toBe(false);
+		expect(document.querySelector('[role="listbox"]')).toBeNull();
+		expect(host.selected()).toBeNull();
 	});
 });

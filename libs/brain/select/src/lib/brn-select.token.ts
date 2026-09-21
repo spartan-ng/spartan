@@ -27,7 +27,7 @@ export interface BrnSelectBase<T> {
 
 	isSelected: (itemValue: T) => boolean;
 	select: (itemValue: T) => void;
-	/** Select the active item with Enter key. */
+	/** Select the active item via keyboard (Enter or Space while expanded). */
 	selectActiveItem: () => void;
 	open: () => void;
 	close: () => void;

@@ -83,6 +83,12 @@ export class BrnComboboxChipInput<T> {
 			this._combobox.selectActiveItem();
 		}
 
+		if (this._isExpanded() && event.key === 'Tab') {
+			// Tab moves focus on to the next control. Close the popup without toggling the
+			// highlighted option.
+			this._combobox.close();
+		}
+
 		if (!this._isExpanded()) {
 			if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
 				this._combobox.open();

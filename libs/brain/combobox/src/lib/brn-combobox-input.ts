@@ -127,18 +127,19 @@ export class BrnComboboxInput<T> {
 
 		if (wasExpanded) {
 			if (event.key === 'Tab') {
+				// Tab moves focus on to the next control. Close the popup without committing so
+				// the highlighted suggestion does not overwrite the typed value.
+				//
 				// In popup mode the input lives inside a CDK overlay which is appended to <body>.
 				// Without preventDefault the browser has nowhere to Tab to inside the overlay and
-				// jumps straight to the browser's address bar.  We intercept the key, select any
-				// active item, close the popup, and let BrnOverlay._restoreFocus restore focus to
-				// the trigger so the user can continue tabbing through the page normally.
+				// jumps straight to the browser's address bar. We intercept the key and let
+				// BrnOverlay._restoreFocus restore focus to the trigger so the user can continue
+				// tabbing through the page normally.
 				if (!this._isCombobox()) {
 					event.preventDefault();
-					this._combobox.selectActiveItem();
-					this._combobox.close();
-				} else {
-					this._combobox.selectActiveItem();
 				}
+
+				this._combobox.close();
 			}
 		} else {
 			if (event.key === 'Enter' || event.key === 'ArrowDown' || event.key === 'ArrowUp') {

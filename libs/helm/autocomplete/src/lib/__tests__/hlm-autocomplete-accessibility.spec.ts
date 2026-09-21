@@ -39,6 +39,12 @@ class HlmAutocompleteAccessibilityHost {}
 })
 class HlmAutocompleteSearchAccessibilityHost {}
 
+// Lets the popover open/close transition settle.
+const flush = async () => {
+	await new Promise((resolve) => setTimeout(resolve, 0));
+	await new Promise((resolve) => setTimeout(resolve, 0));
+};
+
 describe('HlmAutocomplete accessibility', () => {
 	it('exposes the active option and names the listbox', () => {
 		const fixture = TestBed.createComponent(HlmAutocompleteAccessibilityHost);
@@ -56,6 +62,29 @@ describe('HlmAutocomplete accessibility', () => {
 		expect(input.autocomplete).toBe('postal-code');
 		expect(input.getAttribute('aria-activedescendant')).toBe(activeOption.id);
 		expect(listbox.getAttribute('aria-labelledby')).toBe('autocomplete-label');
+		fixture.destroy();
+	});
+
+	// Tab moves focus on to the next control; it must close the listbox without committing the
+	// highlighted option into the input.
+	it('closes the listbox without committing the active option on Tab', async () => {
+		const fixture = TestBed.createComponent(HlmAutocompleteAccessibilityHost);
+		fixture.detectChanges();
+
+		const autocomplete = fixture.debugElement.query(By.directive(BrnAutocomplete)).injector.get(BrnAutocomplete);
+		autocomplete.open();
+		autocomplete.keyManager.setActiveItem(0);
+		fixture.detectChanges();
+		await flush();
+		expect(autocomplete.isExpanded()).toBe(true);
+
+		const input: HTMLInputElement = fixture.nativeElement.querySelector('input');
+		input.dispatchEvent(new KeyboardEvent('keydown', { key: 'Tab', bubbles: true, cancelable: true }));
+		fixture.detectChanges();
+		await flush();
+
+		expect(autocomplete.isExpanded()).toBe(false);
+		expect(autocomplete.value()).toBeNull();
 		fixture.destroy();
 	});
 

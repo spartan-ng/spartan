@@ -50,6 +50,7 @@ import type { ToastAction, ToastProps, ToastT } from './types';
 			[attr.data-invert]="_invert()"
 			[attr.data-swipe-out]="_swipeOut()"
 			[attr.data-expanded]="expanded() || (expandByDefault() && _mounted())"
+			[attr.data-testid]="toast().testId"
 			[style]="_toastStyle()"
 			(pointerdown)="onPointerDown($event)"
 			(pointerup)="onPointerUp()"

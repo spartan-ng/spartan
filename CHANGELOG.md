@@ -1,3 +1,7 @@
+## 1.5.0-beta.8 (2026-09-21)
+
+- feat(sonner): add data-testid attribute for e2e testing (#1761) ([fcacf0d](https://github.com/spartan-ng/spartan/commit/fcacf0d)), closes [#1761](https://github.com/spartan-ng/spartan/issues/1761)
+
 ## 1.5.0-beta.7 (2026-09-21)
 
 - fix: autocomplete and combobox accessibility (#1757) ([7cb220b](https://github.com/spartan-ng/spartan/commit/7cb220b)), closes [#1757](https://github.com/spartan-ng/spartan/issues/1757)

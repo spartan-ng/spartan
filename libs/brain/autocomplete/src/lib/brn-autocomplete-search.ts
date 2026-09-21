@@ -186,7 +186,12 @@ export class BrnAutocompleteSearch<T> implements BrnAutocompleteBase<T>, Control
 	selectActiveItem() {
 		if (!this.isExpanded()) return;
 
-		const value = this.keyManager.activeItem?.value();
+		const activeItem = this.keyManager.activeItem;
+
+		// setActiveItem() bypasses skipPredicate, so the active item may be disabled.
+		if (activeItem?.disabled) return;
+
+		const value = activeItem?.value();
 
 		if (value) {
 			this.select(value);

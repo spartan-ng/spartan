@@ -65,7 +65,7 @@ const formatDate = (value: string, formatter: Intl.DateTimeFormat) => formatter.
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: { class: 'block w-full max-w-3xl' },
 	template: `
-		<hlm-card class="w-full gap-0 py-0!">
+		<hlm-card class="py-0 pb-4">
 			<hlm-card-header class="flex flex-col items-stretch gap-0 border-b p-0! sm:flex-row">
 				<div class="flex flex-1 flex-col justify-center gap-1 px-6 pt-4 pb-3 sm:py-0!">
 					<h3 hlmCardTitle>Bar Chart - Interactive</h3>

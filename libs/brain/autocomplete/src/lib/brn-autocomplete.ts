@@ -125,6 +125,7 @@ export class BrnAutocomplete<T> implements BrnAutocompleteBase<T>, ControlValueA
 		this.keyManager
 			.withVerticalOrientation()
 			.withHomeAndEnd()
+			.withPageUpDown()
 			.withWrap()
 			.skipPredicate((item) => item.disabled);
 

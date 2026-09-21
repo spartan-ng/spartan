@@ -113,6 +113,7 @@ export class BrnSelect<T> implements BrnSelectBase<T>, ControlValueAccessor {
 		this.keyManager
 			.withVerticalOrientation()
 			.withHomeAndEnd()
+			.withPageUpDown()
 			.withTypeAhead()
 			.withWrap()
 			.skipPredicate((item) => item.disabled);

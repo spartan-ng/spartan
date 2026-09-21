@@ -159,6 +159,7 @@ export class BrnCombobox<T> implements BrnComboboxBase<T>, ControlValueAccessor 
 		this.keyManager
 			.withVerticalOrientation()
 			.withHomeAndEnd()
+			.withPageUpDown()
 			.withWrap()
 			.skipPredicate((item) => item.disabled || !item.visible());
 

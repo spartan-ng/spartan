@@ -118,6 +118,7 @@ export class BrnAutocompleteSearch<T> implements BrnAutocompleteBase<T>, Control
 		this.keyManager
 			.withVerticalOrientation()
 			.withHomeAndEnd()
+			.withPageUpDown()
 			.withWrap()
 			.skipPredicate((item) => item.disabled);
 

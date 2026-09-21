@@ -1,3 +1,7 @@
+## 1.5.0-beta.7 (2026-09-21)
+
+- fix: autocomplete and combobox accessibility (#1757) ([7cb220b](https://github.com/spartan-ng/spartan/commit/7cb220b)), closes [#1757](https://github.com/spartan-ng/spartan/issues/1757)
+
 ## 1.5.0-beta.6 (2026-09-20)
 
 - fix(sidebar): add sheet accessible title/description, closes #1758 (#1760) ([7982db9](https://github.com/spartan-ng/spartan/commit/7982db9)), closes [#1758](https://github.com/spartan-ng/spartan/issues/1758) [#1760](https://github.com/spartan-ng/spartan/issues/1760)

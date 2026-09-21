@@ -102,6 +102,11 @@ export class BrnAutocomplete<T> implements BrnAutocompleteBase<T>, ControlValueA
 	/** @internal Whether the autocomplete is expanded */
 	public readonly isExpanded = computed(() => this._brnPopover?.stateComputed() === 'open');
 
+	private readonly _activeDescendantId = signal<string | undefined>(undefined);
+
+	/** @internal The id of the active option. */
+	public readonly activeDescendantId = this._activeDescendantId.asReadonly();
+
 	private readonly _autocompleteInput = signal<BrnAutocompleteInput<T> | undefined>(undefined);
 
 	private readonly _autocompleteList = signal<BrnAutocompleteList | undefined>(undefined);

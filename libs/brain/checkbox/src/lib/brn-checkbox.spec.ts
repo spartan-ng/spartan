@@ -1,7 +1,35 @@
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { form, FormField, required } from '@angular/forms/signals';
 import { axe } from '@spartan-ng/brain/testing';
 import { render, screen } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
 import { BrnCheckbox } from './brn-checkbox';
+
+@Component({
+	selector: 'brn-checkbox-signal-form',
+	imports: [BrnCheckbox, FormField],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<brn-checkbox required aria-label="checkbox" [formField]="form.checkbox" />
+	`,
+})
+class BrnCheckboxSignalFormSpec {
+	private readonly _model = signal({ checkbox: false });
+	public readonly form = form(this._model, (schemaPath) => required(schemaPath.checkbox));
+}
+
+@Component({
+	selector: 'brn-checkbox-static-required-signal-form',
+	imports: [BrnCheckbox, FormField],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<brn-checkbox required aria-label="checkbox" [formField]="form.checkbox" />
+	`,
+})
+class BrnCheckboxStaticRequiredSignalFormSpec {
+	private readonly _model = signal({ checkbox: false });
+	public readonly form = form(this._model);
+}
 
 describe('BrnCheckboxComponent', () => {
 	const setup = async () => {
@@ -172,6 +200,27 @@ describe('BrnCheckboxComponent', () => {
 			await setup();
 			await validateCheckboxOff();
 		});
+
+		it('exposes required and invalid state on the checkbox button', async () => {
+			const view = await render(BrnCheckboxSignalFormSpec);
+			view.fixture.componentInstance.form.checkbox().markAsTouched();
+			view.detectChanges();
+
+			const checkboxElement = screen.getByRole('checkbox');
+			const hostElement = screen.getByLabelText('checkbox').closest('brn-checkbox');
+
+			expect(checkboxElement).toHaveAttribute('aria-required', 'true');
+			expect(checkboxElement).toHaveAttribute('aria-invalid', 'true');
+			expect(hostElement).not.toHaveAttribute('aria-required');
+			expect(hostElement).not.toHaveAttribute('aria-invalid');
+		});
+
+		it('preserves static required when the form field has no required validator', async () => {
+			await render(BrnCheckboxStaticRequiredSignalFormSpec);
+
+			expect(screen.getByRole('checkbox')).toHaveAttribute('aria-required', 'true');
+		});
+
 		it('mouse click on element toggles', async () => {
 			const { user, checkboxElement } = await setup();
 			await validateCheckboxOff();

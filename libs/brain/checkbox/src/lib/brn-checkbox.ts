@@ -51,7 +51,6 @@ const CONTAINER_POST_FIX = '-checkbox';
 		'[attr.aria-labelledby]': 'null',
 		'[attr.aria-label]': 'null',
 		'[attr.aria-describedby]': 'null',
-		'[attr.aria-invalid]': '_invalid?.() ? "true" : null',
 		'[attr.data-invalid]': '_invalid?.() ? "true" : null',
 		'[attr.data-matches-spartan-invalid]': 'spartanInvalid?.() ? "true" : null',
 		'[attr.data-touched]': '_controlTouched?.() ? "true" : null',
@@ -70,6 +69,8 @@ const CONTAINER_POST_FIX = '-checkbox';
 			[attr.name]="_buttonName()"
 			[class]="class()"
 			[attr.aria-checked]="_ariaChecked()"
+			[attr.aria-required]="required() ? 'true' : null"
+			[attr.aria-invalid]="_invalid?.() ? 'true' : null"
 			[attr.aria-label]="ariaLabel() || null"
 			[attr.aria-labelledby]="mutableAriaLabelledby() || null"
 			[attr.aria-describedby]="ariaDescribedby() || null"
@@ -183,7 +184,12 @@ export class BrnCheckbox implements ControlValueAccessor, AfterContentInit, OnDe
 	/**
 	 * Whether checkbox is required in a form.
 	 */
-	public readonly required = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
+	public readonly requiredInput = input<boolean, BooleanInput>(false, {
+		alias: 'required',
+		transform: booleanAttribute,
+	});
+	private readonly _hostRequired = this._elementRef.nativeElement.hasAttribute('required');
+	public readonly required = computed(() => this._hostRequired || this.requiredInput());
 
 	/**
 	 * Whether checkbox is disabled.

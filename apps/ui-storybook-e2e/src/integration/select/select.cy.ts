@@ -429,6 +429,10 @@ describe('select', () => {
 			cy.get('hlm-select-all').should('have.attr', 'role', 'option');
 			cy.get('hlm-select-all').should('have.attr', 'aria-selected', 'false');
 			cy.get('hlm-select-all').should('have.attr', 'data-state', 'unchecked');
+			// Let the panel's fade-in/zoom-in animation settle; scanning mid-animation
+			// blends the text with the background and falsely fails color-contrast.
+			// eslint-disable-next-line cypress/no-unnecessary-waiting
+			cy.wait(600);
 			cy.checkA11y('.cdk-overlay-container');
 
 			// select all - disabled options stay unselected, panel stays open

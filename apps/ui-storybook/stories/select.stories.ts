@@ -104,7 +104,6 @@ export const MultipleWithSelectAll: Story = {
 				</hlm-select-trigger>
 				<hlm-select-content *hlmSelectPortal>
 					<hlm-select-all>Select all</hlm-select-all>
-					<hlm-select-separator />
 					<hlm-select-group>
 						<hlm-select-label>Fruits</hlm-select-label>
 						<hlm-select-item value="apple">Apple</hlm-select-item>

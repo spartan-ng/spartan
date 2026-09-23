@@ -19,7 +19,6 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 			</hlm-select-trigger>
 			<hlm-select-content *hlmSelectPortal>
 				<hlm-select-all>Select all</hlm-select-all>
-				<hlm-select-separator />
 				<hlm-select-group>
 					<hlm-select-label>Fruits</hlm-select-label>
 					@for (item of items; track item.value) {

@@ -414,4 +414,41 @@ describe('select', () => {
 			cy.get('[data-testid="value"]').should('contain.text', 'false');
 		});
 	});
+
+	describe('multiple with select all', () => {
+		beforeEach(() => {
+			cy.visit('/iframe.html?id=select--multiple-with-select-all');
+			cy.injectAxe();
+		});
+
+		it('should toggle all enabled options and stay open', () => {
+			cy.get('[brnselecttrigger]').click();
+
+			cy.get('hlm-select-content>div').should('have.attr', 'role', 'listbox');
+			cy.get('hlm-select-content>div').should('have.attr', 'aria-multiselectable', 'true');
+			cy.get('hlm-select-all').should('have.attr', 'role', 'option');
+			cy.get('hlm-select-all').should('have.attr', 'aria-selected', 'false');
+			cy.get('hlm-select-all').should('have.attr', 'data-state', 'unchecked');
+			cy.checkA11y('.cdk-overlay-container');
+
+			// select all - disabled options stay unselected, panel stays open
+			cy.get('hlm-select-all').click();
+			cy.get('hlm-select-content').should('exist');
+			cy.get('hlm-select-all').should('have.attr', 'aria-selected', 'true');
+			cy.get('hlm-select-all').should('have.attr', 'data-state', 'checked');
+			cy.get('hlm-select-item:not([data-disabled])').each(($el) => expect($el).to.have.attr('aria-selected', 'true'));
+			cy.get('hlm-select-item[data-disabled]').each(($el) => expect($el).to.have.attr('aria-selected', 'false'));
+
+			// deselecting one option flips the row to indeterminate
+			cy.get('hlm-select-item').eq(0).click();
+			cy.get('hlm-select-all').should('have.attr', 'aria-selected', 'false');
+			cy.get('hlm-select-all').should('have.attr', 'data-state', 'indeterminate');
+
+			// a second full toggle clears the selection
+			cy.get('hlm-select-all').click();
+			cy.get('hlm-select-all').click();
+			cy.get('hlm-select-all').should('have.attr', 'data-state', 'unchecked');
+			cy.get('hlm-select-item').each(($el) => expect($el).to.have.attr('aria-selected', 'false'));
+		});
+	});
 });

@@ -20,8 +20,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { BrnFieldControl, provideBrnLabelable } from '@spartan-ng/brain/field';
 import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
 import { BrnPopover } from '@spartan-ng/brain/popover';
-import { BrnSelectItem } from './brn-select-item';
-import { BrnSelectItemToken } from './brn-select-item.token';
+import { type BrnSelectOption, BrnSelectItemToken } from './brn-select-item.token';
 import type { BrnSelectList } from './brn-select-list';
 import { BrnSelectTrigger } from './brn-select-trigger';
 import {
@@ -87,9 +86,33 @@ export class BrnSelectMultiple<T> implements BrnSelectBase<T>, ControlValueAcces
 	public readonly triggerWidth = this._triggerWidth.asReadonly();
 
 	/** @internal Access all the items within the select */
-	public readonly items = contentChildren<BrnSelectItem<T>>(BrnSelectItemToken, {
+	public readonly items = contentChildren<BrnSelectOption<T>>(BrnSelectItemToken, {
 		descendants: true,
 	});
+
+	/** @internal The values of all enabled items; the select-all row and valueless items are excluded. */
+	private readonly _enabledItemValues = computed(() =>
+		this.items().flatMap((item) => {
+			if (item.disabled) return [];
+
+			const itemValue = item.value();
+			return itemValue === undefined ? [] : [itemValue];
+		}),
+	);
+
+	/** Whether every enabled item is selected. */
+	public readonly allSelected = computed(() => {
+		const values = this._enabledItemValues();
+		return values.length > 0 && values.every((v) => this.isSelected(v));
+	});
+
+	/**
+	 * Whether some but not all enabled items are selected.
+	 * Surfaced on the select-all row as `data-state="indeterminate"`, matching the checkbox vocabulary.
+	 */
+	public readonly partiallySelected = computed(
+		() => !this.allSelected() && this._enabledItemValues().some((v) => this.isSelected(v)),
+	);
 
 	/** @internal The key manager for managing active descendant */
 	public readonly keyManager = new ActiveDescendantKeyManager(this.items, this._injector);
@@ -135,7 +158,10 @@ export class BrnSelectMultiple<T> implements BrnSelectBase<T>, ControlValueAcces
 					untracked(() => {
 						const index =
 							lastValue !== null && lastValue !== undefined
-								? items.findIndex((item) => this.isItemEqualToValue()(item.value(), lastValue))
+								? items.findIndex((item) => {
+										const itemValue = item.value();
+										return itemValue !== undefined && this.isItemEqualToValue()(itemValue, lastValue);
+									})
 								: -1;
 
 						if (index !== -1) {
@@ -166,7 +192,11 @@ export class BrnSelectMultiple<T> implements BrnSelectBase<T>, ControlValueAcces
 	}
 
 	public isSelected(itemValue: T): boolean {
-		return this.value()?.some((v) => this.isItemEqualToValue()(itemValue, v)) ?? false;
+		return this._containsValue(this.value() ?? [], itemValue);
+	}
+
+	private _containsValue(values: T[], itemValue: T): boolean {
+		return values.some((v) => this.isItemEqualToValue()(itemValue, v));
 	}
 
 	public select(itemValue: T): void {
@@ -181,6 +211,46 @@ export class BrnSelectMultiple<T> implements BrnSelectBase<T>, ControlValueAcces
 		this._onChange?.(this.value() ?? []);
 	}
 
+	/**
+	 * Select all enabled items. Selected values without a matching item and the values
+	 * of selected but disabled items are preserved.
+	 */
+	public selectAll(): void {
+		const current = this.value() ?? [];
+		const next = [...current];
+
+		for (const itemValue of this._enabledItemValues()) {
+			if (!this._containsValue(next, itemValue)) {
+				next.push(itemValue);
+			}
+		}
+
+		if (next.length === current.length) return;
+
+		this.value.set(next);
+		this._onChange?.(next);
+	}
+
+	/**
+	 * Deselect all enabled items. Selected values without a matching item and the values
+	 * of selected but disabled items are preserved.
+	 */
+	public deselectAll(): void {
+		const current = this.value() ?? [];
+		const enabled = this._enabledItemValues();
+		const next = current.filter((v) => !enabled.some((e) => this.isItemEqualToValue()(e, v)));
+
+		if (next.length === current.length) return;
+
+		this.value.set(next);
+		this._onChange?.(next);
+	}
+
+	/** Toggle between selecting and deselecting all enabled items. */
+	public toggleAll(): void {
+		this.allSelected() ? this.deselectAll() : this.selectAll();
+	}
+
 	/** Select the active item via keyboard (Enter or Space while expanded). */
 	public selectActiveItem(): void {
 		if (!this.isExpanded()) return;
@@ -190,10 +260,8 @@ export class BrnSelectMultiple<T> implements BrnSelectBase<T>, ControlValueAcces
 		// setActiveItem() bypasses skipPredicate, so the active item may be disabled.
 		if (activeItem?.disabled) return;
 
-		const value = activeItem?.value();
-
-		if (value !== null && value !== undefined) {
-			this.select(value);
+		if (activeItem) {
+			activeItem.select();
 		} else {
 			this.close();
 		}

@@ -100,7 +100,10 @@ export class BrnSelectMultiple<T> implements BrnSelectBase<T>, ControlValueAcces
 		}),
 	);
 
-	/** Whether every enabled item is selected. */
+	/**
+	 * Whether every enabled item is selected. Always `false` while the panel is closed,
+	 * as items are only rendered while it is open.
+	 */
 	public readonly allSelected = computed(() => {
 		const values = this._enabledItemValues();
 		return values.length > 0 && values.every((v) => this.isSelected(v));
@@ -152,10 +155,13 @@ export class BrnSelectMultiple<T> implements BrnSelectBase<T>, ControlValueAcces
 					if (!this.isExpanded()) return;
 
 					const items = this.items();
-					const values = this.value();
-					const lastValue = values ? values[values.length - 1] : null;
 
+					// value is read untracked: re-running on every selection would move the active item
+					// to the last selected value while the user is navigating (e.g. off the select-all row).
 					untracked(() => {
+						const values = this.value();
+						const lastValue = values ? values[values.length - 1] : null;
+
 						const index =
 							lastValue !== null && lastValue !== undefined
 								? items.findIndex((item) => {
@@ -214,6 +220,8 @@ export class BrnSelectMultiple<T> implements BrnSelectBase<T>, ControlValueAcces
 	/**
 	 * Select all enabled items. Selected values without a matching item and the values
 	 * of selected but disabled items are preserved.
+	 *
+	 * Operates on the rendered items, which only exist while the panel is open (items are portaled).
 	 */
 	public selectAll(): void {
 		const current = this.value() ?? [];
@@ -234,6 +242,8 @@ export class BrnSelectMultiple<T> implements BrnSelectBase<T>, ControlValueAcces
 	/**
 	 * Deselect all enabled items. Selected values without a matching item and the values
 	 * of selected but disabled items are preserved.
+	 *
+	 * Operates on the rendered items, which only exist while the panel is open (items are portaled).
 	 */
 	public deselectAll(): void {
 		const current = this.value() ?? [];
@@ -246,7 +256,11 @@ export class BrnSelectMultiple<T> implements BrnSelectBase<T>, ControlValueAcces
 		this._onChange?.(next);
 	}
 
-	/** Toggle between selecting and deselecting all enabled items. */
+	/**
+	 * Toggle between selecting and deselecting all enabled items.
+	 *
+	 * Operates on the rendered items, which only exist while the panel is open (items are portaled).
+	 */
 	public toggleAll(): void {
 		this.allSelected() ? this.deselectAll() : this.selectAll();
 	}

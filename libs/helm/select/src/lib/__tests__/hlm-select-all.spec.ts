@@ -154,6 +154,20 @@ describe('HlmSelectAll', () => {
 		expect(listbox()).toBeTruthy();
 	});
 
+	it('keeps the select-all row active so a second Enter clears the selection', async () => {
+		const view = await render(SelectAllHost);
+		await open(view);
+
+		for (let i = 0; i < 2; i++) {
+			fireEvent.keyDown(trigger(), { key: 'Enter' });
+			view.detectChanges();
+			await flush();
+		}
+
+		expect(trigger().getAttribute('aria-activedescendant')).toBe(selectAllRow().id);
+		expect(view.fixture.componentInstance.value()).toEqual([]);
+	});
+
 	it('shows the indeterminate state after deselecting a single item', async () => {
 		const view = await render(SelectAllHost);
 		await open(view);

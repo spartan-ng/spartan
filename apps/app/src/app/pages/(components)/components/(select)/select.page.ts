@@ -104,6 +104,20 @@ export const routeMeta: RouteMeta = {
 			</spartan-tabs>
 
 			<h3 id="examples__select-all" spartanH4>Select all</h3>
+			<p class="${hlmP}">
+				Add
+				<code class="${hlmCode}">hlm-select-all</code>
+				to a multiple select to toggle every enabled item. Disabled items and values without a matching item are left
+				untouched. The same is available programmatically via
+				<code class="${hlmCode}">selectAll()</code>
+				,
+				<code class="${hlmCode}">deselectAll()</code>
+				and
+				<code class="${hlmCode}">toggleAll()</code>
+				on
+				<code class="${hlmCode}">BrnSelectMultiple</code>
+				. These act on the rendered items, so they only take effect while the select panel is open.
+			</p>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
 					<spartan-select-select-all-preview />

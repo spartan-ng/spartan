@@ -1,4 +1,5 @@
 import { HlmSelect } from './lib/hlm-select';
+import { HlmSelectAll } from './lib/hlm-select-all';
 import { HlmSelectContent } from './lib/hlm-select-content';
 import { HlmSelectGroup } from './lib/hlm-select-group';
 import { HlmSelectItem } from './lib/hlm-select-item';
@@ -16,6 +17,7 @@ import { HlmSelectValues } from './lib/hlm-select-values';
 import { HlmSelectValuesContent } from './lib/hlm-select-values-content';
 
 export * from './lib/hlm-select';
+export * from './lib/hlm-select-all';
 export * from './lib/hlm-select-content';
 export * from './lib/hlm-select-group';
 export * from './lib/hlm-select-item';
@@ -34,6 +36,7 @@ export * from './lib/hlm-select-values-content';
 
 export const HlmSelectImports = [
 	HlmSelect,
+	HlmSelectAll,
 	HlmSelectContent,
 	HlmSelectGroup,
 	HlmSelectItem,

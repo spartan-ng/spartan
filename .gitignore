@@ -62,6 +62,7 @@ apps/app/src/public/data/stackblitz-example-files.json
 apps/app/src/public/data/ui-api/
 apps/app/src/public/data/primitives-snippets/
 apps/app/src/public/data/manual-install-snippets/
+apps/app/src/public/r/
 
 .cursor/rules/nx-rules.mdc
 .github/instructions/nx.instructions.md

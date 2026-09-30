@@ -1,4 +1,5 @@
 import type { BooleanInput, NumberInput } from '@angular/cdk/coercion';
+import { NgTemplateOutlet } from '@angular/common';
 import {
 	ChangeDetectionStrategy,
 	Component,
@@ -21,6 +22,7 @@ import { HlmPaginationPrevious } from './hlm-pagination-previous';
 @Component({
 	selector: 'hlm-numbered-pagination',
 	imports: [
+		NgTemplateOutlet,
 		HlmPagination,
 		HlmPaginationContent,
 		HlmPaginationItem,
@@ -40,7 +42,17 @@ import { HlmPaginationPrevious } from './hlm-pagination-previous';
 				pages
 			</div>
 
-			<nav hlmPagination class="order-last sm:order-none">
+			<ng-template #pageTpl let-page>
+				@if (page === '...') {
+					<hlm-pagination-ellipsis />
+				} @else {
+					<a hlmPaginationLink [isActive]="currentPage() === page" (click)="currentPage.set(page)">
+						{{ page }}
+					</a>
+				}
+			</ng-template>
+
+			<nav hlmPagination class="order-first sm:order-0">
 				<ul hlmPaginationContent>
 					@if (showEdges() && !_isFirstPageActive()) {
 						<li hlmPaginationItem (click)="goToPrevious()">
@@ -49,14 +61,14 @@ import { HlmPaginationPrevious } from './hlm-pagination-previous';
 					}
 
 					@for (page of _pages(); track page) {
-						<li hlmPaginationItem>
-							@if (page === '...') {
-								<hlm-pagination-ellipsis />
-							} @else {
-								<a hlmPaginationLink [isActive]="currentPage() === page" (click)="currentPage.set(page)">
-									{{ page }}
-								</a>
-							}
+						<li hlmPaginationItem class="max-sm:hidden">
+							<ng-container *ngTemplateOutlet="pageTpl; context: { $implicit: page }" />
+						</li>
+					}
+
+					@for (page of _mobilePages(); track page) {
+						<li hlmPaginationItem class="sm:hidden">
+							<ng-container *ngTemplateOutlet="pageTpl; context: { $implicit: page }" />
 						</li>
 					}
 
@@ -112,6 +124,14 @@ export class HlmNumberedPagination {
 	});
 
 	/**
+	 * The number of page links to show on small screens (below the `sm` breakpoint).
+	 * Capped at `maxSize`.
+	 */
+	public readonly mobileMaxSize = input<number, NumberInput>(5, {
+		transform: numberAttribute,
+	});
+
+	/**
 	 * Show the first and last page buttons.
 	 */
 	public readonly showEdges = input<boolean, BooleanInput>(true, {
@@ -153,6 +173,15 @@ export class HlmNumberedPagination {
 
 		return createPageArray(correctedCurrentPage, this.itemsPerPage(), this.totalItems(), this.maxSize());
 	});
+
+	protected readonly _mobilePages = computed(() =>
+		createPageArray(
+			outOfBoundCorrection(this.totalItems(), this.itemsPerPage(), this.currentPage()),
+			this.itemsPerPage(),
+			this.totalItems(),
+			Math.min(this.maxSize(), this.mobileMaxSize()),
+		),
+	);
 
 	protected goToPrevious(): void {
 		this.currentPage.set(this.currentPage() - 1);

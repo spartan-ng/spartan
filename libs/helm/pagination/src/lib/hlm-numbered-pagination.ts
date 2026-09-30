@@ -125,7 +125,8 @@ export class HlmNumberedPagination {
 
 	/**
 	 * The number of page links to show on small screens (below the `sm` breakpoint).
-	 * Capped at `maxSize`.
+	 * Capped at `maxSize`. Values below 5 are raised to 5, the minimum that always shows
+	 * the active page alongside the first page, the last page and both ellipses.
 	 */
 	public readonly mobileMaxSize = input<number, NumberInput>(5, {
 		transform: numberAttribute,
@@ -179,7 +180,7 @@ export class HlmNumberedPagination {
 			outOfBoundCorrection(this.totalItems(), this.itemsPerPage(), this.currentPage()),
 			this.itemsPerPage(),
 			this.totalItems(),
-			Math.min(this.maxSize(), this.mobileMaxSize()),
+			Math.min(this.maxSize(), Math.max(this.mobileMaxSize(), 5)),
 		),
 	);
 

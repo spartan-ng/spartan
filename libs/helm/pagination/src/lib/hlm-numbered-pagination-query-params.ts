@@ -41,7 +41,7 @@ import { HlmPaginationPrevious } from './hlm-pagination-previous';
 			pages
 		</div>
 
-		<nav hlmPagination>
+		<nav hlmPagination class="order-last sm:order-none">
 			<ul hlmPaginationContent>
 				@if (showEdges() && !_isFirstPageActive()) {
 					<li hlmPaginationItem>
@@ -175,6 +175,6 @@ export class HlmNumberedPaginationQueryParams {
 	});
 
 	constructor() {
-		classes(() => 'flex items-center justify-between gap-2 px-4 py-2');
+		classes(() => 'flex flex-wrap items-center justify-between gap-2 px-4 py-2 sm:flex-nowrap');
 	}
 }

@@ -32,7 +32,7 @@ import { HlmPaginationPrevious } from './hlm-pagination-previous';
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<div class="flex items-center justify-between gap-2 px-4 py-2">
+		<div class="flex flex-wrap items-center justify-between gap-2 px-4 py-2 sm:flex-nowrap">
 			<div class="flex items-center gap-1 text-sm text-nowrap text-gray-600">
 				<b>{{ totalItems() }}</b>
 				total items |
@@ -40,7 +40,7 @@ import { HlmPaginationPrevious } from './hlm-pagination-previous';
 				pages
 			</div>
 
-			<nav hlmPagination>
+			<nav hlmPagination class="order-last sm:order-none">
 				<ul hlmPaginationContent>
 					@if (showEdges() && !_isFirstPageActive()) {
 						<li hlmPaginationItem (click)="goToPrevious()">

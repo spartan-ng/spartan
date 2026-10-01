@@ -21,7 +21,7 @@ import { HlmInputImports } from '@spartan-ng/helm/input';
 					<hlm-field-group>
 						<hlm-field>
 							<label hlmFieldLabel for="username">Username</label>
-							<input hlmInput id="username" placeholder="spartan" autoComplete="username" formControlName="username" />
+							<input hlmInput id="username" placeholder="spartan" autocomplete="username" formControlName="username" />
 							<hlm-field-description>
 								This is your public display name. Must be between 3 and 10 characters. Must only contain letters,
 								numbers, and underscores.
@@ -89,7 +89,7 @@ import { HlmInputImports } from '@spartan-ng/helm/input';
 					<hlm-field-group>
 						<hlm-field>
 							<label hlmFieldLabel for="username">Username</label>
-							<input hlmInput id="username" placeholder="spartan" autoComplete="username" formControlName="username" />
+							<input hlmInput id="username" placeholder="spartan" autocomplete="username" formControlName="username" />
 							<hlm-field-description>
 								This is your public display name. Must be between 3 and 10 characters. Must only contain letters,
 								numbers, and underscores.

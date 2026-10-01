@@ -18,7 +18,7 @@ import { HlmInputGroup, HlmInputGroupImports } from '@spartan-ng/helm/input-grou
 			[value]="value()"
 			[disabled]="disabled()"
 			[readonly]="readonly()"
-			autoComplete="current-password"
+			[autocomplete]="autocomplete()"
 			[type]="_inputType()"
 			(input)="value.set($event.target.value)"
 			(blur)="touchedChange.emit(true)"
@@ -42,6 +42,7 @@ export class PasswordInput implements FormValueControl<string> {
 
 	public readonly inputId = input<string>();
 	public readonly placeholder = input<string>('********');
+	public readonly autocomplete = input<string>('current-password');
 
 	protected readonly _inputType = signal<'text' | 'password'>('password');
 
@@ -74,7 +75,7 @@ import { HlmInputGroup, HlmInputGroupImports } from '@spartan-ng/helm/input-grou
 			[value]="value()"
 			[disabled]="disabled()"
 			[readonly]="readonly()"
-			autoComplete="current-password"
+			[autocomplete]="autocomplete()"
 			[type]="_inputType()"
 			(input)="value.set($event.target.value)"
 			(blur)="touchedChange.emit(true)"
@@ -98,6 +99,7 @@ export class PasswordInput implements FormValueControl<string> {
 
 	public readonly inputId = input<string>();
 	public readonly placeholder = input<string>('********');
+	public readonly autocomplete = input<string>('current-password');
 
 	protected readonly _inputType = signal<'text' | 'password'>('password');
 

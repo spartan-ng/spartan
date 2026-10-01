@@ -33,7 +33,7 @@ import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 								hlmInput
 								id="title"
 								placeholder="Login button not working on mobile"
-								autoComplete="off"
+								autocomplete="off"
 								formControlName="title"
 							/>
 							<hlm-field-error validator="required">Title must be entered.</hlm-field-error>
@@ -128,7 +128,7 @@ import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 								hlmInput
 								id="title"
 								placeholder="Login button not working on mobile"
-								autoComplete="off"
+								autocomplete="off"
 								formControlName="title"
 							/>
 							<hlm-field-error validator="required">Title must be entered.</hlm-field-error>
@@ -195,7 +195,7 @@ export const demoAnatomyCode = `
 		hlmInput
 		id="title"
 		placeholder="Login button not working on mobile"
-		autoComplete="off"
+		autocomplete="off"
 		formControlName="title"
 	/>
 	<hlm-field-error validator="required">Title is a required field.</hlm-field-error>

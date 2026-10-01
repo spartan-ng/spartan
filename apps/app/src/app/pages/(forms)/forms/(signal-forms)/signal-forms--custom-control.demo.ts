@@ -26,7 +26,7 @@ import { PasswordInput, passwordInputCode } from './custom-control/password-inpu
 								hlmInput
 								id="email"
 								placeholder="spartan@example.com"
-								autoComplete="email"
+								autocomplete="email"
 								[formField]="form.email"
 							/>
 
@@ -128,7 +128,7 @@ import { PasswordInput } from './custom-control/password-input';
 								hlmInput
 								id="email"
 								placeholder="spartan@example.com"
-								autoComplete="email"
+								autocomplete="email"
 								[formField]="form.email"
 							/>
 
@@ -339,7 +339,7 @@ export const demoPasswordInputGroupCode = `
 		<input 
 			hlmInputGroupInput 
 			id="password" 
-			autoComplete="current-password" 
+			autocomplete="current-password" 
 			[type]="_inputType()" 
 			[formField]="form.password" />
 		<hlm-input-group-addon align="inline-end">

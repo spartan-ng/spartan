@@ -35,7 +35,7 @@ export class ChartLine {
 					}),
 				],
 				scales: {
-					x: { scale: () => scalePoint<string>().padding(0.2) },
+					x: { scale: () => scalePoint<string>().padding(0.2), axis: { label: 'Month' } },
 					y: { scale: scaleLinear, nice: true, grid: true, axis: { label: 'Downloads (thousands)' } },
 				},
 				theme: HLM_CHART_THEME,

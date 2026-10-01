@@ -35,7 +35,7 @@ import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 								id="title"
 								hlmInput
 								placeholder="Login button not working on mobile"
-								autoComplete="off"
+								autocomplete="off"
 								[formField]="form.title"
 							/>
 
@@ -165,7 +165,7 @@ import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 								id="title"
 								hlmInput
 								placeholder="Login button not working on mobile"
-								autoComplete="off"
+								autocomplete="off"
 								[formField]="form.title"
 							/>
 

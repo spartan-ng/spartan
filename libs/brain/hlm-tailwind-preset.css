@@ -146,7 +146,19 @@
 	}
 }
 
-/* scroll-fade */
+/*
+ * scroll-fade
+ *
+ * The reveal animates a registered custom property that feeds the mask gradient. There is no
+ * compositor path for an animated mask, so every frame inside the reveal range regenerates the
+ * mask image and repaints the scroll container on the main thread — roughly one extra presented
+ * frame per scroll tick. That is enough to make a backdrop-filter drawn over the same area drop
+ * its blur for a frame.
+ *
+ * --scroll-fade-steps quantises the reveal, so the mask is regenerated a fixed number of times
+ * across the range rather than once per frame. The default is fine enough to read as smooth;
+ * lower it to trade fidelity for paint cost, raise it for the reverse.
+ */
 @property --scroll-fade-t {
 	syntax: '<length-percentage>';
 	inherits: false;
@@ -226,8 +238,8 @@
 
 	@supports (animation-timeline: scroll()) {
 		animation:
-			scroll-fade-reveal-t 1ms ease-in-out,
-			scroll-fade-reveal-b 1ms ease-in-out;
+			scroll-fade-reveal-t 1ms steps(var(--scroll-fade-steps, 8)),
+			scroll-fade-reveal-b 1ms steps(var(--scroll-fade-steps, 8));
 		animation-timeline: scroll(self y), scroll(self y);
 		animation-range:
 			0 var(--scroll-fade-reveal, calc(var(--spacing) * 24)),
@@ -273,8 +285,8 @@
 
 	@supports (animation-timeline: scroll()) {
 		animation:
-			scroll-fade-reveal-s 1ms ease-in-out,
-			scroll-fade-reveal-e 1ms ease-in-out;
+			scroll-fade-reveal-s 1ms steps(var(--scroll-fade-steps, 8)),
+			scroll-fade-reveal-e 1ms steps(var(--scroll-fade-steps, 8));
 		animation-timeline: scroll(self inline), scroll(self inline);
 		animation-range:
 			0 var(--scroll-fade-reveal, calc(var(--spacing) * 24)),
@@ -299,7 +311,7 @@
 	mask-repeat: no-repeat;
 
 	@supports (animation-timeline: scroll()) {
-		animation: scroll-fade-reveal-t 1ms ease-in-out;
+		animation: scroll-fade-reveal-t 1ms steps(var(--scroll-fade-steps, 8));
 		animation-timeline: scroll(self y);
 		animation-range: 0 var(--scroll-fade-reveal, calc(var(--spacing) * 24));
 		animation-fill-mode: both;
@@ -321,7 +333,7 @@
 	mask-repeat: no-repeat;
 
 	@supports (animation-timeline: scroll()) {
-		animation: scroll-fade-reveal-b 1ms ease-in-out;
+		animation: scroll-fade-reveal-b 1ms steps(var(--scroll-fade-steps, 8));
 		animation-timeline: scroll(self y);
 		animation-range: calc(100% - var(--scroll-fade-reveal, calc(var(--spacing) * 24))) 100%;
 		animation-fill-mode: both;
@@ -343,7 +355,7 @@
 	mask-repeat: no-repeat;
 
 	@supports (animation-timeline: scroll()) {
-		animation: scroll-fade-reveal-s 1ms ease-in-out;
+		animation: scroll-fade-reveal-s 1ms steps(var(--scroll-fade-steps, 8));
 		animation-timeline: scroll(self x);
 		animation-range: 0 var(--scroll-fade-reveal, calc(var(--spacing) * 24));
 		animation-fill-mode: both;
@@ -365,7 +377,7 @@
 	mask-repeat: no-repeat;
 
 	@supports (animation-timeline: scroll()) {
-		animation: scroll-fade-reveal-e 1ms ease-in-out;
+		animation: scroll-fade-reveal-e 1ms steps(var(--scroll-fade-steps, 8));
 		animation-timeline: scroll(self x);
 		animation-range: calc(100% - var(--scroll-fade-reveal, calc(var(--spacing) * 24))) 100%;
 		animation-fill-mode: both;
@@ -390,7 +402,7 @@
 	mask-repeat: no-repeat;
 
 	@supports (animation-timeline: scroll()) {
-		animation: scroll-fade-reveal-s 1ms ease-in-out;
+		animation: scroll-fade-reveal-s 1ms steps(var(--scroll-fade-steps, 8));
 		animation-timeline: scroll(self inline);
 		animation-range: 0 var(--scroll-fade-reveal, calc(var(--spacing) * 24));
 		animation-fill-mode: both;
@@ -415,7 +427,7 @@
 	mask-repeat: no-repeat;
 
 	@supports (animation-timeline: scroll()) {
-		animation: scroll-fade-reveal-e 1ms ease-in-out;
+		animation: scroll-fade-reveal-e 1ms steps(var(--scroll-fade-steps, 8));
 		animation-timeline: scroll(self inline);
 		animation-range: calc(100% - var(--scroll-fade-reveal, calc(var(--spacing) * 24))) 100%;
 		animation-fill-mode: both;

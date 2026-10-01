@@ -227,6 +227,22 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_sizeCode" />
 			</spartan-tabs>
 
+			<spartan-section-sub-heading id="reveal-steps">Reveal Granularity</spartan-section-sub-heading>
+			<p class="${hlmP}">
+				The fade depth is driven by a scroll-linked mask, and a mask has no compositor path — every distinct depth costs
+				a repaint of the scroll container. The reveal is therefore quantised into a fixed number of steps rather than
+				tracking the scroll continuously, which keeps scrolling to a single presented frame per tick. Without it, a
+				<code class="${hlmCode}">backdrop-filter</code>
+				drawn over the same area can drop its blur for a frame.
+			</p>
+			<p class="${hlmP}">
+				Set
+				<code class="${hlmCode}">--scroll-fade-steps</code>
+				to trade fidelity against paint cost — for example
+				<code class="${hlmCode}">[--scroll-fade-steps:4]</code>
+				for half the repaints, or a higher value for a finer reveal.
+			</p>
+
 			<spartan-section-sub-heading id="disabling">Disabling the Fade</spartan-section-sub-heading>
 			<p class="${hlmP}">
 				Use

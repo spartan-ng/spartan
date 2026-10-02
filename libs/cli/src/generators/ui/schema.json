@@ -6,7 +6,7 @@
 	"properties": {
 		"name": {
 			"type": "string",
-			"description": "Primitive name",
+			"description": "Primitive name, or 'all' to add every primitive",
 			"$default": {
 				"$source": "argv",
 				"index": 0

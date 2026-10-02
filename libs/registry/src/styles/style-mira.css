@@ -21,7 +21,7 @@
 	}
 
 	.spartan-accordion-content-inner {
-		@apply pt-0 pb-4;
+		@apply pt-1 pb-4;
 	}
 
 	/* MARK: Alert Dialog */

@@ -10,9 +10,8 @@ import { classes } from '@spartan-ng/helm/utils';
 		'[attr.data-size]': 'size()',
 	},
 	template: `
-		@if (_image()?.canShow()) {
-			<ng-content select="[hlmAvatarImage],[brnAvatarImage]" />
-		} @else {
+		<ng-content select="[hlmAvatarImage],[brnAvatarImage]" />
+		@if (!_image()?.canShow()) {
 			<ng-content select="[hlmAvatarFallback],[brnAvatarFallback]" />
 		}
 		<ng-content />
@@ -25,7 +24,7 @@ export class HlmAvatar extends BrnAvatar {
 		super();
 		classes(
 			() =>
-				'spartan-avatar group/avatar after:border-border relative flex shrink-0 select-none after:absolute after:inset-0 after:border after:mix-blend-darken dark:after:mix-blend-lighten',
+				'spartan-avatar group/avatar after:border-border flex shrink-0 select-none after:absolute after:inset-0 after:border after:mix-blend-darken dark:after:mix-blend-lighten',
 		);
 	}
 }

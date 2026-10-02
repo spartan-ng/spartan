@@ -20,8 +20,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { BrnFieldControl, provideBrnLabelable } from '@spartan-ng/brain/field';
 import { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
 import { BrnPopover } from '@spartan-ng/brain/popover';
-import { BrnSelectItem } from './brn-select-item';
-import { BrnSelectItemToken } from './brn-select-item.token';
+import { BrnSelectItemToken, type BrnSelectOption } from './brn-select-item.token';
 import type { BrnSelectList } from './brn-select-list';
 import type { BrnSelectTrigger } from './brn-select-trigger';
 import {
@@ -87,7 +86,7 @@ export class BrnSelect<T> implements BrnSelectBase<T>, ControlValueAccessor {
 	public readonly triggerWidth = this._triggerWidth.asReadonly();
 
 	/** @internal Access all the items within the select */
-	public readonly items = contentChildren<BrnSelectItem<T>>(BrnSelectItemToken, {
+	public readonly items = contentChildren<BrnSelectOption<T>>(BrnSelectItemToken, {
 		descendants: true,
 	});
 
@@ -134,7 +133,10 @@ export class BrnSelect<T> implements BrnSelectBase<T>, ControlValueAccessor {
 					untracked(() => {
 						const index =
 							value !== null && value !== undefined
-								? items.findIndex((item) => this.isItemEqualToValue()(item.value(), value))
+								? items.findIndex((item) => {
+										const itemValue = item.value();
+										return itemValue !== undefined && this.isItemEqualToValue()(itemValue, value);
+									})
 								: -1;
 
 						if (index !== -1) {
@@ -183,10 +185,8 @@ export class BrnSelect<T> implements BrnSelectBase<T>, ControlValueAccessor {
 		// setActiveItem() bypasses skipPredicate, so the active item may be disabled.
 		if (activeItem?.disabled) return;
 
-		const value = activeItem?.value();
-
-		if (value !== null && value !== undefined) {
-			this.select(value);
+		if (activeItem) {
+			activeItem.select();
 		} else {
 			this.close();
 		}

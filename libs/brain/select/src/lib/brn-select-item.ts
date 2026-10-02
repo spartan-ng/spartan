@@ -1,9 +1,8 @@
-import { Highlightable } from '@angular/cdk/a11y';
 import { BooleanInput } from '@angular/cdk/coercion';
 import { isPlatformBrowser } from '@angular/common';
 import { booleanAttribute, computed, Directive, ElementRef, inject, input, PLATFORM_ID, signal } from '@angular/core';
 import { stringifyAsLabel } from '@spartan-ng/brain/core';
-import { provideBrnSelectItem } from './brn-select-item.token';
+import { type BrnSelectOption, provideBrnSelectItem } from './brn-select-item.token';
 import { injectBrnSelectBase } from './brn-select.token';
 
 @Directive({
@@ -22,7 +21,7 @@ import { injectBrnSelectBase } from './brn-select.token';
 		'(mousedown)': 'onMouseDown($event)',
 	},
 })
-export class BrnSelectItem<T> implements Highlightable {
+export class BrnSelectItem<T> implements BrnSelectOption<T> {
 	private static _id = 0;
 
 	private readonly _platform = inject(PLATFORM_ID);
@@ -70,7 +69,7 @@ export class BrnSelectItem<T> implements Highlightable {
 		return stringifyAsLabel(this.value(), this._select.itemToString());
 	}
 
-	protected select(): void {
+	public select(): void {
 		if (this._disabled()) {
 			return;
 		}

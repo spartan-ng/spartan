@@ -1,0 +1,16 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema",
+	"$id": "SpartanRegistrySearchSchema",
+	"type": "object",
+	"properties": {
+		"registries": {
+			"type": "string",
+			"description": "Comma-separated registries to search. Defaults to configured registries."
+		},
+		"query": { "type": "string" },
+		"type": { "type": "string" },
+		"limit": { "type": "number", "default": 100 },
+		"offset": { "type": "number", "default": 0 },
+		"json": { "type": "boolean", "default": false }
+	}
+}

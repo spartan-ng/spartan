@@ -53,11 +53,13 @@ export class BrnSelectItem<T> implements Highlightable {
 
 	protected readonly _highlighted = signal(false);
 
+	private _activatedByPointer = false;
+
 	public setActiveStyles(): void {
 		this._highlighted.set(true);
 
 		// ensure the item is in view
-		if (isPlatformBrowser(this._platform)) {
+		if (!this._activatedByPointer && isPlatformBrowser(this._platform)) {
 			this._elementRef.nativeElement.scrollIntoView({ block: 'nearest' });
 		}
 	}
@@ -84,7 +86,9 @@ export class BrnSelectItem<T> implements Highlightable {
 			return;
 		}
 
+		this._activatedByPointer = true;
 		this._select.keyManager.setActiveItem(this);
+		this._activatedByPointer = false;
 	}
 
 	/** Prevent the press from moving DOM focus off the trigger (aria-activedescendant model). */

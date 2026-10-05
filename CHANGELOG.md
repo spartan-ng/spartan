@@ -1,3 +1,16 @@
+## 1.6.0-beta.1 (2026-10-05)
+
+- fix: skip scrollIntoView when activated by pointer event, closes #1782 (#1784) ([d405237](https://github.com/spartan-ng/spartan/commit/d405237)), closes [#1782](https://github.com/spartan-ng/spartan/issues/1782) [#1784](https://github.com/spartan-ng/spartan/issues/1784)
+- fix(autocomplete): keep focus on trigger on autocomplete-item pointer press, closes #1763 (#1783) ([b92d262](https://github.com/spartan-ng/spartan/commit/b92d262)), closes [#1763](https://github.com/spartan-ng/spartan/issues/1763) [#1783](https://github.com/spartan-ng/spartan/issues/1783)
+- feat(accordion): add lazy load content (#1775) ([8095557](https://github.com/spartan-ng/spartan/commit/8095557)), closes [#1775](https://github.com/spartan-ng/spartan/issues/1775)
+- chore(release): backmerge main into beta ([530a6e1](https://github.com/spartan-ng/spartan/commit/530a6e1))
+- chore(release): backmerge main into beta ([fa12c74](https://github.com/spartan-ng/spartan/commit/fa12c74))
+- chore(release): backmerge main into beta ([93cb4c3](https://github.com/spartan-ng/spartan/commit/93cb4c3))
+- chore(release): backmerge main into beta ([83fb84a](https://github.com/spartan-ng/spartan/commit/83fb84a))
+- docs: add label for x-axis in line chart example (#1774) ([a98f8a9](https://github.com/spartan-ng/spartan/commit/a98f8a9)), closes [#1774](https://github.com/spartan-ng/spartan/issues/1774)
+- docs: add new contributors to our 300 ([4f6dba6](https://github.com/spartan-ng/spartan/commit/4f6dba6))
+- docs: fix autocomplete attribute and make it an input (#1776) ([1b5357f](https://github.com/spartan-ng/spartan/commit/1b5357f)), closes [#1776](https://github.com/spartan-ng/spartan/issues/1776)
+
 ## 1.5.0 (2026-09-21)
 
 - feat: 1.5.0 (#1756) ([a980342](https://github.com/spartan-ng/spartan/commit/a980342)), closes [#1756](https://github.com/spartan-ng/spartan/issues/1756) [#1739](https://github.com/spartan-ng/spartan/issues/1739) [#1741](https://github.com/spartan-ng/spartan/issues/1741)

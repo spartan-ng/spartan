@@ -34,6 +34,13 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "outputs": [],
         "selector": "brn-accordion-content,[brnAccordionContent]",
       },
+      "BrnAccordionContentLazy": {
+        "exportAs": "brnAccordionContentLazy",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "ng-template[brnAccordionContentLazy]",
+      },
       "BrnAccordionHeader": {
         "inputs": [],
         "models": [],
@@ -103,6 +110,12 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "models": [],
         "outputs": [],
         "selector": "hlm-accordion-content",
+      },
+      "HlmAccordionContentLazy": {
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "ng-template[hlmAccordionContentLazy]",
       },
       "HlmAccordionItem": {
         "inputs": [

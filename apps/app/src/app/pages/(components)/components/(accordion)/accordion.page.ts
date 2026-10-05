@@ -23,6 +23,7 @@ import { AccordionBorders } from './accordion--borders.example';
 import { AccordionCard } from './accordion--card.example';
 import { AccordionDisabled } from './accordion--disabled.example';
 import { AccordionDynamic } from './accordion--dynamic.example';
+import { AccordionLazy } from './accordion--lazy.preview';
 import { AccordionMultiple } from './accordion--multiple.example';
 import { AccordionRtl } from './accordion--rtl.example';
 import { AccordionPreview, defaultImports, defaultSkeleton } from './accordion.preview';
@@ -61,6 +62,7 @@ export const routeMeta: RouteMeta = {
 		AccordionCard,
 		AccordionDisabled,
 		AccordionDynamic,
+		AccordionLazy,
 		AccordionRtl,
 	],
 	template: `
@@ -167,6 +169,25 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_cardCode()" />
 			</spartan-tabs>
 
+			<h3 id="examples__lazy_loading" spartanH4>Lazy Loading</h3>
+			<p class="${hlmP}">
+				Use
+				<code class="${hlmCode}">hlmAccordionContentLazy</code>
+				on an
+				<code class="${hlmCode}">ng-template</code>
+				inside
+				<code class="${hlmCode}">hlm-accordion-content</code>
+				to keep an item's content out of the DOM until it is opened for the first time. This is particularly useful when
+				panels trigger network requests or render expensive component trees. The content is created once on first open
+				and remains alive for subsequent opens.
+			</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-accordion-lazy />
+				</div>
+				<spartan-code secondTab [code]="_lazyCode()" />
+			</spartan-tabs>
+
 			<spartan-header-rtl />
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanRtlCodePreview firstTab>
@@ -201,6 +222,7 @@ export default class AccordionPage {
 	protected readonly _bordersCode = computed(() => this._snippets()['borders']);
 	protected readonly _cardCode = computed(() => this._snippets()['card']);
 	protected readonly _dynamicCode = computed(() => this._snippets()['dynamic']);
+	protected readonly _lazyCode = computed(() => this._snippets()['lazy']);
 	protected readonly _rtlCode = computed(() => this._snippets()['rtl']);
 	protected readonly _imports = defaultImports;
 	protected readonly _skeleton = defaultSkeleton;

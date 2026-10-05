@@ -73,6 +73,8 @@ export class BrnCommandItem implements Highlightable, OnInit {
 	/** Emits when the item is selected. */
 	public readonly selected = output<void>();
 
+	private _activatedByPointer = false;
+
 	/** @internal Determine if this item is visible based on the current search query */
 	public readonly visible = computed(() => {
 		return this._command.filter()(this.safeValue(), this._command.search());
@@ -96,7 +98,7 @@ export class BrnCommandItem implements Highlightable, OnInit {
 		this._active.set(true);
 
 		// ensure the item is in view
-		if (isPlatformBrowser(this._platform)) {
+		if (!this._activatedByPointer && isPlatformBrowser(this._platform)) {
 			this._elementRef.nativeElement.scrollIntoView({ block: 'nearest' });
 		}
 	}
@@ -116,7 +118,9 @@ export class BrnCommandItem implements Highlightable, OnInit {
 			return;
 		}
 
+		this._activatedByPointer = true;
 		this._command.keyManager.setActiveItem(this);
+		this._activatedByPointer = false;
 	}
 
 	ngOnInit(): void {

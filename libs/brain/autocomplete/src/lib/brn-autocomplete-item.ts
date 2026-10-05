@@ -19,6 +19,7 @@ import { injectBrnAutocompleteBase } from './brn-autocomplete.token';
 		'[attr.data-disabled]': '_disabled() ? "" : null',
 		'(click)': 'select()',
 		'(mouseenter)': 'activate()',
+		'(mousedown)': 'onMouseDown($event)',
 	},
 })
 export class BrnAutocompleteItem<T> implements Highlightable {
@@ -53,11 +54,13 @@ export class BrnAutocompleteItem<T> implements Highlightable {
 
 	protected readonly _highlighted = signal(false);
 
+	private _activatedByPointer = false;
+
 	setActiveStyles(): void {
 		this._highlighted.set(true);
 
 		// ensure the item is in view
-		if (isPlatformBrowser(this._platform)) {
+		if (!this._activatedByPointer && isPlatformBrowser(this._platform)) {
 			this._elementRef.nativeElement.scrollIntoView({ block: 'nearest' });
 		}
 	}
@@ -83,7 +86,13 @@ export class BrnAutocompleteItem<T> implements Highlightable {
 		if (this._disabled()) {
 			return;
 		}
-
+		this._activatedByPointer = true;
 		this._autocomplete.keyManager.setActiveItem(this);
+		this._activatedByPointer = false;
+	}
+
+	/** Prevent the press from moving DOM focus off the trigger (aria-activedescendant model). */
+	protected onMouseDown(event: MouseEvent): void {
+		event.preventDefault();
 	}
 }

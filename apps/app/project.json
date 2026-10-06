@@ -7,7 +7,7 @@
 	"implicitDependencies": [],
 	"targets": {
 		"build": {
-			"dependsOn": ["^build", "generate-docs-and-snippets", "generate-hlm-component-preview"],
+			"dependsOn": ["^build", "generate-docs-and-snippets", "generate-hlm-component-preview", "generate-registry"],
 			"executor": "@analogjs/platform:vite",
 			"outputs": [
 				"{options.outputPath}",
@@ -33,7 +33,7 @@
 			}
 		},
 		"serve": {
-			"dependsOn": ["generate-docs-and-snippets", "generate-hlm-component-preview"],
+			"dependsOn": ["generate-docs-and-snippets", "generate-hlm-component-preview", "generate-registry"],
 			"executor": "@analogjs/platform:vite-dev-server",
 			"defaultConfiguration": "development",
 			"options": {
@@ -94,6 +94,14 @@
 			"cache": false,
 			"options": {
 				"commands": ["npx nx generate @spartan-ng/tools:generate-hlm-component-preview"],
+				"parallel": false
+			}
+		},
+		"generate-registry": {
+			"executor": "nx:run-commands",
+			"cache": false,
+			"options": {
+				"commands": ["npx nx generate @spartan-ng/cli:registry-build --output=apps/app/src/public/r"],
 				"parallel": false
 			}
 		}

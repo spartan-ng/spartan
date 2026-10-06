@@ -5,4 +5,6 @@ export interface HlmUIGeneratorSchema {
 	directory?: string;
 	rootProject?: boolean;
 	tags?: string;
+	overwrite?: boolean;
+	dryRun?: boolean;
 }

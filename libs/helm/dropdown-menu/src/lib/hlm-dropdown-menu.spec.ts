@@ -1,5 +1,5 @@
 import { Directionality } from '@angular/cdk/bidi';
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, signal } from '@angular/core';
 import type { MenuSide } from '@spartan-ng/brain/core';
 import { render, screen } from '@testing-library/angular';
 import { HlmDropdownMenu } from './hlm-dropdown-menu';
@@ -30,6 +30,24 @@ class DropdownMenuHost {
 	public readonly side = input<MenuSide>('bottom');
 }
 
+@Component({
+	selector: 'hlm-dropdown-menu-dynamic-host',
+	imports: [HlmDropdownMenuTrigger, HlmDropdownMenu, HlmDropdownMenuItem],
+	providers: [Directionality],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<button style="margin-top: 300px" [hlmDropdownMenuTrigger]="menu" [side]="side()">Open</button>
+		<ng-template #menu>
+			<hlm-dropdown-menu>
+				<button hlmDropdownMenuItem>Item</button>
+			</hlm-dropdown-menu>
+		</ng-template>
+	`,
+})
+class DropdownMenuDynamicHost {
+	public readonly side = signal<MenuSide>('bottom');
+}
+
 describe('HlmDropdownMenu data-side', () => {
 	const open = async (side: MenuSide) => {
 		await render(DropdownMenuHost, { componentInputs: { side } });
@@ -55,5 +73,38 @@ describe('HlmDropdownMenu data-side', () => {
 		const content = await open('right');
 		expect(content).toBeTruthy();
 		expect(['left', 'right']).toContain(content?.getAttribute('data-side'));
+	});
+});
+
+describe('HlmDropdownMenu dynamic side', () => {
+	afterEach(() => {
+		document.querySelectorAll('.cdk-overlay-container').forEach((el) => el.remove());
+	});
+
+	// CDK reuses a single overlay across opens and only reads `menuPosition` when it creates the position
+	// strategy (or on ngOnChanges), so a change to `side` after the first open must refresh the existing
+	// overlay - otherwise the menu keeps the position from its first open.
+	it('repositions a reused overlay when side changes between opens', async () => {
+		const { fixture } = await render(DropdownMenuDynamicHost);
+		const trigger = screen.getByText('Open');
+
+		trigger.click();
+		await flush();
+		const firstContent = document.querySelector('[data-slot="dropdown-menu"]') as HTMLElement;
+		expect(firstContent.style.transformOrigin).toContain('top');
+		expect(firstContent.getAttribute('data-side')).toBe('bottom');
+
+		trigger.click();
+		await flush();
+
+		fixture.componentInstance.side.set('top');
+		fixture.detectChanges();
+		await flush();
+
+		trigger.click();
+		await flush();
+		const secondContent = document.querySelector('[data-slot="dropdown-menu"]') as HTMLElement;
+		expect(secondContent.style.transformOrigin).toContain('bottom');
+		expect(secondContent.getAttribute('data-side')).toBe('top');
 	});
 });

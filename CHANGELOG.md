@@ -1,3 +1,7 @@
+## <small>1.6.1 (2026-10-06)</small>
+
+- fix(dropdown-menu): call ngOnChanges to update menuPosition (#1786) ([8e458fd](https://github.com/spartan-ng/spartan/commit/8e458fd)), closes [#1786](https://github.com/spartan-ng/spartan/issues/1786)
+
 ## 1.6.0 (2026-10-05)
 
 - feat: 1.6.0 (#1785) ([caa109c](https://github.com/spartan-ng/spartan/commit/caa109c)), closes [#1785](https://github.com/spartan-ng/spartan/issues/1785) [#1775](https://github.com/spartan-ng/spartan/issues/1775)

@@ -1,5 +1,6 @@
+import type { CdkMenuTrigger } from '@angular/cdk/menu';
 import type { ConnectedPosition } from '@angular/cdk/overlay';
-import { InjectionToken } from '@angular/core';
+import { InjectionToken, SimpleChange } from '@angular/core';
 
 export type MenuAlign = 'start' | 'center' | 'end';
 export type MenuSide = 'top' | 'bottom' | 'left' | 'right';
@@ -51,4 +52,19 @@ export const createMenuPosition = (align: MenuAlign, side: MenuSide): ConnectedP
 		case 'right':
 			return createPositions('end', verticalAlign, 'start', verticalAlign);
 	}
+};
+
+/**
+ * Applies the given positions to a CDK menu trigger.
+ *
+ * CDK reads `menuPosition` only when it builds the overlay's `FlexibleConnectedPositionStrategy` (first
+ * open) and when its `ngOnChanges` runs. The trigger reuses a single overlay across opens, so a bare
+ * `menuPosition` assignment is silently ignored once the overlay exists - e.g. when `side`/`align`
+ * change at runtime, the next open keeps the position from the first open. Assigning the property and
+ * poking CDK's change handler refreshes an already-created overlay (whether open or reused) so the new
+ * positions take effect. When no overlay exists yet the assignment alone is enough.
+ */
+export const updateMenuPosition = (trigger: CdkMenuTrigger, position: ConnectedPosition[]): void => {
+	trigger.menuPosition = position;
+	trigger.ngOnChanges({ menuPosition: new SimpleChange(undefined, position, false) });
 };

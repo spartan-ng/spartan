@@ -1,4 +1,5 @@
-import { deriveMenuSideFromTransformOrigin } from './menu-align';
+import type { CdkMenuTrigger } from '@angular/cdk/menu';
+import { createMenuPosition, deriveMenuSideFromTransformOrigin, updateMenuPosition } from './menu-align';
 
 describe(deriveMenuSideFromTransformOrigin.name, () => {
 	it('reads the vertical token for a vertically placed menu', () => {
@@ -31,5 +32,19 @@ describe(deriveMenuSideFromTransformOrigin.name, () => {
 		expect(deriveMenuSideFromTransformOrigin('', 'bottom')).toBe('bottom');
 		expect(deriveMenuSideFromTransformOrigin('center center', 'top')).toBe('top');
 		expect(deriveMenuSideFromTransformOrigin('center center', 'right')).toBe('right');
+	});
+});
+
+describe(updateMenuPosition.name, () => {
+	it('assigns the positions and refreshes an existing overlay through the CDK change handler', () => {
+		const position = createMenuPosition('start', 'right');
+		const ngOnChanges = vi.fn();
+		const trigger = { menuPosition: [], ngOnChanges } as unknown as CdkMenuTrigger;
+
+		updateMenuPosition(trigger, position);
+
+		expect(trigger.menuPosition).toBe(position);
+		expect(ngOnChanges).toHaveBeenCalledTimes(1);
+		expect(ngOnChanges.mock.calls[0][0]).toMatchObject({ menuPosition: { currentValue: position } });
 	});
 });

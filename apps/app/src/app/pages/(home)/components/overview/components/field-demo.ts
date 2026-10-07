@@ -12,7 +12,7 @@ import { HlmTextarea } from '@spartan-ng/helm/textarea';
 	imports: [HlmFieldImports, HlmSelectImports, HlmInput, HlmTextarea, HlmButton, HlmCheckbox],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
-		class: 'w-full max-w-md rounded-lg border p-6 h-full',
+		class: 'w-full max-w-md rounded-lg border p-6',
 	},
 	template: `
 		<form>

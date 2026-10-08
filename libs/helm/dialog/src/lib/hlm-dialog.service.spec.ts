@@ -1,7 +1,9 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ApplicationRef, ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
 import { BrnDialogRef } from '@spartan-ng/brain/dialog';
-import { render } from '@testing-library/angular';
+import { render, waitFor } from '@testing-library/angular';
 import type { Observable } from 'rxjs';
+import { HlmDialogDescription } from './hlm-dialog-description';
 import { HlmDialogService } from './hlm-dialog.service';
 
 type SelectedUser = { id: number; name: string };
@@ -25,6 +27,16 @@ class DialogServiceHost {
 })
 class DialogServiceContent {}
 
+@Component({
+	selector: 'hlm-dialog-service-description-content',
+	imports: [HlmDialogDescription],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<p hlmDialogDescription data-testid="description">Some description</p>
+	`,
+})
+class DialogServiceDescriptionContent {}
+
 describe('HlmDialogService typed open()', () => {
 	afterEach(() => {
 		document.querySelectorAll('.cdk-overlay-container').forEach((el) => el.remove());
@@ -42,5 +54,15 @@ describe('HlmDialogService typed open()', () => {
 
 		expect(dialogRef).toBeInstanceOf(BrnDialogRef);
 		expect(closed$).toBeDefined();
+	});
+
+	it('does not throw NG0100 when the opened content registers a description and change detection runs', async () => {
+		const view = await render(DialogServiceHost);
+		const { service } = view.fixture.componentInstance;
+
+		service.open(DialogServiceDescriptionContent);
+
+		await waitFor(() => expect(document.querySelector('cdk-dialog-container')).toBeTruthy());
+		expect(() => TestBed.inject(ApplicationRef).tick()).not.toThrow();
 	});
 });

@@ -1,3 +1,7 @@
+## <small>1.6.3 (2026-10-08)</small>
+
+- fix(combobox): set aria-activedescendant and aria-controls on chip input, closes #1789 (#1790) ([92a5ad1](https://github.com/spartan-ng/spartan/commit/92a5ad1)), closes [#1789](https://github.com/spartan-ng/spartan/issues/1789) [#1790](https://github.com/spartan-ng/spartan/issues/1790)
+
 ## <small>1.6.2 (2026-10-08)</small>
 
 - fix(dialog): set aria-describedby imperatively to avoid NG0100 (#1788) ([b9bef54](https://github.com/spartan-ng/spartan/commit/b9bef54)), closes [#1788](https://github.com/spartan-ng/spartan/issues/1788) [#1771](https://github.com/spartan-ng/spartan/issues/1771) [#1771](https://github.com/spartan-ng/spartan/issues/1771)

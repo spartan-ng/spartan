@@ -1,3 +1,8 @@
+## <small>1.6.2 (2026-10-08)</small>
+
+- fix(dialog): set aria-describedby imperatively to avoid NG0100 (#1788) ([b9bef54](https://github.com/spartan-ng/spartan/commit/b9bef54)), closes [#1788](https://github.com/spartan-ng/spartan/issues/1788) [#1771](https://github.com/spartan-ng/spartan/issues/1771) [#1771](https://github.com/spartan-ng/spartan/issues/1771)
+- docs: fix separator alignment (#1787) ([6417e68](https://github.com/spartan-ng/spartan/commit/6417e68)), closes [#1787](https://github.com/spartan-ng/spartan/issues/1787)
+
 ## <small>1.6.1 (2026-10-06)</small>
 
 - fix(dropdown-menu): call ngOnChanges to update menuPosition (#1786) ([8e458fd](https://github.com/spartan-ng/spartan/commit/8e458fd)), closes [#1786](https://github.com/spartan-ng/spartan/issues/1786)

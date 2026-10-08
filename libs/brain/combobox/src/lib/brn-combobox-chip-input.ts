@@ -1,5 +1,7 @@
 import { BooleanInput } from '@angular/cdk/coercion';
-import { booleanAttribute, computed, Directive, effect, ElementRef, inject, input } from '@angular/core';
+import { booleanAttribute, computed, Directive, effect, ElementRef, inject, input, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { startWith } from 'rxjs/operators';
 import { injectBrnComboboxBase } from './brn-combobox.token';
 
 @Directive({
@@ -15,6 +17,8 @@ import { injectBrnComboboxBase } from './brn-combobox.token';
 		'aria-autocomplete': 'list',
 		'aria-haspopup': 'listbox',
 		'[attr.aria-expanded]': '_isExpanded()',
+		'[attr.aria-controls]': '_isExpanded() ? _comboboxListId() : null',
+		'[attr.aria-activedescendant]': '_isExpanded() ? _activeDescendant() : null',
 		'[attr.aria-invalid]': '_ariaInvalid() ? "true" : null',
 		'[attr.data-invalid]': '_ariaInvalid() ? "true" : null',
 		'[attr.data-matches-spartan-invalid]': '_spartanInvalid() ? "true" : null',
@@ -34,6 +38,9 @@ export class BrnComboboxChipInput<T> {
 	/** The id of the combobox input */
 	public readonly id = input<string>(`brn-combobox-input-${++BrnComboboxChipInput._id}`);
 
+	/** The id of the command list, used for aria-controls. */
+	protected readonly _comboboxListId = this._combobox.listId;
+
 	/** Manual override for aria-invalid. When not set, auto-detects from the parent combobox error state. */
 	public readonly ariaInvalidInput = input<boolean | undefined, BooleanInput>(undefined, {
 		transform: (v: BooleanInput) => (v === '' || v === undefined ? undefined : booleanAttribute(v)),
@@ -52,8 +59,17 @@ export class BrnComboboxChipInput<T> {
 	/** Whether the combobox panel is expanded */
 	protected readonly _isExpanded = this._combobox.isExpanded;
 
+	/** The id of the currently highlighted option, exposed via aria-activedescendant. */
+	protected readonly _activeDescendant = signal<string | undefined>(undefined);
+
 	constructor() {
 		this._combobox.registerComboboxChipInput?.(this);
+
+		this._combobox.keyManager.change
+			.pipe(startWith(this._combobox.keyManager.activeItemIndex), takeUntilDestroyed())
+			.subscribe(() => {
+				this._activeDescendant.set(this._combobox.keyManager.activeItem?.id());
+			});
 
 		effect(() => {
 			const search = this._combobox.search();

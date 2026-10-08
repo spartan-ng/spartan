@@ -44,6 +44,10 @@ export class BrnDialogRef<DialogResult = unknown> {
 		this._setDataState('open');
 		this._stateChanged.next('open');
 
+		// The container's `aria-describedby` host binding writes `null` on its first pass, which can
+		// wipe the attribute set while the declarative content view is created. Re-assert once after.
+		afterNextRender(() => this._syncAriaDescribedBy(), { injector: this._injector });
+
 		this._cdkDialogRef.closed.subscribe((result) => {
 			this._phase.set('closed');
 			this._closed.next(result);
@@ -133,10 +137,13 @@ export class BrnDialogRef<DialogResult = unknown> {
 		if (this.initialOptions.ariaDescribedBy !== undefined) return;
 
 		const id = this._descriptionIds.size ? [...this._descriptionIds].join(' ') : undefined;
-		this._cdkDialogRef.config.ariaDescribedBy = id;
-		const container = this._cdkDialogRef.overlayRef.overlayElement.querySelector('cdk-dialog-container');
-		if (id) container?.setAttribute('aria-describedby', id);
-		else container?.removeAttribute('aria-describedby');
+		const container = this._cdkDialogRef.overlayRef.overlayElement?.querySelector('cdk-dialog-container');
+
+		if (id) {
+			container?.setAttribute('aria-describedby', id);
+		} else {
+			container?.removeAttribute('aria-describedby');
+		}
 	}
 
 	private async _finishClose(

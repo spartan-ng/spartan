@@ -17,6 +17,7 @@ export * from './lib/hlm-pagination-item';
 export * from './lib/hlm-pagination-link';
 export * from './lib/hlm-pagination-next';
 export * from './lib/hlm-pagination-previous';
+export * from './lib/hlm-pagination.token';
 
 export const HlmPaginationImports = [
 	HlmPagination,

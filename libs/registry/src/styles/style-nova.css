@@ -43,11 +43,11 @@
 	}
 
 	.spartan-accordion-content {
-		@apply text-sm;
+		@apply -mx-1 px-1 text-sm;
 	}
 
 	.spartan-accordion-content-inner {
-		@apply pt-0 pb-2.5;
+		@apply pt-1 pb-2.5;
 	}
 
 	/* MARK: Alert */

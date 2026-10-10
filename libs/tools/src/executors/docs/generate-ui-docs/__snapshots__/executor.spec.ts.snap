@@ -6557,6 +6557,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "type": "number",
           },
           {
+            "name": "mobileMaxSize",
+            "required": false,
+            "type": "number",
+          },
+          {
             "name": "showEdges",
             "required": false,
             "type": "boolean",
@@ -6596,6 +6601,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
           },
           {
             "name": "maxSize",
+            "required": false,
+            "type": "number",
+          },
+          {
+            "name": "mobileMaxSize",
             "required": false,
             "type": "number",
           },

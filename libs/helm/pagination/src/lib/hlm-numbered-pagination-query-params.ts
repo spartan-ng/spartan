@@ -1,4 +1,5 @@
 import type { BooleanInput, NumberInput } from '@angular/cdk/coercion';
+import { NgTemplateOutlet } from '@angular/common';
 import {
 	booleanAttribute,
 	ChangeDetectionStrategy,
@@ -23,6 +24,7 @@ import { HlmPaginationPrevious } from './hlm-pagination-previous';
 @Component({
 	selector: 'hlm-numbered-pagination-query-params',
 	imports: [
+		NgTemplateOutlet,
 		HlmPagination,
 		HlmPaginationContent,
 		HlmPaginationItem,
@@ -41,7 +43,23 @@ import { HlmPaginationPrevious } from './hlm-pagination-previous';
 			pages
 		</div>
 
-		<nav hlmPagination>
+		<ng-template #pageTpl let-page>
+			@if (page === '...') {
+				<hlm-pagination-ellipsis />
+			} @else {
+				<a
+					hlmPaginationLink
+					[link]="currentPage() !== page ? link() : undefined"
+					[queryParams]="{ page }"
+					queryParamsHandling="merge"
+					[isActive]="currentPage() === page"
+				>
+					{{ page }}
+				</a>
+			}
+		</ng-template>
+
+		<nav hlmPagination class="order-first sm:order-0">
 			<ul hlmPaginationContent>
 				@if (showEdges() && !_isFirstPageActive()) {
 					<li hlmPaginationItem>
@@ -54,20 +72,14 @@ import { HlmPaginationPrevious } from './hlm-pagination-previous';
 				}
 
 				@for (page of _pages(); track page) {
-					<li hlmPaginationItem>
-						@if (page === '...') {
-							<hlm-pagination-ellipsis />
-						} @else {
-							<a
-								hlmPaginationLink
-								[link]="currentPage() !== page ? link() : undefined"
-								[queryParams]="{ page }"
-								queryParamsHandling="merge"
-								[isActive]="currentPage() === page"
-							>
-								{{ page }}
-							</a>
-						}
+					<li hlmPaginationItem class="max-sm:hidden">
+						<ng-container *ngTemplateOutlet="pageTpl; context: { $implicit: page }" />
+					</li>
+				}
+
+				@for (page of _mobilePages(); track page) {
+					<li hlmPaginationItem class="sm:hidden">
+						<ng-container *ngTemplateOutlet="pageTpl; context: { $implicit: page }" />
 					</li>
 				}
 
@@ -132,6 +144,15 @@ export class HlmNumberedPaginationQueryParams {
 	});
 
 	/**
+	 * The number of page links to show on small screens (below the `sm` breakpoint).
+	 * Capped at `maxSize`. Values below 5 are raised to 5, the minimum that always shows
+	 * the active page alongside the first page, the last page and both ellipses.
+	 */
+	public readonly mobileMaxSize = input<number, NumberInput>(5, {
+		transform: numberAttribute,
+	});
+
+	/**
 	 * Show the first and last page buttons.
 	 */
 	public readonly showEdges = input<boolean, BooleanInput>(true, {
@@ -174,7 +195,16 @@ export class HlmNumberedPaginationQueryParams {
 		return createPageArray(correctedCurrentPage, this.itemsPerPage(), this.totalItems(), this.maxSize());
 	});
 
+	protected readonly _mobilePages = computed(() =>
+		createPageArray(
+			outOfBoundCorrection(this.totalItems(), this.itemsPerPage(), this.currentPage()),
+			this.itemsPerPage(),
+			this.totalItems(),
+			Math.min(this.maxSize(), Math.max(this.mobileMaxSize(), 5)),
+		),
+	);
+
 	constructor() {
-		classes(() => 'flex items-center justify-between gap-2 px-4 py-2');
+		classes(() => 'flex flex-wrap items-center justify-between gap-2 px-4 py-2 sm:flex-nowrap');
 	}
 }

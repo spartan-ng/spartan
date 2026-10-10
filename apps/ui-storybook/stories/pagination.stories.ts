@@ -45,3 +45,11 @@ export const Default: Story = {
     `,
 	}),
 };
+
+export const Numbered: Story = {
+	render: () => ({
+		template: `
+			<hlm-numbered-pagination [currentPage]="5" [itemsPerPage]="10" [totalItems]="100" />
+		`,
+	}),
+};

@@ -10,14 +10,14 @@ import {
 	type ValueProvider,
 } from '@angular/core';
 import type { ControlState } from '@spartan-ng/brain/forms';
-import type { BrnSelectItem } from './brn-select-item';
+import type { BrnSelectOption } from './brn-select-item.token';
 import type { BrnSelectList } from './brn-select-list';
 import type { BrnSelectTrigger } from './brn-select-trigger';
 
 export interface BrnSelectBase<T> {
 	disabledState: Signal<boolean>;
 	itemToString: InputSignal<SelectItemToString<T> | undefined>;
-	keyManager: ActiveDescendantKeyManager<BrnSelectItem<T>>;
+	keyManager: ActiveDescendantKeyManager<BrnSelectOption<T>>;
 	value: ModelSignal<T | undefined | null> | ModelSignal<T[] | undefined | null>;
 	hasValue: Signal<boolean>;
 	isExpanded: Signal<boolean>;

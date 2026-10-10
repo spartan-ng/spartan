@@ -91,6 +91,33 @@ export const Multiple: Story = {
 	}),
 };
 
+export const MultipleWithSelectAll: Story = {
+	render: (args) => ({
+		props: { ...args },
+		template: /* HTML */ `
+			<hlm-select-multiple ${argsToTemplate(args, { exclude: ['value', 'placeholder'] })}>
+				<hlm-select-trigger class="w-56">
+					<hlm-select-placeholder>Select fruits</hlm-select-placeholder>
+					<ng-template hlmSelectValues let-values>
+						<hlm-select-values-content>@for (value of values; track value) { {{ value }} }</hlm-select-values-content>
+					</ng-template>
+				</hlm-select-trigger>
+				<hlm-select-content *hlmSelectPortal>
+					<hlm-select-all>Select all</hlm-select-all>
+					<hlm-select-group>
+						<hlm-select-label>Fruits</hlm-select-label>
+						<hlm-select-item value="apple">Apple</hlm-select-item>
+						<hlm-select-item value="banana">Banana</hlm-select-item>
+						<hlm-select-item value="blueberry">Blueberry</hlm-select-item>
+						<hlm-select-item value="grapes">Grapes</hlm-select-item>
+						<hlm-select-item value="pineapple" disabled>Pineapple</hlm-select-item>
+					</hlm-select-group>
+				</hlm-select-content>
+			</hlm-select-multiple>
+		`,
+	}),
+};
+
 export const ReactiveFormControl: Story = {
 	render: (args) => ({
 		props: { ...args, fruitGroup: new FormGroup({ fruit: new FormControl(args.value) }) },

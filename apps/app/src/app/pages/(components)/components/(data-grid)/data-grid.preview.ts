@@ -6,6 +6,7 @@ import { HlmInputImports } from '@spartan-ng/helm/input';
 import { HlmTableImports } from '@spartan-ng/helm/table';
 import {
 	columnFilteringFeature,
+	columnVisibilityFeature,
 	createColumnHelper,
 	FlexRender,
 	rowPaginationFeature,
@@ -22,6 +23,7 @@ export type DataGridUser = {
 
 const features = tableFeatures({
 	columnFilteringFeature,
+	columnVisibilityFeature,
 	rowPaginationFeature,
 	rowSelectionFeature,
 	rowSortingFeature,

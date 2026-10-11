@@ -1,0 +1,57 @@
+import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { HlmAlertImports } from '@spartan-ng/helm/alert';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
+import { HlmTableImports } from '@spartan-ng/helm/table';
+import { hlm } from '@spartan-ng/helm/utils';
+
+@Component({
+	selector: 'hlm-data-grid',
+	imports: [...HlmTableImports, ...HlmButtonImports, ...HlmAlertImports],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: { '[class]': '_cls()' },
+	template: `
+		<div hlmTableContainer>
+			<table hlmTable [attr.aria-busy]="_loading()">
+				<ng-content select="thead" />
+				<tbody hlmTBody>
+					@if (_loading()) {
+						<tr hlmTr>
+							<td hlmTd [attr.colspan]="99"><div class="shimmer h-8">Loading…</div></td>
+						</tr>
+					} @else if (_error()) {
+						<tr hlmTr>
+							<td hlmTd [attr.colspan]="99">
+								<div hlmAlert role="alert">
+									Failed to load.
+									<button hlmBtn size="sm" (click)="_retry()">Retry</button>
+								</div>
+							</td>
+						</tr>
+					} @else if (_total() === 0) {
+						<tr hlmTr>
+							<td hlmTd class="h-24 text-center" [attr.colspan]="99">No results.</td>
+						</tr>
+					} @else {
+						<ng-content />
+					}
+				</tbody>
+			</table>
+		</div>
+		<div class="text-muted-foreground text-sm" aria-live="polite">{{ _status() }}</div>
+	`,
+})
+export class HlmDataGrid {
+	public readonly loading = input(false);
+	public readonly error = input<unknown>(null);
+	public readonly total = input(0);
+	public readonly retry = input<() => void>();
+	public readonly class = input('');
+	protected readonly _loading = computed(() => this.loading());
+	protected readonly _error = computed(() => this.error());
+	protected readonly _total = computed(() => this.total());
+	protected readonly _cls = computed(() => hlm('w-full', this.class()));
+	protected readonly _status = computed(() => (this._loading() ? 'Loading…' : `${this._total()} row(s)`));
+	protected _retry() {
+		this.retry()?.();
+	}
+}

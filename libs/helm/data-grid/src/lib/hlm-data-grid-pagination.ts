@@ -1,0 +1,38 @@
+import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
+import { hlm } from '@spartan-ng/helm/utils';
+
+@Component({
+	selector: 'hlm-data-grid-pagination',
+	imports: [...HlmButtonImports],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: { '[class]': '_cls()' },
+	template: `
+		<div class="flex items-center justify-between py-4">
+			<div class="text-muted-foreground text-sm" aria-live="polite">{{ _selection() }}</div>
+			<div class="flex items-center space-x-2">
+				<button size="sm" variant="outline" hlmBtn [disabled]="!_canPrev()" (click)="_prev()">Previous</button>
+				<button size="sm" variant="outline" hlmBtn [disabled]="!_canNext()" (click)="_next()">Next</button>
+			</div>
+		</div>
+	`,
+})
+export class HlmDataGridPagination {
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	public readonly table = input<any>(null);
+	public readonly class = input('');
+	protected readonly _cls = computed(() => hlm('w-full', this.class()));
+	protected readonly _canPrev = computed(() => this.table()?.getCanPreviousPage() ?? false);
+	protected readonly _canNext = computed(() => this.table()?.getCanNextPage() ?? false);
+	protected readonly _selection = computed(() => {
+		const t = this.table();
+		if (!t) return '';
+		return `${t.getSelectedRowModel()?.rows?.length ?? 0} of ${t.getRowCount?.() ?? 0} row(s) selected`;
+	});
+	protected _prev() {
+		this.table()?.previousPage();
+	}
+	protected _next() {
+		this.table()?.nextPage();
+	}
+}

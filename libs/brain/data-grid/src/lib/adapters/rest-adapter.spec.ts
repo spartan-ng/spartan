@@ -20,4 +20,20 @@ describe('createRestAdapter', () => {
 		expect(filterQ['filter[email]']).toBe('a');
 		expect(pageQ.page).toBe('4');
 	});
+	it('omits empty, null, and undefined filters (matches OData)', () => {
+		const a = createRestAdapter<string>({ baseUrl: '/x', fetchFn: async () => ({ rows: [], total: 0 }) });
+		expect(
+			a.buildQuery({
+				page: 0,
+				pageSize: 10,
+				sorting: [],
+				filters: [
+					{ id: 'email', value: '' },
+					{ id: 'name', value: null },
+					{ id: 'nick', value: undefined },
+					{ id: 'age', value: 0 },
+				],
+			}),
+		).toEqual({ page: '1', pageSize: '10', 'filter[age]': '0' });
+	});
 });

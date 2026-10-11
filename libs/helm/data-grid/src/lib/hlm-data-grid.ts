@@ -11,28 +11,31 @@ import { hlm } from '@spartan-ng/helm/utils';
 	host: { '[class]': '_cls()' },
 	template: `
 		<div hlmTableContainer>
-			<table hlmTable [attr.aria-busy]="_loading()">
+			<table hlmTable [attr.aria-busy]="_loading() ? 'true' : 'false'">
 				<ng-content select="thead" />
 				<tbody hlmTBody>
 					@if (_loading()) {
 						<tr hlmTr>
 							<td hlmTd [attr.colspan]="99"><div class="shimmer h-8">Loading…</div></td>
 						</tr>
-					} @else if (_error()) {
-						<tr hlmTr>
-							<td hlmTd [attr.colspan]="99">
-								<div hlmAlert role="alert">
-									Failed to load.
-									<button hlmBtn size="sm" (click)="_retry()">Retry</button>
-								</div>
-							</td>
-						</tr>
-					} @else if (_total() === 0) {
-						<tr hlmTr>
-							<td hlmTd class="h-24 text-center" [attr.colspan]="99">No results.</td>
-						</tr>
 					} @else {
-						<ng-content />
+						@if (_error()) {
+							<tr hlmTr>
+								<td hlmTd [attr.colspan]="99">
+									<div hlmAlert role="alert">
+										Failed to load.
+										<button hlmBtn size="sm" (click)="_retry()">Retry</button>
+									</div>
+								</td>
+							</tr>
+						}
+						@if (!_error() && _total() === 0) {
+							<tr hlmTr>
+								<td hlmTd class="h-24 text-center" [attr.colspan]="99">No results.</td>
+							</tr>
+						} @else if (!_error() || _total() > 0) {
+							<ng-content />
+						}
 					}
 				</tbody>
 			</table>

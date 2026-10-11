@@ -12,8 +12,10 @@ export function createRestAdapter<TData>(opts: {
 			const sort = s.sorting[0];
 			if (sort)
 				Object.assign(q, opts.mapSort ? opts.mapSort(sort) : { sortBy: sort.id, sortDir: sort.desc ? 'desc' : 'asc' });
-			for (const f of s.filters)
+			for (const f of s.filters) {
+				if (f.value === '' || f.value == null) continue;
 				Object.assign(q, opts.mapFilter ? opts.mapFilter(f) : { [`filter[${f.id}]`]: String(f.value ?? '') });
+			}
 			if (s.globalFilter) q['q'] = s.globalFilter;
 			return q;
 		},

@@ -5,12 +5,13 @@ const esc = (v: unknown) => String(v ?? '').replace(/'/g, "''");
 export function buildODataQueryString(s: BrnGridState): string {
 	const parts = [`$top=${s.pageSize}`, `$skip=${s.page * s.pageSize}`];
 	const sort = s.sorting[0];
-	if (sort) parts.push(`$orderby=${sort.id} ${sort.desc ? 'desc' : 'asc'}`);
+	if (sort) parts.push(`$orderby=${encodeURIComponent(sort.id)} ${sort.desc ? 'desc' : 'asc'}`);
 	const filters = s.filters
 		.filter((f) => f.value !== '' && f.value != null)
 		.map((f) => `contains(${f.id},'${esc(f.value)}')`);
 	if (s.globalFilter) filters.push(`contains(email,'${esc(s.globalFilter)}')`);
-	if (filters.length) parts.push(`$filter=${filters.join(' and ')}`);
+	// `'` escaping happens before encoding; the encoded filter keeps `&?%#` inside one `$filter` value.
+	if (filters.length) parts.push(`$filter=${encodeURIComponent(filters.join(' and '))}`);
 	parts.push('$count=true');
 	return parts.join('&');
 }

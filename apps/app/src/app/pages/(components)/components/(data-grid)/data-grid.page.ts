@@ -104,11 +104,13 @@ export const routeMeta: RouteMeta = {
 				<code class="${hlmCode}">mapSort/mapFilter</code>
 				, or bring your own transport with
 				<code class="${hlmCode}">fetchFn</code>
-				. By default the grid does not fetch on the server — pass
-				<code class="${hlmCode}">serverFetch: true</code>
-				to
-				<code class="${hlmCode}">injectBrnDataGrid</code>
-				to opt in.
+				. Fetches run through Angular
+				<code class="${hlmCode}">resource</code>
+				(including SSR); filter keystrokes are debounced by
+				<code class="${hlmCode}">debounceMs</code>
+				(default 300ms) while page and sort apply immediately, and
+				<code class="${hlmCode}">serverFetch</code>
+				is reserved for a future opt-in fetch mode.
 			</p>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
@@ -170,9 +172,6 @@ export const routeMeta: RouteMeta = {
 				</div>
 				<spartan-code secondTab [code]="_graphqlCode()" />
 			</spartan-tabs>
-
-			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
-			<spartan-ui-api-docs docType="brain" />
 
 			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="helm" />

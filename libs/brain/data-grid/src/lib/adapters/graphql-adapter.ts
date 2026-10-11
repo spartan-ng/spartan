@@ -10,14 +10,17 @@ export type GraphQLVariables = {
 	search?: string;
 };
 
-export function createGraphQLAdapter<TData>(opts: {
-	endpoint: string;
-	query: string;
-	mode?: 'offset' | 'cursor';
-	mapSort?: (s: { id: string; desc: boolean }) => unknown;
-	mapFilter?: (f: { id: string; value: unknown }) => Record<string, unknown>;
-	fetchFn: (vars: GraphQLVariables, signal: AbortSignal) => Promise<{ rows: TData[]; total: number }>;
-}): BrnDataAdapter<TData, GraphQLVariables> {
+export function createGraphQLAdapter<TData>(
+	/** `fetchFn` is the v1 transport; `endpoint`/`query` are reserved for a future default transport. */
+	opts: {
+		endpoint: string;
+		query: string;
+		mode?: 'offset' | 'cursor';
+		mapSort?: (s: { id: string; desc: boolean }) => unknown;
+		mapFilter?: (f: { id: string; value: unknown }) => Record<string, unknown>;
+		fetchFn: (vars: GraphQLVariables, signal: AbortSignal) => Promise<{ rows: TData[]; total: number }>;
+	},
+): BrnDataAdapter<TData, GraphQLVariables> {
 	return {
 		buildQuery: (s: BrnGridState) => {
 			const orderBy = s.sorting.map((x) => (opts.mapSort ? opts.mapSort(x) : { [x.id]: x.desc ? 'DESC' : 'ASC' }));

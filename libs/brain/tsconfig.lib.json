@@ -8,6 +8,15 @@
 		"types": [],
 		"moduleResolution": "bundler"
 	},
-	"exclude": ["**/*.spec.ts", "test-setup.ts", "vite.config.mts", "**/*.test.ts", "src/testing/**"],
-	"include": ["**/*.ts"]
+	"exclude": [
+		"**/*.spec.ts",
+		"test-setup.ts",
+		"vite.config.mts",
+		"**/*.test.ts",
+		"src/testing/**",
+		"data-grid/**/*.spec.ts",
+		"data-grid/**/*.test.ts",
+		"data-grid/src/testing/**"
+	],
+	"include": ["**/*.ts", "data-grid/**/*.ts"]
 }

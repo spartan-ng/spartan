@@ -3605,6 +3605,59 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
       },
     },
   },
+  "data-grid": {
+    "helm": {
+      "HlmDataGrid": {
+        "inputs": [
+          {
+            "name": "loading",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "error",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "total",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "retry",
+            "required": false,
+            "type": "() => void",
+          },
+          {
+            "name": "class",
+            "required": false,
+            "type": "unknown",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-data-grid",
+      },
+      "HlmDataGridPagination": {
+        "inputs": [
+          {
+            "name": "table",
+            "required": false,
+            "type": "any",
+          },
+          {
+            "name": "class",
+            "required": false,
+            "type": "unknown",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-data-grid-pagination",
+      },
+    },
+  },
   "date-picker": {
     "brain": {
       "BrnDateInput": {

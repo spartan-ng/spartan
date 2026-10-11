@@ -1,0 +1,140 @@
+name: publish-azure
+
+# Manual publish of the built npm packages (brain/cli/mcp) to the private
+# Azure Artifacts feed. The repo lives on GitHub, so auth is a PAT stored as
+# the AZURE_ARTIFACTS_PAT secret (Packaging > Read, write & manage).
+#
+# Feed registry:
+#   https://pkgs.dev.azure.com/TunNetCom/Silk_Road_ERP/_packaging/sre-npm-feed/npm/registry/
+#
+# Published names carry the name-suffix input (default `-aion-time`), so the
+# feed gets e.g. `@spartan-ng/brain-aion-time` with no collision against the
+# public `@spartan-ng/*` packages. Consumers install and import the suffixed
+# names, e.g. `import { BrnButton } from '@spartan-ng/brain-aion-time/button'`.
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'npm dist-tag'
+        default: 'latest'
+        required: true
+      name-suffix:
+        description: 'Suffix for published names (e.g. -aion-time -> @spartan-ng/brain-aion-time)'
+        default: '-aion-time'
+        required: false
+      dry-run:
+        description: 'Preview without publishing'
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: publish-azure-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  AZURE_REGISTRY: https://pkgs.dev.azure.com/TunNetCom/Silk_Road_ERP/_packaging/sre-npm-feed/npm/registry/
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - uses: ./.github/actions/setup
+
+      - name: Build publishable libs
+        run: pnpm nx run-many -t build -p brain cli mcp --parallel=1
+
+      # Azure-only rename: source keeps `@spartan-ng/*` (public npm flow untouched),
+      # only the published copies get the suffix. Also rewrites specifiers inside
+      # dist (brain cross-entry imports, the CLI's supported-ui-libraries.json),
+      # and strips publishConfig.access which Azure rejects with a 400.
+      - name: Apply name suffix and strip publishConfig.access
+        run: |
+          if [ -n "$SUFFIX" ] && [[ ! "$SUFFIX" =~ ^-[a-z0-9-]+$ ]]; then
+            echo "::error::name-suffix must be empty or lowercase with hyphens, e.g. '-aion-time'. Got: $SUFFIX"
+            exit 1
+          fi
+          node <<'EOF'
+            const fs = require('node:fs');
+            const path = require('node:path');
+            const suffix = process.env.SUFFIX || '';
+            const pkgs = ['brain', 'cli', 'mcp'];
+            const oldNames = pkgs.map((p) => `@spartan-ng/${p}`);
+            const newName = (n) => (oldNames.includes(n) ? n + suffix : n);
+            // 1. package.json names + cross-deps between the renamed packages.
+            for (const p of pkgs) {
+              const f = `dist/libs/${p}/package.json`;
+              const pkg = JSON.parse(fs.readFileSync(f, 'utf8'));
+              pkg.name = newName(pkg.name);
+              for (const field of ['dependencies', 'peerDependencies', 'devDependencies', 'optionalDependencies']) {
+                if (!pkg[field]) continue;
+                for (const key of Object.keys(pkg[field])) {
+                  if (oldNames.includes(key)) {
+                    pkg[field][newName(key)] = pkg[field][key];
+                    delete pkg[field][key];
+                  }
+                }
+              }
+              delete pkg.publishConfig;
+              delete pkg.private;
+              fs.writeFileSync(f, JSON.stringify(pkg, null, 2) + '\n');
+              console.log(pkg.name + '@' + pkg.version);
+            }
+            // 2. Rewrite remaining old specifiers in dist (built JS/d.ts, CLI templates).
+            // Skips package.json files: already renamed above, and a prefix replace
+            // would double-apply the suffix there.
+            if (suffix) {
+              const exts = new Set(['.js', '.mjs', '.cjs', '.d.ts', '.json', '.md']);
+              const walk = (dir) => {
+                for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
+                  const full = path.join(dir, e.name);
+                  if (e.isDirectory()) walk(full);
+                  else if (e.name !== 'package.json' && exts.has(path.extname(e.name))) {
+                    const s = fs.readFileSync(full, 'utf8');
+                    let out = s;
+                    for (const n of oldNames) out = out.split(n).join(n + suffix);
+                    if (out !== s) fs.writeFileSync(full, out);
+                  }
+                }
+              };
+              for (const p of pkgs) walk(`dist/libs/${p}`);
+            }
+          EOF
+        shell: bash
+        env:
+          SUFFIX: ${{ inputs.name-suffix }}
+
+      - name: Require Azure PAT secret
+        run: |
+          if [ -z "$NODE_AUTH_TOKEN" ]; then
+            echo "::error::AZURE_ARTIFACTS_PAT secret is missing. Add it under GitHub repo Settings > Secrets > Actions."
+            exit 1
+          fi
+        shell: bash
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.AZURE_ARTIFACTS_PAT }}
+
+      - name: Publish to Azure feed
+        run: |
+          printf '%s\n' \
+            "@spartan-ng:registry=${AZURE_REGISTRY}" \
+            "always-auth=true" \
+            "//pkgs.dev.azure.com/TunNetCom/Silk_Road_ERP/_packaging/sre-npm-feed/npm/registry/:_authToken=\${NODE_AUTH_TOKEN}" \
+            "//pkgs.dev.azure.com/TunNetCom/Silk_Road_ERP/_packaging/sre-npm-feed/npm/:_authToken=\${NODE_AUTH_TOKEN}" \
+            > .npmrc
+          args=(--registry "$AZURE_REGISTRY" --tag "${{ inputs.tag }}")
+          if [ "${{ inputs.dry-run }}" = "true" ]; then
+            args+=(--dry-run)
+          fi
+          for p in brain cli mcp; do
+            npm publish "dist/libs/$p" "${args[@]}"
+          done
+        shell: bash
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.AZURE_ARTIFACTS_PAT }}

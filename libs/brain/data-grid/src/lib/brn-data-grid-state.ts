@@ -1,8 +1,8 @@
 import { computed, resource, signal, type ResourceRef } from '@angular/core';
-import { injectTable } from '@tanstack/angular-table';
+import { injectTable, type RowData } from '@tanstack/angular-table';
 import type { BrnDataAdapter, BrnGridState } from './brn-data-source';
 
-export function injectBrnDataGrid<TData>(opts: {
+export function injectBrnDataGrid<TData extends RowData>(opts: {
 	adapter: BrnDataAdapter<TData, any>;
 	initial?: Partial<BrnGridState>;
 	debounceMs?: number;

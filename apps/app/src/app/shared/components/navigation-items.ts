@@ -42,6 +42,7 @@ export const components: Link[] = [
 	{ label: 'Combobox', url: '/combobox' },
 	{ label: 'Command', url: '/command' },
 	{ label: 'Context Menu', url: '/context-menu' },
+	{ label: 'Data Grid', url: '/data-grid', new: true },
 	{ label: 'Data Table', url: '/data-table' },
 	{ label: 'Date Picker', url: '/date-picker' },
 	{ label: 'Dialog', url: '/dialog' },

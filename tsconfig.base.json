@@ -147,7 +147,9 @@
 			"@spartan-ng/mcp": ["libs/mcp/src/index.ts"],
 			"@spartan-ng/registry": ["libs/registry/src/index.ts"],
 			"@spartan-ng/tools": ["libs/tools/src/index.ts"],
-			"@spartan-ng/trpc": ["libs/trpc/src/index.ts"]
+			"@spartan-ng/trpc": ["libs/trpc/src/index.ts"],
+			"@spartan-ng/brain/data-grid": ["./libs/brain/data-grid/src/index.ts"],
+			"@spartan-ng/helm/data-grid": ["./libs/helm/data-grid/src/index.ts"]
 		}
 	},
 	"exclude": ["node_modules", "tmp"]

@@ -67,6 +67,7 @@ module.exports = {
 				'spinner',
 				'switch',
 				'table',
+				'data-grid',
 				'tabs',
 				'textarea',
 				'toggle',

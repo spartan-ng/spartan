@@ -1,17 +1,19 @@
 import { type GeneratorCallback, getProjects, runTasksInSerial, type Tree } from '@nx/devkit';
 
 import { prompt } from 'enquirer';
+import { resolveRegistryItemList } from '../../registry';
 import { backfillStyleInComponentsJson, type Config, loadOrInitConfig } from '../../utils/config';
 import type { Style } from '../../utils/supported-styles';
+import { hlmRegistryItemGenerator } from '../base/generator';
 import type { GenerateAs } from '../base/lib/generate-as';
 import { initializeAngularEntrypoint } from '../base/lib/initialize-angular-library';
 import { singleLibName } from '../base/lib/single-lib-name';
 import type { HlmBaseGeneratorSchema } from '../base/schema';
-import { addDependentPrimitives } from './add-dependent-primitive';
 import type { Primitive } from './primitives';
+import { createFirstPartyRegistryItem } from './registry/first-party';
 import type { HlmUIGeneratorSchema } from './schema';
 
-type PrimitiveResponse = Primitive | 'all';
+type PrimitiveResponse = string | 'all';
 
 export default async function hlmUIGenerator(tree: Tree, options: HlmUIGeneratorSchema & { angularCli?: boolean }) {
 	const tasks: GeneratorCallback[] = [];
@@ -27,12 +29,9 @@ export default async function hlmUIGenerator(tree: Tree, options: HlmUIGenerator
 	const availablePrimitiveNames: Primitive[] = Object.keys(availablePrimitives) as Primitive[];
 
 	let response: { primitives: PrimitiveResponse[] } = { primitives: [] };
-	if (options.name && availablePrimitiveNames.includes(options.name)) {
+	if (options.name) {
 		response.primitives.push(options.name);
 	} else {
-		if (options.name) {
-			console.log('Cannot resolve primitive with name:', options.name);
-		}
 		response = await prompt({
 			type: 'multiselect',
 			required: true,
@@ -68,16 +67,6 @@ export async function createPrimitiveLibraries(
 	const allPrimitivesSelected = response.primitives.includes('all');
 	const primitivesToCreate = allPrimitivesSelected ? availablePrimitiveNames : response.primitives;
 	const tasks: GeneratorCallback[] = [];
-	const installPeerDependencies =
-		options.installPeerDependencies === undefined
-			? true
-			: typeof options.installPeerDependencies === 'string'
-				? options.installPeerDependencies === 'true'
-				: options.installPeerDependencies;
-
-	if (!response.primitives.includes('all') && installPeerDependencies) {
-		await addDependentPrimitives(primitivesToCreate, false);
-	}
 
 	const projects = getProjects(tree);
 
@@ -97,36 +86,45 @@ export async function createPrimitiveLibraries(
 		tasks.push(task);
 	}
 
-	// Use Promise.all() to handle parallel execution of primitive library creation tasks
-	const installTasks = await Promise.all(
-		primitivesToCreate.map(async (primitiveName) => {
-			const name = availablePrimitives[primitiveName].name;
-			const peerDependencies = removeHelmKeys(availablePrimitives[primitiveName].peerDependencies);
-			// @vite-ignore - resolved at runtime by Node; Vite must not try to statically bundle this.
-			const { generator } = await import(/* @vite-ignore */ `./libs/${name}/generator`);
-
-			return generator(tree, {
-				name: '',
-				peerDependencies,
-				directory: options.directory ?? config.componentsPath,
-				tags: options.tags,
-				rootProject: options.rootProject,
-				angularCli: options.angularCli,
-				buildable: options.buildable ?? config.buildable ?? true,
-				generateAs: options.generateAs ?? config.generateAs ?? 'library',
-				importAlias: options.importAlias ?? config.importAlias ?? `@spartan-ng/helm`,
-				style: options.style ?? config.style,
-			} satisfies HlmBaseGeneratorSchema);
-		}),
+	const registryItems = await resolveRegistryItemList(
+		primitivesToCreate.map((primitive) =>
+			availablePrimitiveNames.includes(primitive as Primitive) ? `@spartan/${primitive}` : primitive,
+		),
+		{ style: options.style ?? config.style, registries: config.registries },
+		{ builtinItemFactory: createFirstPartyRegistryItem },
 	);
+
+	const installTasks = [];
+	for (const item of registryItems) {
+		if (item.type !== 'registry:ui') {
+			continue;
+		}
+
+		installTasks.push(
+			await hlmRegistryItemGenerator(
+				tree,
+				{
+					name: item.name,
+					directory: options.directory ?? config.componentsPath,
+					tags: options.tags,
+					rootProject: options.rootProject,
+					angularCli: options.angularCli,
+					buildable: options.buildable ?? config.buildable ?? true,
+					generateAs: options.generateAs ?? config.generateAs ?? 'library',
+					importAlias: options.importAlias ?? config.importAlias ?? `@spartan-ng/helm`,
+					style: options.style ?? config.style,
+					overwrite: options.overwrite,
+					dryRun: options.dryRun,
+				} satisfies HlmBaseGeneratorSchema,
+				item,
+			),
+		);
+	}
 
 	tasks.push(...installTasks.filter(Boolean));
 
 	return tasks;
 }
-
-const removeHelmKeys = (obj: Record<string, string>) =>
-	Object.fromEntries(Object.entries(obj).filter(([key]) => !key.toLowerCase().includes('helm')));
 
 interface PrimitiveDefinitions {
 	[componentName: string]: {

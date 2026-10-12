@@ -29,17 +29,25 @@ export const rawConfigSchema = z
 	.object({
 		$schema: z.string().optional(),
 		style: z.string(),
-		tailwind: z.object({
-			css: z.string(),
-			baseColor: z.string(),
-			prefix: z.string().default('').optional(),
-		}),
-		aliases: z.object({
-			ui: z.string().optional(),
-		}),
+		componentsPath: z.string().optional(),
+		importAlias: z.string().optional(),
+		buildable: z.boolean().optional(),
+		generateAs: z.enum(['library', 'entrypoint']).optional(),
+		tailwind: z
+			.object({
+				css: z.string(),
+				baseColor: z.string(),
+				prefix: z.string().default('').optional(),
+			})
+			.optional(),
+		aliases: z
+			.object({
+				ui: z.string().optional(),
+			})
+			.optional(),
 		registries: registryConfigSchema.optional(),
 	})
-	.strict();
+	.passthrough();
 
 export const configSchema = rawConfigSchema.extend({
 	resolvedPaths: z.object({
@@ -99,6 +107,16 @@ export const registryItemCssVarsSchema = z.object({
 	dark: z.record(z.string(), z.string()).optional(),
 });
 
+export const registryItemTailwindSchema = z.object({
+	config: z
+		.object({
+			content: z.array(z.string()).optional(),
+			theme: z.record(z.string(), z.any()).optional(),
+			plugins: z.array(z.string()).optional(),
+		})
+		.optional(),
+});
+
 // Recursive type for CSS properties that supports empty objects at any level.
 const cssValueSchema: z.ZodType = z.lazy(() =>
 	z.union([
@@ -110,7 +128,10 @@ const cssValueSchema: z.ZodType = z.lazy(() =>
 
 export const registryItemCssSchema = z.record(z.string(), cssValueSchema);
 
-export const registryItemEnvVarsSchema = z.record(z.string(), z.string());
+export const registryItemStyleMapsSchema = z.record(
+	z.string(),
+	z.record(z.string().startsWith('spartan-'), z.string()),
+);
 
 // Font metadata schema for registry:font items.
 export const registryItemFontSchema = z.object({
@@ -124,13 +145,23 @@ export const registryItemFontSchema = z.object({
 
 // Common fields shared by all registry items.
 export const registryItemCommonSchema = z.object({
+	$schema: z.string().optional(),
+	extends: z.string().optional(),
 	name: z.string(),
 	title: z.string().optional(),
+	author: z.string().optional(),
 	description: z.string().optional(),
 	dependencies: z.array(z.string()).optional(),
 	devDependencies: z.array(z.string()).optional(),
+	registryDependencies: z.array(z.string()).optional(),
 	files: z.array(registryItemFileSchema).optional(),
+	tailwind: registryItemTailwindSchema.optional(),
 	cssVars: registryItemCssVarsSchema.optional(),
+	css: registryItemCssSchema.optional(),
+	styleMaps: registryItemStyleMapsSchema.optional(),
+	meta: z.record(z.string(), z.any()).optional(),
+	docs: z.string().optional(),
+	categories: z.array(z.string()).optional(),
 });
 
 // registry:base has a config field, registry:font has a font field.
@@ -149,6 +180,7 @@ export const registryItemSchema = z.discriminatedUnion('type', [
 ]);
 
 export type RegistryItem = z.infer<typeof registryItemSchema>;
+export type RegistryItemFile = z.infer<typeof registryItemFileSchema>;
 
 // Helper type for registry:base items specifically.
 export type RegistryBaseItem = Extract<RegistryItem, { type: 'registry:base' }>;
@@ -156,15 +188,50 @@ export type RegistryBaseItem = Extract<RegistryItem, { type: 'registry:base' }>;
 // Helper type for registry:font items specifically.
 export type RegistryFontItem = Extract<RegistryItem, { type: 'registry:font' }>;
 
-export const registrySchema = z.object({
-	name: z.string(),
-	homepage: z.string(),
-	items: z.array(registryItemSchema),
-});
+const registryBaseSchema = z
+	.object({
+		$schema: z.string().optional(),
+		name: z.string().optional(),
+		homepage: z.string().optional(),
+		include: z.array(z.string()).optional(),
+		items: z.array(registryItemSchema).optional(),
+	})
+	.refine((registry) => registry.items !== undefined || registry.include !== undefined, {
+		message: 'Registry must define at least one of `items` or `include`.',
+		path: ['items'],
+	});
+
+export const registryChunkSchema = registryBaseSchema.transform((registry) => ({
+	...registry,
+	items: registry.items ?? [],
+}));
+
+export const registrySchema = registryChunkSchema.pipe(
+	z.object({
+		$schema: z.string().optional(),
+		name: z.string(),
+		homepage: z.string(),
+		include: z.array(z.string()).optional(),
+		items: z.array(registryItemSchema),
+	}),
+);
 
 export type Registry = z.infer<typeof registrySchema>;
 
 export const registryIndexSchema = z.array(registryItemSchema);
+
+export const registryResolvedItemsTreeSchema = z.object({
+	dependencies: z.array(z.string()).optional(),
+	devDependencies: z.array(z.string()).optional(),
+	files: z.array(registryItemFileSchema).optional(),
+	tailwind: registryItemTailwindSchema.optional(),
+	cssVars: registryItemCssVarsSchema.optional(),
+	css: registryItemCssSchema.optional(),
+	styleMaps: registryItemStyleMapsSchema.optional(),
+	docs: z.string().optional(),
+});
+
+export type RegistryResolvedItemsTree = z.infer<typeof registryResolvedItemsTreeSchema>;
 
 export const stylesSchema = z.array(
 	z.object({
@@ -182,6 +249,8 @@ export const searchResultItemSchema = z.object({
 	registry: z.string(),
 	addCommandArgument: z.string(),
 });
+
+export type SearchResultItem = z.infer<typeof searchResultItemSchema>;
 
 // New schema for getRegistries().
 export const registriesSchema = z.array(

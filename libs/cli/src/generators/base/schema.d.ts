@@ -12,4 +12,6 @@ export interface HlmBaseGeneratorSchema {
 	generateAs: GenerateAs;
 	importAlias: string;
 	style: Style;
+	overwrite?: boolean;
+	dryRun?: boolean;
 }

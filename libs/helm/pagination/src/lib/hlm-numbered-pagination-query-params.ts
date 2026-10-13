@@ -34,7 +34,7 @@ import { HlmPaginationPrevious } from './hlm-pagination-previous';
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<div class="flex items-center gap-1 text-sm text-nowrap text-gray-600">
+		<div class="text-muted-foreground flex items-center gap-1 text-sm text-nowrap">
 			<b>{{ totalItems() }}</b>
 			total items |
 			<b>{{ _lastPageNumber() }}</b>

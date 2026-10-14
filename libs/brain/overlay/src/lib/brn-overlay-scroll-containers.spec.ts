@@ -51,4 +51,14 @@ describe('getScrollContainers', () => {
 		expect(containers).toContain(container);
 		expect(containers).not.toContain(document.documentElement);
 	});
+
+	it('follows a slotted anchor through its slot, into the shadow tree that renders it', () => {
+		const outer = element(root, 'overflow: auto');
+		const host = element(outer);
+		const wrapper = element(host.attachShadow({ mode: 'open' }), 'overflow: auto');
+		wrapper.appendChild(document.createElement('slot'));
+		const anchor = element(host);
+
+		expect(getScrollContainers(anchor)).toEqual([wrapper, outer]);
+	});
 });

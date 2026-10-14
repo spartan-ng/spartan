@@ -35,7 +35,7 @@ import { injectHlmPaginationConfig } from './hlm-pagination.token';
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<div class="flex items-center gap-1 text-sm text-nowrap text-gray-600">
+		<div class="text-muted-foreground flex items-center gap-1 text-sm text-nowrap">
 			<b>{{ totalItems() }}</b>
 			{{ totalItemsLabel() }} |
 			<b>{{ _lastPageNumber() }}</b>

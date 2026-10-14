@@ -29,21 +29,26 @@ export const routeMeta: RouteMeta = {
 	],
 	template: `
 		<section spartanMainSection>
-			<spartan-section-intro name="Figma" lead="Design with shadcn components. Build with spartan." />
+			<spartan-section-intro
+				name="Figma"
+				lead="Design with the same components you build. Figma UI kit for spartan components."
+			/>
 
 			<p class="${hlmP}">
-				Because spartan adapts shadcn/ui patterns for Angular, you can use shadcn design resources for prototyping. This
-				includes Figma UI kits created by the community.
+				A dedicated Figma UI kit lets you design with the exact same components you build with spartan, keeping your
+				mockups and your Angular implementation in sync.
 			</p>
 
 			<p class="${hlmP}">
-				<a class="font-medium hover:underline" href="https://twitter.com/skirano" target="_blank">Pietro Schirano</a>
-				created a Figma UI kit for shadcn components. Explore the kit below:
+				<a class="font-medium hover:underline" href="https://www.figma.com/@mislavpongrac" target="_blank">
+					Mislav Pongrac
+				</a>
+				created a 1:1 Figma design kit of spartan/ui. Explore the kit below:
 			</p>
 
 			<div class="mt-6" hlmAspectRatio="16/9">
 				<iframe
-					src="https://embed.figma.com/file/1203061493325953101/hf_embed?community_viewer=true&amp;embed_host=shadcn&amp;hub_file_id=1203061493325953101&amp;kind=&amp;viewer=1"
+					src="https://embed.figma.com/file/1691576794328156128/hf_embed?community_viewer=true&amp;embed_host=spartan&amp;hub_file_id=1691576794328156128&amp;kind=&amp;viewer=1"
 					class="bg-muted h-full w-full overflow-hidden rounded-lg border"
 				></iframe>
 			</div>
@@ -55,14 +60,22 @@ export const routeMeta: RouteMeta = {
 			<a
 				class="mt-2 block text-lg font-medium underline"
 				target="_blank"
-				href="https://www.figma.com/community/file/1203061493325953101"
+				href="https://www.figma.com/community/file/1691576794328156128/spartan-ui-for-figma-a-1-1-design-kit-of-spartan-ng"
 			>
 				Get Figma UI Kit →
 			</a>
 
 			<p class="${hlmP} mt-6">
-				Since spartan components follow shadcn patterns, designs created with shadcn-based Figma kits can be implemented
+				Because the kit mirrors the Brain and Helm components 1:1, designs created with it can be implemented directly
 				with matching spartan components in your Angular app.
+			</p>
+
+			<p class="${hlmP} mt-6">
+				A big thanks to
+				<a class="font-medium hover:underline" href="https://www.figma.com/@mislavpongrac" target="_blank">
+					Mislav Pongrac
+				</a>
+				for creating this Figma kit for the community!
 			</p>
 
 			<spartan-page-bottom-nav>

@@ -1,3 +1,16 @@
+## 1.7.0 (2026-10-14)
+
+- feat: 1.7.0 (#1800) ([afa6638](https://github.com/spartan-ng/spartan/commit/afa6638)), closes [#1800](https://github.com/spartan-ng/spartan/issues/1800) [#1772](https://github.com/spartan-ng/spartan/issues/1772) [#1770](https://github.com/spartan-ng/spartan/issues/1770) [#1798](https://github.com/spartan-ng/spartan/issues/1798)
+- feat(pagination): add option to change pagination labels (#1772) ([d9098e5](https://github.com/spartan-ng/spartan/commit/d9098e5)), closes [#1772](https://github.com/spartan-ng/spartan/issues/1772) [#1770](https://github.com/spartan-ng/spartan/issues/1770)
+- chore(release): backmerge main into beta ([71e8057](https://github.com/spartan-ng/spartan/commit/71e8057))
+- chore(release): backmerge main into beta ([62049d2](https://github.com/spartan-ng/spartan/commit/62049d2))
+- chore(release): backmerge main into beta ([9d69de8](https://github.com/spartan-ng/spartan/commit/9d69de8))
+- chore(release): backmerge main into beta ([747b21b](https://github.com/spartan-ng/spartan/commit/747b21b))
+- chore(release): backmerge main into beta ([40890f6](https://github.com/spartan-ng/spartan/commit/40890f6))
+- chore(release): backmerge main into beta ([1b3b618](https://github.com/spartan-ng/spartan/commit/1b3b618))
+- fix(pagination): use muted-foreground token for the numbered pagination summary (#1798) ([41a37cf](https://github.com/spartan-ng/spartan/commit/41a37cf)), closes [#1798](https://github.com/spartan-ng/spartan/issues/1798)
+- docs: change the figma design link (#1797) ([35e55e1](https://github.com/spartan-ng/spartan/commit/35e55e1)), closes [#1797](https://github.com/spartan-ng/spartan/issues/1797)
+
 ## <small>1.6.3 (2026-10-08)</small>
 
 - fix(combobox): set aria-activedescendant and aria-controls on chip input, closes #1789 (#1790) ([92a5ad1](https://github.com/spartan-ng/spartan/commit/92a5ad1)), closes [#1789](https://github.com/spartan-ng/spartan/issues/1789) [#1790](https://github.com/spartan-ng/spartan/issues/1790)

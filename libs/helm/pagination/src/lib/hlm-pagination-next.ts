@@ -7,6 +7,7 @@ import type { ButtonVariants } from '@spartan-ng/helm/button';
 import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
 import { HlmPaginationLink } from './hlm-pagination-link';
+import { injectHlmPaginationConfig } from './hlm-pagination.token';
 
 @Component({
 	selector: 'hlm-pagination-next',
@@ -29,6 +30,8 @@ import { HlmPaginationLink } from './hlm-pagination-link';
 	`,
 })
 export class HlmPaginationNext {
+	private readonly _config = injectHlmPaginationConfig();
+
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	/** The link to navigate to the next page. */
 	public readonly link = input<RouterLink['routerLink']>();
@@ -38,9 +41,9 @@ export class HlmPaginationNext {
 	public readonly queryParamsHandling = input<RouterLink['queryParamsHandling']>();
 
 	/** The aria-label for the next page link. */
-	public readonly ariaLabel = input<string>('Go to next page', { alias: 'aria-label' });
+	public readonly ariaLabel = input<string>(this._config.nextAriaLabel, { alias: 'aria-label' });
 	/** The text to display for the next page link. */
-	public readonly text = input<string>('Next');
+	public readonly text = input<string>(this._config.nextLabel);
 	/** Whether the button should only display the icon. */
 	public readonly iconOnly = input<boolean, BooleanInput>(false, {
 		transform: booleanAttribute,

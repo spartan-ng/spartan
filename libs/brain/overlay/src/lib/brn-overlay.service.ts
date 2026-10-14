@@ -1,12 +1,32 @@
 import { InteractivityChecker } from '@angular/cdk/a11y';
-import { Overlay, OverlayPositionBuilder, type OverlayRef, ScrollStrategyOptions } from '@angular/cdk/overlay';
+import {
+	CloseScrollStrategy,
+	Overlay,
+	OverlayPositionBuilder,
+	type OverlayRef,
+	RepositionScrollStrategy,
+	type ScrollStrategy,
+	ScrollStrategyOptions,
+} from '@angular/cdk/overlay';
 import { ComponentPortal, type ComponentType, TemplatePortal } from '@angular/cdk/portal';
+import { ScrollDispatcher } from '@angular/cdk/scrolling';
+import { isPlatformBrowser } from '@angular/common';
 import type { ViewContainerRef } from '@angular/core';
-import { afterNextRender, inject, Injectable, Injector, type StaticProvider, TemplateRef } from '@angular/core';
+import {
+	afterNextRender,
+	inject,
+	Injectable,
+	Injector,
+	NgZone,
+	PLATFORM_ID,
+	type StaticProvider,
+	TemplateRef,
+} from '@angular/core';
 import { merge, Subject } from 'rxjs';
 import { filter, map, takeUntil } from 'rxjs/operators';
 import type { BrnOverlayOptions } from './brn-overlay-options';
 import { BrnOverlayRef } from './brn-overlay-ref';
+import { getScrollContainers } from './brn-overlay-scroll-containers';
 import type { BrnOverlayDismissReason } from './brn-overlay-state';
 import { BRN_OVERLAY_DATA, injectBrnOverlayDefaultOptions } from './brn-overlay-token';
 
@@ -21,6 +41,9 @@ export class BrnOverlayService {
 	private readonly _scrollStrategies = inject(ScrollStrategyOptions);
 	private readonly _injector = inject(Injector);
 	private readonly _interactivityChecker = inject(InteractivityChecker);
+	private readonly _scrollDispatcher = inject(ScrollDispatcher);
+	private readonly _ngZone = inject(NgZone);
+	private readonly _isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 	private readonly _defaultOptions = injectBrnOverlayDefaultOptions();
 
 	private readonly _openOverlayIds = new Set<string>();
@@ -43,6 +66,13 @@ export class BrnOverlayService {
 			throw new Error(`Overlay with ID: ${mergedOptions.id} already exists`);
 		}
 
+		const scrollStrategy =
+			mergedOptions.scrollStrategy === 'close'
+				? this._scrollStrategies.close()
+				: mergedOptions.scrollStrategy === 'reposition'
+					? this._scrollStrategies.reposition()
+					: (mergedOptions.scrollStrategy ?? this._scrollStrategies.block());
+
 		const overlayRef = this._overlay.create({
 			positionStrategy:
 				mergedOptions.positionStrategy ??
@@ -51,12 +81,7 @@ export class BrnOverlayService {
 							.flexibleConnectedTo(mergedOptions.attachTo)
 							.withPositions(mergedOptions.attachPositions)
 					: this._positionBuilder.global().centerHorizontally().centerVertically()),
-			scrollStrategy:
-				mergedOptions.scrollStrategy === 'close'
-					? this._scrollStrategies.close()
-					: mergedOptions.scrollStrategy === 'reposition'
-						? this._scrollStrategies.reposition()
-						: (mergedOptions.scrollStrategy ?? this._scrollStrategies.block()),
+			scrollStrategy,
 			hasBackdrop: mergedOptions.hasBackdrop,
 			panelClass: mergedOptions.panelClass,
 			backdropClass: mergedOptions.backdropClass,
@@ -101,11 +126,59 @@ export class BrnOverlayService {
 			throw error;
 		}
 
+		this._followAnchorScrollContainers(overlayRef, mergedOptions.attachTo, scrollStrategy, destroyed);
+
 		if (mergedOptions.autoFocus) {
 			this._focusInitialElement(overlayRef, destroyed);
 		}
 
 		return brnOverlayRef;
+	}
+
+	/**
+	 * The CDK `reposition` and `close` scroll strategies only hear the document and the containers
+	 * registered as `cdkScrollable`. An anchor inside any other scroll container (a sheet body, a dialog
+	 * with `overflow: auto`, a scrolling layout column) moves while its overlay stays where it was. This
+	 * listens to the anchor's scroll containers for the overlay's lifetime and reacts the way the
+	 * strategy reacts to the document. `block` and `noop` keep the overlay where it is, so they get nothing.
+	 */
+	private _followAnchorScrollContainers(
+		overlayRef: OverlayRef,
+		attachTo: BrnOverlayOptions['attachTo'],
+		scrollStrategy: ScrollStrategy,
+		destroyed: Subject<void>,
+	): void {
+		if (!this._isBrowser || !attachTo) return;
+
+		const anchor = attachTo instanceof Element ? attachTo : 'nativeElement' in attachTo ? attachTo.nativeElement : null;
+		if (!(anchor instanceof Element)) return;
+
+		const onScroll =
+			scrollStrategy instanceof RepositionScrollStrategy
+				? () => overlayRef.updatePosition()
+				: scrollStrategy instanceof CloseScrollStrategy
+					? () => {
+							if (overlayRef.hasAttached()) this._ngZone.run(() => overlayRef.detach());
+						}
+					: null;
+		if (!onScroll) return;
+
+		// Containers registered as `cdkScrollable` already reach the strategy through the ScrollDispatcher.
+		const registered = new Set<Element>(
+			Array.from(
+				this._scrollDispatcher.scrollContainers.keys(),
+				(scrollable) => scrollable.getElementRef().nativeElement,
+			),
+		);
+		const containers = getScrollContainers(anchor).filter((container) => !registered.has(container));
+		if (!containers.length) return;
+
+		this._ngZone.runOutsideAngular(() => {
+			for (const container of containers) container.addEventListener('scroll', onScroll, { passive: true });
+		});
+		destroyed.subscribe(() => {
+			for (const container of containers) container.removeEventListener('scroll', onScroll);
+		});
 	}
 
 	/**

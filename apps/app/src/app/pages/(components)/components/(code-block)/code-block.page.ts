@@ -2,6 +2,8 @@ import type { RouteMeta } from '@analogjs/router';
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { injectComponentDocs } from '@spartan-ng/app/app/core/services/component-docs';
 import { PrimitiveSnippetsService } from '@spartan-ng/app/app/core/services/primitive-snippets.service';
+import { CodeRtlPreview } from '@spartan-ng/app/app/shared/code/code-rtl-preview';
+import { RtlHeader } from '@spartan-ng/app/app/shared/code/rtl-header';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
 import { UIApiDocs } from '@spartan-ng/app/app/shared/layout/ui-docs-section/ui-docs-section';
 import { Code } from '../../../../shared/code/code';
@@ -24,6 +26,7 @@ import { CodeBlockHeader } from './code-block--header.preview';
 import { CodeBlockHeight } from './code-block--height.preview';
 import { CodeBlockHighlightedLines } from './code-block--highlighted-lines.preview';
 import { CodeBlockLineNumbers } from './code-block--line-numbers.preview';
+import { CodeBlockRtlPreview } from './code-block--rtl.example';
 import { CodeBlockSize } from './code-block--size.preview';
 import { CodeBlockStartLine } from './code-block--start-line.preview';
 import { CodeBlockWrap } from './code-block--wrap.preview';
@@ -54,6 +57,8 @@ export const routeMeta: RouteMeta = {
 		PageBottomNavLink,
 		SectionSubSubHeading,
 		UIApiDocs,
+		RtlHeader,
+		CodeRtlPreview,
 		CodeBlockBasic,
 		CodeBlockHeader,
 		CodeBlockActions,
@@ -66,6 +71,7 @@ export const routeMeta: RouteMeta = {
 		CodeBlockHeight,
 		CodeBlockSize,
 		CodeBlockDestructive,
+		CodeBlockRtlPreview,
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
@@ -194,6 +200,14 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_destructiveCode()" />
 			</spartan-tabs>
 
+			<spartan-header-rtl />
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanRtlCodePreview firstTab>
+					<spartan-code-block-rtl-preview />
+				</div>
+				<spartan-code secondTab [code]="_rtlCode()" />
+			</spartan-tabs>
+
 			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="helm" />
 
@@ -224,6 +238,7 @@ export default class CodeBlockPage {
 	protected readonly _heightCode = computed(() => this._snippets()['height']);
 	protected readonly _sizeCode = computed(() => this._snippets()['size']);
 	protected readonly _destructiveCode = computed(() => this._snippets()['destructive']);
+	protected readonly _rtlCode = computed(() => this._snippets()['rtl']);
 	protected readonly _imports = defaultImports;
 	protected readonly _codeSkeleton = defaultSkeleton;
 }

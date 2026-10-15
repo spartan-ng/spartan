@@ -1,0 +1,60 @@
+import { ChangeDetectionStrategy, Component, computed, effect, input, signal } from '@angular/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { lucideCheck, lucideCopy } from '@ng-icons/lucide';
+import { HlmButton, provideBrnButtonConfig } from '<%- importAlias %>/button';
+import { classes } from '<%- importAlias %>/utils';
+
+@Component({
+	// eslint-disable-next-line @angular-eslint/component-selector
+	selector: 'button[hlmCodeBlockCopyButton]',
+	imports: [NgIcon],
+	providers: [provideIcons({ lucideCopy, lucideCheck }), provideBrnButtonConfig({ variant: 'ghost', size: 'icon-xs' })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	hostDirectives: [{ directive: HlmButton, inputs: ['variant', 'size'] }],
+	host: {
+		'data-slot': 'code-block-copy-button',
+		'[attr.data-copied]': '_copied() || null',
+		'[attr.aria-label]': '_ariaLabel()',
+		'(click)': '_copy()',
+	},
+	template: `
+		<ng-icon [name]="_icon()" />
+
+		@if (_copied()) {
+			<span aria-live="polite" class="sr-only">
+				{{ copiedText() }}
+			</span>
+		}
+	`,
+})
+export class HlmCodeBlockCopyButton {
+	protected readonly _copied = signal(false);
+
+	protected readonly _icon = computed(() => (this._copied() ? 'lucideCheck' : 'lucideCopy'));
+
+	public readonly value = input<string>('');
+	public readonly copyText = input<string>('Copy');
+	public readonly copiedText = input<string>('Copied');
+
+	protected readonly _ariaLabel = computed(() => (this._copied() ? this.copiedText() : this.copyText()));
+
+	constructor() {
+		classes(() => 'spartan-code-block-copy-button');
+
+		effect((onCleanup) => {
+			if (!this._copied()) return;
+
+			const timeout = setTimeout(() => this._copied.set(false), 2000);
+			onCleanup(() => clearTimeout(timeout));
+		});
+	}
+
+	protected async _copy(): Promise<void> {
+		try {
+			await navigator.clipboard.writeText(this.value());
+			this._copied.set(true);
+		} catch {
+			// ignore clipboard errors
+		}
+	}
+}

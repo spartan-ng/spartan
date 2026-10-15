@@ -16,6 +16,7 @@ export type PrimitiveSnippet =
 	| 'carousel'
 	| 'chart'
 	| 'checkbox'
+	| 'code-block'
 	| 'collapsible'
 	| 'combobox'
 	| 'command'

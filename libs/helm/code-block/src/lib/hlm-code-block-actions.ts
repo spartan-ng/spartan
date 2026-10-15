@@ -1,0 +1,12 @@
+import { Directive } from '@angular/core';
+import { classes } from '@spartan-ng/helm/utils';
+
+@Directive({ selector: '[hlmCodeBlockActions],hlm-code-block-actions', host: { 'data-slot': 'code-block-actions' } })
+export class HlmCodeBlockActions {
+	constructor() {
+		classes(
+			() =>
+				'spartan-code-block-actions ms-auto flex shrink-0 items-center [[data-slot=code-block]>&]:absolute [[data-slot=code-block]>&]:z-10 [[data-slot=code-block]>&]:opacity-0 [[data-slot=code-block]>&]:transition-opacity [[data-slot=code-block]>&]:group-focus-within/code-block:opacity-100 [[data-slot=code-block]>&]:group-hover/code-block:opacity-100 [[data-slot=code-block]>&]:pointer-coarse:opacity-100',
+		);
+	}
+}

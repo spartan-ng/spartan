@@ -1,0 +1,12 @@
+import { Directive } from '@angular/core';
+import { classes } from '@spartan-ng/helm/utils';
+
+@Directive({ selector: '[hlmCodeBlockTitle],hlm-code-block-title', host: { 'data-slot': 'code-block-title' } })
+export class HlmCodeBlockTitle {
+	constructor() {
+		classes(
+			() =>
+				'spartan-code-block-title min-w-0 truncate [&_ng-icon]:pointer-events-none [&_ng-icon]:inline-block [&_ng-icon]:align-middle',
+		);
+	}
+}

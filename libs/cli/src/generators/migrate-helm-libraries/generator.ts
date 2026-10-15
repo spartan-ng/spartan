@@ -82,16 +82,16 @@ export async function migrateHelmLibrariesGenerator(tree: Tree, options: Migrate
 		}
 
 		({ libraries } = selectedLibraries as { libraries: (Primitive | 'all')[] });
+	}
+	
+	if (libraries.length === 0) {
+		logger.info('No libraries will be updated.');
+		return;
+	}
 
-		if (libraries.length === 0) {
-			logger.info('No libraries will be updated.');
-			return;
-		}
-
-		// if the user selected all libraries then we will update all libraries
-		if (libraries.includes('all')) {
-			libraries = existingLibraries;
-		}
+	// if the user selected all libraries then we will update all libraries
+	if (libraries.includes('all')) {
+		libraries = existingLibraries;
 	}
 
 	await removeExistingLibraries(

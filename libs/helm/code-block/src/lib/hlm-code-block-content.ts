@@ -22,6 +22,7 @@ import { HlmCodeBlockLine } from './hlm-code-block-line';
 		'[attr.data-wrap]': 'wrap() || null',
 		'[attr.data-numbered]': 'lineNumbers() || null',
 		'[attr.dir]': '_direction()',
+		'[style.counter-reset]': '_style()',
 		tabindex: '0',
 	},
 	template: `
@@ -34,7 +35,7 @@ import { HlmCodeBlockLine } from './hlm-code-block-line';
 					<span hlmCodeBlockLine>{{ line }}</span>
 				}
 			} @else if (_hasCode()) {
-				{{ _code() }}
+				<span [textContent]="_code()"></span>
 			} @else {
 				<ng-content />
 			}
@@ -49,7 +50,7 @@ export class HlmCodeBlockContent {
 	public readonly wrap = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 	public readonly lineNumbers = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
-	public readonly startLine = input<number, NumberInput>(0, { transform: numberAttribute });
+	public readonly startLine = input<number, NumberInput>(1, { transform: numberAttribute });
 
 	/** When set, the code is rendered line by line instead of projecting `<ng-content />`. */
 	public readonly code = input<string>();

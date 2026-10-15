@@ -1,0 +1,12 @@
+import { Directive } from '@angular/core';
+import { classes } from '@spartan-ng/helm/utils';
+
+@Directive({
+	selector: '[hlmTraceIcon],hlm-trace-icon',
+	host: { 'data-slot': 'trace-icon', '[attr.aria-hidden]': 'true' },
+})
+export class HlmTraceIcon {
+	constructor() {
+		classes(() => 'spartan-trace-icon flex shrink-0 items-center justify-center [&_ng-icon]:pointer-events-none');
+	}
+}

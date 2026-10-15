@@ -61,5 +61,6 @@ export type Primitive =
 	| 'toggle'
 	| 'toggle-group'
 	| 'tooltip'
+	| 'trace'
 	| 'typography'
 	| 'utils';

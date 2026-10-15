@@ -84,6 +84,7 @@ export const components: Link[] = [
 	{ label: 'Toggle', url: '/toggle' },
 	{ label: 'Toggle Group', url: '/toggle-group' },
 	{ label: 'Tooltip', url: '/tooltip' },
+	{ label: 'Trace', url: '/trace', new: true },
 ];
 
 export const forms: Link[] = [

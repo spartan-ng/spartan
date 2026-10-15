@@ -89,6 +89,7 @@ What kind of change does this PR introduce?
 - [ ] toggle
 - [ ] toggle-group
 - [ ] tooltip
+- [ ] trace
 - [ ] typography
 
 ### Others

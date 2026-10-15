@@ -1,0 +1,20 @@
+import { Directive } from '@angular/core';
+import { BrnCollapsible } from '@spartan-ng/brain/collapsible';
+import { classes } from '<%- importAlias %>/utils';
+
+@Directive({
+	selector: '[hlmTraceCollapsible],hlm-trace-collapsible',
+	hostDirectives: [
+		{
+			directive: BrnCollapsible,
+			inputs: ['expanded', 'disabled'],
+			outputs: ['expandedChange'],
+		},
+	],
+	host: { 'data-slot': 'trace-collapsible' },
+})
+export class HlmTraceCollapsible {
+	constructor() {
+		classes(() => 'spartan-trace-collapsible flex w-full min-w-0 flex-col');
+	}
+}

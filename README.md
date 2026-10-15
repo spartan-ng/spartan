@@ -197,6 +197,7 @@ Our initial 300 contributors and sponsors are featured here and on the front pag
 159. [Gilbert-S](https://github.com/Gilbert-S)
 160. [bsarnii](https://github.com/bsarnii)
 161. [michelAlexis](https://github.com/michelAlexis)
+162. [stanislavnastasiu-dev](https://github.com/stanislavnastasiu-dev)
 
 ### Sponsor spartan
 

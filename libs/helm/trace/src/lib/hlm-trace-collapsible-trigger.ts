@@ -16,7 +16,7 @@ import { classes } from '@spartan-ng/helm/utils';
 		<ng-content />
 		<ng-icon
 			name="lucideChevronRight"
-			class="transition-transform group-aria-expanded/trace-collapsible-trigger:rotate-90"
+			class="transition-transform group-aria-expanded/trace-collapsible-trigger:rotate-90 motion-reduce:transition-none"
 		/>
 	`,
 })

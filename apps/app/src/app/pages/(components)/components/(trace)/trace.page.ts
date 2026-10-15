@@ -7,7 +7,6 @@ import { UIApiDocs } from '@spartan-ng/app/app/shared/layout/ui-docs-section/ui-
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
 import { MainSection } from '../../../../shared/layout/main-section';
-import { PageBottomNavPlaceholder } from '../../../../shared/layout/page-bottom-nav-placeholder';
 import { PageBottomNav } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav';
 import { PageBottomNavLink } from '../../../../shared/layout/page-bottom-nav/page-bottom-nav-link';
 import { PageNav } from '../../../../shared/layout/page-nav/page-nav';
@@ -51,7 +50,6 @@ export const routeMeta: RouteMeta = {
 		PageNav,
 		PageBottomNav,
 		PageBottomNavLink,
-		PageBottomNavPlaceholder,
 		UIApiDocs,
 		SectionSubSubHeading,
 		TraceLine,
@@ -207,8 +205,8 @@ export const routeMeta: RouteMeta = {
 			<spartan-ui-api-docs docType="helm" />
 
 			<spartan-page-bottom-nav>
-				<spartan-page-bottom-nav-link href="alert" label="Alert" />
-				<spartan-page-bottom-nav-placeholder />
+				<spartan-page-bottom-nav-link href="/documentation/scroll-fade" label="Scroll Fade" />
+				<spartan-page-bottom-nav-link direction="previous" href="tooltip" label="Tooltip" />
 			</spartan-page-bottom-nav>
 		</section>
 		<spartan-page-nav />

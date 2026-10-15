@@ -27,7 +27,7 @@ export class HlmTraceCollapsibleContent {
 	constructor() {
 		classes(
 			() =>
-				'spartan-trace-collapsible-content block min-w-0 overflow-hidden transition-[height] data-[state=closed]:h-0 data-[state=open]:h-(--brn-collapsible-content-height)',
+				'spartan-trace-collapsible-content block min-w-0 overflow-hidden transition-[height] data-[state=closed]:h-0 data-[state=open]:h-(--brn-collapsible-content-height) motion-reduce:transition-none',
 		);
 	}
 }

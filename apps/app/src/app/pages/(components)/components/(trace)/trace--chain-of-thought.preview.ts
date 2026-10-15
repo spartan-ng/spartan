@@ -29,7 +29,7 @@ import { HlmTraceImports } from '@spartan-ng/helm/trace';
 									<hlm-trace-title>Searched for the checkout build log</hlm-trace-title>
 								</hlm-trace-line>
 							</button>
-							<hlm-trace-collapsible-content class="flex flex-wrap gap-1.5">
+							<hlm-trace-collapsible-content contentInnerClasses="flex flex-wrap gap-1.5">
 								<span hlmBadge variant="secondary">analogjs.org</span>
 								<span hlmBadge variant="secondary">github.com</span>
 							</hlm-trace-collapsible-content>

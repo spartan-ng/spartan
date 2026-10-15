@@ -1420,6 +1420,31 @@
 		@apply data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-[state=delayed-open]:animate-in data-[state=delayed-open]:fade-in-0 data-[state=delayed-open]:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 rounded-2xl px-3 py-1.5 text-xs **:data-[slot=kbd]:rounded-4xl;
 	}
 
+	/* MARK: Trace */
+	.spartan-trace {
+		@apply *:has-[>[data-slot=trace-line]]:focus-visible:ring-ring/50 gap-3 *:has-[>[data-slot=trace-line]]:rounded-lg *:has-[>[data-slot=trace-line]]:focus-visible:ring-[3px];
+	}
+
+	.spartan-trace-collapsible-trigger {
+		@apply focus-visible:ring-ring/50 gap-1 rounded-lg focus-visible:ring-[3px];
+	}
+
+	.spartan-trace-line {
+		@apply gap-2 text-sm;
+	}
+
+	.spartan-trace-icon {
+		@apply size-4 [&_ng-icon:not([class*='text-'])]:text-[length:--spacing(4)] [[data-slot=trace-title]~&]:-ml-1;
+	}
+
+	.spartan-trace-collapsible-content {
+		@apply duration-200;
+	}
+
+	.spartan-trace-collapsible-content-inner {
+		@apply mt-2.5 mb-1 ml-[calc(--spacing(2)-1px)] border-l pr-1 pl-4 leading-relaxed;
+	}
+
 	/* MARK: Input Group */
 	.spartan-input-group {
 		@apply border-input bg-input/30 has-[[data-slot=input-group-control]:focus-visible]:border-ring has-[[data-slot=input-group-control]:focus-visible]:ring-ring/50 has-[[data-slot][data-matches-spartan-invalid=true]]:ring-destructive/20 has-[[data-slot][data-matches-spartan-invalid=true]]:border-destructive dark:has-[[data-slot][data-matches-spartan-invalid=true]]:ring-destructive/40 h-9 rounded-4xl border transition-colors in-data-[slot=combobox-content]:focus-within:border-inherit in-data-[slot=combobox-content]:focus-within:ring-0 has-data-[align=block-end]:rounded-2xl has-data-[align=block-start]:rounded-2xl has-[[data-slot=input-group-control]:focus-visible]:ring-3 has-[[data-slot][data-matches-spartan-invalid=true]]:ring-3 has-[textarea]:rounded-xl has-[>[data-align=block-end]]:h-auto has-[>[data-align=block-end]]:flex-col has-[>[data-align=block-start]]:h-auto has-[>[data-align=block-start]]:flex-col has-[>[data-align=block-end]]:[&>input]:pt-3 has-[>[data-align=block-start]]:[&>input]:pb-3 has-[>[data-align=inline-end]]:[&>input]:pe-1.5 has-[>[data-align=inline-start]]:[&>input]:ps-1.5;

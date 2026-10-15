@@ -1419,6 +1419,30 @@
 	.spartan-tooltip-content {
 		@apply data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-[state=delayed-open]:animate-in data-[state=delayed-open]:fade-in-0 data-[state=delayed-open]:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 rounded-md px-3 py-1.5 text-xs **:data-[slot=kbd]:rounded-md;
 	}
+	/* MARK: Trace */
+	.spartan-trace {
+		@apply *:has-[>[data-slot=trace-line]]:focus-visible:ring-ring/30 gap-1.5 *:has-[>[data-slot=trace-line]]:rounded-sm *:has-[>[data-slot=trace-line]]:focus-visible:ring-2;
+	}
+
+	.spartan-trace-collapsible-trigger {
+		@apply focus-visible:ring-ring/30 gap-1 rounded-sm focus-visible:ring-2;
+	}
+
+	.spartan-trace-line {
+		@apply gap-2 text-xs/relaxed;
+	}
+
+	.spartan-trace-icon {
+		@apply size-3.5 [&_ng-icon:not([class*='text-'])]:text-[length:--spacing(3.5)] [[data-slot=trace-title]~&]:-ml-1;
+	}
+
+	.spartan-trace-collapsible-content {
+		@apply duration-200;
+	}
+
+	.spartan-trace-collapsible-content-inner {
+		@apply mt-1.5 mb-1 ml-[calc(--spacing(1.75)-1px)] border-l pr-1 pl-3.75;
+	}
 
 	/* MARK: Input Group */
 	.spartan-input-group {

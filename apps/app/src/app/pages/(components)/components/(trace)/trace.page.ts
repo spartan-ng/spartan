@@ -16,12 +16,16 @@ import { SectionSubHeading } from '../../../../shared/layout/section-sub-heading
 import { Tabs } from '../../../../shared/layout/tabs';
 import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { metaWith } from '../../../../shared/meta/meta.util';
+import { TraceChainOfThought } from './trace--chain-of-thought.preview';
 import { TraceCollapsible } from './trace--collapsible.preview';
 import { TraceDescription } from './trace--description.preview';
 import { TraceDialog } from './trace--dialog.preview';
+import { TraceGroup } from './trace--group.preview';
 import { TraceLine } from './trace--line.preview';
 import { TraceLink } from './trace--link.preview';
 import { TraceOpenStatus } from './trace--open-status.preview';
+import { TraceSheet } from './trace--sheet.preview';
+import { TraceSources } from './trace--sources.preview';
 import { TraceStatus } from './trace--status.preview';
 import { TracePreview, defaultImports, defaultSkeleton } from './trace.preview';
 
@@ -55,6 +59,10 @@ export const routeMeta: RouteMeta = {
 		TraceOpenStatus,
 		TraceLink,
 		TraceDialog,
+		TraceSheet,
+		TraceGroup,
+		TraceSources,
+		TraceChainOfThought,
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
@@ -139,6 +147,38 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_dialogCode()" />
 			</spartan-tabs>
 
+			<h3 id="sheet" spartanH4>Sheet</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-trace-sheet />
+				</div>
+				<spartan-code secondTab [code]="_sheetCode()" />
+			</spartan-tabs>
+
+			<h3 id="group" spartanH4>Group</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-trace-group />
+				</div>
+				<spartan-code secondTab [code]="_groupCode()" />
+			</spartan-tabs>
+
+			<h3 id="sources" spartanH4>Sources</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-trace-sources />
+				</div>
+				<spartan-code secondTab [code]="_sourcesCode()" />
+			</spartan-tabs>
+
+			<h3 id="chain-of-thought" spartanH4>Chain of Thought</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-trace-chain-of-thought />
+				</div>
+				<spartan-code secondTab [code]="_chainOfThoughtCode()" />
+			</spartan-tabs>
+
 			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="brain" />
 
@@ -167,6 +207,10 @@ export default class TracePage {
 	protected readonly _openStatusCode = computed(() => this._snippets()['openStatus']);
 	protected readonly _linkCode = computed(() => this._snippets()['link']);
 	protected readonly _dialogCode = computed(() => this._snippets()['dialog']);
+	protected readonly _sheetCode = computed(() => this._snippets()['sheet']);
+	protected readonly _groupCode = computed(() => this._snippets()['group']);
+	protected readonly _sourcesCode = computed(() => this._snippets()['sources']);
+	protected readonly _chainOfThoughtCode = computed(() => this._snippets()['chainOfThought']);
 	protected readonly _imports = defaultImports;
 	protected readonly _codeSkeleton = defaultSkeleton;
 }

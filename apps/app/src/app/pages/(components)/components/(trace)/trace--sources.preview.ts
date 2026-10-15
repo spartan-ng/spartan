@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { lucideGlobe } from '@ng-icons/lucide';
+import { lucideArrowUpRight, lucideGlobe } from '@ng-icons/lucide';
 import { HlmTraceImports } from '@spartan-ng/helm/trace';
 
 @Component({
 	selector: 'spartan-trace-sources',
 	imports: [HlmTraceImports, NgIcon],
-	providers: [provideIcons({ lucideGlobe })],
+	providers: [provideIcons({ lucideGlobe, lucideArrowUpRight })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div class="w-full max-w-sm">

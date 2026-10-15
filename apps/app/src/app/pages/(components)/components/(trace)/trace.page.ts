@@ -18,6 +18,7 @@ import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { TraceChainOfThought } from './trace--chain-of-thought.preview';
 import { TraceCollapsible } from './trace--collapsible.preview';
+import { TraceCommit } from './trace--commit.preview';
 import { TraceDescription } from './trace--description.preview';
 import { TraceDialog } from './trace--dialog.preview';
 import { TraceGroup } from './trace--group.preview';
@@ -27,6 +28,7 @@ import { TraceOpenStatus } from './trace--open-status.preview';
 import { TraceSheet } from './trace--sheet.preview';
 import { TraceSources } from './trace--sources.preview';
 import { TraceStatus } from './trace--status.preview';
+import { TraceWholeTurn } from './trace--whole-turn.preview';
 import { TracePreview, defaultImports, defaultSkeleton } from './trace.preview';
 
 export const routeMeta: RouteMeta = {
@@ -63,6 +65,8 @@ export const routeMeta: RouteMeta = {
 		TraceGroup,
 		TraceSources,
 		TraceChainOfThought,
+		TraceCommit,
+		TraceWholeTurn,
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
@@ -74,7 +78,7 @@ export const routeMeta: RouteMeta = {
 			/>
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
-				<div spartanCodePreview firstTab>
+				<div spartanCodePreview firstTab align="start">
 					<spartan-trace-preview />
 				</div>
 				<spartan-code secondTab [code]="_defaultCode()" />
@@ -183,8 +187,21 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_chainOfThoughtCode()" />
 			</spartan-tabs>
 
-			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
-			<spartan-ui-api-docs docType="brain" />
+			<h3 id="commit" spartanH4>Commit</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab align="start">
+					<spartan-trace-commit />
+				</div>
+				<spartan-code secondTab [code]="_commitCode()" />
+			</spartan-tabs>
+
+			<h3 id="whole-turn" spartanH4>Whole Turn</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab align="start">
+					<spartan-trace-whole-turn />
+				</div>
+				<spartan-code secondTab [code]="_wholeTurnCode()" />
+			</spartan-tabs>
 
 			<spartan-section-sub-heading id="hlm-api">Helm API</spartan-section-sub-heading>
 			<spartan-ui-api-docs docType="helm" />
@@ -215,6 +232,8 @@ export default class TracePage {
 	protected readonly _groupCode = computed(() => this._snippets()['group']);
 	protected readonly _sourcesCode = computed(() => this._snippets()['sources']);
 	protected readonly _chainOfThoughtCode = computed(() => this._snippets()['chainOfThought']);
+	protected readonly _commitCode = computed(() => this._snippets()['commit']);
+	protected readonly _wholeTurnCode = computed(() => this._snippets()['wholeTurn']);
 	protected readonly _imports = defaultImports;
 	protected readonly _codeSkeleton = defaultSkeleton;
 }

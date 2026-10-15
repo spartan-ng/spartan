@@ -121,7 +121,7 @@ export const routeMeta: RouteMeta = {
 
 			<h3 id="collapsible" spartanH4>Collapsible</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
-				<div spartanCodePreview firstTab>
+				<div spartanCodePreview firstTab align="start">
 					<spartan-trace-collapsible />
 				</div>
 				<spartan-code secondTab [code]="_collapsibleCode()" />
@@ -129,7 +129,7 @@ export const routeMeta: RouteMeta = {
 
 			<h3 id="open-status" spartanH4>Open Status</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
-				<div spartanCodePreview firstTab>
+				<div spartanCodePreview firstTab align="start">
 					<spartan-trace-open-status />
 				</div>
 				<spartan-code secondTab [code]="_openStatusCode()" />
@@ -169,7 +169,7 @@ export const routeMeta: RouteMeta = {
 
 			<h3 id="sources" spartanH4>Sources</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
-				<div spartanCodePreview firstTab>
+				<div spartanCodePreview firstTab align="start">
 					<spartan-trace-sources />
 				</div>
 				<spartan-code secondTab [code]="_sourcesCode()" />
@@ -177,7 +177,7 @@ export const routeMeta: RouteMeta = {
 
 			<h3 id="chain-of-thought" spartanH4>Chain of Thought</h3>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
-				<div spartanCodePreview firstTab>
+				<div spartanCodePreview firstTab align="start">
 					<spartan-trace-chain-of-thought />
 				</div>
 				<spartan-code secondTab [code]="_chainOfThoughtCode()" />

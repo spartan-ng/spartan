@@ -67,7 +67,11 @@ export const routeMeta: RouteMeta = {
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<section spartanMainSection>
-			<spartan-section-intro name="trace" lead="TODO: Add a description" />
+			<spartan-section-intro
+				name="Trace"
+				lead="The building block for reasoning, tool calls, sources and more."
+				showThemeToggle
+			/>
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>

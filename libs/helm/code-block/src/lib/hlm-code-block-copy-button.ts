@@ -12,6 +12,7 @@ import { classes } from '@spartan-ng/helm/utils';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	hostDirectives: [{ directive: HlmButton, inputs: ['variant', 'size'] }],
 	host: {
+		type: 'button',
 		'data-slot': 'code-block-copy-button',
 		'[attr.data-copied]': '_copied() || null',
 		'[attr.aria-label]': '_ariaLabel()',

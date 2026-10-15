@@ -11,7 +11,7 @@ type Line = { text: string; variant: 'default' | 'added' | 'removed' };
 		<div class="w-full max-w-md">
 			<hlm-code-block>
 				<hlm-code-block-header>
-					<hlm-code-block-title>components/greeting.tsx</hlm-code-block-title>
+					<hlm-code-block-title>app/greeting.component.ts</hlm-code-block-title>
 					<hlm-code-block-actions>
 						<button hlmCodeBlockCopyButton [value]="_code"></button>
 					</hlm-code-block-actions>
@@ -27,11 +27,13 @@ type Line = { text: string; variant: 'default' | 'added' | 'removed' };
 })
 export class CodeBlockDiff {
 	protected readonly _lines: Line[] = [
-		{ text: 'export function Greeting({ name }: { name: string }) {', variant: 'default' },
-		{ text: '  return <p>Hello, {name}</p>', variant: 'removed' },
-		{ text: '  return <p className="text-sm text-muted-foreground">', variant: 'added' },
-		{ text: '    Hello, {name}!', variant: 'added' },
-		{ text: '  </p>', variant: 'added' },
+		{ text: 'export class GreetingComponent {', variant: 'default' },
+		{ text: '  protected readonly greeting = "Hello, " + this.name;', variant: 'removed' },
+		{
+			text: '  protected readonly greeting = computed(() => `Hello, ${this.name()}! Welcome back.`);',
+			variant: 'added',
+		},
+		{ text: "  readonly name = input('Angular');", variant: 'default' },
 		{ text: '}', variant: 'default' },
 	];
 

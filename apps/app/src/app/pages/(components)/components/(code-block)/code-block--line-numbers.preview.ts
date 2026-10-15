@@ -18,8 +18,8 @@ export class CodeBlockLineNumbers {
   "name": "chat",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build"
+    "start": "ng serve",
+    "build": "ng build"
   }
 }`;
 }

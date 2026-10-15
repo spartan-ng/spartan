@@ -19,21 +19,17 @@ export default {
 
 type Story = StoryObj<HlmCodeBlock>;
 
-const routeCode = `import { streamText } from "ai"
+const routeCode = `import { Component, input } from '@angular/core';
 
-export async function POST(request: Request) {
-  const { messages } = await request.json()
-
-  const result = streamText({
-    model: "anthropic/claude-sonnet-4.5",
-    system: "You are a helpful assistant. Answer in one short paragraph.",
-    messages,
-  })
-
-  return result.toUIMessageStreamResponse()
+@Component({
+  selector: 'app-hello',
+  template: \`<p>Hello, {{ name() }}!</p>\`,
+})
+export class HelloComponent {
+  readonly name = input('Angular');
 }`;
 
-const terminalOutput = `$ pnpm add ai @ai-sdk/react zod
+const terminalOutput = `$ pnpm add @spartan-ng/brain
 Packages: +14
 Progress: resolved 412, reused 398, downloaded 14, added 14, done
 Done in 2.8s using pnpm v10.18.0`;
@@ -45,7 +41,7 @@ export const Default: Story = {
 		<div class="w-full max-w-lg p-4">
 			<hlm-code-block>
 				<hlm-code-block-header>
-					<hlm-code-block-title>app/api/chat/route.ts</hlm-code-block-title>
+					<hlm-code-block-title>app/hello.component.ts</hlm-code-block-title>
 					<hlm-code-block-actions>
 						<button hlmCodeBlockCopyButton [value]="code"></button>
 					</hlm-code-block-actions>
@@ -99,8 +95,8 @@ export const LineNumbers: Story = {
   "name": "chat",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build"
+    "start": "ng serve",
+    "build": "ng build"
   }
 }`,
 		},
@@ -124,14 +120,20 @@ export const HighlightedLines: Story = {
 	render: () => ({
 		props: {
 			lines: [
-				{ text: 'export default {', variant: 'default' },
-				{ text: '  experimental: {', variant: 'default' },
-				{ text: '    reactCompiler: true,', variant: 'highlighted' },
-				{ text: '    viewTransition: true,', variant: 'highlighted' },
-				{ text: '  },', variant: 'default' },
-				{ text: '  images: {', variant: 'default' },
-				{ text: '    remotePatterns: [{ hostname: "avatars.githubusercontent.com" }],', variant: 'default' },
-				{ text: '  },', variant: 'default' },
+				{ text: '{', variant: 'default' },
+				{ text: '  "projects": {', variant: 'default' },
+				{ text: '    "app": {', variant: 'default' },
+				{ text: '      "architect": {', variant: 'default' },
+				{ text: '        "build": {', variant: 'default' },
+				{ text: '          "options": {', variant: 'default' },
+				{ text: '            "outputPath": "dist/app",', variant: 'highlighted' },
+				{ text: '            "index": "src/index.html",', variant: 'default' },
+				{ text: '            "browser": "src/main.ts"', variant: 'highlighted' },
+				{ text: '          }', variant: 'default' },
+				{ text: '        }', variant: 'default' },
+				{ text: '      }', variant: 'default' },
+				{ text: '    }', variant: 'default' },
+				{ text: '  }', variant: 'default' },
 				{ text: '}', variant: 'default' },
 			],
 		},
@@ -153,11 +155,13 @@ export const Diff: Story = {
 	render: () => ({
 		props: {
 			lines: [
-				{ text: 'export function Greeting({ name }: { name: string }) {', variant: 'default' },
-				{ text: '  return <p>Hello, {name}</p>', variant: 'removed' },
-				{ text: '  return <p className="text-sm text-muted-foreground">', variant: 'added' },
-				{ text: '    Hello, {name}!', variant: 'added' },
-				{ text: '  </p>', variant: 'added' },
+				{ text: 'export class GreetingComponent {', variant: 'default' },
+				{ text: '  protected readonly greeting = "Hello, " + this.name;', variant: 'removed' },
+				{
+					text: '  protected readonly greeting = computed(() => `Hello, ${this.name()}! Welcome back.`);',
+					variant: 'added',
+				},
+				{ text: "  readonly name = input('Angular');", variant: 'default' },
 				{ text: '}', variant: 'default' },
 			],
 		},
@@ -165,7 +169,7 @@ export const Diff: Story = {
 		<div class="w-full max-w-md p-4">
 			<hlm-code-block>
 				<hlm-code-block-header>
-					<hlm-code-block-title>components/greeting.tsx</hlm-code-block-title>
+					<hlm-code-block-title>app/greeting.component.ts</hlm-code-block-title>
 				</hlm-code-block-header>
 				<pre hlmCodeBlockContent>
 					@for (line of lines; track $index) {
@@ -215,9 +219,9 @@ export const Size: Story = {
 export const Destructive: Story = {
 	render: () => ({
 		props: {
-			error: `TypeError: Cannot read properties of undefined (reading 'map')
-    at MessageList (components/message-list.tsx:18:22)
-    at renderWithHooks (react-dom.development.js:16305:18)`,
+			error: `TypeError: Cannot read properties of undefined (reading 'pipe')
+    at MessageListComponent.ngOnInit (app/message-list.component.ts:18:22)
+    at callHook (core.mjs:16305:18)`,
 		},
 		template: `
 		<div class="w-full max-w-md p-4">

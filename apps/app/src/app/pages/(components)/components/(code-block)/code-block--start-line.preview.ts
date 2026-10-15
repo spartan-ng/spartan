@@ -9,7 +9,7 @@ import { HlmCodeBlockImports } from '@spartan-ng/helm/code-block';
 		<div class="w-full max-w-md">
 			<hlm-code-block>
 				<hlm-code-block-header>
-					<hlm-code-block-title>app/dashboard/page.tsx</hlm-code-block-title>
+					<hlm-code-block-title>app/dashboard/dashboard.component.ts</hlm-code-block-title>
 					<hlm-code-block-actions>
 						<button hlmCodeBlockCopyButton [value]="_code"></button>
 					</hlm-code-block-actions>
@@ -20,15 +20,13 @@ import { HlmCodeBlockImports } from '@spartan-ng/helm/code-block';
 	`,
 })
 export class CodeBlockStartLine {
-	protected readonly _code = `  if (!session) {
-    redirect("/login")
+	protected readonly _code = `  if (!this._session) {
+    this._router.navigate(['/login']);
   }
 
-  const projects = await db.project.findMany({
-    where: { ownerId: session.user.id },
-    orderBy: { updatedAt: "desc" },
-  })
-
-  return <ProjectList projects={projects} />
+  return this._db.project.findMany({
+    where: { ownerId: this._session.userId },
+    orderBy: { updatedAt: 'desc' },
+  });
 }`;
 }

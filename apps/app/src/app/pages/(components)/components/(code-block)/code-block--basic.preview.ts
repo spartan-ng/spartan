@@ -15,11 +15,13 @@ import { HlmCodeBlockImports } from '@spartan-ng/helm/code-block';
 })
 export class CodeBlockBasic {
 	protected readonly _output = `$ pnpm build
-> next build
- ✓ Compiled successfully in 4.2s
- ✓ Generating static pages (12/12)
-Route (app)                Size  First Load JS
-┌ ○ /                    1.9 kB         112 kB
-├ ○ /_not-found           993 B         103 kB
-└ ƒ /api/chat             141 B         102 kB`;
+> ng build
+
+✔ Browser application bundle generation complete.
+
+Initial chunk files | Names     |  Raw size
+polyfills.js        | polyfills |  34.52 kB
+main.js             | main      | 210.45 kB
+
+Output location: dist/app`;
 }

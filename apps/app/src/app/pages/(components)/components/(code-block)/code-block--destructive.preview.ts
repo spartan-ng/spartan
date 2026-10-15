@@ -20,7 +20,7 @@ import { HlmCodeBlockImports } from '@spartan-ng/helm/code-block';
 	`,
 })
 export class CodeBlockDestructive {
-	protected readonly _error = `TypeError: Cannot read properties of undefined (reading 'map')
-    at MessageList (components/message-list.tsx:18:22)
-    at renderWithHooks (react-dom.development.js:16305:18)`;
+	protected readonly _error = `TypeError: Cannot read properties of undefined (reading 'pipe')
+    at MessageListComponent.ngOnInit (app/message-list.component.ts:18:22)
+    at callHook (core.mjs:16305:18)`;
 }

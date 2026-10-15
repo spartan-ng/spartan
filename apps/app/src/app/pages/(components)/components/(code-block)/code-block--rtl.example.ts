@@ -51,8 +51,8 @@ export class CodeBlockRtlPreview {
 		},
 	};
 
-	protected readonly _output = `pnpm add ai @ai-sdk/react zod
-pnpm dev`;
+	protected readonly _output = `pnpm add @spartan-ng/brain
+pnpm start`;
 
 	private readonly _translation = computed(() => this._translations[this._language()]);
 	protected readonly _t = computed(() => this._translation().values);

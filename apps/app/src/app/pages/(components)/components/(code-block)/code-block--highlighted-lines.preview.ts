@@ -21,14 +21,20 @@ type Line = { text: string; variant: 'default' | 'highlighted' };
 })
 export class CodeBlockHighlightedLines {
 	protected readonly _lines: Line[] = [
-		{ text: 'export default {', variant: 'default' },
-		{ text: '  experimental: {', variant: 'default' },
-		{ text: '    reactCompiler: true,', variant: 'highlighted' },
-		{ text: '    viewTransition: true,', variant: 'highlighted' },
-		{ text: '  },', variant: 'default' },
-		{ text: '  images: {', variant: 'default' },
-		{ text: '    remotePatterns: [{ hostname: "avatars.githubusercontent.com" }],', variant: 'default' },
-		{ text: '  },', variant: 'default' },
+		{ text: '{', variant: 'default' },
+		{ text: '  "projects": {', variant: 'default' },
+		{ text: '    "app": {', variant: 'default' },
+		{ text: '      "architect": {', variant: 'default' },
+		{ text: '        "build": {', variant: 'default' },
+		{ text: '          "options": {', variant: 'default' },
+		{ text: '            "outputPath": "dist/app",', variant: 'highlighted' },
+		{ text: '            "index": "src/index.html",', variant: 'default' },
+		{ text: '            "browser": "src/main.ts"', variant: 'highlighted' },
+		{ text: '          }', variant: 'default' },
+		{ text: '        }', variant: 'default' },
+		{ text: '      }', variant: 'default' },
+		{ text: '    }', variant: 'default' },
+		{ text: '  }', variant: 'default' },
 		{ text: '}', variant: 'default' },
 	];
 }

@@ -23,6 +23,6 @@ export class CodeBlockHeight {
 	protected readonly _logs = Array.from(
 		{ length: 40 },
 		(_, index) =>
-			`[${String(index + 1).padStart(2, '0')}] GET /api/chat 200 in ${12 + Math.floor(index / 6) * 2 + (index % 6) * 7}ms`,
+			`[${String(index + 1).padStart(2, '0')}] GET /api/health 200 in ${12 + Math.floor(index / 6) * 2 + (index % 6) * 7}ms`,
 	).join('\n');
 }

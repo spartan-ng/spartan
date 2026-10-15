@@ -49,9 +49,9 @@ export class CodeBlockActions {
 	protected readonly _wrap = signal(false);
 
 	protected readonly _output = `$ pnpm lint
-apps/web/components/message-list.tsx
-  18:22  error  'messages' is possibly 'undefined'. Add a guard before calling map  @typescript-eslint/no-unsafe-call
-  42:7   warning  React Hook React.useEffect has a missing dependency: 'scrollToBottom'  react-hooks/exhaustive-deps
+apps/web/src/app/message-list.component.ts
+  18:22  error    Unsafe call of an \`any\` typed value  @typescript-eslint/no-unsafe-call
+  42:7   warning  'scrollToBottom' is assigned a value but never used  @typescript-eslint/no-unused-vars
 
 ✖ 2 problems (1 error, 1 warning)`;
 

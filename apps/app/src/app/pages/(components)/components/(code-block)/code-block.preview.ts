@@ -13,7 +13,7 @@ import { HlmCodeBlockImports } from '@spartan-ng/helm/code-block';
 		<div class="w-full max-w-lg">
 			<hlm-code-block>
 				<hlm-code-block-header>
-					<hlm-code-block-title>app/api/chat/route.ts</hlm-code-block-title>
+					<hlm-code-block-title>app/hello.component.ts</hlm-code-block-title>
 					<hlm-code-block-actions>
 						<button
 							hlmBtn
@@ -25,7 +25,13 @@ import { HlmCodeBlockImports } from '@spartan-ng/helm/code-block';
 						>
 							<ng-icon name="lucideWrapText" />
 						</button>
-						<button hlmBtn variant="ghost" size="icon-xs" aria-label="Download" (click)="_download(_code, 'route.ts')">
+						<button
+							hlmBtn
+							variant="ghost"
+							size="icon-xs"
+							aria-label="Download"
+							(click)="_download(_code, 'hello.component.ts')"
+						>
 							<ng-icon name="lucideDownload" />
 						</button>
 						<button hlmCodeBlockCopyButton [value]="_code"></button>
@@ -39,18 +45,14 @@ import { HlmCodeBlockImports } from '@spartan-ng/helm/code-block';
 export class CodeBlockPreview {
 	protected readonly _wrap = signal(false);
 
-	protected readonly _code = `import { streamText } from "ai"
+	protected readonly _code = `import { Component, input } from '@angular/core';
 
-export async function POST(request: Request) {
-  const { messages } = await request.json()
-
-  const result = streamText({
-    model: "anthropic/claude-sonnet-4.5",
-    system: "You are a helpful assistant. Answer in one short paragraph.",
-    messages,
-  })
-
-  return result.toUIMessageStreamResponse()
+@Component({
+  selector: 'app-hello',
+  template: \`<p>Hello, {{ name() }}!</p>\`,
+})
+export class HelloComponent {
+  readonly name = input('Angular');
 }`;
 
 	protected _download(value: string, filename: string): void {

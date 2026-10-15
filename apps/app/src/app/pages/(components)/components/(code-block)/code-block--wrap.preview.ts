@@ -17,5 +17,5 @@ import { HlmCodeBlockImports } from '@spartan-ng/helm/code-block';
 	`,
 })
 export class CodeBlockWrap {
-	protected readonly _output = `Error: The model "anthropic/claude-sonnet-4.5" returned an error: Request too large. The prompt is 212,431 tokens and the context window is 200,000 tokens. Remove some messages or summarize the conversation and try again.`;
+	protected readonly _output = `Error: NG0100: ExpressionChangedAfterItHasBeenCheckedError: Expression has changed after it was checked. Previous value: 'Angular'. Current value: 'Angular 20'. Find more at https://angular.dev/errors/NG0100`;
 }

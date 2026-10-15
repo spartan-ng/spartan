@@ -25,8 +25,9 @@ export class HlmTraceCollapsibleContent {
 	);
 
 	constructor() {
-		// TODO needed for spartan/ui?
-		// cn-trace-collapsible-content h-(--collapsible-panel-height) min-w-0 overflow-hidden transition-[height] data-ending-style:h-0 data-starting-style:h-0
-		classes(() => 'data-[state=closed]:hidden');
+		classes(
+			() =>
+				'spartan-trace-collapsible-content block min-w-0 overflow-hidden transition-[height] data-[state=closed]:h-0 data-[state=open]:h-(--brn-collapsible-content-height)',
+		);
 	}
 }

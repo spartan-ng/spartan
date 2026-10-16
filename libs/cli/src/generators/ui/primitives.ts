@@ -16,6 +16,7 @@ export type Primitive =
 	| 'carousel'
 	| 'chart'
 	| 'checkbox'
+	| 'code-block'
 	| 'collapsible'
 	| 'combobox'
 	| 'command'

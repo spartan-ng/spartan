@@ -25,6 +25,7 @@ module.exports = {
 				'chart',
 				'checkbox',
 				'cli',
+				'code-block',
 				'collapsible',
 				'combobox',
 				'command',

@@ -18,6 +18,7 @@ export const primitiveDependencies: Record<Primitive, Primitive[]> = {
 	carousel: ['utils', 'button'],
 	chart: ['utils'],
 	checkbox: ['utils'],
+	'code-block': ['utils', 'button'],
 	collapsible: ['utils'],
 	combobox: ['utils', 'input-group', 'button'],
 	command: ['utils', 'button', 'input-group', 'dialog'],

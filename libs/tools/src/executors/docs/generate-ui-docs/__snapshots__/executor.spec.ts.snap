@@ -2396,6 +2396,130 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
       },
     },
   },
+  "code-block": {
+    "helm": {
+      "HlmCodeBlock": {
+        "exportAs": "hlmCodeBlock",
+        "inputs": [
+          {
+            "name": "variant",
+            "required": false,
+            "type": "CodeBlockVariants['variant']",
+          },
+          {
+            "name": "size",
+            "required": false,
+            "type": "'default' | 'sm'",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmCodeBlock],hlm-code-block",
+      },
+      "HlmCodeBlockActions": {
+        "exportAs": "hlmCodeBlockActions",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmCodeBlockActions],hlm-code-block-actions",
+      },
+      "HlmCodeBlockContent": {
+        "exportAs": "hlmCodeBlockContent",
+        "inputs": [
+          {
+            "name": "wrap",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "lineNumbers",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "startLine",
+            "required": false,
+            "type": "number",
+          },
+          {
+            "name": "code",
+            "required": false,
+            "type": "string",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "pre[hlmCodeBlockContent]",
+      },
+      "HlmCodeBlockCopyButton": {
+        "exportAs": "hlmCodeBlockCopyButton",
+        "inputs": [
+          {
+            "name": "value",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "copyText",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "copiedText",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "variant",
+            "required": false,
+            "type": "ButtonVariants['variant']",
+          },
+          {
+            "name": "size",
+            "required": false,
+            "type": "ButtonVariants['size']",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "button[hlmCodeBlockCopyButton]",
+      },
+      "HlmCodeBlockFooter": {
+        "exportAs": "hlmCodeBlockFooter",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmCodeBlockFooter],hlm-code-block-footer",
+      },
+      "HlmCodeBlockHeader": {
+        "exportAs": "hlmCodeBlockHeader",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmCodeBlockHeader],hlm-code-block-header",
+      },
+      "HlmCodeBlockLine": {
+        "exportAs": "hlmCodeBlockLine",
+        "inputs": [
+          {
+            "name": "variant",
+            "required": false,
+            "type": "CodeBlockLineVariants['variant']",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "span[hlmCodeBlockLine]",
+      },
+      "HlmCodeBlockTitle": {
+        "exportAs": "hlmCodeBlockTitle",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmCodeBlockTitle],hlm-code-block-title",
+      },
+    },
+  },
   "collapsible": {
     "brain": {
       "BrnCollapsible": {

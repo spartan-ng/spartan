@@ -1477,4 +1477,57 @@
 	.spartan-menu-translucent {
 		@apply bg-popover/70 **:data-[slot$=-item]:focus:bg-foreground/10 **:data-[slot$=-item]:data-highlighted:bg-foreground/10 **:data-[slot$=-separator]:bg-foreground/5 **:data-[slot$=-trigger]:focus:bg-foreground/10 **:data-[slot$=-trigger]:aria-expanded:bg-foreground/10! **:data-[variant=destructive]:focus:bg-foreground/10! **:data-[variant=destructive]:text-accent-foreground! **:data-[variant=destructive]:**:text-accent-foreground! relative animate-none! before:pointer-events-none before:absolute before:inset-0 before:-z-1 before:rounded-[inherit] before:backdrop-blur-2xl before:backdrop-saturate-150;
 	}
+
+	/* MARK: Code Block */
+	.spartan-code-block {
+		@apply has-[>[data-slot=code-block-content]:focus-visible]:ring-ring/30 rounded-2xl text-sm has-[>[data-slot=code-block-content]:focus-visible]:ring-3 data-[size=sm]:rounded-xl data-[size=sm]:text-xs;
+	}
+
+	.spartan-code-block-variant-default {
+		@apply bg-muted text-foreground ring-foreground/5 dark:ring-foreground/10 ring-1;
+	}
+
+	.spartan-code-block-variant-destructive {
+		@apply bg-destructive/5 text-destructive ring-destructive/15 dark:bg-destructive/10 dark:ring-destructive/20 ring-1;
+	}
+
+	.spartan-code-block-header {
+		@apply text-muted-foreground group-data-[variant=destructive]/code-block:text-destructive gap-2 px-5 pt-5 group-data-[size=sm]/code-block:px-3 group-data-[size=sm]/code-block:pt-3;
+	}
+
+	.spartan-code-block-footer {
+		@apply text-muted-foreground gap-2 px-5 pb-5 group-data-[size=sm]/code-block:px-3 group-data-[size=sm]/code-block:pb-3;
+	}
+
+	.spartan-code-block-title {
+		@apply text-foreground group-data-[variant=destructive]/code-block:text-destructive font-sans text-sm font-medium group-data-[size=sm]/code-block:text-xs [&_ng-icon:not([class*='text-'])]:text-[length:--spacing(4)] group-data-[size=sm]/code-block:[&_ng-icon:not([class*='text-'])]:text-[length:--spacing(3.5)] *:[ng-icon]:me-1.5;
+	}
+
+	.spartan-code-block-actions {
+		@apply *:data-[slot=button]:hover:bg-foreground/5 dark:*:data-[slot=button]:hover:bg-foreground/10 [[data-slot=code-block]>&]:*:[button]:bg-background [[data-slot=code-block]>&]:*:[button]:ring-foreground/10 -my-1 -me-1.5 gap-1 [[data-slot=code-block]>&]:end-4 [[data-slot=code-block]>&]:top-4 [[data-slot=code-block]>&]:m-0 group-data-[size=sm]/code-block:[[data-slot=code-block]>&]:end-2 group-data-[size=sm]/code-block:[[data-slot=code-block]>&]:top-2 [[data-slot=code-block]>&]:*:[button]:ring-1;
+	}
+
+	.spartan-code-block-copy-button {
+		@apply hover:bg-foreground/5 dark:hover:bg-foreground/10;
+	}
+
+	.spartan-code-block-content {
+		@apply px-5 py-5 leading-relaxed group-has-data-[slot=code-block-footer]/code-block:pb-2 group-has-data-[slot=code-block-header]/code-block:pt-2 group-data-[size=sm]/code-block:px-3 group-data-[size=sm]/code-block:py-3 group-data-[size=sm]/code-block:group-has-data-[slot=code-block-header]/code-block:pt-1.5;
+	}
+
+	.spartan-code-block-line {
+		@apply before:text-muted-foreground after:text-muted-foreground -mx-5 px-5 group-data-[size=sm]/code-block:-mx-3 group-data-[size=sm]/code-block:px-3 before:min-w-6 before:text-end after:start-1 in-data-numbered:gap-x-3;
+	}
+
+	.spartan-code-block-line-variant-highlighted {
+		@apply bg-foreground/5;
+	}
+
+	.spartan-code-block-line-variant-added {
+		@apply bg-foreground/5 after:content-['+'];
+	}
+
+	.spartan-code-block-line-variant-removed {
+		@apply bg-destructive/10 after:text-destructive after:content-['−'];
+	}
 }

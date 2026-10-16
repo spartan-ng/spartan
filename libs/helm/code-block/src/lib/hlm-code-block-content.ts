@@ -1,0 +1,85 @@
+import { Directionality } from '@angular/cdk/bidi';
+import { BooleanInput, NumberInput } from '@angular/cdk/coercion';
+import {
+	booleanAttribute,
+	ChangeDetectionStrategy,
+	Component,
+	computed,
+	inject,
+	input,
+	numberAttribute,
+} from '@angular/core';
+import { classes } from '@spartan-ng/helm/utils';
+import { HlmCodeBlockLine } from './hlm-code-block-line';
+
+@Component({
+	// eslint-disable-next-line @angular-eslint/component-selector
+	selector: 'pre[hlmCodeBlockContent]',
+	exportAs: 'hlmCodeBlockContent',
+	imports: [HlmCodeBlockLine],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: {
+		'data-slot': 'code-block-content',
+		'[attr.data-wrap]': 'wrap() || null',
+		'[attr.data-numbered]': 'lineNumbers() || null',
+		'[attr.dir]': '_direction()',
+		'[style.counter-reset]': '_style()',
+		tabindex: '0',
+	},
+	template: `
+		<code
+			data-slot="code-block-code"
+			class="spartan-code-block-code grid min-h-lh min-w-max content-start in-data-numbered:grid-cols-[auto_1fr] in-data-wrap:min-w-0"
+		>
+			@if (_lines(); as lines) {
+				@for (line of lines; track $index) {
+					<span hlmCodeBlockLine>{{ line }}</span>
+				}
+			} @else if (_hasCode()) {
+				<span [textContent]="_code()"></span>
+			} @else {
+				<ng-content />
+			}
+		</code>
+	`,
+})
+export class HlmCodeBlockContent {
+	private readonly _dir = inject(Directionality);
+
+	protected readonly _direction = this._dir.valueSignal;
+
+	public readonly wrap = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
+	public readonly lineNumbers = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
+
+	public readonly startLine = input<number, NumberInput>(1, { transform: numberAttribute });
+
+	/** When set, the code is rendered line by line instead of projecting `<ng-content />`. */
+	public readonly code = input<string>();
+
+	protected readonly _code = computed(() => {
+		const code = this.code();
+		return typeof code === 'string' ? code : null;
+	});
+
+	protected readonly _hasCode = computed(() => this._code() !== null);
+
+	protected readonly _lines = computed(() => {
+		const code = this._code();
+		if (!this.lineNumbers() || code === null) return null;
+
+		// An empty line renders a newline so copying a selection keeps blank lines.
+		return code
+			.replace(/\n$/, '')
+			.split('\n')
+			.map((line) => (line === '' ? '\n' : line));
+	});
+
+	protected readonly _style = computed(() => `line ${this.startLine() - 1}`);
+
+	constructor() {
+		classes(
+			() =>
+				'spartan-code-block-content scroll-fade-x data-wrap:scroll-fade-y min-h-0 min-w-0 scrollbar-thin overflow-auto text-start font-mono outline-none data-wrap:wrap-break-word data-wrap:whitespace-pre-wrap',
+		);
+	}
+}

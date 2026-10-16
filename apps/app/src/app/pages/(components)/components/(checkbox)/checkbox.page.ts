@@ -82,7 +82,7 @@ export const routeMeta: RouteMeta = {
 			<spartan-ui-api-docs docType="helm" />
 
 			<spartan-page-bottom-nav>
-				<spartan-page-bottom-nav-link href="collapsible" label="Collapsible" />
+				<spartan-page-bottom-nav-link href="code-block" label="Code Block" />
 				<spartan-page-bottom-nav-link direction="previous" href="chart" label="Chart" />
 			</spartan-page-bottom-nav>
 		</section>

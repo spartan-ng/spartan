@@ -40,6 +40,10 @@ export default async function runExecutor(options: GenerateUiDocsExecutorSchema,
 	const extractedData = extractInputsOutputs(project, context.root);
 
 	const perComponentDir = path.join(outputDir, 'ui-api');
+	// Clear the directory first so files for components that no longer exist (e.g. a removed
+	// library) don't linger and leak into the generated docs/snapshot. This keeps a local run
+	// consistent with a clean CI run.
+	fs.rmSync(perComponentDir, { recursive: true, force: true });
 	fs.mkdirSync(perComponentDir, { recursive: true });
 	writePerComponentData(extractedData, perComponentDir, (filePath, content) => fs.writeFileSync(filePath, content));
 

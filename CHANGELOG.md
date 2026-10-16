@@ -1,3 +1,11 @@
+## 1.8.0-beta.1 (2026-10-16)
+
+- feat(trace): add trace component (#1802) ([0396bbe](https://github.com/spartan-ng/spartan/commit/0396bbe)), closes [#1802](https://github.com/spartan-ng/spartan/issues/1802)
+- Merge pull request #1804 from spartan-ng/feat/code-block ([51f0b34](https://github.com/spartan-ng/spartan/commit/51f0b34)), closes [#1804](https://github.com/spartan-ng/spartan/issues/1804)
+- chore(release): backmerge main into beta ([7738c82](https://github.com/spartan-ng/spartan/commit/7738c82))
+- chore(release): backmerge main into beta ([e261b7f](https://github.com/spartan-ng/spartan/commit/e261b7f))
+- docs: add new contributors to our 300 ([b981464](https://github.com/spartan-ng/spartan/commit/b981464))
+
 ## 1.7.0 (2026-10-14)
 
 - feat: 1.7.0 (#1800) ([afa6638](https://github.com/spartan-ng/spartan/commit/afa6638)), closes [#1800](https://github.com/spartan-ng/spartan/issues/1800) [#1772](https://github.com/spartan-ng/spartan/issues/1772) [#1770](https://github.com/spartan-ng/spartan/issues/1770) [#1798](https://github.com/spartan-ng/spartan/issues/1798)

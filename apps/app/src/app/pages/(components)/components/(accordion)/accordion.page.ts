@@ -74,7 +74,7 @@ export const routeMeta: RouteMeta = {
 			/>
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
-				<div spartanCodePreview firstTab>
+				<div spartanCodePreview firstTab align="start">
 					<spartan-accordion-preview />
 				</div>
 				<spartan-code secondTab [code]="_defaultCode()" />
@@ -101,7 +101,7 @@ export const routeMeta: RouteMeta = {
 				input can be used to set the initial state of an accordion item.
 			</p>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
-				<div spartanCodePreview firstTab>
+				<div spartanCodePreview firstTab align="start">
 					<spartan-accordion-multiple />
 				</div>
 				<spartan-code secondTab [code]="_multipleCode()" />
@@ -116,7 +116,7 @@ export const routeMeta: RouteMeta = {
 				to disable an item.
 			</p>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
-				<div spartanCodePreview firstTab>
+				<div spartanCodePreview firstTab align="start">
 					<spartan-accordion-disabled />
 				</div>
 				<spartan-code secondTab [code]="_disabledCode()" />
@@ -135,7 +135,7 @@ export const routeMeta: RouteMeta = {
 				to add borders to the items.
 			</p>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
-				<div spartanCodePreview firstTab>
+				<div spartanCodePreview firstTab align="start">
 					<spartan-accordion-borders />
 				</div>
 				<spartan-code secondTab [code]="_bordersCode()" />
@@ -148,7 +148,7 @@ export const routeMeta: RouteMeta = {
 				(or any async data) is measured as it changes, so the panel animates to fit its new height while it stays open.
 			</p>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
-				<div spartanCodePreview firstTab>
+				<div spartanCodePreview firstTab align="start">
 					<spartan-accordion-dynamic />
 				</div>
 				<spartan-code secondTab [code]="_dynamicCode()" />
@@ -163,7 +163,7 @@ export const routeMeta: RouteMeta = {
 				component.
 			</p>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
-				<div spartanCodePreview firstTab>
+				<div spartanCodePreview firstTab align="start">
 					<spartan-accordion-card />
 				</div>
 				<spartan-code secondTab [code]="_cardCode()" />
@@ -182,7 +182,7 @@ export const routeMeta: RouteMeta = {
 				and remains alive for subsequent opens.
 			</p>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
-				<div spartanCodePreview firstTab>
+				<div spartanCodePreview firstTab align="start">
 					<spartan-accordion-lazy />
 				</div>
 				<spartan-code secondTab [code]="_lazyCode()" />
@@ -190,7 +190,7 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-header-rtl />
 			<spartan-tabs firstTab="Preview" secondTab="Code">
-				<div spartanRtlCodePreview firstTab>
+				<div spartanRtlCodePreview firstTab align="start">
 					<spartan-accordion-rtl />
 				</div>
 				<spartan-code secondTab [code]="_rtlCode()" />

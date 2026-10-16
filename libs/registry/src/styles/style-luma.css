@@ -1478,6 +1478,31 @@
 		@apply bg-popover/70 **:data-[slot$=-item]:focus:bg-foreground/10 **:data-[slot$=-item]:data-highlighted:bg-foreground/10 **:data-[slot$=-separator]:bg-foreground/5 **:data-[slot$=-trigger]:focus:bg-foreground/10 **:data-[slot$=-trigger]:aria-expanded:bg-foreground/10! **:data-[variant=destructive]:focus:bg-foreground/10! **:data-[variant=destructive]:text-accent-foreground! **:data-[variant=destructive]:**:text-accent-foreground! relative animate-none! before:pointer-events-none before:absolute before:inset-0 before:-z-1 before:rounded-[inherit] before:backdrop-blur-2xl before:backdrop-saturate-150;
 	}
 
+	/* MARK: Trace */
+	.spartan-trace {
+		@apply *:has-[>[data-slot=trace-line]]:focus-visible:ring-ring/30 gap-3 *:has-[>[data-slot=trace-line]]:rounded-lg *:has-[>[data-slot=trace-line]]:focus-visible:ring-3;
+	}
+
+	.spartan-trace-collapsible-trigger {
+		@apply focus-visible:ring-ring/30 gap-1 rounded-lg focus-visible:ring-3;
+	}
+
+	.spartan-trace-line {
+		@apply gap-2 text-sm;
+	}
+
+	.spartan-trace-icon {
+		@apply size-4 [&_ng-icon:not([class*='text-'])]:text-[length:--spacing(4)] [[data-slot=trace-title]~&]:-ml-1;
+	}
+
+	.spartan-trace-collapsible-content {
+		@apply duration-200;
+	}
+
+	.spartan-trace-collapsible-content-inner {
+		@apply mt-2.5 mb-1 ml-[calc(--spacing(2)-1px)] border-l pr-1 pl-4 leading-relaxed;
+	}
+
 	/* MARK: Code Block */
 	.spartan-code-block {
 		@apply has-[>[data-slot=code-block-content]:focus-visible]:ring-ring/30 rounded-2xl text-sm has-[>[data-slot=code-block-content]:focus-visible]:ring-3 data-[size=sm]:rounded-xl data-[size=sm]:text-xs;

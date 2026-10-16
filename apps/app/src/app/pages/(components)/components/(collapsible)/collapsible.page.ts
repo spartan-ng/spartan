@@ -65,7 +65,7 @@ export const routeMeta: RouteMeta = {
 			/>
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
-				<div spartanCodePreview firstTab>
+				<div spartanCodePreview firstTab align="start">
 					<spartan-collapsible-preview />
 				</div>
 				<spartan-code secondTab [code]="_defaultCode()" />
@@ -87,7 +87,7 @@ export const routeMeta: RouteMeta = {
 				and Tailwind classes to control the animation of the collapsible.
 			</p>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
-				<div spartanCodePreview firstTab>
+				<div spartanCodePreview firstTab align="start">
 					<spartan-collapsible-animated-example />
 				</div>
 				<spartan-code secondTab [code]="_animatedCode()" />
@@ -96,7 +96,7 @@ export const routeMeta: RouteMeta = {
 			<h3 id="settings-panel" spartanH4>Settings Panel</h3>
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
-				<div spartanCodePreview firstTab>
+				<div spartanCodePreview firstTab align="start">
 					<spartan-collapsible-settings-panel />
 				</div>
 				<spartan-code secondTab [code]="_settingsPanelCode()" />
@@ -109,7 +109,7 @@ export const routeMeta: RouteMeta = {
 				variable. Rows added while the panel is open are measured as they change, so it animates to fit its new height.
 			</p>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
-				<div spartanCodePreview firstTab>
+				<div spartanCodePreview firstTab align="start">
 					<spartan-collapsible-dynamic />
 				</div>
 				<spartan-code secondTab [code]="_dynamicCode()" />
@@ -118,7 +118,7 @@ export const routeMeta: RouteMeta = {
 			<h3 id="file-tree" spartanH4>File tree</h3>
 			<p class="py-2">Use nested collapsibles to build a file tree.</p>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
-				<div spartanCodePreview firstTab>
+				<div spartanCodePreview firstTab align="start">
 					<spartan-collapsible-file-tree />
 				</div>
 				<spartan-code secondTab [code]="_fileTreeCode()" />
@@ -126,7 +126,7 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-header-rtl />
 			<spartan-tabs firstTab="Preview" secondTab="Code">
-				<div spartanRtlCodePreview firstTab>
+				<div spartanRtlCodePreview firstTab align="start">
 					<spartan-collapsible-rtl />
 				</div>
 				<spartan-code secondTab [code]="_rtlCode()" />

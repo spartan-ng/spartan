@@ -5,6 +5,7 @@ import { classes } from '<%- importAlias %>/utils';
 
 @Directive({
 	selector: '[hlmAutocomplete],hlm-autocomplete',
+	exportAs: 'hlmAutocomplete',
 	providers: [
 		provideBrnPopoverConfig({
 			align: 'start',

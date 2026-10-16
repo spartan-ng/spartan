@@ -7,6 +7,7 @@ import { injectBrnCalendarI18n } from './i18n/calendar-i18n';
 
 @Directive({
 	selector: 'brnSelect[brnCalendarYearSelect],hlm-select[brnCalendarYearSelect]',
+	exportAs: 'brnCalendarYearSelect',
 })
 export class BrnCalendarYearSelect {
 	/** Access the select */

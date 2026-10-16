@@ -5,6 +5,7 @@ import { injectBrnComboboxBase } from './brn-combobox.token';
 
 @Directive({
 	selector: '[brnComboboxPopoverTrigger]',
+	exportAs: 'brnComboboxPopoverTrigger',
 	host: {
 		'(click)': '_onClick()',
 	},

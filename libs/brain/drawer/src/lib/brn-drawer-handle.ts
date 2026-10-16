@@ -18,6 +18,7 @@ function dampenValue(v: number): number {
 
 @Directive({
 	selector: '[brnDrawerHandle]',
+	exportAs: 'brnDrawerHandle',
 	host: {
 		role: 'presentation',
 		'(pointerdown)': '_onPointerDown($event)',

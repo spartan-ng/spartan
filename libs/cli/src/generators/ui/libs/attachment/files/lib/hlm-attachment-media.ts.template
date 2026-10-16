@@ -21,6 +21,7 @@ export type AttachmentMediaVariants = VariantProps<typeof attachmentMediaVariant
 
 @Directive({
 	selector: '[hlmAttachmentMedia],hlm-attachment-media',
+	exportAs: 'hlmAttachmentMedia',
 	host: {
 		'data-slot': 'attachment-media',
 		'[attr.data-variant]': 'variant()',

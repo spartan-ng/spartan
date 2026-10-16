@@ -6,6 +6,7 @@ import { filter } from 'rxjs/operators';
 
 @Directive({
 	selector: 'a[brnButton], button[brnButton]',
+	exportAs: 'brnButton',
 	host: {
 		'[attr.tabindex]': 'disabled() ? -1 : undefined',
 		'[attr.disabled]': '!_isAnchor && disabled() || null',

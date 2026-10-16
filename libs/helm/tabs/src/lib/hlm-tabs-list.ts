@@ -21,6 +21,7 @@ type ListVariants = VariantProps<typeof listVariants>;
 
 @Directive({
 	selector: '[hlmTabsList],hlm-tabs-list',
+	exportAs: 'hlmTabsList',
 	hostDirectives: [BrnTabsList],
 	host: {
 		'data-slot': 'tabs-list',

@@ -5,6 +5,7 @@ import { injectBrnMonthYearCalendar } from './brn-month-year-calendar.token';
 
 @Directive({
 	selector: 'button[brnMonthYearCalendarYearButton]',
+	exportAs: 'brnMonthYearCalendarYearButton',
 	host: {
 		role: 'gridcell',
 		type: 'button',

@@ -8,6 +8,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Component({
 	selector: 'hlm-autocomplete-input',
+	exportAs: 'hlmAutocompleteInput',
 	imports: [HlmInputGroupImports, NgIcon, BrnAutocompleteClear, BrnAutocompleteInput],
 	providers: [provideIcons({ lucideSearch, lucideX })],
 	changeDetection: ChangeDetectionStrategy.OnPush,

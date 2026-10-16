@@ -2,6 +2,7 @@ import { Directive, input } from '@angular/core';
 
 @Directive({
 	selector: '[brnComboboxLabel]',
+	exportAs: 'brnComboboxLabel',
 	host: {
 		'[id]': 'id()',
 	},

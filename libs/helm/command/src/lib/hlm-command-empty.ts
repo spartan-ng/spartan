@@ -3,6 +3,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
 	selector: '[hlmCommandEmpty]',
+	exportAs: 'hlmCommandEmpty',
 	host: {
 		'data-slot': 'command-empty',
 	},

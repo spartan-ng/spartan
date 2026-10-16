@@ -3,6 +3,7 @@ import { injectBrnSlider } from './brn-slider.token';
 
 @Directive({
 	selector: '[brnSliderRange]',
+	exportAs: 'brnSliderRange',
 	host: {
 		'[attr.data-disabled]': '_slider.mutableDisabled() ? "" : null',
 		'[attr.data-orientation]': '_slider.orientation()',

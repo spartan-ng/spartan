@@ -4,6 +4,7 @@ import { classes } from '<%- importAlias %>/utils';
 
 @Directive({
 	selector: '[hlmSheetTitle]',
+	exportAs: 'hlmSheetTitle',
 	hostDirectives: [BrnSheetTitle],
 	host: { 'data-slot': 'sheet-title' },
 })

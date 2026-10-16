@@ -6,6 +6,7 @@ import { classes } from '<%- importAlias %>/utils';
 
 @Directive({
 	selector: '[hlmPaginationLink]',
+	exportAs: 'hlmPaginationLink',
 	hostDirectives: [
 		{
 			directive: RouterLink,

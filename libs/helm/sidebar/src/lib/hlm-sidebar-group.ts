@@ -3,6 +3,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
 	selector: '[hlmSidebarGroup],hlm-sidebar-group',
+	exportAs: 'hlmSidebarGroup',
 	host: {
 		'data-slot': 'sidebar-group',
 		'data-sidebar': 'group',

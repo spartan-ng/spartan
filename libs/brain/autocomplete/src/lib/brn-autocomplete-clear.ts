@@ -3,6 +3,7 @@ import { injectBrnAutocompleteBase } from './brn-autocomplete.token';
 
 @Directive({
 	selector: '[brnAutocompleteClear]',
+	exportAs: 'brnAutocompleteClear',
 })
 export class BrnAutocompleteClear {
 	private readonly _autocomplete = injectBrnAutocompleteBase();

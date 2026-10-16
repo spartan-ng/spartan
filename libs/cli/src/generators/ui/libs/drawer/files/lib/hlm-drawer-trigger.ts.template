@@ -3,6 +3,7 @@ import { BrnDrawerTrigger } from '@spartan-ng/brain/drawer';
 
 @Directive({
 	selector: 'button[hlmDrawerTrigger]',
+	exportAs: 'hlmDrawerTrigger',
 	hostDirectives: [{ directive: BrnDrawerTrigger, inputs: ['id', 'direction', 'type'] }],
 	host: { 'data-slot': 'drawer-trigger' },
 })

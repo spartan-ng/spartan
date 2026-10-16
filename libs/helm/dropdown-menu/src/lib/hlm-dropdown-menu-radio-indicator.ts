@@ -5,6 +5,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Component({
 	selector: 'hlm-dropdown-menu-radio-indicator',
+	exportAs: 'hlmDropdownMenuRadioIndicator',
 	imports: [NgIcon],
 	providers: [provideIcons({ lucideCheck })],
 	changeDetection: ChangeDetectionStrategy.OnPush,

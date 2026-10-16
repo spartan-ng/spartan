@@ -19,6 +19,7 @@ type HlmDialogContentContext = {
 
 @Component({
 	selector: 'hlm-dialog-content',
+	exportAs: 'hlmDialogContent',
 	imports: [NgComponentOutlet, HlmButton, HlmDialogClose, NgIcon],
 	providers: [provideIcons({ lucideX })],
 	changeDetection: ChangeDetectionStrategy.OnPush,

@@ -4,6 +4,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
 	selector: '[hlmTabsTrigger]',
+	exportAs: 'hlmTabsTrigger',
 	hostDirectives: [{ directive: BrnTabsTrigger, inputs: ['brnTabsTrigger: hlmTabsTrigger', 'disabled'] }],
 	host: {
 		'data-slot': 'tabs-trigger',

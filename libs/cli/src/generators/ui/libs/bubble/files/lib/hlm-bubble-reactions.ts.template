@@ -26,6 +26,7 @@ export type BubbleReactionsVariants = VariantProps<typeof bubbleReactionsVariant
 
 @Directive({
 	selector: '[hlmBubbleReactions],hlm-bubble-reactions',
+	exportAs: 'hlmBubbleReactions',
 	host: {
 		'data-slot': 'bubble-reactions',
 		'[attr.data-align]': 'align()',

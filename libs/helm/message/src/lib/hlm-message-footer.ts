@@ -3,6 +3,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
 	selector: '[hlmMessageFooter],hlm-message-footer',
+	exportAs: 'hlmMessageFooter',
 	host: { 'data-slot': 'message-footer' },
 })
 export class HlmMessageFooter {

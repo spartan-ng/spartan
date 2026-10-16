@@ -3,6 +3,7 @@ import { classes } from '<%- importAlias %>/utils';
 
 @Directive({
 	selector: '[hlmSheetHeader],hlm-sheet-header',
+	exportAs: 'hlmSheetHeader',
 	host: { 'data-slot': 'sheet-header' },
 })
 export class HlmSheetHeader {

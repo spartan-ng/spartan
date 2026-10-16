@@ -41,6 +41,7 @@ const CONTAINER_POST_FIX = '-checkbox';
 
 @Component({
 	selector: 'brn-checkbox',
+	exportAs: 'brnCheckbox',
 	providers: [BRN_CHECKBOX_VALUE_ACCESSOR, provideBrnLabelable(BrnCheckbox)],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	hostDirectives: [BrnFieldControl],

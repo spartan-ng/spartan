@@ -3,6 +3,7 @@ import { BrnSwitch } from './brn-switch';
 
 @Directive({
 	selector: '[brnSwitchThumb],brn-switch-thumb',
+	exportAs: 'brnSwitchThumb',
 	host: {
 		role: 'presentation',
 		'[attr.data-state]': "_switch.checked() ? 'checked' : 'unchecked'",

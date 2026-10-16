@@ -3,6 +3,7 @@ import { BrnAvatarImage } from './image';
 
 @Component({
 	selector: 'brn-avatar',
+	exportAs: 'brnAvatar',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		@if (_image()?.canShow()) {

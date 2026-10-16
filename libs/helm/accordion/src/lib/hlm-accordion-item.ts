@@ -4,6 +4,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
 	selector: '[hlmAccordionItem],hlm-accordion-item',
+	exportAs: 'hlmAccordionItem',
 	hostDirectives: [
 		{
 			directive: BrnAccordionItem,

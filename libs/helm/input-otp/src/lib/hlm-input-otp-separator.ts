@@ -5,6 +5,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Component({
 	selector: 'hlm-input-otp-separator',
+	exportAs: 'hlmInputOtpSeparator',
 	imports: [NgIcon],
 	providers: [provideIcons({ lucideMinus })],
 	changeDetection: ChangeDetectionStrategy.OnPush,

@@ -5,6 +5,7 @@ export const hlmCode = 'relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-m
 
 @Directive({
 	selector: '[hlmCode]',
+	exportAs: 'hlmCode',
 })
 export class HlmCode {
 	constructor() {

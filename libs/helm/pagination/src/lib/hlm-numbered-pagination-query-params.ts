@@ -23,6 +23,7 @@ import { injectHlmPaginationConfig } from './hlm-pagination.token';
 
 @Component({
 	selector: 'hlm-numbered-pagination-query-params',
+	exportAs: 'hlmNumberedPaginationQueryParams',
 	imports: [
 		HlmPagination,
 		HlmPaginationContent,

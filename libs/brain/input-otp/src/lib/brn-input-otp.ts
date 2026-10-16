@@ -31,6 +31,7 @@ export type InputMode = 'text' | 'tel' | 'url' | 'email' | 'numeric' | 'decimal'
 
 @Component({
 	selector: 'brn-input-otp',
+	exportAs: 'brnInputOtp',
 	providers: [BRN_INPUT_OTP_VALUE_ACCESSOR, provideBrnInputOtp(BrnInputOtp), provideBrnLabelable(BrnInputOtp)],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	hostDirectives: [BrnFieldControl],

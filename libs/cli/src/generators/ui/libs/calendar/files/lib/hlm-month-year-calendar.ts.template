@@ -8,6 +8,7 @@ import { classes, hlm } from '<%- importAlias %>/utils';
 
 @Component({
 	selector: 'hlm-month-year-calendar',
+	exportAs: 'hlmMonthYearCalendar',
 	imports: [BrnCalendarImports, NgIcon, HlmButtonImports],
 	viewProviders: [provideIcons({ lucideChevronLeft, lucideChevronRight })],
 	changeDetection: ChangeDetectionStrategy.OnPush,

@@ -23,6 +23,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[brnAccordion]",
       },
       "BrnAccordionContent": {
+        "exportAs": "brnAccordionContent",
         "inputs": [
           {
             "name": "style",
@@ -42,6 +43,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "ng-template[brnAccordionContentLazy]",
       },
       "BrnAccordionHeader": {
+        "exportAs": "brnAccordionHeader",
         "inputs": [],
         "models": [],
         "outputs": [],
@@ -75,6 +77,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[brnAccordionItem]",
       },
       "BrnAccordionTrigger": {
+        "exportAs": "brnAccordionTrigger",
         "inputs": [],
         "models": [],
         "outputs": [],
@@ -83,6 +86,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
     },
     "helm": {
       "HlmAccordion": {
+        "exportAs": "hlmAccordion",
         "inputs": [
           {
             "name": "type",
@@ -100,6 +104,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmAccordion], hlm-accordion",
       },
       "HlmAccordionContent": {
+        "exportAs": "hlmAccordionContent",
         "inputs": [
           {
             "name": "style",
@@ -112,12 +117,14 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "hlm-accordion-content",
       },
       "HlmAccordionContentLazy": {
+        "exportAs": "hlmAccordionContentLazy",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "ng-template[hlmAccordionContentLazy]",
       },
       "HlmAccordionItem": {
+        "exportAs": "hlmAccordionItem",
         "inputs": [
           {
             "name": "isOpened",
@@ -140,6 +147,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmAccordionItem],hlm-accordion-item",
       },
       "HlmAccordionTrigger": {
+        "exportAs": "hlmAccordionTrigger",
         "inputs": [
           {
             "name": "triggerClass",
@@ -156,6 +164,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
   "alert": {
     "helm": {
       "HlmAlert": {
+        "exportAs": "hlmAlert",
         "inputs": [
           {
             "name": "variant",
@@ -168,18 +177,21 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "hlm-alert,[hlmAlert]",
       },
       "HlmAlertAction": {
+        "exportAs": "hlmAlertAction",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmAlertAction]",
       },
       "HlmAlertDescription": {
+        "exportAs": "hlmAlertDescription",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmAlertDescription]",
       },
       "HlmAlertTitle": {
+        "exportAs": "hlmAlertTitle",
         "inputs": [],
         "models": [],
         "outputs": [],
@@ -287,6 +299,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[brnAlertDialog],brn-alert-dialog",
       },
       "BrnAlertDialogContent": {
+        "exportAs": "brnAlertDialogContent",
         "inputs": [
           {
             "name": "class",
@@ -304,12 +317,14 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[brnAlertDialogContent]",
       },
       "BrnAlertDialogDescription": {
+        "exportAs": "brnAlertDialogDescription",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[brnAlertDialogDescription]",
       },
       "BrnAlertDialogOverlay": {
+        "exportAs": "brnAlertDialogOverlay",
         "inputs": [
           {
             "name": "class",
@@ -322,12 +337,14 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[brnAlertDialogOverlay],brn-alert-dialog-overlay",
       },
       "BrnAlertDialogTitle": {
+        "exportAs": "brnAlertDialogTitle",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[brnAlertDialogTitle]",
       },
       "BrnAlertDialogTrigger": {
+        "exportAs": "brnAlertDialogTrigger",
         "inputs": [
           {
             "name": "brnAlertDialogTriggerFor",
@@ -454,6 +471,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "hlm-alert-dialog",
       },
       "HlmAlertDialogAction": {
+        "exportAs": "hlmAlertDialogAction",
         "inputs": [
           {
             "name": "type",
@@ -476,6 +494,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "button[hlmAlertDialogAction]",
       },
       "HlmAlertDialogCancel": {
+        "exportAs": "hlmAlertDialogCancel",
         "inputs": [
           {
             "name": "type",
@@ -498,6 +517,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "button[hlmAlertDialogCancel]",
       },
       "HlmAlertDialogContent": {
+        "exportAs": "hlmAlertDialogContent",
         "inputs": [
           {
             "name": "size",
@@ -510,30 +530,35 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmAlertDialogContent],hlm-alert-dialog-content",
       },
       "HlmAlertDialogDescription": {
+        "exportAs": "hlmAlertDialogDescription",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmAlertDialogDescription]",
       },
       "HlmAlertDialogFooter": {
+        "exportAs": "hlmAlertDialogFooter",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmAlertDialogFooter],hlm-alert-dialog-footer",
       },
       "HlmAlertDialogHeader": {
+        "exportAs": "hlmAlertDialogHeader",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmAlertDialogHeader],hlm-alert-dialog-header",
       },
       "HlmAlertDialogMedia": {
+        "exportAs": "hlmAlertDialogMedia",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmAlertDialogMedia],hlm-alert-dialog-media",
       },
       "HlmAlertDialogOverlay": {
+        "exportAs": "hlmAlertDialogOverlay",
         "inputs": [
           {
             "name": "class",
@@ -546,6 +571,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmAlertDialogOverlay],hlm-alert-dialog-overlay",
       },
       "HlmAlertDialogPortal": {
+        "exportAs": "hlmAlertDialogPortal",
         "inputs": [
           {
             "name": "context",
@@ -563,12 +589,14 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmAlertDialogPortal]",
       },
       "HlmAlertDialogTitle": {
+        "exportAs": "hlmAlertDialogTitle",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmAlertDialogTitle]",
       },
       "HlmAlertDialogTrigger": {
+        "exportAs": "hlmAlertDialogTrigger",
         "inputs": [
           {
             "name": "id",
@@ -595,6 +623,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
   "aspect-ratio": {
     "helm": {
       "HlmAspectRatio": {
+        "exportAs": "hlmAspectRatio",
         "inputs": [
           {
             "name": "hlmAspectRatio",
@@ -611,6 +640,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
   "attachment": {
     "helm": {
       "HlmAttachment": {
+        "exportAs": "hlmAttachment",
         "inputs": [
           {
             "name": "state",
@@ -633,6 +663,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmAttachment],hlm-attachment",
       },
       "HlmAttachmentAction": {
+        "exportAs": "hlmAttachmentAction",
         "inputs": [
           {
             "name": "type",
@@ -655,30 +686,35 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "button[hlmAttachmentAction]",
       },
       "HlmAttachmentActions": {
+        "exportAs": "hlmAttachmentActions",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmAttachmentActions],hlm-attachment-actions",
       },
       "HlmAttachmentContent": {
+        "exportAs": "hlmAttachmentContent",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmAttachmentContent],hlm-attachment-content",
       },
       "HlmAttachmentDescription": {
+        "exportAs": "hlmAttachmentDescription",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmAttachmentDescription],hlm-attachment-description",
       },
       "HlmAttachmentGroup": {
+        "exportAs": "hlmAttachmentGroup",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmAttachmentGroup],hlm-attachment-group",
       },
       "HlmAttachmentMedia": {
+        "exportAs": "hlmAttachmentMedia",
         "inputs": [
           {
             "name": "variant",
@@ -691,12 +727,14 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmAttachmentMedia],hlm-attachment-media",
       },
       "HlmAttachmentTitle": {
+        "exportAs": "hlmAttachmentTitle",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmAttachmentTitle],hlm-attachment-title",
       },
       "HlmAttachmentTrigger": {
+        "exportAs": "hlmAttachmentTrigger",
         "inputs": [
           {
             "name": "type",
@@ -713,6 +751,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
   "autocomplete": {
     "brain": {
       "BrnAutocomplete": {
+        "exportAs": "brnAutocomplete",
         "inputs": [
           {
             "name": "disabled",
@@ -751,30 +790,35 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[brnAutocomplete]",
       },
       "BrnAutocompleteAnchor": {
+        "exportAs": "brnAutocompleteAnchor",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[brnAutocompleteAnchor]",
       },
       "BrnAutocompleteClear": {
+        "exportAs": "brnAutocompleteClear",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[brnAutocompleteClear]",
       },
       "BrnAutocompleteContent": {
+        "exportAs": "brnAutocompleteContent",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[brnAutocompleteContent]",
       },
       "BrnAutocompleteEmpty": {
+        "exportAs": "brnAutocompleteEmpty",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[brnAutocompleteEmpty]",
       },
       "BrnAutocompleteGroup": {
+        "exportAs": "brnAutocompleteGroup",
         "inputs": [],
         "models": [],
         "outputs": [],
@@ -809,6 +853,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "input[brnAutocompleteInput]",
       },
       "BrnAutocompleteItem": {
+        "exportAs": "brnAutocompleteItem",
         "inputs": [
           {
             "name": "id",
@@ -831,6 +876,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[brnAutocompleteItem]",
       },
       "BrnAutocompleteLabel": {
+        "exportAs": "brnAutocompleteLabel",
         "inputs": [
           {
             "name": "id",
@@ -843,6 +889,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[brnAutocompleteLabel]",
       },
       "BrnAutocompleteList": {
+        "exportAs": "brnAutocompleteList",
         "inputs": [
           {
             "name": "id",
@@ -865,6 +912,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[brnAutocompleteList]",
       },
       "BrnAutocompleteSearch": {
+        "exportAs": "brnAutocompleteSearch",
         "inputs": [
           {
             "name": "disabled",
@@ -898,6 +946,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[brnAutocomplete]",
       },
       "BrnAutocompleteSeparator": {
+        "exportAs": "brnAutocompleteSeparator",
         "inputs": [
           {
             "name": "orientation",
@@ -910,6 +959,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[brnAutocompleteSeparator]",
       },
       "BrnAutocompleteStatus": {
+        "exportAs": "brnAutocompleteStatus",
         "inputs": [],
         "models": [],
         "outputs": [],
@@ -918,6 +968,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
     },
     "helm": {
       "HlmAutocomplete": {
+        "exportAs": "hlmAutocomplete",
         "inputs": [
           {
             "name": "autoHighlight",
@@ -1002,24 +1053,28 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmAutocomplete],hlm-autocomplete",
       },
       "HlmAutocompleteContent": {
+        "exportAs": "hlmAutocompleteContent",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmAutocompleteContent],hlm-autocomplete-content",
       },
       "HlmAutocompleteEmpty": {
+        "exportAs": "hlmAutocompleteEmpty",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmAutocompleteEmpty],hlm-autocomplete-empty",
       },
       "HlmAutocompleteGroup": {
+        "exportAs": "hlmAutocompleteGroup",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmAutocompleteGroup]",
       },
       "HlmAutocompleteInput": {
+        "exportAs": "hlmAutocompleteInput",
         "inputs": [
           {
             "name": "inputId",
@@ -1062,6 +1117,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "hlm-autocomplete-input",
       },
       "HlmAutocompleteItem": {
+        "exportAs": "hlmAutocompleteItem",
         "inputs": [
           {
             "name": "id",
@@ -1084,6 +1140,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "hlm-autocomplete-item",
       },
       "HlmAutocompleteLabel": {
+        "exportAs": "hlmAutocompleteLabel",
         "inputs": [
           {
             "name": "id",
@@ -1096,6 +1153,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmAutocompleteLabel]",
       },
       "HlmAutocompleteList": {
+        "exportAs": "hlmAutocompleteList",
         "inputs": [
           {
             "name": "id",
@@ -1118,6 +1176,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmAutocompleteList]",
       },
       "HlmAutocompletePortal": {
+        "exportAs": "hlmAutocompletePortal",
         "inputs": [
           {
             "name": "context",
@@ -1135,6 +1194,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmAutocompletePortal]",
       },
       "HlmAutocompleteSearch": {
+        "exportAs": "hlmAutocompleteSearch",
         "inputs": [
           {
             "name": "autoHighlight",
@@ -1214,6 +1274,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmAutocompleteSearch],hlm-autocomplete-search",
       },
       "HlmAutocompleteSeparator": {
+        "exportAs": "hlmAutocompleteSeparator",
         "inputs": [
           {
             "name": "orientation",
@@ -1226,6 +1287,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmAutocompleteSeparator]",
       },
       "HlmAutocompleteStatus": {
+        "exportAs": "hlmAutocompleteStatus",
         "inputs": [],
         "models": [],
         "outputs": [],
@@ -1236,6 +1298,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
   "avatar": {
     "brain": {
       "BrnAvatar": {
+        "exportAs": "brnAvatar",
         "inputs": [],
         "models": [],
         "outputs": [],
@@ -1258,6 +1321,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
     },
     "helm": {
       "HlmAvatar": {
+        "exportAs": "hlmAvatar",
         "inputs": [
           {
             "name": "size",
@@ -1270,6 +1334,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "hlm-avatar",
       },
       "HlmAvatarBadge": {
+        "exportAs": "hlmAvatarBadge",
         "inputs": [],
         "models": [],
         "outputs": [],
@@ -1283,12 +1348,14 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmAvatarFallback]",
       },
       "HlmAvatarGroup": {
+        "exportAs": "hlmAvatarGroup",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmAvatarGroup],hlm-avatar-group",
       },
       "HlmAvatarGroupCount": {
+        "exportAs": "hlmAvatarGroupCount",
         "inputs": [],
         "models": [],
         "outputs": [],
@@ -1306,6 +1373,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
   "badge": {
     "helm": {
       "HlmBadge": {
+        "exportAs": "hlmBadge",
         "inputs": [
           {
             "name": "variant",
@@ -1322,6 +1390,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
   "breadcrumb": {
     "helm": {
       "HlmBreadcrumb": {
+        "exportAs": "hlmBreadcrumb",
         "inputs": [
           {
             "name": "aria-label",
@@ -1334,6 +1403,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmBreadcrumb]",
       },
       "HlmBreadcrumbEllipsis": {
+        "exportAs": "hlmBreadcrumbEllipsis",
         "inputs": [
           {
             "name": "srOnlyText",
@@ -1346,12 +1416,14 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "hlm-breadcrumb-ellipsis",
       },
       "HlmBreadcrumbItem": {
+        "exportAs": "hlmBreadcrumbItem",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmBreadcrumbItem]",
       },
       "HlmBreadcrumbLink": {
+        "exportAs": "hlmBreadcrumbLink",
         "inputs": [
           {
             "name": "link",
@@ -1364,18 +1436,21 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmBreadcrumbLink]",
       },
       "HlmBreadcrumbList": {
+        "exportAs": "hlmBreadcrumbList",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmBreadcrumbList]",
       },
       "HlmBreadcrumbPage": {
+        "exportAs": "hlmBreadcrumbPage",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmBreadcrumbPage]",
       },
       "HlmBreadcrumbSeparator": {
+        "exportAs": "hlmBreadcrumbSeparator",
         "inputs": [],
         "models": [],
         "outputs": [],
@@ -1386,6 +1461,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
   "bubble": {
     "helm": {
       "HlmBubble": {
+        "exportAs": "hlmBubble",
         "inputs": [
           {
             "name": "variant",
@@ -1403,18 +1479,21 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmBubble],hlm-bubble",
       },
       "HlmBubbleContent": {
+        "exportAs": "hlmBubbleContent",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmBubbleContent],hlm-bubble-content",
       },
       "HlmBubbleGroup": {
+        "exportAs": "hlmBubbleGroup",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmBubbleGroup],hlm-bubble-group",
       },
       "HlmBubbleReactions": {
+        "exportAs": "hlmBubbleReactions",
         "inputs": [
           {
             "name": "side",
@@ -1436,6 +1515,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
   "button": {
     "brain": {
       "BrnButton": {
+        "exportAs": "brnButton",
         "inputs": [
           {
             "name": "disabled",
@@ -1477,6 +1557,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
   "button-group": {
     "helm": {
       "HlmButtonGroup": {
+        "exportAs": "hlmButtonGroup",
         "inputs": [
           {
             "name": "orientation",
@@ -1489,6 +1570,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmButtonGroup],hlm-button-group",
       },
       "HlmButtonGroupSeparator": {
+        "exportAs": "hlmButtonGroupSeparator",
         "inputs": [
           {
             "name": "orientation",
@@ -1506,6 +1588,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmButtonGroupSeparator],hlm-button-group-separator",
       },
       "HlmButtonGroupText": {
+        "exportAs": "hlmButtonGroupText",
         "inputs": [],
         "models": [],
         "outputs": [],
@@ -1516,6 +1599,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
   "calendar": {
     "brain": {
       "BrnCalendar": {
+        "exportAs": "brnCalendar",
         "inputs": [
           {
             "name": "highlightDays",
@@ -1569,12 +1653,14 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[brnCalendar]",
       },
       "BrnCalendarCell": {
+        "exportAs": "brnCalendarCell",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[brnCalendarCell]",
       },
       "BrnCalendarCellButton": {
+        "exportAs": "brnCalendarCellButton",
         "inputs": [
           {
             "name": "date",
@@ -1587,12 +1673,14 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "button[brnCalendarCellButton]",
       },
       "BrnCalendarGrid": {
+        "exportAs": "brnCalendarGrid",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[brnCalendarGrid]",
       },
       "BrnCalendarHeader": {
+        "exportAs": "brnCalendarHeader",
         "inputs": [
           {
             "name": "id",
@@ -1605,12 +1693,14 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[brnCalendarHeader]",
       },
       "BrnCalendarMonthSelect": {
+        "exportAs": "brnCalendarMonthSelect",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "brnSelect[brnCalendarMonthSelect],hlm-select[brnCalendarMonthSelect]",
       },
       "BrnCalendarMulti": {
+        "exportAs": "brnCalendarMulti",
         "inputs": [
           {
             "name": "highlightDays",
@@ -1674,18 +1764,21 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[brnCalendarMulti]",
       },
       "BrnCalendarNextButton": {
+        "exportAs": "brnCalendarNextButton",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "button[brnCalendarNextButton]",
       },
       "BrnCalendarPreviousButton": {
+        "exportAs": "brnCalendarPreviousButton",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "button[brnCalendarPreviousButton]",
       },
       "BrnCalendarRange": {
+        "exportAs": "brnCalendarRange",
         "inputs": [
           {
             "name": "highlightDays",
@@ -1744,24 +1837,28 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[brnCalendarRange]",
       },
       "BrnCalendarWeek": {
+        "exportAs": "brnCalendarWeek",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[brnCalendarWeek]",
       },
       "BrnCalendarWeekday": {
+        "exportAs": "brnCalendarWeekday",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[brnCalendarWeekday]",
       },
       "BrnCalendarYearSelect": {
+        "exportAs": "brnCalendarYearSelect",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "brnSelect[brnCalendarYearSelect],hlm-select[brnCalendarYearSelect]",
       },
       "BrnMonthYearCalendar": {
+        "exportAs": "brnMonthYearCalendar",
         "inputs": [
           {
             "name": "min",
@@ -1805,12 +1902,14 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[brnMonthYearCalendar]",
       },
       "BrnMonthYearCalendarGrid": {
+        "exportAs": "brnMonthYearCalendarGrid",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[brnMonthYearCalendarGrid]",
       },
       "BrnMonthYearCalendarHeader": {
+        "exportAs": "brnMonthYearCalendarHeader",
         "inputs": [
           {
             "name": "id",
@@ -1823,6 +1922,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "button[brnMonthYearCalendarHeader]",
       },
       "BrnMonthYearCalendarMonthButton": {
+        "exportAs": "brnMonthYearCalendarMonthButton",
         "inputs": [
           {
             "name": "date",
@@ -1835,18 +1935,21 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "button[brnMonthYearCalendarMonthButton]",
       },
       "BrnMonthYearCalendarNextButton": {
+        "exportAs": "brnMonthYearCalendarNextButton",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "button[brnMonthYearCalendarNextButton]",
       },
       "BrnMonthYearCalendarPreviousButton": {
+        "exportAs": "brnMonthYearCalendarPreviousButton",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "button[brnMonthYearCalendarPreviousButton]",
       },
       "BrnMonthYearCalendarYearButton": {
+        "exportAs": "brnMonthYearCalendarYearButton",
         "inputs": [
           {
             "name": "date",
@@ -1861,6 +1964,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
     },
     "helm": {
       "HlmCalendar": {
+        "exportAs": "hlmCalendar",
         "inputs": [
           {
             "name": "captionLayout",
@@ -1918,6 +2022,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "hlm-calendar",
       },
       "HlmCalendarMulti": {
+        "exportAs": "hlmCalendarMulti",
         "inputs": [
           {
             "name": "captionLayout",
@@ -1985,6 +2090,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "hlm-calendar-multi",
       },
       "HlmCalendarRange": {
+        "exportAs": "hlmCalendarRange",
         "inputs": [
           {
             "name": "captionLayout",
@@ -2051,6 +2157,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "hlm-calendar-range",
       },
       "HlmMonthYearCalendar": {
+        "exportAs": "hlmMonthYearCalendar",
         "inputs": [
           {
             "name": "min",
@@ -2097,6 +2204,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
   "card": {
     "helm": {
       "HlmCard": {
+        "exportAs": "hlmCard",
         "inputs": [
           {
             "name": "size",
@@ -2109,36 +2217,42 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmCard],hlm-card",
       },
       "HlmCardAction": {
+        "exportAs": "hlmCardAction",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmCardAction]",
       },
       "HlmCardContent": {
+        "exportAs": "hlmCardContent",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmCardContent]",
       },
       "HlmCardDescription": {
+        "exportAs": "hlmCardDescription",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmCardDescription]",
       },
       "HlmCardFooter": {
+        "exportAs": "hlmCardFooter",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmCardFooter],hlm-card-footer",
       },
       "HlmCardHeader": {
+        "exportAs": "hlmCardHeader",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmCardHeader],hlm-card-header",
       },
       "HlmCardTitle": {
+        "exportAs": "hlmCardTitle",
         "inputs": [],
         "models": [],
         "outputs": [],
@@ -2149,6 +2263,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
   "carousel": {
     "helm": {
       "HlmCarousel": {
+        "exportAs": "hlmCarousel",
         "inputs": [
           {
             "name": "orientation",
@@ -2171,18 +2286,21 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "hlm-carousel",
       },
       "HlmCarouselContent": {
+        "exportAs": "hlmCarouselContent",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmCarouselContent],hlm-carousel-content",
       },
       "HlmCarouselItem": {
+        "exportAs": "hlmCarouselItem",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmCarouselItem],hlm-carousel-item",
       },
       "HlmCarouselNext": {
+        "exportAs": "hlmCarouselNext",
         "inputs": [
           {
             "name": "variant",
@@ -2200,6 +2318,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "button[hlm-carousel-next], button[hlmCarouselNext]",
       },
       "HlmCarouselPrevious": {
+        "exportAs": "hlmCarouselPrevious",
         "inputs": [
           {
             "name": "variant",
@@ -2217,6 +2336,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "button[hlm-carousel-previous], button[hlmCarouselPrevious]",
       },
       "HlmCarouselSlideDisplay": {
+        "exportAs": "hlmCarouselSlideDisplay",
         "inputs": [
           {
             "name": "slideClass",
@@ -2238,6 +2358,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
   "chart": {
     "helm": {
       "HlmChart": {
+        "exportAs": "hlmChart",
         "inputs": [],
         "models": [],
         "outputs": [],
@@ -2248,6 +2369,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
   "checkbox": {
     "brain": {
       "BrnCheckbox": {
+        "exportAs": "brnCheckbox",
         "inputs": [
           {
             "name": "checked",
@@ -2327,6 +2449,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
     },
     "helm": {
       "HlmCheckbox": {
+        "exportAs": "hlmCheckbox",
         "inputs": [
           {
             "name": "class",
@@ -2542,6 +2665,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[brnCollapsible],brn-collapsible",
       },
       "BrnCollapsibleContent": {
+        "exportAs": "brnCollapsibleContent",
         "inputs": [
           {
             "name": "id",
@@ -2554,6 +2678,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[brnCollapsibleContent],brn-collapsible-content",
       },
       "BrnCollapsibleTrigger": {
+        "exportAs": "brnCollapsibleTrigger",
         "inputs": [
           {
             "name": "type",
@@ -2568,6 +2693,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
     },
     "helm": {
       "HlmCollapsible": {
+        "exportAs": "hlmCollapsible",
         "inputs": [
           {
             "name": "expanded",
@@ -2590,6 +2716,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmCollapsible],hlm-collapsible",
       },
       "HlmCollapsibleContent": {
+        "exportAs": "hlmCollapsibleContent",
         "inputs": [
           {
             "name": "id",
@@ -2602,6 +2729,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmCollapsibleContent],hlm-collapsible-content",
       },
       "HlmCollapsibleTrigger": {
+        "exportAs": "hlmCollapsibleTrigger",
         "inputs": [
           {
             "name": "type",
@@ -2618,6 +2746,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
   "combobox": {
     "brain": {
       "BrnCombobox": {
+        "exportAs": "brnCombobox",
         "inputs": [
           {
             "name": "disabled",
@@ -2676,12 +2805,14 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[brnCombobox]",
       },
       "BrnComboboxAnchor": {
+        "exportAs": "brnComboboxAnchor",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[brnComboboxAnchor]",
       },
       "BrnComboboxChip": {
+        "exportAs": "brnComboboxChip",
         "inputs": [
           {
             "name": "value",
@@ -2694,6 +2825,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[brnComboboxChip]",
       },
       "BrnComboboxChipInput": {
+        "exportAs": "brnComboboxChipInput",
         "inputs": [
           {
             "name": "id",
@@ -2711,18 +2843,21 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "input[brnComboboxChipInput]",
       },
       "BrnComboboxChipRemove": {
+        "exportAs": "brnComboboxChipRemove",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "button[brnComboboxChipRemove]",
       },
       "BrnComboboxClear": {
+        "exportAs": "brnComboboxClear",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[brnComboboxClear]",
       },
       "BrnComboboxContent": {
+        "exportAs": "brnComboboxContent",
         "inputs": [
           {
             "name": "id",
@@ -2735,12 +2870,14 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[brnComboboxContent]",
       },
       "BrnComboboxEmpty": {
+        "exportAs": "brnComboboxEmpty",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[brnComboboxEmpty]",
       },
       "BrnComboboxGroup": {
+        "exportAs": "brnComboboxGroup",
         "inputs": [],
         "models": [],
         "outputs": [],
@@ -2770,6 +2907,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "input[brnComboboxInput]",
       },
       "BrnComboboxItem": {
+        "exportAs": "brnComboboxItem",
         "inputs": [
           {
             "name": "id",
@@ -2792,6 +2930,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[brnComboboxItem]",
       },
       "BrnComboboxLabel": {
+        "exportAs": "brnComboboxLabel",
         "inputs": [
           {
             "name": "id",
@@ -2804,6 +2943,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[brnComboboxLabel]",
       },
       "BrnComboboxList": {
+        "exportAs": "brnComboboxList",
         "inputs": [
           {
             "name": "id",
@@ -2821,6 +2961,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[brnComboboxList]",
       },
       "BrnComboboxMultiple": {
+        "exportAs": "brnComboboxMultiple",
         "inputs": [
           {
             "name": "disabled",
@@ -2879,12 +3020,14 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[brnCombobox]",
       },
       "BrnComboboxPlaceholder": {
+        "exportAs": "brnComboboxPlaceholder",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[brnComboboxPlaceholder]",
       },
       "BrnComboboxPopoverTrigger": {
+        "exportAs": "brnComboboxPopoverTrigger",
         "inputs": [
           {
             "name": "closeOnTriggerClick",
@@ -2897,6 +3040,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[brnComboboxPopoverTrigger]",
       },
       "BrnComboboxSeparator": {
+        "exportAs": "brnComboboxSeparator",
         "inputs": [
           {
             "name": "orientation",
@@ -2909,12 +3053,14 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[brnComboboxSeparator]",
       },
       "BrnComboboxStatus": {
+        "exportAs": "brnComboboxStatus",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[brnComboboxStatus]",
       },
       "BrnComboboxTrigger": {
+        "exportAs": "brnComboboxTrigger",
         "inputs": [
           {
             "name": "forceInvalid",
@@ -2927,6 +3073,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "button[brnComboboxTrigger]",
       },
       "BrnComboboxValue": {
+        "exportAs": "brnComboboxValue",
         "inputs": [
           {
             "name": "placeholder",
@@ -2939,12 +3086,14 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[brnComboboxValue]",
       },
       "BrnComboboxValueTemplate": {
+        "exportAs": "brnComboboxValueTemplate",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[brnComboboxValueTemplate]",
       },
       "BrnComboboxValues": {
+        "exportAs": "brnComboboxValues",
         "inputs": [],
         "models": [],
         "outputs": [],
@@ -2953,6 +3102,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
     },
     "helm": {
       "HlmCombobox": {
+        "exportAs": "hlmCombobox",
         "inputs": [
           {
             "name": "autoHighlight",
@@ -3052,6 +3202,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmCombobox],hlm-combobox",
       },
       "HlmComboboxChip": {
+        "exportAs": "hlmComboboxChip",
         "inputs": [
           {
             "name": "showRemove",
@@ -3069,6 +3220,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "hlm-combobox-chip",
       },
       "HlmComboboxChipInput": {
+        "exportAs": "hlmComboboxChipInput",
         "inputs": [
           {
             "name": "id",
@@ -3086,12 +3238,14 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "input[hlmComboboxChipInput]",
       },
       "HlmComboboxChipRemove": {
+        "exportAs": "hlmComboboxChipRemove",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "button[hlmComboboxChipRemove]",
       },
       "HlmComboboxChips": {
+        "exportAs": "hlmComboboxChips",
         "inputs": [
           {
             "name": "forceInvalid",
@@ -3104,6 +3258,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmComboboxChips],hlm-combobox-chips",
       },
       "HlmComboboxContent": {
+        "exportAs": "hlmComboboxContent",
         "inputs": [
           {
             "name": "id",
@@ -3116,18 +3271,21 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmComboboxContent],hlm-combobox-content",
       },
       "HlmComboboxEmpty": {
+        "exportAs": "hlmComboboxEmpty",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmComboboxEmpty],hlm-combobox-empty",
       },
       "HlmComboboxGroup": {
+        "exportAs": "hlmComboboxGroup",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmComboboxGroup]",
       },
       "HlmComboboxInput": {
+        "exportAs": "hlmComboboxInput",
         "inputs": [
           {
             "name": "inputId",
@@ -3175,6 +3333,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "hlm-combobox-input",
       },
       "HlmComboboxItem": {
+        "exportAs": "hlmComboboxItem",
         "inputs": [
           {
             "name": "id",
@@ -3197,6 +3356,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "hlm-combobox-item",
       },
       "HlmComboboxLabel": {
+        "exportAs": "hlmComboboxLabel",
         "inputs": [
           {
             "name": "id",
@@ -3209,6 +3369,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmComboboxLabel]",
       },
       "HlmComboboxList": {
+        "exportAs": "hlmComboboxList",
         "inputs": [
           {
             "name": "id",
@@ -3221,6 +3382,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmComboboxList]",
       },
       "HlmComboboxMultiple": {
+        "exportAs": "hlmComboboxMultiple",
         "inputs": [
           {
             "name": "autoHighlight",
@@ -3320,12 +3482,14 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmComboboxMultiple],hlm-combobox-multiple",
       },
       "HlmComboboxPlaceholder": {
+        "exportAs": "hlmComboboxPlaceholder",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmComboboxPlaceholder],hlm-combobox-placeholder",
       },
       "HlmComboboxPortal": {
+        "exportAs": "hlmComboboxPortal",
         "inputs": [
           {
             "name": "context",
@@ -3343,6 +3507,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmComboboxPortal]",
       },
       "HlmComboboxSeparator": {
+        "exportAs": "hlmComboboxSeparator",
         "inputs": [
           {
             "name": "orientation",
@@ -3355,12 +3520,14 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmComboboxSeparator]",
       },
       "HlmComboboxStatus": {
+        "exportAs": "hlmComboboxStatus",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmComboboxStatus],hlm-combobox-status",
       },
       "HlmComboboxTrigger": {
+        "exportAs": "hlmComboboxTrigger",
         "inputs": [
           {
             "name": "class",
@@ -3388,6 +3555,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "hlm-combobox-trigger",
       },
       "HlmComboboxValue": {
+        "exportAs": "hlmComboboxValue",
         "inputs": [
           {
             "name": "placeholder",
@@ -3400,12 +3568,14 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmComboboxValue],hlm-combobox-value",
       },
       "HlmComboboxValueTemplate": {
+        "exportAs": "hlmComboboxValueTemplate",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmComboboxValueTemplate]",
       },
       "HlmComboboxValues": {
+        "exportAs": "hlmComboboxValues",
         "inputs": [],
         "models": [],
         "outputs": [],
@@ -3416,6 +3586,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
   "command": {
     "brain": {
       "BrnCommand": {
+        "exportAs": "brnCommand",
         "inputs": [
           {
             "name": "id",
@@ -3449,12 +3620,14 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[brnCommand]",
       },
       "BrnCommandEmpty": {
+        "exportAs": "brnCommandEmpty",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[brnCommandEmpty]",
       },
       "BrnCommandGroup": {
+        "exportAs": "brnCommandGroup",
         "inputs": [
           {
             "name": "id",
@@ -3467,6 +3640,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[brnCommandGroup]",
       },
       "BrnCommandInput": {
+        "exportAs": "brnCommandInput",
         "inputs": [
           {
             "name": "id",
@@ -3479,6 +3653,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "input[brnCommandInput]",
       },
       "BrnCommandItem": {
+        "exportAs": "brnCommandItem",
         "inputs": [
           {
             "name": "id",
@@ -3506,6 +3681,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "button[brnCommandItem]",
       },
       "BrnCommandList": {
+        "exportAs": "brnCommandList",
         "inputs": [
           {
             "name": "id",
@@ -3523,6 +3699,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[brnCommandList]",
       },
       "BrnCommandSeparator": {
+        "exportAs": "brnCommandSeparator",
         "inputs": [],
         "models": [],
         "outputs": [],
@@ -3531,6 +3708,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
     },
     "helm": {
       "HlmCommand": {
+        "exportAs": "hlmCommand",
         "inputs": [
           {
             "name": "id",
@@ -3567,6 +3745,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmCommand],hlm-command",
       },
       "HlmCommandDialog": {
+        "exportAs": "hlmCommandDialog",
         "inputs": [
           {
             "name": "title",
@@ -3604,18 +3783,21 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "hlm-command-dialog",
       },
       "HlmCommandEmpty": {
+        "exportAs": "hlmCommandEmpty",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmCommandEmpty]",
       },
       "HlmCommandEmptyState": {
+        "exportAs": "hlmCommandEmptyState",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmCommandEmptyState]",
       },
       "HlmCommandGroup": {
+        "exportAs": "hlmCommandGroup",
         "inputs": [
           {
             "name": "id",
@@ -3628,12 +3810,14 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmCommandGroup],hlm-command-group",
       },
       "HlmCommandGroupLabel": {
+        "exportAs": "hlmCommandGroupLabel",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmCommandGroupLabel],hlm-command-group-label",
       },
       "HlmCommandInput": {
+        "exportAs": "hlmCommandInput",
         "inputs": [
           {
             "name": "inputId",
@@ -3651,6 +3835,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "hlm-command-input",
       },
       "HlmCommandItem": {
+        "exportAs": "hlmCommandItem",
         "inputs": [
           {
             "name": "value",
@@ -3678,6 +3863,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "button[hlmCommandItem],button[hlm-command-item]",
       },
       "HlmCommandList": {
+        "exportAs": "hlmCommandList",
         "inputs": [
           {
             "name": "id",
@@ -3690,12 +3876,14 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmCommandList],hlm-command-list",
       },
       "HlmCommandSeparator": {
+        "exportAs": "hlmCommandSeparator",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmCommandSeparator],hlm-command-separator",
       },
       "HlmCommandShortcut": {
+        "exportAs": "hlmCommandShortcut",
         "inputs": [],
         "models": [],
         "outputs": [],
@@ -3706,6 +3894,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
   "context-menu": {
     "helm": {
       "HlmContextMenuTrigger": {
+        "exportAs": "hlmContextMenuTrigger",
         "inputs": [
           {
             "name": "disabled",
@@ -3782,6 +3971,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
     },
     "helm": {
       "HlmDateMultiInput": {
+        "exportAs": "hlmDateMultiInput",
         "inputs": [
           {
             "name": "parseDate",
@@ -3839,6 +4029,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "hlm-date-multi-input",
       },
       "HlmDatePicker": {
+        "exportAs": "hlmDatePicker",
         "inputs": [
           {
             "name": "align",
@@ -3901,6 +4092,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "hlm-date-picker",
       },
       "HlmDatePickerAnchor": {
+        "exportAs": "hlmDatePickerAnchor",
         "inputs": [
           {
             "name": "hlmDatePickerAnchorFor",
@@ -3913,6 +4105,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmDatePickerAnchor]",
       },
       "HlmDatePickerInput": {
+        "exportAs": "hlmDatePickerInput",
         "inputs": [
           {
             "name": "parseDate",
@@ -3970,6 +4163,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "hlm-date-picker-input",
       },
       "HlmDatePickerMulti": {
+        "exportAs": "hlmDatePickerMulti",
         "inputs": [
           {
             "name": "align",
@@ -4037,6 +4231,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "hlm-date-picker-multi",
       },
       "HlmDatePickerTrigger": {
+        "exportAs": "hlmDatePickerTrigger",
         "inputs": [
           {
             "name": "class",
@@ -4069,6 +4264,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "hlm-date-picker-trigger",
       },
       "HlmDateRangeInput": {
+        "exportAs": "hlmDateRangeInput",
         "inputs": [
           {
             "name": "parseDate",
@@ -4126,6 +4322,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "hlm-date-range-input",
       },
       "HlmDateRangePicker": {
+        "exportAs": "hlmDateRangePicker",
         "inputs": [
           {
             "name": "align",
@@ -4183,6 +4380,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "hlm-date-range-picker",
       },
       "HlmMonthYearInput": {
+        "exportAs": "hlmMonthYearInput",
         "inputs": [
           {
             "name": "parseDate",
@@ -4240,6 +4438,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "hlm-month-year-input",
       },
       "HlmMonthYearPicker": {
+        "exportAs": "hlmMonthYearPicker",
         "inputs": [
           {
             "name": "align",
@@ -4398,12 +4597,14 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[brnDialog],brn-dialog",
       },
       "BrnDialogClose": {
+        "exportAs": "brnDialogClose",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "button[brnDialogClose]",
       },
       "BrnDialogContent": {
+        "exportAs": "brnDialogContent",
         "inputs": [
           {
             "name": "class",
@@ -4421,12 +4622,14 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[brnDialogContent]",
       },
       "BrnDialogDescription": {
+        "exportAs": "brnDialogDescription",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[brnDialogDescription]",
       },
       "BrnDialogOverlay": {
+        "exportAs": "brnDialogOverlay",
         "inputs": [
           {
             "name": "class",
@@ -4439,6 +4642,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[brnDialogOverlay],brn-dialog-overlay",
       },
       "BrnDialogTitle": {
+        "exportAs": "brnDialogTitle",
         "inputs": [],
         "models": [],
         "outputs": [],
@@ -4567,12 +4771,14 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "hlm-dialog",
       },
       "HlmDialogClose": {
+        "exportAs": "hlmDialogClose",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "button[hlmDialogClose]",
       },
       "HlmDialogContent": {
+        "exportAs": "hlmDialogContent",
         "inputs": [
           {
             "name": "showCloseButton",
@@ -4590,24 +4796,28 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "hlm-dialog-content",
       },
       "HlmDialogDescription": {
+        "exportAs": "hlmDialogDescription",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmDialogDescription]",
       },
       "HlmDialogFooter": {
+        "exportAs": "hlmDialogFooter",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmDialogFooter],hlm-dialog-footer",
       },
       "HlmDialogHeader": {
+        "exportAs": "hlmDialogHeader",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmDialogHeader],hlm-dialog-header",
       },
       "HlmDialogOverlay": {
+        "exportAs": "hlmDialogOverlay",
         "inputs": [
           {
             "name": "class",
@@ -4620,6 +4830,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmDialogOverlay],hlm-dialog-overlay",
       },
       "HlmDialogPortal": {
+        "exportAs": "hlmDialogPortal",
         "inputs": [
           {
             "name": "context",
@@ -4637,12 +4848,14 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmDialogPortal]",
       },
       "HlmDialogTitle": {
+        "exportAs": "hlmDialogTitle",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmDialogTitle]",
       },
       "HlmDialogTrigger": {
+        "exportAs": "hlmDialogTrigger",
         "inputs": [
           {
             "name": "id",
@@ -4771,12 +4984,14 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[brnDrawer],brn-drawer",
       },
       "BrnDrawerClose": {
+        "exportAs": "brnDrawerClose",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "button[brnDrawerClose]",
       },
       "BrnDrawerContent": {
+        "exportAs": "brnDrawerContent",
         "inputs": [
           {
             "name": "class",
@@ -4794,12 +5009,14 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[brnDrawerContent]",
       },
       "BrnDrawerDescription": {
+        "exportAs": "brnDrawerDescription",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[brnDrawerDescription]",
       },
       "BrnDrawerHandle": {
+        "exportAs": "brnDrawerHandle",
         "inputs": [
           {
             "name": "closeThreshold",
@@ -4812,6 +5029,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[brnDrawerHandle]",
       },
       "BrnDrawerOverlay": {
+        "exportAs": "brnDrawerOverlay",
         "inputs": [
           {
             "name": "class",
@@ -4824,12 +5042,14 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[brnDrawerOverlay],brn-drawer-overlay",
       },
       "BrnDrawerTitle": {
+        "exportAs": "brnDrawerTitle",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[brnDrawerTitle]",
       },
       "BrnDrawerTrigger": {
+        "exportAs": "brnDrawerTrigger",
         "inputs": [
           {
             "name": "direction",
@@ -4961,12 +5181,14 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "hlm-drawer",
       },
       "HlmDrawerClose": {
+        "exportAs": "hlmDrawerClose",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "button[hlmDrawerClose]",
       },
       "HlmDrawerContent": {
+        "exportAs": "hlmDrawerContent",
         "inputs": [
           {
             "name": "closeThreshold",
@@ -4979,24 +5201,28 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "hlm-drawer-content",
       },
       "HlmDrawerDescription": {
+        "exportAs": "hlmDrawerDescription",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmDrawerDescription]",
       },
       "HlmDrawerFooter": {
+        "exportAs": "hlmDrawerFooter",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmDrawerFooter],hlm-drawer-footer",
       },
       "HlmDrawerHeader": {
+        "exportAs": "hlmDrawerHeader",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmDrawerHeader],hlm-drawer-header",
       },
       "HlmDrawerOverlay": {
+        "exportAs": "hlmDrawerOverlay",
         "inputs": [
           {
             "name": "class",
@@ -5009,6 +5235,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmDrawerOverlay],hlm-drawer-overlay",
       },
       "HlmDrawerPortal": {
+        "exportAs": "hlmDrawerPortal",
         "inputs": [
           {
             "name": "context",
@@ -5026,12 +5253,14 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmDrawerPortal]",
       },
       "HlmDrawerTitle": {
+        "exportAs": "hlmDrawerTitle",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmDrawerTitle]",
       },
       "HlmDrawerTrigger": {
+        "exportAs": "hlmDrawerTrigger",
         "inputs": [
           {
             "name": "id",
@@ -5058,6 +5287,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
   "dropdown-menu": {
     "helm": {
       "HlmDropdownMenu": {
+        "exportAs": "hlmDropdownMenu",
         "inputs": [
           {
             "name": "sideOffset",
@@ -5070,6 +5300,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmDropdownMenu],hlm-dropdown-menu",
       },
       "HlmDropdownMenuCheckbox": {
+        "exportAs": "hlmDropdownMenuCheckbox",
         "inputs": [
           {
             "name": "inset",
@@ -5087,6 +5318,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmDropdownMenuCheckbox],[hlmDropdownMenuCheckboxItem]",
       },
       "HlmDropdownMenuCheckboxCdk": {
+        "exportAs": "hlmDropdownMenuCheckboxCdk",
         "inputs": [
           {
             "name": "keepOpen",
@@ -5099,24 +5331,28 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmDropdownMenuCheckboxCdk]",
       },
       "HlmDropdownMenuCheckboxIndicator": {
+        "exportAs": "hlmDropdownMenuCheckboxIndicator",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "hlm-dropdown-menu-checkbox-indicator",
       },
       "HlmDropdownMenuFocusOnHover": {
+        "exportAs": "hlmDropdownMenuFocusOnHover",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmDropdownMenuFocusOnHover]",
       },
       "HlmDropdownMenuGroup": {
+        "exportAs": "hlmDropdownMenuGroup",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmDropdownMenuGroup],hlm-dropdown-menu-group",
       },
       "HlmDropdownMenuItem": {
+        "exportAs": "hlmDropdownMenuItem",
         "inputs": [
           {
             "name": "disabled",
@@ -5139,12 +5375,14 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmDropdownMenuItem],hlm-dropdown-menu-item",
       },
       "HlmDropdownMenuItemSubIndicator": {
+        "exportAs": "hlmDropdownMenuItemSubIndicator",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "hlm-dropdown-menu-item-sub-indicator",
       },
       "HlmDropdownMenuLabel": {
+        "exportAs": "hlmDropdownMenuLabel",
         "inputs": [
           {
             "name": "inset",
@@ -5157,6 +5395,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmDropdownMenuLabel],hlm-dropdown-menu-label",
       },
       "HlmDropdownMenuRadio": {
+        "exportAs": "hlmDropdownMenuRadio",
         "inputs": [
           {
             "name": "keepOpen",
@@ -5169,6 +5408,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmDropdownMenuRadio]",
       },
       "HlmDropdownMenuRadioCdk": {
+        "exportAs": "hlmDropdownMenuRadioCdk",
         "inputs": [
           {
             "name": "keepOpen",
@@ -5181,30 +5421,35 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmDropdownMenuRadioCdk]",
       },
       "HlmDropdownMenuRadioIndicator": {
+        "exportAs": "hlmDropdownMenuRadioIndicator",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "hlm-dropdown-menu-radio-indicator",
       },
       "HlmDropdownMenuSeparator": {
+        "exportAs": "hlmDropdownMenuSeparator",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmDropdownMenuSeparator],hlm-dropdown-menu-separator",
       },
       "HlmDropdownMenuShortcut": {
+        "exportAs": "hlmDropdownMenuShortcut",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmDropdownMenuShortcut],hlm-dropdown-menu-shortcut",
       },
       "HlmDropdownMenuSub": {
+        "exportAs": "hlmDropdownMenuSub",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmDropdownMenuSub],hlm-dropdown-menu-sub",
       },
       "HlmDropdownMenuSubTrigger": {
+        "exportAs": "hlmDropdownMenuSubTrigger",
         "inputs": [
           {
             "name": "align",
@@ -5222,6 +5467,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmDropdownMenuSubTrigger]",
       },
       "HlmDropdownMenuTrigger": {
+        "exportAs": "hlmDropdownMenuTrigger",
         "inputs": [
           {
             "name": "align",
@@ -5243,30 +5489,35 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
   "empty": {
     "helm": {
       "HlmEmpty": {
+        "exportAs": "hlmEmpty",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmEmpty],hlm-empty",
       },
       "HlmEmptyContent": {
+        "exportAs": "hlmEmptyContent",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmEmptyContent],hlm-empty-content",
       },
       "HlmEmptyDescription": {
+        "exportAs": "hlmEmptyDescription",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmEmptyDescription]",
       },
       "HlmEmptyHeader": {
+        "exportAs": "hlmEmptyHeader",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmEmptyHeader],hlm-empty-header",
       },
       "HlmEmptyMedia": {
+        "exportAs": "hlmEmptyMedia",
         "inputs": [
           {
             "name": "variant",
@@ -5279,6 +5530,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmEmptyMedia],hlm-empty-media",
       },
       "HlmEmptyTitle": {
+        "exportAs": "hlmEmptyTitle",
         "inputs": [],
         "models": [],
         "outputs": [],
@@ -5289,6 +5541,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
   "field": {
     "brain": {
       "BrnField": {
+        "exportAs": "brnField",
         "inputs": [
           {
             "name": "data-invalid",
@@ -5306,6 +5559,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[brnField],brn-field",
       },
       "BrnFieldControlDescribedBy": {
+        "exportAs": "brnFieldControlDescribedBy",
         "inputs": [
           {
             "name": "aria-describedby",
@@ -5320,6 +5574,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
     },
     "helm": {
       "HlmField": {
+        "exportAs": "hlmField",
         "inputs": [
           {
             "name": "orientation",
@@ -5342,12 +5597,14 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmField],hlm-field",
       },
       "HlmFieldContent": {
+        "exportAs": "hlmFieldContent",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmFieldContent],hlm-field-content",
       },
       "HlmFieldDescription": {
+        "exportAs": "hlmFieldDescription",
         "inputs": [
           {
             "name": "id",
@@ -5360,6 +5617,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmFieldDescription],hlm-field-description",
       },
       "HlmFieldError": {
+        "exportAs": "hlmFieldError",
         "inputs": [
           {
             "name": "id",
@@ -5382,18 +5640,21 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "hlm-field-error",
       },
       "HlmFieldGroup": {
+        "exportAs": "hlmFieldGroup",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmFieldGroup],hlm-field-group",
       },
       "HlmFieldLabel": {
+        "exportAs": "hlmFieldLabel",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmFieldLabel],hlm-field-label",
       },
       "HlmFieldLegend": {
+        "exportAs": "hlmFieldLegend",
         "inputs": [
           {
             "name": "variant",
@@ -5406,18 +5667,21 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "legend[hlmFieldLegend]",
       },
       "HlmFieldSeparator": {
+        "exportAs": "hlmFieldSeparator",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "hlm-field-separator",
       },
       "HlmFieldSet": {
+        "exportAs": "hlmFieldSet",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "fieldset[hlmFieldSet]",
       },
       "HlmFieldTitle": {
+        "exportAs": "hlmFieldTitle",
         "inputs": [],
         "models": [],
         "outputs": [],
@@ -5428,6 +5692,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
   "hover-card": {
     "brain": {
       "BrnHoverCard": {
+        "exportAs": "brnHoverCard",
         "inputs": [],
         "models": [],
         "outputs": [],
@@ -5481,24 +5746,28 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
     },
     "helm": {
       "HlmHoverCard": {
+        "exportAs": "hlmHoverCard",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmHoverCard],hlm-hover-card",
       },
       "HlmHoverCardContent": {
+        "exportAs": "hlmHoverCardContent",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmHoverCardContent],hlm-hover-card-content",
       },
       "HlmHoverCardPortal": {
+        "exportAs": "hlmHoverCardPortal",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmHoverCardPortal],hlm-hover-card-portal",
       },
       "HlmHoverCardTrigger": {
+        "exportAs": "hlmHoverCardTrigger",
         "inputs": [
           {
             "name": "showDelay",
@@ -5540,6 +5809,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
   "input": {
     "brain": {
       "BrnInput": {
+        "exportAs": "brnInput",
         "inputs": [
           {
             "name": "id",
@@ -5559,6 +5829,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
     },
     "helm": {
       "HlmInput": {
+        "exportAs": "hlmInput",
         "inputs": [
           {
             "name": "id",
@@ -5580,12 +5851,14 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
   "input-group": {
     "helm": {
       "HlmInputGroup": {
+        "exportAs": "hlmInputGroup",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmInputGroup],hlm-input-group",
       },
       "HlmInputGroupAddon": {
+        "exportAs": "hlmInputGroupAddon",
         "inputs": [
           {
             "name": "align",
@@ -5598,6 +5871,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmInputGroupAddon],hlm-input-group-addon",
       },
       "HlmInputGroupButton": {
+        "exportAs": "hlmInputGroupButton",
         "inputs": [
           {
             "name": "size",
@@ -5620,18 +5894,21 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "button[hlmInputGroupButton]",
       },
       "HlmInputGroupInput": {
+        "exportAs": "hlmInputGroupInput",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "input[hlmInputGroupInput]",
       },
       "HlmInputGroupText": {
+        "exportAs": "hlmInputGroupText",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmInputGroupText],hlm-input-group-text",
       },
       "HlmInputGroupTextarea": {
+        "exportAs": "hlmInputGroupTextarea",
         "inputs": [],
         "models": [],
         "outputs": [],
@@ -5642,6 +5919,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
   "input-otp": {
     "brain": {
       "BrnInputOtp": {
+        "exportAs": "brnInputOtp",
         "inputs": [
           {
             "name": "hostStyles",
@@ -5718,6 +5996,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "brn-input-otp",
       },
       "BrnInputOtpSlot": {
+        "exportAs": "brnInputOtpSlot",
         "inputs": [
           {
             "name": "index",
@@ -5737,30 +6016,35 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
     },
     "helm": {
       "HlmInputOtp": {
+        "exportAs": "hlmInputOtp",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "brn-input-otp[hlmInputOtp], brn-input-otp[hlm]",
       },
       "HlmInputOtpFakeCaret": {
+        "exportAs": "hlmInputOtpFakeCaret",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "hlm-input-otp-fake-caret",
       },
       "HlmInputOtpGroup": {
+        "exportAs": "hlmInputOtpGroup",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmInputOtpGroup],hlm-input-otp-group",
       },
       "HlmInputOtpSeparator": {
+        "exportAs": "hlmInputOtpSeparator",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "hlm-input-otp-separator",
       },
       "HlmInputOtpSlot": {
+        "exportAs": "hlmInputOtpSlot",
         "inputs": [
           {
             "name": "index",
@@ -5782,6 +6066,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
   "item": {
     "helm": {
       "HlmItem": {
+        "exportAs": "hlmItem",
         "inputs": [
           {
             "name": "variant",
@@ -5799,42 +6084,49 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmItem],hlm-item",
       },
       "HlmItemActions": {
+        "exportAs": "hlmItemActions",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmItemActions],hlm-item-actions",
       },
       "HlmItemContent": {
+        "exportAs": "hlmItemContent",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmItemContent],hlm-item-content",
       },
       "HlmItemDescription": {
+        "exportAs": "hlmItemDescription",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmItemDescription],hlm-item-description",
       },
       "HlmItemFooter": {
+        "exportAs": "hlmItemFooter",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmItemFooter],hlm-item-footer",
       },
       "HlmItemGroup": {
+        "exportAs": "hlmItemGroup",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmItemGroup],hlm-item-group",
       },
       "HlmItemHeader": {
+        "exportAs": "hlmItemHeader",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmItemHeader],hlm-item-header",
       },
       "HlmItemMedia": {
+        "exportAs": "hlmItemMedia",
         "inputs": [
           {
             "name": "variant",
@@ -5847,6 +6139,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmItemMedia],hlm-item-media",
       },
       "HlmItemSeparator": {
+        "exportAs": "hlmItemSeparator",
         "inputs": [
           {
             "name": "orientation",
@@ -5859,6 +6152,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmItemSeparator],hlm-item-separator",
       },
       "HlmItemTitle": {
+        "exportAs": "hlmItemTitle",
         "inputs": [],
         "models": [],
         "outputs": [],
@@ -5869,12 +6163,14 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
   "kbd": {
     "helm": {
       "HlmKbd": {
+        "exportAs": "hlmKbd",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "kbd[hlmKbd]",
       },
       "HlmKbdGroup": {
+        "exportAs": "hlmKbdGroup",
         "inputs": [],
         "models": [],
         "outputs": [],
@@ -5885,6 +6181,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
   "label": {
     "brain": {
       "BrnLabel": {
+        "exportAs": "brnLabel",
         "inputs": [
           {
             "name": "id",
@@ -5904,6 +6201,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
     },
     "helm": {
       "HlmLabel": {
+        "exportAs": "hlmLabel",
         "inputs": [
           {
             "name": "id",
@@ -5925,6 +6223,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
   "marker": {
     "helm": {
       "HlmMarker": {
+        "exportAs": "hlmMarker",
         "inputs": [
           {
             "name": "variant",
@@ -5937,12 +6236,14 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmMarker],hlm-marker",
       },
       "HlmMarkerContent": {
+        "exportAs": "hlmMarkerContent",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmMarkerContent],hlm-marker-content",
       },
       "HlmMarkerIcon": {
+        "exportAs": "hlmMarkerIcon",
         "inputs": [],
         "models": [],
         "outputs": [],
@@ -5953,12 +6254,14 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
   "menubar": {
     "helm": {
       "HlmMenubar": {
+        "exportAs": "hlmMenubar",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmMenubar],hlm-menubar",
       },
       "HlmMenubarTrigger": {
+        "exportAs": "hlmMenubarTrigger",
         "inputs": [
           {
             "name": "disabled",
@@ -5985,6 +6288,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
   "message": {
     "helm": {
       "HlmMessage": {
+        "exportAs": "hlmMessage",
         "inputs": [
           {
             "name": "align",
@@ -5997,30 +6301,35 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmMessage],hlm-message",
       },
       "HlmMessageAvatar": {
+        "exportAs": "hlmMessageAvatar",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmMessageAvatar],hlm-message-avatar",
       },
       "HlmMessageContent": {
+        "exportAs": "hlmMessageContent",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmMessageContent],hlm-message-content",
       },
       "HlmMessageFooter": {
+        "exportAs": "hlmMessageFooter",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmMessageFooter],hlm-message-footer",
       },
       "HlmMessageGroup": {
+        "exportAs": "hlmMessageGroup",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmMessageGroup],hlm-message-group",
       },
       "HlmMessageHeader": {
+        "exportAs": "hlmMessageHeader",
         "inputs": [],
         "models": [],
         "outputs": [],
@@ -6155,12 +6464,14 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
     },
     "helm": {
       "HlmMessageScroller": {
+        "exportAs": "hlmMessageScroller",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmMessageScroller],hlm-message-scroller",
       },
       "HlmMessageScrollerButton": {
+        "exportAs": "hlmMessageScrollerButton",
         "inputs": [
           {
             "name": "variant",
@@ -6193,6 +6504,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "button[hlmMessageScrollerButton]",
       },
       "HlmMessageScrollerContent": {
+        "exportAs": "hlmMessageScrollerContent",
         "inputs": [
           {
             "name": "aria-relevant",
@@ -6210,6 +6522,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmMessageScrollerContent],hlm-message-scroller-content",
       },
       "HlmMessageScrollerItem": {
+        "exportAs": "hlmMessageScrollerItem",
         "inputs": [
           {
             "name": "messageId",
@@ -6227,6 +6540,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmMessageScrollerItem],hlm-message-scroller-item",
       },
       "HlmMessageScrollerProvider": {
+        "exportAs": "hlmMessageScrollerProvider",
         "inputs": [
           {
             "name": "autoScroll",
@@ -6259,6 +6573,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmMessageScrollerProvider]",
       },
       "HlmMessageScrollerViewport": {
+        "exportAs": "hlmMessageScrollerViewport",
         "inputs": [
           {
             "name": "preserveScrollOnPrepend",
@@ -6285,6 +6600,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
   "native-select": {
     "helm": {
       "HlmNativeSelect": {
+        "exportAs": "hlmNativeSelect",
         "inputs": [
           {
             "name": "selectId",
@@ -6337,12 +6653,14 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "hlm-native-select",
       },
       "HlmNativeSelectOptGroup": {
+        "exportAs": "hlmNativeSelectOptGroup",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "optgroup[hlmNativeSelectOptGroup]",
       },
       "HlmNativeSelectOption": {
+        "exportAs": "hlmNativeSelectOption",
         "inputs": [],
         "models": [],
         "outputs": [],
@@ -6353,6 +6671,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
   "navigation-menu": {
     "brain": {
       "BrnNavigationMenu": {
+        "exportAs": "brnNavigationMenu",
         "inputs": [
           {
             "name": "delayDuration",
@@ -6386,12 +6705,14 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "nav[brnNavigationMenu]",
       },
       "BrnNavigationMenuContent": {
+        "exportAs": "brnNavigationMenuContent",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[brnNavigationMenuContent]",
       },
       "BrnNavigationMenuItem": {
+        "exportAs": "brnNavigationMenuItem",
         "inputs": [
           {
             "name": "id",
@@ -6404,6 +6725,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "li[brnNavigationMenuItem]",
       },
       "BrnNavigationMenuLink": {
+        "exportAs": "brnNavigationMenuLink",
         "inputs": [
           {
             "name": "active",
@@ -6421,12 +6743,14 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "a[brnNavigationMenuLink]",
       },
       "BrnNavigationMenuList": {
+        "exportAs": "brnNavigationMenuList",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "ul[brnNavigationMenuList]",
       },
       "BrnNavigationMenuTrigger": {
+        "exportAs": "brnNavigationMenuTrigger",
         "inputs": [
           {
             "name": "align",
@@ -6446,6 +6770,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
     },
     "helm": {
       "HlmNavigationMenu": {
+        "exportAs": "hlmNavigationMenu",
         "inputs": [
           {
             "name": "value",
@@ -6483,6 +6808,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "nav[hlmNavigationMenu]",
       },
       "HlmNavigationMenuContent": {
+        "exportAs": "hlmNavigationMenuContent",
         "inputs": [
           {
             "name": "navOffset",
@@ -6495,6 +6821,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmNavigationMenuContent],hlm-navigation-menu-content",
       },
       "HlmNavigationMenuItem": {
+        "exportAs": "hlmNavigationMenuItem",
         "inputs": [
           {
             "name": "id",
@@ -6507,6 +6834,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "li[hlmNavigationMenuItem]",
       },
       "HlmNavigationMenuLink": {
+        "exportAs": "hlmNavigationMenuLink",
         "inputs": [
           {
             "name": "active",
@@ -6519,18 +6847,21 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "a[hlmNavigationMenuLink]",
       },
       "HlmNavigationMenuList": {
+        "exportAs": "hlmNavigationMenuList",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "ul[hlmNavigationMenuList]",
       },
       "HlmNavigationMenuPortal": {
+        "exportAs": "hlmNavigationMenuPortal",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmNavigationMenuPortal]",
       },
       "HlmNavigationMenuTrigger": {
+        "exportAs": "hlmNavigationMenuTrigger",
         "inputs": [
           {
             "name": "align",
@@ -6619,12 +6950,14 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[brnOverlay],brn-overlay",
       },
       "BrnOverlayClose": {
+        "exportAs": "brnOverlayClose",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "button[brnOverlayClose]",
       },
       "BrnOverlayContent": {
+        "exportAs": "brnOverlayContent",
         "inputs": [
           {
             "name": "class",
@@ -6669,6 +7002,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
   "pagination": {
     "helm": {
       "HlmNumberedPagination": {
+        "exportAs": "hlmNumberedPagination",
         "inputs": [
           {
             "name": "totalItems",
@@ -6737,6 +7071,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "hlm-numbered-pagination",
       },
       "HlmNumberedPaginationQueryParams": {
+        "exportAs": "hlmNumberedPaginationQueryParams",
         "inputs": [
           {
             "name": "totalItems",
@@ -6810,6 +7145,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "hlm-numbered-pagination-query-params",
       },
       "HlmPagination": {
+        "exportAs": "hlmPagination",
         "inputs": [
           {
             "name": "aria-label",
@@ -6822,12 +7158,14 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmPagination],hlm-pagination",
       },
       "HlmPaginationContent": {
+        "exportAs": "hlmPaginationContent",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "ul[hlmPaginationContent]",
       },
       "HlmPaginationEllipsis": {
+        "exportAs": "hlmPaginationEllipsis",
         "inputs": [
           {
             "name": "srOnlyText",
@@ -6840,12 +7178,14 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "hlm-pagination-ellipsis",
       },
       "HlmPaginationItem": {
+        "exportAs": "hlmPaginationItem",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "li[hlmPaginationItem]",
       },
       "HlmPaginationLink": {
+        "exportAs": "hlmPaginationLink",
         "inputs": [
           {
             "name": "isActive",
@@ -6868,6 +7208,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmPaginationLink]",
       },
       "HlmPaginationNext": {
+        "exportAs": "hlmPaginationNext",
         "inputs": [
           {
             "name": "class",
@@ -6910,6 +7251,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "hlm-pagination-next",
       },
       "HlmPaginationPrevious": {
+        "exportAs": "hlmPaginationPrevious",
         "inputs": [
           {
             "name": "class",
@@ -7043,6 +7385,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[brnPopover],brn-popover",
       },
       "BrnPopoverContent": {
+        "exportAs": "brnPopoverContent",
         "inputs": [
           {
             "name": "class",
@@ -7060,6 +7403,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[brnPopoverContent]",
       },
       "BrnPopoverTrigger": {
+        "exportAs": "brnPopoverTrigger",
         "inputs": [
           {
             "name": "brnPopoverTriggerFor",
@@ -7089,6 +7433,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
     },
     "helm": {
       "HlmPopover": {
+        "exportAs": "hlmPopover",
         "inputs": [
           {
             "name": "align",
@@ -7145,24 +7490,28 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmPopover],hlm-popover",
       },
       "HlmPopoverContent": {
+        "exportAs": "hlmPopoverContent",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmPopoverContent],hlm-popover-content",
       },
       "HlmPopoverDescription": {
+        "exportAs": "hlmPopoverDescription",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmPopoverDescription]",
       },
       "HlmPopoverHeader": {
+        "exportAs": "hlmPopoverHeader",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmPopoverHeader],hlm-popover-header",
       },
       "HlmPopoverPortal": {
+        "exportAs": "hlmPopoverPortal",
         "inputs": [
           {
             "name": "context",
@@ -7180,12 +7529,14 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmPopoverPortal]",
       },
       "HlmPopoverTitle": {
+        "exportAs": "hlmPopoverTitle",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmPopoverTitle]",
       },
       "HlmPopoverTrigger": {
+        "exportAs": "hlmPopoverTrigger",
         "inputs": [
           {
             "name": "id",
@@ -7235,6 +7586,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "brn-progress",
       },
       "BrnProgressIndicator": {
+        "exportAs": "brnProgressIndicator",
         "inputs": [],
         "models": [],
         "outputs": [],
@@ -7243,6 +7595,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
     },
     "helm": {
       "HlmProgress": {
+        "exportAs": "hlmProgress",
         "inputs": [
           {
             "name": "value",
@@ -7265,6 +7618,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "hlm-progress,[hlmProgress]",
       },
       "HlmProgressIndicator": {
+        "exportAs": "hlmProgressIndicator",
         "inputs": [],
         "models": [],
         "outputs": [],
@@ -7944,6 +8298,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "brn-radio",
       },
       "BrnRadioGroup": {
+        "exportAs": "brnRadioGroup",
         "inputs": [
           {
             "name": "name",
@@ -7982,6 +8337,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
     },
     "helm": {
       "HlmRadio": {
+        "exportAs": "hlmRadio",
         "inputs": [
           {
             "name": "class",
@@ -8034,6 +8390,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "hlm-radio",
       },
       "HlmRadioGroup": {
+        "exportAs": "hlmRadioGroup",
         "inputs": [
           {
             "name": "class",
@@ -8071,6 +8428,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmRadioGroup],hlm-radio-group",
       },
       "HlmRadioIndicator": {
+        "exportAs": "hlmRadioIndicator",
         "inputs": [],
         "models": [],
         "outputs": [],
@@ -8171,6 +8529,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
     },
     "helm": {
       "HlmResizableGroup": {
+        "exportAs": "hlmResizableGroup",
         "inputs": [
           {
             "name": "direction",
@@ -8256,6 +8615,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
   "scroll-area": {
     "helm": {
       "HlmScrollArea": {
+        "exportAs": "hlmScrollArea",
         "inputs": [],
         "models": [],
         "outputs": [],
@@ -8266,6 +8626,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
   "select": {
     "brain": {
       "BrnSelect": {
+        "exportAs": "brnSelect",
         "inputs": [
           {
             "name": "disabled",
@@ -8299,18 +8660,21 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[brnSelect]",
       },
       "BrnSelectContent": {
+        "exportAs": "brnSelectContent",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[brnSelectContent]",
       },
       "BrnSelectGroup": {
+        "exportAs": "brnSelectGroup",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[brnSelectGroup]",
       },
       "BrnSelectItem": {
+        "exportAs": "brnSelectItem",
         "inputs": [
           {
             "name": "id",
@@ -8333,6 +8697,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[brnSelectItem]",
       },
       "BrnSelectLabel": {
+        "exportAs": "brnSelectLabel",
         "inputs": [
           {
             "name": "id",
@@ -8345,6 +8710,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[brnSelectLabel]",
       },
       "BrnSelectList": {
+        "exportAs": "brnSelectList",
         "inputs": [
           {
             "name": "id",
@@ -8357,6 +8723,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[brnSelectList]",
       },
       "BrnSelectMultiple": {
+        "exportAs": "brnSelectMultiple",
         "inputs": [
           {
             "name": "disabled",
@@ -8385,24 +8752,28 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[brnSelectMultiple]",
       },
       "BrnSelectPlaceholder": {
+        "exportAs": "brnSelectPlaceholder",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[brnSelectPlaceholder]",
       },
       "BrnSelectScrollDown": {
+        "exportAs": "brnSelectScrollDown",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[brnSelectScrollDown]",
       },
       "BrnSelectScrollUp": {
+        "exportAs": "brnSelectScrollUp",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[brnSelectScrollUp]",
       },
       "BrnSelectSeparator": {
+        "exportAs": "brnSelectSeparator",
         "inputs": [
           {
             "name": "orientation",
@@ -8415,6 +8786,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[brnSelectSeparator]",
       },
       "BrnSelectTrigger": {
+        "exportAs": "brnSelectTrigger",
         "inputs": [
           {
             "name": "id",
@@ -8437,6 +8809,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "button[brnSelectTrigger]",
       },
       "BrnSelectValue": {
+        "exportAs": "brnSelectValue",
         "inputs": [
           {
             "name": "placeholder",
@@ -8449,12 +8822,14 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[brnSelectValue]",
       },
       "BrnSelectValueTemplate": {
+        "exportAs": "brnSelectValueTemplate",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[brnSelectValueTemplate]",
       },
       "BrnSelectValues": {
+        "exportAs": "brnSelectValues",
         "inputs": [],
         "models": [],
         "outputs": [],
@@ -8463,6 +8838,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
     },
     "helm": {
       "HlmSelect": {
+        "exportAs": "hlmSelect",
         "inputs": [
           {
             "name": "disabled",
@@ -8533,6 +8909,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmSelect],hlm-select",
       },
       "HlmSelectContent": {
+        "exportAs": "hlmSelectContent",
         "inputs": [
           {
             "name": "showScroll",
@@ -8545,12 +8922,14 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "hlm-select-content",
       },
       "HlmSelectGroup": {
+        "exportAs": "hlmSelectGroup",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmSelectGroup],hlm-select-group",
       },
       "HlmSelectItem": {
+        "exportAs": "hlmSelectItem",
         "inputs": [
           {
             "name": "id",
@@ -8573,6 +8952,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "hlm-select-item",
       },
       "HlmSelectLabel": {
+        "exportAs": "hlmSelectLabel",
         "inputs": [
           {
             "name": "id",
@@ -8585,6 +8965,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmSelectLabel],hlm-select-label",
       },
       "HlmSelectMultiple": {
+        "exportAs": "hlmSelectMultiple",
         "inputs": [
           {
             "name": "disabled",
@@ -8655,12 +9036,14 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmSelectMultiple],hlm-select-multiple",
       },
       "HlmSelectPlaceholder": {
+        "exportAs": "hlmSelectPlaceholder",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmSelectPlaceholder],hlm-select-placeholder",
       },
       "HlmSelectPortal": {
+        "exportAs": "hlmSelectPortal",
         "inputs": [
           {
             "name": "context",
@@ -8678,18 +9061,21 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmSelectPortal]",
       },
       "HlmSelectScrollDown": {
+        "exportAs": "hlmSelectScrollDown",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "hlm-select-scroll-down",
       },
       "HlmSelectScrollUp": {
+        "exportAs": "hlmSelectScrollUp",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "hlm-select-scroll-up",
       },
       "HlmSelectSeparator": {
+        "exportAs": "hlmSelectSeparator",
         "inputs": [
           {
             "name": "orientation",
@@ -8702,6 +9088,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmSelectSeparator],hlm-select-separator",
       },
       "HlmSelectTrigger": {
+        "exportAs": "hlmSelectTrigger",
         "inputs": [
           {
             "name": "class",
@@ -8734,6 +9121,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "hlm-select-trigger",
       },
       "HlmSelectValue": {
+        "exportAs": "hlmSelectValue",
         "inputs": [
           {
             "name": "placeholder",
@@ -8746,18 +9134,21 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmSelectValue],hlm-select-value",
       },
       "HlmSelectValueTemplate": {
+        "exportAs": "hlmSelectValueTemplate",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmSelectValueTemplate]",
       },
       "HlmSelectValues": {
+        "exportAs": "hlmSelectValues",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmSelectValues]",
       },
       "HlmSelectValuesContent": {
+        "exportAs": "hlmSelectValuesContent",
         "inputs": [],
         "models": [],
         "outputs": [],
@@ -8768,6 +9159,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
   "separator": {
     "brain": {
       "BrnSeparator": {
+        "exportAs": "brnSeparator",
         "inputs": [
           {
             "name": "orientation",
@@ -8787,6 +9179,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
     },
     "helm": {
       "HlmSeparator": {
+        "exportAs": "hlmSeparator",
         "inputs": [
           {
             "name": "orientation",
@@ -8910,12 +9303,14 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[brnSheet],brn-sheet",
       },
       "BrnSheetClose": {
+        "exportAs": "brnSheetClose",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "button[brnSheetClose]",
       },
       "BrnSheetContent": {
+        "exportAs": "brnSheetContent",
         "inputs": [
           {
             "name": "class",
@@ -8933,12 +9328,14 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[brnSheetContent]",
       },
       "BrnSheetDescription": {
+        "exportAs": "brnSheetDescription",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[brnSheetDescription]",
       },
       "BrnSheetOverlay": {
+        "exportAs": "brnSheetOverlay",
         "inputs": [
           {
             "name": "class",
@@ -8951,12 +9348,14 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[brnSheetOverlay],brn-sheet-overlay",
       },
       "BrnSheetTitle": {
+        "exportAs": "brnSheetTitle",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[brnSheetTitle]",
       },
       "BrnSheetTrigger": {
+        "exportAs": "brnSheetTrigger",
         "inputs": [
           {
             "name": "side",
@@ -9088,12 +9487,14 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "hlm-sheet",
       },
       "HlmSheetClose": {
+        "exportAs": "hlmSheetClose",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "button[hlmSheetClose]",
       },
       "HlmSheetContent": {
+        "exportAs": "hlmSheetContent",
         "inputs": [
           {
             "name": "showCloseButton",
@@ -9106,24 +9507,28 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "hlm-sheet-content",
       },
       "HlmSheetDescription": {
+        "exportAs": "hlmSheetDescription",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmSheetDescription]",
       },
       "HlmSheetFooter": {
+        "exportAs": "hlmSheetFooter",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmSheetFooter],hlm-sheet-footer",
       },
       "HlmSheetHeader": {
+        "exportAs": "hlmSheetHeader",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmSheetHeader],hlm-sheet-header",
       },
       "HlmSheetOverlay": {
+        "exportAs": "hlmSheetOverlay",
         "inputs": [
           {
             "name": "class",
@@ -9136,6 +9541,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmSheetOverlay],hlm-sheet-overlay",
       },
       "HlmSheetPortal": {
+        "exportAs": "hlmSheetPortal",
         "inputs": [
           {
             "name": "context",
@@ -9153,12 +9559,14 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmSheetPortal]",
       },
       "HlmSheetTitle": {
+        "exportAs": "hlmSheetTitle",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmSheetTitle]",
       },
       "HlmSheetTrigger": {
+        "exportAs": "hlmSheetTrigger",
         "inputs": [
           {
             "name": "id",
@@ -9185,6 +9593,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
   "sidebar": {
     "helm": {
       "HlmSidebar": {
+        "exportAs": "hlmSidebar",
         "inputs": [
           {
             "name": "sidebarWidthMobile",
@@ -9227,66 +9636,77 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "hlm-sidebar",
       },
       "HlmSidebarContent": {
+        "exportAs": "hlmSidebarContent",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmSidebarContent],hlm-sidebar-content",
       },
       "HlmSidebarFooter": {
+        "exportAs": "hlmSidebarFooter",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmSidebarFooter],hlm-sidebar-footer",
       },
       "HlmSidebarGroup": {
+        "exportAs": "hlmSidebarGroup",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmSidebarGroup],hlm-sidebar-group",
       },
       "HlmSidebarGroupAction": {
+        "exportAs": "hlmSidebarGroupAction",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "button[hlmSidebarGroupAction]",
       },
       "HlmSidebarGroupContent": {
+        "exportAs": "hlmSidebarGroupContent",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "div[hlmSidebarGroupContent]",
       },
       "HlmSidebarGroupLabel": {
+        "exportAs": "hlmSidebarGroupLabel",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "div[hlmSidebarGroupLabel], button[hlmSidebarGroupLabel]",
       },
       "HlmSidebarHeader": {
+        "exportAs": "hlmSidebarHeader",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmSidebarHeader],hlm-sidebar-header",
       },
       "HlmSidebarInput": {
+        "exportAs": "hlmSidebarInput",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "input[hlmSidebarInput]",
       },
       "HlmSidebarInset": {
+        "exportAs": "hlmSidebarInset",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "main[hlmSidebarInset]",
       },
       "HlmSidebarMenu": {
+        "exportAs": "hlmSidebarMenu",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "ul[hlmSidebarMenu]",
       },
       "HlmSidebarMenuAction": {
+        "exportAs": "hlmSidebarMenuAction",
         "inputs": [
           {
             "name": "showOnHover",
@@ -9299,12 +9719,14 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "button[hlmSidebarMenuAction]",
       },
       "HlmSidebarMenuBadge": {
+        "exportAs": "hlmSidebarMenuBadge",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmSidebarMenuBadge],hlm-sidebar-menu-badge",
       },
       "HlmSidebarMenuButton": {
+        "exportAs": "hlmSidebarMenuButton",
         "inputs": [
           {
             "name": "variant",
@@ -9337,12 +9759,14 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "button[hlmSidebarMenuButton], a[hlmSidebarMenuButton]",
       },
       "HlmSidebarMenuItem": {
+        "exportAs": "hlmSidebarMenuItem",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "li[hlmSidebarMenuItem]",
       },
       "HlmSidebarMenuSkeleton": {
+        "exportAs": "hlmSidebarMenuSkeleton",
         "inputs": [
           {
             "name": "showIcon",
@@ -9355,12 +9779,14 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "hlm-sidebar-menu-skeleton,div[hlmSidebarMenuSkeleton]",
       },
       "HlmSidebarMenuSub": {
+        "exportAs": "hlmSidebarMenuSub",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "ul[hlmSidebarMenuSub]",
       },
       "HlmSidebarMenuSubButton": {
+        "exportAs": "hlmSidebarMenuSubButton",
         "inputs": [
           {
             "name": "closeMobileSidebarOnClick",
@@ -9383,12 +9809,14 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "a[hlmSidebarMenuSubButton], button[hlmSidebarMenuSubButton]",
       },
       "HlmSidebarMenuSubItem": {
+        "exportAs": "hlmSidebarMenuSubItem",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "li[hlmSidebarMenuSubItem]",
       },
       "HlmSidebarRail": {
+        "exportAs": "hlmSidebarRail",
         "inputs": [
           {
             "name": "aria-label",
@@ -9401,12 +9829,14 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "button[hlmSidebarRail]",
       },
       "HlmSidebarSeparator": {
+        "exportAs": "hlmSidebarSeparator",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmSidebarSeparator],hlm-sidebar-separator",
       },
       "HlmSidebarTrigger": {
+        "exportAs": "hlmSidebarTrigger",
         "inputs": [
           {
             "name": "srOnlyText",
@@ -9429,6 +9859,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "button[hlmSidebarTrigger]",
       },
       "HlmSidebarWrapper": {
+        "exportAs": "hlmSidebarWrapper",
         "inputs": [
           {
             "name": "sidebarWidth",
@@ -9450,6 +9881,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
   "skeleton": {
     "helm": {
       "HlmSkeleton": {
+        "exportAs": "hlmSkeleton",
         "inputs": [],
         "models": [],
         "outputs": [],
@@ -9568,24 +10000,28 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[brnSlider]",
       },
       "BrnSliderRange": {
+        "exportAs": "brnSliderRange",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[brnSliderRange]",
       },
       "BrnSliderThumb": {
+        "exportAs": "brnSliderThumb",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[brnSliderThumb]",
       },
       "BrnSliderTick": {
+        "exportAs": "brnSliderTick",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[brnSliderTick]",
       },
       "BrnSliderTrack": {
+        "exportAs": "brnSliderTrack",
         "inputs": [],
         "models": [],
         "outputs": [],
@@ -9594,6 +10030,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
     },
     "helm": {
       "HlmSlider": {
+        "exportAs": "hlmSlider",
         "inputs": [
           {
             "name": "id",
@@ -9705,6 +10142,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
   "sonner": {
     "brain": {
       "BrnSonnerIcon": {
+        "exportAs": "brnSonnerIcon",
         "inputs": [
           {
             "name": "type",
@@ -9717,6 +10155,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "brn-sonner-icon",
       },
       "BrnSonnerLoader": {
+        "exportAs": "brnSonnerLoader",
         "inputs": [
           {
             "name": "isVisible",
@@ -9729,6 +10168,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "brn-sonner-loader",
       },
       "BrnSonnerToast": {
+        "exportAs": "brnSonnerToast",
         "inputs": [
           {
             "name": "toast",
@@ -9831,6 +10271,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "brn-sonner-toast",
       },
       "BrnSonnerToaster": {
+        "exportAs": "brnSonnerToaster",
         "inputs": [
           {
             "name": "invert",
@@ -9919,6 +10360,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
     },
     "helm": {
       "HlmToaster": {
+        "exportAs": "hlmToaster",
         "inputs": [
           {
             "name": "invert",
@@ -9995,6 +10437,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
   "spinner": {
     "helm": {
       "HlmSpinner": {
+        "exportAs": "hlmSpinner",
         "inputs": [
           {
             "name": "icon",
@@ -10016,6 +10459,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
   "switch": {
     "brain": {
       "BrnSwitch": {
+        "exportAs": "brnSwitch",
         "inputs": [
           {
             "name": "checked",
@@ -10097,6 +10541,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "brn-switch",
       },
       "BrnSwitchThumb": {
+        "exportAs": "brnSwitchThumb",
         "inputs": [],
         "models": [],
         "outputs": [],
@@ -10105,6 +10550,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
     },
     "helm": {
       "HlmSwitch": {
+        "exportAs": "hlmSwitch",
         "inputs": [
           {
             "name": "class",
@@ -10162,6 +10608,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "hlm-switch",
       },
       "HlmSwitchThumb": {
+        "exportAs": "hlmSwitchThumb",
         "inputs": [],
         "models": [],
         "outputs": [],
@@ -10172,54 +10619,63 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
   "table": {
     "helm": {
       "HlmCaption": {
+        "exportAs": "hlmCaption",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "caption[hlmCaption],caption[hlmTableCaption]",
       },
       "HlmTBody": {
+        "exportAs": "hlmTBody",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "tbody[hlmTBody],tbody[hlmTableBody]",
       },
       "HlmTFoot": {
+        "exportAs": "hlmTFoot",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "tfoot[hlmTFoot],tfoot[hlmTableFooter]",
       },
       "HlmTHead": {
+        "exportAs": "hlmTHead",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "thead[hlmTHead],thead[hlmTableHeader]",
       },
       "HlmTable": {
+        "exportAs": "hlmTable",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "table[hlmTable]",
       },
       "HlmTableContainer": {
+        "exportAs": "hlmTableContainer",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "div[hlmTableContainer]",
       },
       "HlmTd": {
+        "exportAs": "hlmTd",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "td[hlmTd],td[hlmTableCell]",
       },
       "HlmTh": {
+        "exportAs": "hlmTh",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "th[hlmTh],th[hlmTableHead]",
       },
       "HlmTr": {
+        "exportAs": "hlmTr",
         "inputs": [],
         "models": [],
         "outputs": [],
@@ -10328,6 +10784,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
     },
     "helm": {
       "HlmTabs": {
+        "exportAs": "hlmTabs",
         "inputs": [
           {
             "name": "tab",
@@ -10355,6 +10812,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmTabs],hlm-tabs",
       },
       "HlmTabsContent": {
+        "exportAs": "hlmTabsContent",
         "inputs": [
           {
             "name": "hlmTabsContent",
@@ -10367,12 +10825,14 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmTabsContent]",
       },
       "HlmTabsContentLazy": {
+        "exportAs": "hlmTabsContentLazy",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "ng-template[hlmTabsContentLazy]",
       },
       "HlmTabsList": {
+        "exportAs": "hlmTabsList",
         "inputs": [
           {
             "name": "variant",
@@ -10385,6 +10845,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmTabsList],hlm-tabs-list",
       },
       "HlmTabsPaginatedList": {
+        "exportAs": "hlmTabsPaginatedList",
         "inputs": [
           {
             "name": "tabListClass",
@@ -10416,6 +10877,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "hlm-paginated-tabs-list",
       },
       "HlmTabsTrigger": {
+        "exportAs": "hlmTabsTrigger",
         "inputs": [
           {
             "name": "hlmTabsTrigger",
@@ -10437,6 +10899,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
   "textarea": {
     "brain": {
       "BrnTextarea": {
+        "exportAs": "brnTextarea",
         "inputs": [
           {
             "name": "id",
@@ -10456,6 +10919,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
     },
     "helm": {
       "HlmTextarea": {
+        "exportAs": "hlmTextarea",
         "inputs": [
           {
             "name": "id",
@@ -10477,6 +10941,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
   "toggle": {
     "brain": {
       "BrnToggle": {
+        "exportAs": "brnToggle",
         "inputs": [
           {
             "name": "id",
@@ -10517,6 +10982,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
     },
     "helm": {
       "HlmToggle": {
+        "exportAs": "hlmToggle",
         "inputs": [
           {
             "name": "variant",
@@ -10610,6 +11076,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[brnToggleGroup],brn-toggle-group",
       },
       "BrnToggleGroupItem": {
+        "exportAs": "brnToggleGroupItem",
         "inputs": [
           {
             "name": "id",
@@ -10650,6 +11117,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
     },
     "helm": {
       "HlmToggleGroup": {
+        "exportAs": "hlmToggleGroup",
         "inputs": [
           {
             "name": "variant",
@@ -10702,6 +11170,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "selector": "[hlmToggleGroup],hlm-toggle-group",
       },
       "HlmToggleGroupItem": {
+        "exportAs": "hlmToggleGroupItem",
         "inputs": [
           {
             "name": "variant",
@@ -10831,6 +11300,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
     },
     "helm": {
       "HlmTooltip": {
+        "exportAs": "hlmTooltip",
         "inputs": [
           {
             "name": "hlmTooltip",
@@ -10966,72 +11436,84 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
   "typography": {
     "helm": {
       "HlmBlockquote": {
+        "exportAs": "hlmBlockquote",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmBlockquote]",
       },
       "HlmCode": {
+        "exportAs": "hlmCode",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmCode]",
       },
       "HlmH1": {
+        "exportAs": "hlmH1",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmH1]",
       },
       "HlmH2": {
+        "exportAs": "hlmH2",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmH2]",
       },
       "HlmH3": {
+        "exportAs": "hlmH3",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmH3]",
       },
       "HlmH4": {
+        "exportAs": "hlmH4",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmH4]",
       },
       "HlmLarge": {
+        "exportAs": "hlmLarge",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmLarge]",
       },
       "HlmLead": {
+        "exportAs": "hlmLead",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmLead]",
       },
       "HlmMuted": {
+        "exportAs": "hlmMuted",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmMuted]",
       },
       "HlmP": {
+        "exportAs": "hlmP",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmP]",
       },
       "HlmSmall": {
+        "exportAs": "hlmSmall",
         "inputs": [],
         "models": [],
         "outputs": [],
         "selector": "[hlmSmall]",
       },
       "HlmUl": {
+        "exportAs": "hlmUl",
         "inputs": [],
         "models": [],
         "outputs": [],

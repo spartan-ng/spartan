@@ -40,6 +40,7 @@ export const BRN_AUTOCOMPLETE_SEARCH_VALUE_ACCESSOR = {
 
 @Directive({
 	selector: '[brnAutocomplete]',
+	exportAs: 'brnAutocompleteSearch',
 	providers: [
 		BRN_AUTOCOMPLETE_SEARCH_VALUE_ACCESSOR,
 		provideBrnAutocompleteBase(BrnAutocompleteSearch),

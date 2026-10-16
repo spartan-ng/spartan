@@ -6,6 +6,7 @@ import type { ClassValue } from 'clsx';
 
 @Directive({
 	selector: '[hlmDrawerOverlay],hlm-drawer-overlay',
+	exportAs: 'hlmDrawerOverlay',
 	hostDirectives: [BrnDrawerOverlay],
 })
 export class HlmDrawerOverlay {

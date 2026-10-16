@@ -40,6 +40,7 @@ export const BRN_SELECT_VALUE_ACCESSOR = {
 
 @Directive({
 	selector: '[brnSelect]',
+	exportAs: 'brnSelect',
 	providers: [provideBrnSelectBase(BrnSelect), BRN_SELECT_VALUE_ACCESSOR, provideBrnLabelable(BrnSelect)],
 	hostDirectives: [BrnFieldControl],
 })

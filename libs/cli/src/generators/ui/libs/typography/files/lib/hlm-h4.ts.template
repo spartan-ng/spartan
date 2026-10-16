@@ -5,6 +5,7 @@ export const hlmH4 = 'scroll-m-20 text-xl font-semibold tracking-tight';
 
 @Directive({
 	selector: '[hlmH4]',
+	exportAs: 'hlmH4',
 })
 export class HlmH4 {
 	constructor() {

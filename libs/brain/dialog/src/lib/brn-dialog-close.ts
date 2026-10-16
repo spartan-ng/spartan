@@ -3,6 +3,7 @@ import { BrnDialogRef } from './brn-dialog-ref';
 
 @Directive({
 	selector: 'button[brnDialogClose]',
+	exportAs: 'brnDialogClose',
 	host: {
 		'(click)': 'close()',
 	},

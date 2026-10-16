@@ -7,6 +7,7 @@ import type { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'hlm-accordion-trigger',
+	exportAs: 'hlmAccordionTrigger',
 	imports: [BrnAccordionImports, NgIcon],
 	providers: [provideIcons({ lucideChevronDown, lucideChevronUp })],
 	changeDetection: ChangeDetectionStrategy.OnPush,

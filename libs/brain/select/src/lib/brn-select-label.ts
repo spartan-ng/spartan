@@ -2,6 +2,7 @@ import { Directive, input } from '@angular/core';
 
 @Directive({
 	selector: '[brnSelectLabel]',
+	exportAs: 'brnSelectLabel',
 	host: {
 		'[id]': 'id()',
 	},

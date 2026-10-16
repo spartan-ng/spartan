@@ -4,6 +4,7 @@ import { classes } from '<%- importAlias %>/utils';
 
 @Directive({
 	selector: '[hlmSelectSeparator],hlm-select-separator',
+	exportAs: 'hlmSelectSeparator',
 	hostDirectives: [{ directive: BrnSelectSeparator, inputs: ['orientation'] }],
 	host: { 'data-slot': 'select-separator' },
 })

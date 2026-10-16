@@ -5,6 +5,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
 	selector: '[hlmCombobox],hlm-combobox',
+	exportAs: 'hlmCombobox',
 	providers: [
 		provideBrnPopoverConfig({
 			align: 'start',

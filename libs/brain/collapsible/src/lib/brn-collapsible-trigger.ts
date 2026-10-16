@@ -3,6 +3,7 @@ import { injectBrnCollapsible } from './brn-collapsible-token';
 
 @Directive({
 	selector: 'button[brnCollapsibleTrigger]',
+	exportAs: 'brnCollapsibleTrigger',
 	host: {
 		'[attr.data-state]': '_collapsible?.state()',
 		'[attr.disabled]': '_collapsible?.disabled() ? true : undefined',

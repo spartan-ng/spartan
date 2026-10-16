@@ -4,6 +4,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
 	selector: '[hlmDrawerTitle]',
+	exportAs: 'hlmDrawerTitle',
 	hostDirectives: [BrnDrawerTitle],
 	host: { 'data-slot': 'drawer-title' },
 })

@@ -5,6 +5,7 @@ export const hlmP = 'leading-7 [&:not(:first-child)]:mt-6';
 
 @Directive({
 	selector: '[hlmP]',
+	exportAs: 'hlmP',
 })
 export class HlmP {
 	constructor() {

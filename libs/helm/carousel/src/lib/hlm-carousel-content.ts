@@ -4,6 +4,7 @@ import { HlmCarousel } from './hlm-carousel';
 
 @Directive({
 	selector: '[hlmCarouselContent],hlm-carousel-content',
+	exportAs: 'hlmCarouselContent',
 	host: {
 		'data-slot': 'carousel-content',
 	},

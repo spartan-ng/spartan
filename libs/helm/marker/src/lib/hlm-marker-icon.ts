@@ -3,6 +3,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
 	selector: '[hlmMarkerIcon],hlm-marker-icon',
+	exportAs: 'hlmMarkerIcon',
 	host: {
 		'data-slot': 'marker-icon',
 		'aria-hidden': 'true',

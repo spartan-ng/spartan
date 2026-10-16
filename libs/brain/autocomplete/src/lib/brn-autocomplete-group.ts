@@ -4,6 +4,7 @@ import { BrnAutocompleteLabel } from './brn-autocomplete-label';
 
 @Directive({
 	selector: '[brnAutocompleteGroup]',
+	exportAs: 'brnAutocompleteGroup',
 	host: {
 		role: 'group',
 		'[attr.data-hidden]': '!_visible() ? "" : null',

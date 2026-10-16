@@ -4,6 +4,7 @@ import { injectBrnComboboxBase } from './brn-combobox.token';
 
 @Directive({
 	selector: '[brnComboboxValue]',
+	exportAs: 'brnComboboxValue',
 	host: {
 		'[attr.data-placeholder]': '_isPlaceholder() ? "" : null',
 		'[attr.data-hidden]': 'hidden() ? "" : null',

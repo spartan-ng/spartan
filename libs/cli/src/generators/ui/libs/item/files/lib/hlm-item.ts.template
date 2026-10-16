@@ -29,6 +29,7 @@ export type ItemVariants = VariantProps<typeof itemVariants>;
 
 @Directive({
 	selector: '[hlmItem],hlm-item',
+	exportAs: 'hlmItem',
 	host: {
 		'data-slot': 'item',
 		'[attr.data-variant]': 'variant()',

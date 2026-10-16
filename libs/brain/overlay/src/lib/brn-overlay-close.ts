@@ -3,6 +3,7 @@ import { BrnOverlayRef } from './brn-overlay-ref';
 
 @Directive({
 	selector: 'button[brnOverlayClose]',
+	exportAs: 'brnOverlayClose',
 	host: {
 		'(click)': 'close()',
 	},

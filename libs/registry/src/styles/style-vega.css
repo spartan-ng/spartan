@@ -347,7 +347,7 @@
 	}
 
 	.spartan-code-block-title {
-		@apply text-foreground group-data-[variant=destructive]/code-block:text-destructive font-sans text-sm font-medium group-data-[size=sm]/code-block:text-xs [&_ng-icon:not([class*='text-'])]:text-[lengt:--spacing(4)] group-data-[size=sm]/code-block:[&_ng-icon:not([class*='text-'])]:text-[length:--spacing(3.5)] *:[ng-icon]:me-1.5;
+		@apply text-foreground group-data-[variant=destructive]/code-block:text-destructive font-sans text-sm font-medium group-data-[size=sm]/code-block:text-xs [&_ng-icon:not([class*='text-'])]:text-[length:--spacing(4)] group-data-[size=sm]/code-block:[&_ng-icon:not([class*='text-'])]:text-[length:--spacing(3.5)] *:[ng-icon]:me-1.5;
 	}
 
 	.spartan-code-block-actions {

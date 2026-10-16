@@ -1477,7 +1477,7 @@
 	}
 
 	.cn-code-block-title {
-		@apply text-foreground group-data-[variant=destructive]/code-block:text-destructive font-sans text-xs font-medium [&_ng-icn:not([class*='text-'])]:text-[length:--spacing(3.5)] *:[ng-icon]:me-1.5;
+		@apply text-foreground group-data-[variant=destructive]/code-block:text-destructive font-sans text-xs font-medium [&_ng-icon:not([class*='text-'])]:text-[length:--spacing(3.5)] *:[ng-icon]:me-1.5;
 	}
 
 	.cn-code-block-actions {

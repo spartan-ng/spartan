@@ -40,6 +40,7 @@ export const BRN_SELECT_MULTIPLE_VALUE_ACCESSOR = {
 
 @Directive({
 	selector: '[brnSelectMultiple]',
+	exportAs: 'brnSelectMultiple',
 	providers: [
 		provideBrnSelectBase(BrnSelectMultiple),
 		BRN_SELECT_MULTIPLE_VALUE_ACCESSOR,

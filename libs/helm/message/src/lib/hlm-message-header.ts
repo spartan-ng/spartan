@@ -3,6 +3,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
 	selector: '[hlmMessageHeader],hlm-message-header',
+	exportAs: 'hlmMessageHeader',
 	host: { 'data-slot': 'message-header' },
 })
 export class HlmMessageHeader {

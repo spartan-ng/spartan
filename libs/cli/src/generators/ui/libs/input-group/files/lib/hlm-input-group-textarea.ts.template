@@ -4,6 +4,7 @@ import { classes } from '<%- importAlias %>/utils';
 
 @Directive({
 	selector: 'textarea[hlmInputGroupTextarea]',
+	exportAs: 'hlmInputGroupTextarea',
 	hostDirectives: [HlmTextarea],
 	host: { 'data-slot': 'input-group-control' },
 })

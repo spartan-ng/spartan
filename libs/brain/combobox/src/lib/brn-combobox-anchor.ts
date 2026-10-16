@@ -4,7 +4,7 @@ import { BrnOverlay } from '@spartan-ng/brain/overlay';
 import { BrnComboboxContent } from './brn-combobox-content';
 import { injectBrnComboboxBase } from './brn-combobox.token';
 
-@Directive({ selector: '[brnComboboxAnchor]' })
+@Directive({ selector: '[brnComboboxAnchor]', exportAs: 'brnComboboxAnchor' })
 export class BrnComboboxAnchor {
 	private readonly _host = inject(ElementRef, { host: true });
 	private readonly _brnOverlay = inject(BrnOverlay, { optional: true });

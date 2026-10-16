@@ -4,6 +4,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
 	selector: '[hlmFieldLabel],hlm-field-label',
+	exportAs: 'hlmFieldLabel',
 	hostDirectives: [HlmLabel],
 	host: { 'data-slot': 'field-label' },
 })

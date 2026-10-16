@@ -26,6 +26,7 @@ export const HLM_NATIVE_SELECT_VALUE_ACCESSOR = {
 
 @Component({
 	selector: 'hlm-native-select',
+	exportAs: 'hlmNativeSelect',
 	imports: [NgIcon],
 	providers: [
 		HLM_NATIVE_SELECT_VALUE_ACCESSOR,

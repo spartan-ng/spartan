@@ -8,6 +8,7 @@ import { injectBrnNavigationMenu } from './brn-navigation-menu.token';
 
 @Directive({
 	selector: 'li[brnNavigationMenuItem]',
+	exportAs: 'brnNavigationMenuItem',
 	providers: [provideBrnNavigationMenuItem(BrnNavigationMenuItem), BrnNavigationMenuContentService],
 	host: {
 		'[id]': 'id()',

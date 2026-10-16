@@ -5,6 +5,7 @@ export type MessageAlign = 'start' | 'end';
 
 @Directive({
 	selector: '[hlmMessage],hlm-message',
+	exportAs: 'hlmMessage',
 	host: {
 		'data-slot': 'message',
 		'[attr.data-align]': 'align()',

@@ -3,6 +3,7 @@ import { injectBrnComboboxBase } from './brn-combobox.token';
 
 @Directive({
 	selector: '[brnComboboxContent]',
+	exportAs: 'brnComboboxContent',
 	host: {
 		'[id]': 'id()',
 		'[attr.data-state]': '_dataState()',

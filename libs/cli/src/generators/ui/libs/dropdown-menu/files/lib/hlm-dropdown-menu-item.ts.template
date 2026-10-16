@@ -6,6 +6,7 @@ import { HlmDropdownMenuFocusOnHover } from './hlm-dropdown-menu-focus-on-hover'
 
 @Directive({
 	selector: '[hlmDropdownMenuItem],hlm-dropdown-menu-item',
+	exportAs: 'hlmDropdownMenuItem',
 	hostDirectives: [
 		{
 			directive: CdkMenuItem,

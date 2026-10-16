@@ -16,6 +16,7 @@ export type PrimitiveSnippet =
 	| 'carousel'
 	| 'chart'
 	| 'checkbox'
+	| 'code-block'
 	| 'collapsible'
 	| 'combobox'
 	| 'command'
@@ -61,6 +62,7 @@ export type PrimitiveSnippet =
 	| 'textarea'
 	| 'toggle'
 	| 'toggle-group'
-	| 'tooltip';
+	| 'tooltip'
+	| 'trace';
 
 export type PrimitiveSnippets = Record<PrimitiveSnippet, Record<string, string>>;

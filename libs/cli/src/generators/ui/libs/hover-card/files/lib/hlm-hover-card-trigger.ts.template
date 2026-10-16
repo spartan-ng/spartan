@@ -3,6 +3,7 @@ import { BrnHoverCardTrigger } from '@spartan-ng/brain/hover-card';
 
 @Directive({
 	selector: '[hlmHoverCardTrigger]',
+	exportAs: 'hlmHoverCardTrigger',
 	hostDirectives: [
 		{
 			directive: BrnHoverCardTrigger,

@@ -3,7 +3,7 @@ import { injectElementSize } from '@spartan-ng/brain/core';
 import { BrnOverlay } from '@spartan-ng/brain/overlay';
 import { injectBrnAutocompleteBase } from './brn-autocomplete.token';
 
-@Directive({ selector: '[brnAutocompleteAnchor]' })
+@Directive({ selector: '[brnAutocompleteAnchor]', exportAs: 'brnAutocompleteAnchor' })
 export class BrnAutocompleteAnchor {
 	private readonly _host = inject(ElementRef, { host: true });
 	private readonly _brnOverlay = inject(BrnOverlay, { optional: true });

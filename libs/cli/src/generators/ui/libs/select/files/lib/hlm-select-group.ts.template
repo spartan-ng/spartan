@@ -4,6 +4,7 @@ import { classes } from '<%- importAlias %>/utils';
 
 @Directive({
 	selector: '[hlmSelectGroup],hlm-select-group',
+	exportAs: 'hlmSelectGroup',
 	hostDirectives: [{ directive: BrnSelectGroup }],
 	host: { 'data-slot': 'select-group' },
 })

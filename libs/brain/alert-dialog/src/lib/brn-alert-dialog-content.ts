@@ -4,6 +4,7 @@ import { BrnDialogContent } from '@spartan-ng/brain/dialog';
 
 @Directive({
 	selector: '[brnAlertDialogContent]',
+	exportAs: 'brnAlertDialogContent',
 	providers: [provideExposesStateProviderExisting(() => BrnAlertDialogContent)],
 })
 export class BrnAlertDialogContent<T extends Record<string, unknown>> extends BrnDialogContent<T> {}

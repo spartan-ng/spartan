@@ -3,6 +3,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
 	selector: '[hlmAvatarBadge],hlm-avatar-badge',
+	exportAs: 'hlmAvatarBadge',
 	host: {
 		'data-slot': 'avatar-badge',
 	},

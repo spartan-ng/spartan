@@ -3,6 +3,7 @@ import { BrnSheetTrigger } from '@spartan-ng/brain/sheet';
 
 @Directive({
 	selector: 'button[hlmSheetTrigger]',
+	exportAs: 'hlmSheetTrigger',
 	hostDirectives: [{ directive: BrnSheetTrigger, inputs: ['id', 'side', 'type'] }],
 	host: { 'data-slot': 'sheet-trigger' },
 })

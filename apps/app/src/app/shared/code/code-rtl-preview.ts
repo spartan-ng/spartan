@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideInfo } from '@ng-icons/lucide';
 import { StyleService } from '@spartan-ng/app/app/shared/style.service';
@@ -60,7 +60,9 @@ import { HlmSeparator } from '@spartan-ng/helm/separator';
 			</hlm-popover>
 		</div>
 		<div
-			class="preview flex min-h-[350px] w-full items-center justify-center px-4 py-10 lg:px-10"
+			class="preview flex min-h-[350px] w-full justify-center px-4 py-10 lg:px-10"
+			[class.items-start]="align() === 'start'"
+			[class.items-center]="align() !== 'start'"
 			[attr.data-lang]="_languageService.language()"
 		>
 			<ng-content />
@@ -70,6 +72,9 @@ import { HlmSeparator } from '@spartan-ng/helm/separator';
 export class CodeRtlPreview {
 	protected readonly _languageService = inject(TranslateService);
 	protected readonly _styleService = inject(StyleService);
+
+	/** Vertical alignment of the preview. Use `start` for content that grows downward, so the top edge stays put. */
+	public readonly align = input<'center' | 'start'>('center');
 
 	public languages = [
 		{ value: 'en', label: 'English' },

@@ -4,6 +4,7 @@ import { injectBrnAccordionItem } from './brn-accordion-token';
 
 @Directive({
 	selector: 'brn-accordion-content,[brnAccordionContent]',
+	exportAs: 'brnAccordionContent',
 	host: {
 		'[attr.data-state]': 'state?.()',
 		'[attr.aria-labelledby]': 'ariaLabeledBy',

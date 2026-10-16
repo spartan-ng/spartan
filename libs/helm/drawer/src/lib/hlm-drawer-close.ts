@@ -3,6 +3,7 @@ import { BrnDrawerClose } from '@spartan-ng/brain/drawer';
 
 @Directive({
 	selector: 'button[hlmDrawerClose]',
+	exportAs: 'hlmDrawerClose',
 	hostDirectives: [BrnDrawerClose],
 	host: { 'data-slot': 'drawer-close' },
 })

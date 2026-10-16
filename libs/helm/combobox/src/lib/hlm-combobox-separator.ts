@@ -4,6 +4,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
 	selector: '[hlmComboboxSeparator]',
+	exportAs: 'hlmComboboxSeparator',
 	hostDirectives: [{ directive: BrnComboboxSeparator, inputs: ['orientation'] }],
 	host: { 'data-slot': 'combobox-separator' },
 })

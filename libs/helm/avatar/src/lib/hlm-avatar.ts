@@ -4,6 +4,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Component({
 	selector: 'hlm-avatar',
+	exportAs: 'hlmAvatar',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'data-slot': 'avatar',

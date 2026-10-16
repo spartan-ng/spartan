@@ -39,6 +39,7 @@ body:
         - chart
         - checkbox
         - cli
+        - code-block
         - collapsible
         - combobox
         - command
@@ -82,6 +83,7 @@ body:
         - toggle
         - toggle-group
         - tooltip
+        - trace
         - trpc
         - typography
         - Docs

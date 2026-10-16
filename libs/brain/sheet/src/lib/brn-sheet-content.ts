@@ -9,6 +9,7 @@ import { BrnSheet } from './brn-sheet';
 
 @Directive({
 	selector: '[brnSheetContent]',
+	exportAs: 'brnSheetContent',
 	providers: [
 		provideExposesStateProviderExisting(() => BrnSheetContent),
 		provideExposedSideProviderExisting(() => BrnSheetContent),

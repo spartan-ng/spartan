@@ -3,6 +3,7 @@ import { injectBrnCommand } from './brn-command.token';
 
 @Directive({
 	selector: '[brnCommandSeparator]',
+	exportAs: 'brnCommandSeparator',
 	host: {
 		role: 'presentation',
 		'[attr.data-hidden]': '_hasSearchInput() ? true : null',

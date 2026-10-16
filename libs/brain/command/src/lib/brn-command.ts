@@ -32,6 +32,7 @@ export const BRN_COMMAND_VALUE_ACCESSOR = {
 
 @Directive({
 	selector: '[brnCommand]',
+	exportAs: 'brnCommand',
 	providers: [provideBrnCommand(BrnCommand), BRN_COMMAND_VALUE_ACCESSOR],
 	host: {
 		'[id]': 'id()',

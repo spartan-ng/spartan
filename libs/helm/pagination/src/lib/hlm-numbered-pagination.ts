@@ -21,6 +21,7 @@ import { injectHlmPaginationConfig } from './hlm-pagination.token';
 
 @Component({
 	selector: 'hlm-numbered-pagination',
+	exportAs: 'hlmNumberedPagination',
 	imports: [
 		HlmPagination,
 		HlmPaginationContent,

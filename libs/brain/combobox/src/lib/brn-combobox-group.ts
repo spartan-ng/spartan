@@ -4,6 +4,7 @@ import { BrnComboboxLabel } from './brn-combobox-label';
 
 @Directive({
 	selector: '[brnComboboxGroup]',
+	exportAs: 'brnComboboxGroup',
 	host: {
 		role: 'group',
 		'[attr.data-hidden]': '!_visible() ? "" : null',

@@ -3,6 +3,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
 	selector: 'brn-input-otp[hlmInputOtp], brn-input-otp[hlm]',
+	exportAs: 'hlmInputOtp',
 	host: { 'data-slot': 'input-otp' },
 })
 export class HlmInputOtp {

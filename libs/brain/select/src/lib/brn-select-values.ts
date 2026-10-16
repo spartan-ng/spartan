@@ -3,6 +3,7 @@ import { injectBrnSelectBase } from './brn-select.token';
 
 @Directive({
 	selector: '[brnSelectValues]',
+	exportAs: 'brnSelectValues',
 })
 export class BrnSelectValues<T> {
 	private readonly _templateRef = inject(TemplateRef<T>);

@@ -4,6 +4,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
 	selector: '[hlmDropdownMenuLabel],hlm-dropdown-menu-label',
+	exportAs: 'hlmDropdownMenuLabel',
 	host: {
 		'data-slot': 'dropdown-menu-label',
 		'[attr.data-inset]': 'inset() ? "" : null',

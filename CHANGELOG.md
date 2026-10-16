@@ -1,3 +1,18 @@
+## 1.8.0-beta.2 (2026-10-16)
+
+- fix: expose form state on interactive elements (#1732) ([63b0f04](https://github.com/spartan-ng/spartan/commit/63b0f04)), closes [#1732](https://github.com/spartan-ng/spartan/issues/1732) [#1727](https://github.com/spartan-ng/spartan/issues/1727)
+- fix(popover): follow anchors that scroll inside a scroll container (#1799) ([6163e85](https://github.com/spartan-ng/spartan/commit/6163e85)), closes [#1799](https://github.com/spartan-ng/spartan/issues/1799)
+- feat: add exportAs (#1805) ([27ab1b6](https://github.com/spartan-ng/spartan/commit/27ab1b6)), closes [#1805](https://github.com/spartan-ng/spartan/issues/1805) [#1764](https://github.com/spartan-ng/spartan/issues/1764) [#1764](https://github.com/spartan-ng/spartan/issues/1764)
+- feat(cli): support adding all components non-interactively (#1696) ([35983a3](https://github.com/spartan-ng/spartan/commit/35983a3)), closes [#1696](https://github.com/spartan-ng/spartan/issues/1696)
+
+## 1.8.0-beta.1 (2026-10-16)
+
+- feat(trace): add trace component (#1802) ([0396bbe](https://github.com/spartan-ng/spartan/commit/0396bbe)), closes [#1802](https://github.com/spartan-ng/spartan/issues/1802)
+- Merge pull request #1804 from spartan-ng/feat/code-block ([51f0b34](https://github.com/spartan-ng/spartan/commit/51f0b34)), closes [#1804](https://github.com/spartan-ng/spartan/issues/1804)
+- chore(release): backmerge main into beta ([7738c82](https://github.com/spartan-ng/spartan/commit/7738c82))
+- chore(release): backmerge main into beta ([e261b7f](https://github.com/spartan-ng/spartan/commit/e261b7f))
+- docs: add new contributors to our 300 ([b981464](https://github.com/spartan-ng/spartan/commit/b981464))
+
 ## 1.7.0 (2026-10-14)
 
 - feat: 1.7.0 (#1800) ([afa6638](https://github.com/spartan-ng/spartan/commit/afa6638)), closes [#1800](https://github.com/spartan-ng/spartan/issues/1800) [#1772](https://github.com/spartan-ng/spartan/issues/1772) [#1770](https://github.com/spartan-ng/spartan/issues/1770) [#1798](https://github.com/spartan-ng/spartan/issues/1798)

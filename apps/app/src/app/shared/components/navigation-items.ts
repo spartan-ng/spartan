@@ -36,8 +36,9 @@ export const components: Link[] = [
 	{ label: 'Calendar', url: '/calendar' },
 	{ label: 'Card', url: '/card' },
 	{ label: 'Carousel', url: '/carousel' },
-	{ label: 'Chart', url: '/chart', new: true },
+	{ label: 'Chart', url: '/chart' },
 	{ label: 'Checkbox', url: '/checkbox' },
+	{ label: 'Code Block', url: '/code-block', new: true },
 	{ label: 'Collapsible', url: '/collapsible' },
 	{ label: 'Combobox', url: '/combobox' },
 	{ label: 'Command', url: '/command' },
@@ -59,13 +60,13 @@ export const components: Link[] = [
 	{ label: 'Marker', url: '/marker' },
 	{ label: 'Menubar', url: '/menubar' },
 	{ label: 'Message', url: '/message' },
-	{ label: 'Message Scroller', url: '/message-scroller', new: true },
+	{ label: 'Message Scroller', url: '/message-scroller' },
 	{ label: 'Native Select', url: '/native-select' },
 	{ label: 'Navigation Menu', url: '/navigation-menu' },
 	{ label: 'Pagination', url: '/pagination' },
 	{ label: 'Popover', url: '/popover' },
 	{ label: 'Progress', url: '/progress' },
-	{ label: 'Questionnaire', url: '/questionnaire', new: true },
+	{ label: 'Questionnaire', url: '/questionnaire' },
 	{ label: 'Radio Group', url: '/radio-group' },
 	{ label: 'Resizable', url: '/resizable' },
 	{ label: 'Scroll Area', url: '/scroll-area' },
@@ -84,17 +85,18 @@ export const components: Link[] = [
 	{ label: 'Toggle', url: '/toggle' },
 	{ label: 'Toggle Group', url: '/toggle-group' },
 	{ label: 'Tooltip', url: '/tooltip' },
+	{ label: 'Trace', url: '/trace', new: true },
 ];
 
 export const forms: Link[] = [
 	{ label: 'Forms', url: '/', exact: true },
 	{ label: 'Reactive Forms', url: '/reactive-forms' },
-	{ label: 'Signal Forms', url: '/signal-forms', new: true },
+	{ label: 'Signal Forms', url: '/signal-forms' },
 ];
 
 export const utilities: Link[] = [
-	{ label: 'Scroll Fade', url: '/scroll-fade', new: true },
-	{ label: 'Shimmer', url: '/shimmer', new: true },
+	{ label: 'Scroll Fade', url: '/scroll-fade' },
+	{ label: 'Shimmer', url: '/shimmer' },
 ];
 
 export const sidenavItems: NavItem[] = [
@@ -114,7 +116,7 @@ export const sidenavItems: NavItem[] = [
 			{ label: 'Installation', url: '/installation' },
 			{ label: 'components.json', url: '/components-json' },
 			{ label: 'Theming', url: '/theming' },
-			{ label: 'Styles', url: '/styles', new: true },
+			{ label: 'Styles', url: '/styles' },
 			{ label: 'Dark Mode', url: '/dark-mode' },
 			{ label: 'CLI', url: '/cli' },
 			{ label: 'RTL', url: '/rtl' },
@@ -123,8 +125,8 @@ export const sidenavItems: NavItem[] = [
 			{ label: 'Version Support', url: '/version-support' },
 			{ label: 'Health Checks', url: '/health-checks' },
 			{ label: 'Update Guide', url: '/update-guide' },
-			{ label: 'MCP Server', url: '/mcp', new: true },
-			{ label: 'Skills', url: '/skills', new: true },
+			{ label: 'MCP Server', url: '/mcp' },
+			{ label: 'Skills', url: '/skills' },
 		],
 	},
 	{

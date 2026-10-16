@@ -3,6 +3,7 @@ import { classes } from '<%- importAlias %>/utils';
 
 @Directive({
 	selector: 'kbd[hlmKbdGroup]',
+	exportAs: 'hlmKbdGroup',
 	host: {
 		'data-slot': 'kbd-group',
 	},

@@ -5,6 +5,7 @@ export const hlmMuted = 'text-sm text-muted-foreground';
 
 @Directive({
 	selector: '[hlmMuted]',
+	exportAs: 'hlmMuted',
 })
 export class HlmMuted {
 	constructor() {

@@ -6,6 +6,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Component({
 	selector: 'hlm-select-scroll-up',
+	exportAs: 'hlmSelectScrollUp',
 	imports: [NgIcon],
 	providers: [provideIcons({ lucideChevronUp })],
 	changeDetection: ChangeDetectionStrategy.OnPush,

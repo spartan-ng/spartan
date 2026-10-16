@@ -4,6 +4,7 @@ import { classes } from '<%- importAlias %>/utils';
 
 @Directive({
 	selector: '[hlmTabs],hlm-tabs',
+	exportAs: 'hlmTabs',
 	hostDirectives: [
 		{
 			directive: BrnTabs,

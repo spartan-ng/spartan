@@ -6,6 +6,7 @@ import { classes } from '<%- importAlias %>/utils';
 
 @Component({
 	selector: 'hlm-select-scroll-up',
+	exportAs: 'hlmSelectScrollUp',
 	imports: [NgIcon],
 	providers: [provideIcons({ lucideChevronUp })],
 	changeDetection: ChangeDetectionStrategy.OnPush,

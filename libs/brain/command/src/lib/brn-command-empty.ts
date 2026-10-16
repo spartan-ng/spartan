@@ -3,6 +3,7 @@ import { injectBrnCommand } from './brn-command.token';
 
 @Directive({
 	selector: '[brnCommandEmpty]',
+	exportAs: 'brnCommandEmpty',
 })
 export class BrnCommandEmpty {
 	private readonly _templateRef = inject<TemplateRef<void>>(TemplateRef);

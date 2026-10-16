@@ -3,6 +3,7 @@ import { injectBrnMonthYearCalendar } from './brn-month-year-calendar.token';
 
 @Directive({
 	selector: 'button[brnMonthYearCalendarPreviousButton]',
+	exportAs: 'brnMonthYearCalendarPreviousButton',
 	host: {
 		type: 'button',
 		'data-slot': 'month-year-previous-button',

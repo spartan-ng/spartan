@@ -4,6 +4,7 @@ import { BrnDrawer } from './brn-drawer';
 
 @Directive({
 	selector: 'button[brnDrawerTrigger]',
+	exportAs: 'brnDrawerTrigger',
 })
 export class BrnDrawerTrigger extends BrnDialogTrigger {
 	private readonly _drawer = inject(BrnDrawer, { optional: true });

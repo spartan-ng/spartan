@@ -6,6 +6,7 @@ import { injectBrnAccordion, injectBrnAccordionItem } from './brn-accordion-toke
 
 @Directive({
 	selector: 'button[brnAccordionTrigger]',
+	exportAs: 'brnAccordionTrigger',
 	host: {
 		'[id]': 'id',
 		type: 'button',

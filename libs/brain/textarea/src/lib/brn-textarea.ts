@@ -4,6 +4,7 @@ import { BrnFieldControl, provideBrnLabelable } from '@spartan-ng/brain/field';
 
 @Directive({
 	selector: '[brnTextarea]',
+	exportAs: 'brnTextarea',
 	providers: [provideBrnLabelable(BrnTextarea)],
 	hostDirectives: [BrnFieldControl],
 	host: {

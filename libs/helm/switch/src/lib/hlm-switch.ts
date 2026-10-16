@@ -24,6 +24,7 @@ export const HLM_SWITCH_VALUE_ACCESSOR = {
 
 @Component({
 	selector: 'hlm-switch',
+	exportAs: 'hlmSwitch',
 	imports: [BrnSwitch, HlmSwitchThumb],
 	providers: [HLM_SWITCH_VALUE_ACCESSOR],
 	changeDetection: ChangeDetectionStrategy.OnPush,

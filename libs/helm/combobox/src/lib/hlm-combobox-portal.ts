@@ -3,6 +3,7 @@ import { BrnPopoverContent } from '@spartan-ng/brain/popover';
 
 @Directive({
 	selector: '[hlmComboboxPortal]',
+	exportAs: 'hlmComboboxPortal',
 	hostDirectives: [{ directive: BrnPopoverContent, inputs: ['context', 'class'] }],
 })
 export class HlmComboboxPortal {}

@@ -20,6 +20,7 @@ import { listVariants } from './hlm-tabs-list';
 
 @Component({
 	selector: 'hlm-paginated-tabs-list',
+	exportAs: 'hlmTabsPaginatedList',
 	imports: [CdkObserveContent, NgIcon],
 	providers: [provideIcons({ lucideChevronRight, lucideChevronLeft })],
 	changeDetection: ChangeDetectionStrategy.OnPush,

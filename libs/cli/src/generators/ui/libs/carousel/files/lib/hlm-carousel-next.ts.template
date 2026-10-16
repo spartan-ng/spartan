@@ -7,6 +7,7 @@ import { HlmCarousel } from './hlm-carousel';
 
 @Component({
 	selector: 'button[hlm-carousel-next], button[hlmCarouselNext]',
+	exportAs: 'hlmCarouselNext',
 	imports: [NgIcon],
 	providers: [provideIcons({ lucideArrowRight }), provideBrnButtonConfig({ variant: 'outline', size: 'icon-sm' })],
 	changeDetection: ChangeDetectionStrategy.OnPush,

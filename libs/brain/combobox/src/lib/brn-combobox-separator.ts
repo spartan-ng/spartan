@@ -2,6 +2,7 @@ import { Directive, input } from '@angular/core';
 
 @Directive({
 	selector: '[brnComboboxSeparator]',
+	exportAs: 'brnComboboxSeparator',
 	host: {
 		role: 'separator',
 		'[attr.aria-orientation]': 'orientation()',

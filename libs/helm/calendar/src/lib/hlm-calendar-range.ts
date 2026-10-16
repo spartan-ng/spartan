@@ -10,6 +10,7 @@ import { classes, hlm } from '@spartan-ng/helm/utils';
 
 @Component({
 	selector: 'hlm-calendar-range',
+	exportAs: 'hlmCalendarRange',
 	imports: [BrnCalendarImports, NgIcon, HlmSelectImports, NgTemplateOutlet, HlmButtonImports],
 	viewProviders: [provideIcons({ lucideChevronLeft, lucideChevronRight })],
 	changeDetection: ChangeDetectionStrategy.OnPush,

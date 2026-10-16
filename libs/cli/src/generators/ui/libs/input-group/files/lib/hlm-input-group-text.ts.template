@@ -3,6 +3,7 @@ import { classes } from '<%- importAlias %>/utils';
 
 @Directive({
 	selector: '[hlmInputGroupText],hlm-input-group-text',
+	exportAs: 'hlmInputGroupText',
 })
 export class HlmInputGroupText {
 	constructor() {

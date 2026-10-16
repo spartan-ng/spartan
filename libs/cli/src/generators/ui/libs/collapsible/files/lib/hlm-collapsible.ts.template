@@ -3,6 +3,7 @@ import { BrnCollapsible } from '@spartan-ng/brain/collapsible';
 
 @Directive({
 	selector: '[hlmCollapsible],hlm-collapsible',
+	exportAs: 'hlmCollapsible',
 	hostDirectives: [
 		{
 			directive: BrnCollapsible,

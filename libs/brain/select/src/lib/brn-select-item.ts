@@ -8,6 +8,7 @@ import { injectBrnSelectBase } from './brn-select.token';
 
 @Directive({
 	selector: '[brnSelectItem]',
+	exportAs: 'brnSelectItem',
 	providers: [provideBrnSelectItem(BrnSelectItem)],
 	host: {
 		role: 'option',

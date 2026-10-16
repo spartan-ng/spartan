@@ -3,6 +3,7 @@ import { HlmButton, provideBrnButtonConfig } from '<%- importAlias %>/button';
 
 @Directive({
 	selector: 'button[hlmAttachmentAction]',
+	exportAs: 'hlmAttachmentAction',
 	providers: [provideBrnButtonConfig({ variant: 'ghost', size: 'icon-xs' })],
 	hostDirectives: [{ directive: HlmButton, inputs: ['variant', 'size'] }],
 	host: {

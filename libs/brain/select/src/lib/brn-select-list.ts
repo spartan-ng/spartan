@@ -3,6 +3,7 @@ import { injectBrnSelectBase } from './brn-select.token';
 
 @Directive({
 	selector: '[brnSelectList]',
+	exportAs: 'brnSelectList',
 	host: {
 		role: 'listbox',
 		'[id]': 'id()',

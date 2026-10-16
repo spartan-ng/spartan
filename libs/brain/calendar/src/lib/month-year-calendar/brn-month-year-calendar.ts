@@ -32,6 +32,7 @@ function floorMod(value: number, modulo: number): number {
 
 @Directive({
 	selector: '[brnMonthYearCalendar]',
+	exportAs: 'brnMonthYearCalendar',
 	providers: [provideBrnMonthYearCalendar(BrnMonthYearCalendar)],
 })
 export class BrnMonthYearCalendar<T> implements BrnMonthYearCalendarBase<T> {

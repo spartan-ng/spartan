@@ -5,6 +5,7 @@ let uniqueId = 0;
 
 @Directive({
 	selector: 'button[brnMonthYearCalendarHeader]',
+	exportAs: 'brnMonthYearCalendarHeader',
 	host: {
 		'[id]': 'id()',
 		'[disabled]': '_monthYear.disabled() || _monthYear.view() === "year"',

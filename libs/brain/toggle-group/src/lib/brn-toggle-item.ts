@@ -4,6 +4,7 @@ import { injectBrnToggleGroup } from './brn-toggle-group.token';
 
 @Directive({
 	selector: 'button[brnToggleGroupItem]',
+	exportAs: 'brnToggleGroupItem',
 	host: {
 		'[id]': 'id()',
 		'[attr.disabled]': '_disabled() ? true : null',

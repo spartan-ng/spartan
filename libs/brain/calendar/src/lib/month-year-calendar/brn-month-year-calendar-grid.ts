@@ -3,6 +3,7 @@ import { injectBrnMonthYearCalendar } from './brn-month-year-calendar.token';
 
 @Directive({
 	selector: '[brnMonthYearCalendarGrid]',
+	exportAs: 'brnMonthYearCalendarGrid',
 	host: {
 		role: 'grid',
 		'[attr.aria-labelledby]': '_monthYear.header()?.id()',

@@ -43,6 +43,7 @@ let uniqueIdCounter = 0;
 
 @Component({
 	selector: 'brn-switch',
+	exportAs: 'brnSwitch',
 	providers: [BRN_SWITCH_VALUE_ACCESSOR, provideBrnLabelable(BrnSwitch)],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	hostDirectives: [BrnFieldControl],

@@ -4,6 +4,7 @@ import { classes } from '<%- importAlias %>/utils';
 
 @Directive({
 	selector: '[hlmAutocompleteSeparator]',
+	exportAs: 'hlmAutocompleteSeparator',
 	hostDirectives: [{ directive: BrnAutocompleteSeparator, inputs: ['orientation'] }],
 	host: { 'data-slot': 'autocomplete-separator' },
 })

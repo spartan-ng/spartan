@@ -3,6 +3,7 @@ import { BrnHoverCardContent, BrnHoverCardContentService, BrnHoverCardTrigger } 
 
 @Directive({
 	selector: '[brnHoverCard],brn-hover-card',
+	exportAs: 'brnHoverCard',
 	providers: [BrnHoverCardContentService],
 })
 export class BrnHoverCard implements AfterContentInit {

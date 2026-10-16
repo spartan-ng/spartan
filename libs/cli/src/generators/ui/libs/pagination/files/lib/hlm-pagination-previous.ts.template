@@ -11,6 +11,7 @@ import { injectHlmPaginationConfig } from './hlm-pagination.token';
 
 @Component({
 	selector: 'hlm-pagination-previous',
+	exportAs: 'hlmPaginationPrevious',
 	imports: [HlmPaginationLink, NgIcon],
 	providers: [provideIcons({ lucideChevronLeft })],
 	changeDetection: ChangeDetectionStrategy.OnPush,

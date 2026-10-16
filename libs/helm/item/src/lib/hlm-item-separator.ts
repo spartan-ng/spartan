@@ -5,6 +5,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
 	selector: '[hlmItemSeparator],hlm-item-separator',
+	exportAs: 'hlmItemSeparator',
 	hostDirectives: [{ directive: BrnSeparator, inputs: ['orientation'] }],
 	host: { 'data-slot': 'item-separator' },
 })

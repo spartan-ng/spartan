@@ -5,6 +5,7 @@ export const hlmSmall = 'text-sm font-medium leading-none';
 
 @Directive({
 	selector: '[hlmSmall]',
+	exportAs: 'hlmSmall',
 })
 export class HlmSmall {
 	constructor() {

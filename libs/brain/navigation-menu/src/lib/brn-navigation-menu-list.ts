@@ -3,6 +3,7 @@ import { injectBrnNavigationMenu } from './brn-navigation-menu.token';
 
 @Directive({
 	selector: 'ul[brnNavigationMenuList]',
+	exportAs: 'brnNavigationMenuList',
 	host: {
 		'[attr.data-orientation]': '_orientation()',
 		'data-slot': 'navigation-menu-list',

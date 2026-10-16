@@ -3,6 +3,7 @@ import { classes } from '<%- importAlias %>/utils';
 
 @Component({
 	selector: 'hlm-input-otp-fake-caret',
+	exportAs: 'hlmInputOtpFakeCaret',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div class="spartan-input-otp-caret-line"></div>

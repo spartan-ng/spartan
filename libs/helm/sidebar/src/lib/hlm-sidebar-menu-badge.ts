@@ -3,6 +3,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
 	selector: '[hlmSidebarMenuBadge],hlm-sidebar-menu-badge',
+	exportAs: 'hlmSidebarMenuBadge',
 	host: {
 		'data-slot': 'sidebar-menu-badge',
 		'data-sidebar': 'menu-badge',

@@ -23,6 +23,7 @@ type InputGroupAddonVariants = VariantProps<typeof inputGroupAddonVariants>;
 
 @Directive({
 	selector: '[hlmInputGroupAddon],hlm-input-group-addon',
+	exportAs: 'hlmInputGroupAddon',
 	host: {
 		role: 'group',
 		'data-slot': 'input-group-addon',

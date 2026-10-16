@@ -7,6 +7,7 @@ import { BrnParentNavMenu, provideBrnParentNavMenu } from './brn-parent-nav-menu
 
 @Directive({
 	selector: '[brnNavigationMenuContent]',
+	exportAs: 'brnNavigationMenuContent',
 	providers: [provideBrnParentNavMenu(() => ({ subNavVisible$: new Subject<boolean>() }))],
 })
 export class BrnNavigationMenuContent {

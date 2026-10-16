@@ -16,6 +16,7 @@ import { EmblaCarouselDirective } from 'embla-carousel-angular';
 
 @Component({
 	selector: 'hlm-carousel',
+	exportAs: 'hlmCarousel',
 	imports: [EmblaCarouselDirective],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {

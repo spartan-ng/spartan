@@ -2,6 +2,7 @@ import { Directive } from '@angular/core';
 
 @Directive({
 	selector: '[brnComboboxStatus]',
+	exportAs: 'brnComboboxStatus',
 	host: {
 		role: 'status',
 		'aria-live': 'polite',

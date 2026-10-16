@@ -4,6 +4,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
 	selector: '[hlmFieldDescription],hlm-field-description',
+	exportAs: 'hlmFieldDescription',
 	host: {
 		'data-slot': 'field-description',
 		'[attr.id]': 'id()',

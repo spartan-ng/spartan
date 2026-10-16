@@ -4,6 +4,7 @@ import { classes } from '<%- importAlias %>/utils';
 
 @Directive({
 	selector: '[hlmAutocompleteStatus],hlm-autocomplete-status',
+	exportAs: 'hlmAutocompleteStatus',
 	hostDirectives: [BrnAutocompleteStatus],
 	host: { 'data-slot': 'autocomplete-status' },
 })

@@ -30,6 +30,7 @@ export const HLM_DATE_PICKER_VALUE_ACCESSOR = {
 
 @Component({
 	selector: 'hlm-date-picker',
+	exportAs: 'hlmDatePicker',
 	imports: [HlmPopoverImports, HlmCalendar],
 	providers: [HLM_DATE_PICKER_VALUE_ACCESSOR, provideBrnDatePicker(HlmDatePicker), provideBrnLabelable(HlmDatePicker)],
 	changeDetection: ChangeDetectionStrategy.OnPush,

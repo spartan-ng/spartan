@@ -4,6 +4,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
 	selector: 'button[hlmSidebarMenuAction]',
+	exportAs: 'hlmSidebarMenuAction',
 	host: {
 		'data-slot': 'sidebar-menu-action',
 		'data-sidebar': 'menu-action',

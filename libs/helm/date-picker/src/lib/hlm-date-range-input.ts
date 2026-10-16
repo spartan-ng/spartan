@@ -12,6 +12,7 @@ import { injectHlmDateRangePickerConfig } from './hlm-date-range-picker.token';
 
 @Component({
 	selector: 'hlm-date-range-input',
+	exportAs: 'hlmDateRangeInput',
 	imports: [HlmInputGroupImports, NgIcon],
 	providers: [provideIcons({ lucideCalendar, lucideX }), provideBrnDatePickerTrigger(HlmDateRangeInput)],
 	changeDetection: ChangeDetectionStrategy.OnPush,

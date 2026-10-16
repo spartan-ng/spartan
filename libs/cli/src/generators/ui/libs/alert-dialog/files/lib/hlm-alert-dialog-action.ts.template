@@ -3,6 +3,7 @@ import { HlmButton } from '<%- importAlias %>/button';
 
 @Directive({
 	selector: 'button[hlmAlertDialogAction]',
+	exportAs: 'hlmAlertDialogAction',
 	hostDirectives: [{ directive: HlmButton, inputs: ['variant', 'size'] }],
 	host: { 'data-slot': 'alert-dialog-action', '[type]': 'type()' },
 })

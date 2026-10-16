@@ -3,6 +3,7 @@ import { injectBrnCommand } from './brn-command.token';
 
 @Directive({
 	selector: '[brnCommandList]',
+	exportAs: 'brnCommandList',
 	host: {
 		role: 'listbox',
 		'[id]': 'id()',

@@ -4,6 +4,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
 	selector: '[hlmComboboxGroup]',
+	exportAs: 'hlmComboboxGroup',
 	hostDirectives: [BrnComboboxGroup],
 	host: { 'data-slot': 'combobox-group' },
 })

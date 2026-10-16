@@ -3,6 +3,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
 	selector: '[hlmMessageAvatar],hlm-message-avatar',
+	exportAs: 'hlmMessageAvatar',
 	host: { 'data-slot': 'message-avatar' },
 })
 export class HlmMessageAvatar {

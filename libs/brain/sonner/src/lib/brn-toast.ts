@@ -24,6 +24,7 @@ import type { ToastAction, ToastProps, ToastT } from './types';
 
 @Component({
 	selector: 'brn-sonner-toast',
+	exportAs: 'brnSonnerToast',
 	imports: [NgComponentOutlet, IsStringPipe, AsComponentPipe, NgTemplateOutlet],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `

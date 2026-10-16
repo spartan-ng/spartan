@@ -3,6 +3,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
 	selector: '[hlmAlertAction]',
+	exportAs: 'hlmAlertAction',
 	host: {
 		'data-slot': 'alert-action',
 	},

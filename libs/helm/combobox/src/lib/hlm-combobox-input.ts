@@ -8,6 +8,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Component({
 	selector: 'hlm-combobox-input',
+	exportAs: 'hlmComboboxInput',
 	imports: [HlmInputGroupImports, NgIcon, BrnComboboxImports, BrnComboboxPopoverTrigger],
 	providers: [provideIcons({ lucideChevronDown, lucideX })],
 	changeDetection: ChangeDetectionStrategy.OnPush,

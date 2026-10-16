@@ -27,6 +27,7 @@ export type ToggleVariants = VariantProps<typeof toggleVariants>;
 
 @Directive({
 	selector: 'button[hlmToggle]',
+	exportAs: 'hlmToggle',
 	hostDirectives: [
 		{
 			directive: BrnToggle,

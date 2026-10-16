@@ -23,6 +23,7 @@ export const tooltipPositionVariants = cva('absolute', {
 
 @Directive({
 	selector: '[hlmTooltip]',
+	exportAs: 'hlmTooltip',
 	providers: [
 		provideBrnTooltipDefaultOptions({
 			svgClasses: DEFAULT_TOOLTIP_SVG_CLASS,

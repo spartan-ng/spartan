@@ -4,6 +4,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
 	selector: '[hlmSelectValue],hlm-select-value',
+	exportAs: 'hlmSelectValue',
 	hostDirectives: [{ directive: BrnSelectValue, inputs: ['placeholder'] }],
 	host: { '[attr.data-slot]': '!_hidden() ? "select-value" : null' },
 })

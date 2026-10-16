@@ -4,6 +4,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
 	selector: '[hlmAlertDialogContent],hlm-alert-dialog-content',
+	exportAs: 'hlmAlertDialogContent',
 	host: {
 		'data-slot': 'alert-dialog-content',
 		'[attr.data-state]': 'state()',

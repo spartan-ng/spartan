@@ -3,6 +3,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
 	selector: 'button[hlmAttachmentTrigger],a[hlmAttachmentTrigger]',
+	exportAs: 'hlmAttachmentTrigger',
 	host: {
 		'data-slot': 'attachment-trigger',
 		'[attr.type]': '_hostType()',

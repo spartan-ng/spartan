@@ -3,6 +3,7 @@ import { BrnCommandItemToken } from './brn-command-item.token';
 
 @Directive({
 	selector: '[brnCommandGroup]',
+	exportAs: 'brnCommandGroup',
 	host: {
 		role: 'group',
 		'[attr.data-hidden]': '!_visible() ? true : null',

@@ -5,6 +5,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Component({
 	selector: 'hlm-drawer-content',
+	exportAs: 'hlmDrawerContent',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	hostDirectives: [{ directive: BrnDrawerHandle, inputs: ['closeThreshold'] }],
 	host: {

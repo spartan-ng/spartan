@@ -8,6 +8,7 @@ import { injectBrnComboboxBase } from './brn-combobox.token';
 
 @Directive({
 	selector: '[brnComboboxItem]',
+	exportAs: 'brnComboboxItem',
 	providers: [provideBrnComboboxItem(BrnComboboxItem)],
 	host: {
 		role: 'option',

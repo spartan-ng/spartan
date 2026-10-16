@@ -5,6 +5,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Component({
 	selector: 'hlm-dropdown-menu-item-sub-indicator',
+	exportAs: 'hlmDropdownMenuItemSubIndicator',
 	imports: [NgIcon],
 	providers: [provideIcons({ lucideChevronRight })],
 	changeDetection: ChangeDetectionStrategy.OnPush,

@@ -5,6 +5,7 @@ import { classes } from '<%- importAlias %>/utils';
 
 @Directive({
 	selector: '[hlmComboboxMultiple],hlm-combobox-multiple',
+	exportAs: 'hlmComboboxMultiple',
 	providers: [
 		provideBrnPopoverConfig({
 			align: 'start',

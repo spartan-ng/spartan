@@ -14,6 +14,7 @@ import { injectBrnCalendar } from './brn-calendar.token';
 
 @Directive({
 	selector: '[brnCalendarWeek]',
+	exportAs: 'brnCalendarWeek',
 })
 export class BrnCalendarWeek<T> implements OnDestroy {
 	/** Access the calendar */

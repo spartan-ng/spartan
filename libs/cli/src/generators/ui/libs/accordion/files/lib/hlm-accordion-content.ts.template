@@ -4,6 +4,7 @@ import { classes } from '<%- importAlias %>/utils';
 
 @Component({
 	selector: 'hlm-accordion-content',
+	exportAs: 'hlmAccordionContent',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	hostDirectives: [{ directive: BrnAccordionContent, inputs: ['style'] }],
 	host: {

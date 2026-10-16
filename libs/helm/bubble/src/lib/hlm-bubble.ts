@@ -27,6 +27,7 @@ export type BubbleAlign = 'start' | 'end';
 
 @Directive({
 	selector: '[hlmBubble],hlm-bubble',
+	exportAs: 'hlmBubble',
 	host: {
 		'data-slot': 'bubble',
 		'[attr.data-variant]': 'variant()',

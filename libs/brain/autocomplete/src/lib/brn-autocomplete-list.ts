@@ -4,6 +4,7 @@ import { injectBrnAutocompleteBase } from './brn-autocomplete.token';
 
 @Directive({
 	selector: '[brnAutocompleteList]',
+	exportAs: 'brnAutocompleteList',
 	host: {
 		role: 'listbox',
 		tabIndex: '-1',

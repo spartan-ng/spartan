@@ -4,6 +4,7 @@ import { classes } from '<%- importAlias %>/utils';
 
 @Directive({
 	selector: '[hlmAccordionItem],hlm-accordion-item',
+	exportAs: 'hlmAccordionItem',
 	hostDirectives: [
 		{
 			directive: BrnAccordionItem,

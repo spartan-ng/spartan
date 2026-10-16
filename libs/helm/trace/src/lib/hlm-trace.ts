@@ -1,7 +1,11 @@
 import { Directive } from '@angular/core';
 import { classes } from '@spartan-ng/helm/utils';
 
-@Directive({ selector: '[hlmTrace],hlm-trace', host: { 'data-slot': 'trace' } })
+@Directive({
+	selector: '[hlmTrace],hlm-trace',
+	exportAs: 'hlmTrace',
+	host: { 'data-slot': 'trace' },
+})
 export class HlmTrace {
 	constructor() {
 		classes(

@@ -7,6 +7,7 @@ import { classes } from '@spartan-ng/helm/utils';
 @Component({
 	// eslint-disable-next-line @angular-eslint/component-selector
 	selector: 'button[hlmTraceCollapsibleTrigger]',
+	exportAs: 'hlmTraceCollapsibleTrigger',
 	imports: [NgIcon],
 	providers: [provideIcons({ lucideChevronRight })],
 	changeDetection: ChangeDetectionStrategy.OnPush,

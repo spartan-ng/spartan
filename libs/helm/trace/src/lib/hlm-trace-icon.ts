@@ -3,6 +3,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
 	selector: '[hlmTraceIcon],hlm-trace-icon',
+	exportAs: 'hlmTraceIcon',
 	host: { 'data-slot': 'trace-icon', '[attr.aria-hidden]': 'true' },
 })
 export class HlmTraceIcon {

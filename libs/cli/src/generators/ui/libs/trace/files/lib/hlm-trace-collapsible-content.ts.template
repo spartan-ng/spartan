@@ -5,6 +5,7 @@ import { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'hlm-trace-collapsible-content',
+	exportAs: 'hlmTraceCollapsibleContent',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	hostDirectives: [{ directive: BrnCollapsibleContent, inputs: ['id'] }],
 	host: { 'data-slot': 'trace-collapsible-content' },

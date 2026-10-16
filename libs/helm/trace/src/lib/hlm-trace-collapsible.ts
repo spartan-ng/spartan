@@ -4,6 +4,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
 	selector: '[hlmTraceCollapsible],hlm-trace-collapsible',
+	exportAs: 'hlmTraceCollapsible',
 	hostDirectives: [
 		{
 			directive: BrnCollapsible,

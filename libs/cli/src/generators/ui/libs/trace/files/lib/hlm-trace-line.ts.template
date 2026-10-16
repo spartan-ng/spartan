@@ -3,6 +3,7 @@ import { classes } from '<%- importAlias %>/utils';
 
 @Directive({
 	selector: '[hlmTraceLine],hlm-trace-line',
+	exportAs: 'hlmTraceLine',
 	host: { 'data-slot': 'trace-line', '[attr.data-status]': 'status()' },
 })
 export class HlmTraceLine {

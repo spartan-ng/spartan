@@ -134,3 +134,35 @@ export const CloseOnScroll: Story = {
     `,
 	}),
 };
+
+/**
+ * The trigger lives inside a container that scrolls on its own (a sheet body, a dialog with
+ * `overflow: auto`, a scrolling layout column). The CDK only follows the document and
+ * containers registered as `cdkScrollable`, so a panel anchored anywhere else used to stay
+ * where it opened while the trigger moved away. `BrnOverlayService` now listens to the
+ * anchor's scroll containers and repositions the panel, the way floating-ui's `autoUpdate`
+ * does: scroll the box below and the content keeps its distance to the trigger.
+ */
+export const ScrollContainer: Story = {
+	args: {
+		align: 'center',
+		sideOffset: 4,
+	},
+	render: ({ ...args }) => ({
+		props: { ...args },
+		template: `
+    <div id='scroll-container' class='h-64 w-full overflow-y-auto rounded-md border'>
+      <div class='h-[180px]'></div>
+      <div class='flex justify-center'>
+        <hlm-popover ${argsToTemplate(args)}>
+          <button id='scroll-trigger' variant='outline' hlmPopoverTrigger hlmBtn>Open Popover</button>
+          <hlm-popover-content class='w-80' *hlmPopoverPortal='let ctx'>
+            <p id='scroll-content' class='text-sm'>This panel follows its trigger while the container scrolls.</p>
+          </hlm-popover-content>
+        </hlm-popover>
+      </div>
+      <div class='h-[180px]'></div>
+    </div>
+    `,
+	}),
+};

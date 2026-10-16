@@ -183,3 +183,61 @@ describe('popover--close-on-scroll', () => {
 		cy.get('hlm-popover-content').should('not.exist');
 	});
 });
+
+describe('popover--scroll-container', () => {
+	/** Reading geometry before the opening animation ends is off by a pixel. */
+	const settled = () =>
+		cy
+			.get('hlm-popover-content')
+			.should('be.visible')
+			.then(($content) => cy.wrap(Promise.all($content[0].getAnimations().map((a: Animation) => a.finished))));
+
+	beforeEach(() => {
+		cy.visit('/iframe.html?id=popover--scroll-container');
+		cy.get('#scroll-trigger').click();
+		settled();
+	});
+
+	/**
+	 * Assign `scrollTop` directly: `cy.scrollTo` moves the window too, which drifts the trigger
+	 * geometry independently of the container. Dispatching the event drives the strategy's
+	 * reposition deterministically.
+	 */
+	const scrollContainer = (top: number) =>
+		cy.get('#scroll-container').then(($container) => {
+			$container[0].scrollTop = top;
+			$container[0].dispatchEvent(new Event('scroll'));
+		});
+
+	/** The trigger and panel are read in one frame, so the window position cancels out. */
+	const gap = ($content: JQuery<Element>) => {
+		const trigger = Cypress.$('#scroll-trigger')[0].getBoundingClientRect();
+		const content = $content[0].getBoundingClientRect();
+		return content.top - trigger.bottom;
+	};
+
+	it('keeps the panel on its trigger when the enclosing container scrolls', () => {
+		// Start from a known scroll position: opening the popover leaves the container where the
+		// click scrolled it, so this makes the distance moved by the trigger below deterministic.
+		scrollContainer(0);
+
+		cy.get('hlm-popover-content')
+			.should(($content) => expect(Math.abs(gap($content)), 'the panel should sit at its offset').to.be.lessThan(12))
+			.then(($content) => {
+				const settled = gap($content);
+
+				scrollContainer(120);
+
+				cy.get('hlm-popover-content').should(($moved) => {
+					const container = Cypress.$('#scroll-container')[0];
+					expect(container.scrollTop, 'the container should have scrolled').to.be.greaterThan(100);
+					// Without following the container the panel stays put and the gap grows by ~the
+					// scroll distance instead of holding the offset it settled at above.
+					expect(
+						Math.abs(gap($moved) - settled),
+						`gap=${Math.round(gap($moved))} settled=${Math.round(settled)}`,
+					).to.be.lessThan(8);
+				});
+			});
+	});
+});

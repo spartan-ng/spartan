@@ -1,3 +1,18 @@
+## 1.8.0 (2026-10-16)
+
+- feat: 1.8.0 (#1806) ([8cd3d05](https://github.com/spartan-ng/spartan/commit/8cd3d05)), closes [#1806](https://github.com/spartan-ng/spartan/issues/1806) [#1804](https://github.com/spartan-ng/spartan/issues/1804) [#1802](https://github.com/spartan-ng/spartan/issues/1802) [#1799](https://github.com/spartan-ng/spartan/issues/1799)
+- feat: add exportAs (#1805) ([27ab1b6](https://github.com/spartan-ng/spartan/commit/27ab1b6)), closes [#1805](https://github.com/spartan-ng/spartan/issues/1805) [#1764](https://github.com/spartan-ng/spartan/issues/1764) [#1764](https://github.com/spartan-ng/spartan/issues/1764)
+- feat(cli): support adding all components non-interactively (#1696) ([35983a3](https://github.com/spartan-ng/spartan/commit/35983a3)), closes [#1696](https://github.com/spartan-ng/spartan/issues/1696)
+- feat(trace): add trace component (#1802) ([0396bbe](https://github.com/spartan-ng/spartan/commit/0396bbe)), closes [#1802](https://github.com/spartan-ng/spartan/issues/1802)
+- chore(release): 1.8.0-beta.1 ([08ccdd1](https://github.com/spartan-ng/spartan/commit/08ccdd1))
+- chore(release): 1.8.0-beta.2 ([c77ecdd](https://github.com/spartan-ng/spartan/commit/c77ecdd))
+- chore(release): backmerge main into beta ([7738c82](https://github.com/spartan-ng/spartan/commit/7738c82))
+- chore(release): backmerge main into beta ([e261b7f](https://github.com/spartan-ng/spartan/commit/e261b7f))
+- fix: expose form state on interactive elements (#1732) ([63b0f04](https://github.com/spartan-ng/spartan/commit/63b0f04)), closes [#1732](https://github.com/spartan-ng/spartan/issues/1732) [#1727](https://github.com/spartan-ng/spartan/issues/1727)
+- fix(popover): follow anchors that scroll inside a scroll container (#1799) ([6163e85](https://github.com/spartan-ng/spartan/commit/6163e85)), closes [#1799](https://github.com/spartan-ng/spartan/issues/1799)
+- Merge pull request #1804 from spartan-ng/feat/code-block ([51f0b34](https://github.com/spartan-ng/spartan/commit/51f0b34)), closes [#1804](https://github.com/spartan-ng/spartan/issues/1804)
+- docs: add new contributors to our 300 ([b981464](https://github.com/spartan-ng/spartan/commit/b981464))
+
 ## 1.8.0-beta.2 (2026-10-16)
 
 - fix: expose form state on interactive elements (#1732) ([63b0f04](https://github.com/spartan-ng/spartan/commit/63b0f04)), closes [#1732](https://github.com/spartan-ng/spartan/issues/1732) [#1727](https://github.com/spartan-ng/spartan/issues/1727)

@@ -1,7 +1,11 @@
 import { Directive } from '@angular/core';
 import { classes } from '@spartan-ng/helm/utils';
 
-@Directive({ selector: '[hlmCodeBlockActions],hlm-code-block-actions', host: { 'data-slot': 'code-block-actions' } })
+@Directive({
+	selector: '[hlmCodeBlockActions],hlm-code-block-actions',
+	exportAs: 'hlmCodeBlockActions',
+	host: { 'data-slot': 'code-block-actions' },
+})
 export class HlmCodeBlockActions {
 	constructor() {
 		classes(

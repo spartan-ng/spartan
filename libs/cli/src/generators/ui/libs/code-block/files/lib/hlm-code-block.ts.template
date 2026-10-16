@@ -21,6 +21,7 @@ type CodeBlockVariants = VariantProps<typeof codeBlockVariants>;
 
 @Directive({
 	selector: '[hlmCodeBlock],hlm-code-block',
+	exportAs: 'hlmCodeBlock',
 	host: { 'data-slot': 'code-block', '[attr.data-variant]': 'variant()', '[attr.data-size]': 'size()' },
 })
 export class HlmCodeBlock {

@@ -7,6 +7,7 @@ import { classes } from '<%- importAlias %>/utils';
 @Component({
 	// eslint-disable-next-line @angular-eslint/component-selector
 	selector: 'button[hlmCodeBlockCopyButton]',
+	exportAs: 'hlmCodeBlockCopyButton',
 	imports: [NgIcon],
 	providers: [provideIcons({ lucideCopy, lucideCheck }), provideBrnButtonConfig({ variant: 'ghost', size: 'icon-xs' })],
 	changeDetection: ChangeDetectionStrategy.OnPush,

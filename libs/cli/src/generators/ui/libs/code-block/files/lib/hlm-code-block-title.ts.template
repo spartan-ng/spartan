@@ -1,7 +1,11 @@
 import { Directive } from '@angular/core';
 import { classes } from '<%- importAlias %>/utils';
 
-@Directive({ selector: '[hlmCodeBlockTitle],hlm-code-block-title', host: { 'data-slot': 'code-block-title' } })
+@Directive({
+	selector: '[hlmCodeBlockTitle],hlm-code-block-title',
+	exportAs: 'hlmCodeBlockTitle',
+	host: { 'data-slot': 'code-block-title' },
+})
 export class HlmCodeBlockTitle {
 	constructor() {
 		classes(

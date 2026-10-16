@@ -15,6 +15,7 @@ import { HlmCodeBlockLine } from './hlm-code-block-line';
 @Component({
 	// eslint-disable-next-line @angular-eslint/component-selector
 	selector: 'pre[hlmCodeBlockContent]',
+	exportAs: 'hlmCodeBlockContent',
 	imports: [HlmCodeBlockLine],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {

@@ -24,6 +24,7 @@ type CodeBlockLineVariants = VariantProps<typeof codeBlockLineVariants>;
 @Component({
 	// eslint-disable-next-line @angular-eslint/component-selector
 	selector: 'span[hlmCodeBlockLine]',
+	exportAs: 'hlmCodeBlockLine',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: { 'data-slot': 'code-block-line', '[attr.data-variant]': 'variant()' },
 	template: `

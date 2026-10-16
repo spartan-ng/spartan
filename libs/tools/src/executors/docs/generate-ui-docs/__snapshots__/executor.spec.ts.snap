@@ -10864,6 +10864,105 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
       },
     },
   },
+  "trace": {
+    "helm": {
+      "HlmTrace": {
+        "exportAs": "hlmTrace",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmTrace],hlm-trace",
+      },
+      "HlmTraceCollapsible": {
+        "exportAs": "hlmTraceCollapsible",
+        "inputs": [
+          {
+            "name": "expanded",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [],
+        "outputs": [
+          {
+            "name": "expandedChange",
+            "type": "boolean",
+          },
+        ],
+        "selector": "[hlmTraceCollapsible],hlm-trace-collapsible",
+      },
+      "HlmTraceCollapsibleContent": {
+        "exportAs": "hlmTraceCollapsibleContent",
+        "inputs": [
+          {
+            "name": "contentInnerClasses",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "id",
+            "required": false,
+            "type": "string | null | undefined",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "hlm-trace-collapsible-content",
+      },
+      "HlmTraceCollapsibleTrigger": {
+        "exportAs": "hlmTraceCollapsibleTrigger",
+        "inputs": [
+          {
+            "name": "type",
+            "required": false,
+            "type": "'button' | 'submit' | 'reset'",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "button[hlmTraceCollapsibleTrigger]",
+      },
+      "HlmTraceDescription": {
+        "exportAs": "hlmTraceDescription",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmTraceDescription],hlm-trace-description",
+      },
+      "HlmTraceIcon": {
+        "exportAs": "hlmTraceIcon",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmTraceIcon],hlm-trace-icon",
+      },
+      "HlmTraceLine": {
+        "exportAs": "hlmTraceLine",
+        "inputs": [
+          {
+            "name": "status",
+            "required": false,
+            "type": "'running' | 'error' | 'pending'",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmTraceLine],hlm-trace-line",
+      },
+      "HlmTraceTitle": {
+        "exportAs": "hlmTraceTitle",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmTraceTitle],hlm-trace-title",
+      },
+    },
+  },
   "typography": {
     "helm": {
       "HlmBlockquote": {

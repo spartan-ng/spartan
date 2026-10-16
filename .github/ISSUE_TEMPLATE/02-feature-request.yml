@@ -74,6 +74,7 @@ body:
         - toggle
         - toggle-group
         - tooltip
+        - trace
         - trpc
         - typography
         - Docs

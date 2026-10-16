@@ -143,6 +143,7 @@
 			"@spartan-ng/helm/toggle": ["libs/helm/toggle/src/index.ts"],
 			"@spartan-ng/helm/toggle-group": ["libs/helm/toggle-group/src/index.ts"],
 			"@spartan-ng/helm/tooltip": ["libs/helm/tooltip/src/index.ts"],
+			"@spartan-ng/helm/trace": ["./libs/helm/trace/src/index.ts"],
 			"@spartan-ng/helm/typography": ["libs/helm/typography/src/index.ts"],
 			"@spartan-ng/helm/utils": ["libs/helm/utils/src/index.ts"],
 			"@spartan-ng/mcp": ["libs/mcp/src/index.ts"],

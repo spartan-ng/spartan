@@ -1,5 +1,6 @@
 import { formatFiles, type Tree } from '@nx/devkit';
 import { visitFiles } from '../../utils/visit-files';
+import { HELM_COLLAPSIBLE_FILES } from './helm-collapsible-files';
 import type { MigrateCollapsibleGeneratorSchema } from './schema';
 
 export async function migrateCollapsibleGenerator(tree: Tree, { skipFormat }: MigrateCollapsibleGeneratorSchema) {
@@ -16,12 +17,8 @@ export async function migrateCollapsibleGenerator(tree: Tree, { skipFormat }: Mi
  */
 function updateImports(tree: Tree) {
 	visitFiles(tree, '/', (path) => {
-		// skip HlmCollapsible itself
-		if (
-			path.endsWith('hlm-collapsible.ts') ||
-			path.endsWith('hlm-collapsible-trigger.ts') ||
-			path.endsWith('hlm-collapsible-content.ts')
-		) {
+		// skip the Helm Collapsible and Trace implementations
+		if (HELM_COLLAPSIBLE_FILES.some((name) => path.endsWith(name))) {
 			return;
 		}
 

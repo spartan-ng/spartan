@@ -3,6 +3,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
 	selector: '[hlmCardTitle]',
+	exportAs: 'hlmCardTitle',
 	host: { 'data-slot': 'card-title' },
 })
 export class HlmCardTitle {

@@ -7,6 +7,7 @@ import { HlmDropdownMenuFocusOnHover } from './hlm-dropdown-menu-focus-on-hover'
 /** @internal. Use HlmDropdownMenuCheckbox instead. */
 @Directive({
 	selector: '[hlmDropdownMenuCheckboxCdk]',
+	exportAs: 'hlmDropdownMenuCheckboxCdk',
 	providers: [
 		{ provide: CdkMenuItemCheckbox, useExisting: HlmDropdownMenuCheckboxCdk },
 		{ provide: CdkMenuItemSelectable, useExisting: HlmDropdownMenuCheckboxCdk },
@@ -23,6 +24,7 @@ export class HlmDropdownMenuCheckboxCdk extends CdkMenuItemCheckbox {
 
 @Directive({
 	selector: '[hlmDropdownMenuCheckbox],[hlmDropdownMenuCheckboxItem]',
+	exportAs: 'hlmDropdownMenuCheckbox',
 	hostDirectives: [
 		{
 			directive: HlmDropdownMenuCheckboxCdk,

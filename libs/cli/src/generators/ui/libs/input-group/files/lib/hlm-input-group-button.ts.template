@@ -21,6 +21,7 @@ type InputGroupAddonVariants = VariantProps<typeof inputGroupAddonVariants>;
 
 @Directive({
 	selector: 'button[hlmInputGroupButton]',
+	exportAs: 'hlmInputGroupButton',
 	providers: [
 		provideBrnButtonConfig({
 			variant: 'ghost',

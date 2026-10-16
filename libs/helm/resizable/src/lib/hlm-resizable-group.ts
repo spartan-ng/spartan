@@ -4,6 +4,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
 	selector: '[hlmResizableGroup],hlm-resizable-group',
+	exportAs: 'hlmResizableGroup',
 	hostDirectives: [
 		{
 			directive: BrnResizableGroup,

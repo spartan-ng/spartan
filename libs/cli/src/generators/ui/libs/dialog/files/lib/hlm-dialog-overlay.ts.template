@@ -8,6 +8,7 @@ export const hlmDialogOverlayClass = hlm('spartan-dialog-overlay');
 
 @Directive({
 	selector: '[hlmDialogOverlay],hlm-dialog-overlay',
+	exportAs: 'hlmDialogOverlay',
 	hostDirectives: [BrnDialogOverlay],
 })
 export class HlmDialogOverlay {

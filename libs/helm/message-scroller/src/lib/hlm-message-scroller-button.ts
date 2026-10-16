@@ -7,6 +7,7 @@ import { HlmButton, provideBrnButtonConfig } from '@spartan-ng/helm/button';
 @Component({
 	// eslint-disable-next-line @angular-eslint/component-selector -- attribute selector on native button
 	selector: 'button[hlmMessageScrollerButton]',
+	exportAs: 'hlmMessageScrollerButton',
 	imports: [NgIcon],
 	providers: [provideIcons({ lucideArrowDown }), provideBrnButtonConfig({ variant: 'secondary', size: 'icon-sm' })],
 	changeDetection: ChangeDetectionStrategy.OnPush,

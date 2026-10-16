@@ -6,6 +6,7 @@ export const hlmH2 =
 
 @Directive({
 	selector: '[hlmH2]',
+	exportAs: 'hlmH2',
 })
 export class HlmH2 {
 	constructor() {

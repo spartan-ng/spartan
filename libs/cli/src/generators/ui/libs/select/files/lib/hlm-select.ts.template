@@ -5,6 +5,7 @@ import { classes } from '<%- importAlias %>/utils';
 
 @Directive({
 	selector: '[hlmSelect],hlm-select',
+	exportAs: 'hlmSelect',
 	providers: [
 		provideBrnPopoverConfig({
 			align: 'start',

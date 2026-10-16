@@ -3,6 +3,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
 	selector: '[hlmAttachmentGroup],hlm-attachment-group',
+	exportAs: 'hlmAttachmentGroup',
 	host: { 'data-slot': 'attachment-group' },
 })
 export class HlmAttachmentGroup {

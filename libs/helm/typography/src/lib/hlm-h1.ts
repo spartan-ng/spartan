@@ -5,6 +5,7 @@ export const hlmH1 = 'scroll-m-20 text-4xl font-extrabold tracking-tight lg:text
 
 @Directive({
 	selector: '[hlmH1]',
+	exportAs: 'hlmH1',
 })
 export class HlmH1 {
 	constructor() {

@@ -3,6 +3,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
 	selector: 'tanstack-chart[hlmChart]',
+	exportAs: 'hlmChart',
 	host: {
 		'data-slot': 'chart',
 		style: `

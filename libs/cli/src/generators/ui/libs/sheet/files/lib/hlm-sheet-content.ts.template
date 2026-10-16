@@ -20,6 +20,7 @@ import { HlmSheetClose } from './hlm-sheet-close';
 
 @Component({
 	selector: 'hlm-sheet-content',
+	exportAs: 'hlmSheetContent',
 	imports: [HlmButton, HlmSheetClose, NgIcon],
 	providers: [provideIcons({ lucideX })],
 	changeDetection: ChangeDetectionStrategy.OnPush,

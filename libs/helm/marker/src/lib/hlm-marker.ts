@@ -22,6 +22,7 @@ export type MarkerVariants = VariantProps<typeof markerVariants>;
 
 @Directive({
 	selector: '[hlmMarker],hlm-marker',
+	exportAs: 'hlmMarker',
 	host: {
 		'data-slot': 'marker',
 		'[attr.data-variant]': 'variant()',

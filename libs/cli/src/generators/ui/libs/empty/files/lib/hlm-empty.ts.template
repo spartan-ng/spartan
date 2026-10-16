@@ -3,6 +3,7 @@ import { classes } from '<%- importAlias %>/utils';
 
 @Directive({
 	selector: '[hlmEmpty],hlm-empty',
+	exportAs: 'hlmEmpty',
 	host: { 'data-slot': 'empty' },
 })
 export class HlmEmpty {

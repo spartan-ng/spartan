@@ -7,6 +7,7 @@ import { HlmDropdownMenuFocusOnHover } from './hlm-dropdown-menu-focus-on-hover'
 /** @internal. Use HlmDropdownMenuRadio instead. */
 @Directive({
 	selector: '[hlmDropdownMenuRadioCdk]',
+	exportAs: 'hlmDropdownMenuRadioCdk',
 	providers: [
 		{ provide: CdkMenuItemRadio, useExisting: HlmDropdownMenuRadioCdk },
 		{ provide: CdkMenuItemSelectable, useExisting: HlmDropdownMenuRadioCdk },
@@ -23,6 +24,7 @@ export class HlmDropdownMenuRadioCdk extends CdkMenuItemRadio {
 
 @Directive({
 	selector: '[hlmDropdownMenuRadio]',
+	exportAs: 'hlmDropdownMenuRadio',
 	hostDirectives: [
 		{
 			directive: HlmDropdownMenuRadioCdk,

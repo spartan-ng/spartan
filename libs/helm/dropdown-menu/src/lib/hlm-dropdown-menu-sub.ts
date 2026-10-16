@@ -6,6 +6,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
 	selector: '[hlmDropdownMenuSub],hlm-dropdown-menu-sub',
+	exportAs: 'hlmDropdownMenuSub',
 	hostDirectives: [CdkMenu],
 	host: {
 		'data-slot': 'dropdown-menu-sub',

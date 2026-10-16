@@ -9,6 +9,7 @@ import type { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'hlm-toaster',
+	exportAs: 'hlmToaster',
 	imports: [BrnSonnerImports, HlmButtonImports, NgIcon],
 	providers: [provideIcons({ lucideCircleCheck, lucideInfo, lucideTriangleAlert, lucideOctagonX, lucideLoader2 })],
 	changeDetection: ChangeDetectionStrategy.OnPush,

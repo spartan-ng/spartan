@@ -3,6 +3,7 @@ import { BrnMessageScrollerProvider } from '@spartan-ng/brain/message-scroller';
 
 @Directive({
 	selector: '[hlmMessageScrollerProvider]',
+	exportAs: 'hlmMessageScrollerProvider',
 	hostDirectives: [
 		{
 			directive: BrnMessageScrollerProvider,

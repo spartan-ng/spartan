@@ -4,6 +4,7 @@ import { HlmSidebarService } from './hlm-sidebar.service';
 
 @Directive({
 	selector: 'button[hlmSidebarRail]',
+	exportAs: 'hlmSidebarRail',
 	host: {
 		'data-sidebar': 'rail',
 		'data-slot': 'sidebar-rail',

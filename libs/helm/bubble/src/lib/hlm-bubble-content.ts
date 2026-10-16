@@ -3,6 +3,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
 	selector: '[hlmBubbleContent],hlm-bubble-content',
+	exportAs: 'hlmBubbleContent',
 	host: { 'data-slot': 'bubble-content' },
 })
 export class HlmBubbleContent {

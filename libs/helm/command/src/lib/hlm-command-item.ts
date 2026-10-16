@@ -4,6 +4,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
 	selector: 'button[hlmCommandItem],button[hlm-command-item]',
+	exportAs: 'hlmCommandItem',
 	hostDirectives: [
 		{
 			directive: BrnCommandItem,

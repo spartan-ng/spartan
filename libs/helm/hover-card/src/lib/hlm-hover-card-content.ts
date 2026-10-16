@@ -4,6 +4,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
 	selector: '[hlmHoverCardContent],hlm-hover-card-content',
+	exportAs: 'hlmHoverCardContent',
 	host: {
 		'data-slot': 'hover-card-content',
 	},

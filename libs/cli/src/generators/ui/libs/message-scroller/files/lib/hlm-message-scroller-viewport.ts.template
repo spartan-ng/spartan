@@ -4,6 +4,7 @@ import { classes } from '<%- importAlias %>/utils';
 
 @Directive({
 	selector: '[hlmMessageScrollerViewport],hlm-message-scroller-viewport',
+	exportAs: 'hlmMessageScrollerViewport',
 	hostDirectives: [
 		{
 			directive: BrnMessageScrollerViewport,

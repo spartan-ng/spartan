@@ -3,6 +3,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
 	selector: '[hlmPopoverHeader],hlm-popover-header',
+	exportAs: 'hlmPopoverHeader',
 	host: { 'data-slot': 'popover-header' },
 })
 export class HlmPopoverHeader {

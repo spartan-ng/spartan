@@ -6,6 +6,7 @@ import type { ClassValue } from 'clsx';
 
 @Directive({
 	selector: '[hlmSheetOverlay],hlm-sheet-overlay',
+	exportAs: 'hlmSheetOverlay',
 	hostDirectives: [BrnSheetOverlay],
 })
 export class HlmSheetOverlay {

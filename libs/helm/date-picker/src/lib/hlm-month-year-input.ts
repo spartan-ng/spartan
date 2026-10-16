@@ -12,6 +12,7 @@ import { injectHlmMonthYearPickerConfig } from './hlm-month-year-picker.token';
 
 @Component({
 	selector: 'hlm-month-year-input',
+	exportAs: 'hlmMonthYearInput',
 	imports: [HlmInputGroupImports, NgIcon],
 	providers: [provideIcons({ lucideCalendar, lucideX }), provideBrnDatePickerTrigger(HlmMonthYearInput)],
 	changeDetection: ChangeDetectionStrategy.OnPush,

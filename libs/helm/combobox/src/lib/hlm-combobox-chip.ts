@@ -8,6 +8,7 @@ import { HlmComboboxChipRemove } from './hlm-combobox-chip-remove';
 
 @Component({
 	selector: 'hlm-combobox-chip',
+	exportAs: 'hlmComboboxChip',
 	imports: [NgIcon, HlmComboboxChipRemove],
 	providers: [provideIcons({ lucideX })],
 	changeDetection: ChangeDetectionStrategy.OnPush,

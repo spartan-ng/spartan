@@ -5,6 +5,7 @@ import { classes } from '<%- importAlias %>/utils';
 
 @Directive({
 	selector: '[hlmInput]',
+	exportAs: 'hlmInput',
 	hostDirectives: [{ directive: BrnInput, inputs: ['id', 'forceInvalid'] }, BrnFieldControlDescribedBy],
 	host: { 'data-slot': 'input' },
 })

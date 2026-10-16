@@ -4,6 +4,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Component({
 	selector: 'hlm-accordion-content',
+	exportAs: 'hlmAccordionContent',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	hostDirectives: [{ directive: BrnAccordionContent, inputs: ['style'] }],
 	host: {

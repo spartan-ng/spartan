@@ -4,6 +4,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
 	selector: '[hlmNavigationMenuContent],hlm-navigation-menu-content',
+	exportAs: 'hlmNavigationMenuContent',
 	host: {
 		'data-slot': 'navigation-menu-content',
 		'[style.--nav-offset]': 'navOffset()',

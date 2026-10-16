@@ -20,6 +20,7 @@ import type { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'hlm-radio',
+	exportAs: 'hlmRadio',
 	imports: [BrnRadio],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {

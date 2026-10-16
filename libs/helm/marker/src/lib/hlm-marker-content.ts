@@ -3,6 +3,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
 	selector: '[hlmMarkerContent],hlm-marker-content',
+	exportAs: 'hlmMarkerContent',
 	host: { 'data-slot': 'marker-content' },
 })
 export class HlmMarkerContent {

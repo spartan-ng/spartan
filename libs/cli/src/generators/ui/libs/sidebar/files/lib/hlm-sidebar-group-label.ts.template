@@ -3,6 +3,7 @@ import { classes } from '<%- importAlias %>/utils';
 
 @Directive({
 	selector: 'div[hlmSidebarGroupLabel], button[hlmSidebarGroupLabel]',
+	exportAs: 'hlmSidebarGroupLabel',
 	host: {
 		'data-slot': 'sidebar-group-label',
 		'data-sidebar': 'group-label',

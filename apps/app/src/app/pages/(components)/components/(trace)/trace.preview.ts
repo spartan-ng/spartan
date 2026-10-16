@@ -1,20 +1,15 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import {
-	lucideArrowUpRight,
-	lucideCircleAlert,
-	lucideCircleCheck,
-	lucideGlobe,
-	lucideTerminal,
-} from '@ng-icons/lucide';
+import { lucideArrowUpRight, lucideCircleAlert, lucideCircleCheck, lucideGlobe } from '@ng-icons/lucide';
 import { HlmBubbleImports } from '@spartan-ng/helm/bubble';
+import { HlmCodeBlockImports } from '@spartan-ng/helm/code-block';
 import { HlmMessageImports } from '@spartan-ng/helm/message';
 import { HlmTraceImports } from '@spartan-ng/helm/trace';
 
 @Component({
 	selector: 'spartan-trace-preview',
-	imports: [HlmTraceImports, NgIcon, HlmMessageImports, HlmBubbleImports],
-	providers: [provideIcons({ lucideCircleCheck, lucideTerminal, lucideCircleAlert, lucideGlobe, lucideArrowUpRight })],
+	imports: [HlmTraceImports, HlmCodeBlockImports, NgIcon, HlmMessageImports, HlmBubbleImports],
+	providers: [provideIcons({ lucideCircleCheck, lucideCircleAlert, lucideGlobe, lucideArrowUpRight })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div class="flex min-h-72 w-full max-w-sm flex-col gap-4 py-6 text-sm">
@@ -46,24 +41,24 @@ import { HlmTraceImports } from '@spartan-ng/helm/trace';
 
 						<hlm-trace-line>
 							<hlm-trace-icon>
-								<ng-icon name="lucideTerminal" />
+								<ng-icon name="lucideCircleCheck" />
 							</hlm-trace-icon>
 							<hlm-trace-title>Ran pnpm --version</hlm-trace-title>
 						</hlm-trace-line>
 
-						<hlm-trace-collapsible>
+						<hlm-trace-collapsible [expanded]="true">
 							<button hlmTraceCollapsibleTrigger>
 								<hlm-trace-line>
 									<hlm-trace-icon>
-										<ng-icon name="lucideTerminal" />
+										<ng-icon name="lucideCircleCheck" />
 									</hlm-trace-icon>
 									<hlm-trace-title>Ran git diff --stat HEAD~1 -- package.json pnpm-lock.yaml</hlm-trace-title>
 								</hlm-trace-line>
 							</button>
 							<hlm-trace-collapsible-content>
-								<pre
-									class="bg-muted text-foreground overflow-x-auto rounded-md p-3 font-mono text-xs"
-								><code>{{ _diff }}</code></pre>
+								<hlm-code-block size="sm">
+									<pre hlmCodeBlockContent [code]="_diff"></pre>
+								</hlm-code-block>
 							</hlm-trace-collapsible-content>
 						</hlm-trace-collapsible>
 

@@ -2,11 +2,12 @@ import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideTerminal } from '@ng-icons/lucide';
 import { HlmButton } from '@spartan-ng/helm/button';
+import { HlmCodeBlockImports } from '@spartan-ng/helm/code-block';
 import { HlmTraceImports } from '@spartan-ng/helm/trace';
 
 @Component({
 	selector: 'spartan-trace-open-status',
-	imports: [HlmTraceImports, HlmButton, NgIcon],
+	imports: [HlmTraceImports, HlmCodeBlockImports, HlmButton, NgIcon],
 	providers: [provideIcons({ lucideTerminal })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
@@ -21,8 +22,9 @@ import { HlmTraceImports } from '@spartan-ng/helm/trace';
 					</hlm-trace-line>
 				</button>
 				<hlm-trace-collapsible-content>
-					<!-- TODO code block -->
-					<div class="max-h-64">$ node --version v24.18.0</div>
+					<hlm-code-block size="sm">
+						<pre hlmCodeBlockContent wrap [code]="_nodeOutput" class="max-h-64"></pre>
+					</hlm-code-block>
 				</hlm-trace-collapsible-content>
 			</hlm-trace-collapsible>
 			<hlm-trace-collapsible [(expanded)]="_open">
@@ -35,8 +37,9 @@ import { HlmTraceImports } from '@spartan-ng/helm/trace';
 					</hlm-trace-line>
 				</button>
 				<hlm-trace-collapsible-content>
-					<!-- TODO code block -->
-					<div class="max-h-64">$ pnpm --version 10.33.4</div>
+					<hlm-code-block size="sm">
+						<pre hlmCodeBlockContent wrap [code]="_pnpmOutput" class="max-h-64"></pre>
+					</hlm-code-block>
 				</hlm-trace-collapsible-content>
 			</hlm-trace-collapsible>
 			<button hlmBtn variant="outline" size="sm" (click)="_open.set(!_open())">
@@ -47,4 +50,10 @@ import { HlmTraceImports } from '@spartan-ng/helm/trace';
 })
 export class TraceOpenStatus {
 	protected readonly _open = signal(false);
+
+	protected readonly _nodeOutput = `$ node --version
+v24.18.0`;
+
+	protected readonly _pnpmOutput = `$ pnpm --version
+10.33.4`;
 }

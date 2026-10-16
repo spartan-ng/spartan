@@ -2,11 +2,12 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideBrain, lucideChevronRight, lucideCircleAlert, lucideFileText, lucideTerminal } from '@ng-icons/lucide';
+import { HlmCodeBlockImports } from '@spartan-ng/helm/code-block';
 import { HlmTraceImports } from '@spartan-ng/helm/trace';
 
 @Component({
 	selector: 'spartan-trace-whole-turn',
-	imports: [HlmTraceImports, NgIcon, RouterLink],
+	imports: [HlmTraceImports, HlmCodeBlockImports, NgIcon, RouterLink],
 	providers: [provideIcons({ lucideBrain, lucideTerminal, lucideCircleAlert, lucideFileText, lucideChevronRight })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
@@ -61,8 +62,9 @@ import { HlmTraceImports } from '@spartan-ng/helm/trace';
 											</hlm-trace-line>
 										</button>
 										<hlm-trace-collapsible-content>
-											<!-- TODO code block here -->
-											command not found: pnpm
+											<hlm-code-block variant="destructive" size="sm">
+												<pre hlmCodeBlockContent wrap [code]="_pnpmError" class="max-h-64"></pre>
+											</hlm-code-block>
 										</hlm-trace-collapsible-content>
 									</hlm-trace-collapsible>
 								</hlm-trace>
@@ -86,4 +88,6 @@ import { HlmTraceImports } from '@spartan-ng/helm/trace';
 		</hlm-trace>
 	`,
 })
-export class TraceWholeTurn {}
+export class TraceWholeTurn {
+	protected readonly _pnpmError = 'command not found: pnpm';
+}

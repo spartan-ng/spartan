@@ -3,11 +3,12 @@ import { RouterLink } from '@angular/router';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronRight, lucideFileText, lucideSearch } from '@ng-icons/lucide';
 import { HlmBadge } from '@spartan-ng/helm/badge';
+import { HlmCodeBlockImports } from '@spartan-ng/helm/code-block';
 import { HlmTraceImports } from '@spartan-ng/helm/trace';
 
 @Component({
 	selector: 'spartan-trace-chain-of-thought',
-	imports: [HlmTraceImports, NgIcon, HlmBadge, RouterLink],
+	imports: [HlmTraceImports, HlmCodeBlockImports, NgIcon, HlmBadge, RouterLink],
 	providers: [provideIcons({ lucideSearch, lucideFileText, lucideChevronRight })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
@@ -53,8 +54,9 @@ import { HlmTraceImports } from '@spartan-ng/helm/trace';
 								</hlm-trace-line>
 							</button>
 							<hlm-trace-collapsible-content>
-								<!-- TODO code block here -->
-								<div>cache key image optimization</div>
+								<hlm-code-block size="sm">
+									<pre hlmCodeBlockContent wrap [code]="_output"></pre>
+								</hlm-code-block>
 							</hlm-trace-collapsible-content>
 						</hlm-trace-collapsible>
 					</hlm-trace>
@@ -63,4 +65,6 @@ import { HlmTraceImports } from '@spartan-ng/helm/trace';
 		</div>
 	`,
 })
-export class TraceChainOfThought {}
+export class TraceChainOfThought {
+	protected readonly _output = 'cache key image optimization';
+}

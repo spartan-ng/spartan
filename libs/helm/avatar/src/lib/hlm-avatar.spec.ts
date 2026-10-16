@@ -33,8 +33,13 @@ describe('HlmAvatarComponent', () => {
 	it('should add the default classes if no inputs are provided', () => {
 		fixture.detectChanges();
 		expect(fixture.nativeElement.className).toBe(
-			'spartan-avatar group/avatar after:border-border relative flex shrink-0 select-none after:absolute after:inset-0 after:border after:mix-blend-darken dark:after:mix-blend-lighten',
+			'spartan-avatar group/avatar after:border-border flex shrink-0 select-none after:absolute after:inset-0 after:border after:mix-blend-darken dark:after:mix-blend-lighten',
 		);
+	});
+
+	it('should apply relative positioning via inline style', () => {
+		fixture.detectChanges();
+		expect(fixture.nativeElement.style.position).toBe('relative');
 	});
 
 	it('should add any user defined classes', () => {

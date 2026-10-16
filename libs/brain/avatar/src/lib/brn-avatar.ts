@@ -4,10 +4,12 @@ import { BrnAvatarImage } from './image';
 @Component({
 	selector: 'brn-avatar',
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: {
+		'[style.position]': "'relative'",
+	},
 	template: `
-		@if (_image()?.canShow()) {
-			<ng-content select="[brnAvatarImage]" />
-		} @else {
+		<ng-content select="[brnAvatarImage]" />
+		@if (!_image()?.canShow()) {
 			<ng-content select="[brnAvatarFallback]" />
 		}
 	`,

@@ -3,6 +3,7 @@ import { injectBrnComboboxBase } from './brn-combobox.token';
 
 @Directive({
 	selector: '[brnComboboxClear]',
+	exportAs: 'brnComboboxClear',
 })
 export class BrnComboboxClear {
 	private readonly _combobox = injectBrnComboboxBase();

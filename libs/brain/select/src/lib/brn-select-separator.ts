@@ -2,6 +2,7 @@ import { Directive, input } from '@angular/core';
 
 @Directive({
 	selector: '[brnSelectSeparator]',
+	exportAs: 'brnSelectSeparator',
 	host: {
 		role: 'separator',
 		'[attr.aria-orientation]': 'orientation()',

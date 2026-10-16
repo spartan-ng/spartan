@@ -3,6 +3,7 @@ import { BrnFieldA11yService } from './brn-field-aria.service';
 
 @Directive({
 	selector: '[brnFieldControlDescribedBy]',
+	exportAs: 'brnFieldControlDescribedBy',
 	host: {
 		'[attr.aria-describedby]': '_computedDescribedBy()',
 	},

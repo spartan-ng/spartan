@@ -4,6 +4,7 @@ import { injectBrnCollapsible } from './brn-collapsible-token';
 
 @Directive({
 	selector: '[brnCollapsibleContent],brn-collapsible-content',
+	exportAs: 'brnCollapsibleContent',
 	host: {
 		'[attr.inert]': "_collapsible?.state() === 'closed' ? true : undefined",
 		'[attr.data-state]': '_collapsible?.state()',

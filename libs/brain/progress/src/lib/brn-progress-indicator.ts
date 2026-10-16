@@ -4,6 +4,7 @@ import { injectBrnProgress } from './brn-progress.token';
 
 @Directive({
 	selector: 'brn-progress-indicator',
+	exportAs: 'brnProgressIndicator',
 	host: {
 		'[attr.data-state]': '_progress.state()',
 		'[attr.data-value]': '_progress.value()',

@@ -45,6 +45,7 @@ export const BRN_COMBOBOX_MULTIPLE_VALUE_ACCESSOR = {
 
 @Directive({
 	selector: '[brnCombobox]',
+	exportAs: 'brnComboboxMultiple',
 	providers: [
 		BRN_COMBOBOX_MULTIPLE_VALUE_ACCESSOR,
 		provideBrnComboboxBase(BrnComboboxMultiple),

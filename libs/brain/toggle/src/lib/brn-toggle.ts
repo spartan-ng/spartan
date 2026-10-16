@@ -3,6 +3,7 @@ import { Directive, booleanAttribute, computed, input, model } from '@angular/co
 
 @Directive({
 	selector: 'button[brnToggle]',
+	exportAs: 'brnToggle',
 	host: {
 		'[id]': 'id()',
 		'[attr.disabled]': 'disabled() ? true : null',

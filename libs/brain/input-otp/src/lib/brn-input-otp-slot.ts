@@ -4,6 +4,7 @@ import { injectBrnInputOtp } from './brn-input-otp.token';
 
 @Component({
 	selector: 'brn-input-otp-slot',
+	exportAs: 'brnInputOtpSlot',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'[attr.data-active]': '_slot().isActive',

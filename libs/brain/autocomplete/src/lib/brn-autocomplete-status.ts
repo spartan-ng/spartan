@@ -2,6 +2,7 @@ import { Directive } from '@angular/core';
 
 @Directive({
 	selector: '[brnAutocompleteStatus]',
+	exportAs: 'brnAutocompleteStatus',
 	host: {
 		role: 'status',
 		'aria-live': 'polite',

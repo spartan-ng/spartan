@@ -5,6 +5,7 @@ import { BrnDialogRef } from './brn-dialog-ref';
 
 @Directive({
 	selector: '[brnDialogContent]',
+	exportAs: 'brnDialogContent',
 	providers: [provideExposesStateProviderExisting(() => BrnDialogContent)],
 })
 export class BrnDialogContent<T extends Record<string, unknown>> {

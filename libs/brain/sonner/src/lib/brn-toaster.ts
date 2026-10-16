@@ -33,6 +33,7 @@ import type { Position, Theme, ToasterProps } from './types';
 
 @Component({
 	selector: 'brn-sonner-toaster',
+	exportAs: 'brnSonnerToaster',
 	imports: [BrnSonnerToast, ToastFilterPipe, BrnSonnerIcon, BrnSonnerLoader, NgTemplateOutlet],
 	// eslint-disable-next-line @nx/workspace-avoid-component-styles
 	encapsulation: ViewEncapsulation.None,

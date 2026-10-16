@@ -6,6 +6,7 @@ import { injectBrnComboboxBase } from './brn-combobox.token';
 
 @Directive({
 	selector: 'input[brnComboboxChipInput]',
+	exportAs: 'brnComboboxChipInput',
 	host: {
 		'[id]': 'id()',
 		type: 'text',

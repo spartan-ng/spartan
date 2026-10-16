@@ -5,6 +5,7 @@ import { linearScale } from './utils/linear-scale';
 
 @Directive({
 	selector: '[brnSliderTrack]',
+	exportAs: 'brnSliderTrack',
 	providers: [provideBrnSliderTrack(BrnSliderTrack)],
 	host: {
 		'[attr.data-disabled]': '_slider.mutableDisabled() ? "" : null',

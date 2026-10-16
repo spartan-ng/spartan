@@ -45,6 +45,7 @@ export const BRN_COMBOBOX_VALUE_ACCESSOR = {
 
 @Directive({
 	selector: '[brnCombobox]',
+	exportAs: 'brnCombobox',
 	providers: [BRN_COMBOBOX_VALUE_ACCESSOR, provideBrnComboboxBase(BrnCombobox), provideBrnLabelable(BrnCombobox)],
 	hostDirectives: [BrnFieldControl],
 	host: {

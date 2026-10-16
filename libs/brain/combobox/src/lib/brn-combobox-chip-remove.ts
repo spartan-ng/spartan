@@ -4,6 +4,7 @@ import { injectBrnComboboxBase } from './brn-combobox.token';
 
 @Directive({
 	selector: 'button[brnComboboxChipRemove]',
+	exportAs: 'brnComboboxChipRemove',
 	host: {
 		type: 'button',
 		tabindex: '-1',

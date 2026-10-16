@@ -3,6 +3,7 @@ import { BrnField } from '@spartan-ng/brain/field';
 
 @Directive({
 	selector: '[brnLabel]',
+	exportAs: 'brnLabel',
 	host: {
 		'[id]': 'id()',
 		'[attr.for]': '_for()',

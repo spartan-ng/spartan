@@ -3,6 +3,7 @@ import { injectBrnAutocompleteBase } from './brn-autocomplete.token';
 
 @Directive({
 	selector: '[brnAutocompleteContent]',
+	exportAs: 'brnAutocompleteContent',
 	host: {
 		'[attr.data-state]': '_dataState()',
 		'[attr.data-empty]': '!_visibleItems() ? "" : null',

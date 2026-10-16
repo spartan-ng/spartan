@@ -28,6 +28,7 @@ function areArraysSameByElRef(arr1: unknown[], arr2: unknown[]) {
 
 @Directive({
 	selector: 'nav[brnNavigationMenu]',
+	exportAs: 'brnNavigationMenu',
 	providers: [provideBrnNavigationMenu(BrnNavigationMenu)],
 	host: {
 		'(keydown)': 'handleKeydown($event)',

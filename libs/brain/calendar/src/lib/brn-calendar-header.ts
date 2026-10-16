@@ -4,6 +4,7 @@ let uniqueId = 0;
 
 @Directive({
 	selector: '[brnCalendarHeader]',
+	exportAs: 'brnCalendarHeader',
 	host: {
 		'[id]': 'id()',
 		'aria-live': 'polite',

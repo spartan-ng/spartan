@@ -45,6 +45,7 @@ interface TriggerEvent {
 
 @Directive({
 	selector: 'button[brnNavigationMenuTrigger]',
+	exportAs: 'brnNavigationMenuTrigger',
 	providers: [provideBrnNavigationMenuFocusable(BrnNavigationMenuTrigger)],
 	hostDirectives: [
 		{

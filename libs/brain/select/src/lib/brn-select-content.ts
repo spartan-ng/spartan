@@ -7,6 +7,7 @@ const SCROLLBY_PIXEL = 8;
 
 @Directive({
 	selector: '[brnSelectContent]',
+	exportAs: 'brnSelectContent',
 	host: {
 		'[attr.data-state]': '_dataState()',
 		'[style.--brn-select-width.px]': '_selectWidth()',

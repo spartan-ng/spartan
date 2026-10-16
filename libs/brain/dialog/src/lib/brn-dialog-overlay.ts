@@ -4,6 +4,7 @@ import { BrnDialog } from './brn-dialog';
 
 @Directive({
 	selector: '[brnDialogOverlay],brn-dialog-overlay',
+	exportAs: 'brnDialogOverlay',
 	providers: [provideCustomClassSettableExisting(() => BrnDialogOverlay)],
 })
 export class BrnDialogOverlay {

@@ -4,6 +4,7 @@ import type { BrnAlertDialog } from './brn-alert-dialog';
 
 @Directive({
 	selector: 'button[brnAlertDialogTrigger],button[brnAlertDialogTriggerFor]',
+	exportAs: 'brnAlertDialogTrigger',
 	host: {
 		'[id]': 'id()',
 		'aria-haspopup': 'dialog',

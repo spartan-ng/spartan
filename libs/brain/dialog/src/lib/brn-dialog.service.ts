@@ -134,7 +134,10 @@ export class BrnDialogService {
 	private _isTopmostOutsideTarget(overlayRef: OverlayRef): boolean {
 		const overlays = this._overlayCloseDispatcher._attachedOverlays;
 		const index = overlays.indexOf(overlayRef);
-		return index === overlays.length - 1 || (overlays.length > 1 && !this._isNested(overlayRef, overlays.at(-1)!));
+		if (index === overlays.length - 1) return true;
+		// A modal overlay above (one with a backdrop) blocks outside-dismissal of everything below it.
+		if (overlays.at(-1)?.backdropElement) return false;
+		return overlays.length > 1 && !this._isNested(overlayRef, overlays.at(-1)!);
 	}
 
 	private _isNested(parent: OverlayRef, child: OverlayRef): boolean {

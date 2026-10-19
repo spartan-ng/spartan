@@ -27,6 +27,7 @@ import { SelectObjectPreview } from './select--object.preview';
 import { SelectPlaceholderPreview } from './select--placeholder.preview';
 import { SelectRtlPreview } from './select--rtl.preview';
 import { SelectScrollablePreview } from './select--scrollable.preview';
+import { SelectSelectAllPreview } from './select--select-all.preview';
 import { defaultImports, defaultSkeleton, defaultStyles, SelectPreview } from './select.preview';
 
 export const routeMeta: RouteMeta = {
@@ -56,6 +57,7 @@ export const routeMeta: RouteMeta = {
 		SelectPreview,
 		SelectGroupPreview,
 		SelectMultiplePreview,
+		SelectSelectAllPreview,
 		SelectScrollablePreview,
 		SelectObjectPreview,
 		SelectDisabledPreview,
@@ -99,6 +101,28 @@ export const routeMeta: RouteMeta = {
 					<spartan-select-multiple-preview />
 				</div>
 				<spartan-code secondTab [code]="_multipleCode()" />
+			</spartan-tabs>
+
+			<h3 id="examples__select-all" spartanH4>Select all</h3>
+			<p class="${hlmP}">
+				Add
+				<code class="${hlmCode}">hlm-select-all</code>
+				to a multiple select to toggle every enabled item. Disabled items and values without a matching item are left
+				untouched. The same is available programmatically via
+				<code class="${hlmCode}">selectAll()</code>
+				,
+				<code class="${hlmCode}">deselectAll()</code>
+				and
+				<code class="${hlmCode}">toggleAll()</code>
+				on
+				<code class="${hlmCode}">BrnSelectMultiple</code>
+				. These act on the rendered items, so they only take effect while the select panel is open.
+			</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-select-select-all-preview />
+				</div>
+				<spartan-code secondTab [code]="_selectAllCode()" />
 			</spartan-tabs>
 
 			<h3 id="examples__scrollable" spartanH4>Scrollable</h3>
@@ -191,6 +215,7 @@ export default class SkeletonPage {
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
 	protected readonly _groupCode = computed(() => this._snippets()['group']);
 	protected readonly _multipleCode = computed(() => this._snippets()['multiple']);
+	protected readonly _selectAllCode = computed(() => this._snippets()['selectAll']);
 	protected readonly _scrollableCode = computed(() => this._snippets()['scrollable']);
 	protected readonly _disabledCode = computed(() => this._snippets()['disabled']);
 	protected readonly _invalidCode = computed(() => this._snippets()['invalid']);

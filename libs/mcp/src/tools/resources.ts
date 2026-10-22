@@ -3,7 +3,7 @@ import { ResourceTemplate } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { KNOWN_COMPONENTS, SPARTAN_COMPONENTS_BASE, extractAPIInfo, extractCodeBlocks, fetchContent } from './utils.js';
 
 export function registerResourceHandlers(server: McpServer): void {
-	server.resource(
+	server.registerResource(
 		'Spartan UI Components List',
 		'spartan://components/list',
 		{
@@ -55,7 +55,7 @@ export function registerResourceHandlers(server: McpServer): void {
 		complete: {},
 	});
 
-	server.resource(
+	server.registerResource(
 		'Component API Documentation',
 		apiTemplate,
 		{
@@ -114,7 +114,7 @@ export function registerResourceHandlers(server: McpServer): void {
 		complete: {},
 	});
 
-	server.resource(
+	server.registerResource(
 		'Component Code Examples',
 		examplesTemplate,
 		{
@@ -175,7 +175,7 @@ export function registerResourceHandlers(server: McpServer): void {
 		complete: {},
 	});
 
-	server.resource(
+	server.registerResource(
 		'Component Full Documentation',
 		fullTemplate,
 		{

@@ -1,3 +1,13 @@
+## <small>1.8.1-beta.1 (2026-10-22)</small>
+
+- fix(calendar): constrain month and year dropdown targets to min and max (#1814) ([0c835e4](https://github.com/spartan-ng/spartan/commit/0c835e4)), closes [#1814](https://github.com/spartan-ng/spartan/issues/1814)
+- fix(dialog): keep the dialogs below open on an outside click of a stacked dialog (#1813) ([130bf98](https://github.com/spartan-ng/spartan/commit/130bf98)), closes [#1813](https://github.com/spartan-ng/spartan/issues/1813) [#1812](https://github.com/spartan-ng/spartan/issues/1812)
+- fix(tabs): emit tabActivated once per key in automatic mode (#1816) ([4252ed1](https://github.com/spartan-ng/spartan/commit/4252ed1)), closes [#1816](https://github.com/spartan-ng/spartan/issues/1816) [#1795](https://github.com/spartan-ng/spartan/issues/1795)
+- fix(tooltip): keep parent and app default options under hlmTooltip (#1815) ([542c27a](https://github.com/spartan-ng/spartan/commit/542c27a)), closes [#1815](https://github.com/spartan-ng/spartan/issues/1815) [#1769](https://github.com/spartan-ng/spartan/issues/1769)
+- chore(release): backmerge main into beta ([c5d721b](https://github.com/spartan-ng/spartan/commit/c5d721b))
+- chore(release): backmerge main into beta ([163d719](https://github.com/spartan-ng/spartan/commit/163d719))
+- docs: add new contributors to our 300 ([03b5560](https://github.com/spartan-ng/spartan/commit/03b5560))
+
 ## 1.8.0 (2026-10-16)
 
 - feat: 1.8.0 (#1806) ([8cd3d05](https://github.com/spartan-ng/spartan/commit/8cd3d05)), closes [#1806](https://github.com/spartan-ng/spartan/issues/1806) [#1804](https://github.com/spartan-ng/spartan/issues/1804) [#1802](https://github.com/spartan-ng/spartan/issues/1802) [#1799](https://github.com/spartan-ng/spartan/issues/1799)

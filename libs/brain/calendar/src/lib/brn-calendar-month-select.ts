@@ -55,6 +55,12 @@ export class BrnCalendarMonthSelect {
 		const targetDate = this._dateAdapter.set(this._dateAdapter.startOfMonth(focusedDate), { month });
 		const lastDay = this._dateAdapter.getDate(this._dateAdapter.endOfMonth(targetDate));
 		const day = Math.min(this._dateAdapter.getDate(focusedDate), lastDay);
-		this._calendar.setFocusedDate(this._dateAdapter.set(targetDate, { day }));
+		// Like the previous/next buttons, constrain the target to min/max instead of letting
+		// setFocusedDate reject it: otherwise the grid stays on the old month.
+		const target = this._calendar.constrainDate(this._dateAdapter.set(targetDate, { day }));
+		this._calendar.setFocusedDate(target);
+		// The select already shows the picked month. When the focused month did not change
+		// (target rejected or constrained back into it), the effect does not run again.
+		this._select.writeValue(this._selectedMonth());
 	}
 }

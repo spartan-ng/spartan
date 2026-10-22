@@ -330,6 +330,13 @@ export abstract class BrnTabsPaginatedList implements AfterContentChecked, After
 			return;
 		}
 
+		// A programmatic selection (or any activation that bypasses the key manager) can move its
+		// active item away from the trigger that owns focus. Start every key from the focused item.
+		const focusedItem = this.items().find((item) => item.elementRef.nativeElement === event.target);
+		if (focusedItem) {
+			this._keyManager.updateActiveItem(focusedItem);
+		}
+
 		switch (event.key) {
 			case 'Enter':
 			case ' ':

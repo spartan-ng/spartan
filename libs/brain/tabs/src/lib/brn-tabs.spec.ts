@@ -229,6 +229,7 @@ describe('BrnTabsContentLazy with no default tab', () => {
 	});
 });
 
+const ARROW_LEFT = { key: 'ArrowLeft', keyCode: 37 };
 const ARROW_RIGHT = { key: 'ArrowRight', keyCode: 39 };
 const HOME = { key: 'Home', keyCode: 36 };
 const END = { key: 'End', keyCode: 35 };
@@ -333,7 +334,7 @@ class BrnTabsPaginatedListActivationSpec {
 	imports: [BrnTabs, BrnTestPaginatedTabsList, BrnTabsTrigger],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<div [(brnTabs)]="active" (tabActivated)="activations.push($event)">
+		<div [(brnTabs)]="active" (tabActivated)="activations.push($event)" [activationMode]="activationMode()">
 			<brn-test-paginated-tabs-list>
 				@for (key of keys(); track key) {
 					<button [brnTabsTrigger]="key" [attr.data-testid]="'paginated-' + key">Tab {{ key }}</button>
@@ -344,6 +345,7 @@ class BrnTabsPaginatedListActivationSpec {
 })
 class BrnTabsPaginatedListDynamicSpec {
 	public readonly keys = signal(['A', 'B', 'C']);
+	public readonly activationMode = input<BrnActivationMode>('automatic');
 	public readonly active = signal<string | undefined>('A');
 	public readonly activations: string[] = [];
 }
@@ -587,5 +589,31 @@ describe('BrnTabsPaginatedList first tab selection', () => {
 
 		expect(document.activeElement).toBe(screen.getByTestId('paginated-B'));
 		expect(fixture.componentInstance.active()).toBe('B');
+	});
+});
+
+// Regression test for the manual-mode case raised in the review of PR #1817: a programmatic
+// selection must not reset the key manager away from the trigger that currently has focus.
+describe('BrnTabsPaginatedList focus and selection divergence', () => {
+	it('should continue from the focused tab after a programmatic first-tab selection', async () => {
+		const { fixture } = await render(BrnTabsPaginatedListDynamicSpec);
+		fixture.componentRef.setInput('activationMode', 'manual');
+		fixture.componentInstance.active.set('C');
+		fixture.detectChanges();
+
+		screen.getByTestId('paginated-C').focus();
+		key(screen.getByTestId('paginated-C'), ARROW_LEFT);
+		fixture.detectChanges();
+		expect(document.activeElement).toBe(screen.getByTestId('paginated-B'));
+		expect(fixture.componentInstance.active()).toBe('C');
+
+		fixture.componentInstance.active.set('A');
+		fixture.detectChanges();
+
+		key(screen.getByTestId('paginated-B'), ARROW_RIGHT);
+		fixture.detectChanges();
+
+		expect(document.activeElement).toBe(screen.getByTestId('paginated-C'));
+		expect(fixture.componentInstance.active()).toBe('A');
 	});
 });

@@ -289,6 +289,28 @@ class BrnTabsListActivationSpec {
 }
 
 @Component({
+	imports: [BrnTabs, BrnTabsList, BrnTabsTrigger, BrnTabsContent],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<div [(brnTabs)]="active" (tabActivated)="activations.push($event)">
+			<div brnTabsList>
+				@for (key of keys(); track key) {
+					<button [brnTabsTrigger]="key" [attr.data-testid]="'list-' + key">Tab {{ key }}</button>
+				}
+			</div>
+			@for (key of keys(); track key) {
+				<div [brnTabsContent]="key" [attr.data-testid]="'content-' + key">Panel {{ key }}</div>
+			}
+		</div>
+	`,
+})
+class BrnTabsListDynamicSpec {
+	public readonly keys = signal(['A', 'B', 'C']);
+	public readonly active = signal<string | undefined>('A');
+	public readonly activations: string[] = [];
+}
+
+@Component({
 	imports: [BrnTabs, BrnTestPaginatedTabsList, BrnTabsTrigger],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
@@ -302,6 +324,25 @@ class BrnTabsListActivationSpec {
 	`,
 })
 class BrnTabsPaginatedListActivationSpec {
+	public readonly active = signal<string | undefined>('A');
+	public readonly activations: string[] = [];
+}
+
+@Component({
+	imports: [BrnTabs, BrnTestPaginatedTabsList, BrnTabsTrigger],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<div [(brnTabs)]="active" (tabActivated)="activations.push($event)">
+			<brn-test-paginated-tabs-list>
+				@for (key of keys(); track key) {
+					<button [brnTabsTrigger]="key" [attr.data-testid]="'paginated-' + key">Tab {{ key }}</button>
+				}
+			</brn-test-paginated-tabs-list>
+		</div>
+	`,
+})
+class BrnTabsPaginatedListDynamicSpec {
+	public readonly keys = signal(['A', 'B', 'C']);
 	public readonly active = signal<string | undefined>('A');
 	public readonly activations: string[] = [];
 }
@@ -360,5 +401,98 @@ describe('BrnTabsPaginatedList automatic activation', () => {
 
 		expect(fixture.componentInstance.activations).toEqual(['C', 'A']);
 		expect(fixture.componentInstance.active()).toBe('A');
+	});
+});
+
+// Regression tests for https://github.com/spartan-ng/spartan/issues/1792. The key manager used to be
+// built from the value of the `contentChildren` signal at init, so it kept walking the triggers
+// that existed at that moment: triggers added later were unknown, removed ones were still visited
+// and reordered ones kept their initial order.
+describe('BrnTabsList keyboard navigation with triggers that change at runtime', () => {
+	it('should move focus to a trigger added after initialization', async () => {
+		const { fixture } = await render(BrnTabsListDynamicSpec);
+		screen.getByTestId('list-A').click();
+
+		fixture.componentInstance.keys.set(['A', 'B', 'C', 'D']);
+		fixture.detectChanges();
+
+		key(screen.getByTestId('list-A'), END);
+
+		expect(document.activeElement).toBe(screen.getByTestId('list-D'));
+		expect(fixture.componentInstance.active()).toBe('D');
+	});
+
+	it('should skip a trigger removed after initialization', async () => {
+		const { fixture } = await render(BrnTabsListDynamicSpec);
+
+		fixture.componentInstance.keys.set(['A', 'C', 'D']);
+		fixture.detectChanges();
+
+		screen.getByTestId('list-A').click();
+
+		key(screen.getByTestId('list-A'), ARROW_RIGHT);
+
+		expect(document.activeElement).toBe(screen.getByTestId('list-C'));
+		expect(fixture.componentInstance.active()).toBe('C');
+	});
+
+	it('should follow the DOM order when triggers are reordered after initialization', async () => {
+		const { fixture } = await render(BrnTabsListDynamicSpec);
+
+		fixture.componentInstance.keys.set(['C', 'A', 'B']);
+		fixture.detectChanges();
+
+		screen.getByTestId('list-A').click();
+
+		key(screen.getByTestId('list-A'), HOME);
+
+		expect(document.activeElement).toBe(screen.getByTestId('list-C'));
+		expect(fixture.componentInstance.active()).toBe('C');
+	});
+});
+
+describe('BrnTabsPaginatedList keyboard navigation with triggers that change at runtime', () => {
+	it('should move focus to a trigger added after initialization', async () => {
+		const { fixture } = await render(BrnTabsPaginatedListDynamicSpec);
+		screen.getByTestId('paginated-A').click();
+
+		fixture.componentInstance.keys.set(['A', 'B', 'C', 'D']);
+		fixture.detectChanges();
+
+		key(screen.getByTestId('paginated-A'), END);
+
+		expect(document.activeElement).toBe(screen.getByTestId('paginated-D'));
+		expect(fixture.componentInstance.active()).toBe('D');
+		expect(fixture.componentInstance.activations).toEqual(['A', 'D']);
+	});
+
+	it('should skip a trigger removed after initialization', async () => {
+		const { fixture } = await render(BrnTabsPaginatedListDynamicSpec);
+
+		fixture.componentInstance.keys.set(['A', 'C', 'D']);
+		fixture.detectChanges();
+
+		screen.getByTestId('paginated-A').click();
+
+		key(screen.getByTestId('paginated-A'), ARROW_RIGHT);
+
+		expect(document.activeElement).toBe(screen.getByTestId('paginated-C'));
+		expect(fixture.componentInstance.active()).toBe('C');
+		expect(fixture.componentInstance.activations).toEqual(['A', 'C']);
+	});
+
+	it('should follow the DOM order when triggers are reordered after initialization', async () => {
+		const { fixture } = await render(BrnTabsPaginatedListDynamicSpec);
+
+		fixture.componentInstance.keys.set(['C', 'A', 'B']);
+		fixture.detectChanges();
+
+		screen.getByTestId('paginated-A').click();
+
+		key(screen.getByTestId('paginated-A'), HOME);
+
+		expect(document.activeElement).toBe(screen.getByTestId('paginated-C'));
+		expect(fixture.componentInstance.active()).toBe('C');
+		expect(fixture.componentInstance.activations).toEqual(['A', 'C']);
 	});
 });

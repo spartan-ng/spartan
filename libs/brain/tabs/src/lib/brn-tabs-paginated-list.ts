@@ -223,7 +223,7 @@ export abstract class BrnTabsPaginatedList implements AfterContentChecked, After
 			this.updatePagination();
 		};
 
-		this._keyManager = new FocusKeyManager<BrnPaginatedTabHeaderItem>(this.items())
+		this._keyManager = new FocusKeyManager<BrnPaginatedTabHeaderItem>(this.items, this._injector)
 			.withHorizontalOrientation(this._getLayoutDirection())
 			.withHomeAndEnd()
 			.withWrap()

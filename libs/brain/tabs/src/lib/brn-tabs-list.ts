@@ -1,5 +1,5 @@
 import { FocusKeyManager } from '@angular/cdk/a11y';
-import { type AfterContentInit, Directive, ElementRef, contentChildren, inject } from '@angular/core';
+import { type AfterContentInit, Directive, ElementRef, Injector, contentChildren, inject } from '@angular/core';
 import { fromEvent } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { BrnTabs } from './brn-tabs';
@@ -22,6 +22,7 @@ export class BrnTabsList implements AfterContentInit {
 	private readonly _activeTab = this._root.$activeTab;
 	private readonly _tabs = this._root.$tabs;
 	private readonly _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+	private readonly _injector = inject(Injector);
 	private readonly _keyDownListener = fromEvent(this._elementRef.nativeElement, 'keydown');
 
 	private _keyManager?: FocusKeyManager<BrnTabsTrigger>;
@@ -29,7 +30,7 @@ export class BrnTabsList implements AfterContentInit {
 	public readonly triggers = contentChildren(BrnTabsTrigger, { descendants: true });
 
 	public ngAfterContentInit() {
-		this._keyManager = new FocusKeyManager<BrnTabsTrigger>(this.triggers())
+		this._keyManager = new FocusKeyManager<BrnTabsTrigger>(this.triggers, this._injector)
 			.withHorizontalOrientation(this._direction())
 			.withHomeAndEnd()
 			.withPageUpDown()

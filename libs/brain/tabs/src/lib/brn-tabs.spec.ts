@@ -566,3 +566,26 @@ describe('BrnTabsList active index synchronization', () => {
 		expect(fixture.componentInstance.active()).toBe('D');
 	});
 });
+
+// Regression test for https://github.com/spartan-ng/spartan/issues/1793. The selection effect
+// skipped index 0 because `_selectedIndex` returns 0 both for the first tab and for "no match",
+// leaving the key manager on the previously selected tab.
+describe('BrnTabsPaginatedList first tab selection', () => {
+	it('should move the key manager when the first tab is selected after another tab', async () => {
+		const { fixture } = await render(BrnTabsPaginatedListDynamicSpec);
+		fixture.componentInstance.keys.set(['A', 'B', 'C', 'D']);
+		fixture.detectChanges();
+
+		fixture.componentInstance.active.set('D');
+		fixture.detectChanges();
+
+		fixture.componentInstance.active.set('A');
+		fixture.detectChanges();
+
+		screen.getByTestId('paginated-A').focus();
+		key(screen.getByTestId('paginated-A'), ARROW_RIGHT);
+
+		expect(document.activeElement).toBe(screen.getByTestId('paginated-B'));
+		expect(fixture.componentInstance.active()).toBe('B');
+	});
+});

@@ -1,5 +1,5 @@
 import { IMAGE_LOADER, NgOptimizedImage } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { BrnAvatar } from './brn-avatar';
 import { BrnAvatarFallback } from './fallback/brn-avatar-fallback';
@@ -17,9 +17,6 @@ const IMAGE =
 			<p>empty</p>
 		</brn-avatar>
 		<brn-avatar id="fallbackOnly">
-			<span brnAvatarFallback>fallback</span>
-		</brn-avatar>
-		<brn-avatar id="styled" hostStyles="display: inline-grid; position: relative; background-color: rgb(1, 2, 3)">
 			<span brnAvatarFallback>fallback</span>
 		</brn-avatar>
 		<brn-avatar id="noSrc">
@@ -60,6 +57,24 @@ class Mock {
 })
 class OptimizedMock {}
 
+@Component({
+	selector: 'brn-removable-mock',
+	imports: [BrnAvatarImage, BrnAvatarFallback, BrnAvatar],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<brn-avatar id="removable">
+			@if (showImage()) {
+				<img brnAvatarImage [src]="src()" alt="Avatar image" />
+			}
+			<span brnAvatarFallback>fallback</span>
+		</brn-avatar>
+	`,
+})
+class RemovableMock {
+	public readonly showImage = signal(true);
+	public readonly src = signal<string | undefined>(undefined);
+}
+
 describe('BrnAvatarComponent', () => {
 	let component: Mock;
 	let fixture: ComponentFixture<Mock>;
@@ -85,13 +100,13 @@ describe('BrnAvatarComponent', () => {
 	it('should render the fallback when no image is provided', () => {
 		const fallback = fixture.nativeElement.querySelector('#fallbackOnly span');
 		expect(fallback.textContent).toEqual('fallback');
-		expect(getComputedStyle(fallback).display).not.toEqual('none');
+		expect(getComputedStyle(fallback).visibility).not.toEqual('hidden');
 	});
 
-	it('should apply hostStyles through the CSSOM', () => {
-		const avatar = fixture.nativeElement.querySelector('#styled');
-		expect(getComputedStyle(avatar).display).toEqual('inline-grid');
-		expect(getComputedStyle(avatar).backgroundColor).toEqual('rgb(1, 2, 3)');
+	it('should not set a display style on the host so caller classes can control visibility', () => {
+		const avatar = fixture.nativeElement.querySelector('#fallbackOnly');
+		expect(avatar.style.position).toEqual('relative');
+		expect(avatar.style.display).toEqual('');
 	});
 
 	it('should render the fallback when the image has no src', () => {
@@ -101,7 +116,7 @@ describe('BrnAvatarComponent', () => {
 
 		expect(avatar.getAttribute('data-status')).toEqual('loading');
 		expect(getComputedStyle(image).visibility).toEqual('hidden');
-		expect(getComputedStyle(fallback).display).not.toEqual('none');
+		expect(getComputedStyle(fallback).visibility).not.toEqual('hidden');
 	});
 
 	it('should show the image and hide the fallback once the image loads', async () => {
@@ -113,7 +128,7 @@ describe('BrnAvatarComponent', () => {
 
 			expect(avatar.getAttribute('data-status')).toEqual('loaded');
 			expect(getComputedStyle(image).visibility).not.toEqual('hidden');
-			expect(getComputedStyle(fallback).display).toEqual('none');
+			expect(getComputedStyle(fallback).visibility).toEqual('hidden');
 		});
 	});
 
@@ -124,7 +139,7 @@ describe('BrnAvatarComponent', () => {
 			const fallback = avatar.querySelector('span');
 
 			expect(avatar.getAttribute('data-status')).toEqual('error');
-			expect(getComputedStyle(fallback).display).not.toEqual('none');
+			expect(getComputedStyle(fallback).visibility).not.toEqual('hidden');
 		});
 	});
 
@@ -138,7 +153,66 @@ describe('BrnAvatarComponent', () => {
 			const fallback = avatar.querySelector('span');
 
 			expect(avatar.getAttribute('data-status')).toEqual('loaded');
-			expect(getComputedStyle(fallback).display).toEqual('none');
+			expect(getComputedStyle(fallback).visibility).toEqual('hidden');
+		});
+	});
+
+	it('should reset the status to idle when a loading image is removed', async () => {
+		const removableFixture = TestBed.createComponent(RemovableMock);
+		removableFixture.autoDetectChanges();
+		const avatar = removableFixture.nativeElement.querySelector('#removable');
+		const fallback = avatar.querySelector('span');
+
+		expect(avatar.getAttribute('data-status')).toEqual('loading');
+
+		removableFixture.componentInstance.showImage.set(false);
+
+		await vi.waitFor(() => {
+			removableFixture.detectChanges();
+			expect(avatar.getAttribute('data-status')).toEqual('idle');
+			expect(getComputedStyle(fallback).visibility).not.toEqual('hidden');
+		});
+	});
+
+	it('should reset the status to idle when an errored image is removed', async () => {
+		const removableFixture = TestBed.createComponent(RemovableMock);
+		removableFixture.autoDetectChanges();
+		const avatar = removableFixture.nativeElement.querySelector('#removable');
+		const fallback = avatar.querySelector('span');
+
+		removableFixture.componentInstance.src.set('data:image/png;base64,invalid');
+
+		await vi.waitFor(() => {
+			removableFixture.detectChanges();
+			expect(avatar.getAttribute('data-status')).toEqual('error');
+		});
+
+		removableFixture.componentInstance.showImage.set(false);
+
+		await vi.waitFor(() => {
+			removableFixture.detectChanges();
+			expect(avatar.getAttribute('data-status')).toEqual('idle');
+			expect(getComputedStyle(fallback).visibility).not.toEqual('hidden');
+		});
+	});
+
+	it('should reset the status to idle when a loaded image is removed', async () => {
+		const removableFixture = TestBed.createComponent(RemovableMock);
+		removableFixture.autoDetectChanges();
+		const avatar = removableFixture.nativeElement.querySelector('#removable');
+
+		removableFixture.componentInstance.src.set(IMAGE);
+
+		await vi.waitFor(() => {
+			removableFixture.detectChanges();
+			expect(avatar.getAttribute('data-status')).toEqual('loaded');
+		});
+
+		removableFixture.componentInstance.showImage.set(false);
+
+		await vi.waitFor(() => {
+			removableFixture.detectChanges();
+			expect(avatar.getAttribute('data-status')).toEqual('idle');
 		});
 	});
 });

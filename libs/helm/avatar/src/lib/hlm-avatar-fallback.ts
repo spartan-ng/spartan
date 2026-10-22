@@ -5,7 +5,7 @@ import { classes } from '@spartan-ng/helm/utils';
 @Directive({
 	selector: '[hlmAvatarFallback]',
 	exportAs: 'hlmAvatarFallback',
-	hostDirectives: [{ directive: BrnAvatarFallback, inputs: ['hostStyles'] }],
+	hostDirectives: [BrnAvatarFallback],
 	host: {
 		'data-slot': 'avatar-fallback',
 	},

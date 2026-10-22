@@ -18,9 +18,6 @@ const IMAGE =
 		<hlm-avatar size="lg" id="sized">
 			<span brnAvatarFallback>fallback</span>
 		</hlm-avatar>
-		<hlm-avatar id="styled" hostStyles="display: inline-grid; position: relative; background-color: rgb(4, 5, 6)">
-			<span brnAvatarFallback>fallback</span>
-		</hlm-avatar>
 		<hlm-avatar id="withImage">
 			<img hlmAvatarImage [src]="_image" alt="Avatar image" />
 			<span brnAvatarFallback>fallback</span>
@@ -52,6 +49,16 @@ describe('HlmAvatarDirective', () => {
 		);
 	});
 
+	it('should not set a display style on the host so caller classes can control visibility', () => {
+		fixture.componentRef.setInput('class', 'hidden sm:flex');
+		fixture.detectChanges();
+		const avatar = fixture.nativeElement.querySelector('#fallbackOnly');
+		expect(avatar.className).toContain('hidden');
+		expect(avatar.className).toContain('sm:flex');
+		expect(avatar.style.position).toEqual('relative');
+		expect(avatar.style.display).toEqual('');
+	});
+
 	it('should add any user defined classes', () => {
 		fixture.componentRef.setInput('class', 'test-class');
 		fixture.detectChanges();
@@ -62,13 +69,6 @@ describe('HlmAvatarDirective', () => {
 	it('should support the size input', () => {
 		fixture.detectChanges();
 		expect(fixture.nativeElement.querySelector('#sized').getAttribute('data-size')).toBe('lg');
-	});
-
-	it('should forward hostStyles to the brnAvatar host directive', () => {
-		fixture.detectChanges();
-		const avatar = fixture.nativeElement.querySelector('#styled');
-		expect(getComputedStyle(avatar).display).toEqual('inline-grid');
-		expect(getComputedStyle(avatar).backgroundColor).toEqual('rgb(4, 5, 6)');
 	});
 
 	it('should support brn directives', () => {
@@ -83,7 +83,7 @@ describe('HlmAvatarDirective', () => {
 		await vi.waitFor(() => {
 			fixture.detectChanges();
 			expect(avatar.getAttribute('data-status')).toBe('loaded');
-			expect(getComputedStyle(avatar.querySelector('span')).display).toBe('none');
+			expect(getComputedStyle(avatar.querySelector('span')).visibility).toBe('hidden');
 		});
 	});
 });

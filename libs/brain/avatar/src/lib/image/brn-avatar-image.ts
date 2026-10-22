@@ -20,7 +20,7 @@ export class BrnAvatarImage {
 	 * Styles applied to the host element. Bound via `[style]` so they apply through the CSSOM and are
 	 * not blocked by a strict Content-Security-Policy.
 	 */
-	public readonly hostStyles = input<string>('grid-area: 1 / 1');
+	public readonly hostStyles = input<string>('position: absolute; inset: 0; width: 100%; height: 100%');
 
 	public readonly canShow = computed(() => this._avatar.status() === 'loaded');
 
@@ -35,7 +35,7 @@ export class BrnAvatarImage {
 
 		// If the image is removed, the fallback should become visible again.
 		this._destroyRef.onDestroy(() => {
-			if (this._avatar.status() === 'loaded') {
+			if (this._avatar.status() !== 'idle') {
 				this._avatar.setStatus('idle');
 			}
 		});

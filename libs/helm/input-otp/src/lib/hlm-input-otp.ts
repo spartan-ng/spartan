@@ -1,12 +1,47 @@
-import { Directive } from '@angular/core';
-import { classes } from '@spartan-ng/helm/utils';
+import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { BrnInputOtp, BrnInputOtpInput, type InputMode } from '@spartan-ng/brain/input-otp';
+import { classes, hlm } from '@spartan-ng/helm/utils';
+import type { ClassValue } from 'clsx';
 
-@Directive({
-	selector: 'brn-input-otp[hlmInputOtp], brn-input-otp[hlm]',
+@Component({
+	selector: 'hlm-input-otp',
 	exportAs: 'hlmInputOtp',
+	imports: [BrnInputOtpInput],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	hostDirectives: [
+		{
+			directive: BrnInputOtp,
+			inputs: ['length', 'value', 'disabled', 'inputId', 'hostStyles', 'autofocus', 'transformPaste'],
+			outputs: ['valueChange', 'completed'],
+		},
+	],
 	host: { 'data-slot': 'input-otp' },
+	template: `
+		<ng-content />
+		<input
+			brnInputOtpInput
+			[autocomplete]="inputAutocomplete()"
+			[inputMode]="inputMode()"
+			[class]="_inputClass()"
+			[inputStyles]="inputStyles()"
+		/>
+	`,
 })
 export class HlmInputOtp {
+	/** Custom autocomplete attribute applied to the input element */
+	public readonly inputAutocomplete = input<'one-time-code' | 'off'>('one-time-code');
+
+	/** Virtual keyboard appearance on mobile */
+	public readonly inputMode = input<InputMode>('numeric');
+
+	/** Classes applied to the input element. */
+	public readonly inputClass = input<ClassValue>('');
+
+	/** Overrides the default styles applied to the input element. */
+	public readonly inputStyles = input<string | undefined>(undefined);
+
+	protected readonly _inputClass = computed(() => hlm('disabled:cursor-not-allowed', this.inputClass()));
+
 	constructor() {
 		classes(() => 'spartan-input-otp flex items-center has-disabled:opacity-50');
 	}

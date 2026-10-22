@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
 import type { InputMode } from './brn-input-otp';
 import { BrnInputOtp } from './brn-input-otp';
+import { BrnInputOtpInput } from './brn-input-otp-input';
 import { BrnInputOtpSlot } from './brn-input-otp-slot';
 
 describe('BrnInputOtp', () => {
@@ -25,13 +26,12 @@ describe('BrnInputOtp', () => {
 		} = options;
 
 		let template = `
-      <brn-input-otp
+      <div
+        brnInputOtp
         [length]="${length}"
         data-testid="brnInputOtp"
         ${disabled ? 'disabled' : ''}
-        [inputMode]="'${inputMode}'"
         [autofocus]="${autofocus}"
-        [inputAutocomplete]="'${inputAutocomplete}'"
         ${inputId ? `inputId="${inputId}"` : ''}
       >
     `;
@@ -44,10 +44,17 @@ describe('BrnInputOtp', () => {
       `;
 		}
 
-		template += `</brn-input-otp>`;
+		template += `
+        <input
+          brnInputOtpInput
+          [inputMode]="'${inputMode}'"
+          [autocomplete]="'${inputAutocomplete}'"
+        />
+      </div>
+    `;
 
 		const container = await render(template, {
-			imports: [BrnInputOtp, BrnInputOtpSlot],
+			imports: [BrnInputOtp, BrnInputOtpInput, BrnInputOtpSlot],
 		});
 
 		const input = container.container.querySelector('input[data-slot="input-otp"]') as HTMLInputElement;
@@ -63,6 +70,20 @@ describe('BrnInputOtp', () => {
 	};
 
 	describe('rendering', () => {
+		it('supports the brn-input-otp element selector', async () => {
+			const { container } = await render(
+				`<brn-input-otp length="3">
+          <brn-input-otp-slot index="0" />
+          <brn-input-otp-slot index="1" />
+          <brn-input-otp-slot index="2" />
+          <input brnInputOtpInput />
+        </brn-input-otp>`,
+				{ imports: [BrnInputOtp, BrnInputOtpInput, BrnInputOtpSlot] },
+			);
+
+			expect(container.querySelector('input[data-slot="input-otp"]')).toBeInTheDocument();
+		});
+
 		it('renders with correct number of slots', async () => {
 			await setup({ length: 6 });
 

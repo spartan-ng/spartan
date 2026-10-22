@@ -182,7 +182,7 @@ export const routeMeta: RouteMeta = {
 				Sync the otp to a form by adding
 				<code class="${hlmCode}">formControlName</code>
 				to
-				<code class="${hlmCode}">brn-input-otp</code>
+				<code class="${hlmCode}">hlm-input-otp</code>
 				.
 			</p>
 			<spartan-tabs firstTab="Preview" secondTab="Code">

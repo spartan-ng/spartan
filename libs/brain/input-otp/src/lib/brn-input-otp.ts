@@ -2,10 +2,8 @@ import type { BooleanInput, NumberInput } from '@angular/cdk/coercion';
 import {
 	afterNextRender,
 	booleanAttribute,
-	ChangeDetectionStrategy,
-	Component,
 	computed,
-	ElementRef,
+	Directive,
 	forwardRef,
 	inject,
 	input,
@@ -13,13 +11,14 @@ import {
 	numberAttribute,
 	output,
 	signal,
-	viewChild,
 } from '@angular/core';
 import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { BrnFieldControl, provideBrnLabelable } from '@spartan-ng/brain/field';
 import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
-import type { ClassValue } from 'clsx';
+import type { BrnInputOtpInput } from './brn-input-otp-input';
 import { provideBrnInputOtp } from './brn-input-otp.token';
+
+export type { InputMode } from './brn-input-otp-input';
 
 export const BRN_INPUT_OTP_VALUE_ACCESSOR = {
 	provide: NG_VALUE_ACCESSOR,
@@ -27,38 +26,15 @@ export const BRN_INPUT_OTP_VALUE_ACCESSOR = {
 	multi: true,
 };
 
-export type InputMode = 'text' | 'tel' | 'url' | 'email' | 'numeric' | 'decimal' | 'search';
-
-@Component({
-	selector: 'brn-input-otp',
+@Directive({
+	selector: 'brn-input-otp, [brnInputOtp]',
 	exportAs: 'brnInputOtp',
 	providers: [BRN_INPUT_OTP_VALUE_ACCESSOR, provideBrnInputOtp(BrnInputOtp), provideBrnLabelable(BrnInputOtp)],
-	changeDetection: ChangeDetectionStrategy.OnPush,
 	hostDirectives: [BrnFieldControl],
 	host: {
 		'[style]': 'hostStyles()',
 		'data-input-otp-container': 'true',
 	},
-	template: `
-		<ng-content />
-		<div [style]="containerStyles()">
-			<input
-				#otpInput
-				data-slot="input-otp"
-				[id]="inputId()"
-				[class]="inputClass()"
-				[autocomplete]="inputAutocomplete()"
-				[style]="inputStyles()"
-				[disabled]="_disabled()"
-				[inputMode]="inputMode()"
-				[value]="value() ?? ''"
-				(input)="onInputChange($event)"
-				(paste)="onPaste($event)"
-				(focus)="_focused.set(true)"
-				(blur)="onBlur()"
-			/>
-		</div>
-	`,
 })
 export class BrnInputOtp implements ControlValueAccessor {
 	private static _id = 0;
@@ -83,31 +59,18 @@ export class BrnInputOtp implements ControlValueAccessor {
 
 	public readonly labelableId = this.inputId;
 
-	/** Custom autocomplete attribute applied to the input element */
-	public readonly inputAutocomplete = input<'one-time-code' | 'off'>('one-time-code');
-
-	/** Styles applied to the input element to make it invisible and clickable. */
-	public readonly inputStyles = input<string>(
-		'position: absolute; inset: 0; width: 100%; height: 100%; display: flex; textAlign: left; opacity: 1; color: transparent; pointerEvents: all; background: transparent; caret-color: transparent; border: 0px solid transparent; outline: transparent solid 0px; box-shadow: none; line-height: 1; letter-spacing: -0.5em; font-family: monospace; font-variant-numeric: tabular-nums;',
-	);
-
-	/** Styles applied to the container element. */
-	public readonly containerStyles = input<string>('position: absolute; inset: 0; pointer-events: none;');
-
-	/** Determine if the date picker is disabled. */
+	/** Determine if the input is disabled. */
 	public readonly disabled = input<boolean, BooleanInput>(false, {
 		transform: booleanAttribute,
 	});
 
 	protected readonly _disabled = linkedSignal(this.disabled);
 
+	/** @internal The disabled state as a readonly signal */
+	public readonly disabledState = this._disabled.asReadonly();
+
 	/** The number of slots. */
 	public readonly length = input.required<number, NumberInput>({ transform: numberAttribute });
-
-	/** Virtual keyboard appearance on mobile */
-	public readonly inputMode = input<InputMode>('numeric');
-
-	public readonly inputClass = input<ClassValue>('');
 
 	/** If true, the element is focused automatically on init **/
 	public readonly autofocus = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
@@ -153,43 +116,43 @@ export class BrnInputOtp implements ControlValueAccessor {
 	protected _onChange?: ChangeFn<string>;
 	protected _onTouched?: TouchFn;
 
-	protected readonly _inputComponentRef = viewChild.required<ElementRef>('otpInput');
+	/** The registered hidden input element. */
+	private readonly _input = signal<BrnInputOtpInput | null>(null);
 
 	constructor() {
 		afterNextRender(() => {
 			if (this.autofocus()) {
-				this._inputComponentRef().nativeElement.focus();
+				this.focus();
 			}
 		});
 	}
 
-	protected onBlur() {
+	/** Focus the underlying input element. */
+	public focus(): void {
+		this._input()?.focus();
+	}
+
+	/** @internal */
+	public registerInput(input: BrnInputOtpInput): void {
+		this._input.set(input);
+	}
+
+	/** @internal */
+	public unregisterInput(input: BrnInputOtpInput): void {
+		if (this._input() === input) {
+			this._input.set(null);
+		}
+	}
+
+	/** @internal */
+	public onFocus(): void {
+		this._focused.set(true);
+	}
+
+	/** @internal */
+	public onBlur(): void {
 		this._focused.set(false);
 		this._onTouched?.();
-	}
-
-	protected onInputChange(event: Event) {
-		let newValue = (event.target as HTMLInputElement).value;
-		const length = this.length();
-
-		if (newValue.length > length) {
-			// Replace the last character when length is exceeded
-			newValue = newValue.slice(0, length - 1) + newValue.slice(-1);
-		}
-
-		this.updateValue(newValue, length);
-	}
-
-	protected onPaste(event: ClipboardEvent) {
-		event.preventDefault();
-		const clipboardData = event.clipboardData?.getData('text/plain') || '';
-
-		const length = this.length();
-
-		const content = this.transformPaste()(clipboardData, length);
-		const newValue = content.slice(0, length);
-
-		this.updateValue(newValue, length);
 	}
 
 	/** CONTROL VALUE ACCESSOR */
@@ -216,8 +179,10 @@ export class BrnInputOtp implements ControlValueAccessor {
 		return newValue !== previousValue && previousValue.length < length && newValue.length === length;
 	}
 
-	private updateValue(newValue: string, length: number) {
+	/** @internal */
+	public updateValue(newValue: string): void {
 		const previousValue = this.value() ?? '';
+		const length = this.length();
 
 		this.value.set(newValue);
 		this.valueChange.emit(newValue);

@@ -1,4 +1,4 @@
-import { inject, InjectionToken, type ValueProvider } from '@angular/core';
+import { type FactoryProvider, inject, InjectionToken } from '@angular/core';
 import { type ClassValue } from 'clsx';
 import { type BrnTooltipPosition } from './brn-tooltip-position';
 
@@ -30,8 +30,19 @@ const BRN_TOOLTIP_DEFAULT_OPTIONS = new InjectionToken<BrnTooltipOptions>('brn-t
 	factory: () => defaultOptions,
 });
 
-export function provideBrnTooltipDefaultOptions(options: Partial<BrnTooltipOptions>): ValueProvider {
-	return { provide: BRN_TOOLTIP_DEFAULT_OPTIONS, useValue: { ...defaultOptions, ...options } };
+/**
+ * Provides tooltip options on top of the ones already provided above this injector (a parent
+ * component, or the application config), so a nested provider such as `HlmTooltip`'s only
+ * overrides the options it sets.
+ */
+export function provideBrnTooltipDefaultOptions(options: Partial<BrnTooltipOptions>): FactoryProvider {
+	return {
+		provide: BRN_TOOLTIP_DEFAULT_OPTIONS,
+		useFactory: () => ({
+			...(inject(BRN_TOOLTIP_DEFAULT_OPTIONS, { optional: true, skipSelf: true }) ?? defaultOptions),
+			...options,
+		}),
+	};
 }
 
 export function injectBrnTooltipDefaultOptions(): BrnTooltipOptions {

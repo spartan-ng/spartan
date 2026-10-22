@@ -1,8 +1,20 @@
-import { ChangeDetectionStrategy, Component, input, viewChild } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	contentChildren,
+	type ElementRef,
+	input,
+	signal,
+	viewChild,
+} from '@angular/core';
+import { toObservable } from '@angular/core/rxjs-interop';
 import { render, type RenderResult, screen } from '@testing-library/angular';
+import type { Observable } from 'rxjs';
 import { BrnTabs } from './brn-tabs';
 import { BrnTabsContent } from './brn-tabs-content';
 import { BrnTabsContentLazy } from './brn-tabs-content-lazy';
+import { BrnTabsList } from './brn-tabs-list';
+import { type BrnPaginatedTabHeaderItem, BrnTabsPaginatedList } from './brn-tabs-paginated-list';
 import { BrnTabsTrigger } from './brn-tabs-trigger';
 
 @Component({
@@ -214,5 +226,139 @@ describe('BrnTabsContentLazy with no default tab', () => {
 		renderResult.fixture.detectChanges();
 		expect(screen.getByTestId('no-default-inner1')).toBeTruthy();
 		expect(screen.queryByTestId('no-default-inner2')).toBeNull();
+	});
+});
+
+const ARROW_RIGHT = { key: 'ArrowRight', keyCode: 39 };
+const HOME = { key: 'Home', keyCode: 36 };
+const END = { key: 'End', keyCode: 35 };
+
+function key(target: HTMLElement, init: Partial<KeyboardEventInit> & { key: string; keyCode: number }) {
+	const event = new KeyboardEvent('keydown', { bubbles: true, cancelable: true, ...init });
+	// Browsers ignore `keyCode` from the constructor, but the CDK key manager reads it.
+	Object.defineProperty(event, 'keyCode', { value: init.keyCode });
+	target.dispatchEvent(event);
+}
+
+@Component({
+	selector: 'brn-test-paginated-tabs-list',
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<button #previousPaginator type="button" tabindex="-1" aria-hidden="true"></button>
+		<div #tabListContainer (keydown)="_handleKeydown($event)">
+			<div #tabList role="tablist">
+				<div #tabListInner>
+					<ng-content />
+				</div>
+			</div>
+		</div>
+		<button #nextPaginator type="button" tabindex="-1" aria-hidden="true"></button>
+	`,
+})
+class BrnTestPaginatedTabsList extends BrnTabsPaginatedList {
+	public readonly items = contentChildren(BrnTabsTrigger);
+	public readonly itemsChanges: Observable<ReadonlyArray<BrnPaginatedTabHeaderItem>> = toObservable(this.items);
+
+	public readonly tabListContainer = viewChild.required<ElementRef<HTMLElement>>('tabListContainer');
+	public readonly tabList = viewChild.required<ElementRef<HTMLElement>>('tabList');
+	public readonly tabListInner = viewChild.required<ElementRef<HTMLElement>>('tabListInner');
+	public readonly nextPaginator = viewChild.required<ElementRef<HTMLElement>>('nextPaginator');
+	public readonly previousPaginator = viewChild.required<ElementRef<HTMLElement>>('previousPaginator');
+
+	protected _itemSelected(event: KeyboardEvent) {
+		event.preventDefault();
+	}
+}
+
+@Component({
+	imports: [BrnTabs, BrnTabsList, BrnTabsTrigger],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<div [(brnTabs)]="active" (tabActivated)="activations.push($event)">
+			<div brnTabsList>
+				<button brnTabsTrigger="A" data-testid="list-A">Tab A</button>
+				<button brnTabsTrigger="B" data-testid="list-B">Tab B</button>
+				<button brnTabsTrigger="C" data-testid="list-C">Tab C</button>
+			</div>
+		</div>
+	`,
+})
+class BrnTabsListActivationSpec {
+	public readonly active = signal<string | undefined>('A');
+	public readonly activations: string[] = [];
+}
+
+@Component({
+	imports: [BrnTabs, BrnTestPaginatedTabsList, BrnTabsTrigger],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<div [(brnTabs)]="active" (tabActivated)="activations.push($event)">
+			<brn-test-paginated-tabs-list>
+				<button brnTabsTrigger="A" data-testid="paginated-A">Tab A</button>
+				<button brnTabsTrigger="B" data-testid="paginated-B">Tab B</button>
+				<button brnTabsTrigger="C" data-testid="paginated-C">Tab C</button>
+			</brn-test-paginated-tabs-list>
+		</div>
+	`,
+})
+class BrnTabsPaginatedListActivationSpec {
+	public readonly active = signal<string | undefined>('A');
+	public readonly activations: string[] = [];
+}
+
+describe('BrnTabsList automatic activation', () => {
+	it('should emit tabActivated once per arrow key', async () => {
+		const { fixture } = await render(BrnTabsListActivationSpec);
+		screen.getByTestId('list-A').focus();
+
+		key(screen.getByTestId('list-A'), ARROW_RIGHT);
+		key(screen.getByTestId('list-B'), ARROW_RIGHT);
+
+		expect(fixture.componentInstance.activations).toEqual(['B', 'C']);
+		expect(fixture.componentInstance.active()).toBe('C');
+		expect(document.activeElement).toBe(screen.getByTestId('list-C'));
+	});
+
+	it('should not emit tabActivated when focus lands on the already active tab', async () => {
+		const { fixture } = await render(BrnTabsListActivationSpec);
+		screen.getByTestId('list-A').focus();
+
+		key(screen.getByTestId('list-A'), HOME);
+
+		expect(fixture.componentInstance.activations).toEqual([]);
+		expect(fixture.componentInstance.active()).toBe('A');
+	});
+
+	it('should still emit tabActivated when the active tab is clicked', async () => {
+		const { fixture } = await render(BrnTabsListActivationSpec);
+
+		screen.getByTestId('list-A').click();
+
+		expect(fixture.componentInstance.activations).toEqual(['A']);
+	});
+});
+
+describe('BrnTabsPaginatedList automatic activation', () => {
+	it('should emit tabActivated once per arrow key', async () => {
+		const { fixture } = await render(BrnTabsPaginatedListActivationSpec);
+		screen.getByTestId('paginated-A').focus();
+
+		key(screen.getByTestId('paginated-A'), ARROW_RIGHT);
+		key(screen.getByTestId('paginated-B'), ARROW_RIGHT);
+
+		expect(fixture.componentInstance.activations).toEqual(['B', 'C']);
+		expect(fixture.componentInstance.active()).toBe('C');
+		expect(document.activeElement).toBe(screen.getByTestId('paginated-C'));
+	});
+
+	it('should emit tabActivated once for End and Home', async () => {
+		const { fixture } = await render(BrnTabsPaginatedListActivationSpec);
+		screen.getByTestId('paginated-A').focus();
+
+		key(screen.getByTestId('paginated-A'), END);
+		key(screen.getByTestId('paginated-C'), HOME);
+
+		expect(fixture.componentInstance.activations).toEqual(['C', 'A']);
+		expect(fixture.componentInstance.active()).toBe('A');
 	});
 });

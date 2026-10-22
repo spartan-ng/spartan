@@ -76,6 +76,29 @@ describe('date picker', () => {
 		});
 	});
 
+	describe('single - trigger - navigating to a month whose same day is before min', () => {
+		beforeEach(() => {
+			cy.visit('/iframe.html?id=date-picker--preselected-with-min-date');
+		});
+
+		it('shows the picked month and focuses the min date instead of staying on the old month', () => {
+			// The picker is preseeded with the 19th of October, min is the 22nd of August.
+			cy.get('#date').click();
+			cy.get('hlm-calendar').should('exist');
+
+			const monthTrigger = () => cy.get('hlm-calendar [brnCalendarMonthSelect] [data-slot="select-trigger"]');
+
+			monthTrigger().click();
+			cy.get('hlm-select-content').find('hlm-select-item').contains('Aug').click();
+
+			// The 19th of August is before min: the focus is constrained to the 22nd, like the
+			// previous/next buttons do, and the grid shows August.
+			monthTrigger().should('contain.text', 'Aug');
+			cy.get('hlm-calendar [brnCalendarCellButton]:not([data-outside])').should('have.length', 31);
+			cy.get('hlm-calendar [brnCalendarCellButton][tabindex="0"]').invoke('text').invoke('trim').should('equal', '22');
+		});
+	});
+
 	describe('single - input', () => {
 		beforeEach(() => {
 			cy.visit('/iframe.html?id=date-picker--input');

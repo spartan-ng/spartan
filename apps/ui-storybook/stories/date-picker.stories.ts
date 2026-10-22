@@ -102,6 +102,25 @@ export const PreselectedEndOfMonth: Story = {
 	}),
 };
 
+/**
+ * Preseeds the picker with the 19th of October and a min date on the 22nd of August.
+ * Picking August in the month dropdown aimed at the 19th of August, which is before min:
+ * setFocusedDate rejected it, the dropdown showed August and the grid stayed on October.
+ */
+export const PreselectedWithMinDate: Story = {
+	args: { captionLayout: 'dropdown' },
+	render: (args) => ({
+		props: { ...args, date: new Date(2024, 9, 19), minDate: new Date(2024, 7, 22) },
+		template: `
+		<div class="preview flex min-h-[350px] w-full justify-center p-10 items-center">
+			<hlm-date-picker [minDate]="minDate" [captionLayout]="captionLayout" [date]="date">
+                <hlm-date-picker-trigger buttonId="date">Pick a date</hlm-date-picker-trigger>
+            </hlm-date-picker>
+		</div>
+		`,
+	}),
+};
+
 export const WithHintAndError: Story = {
 	render: (args) => ({
 		props: {

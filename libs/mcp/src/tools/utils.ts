@@ -27,6 +27,7 @@ export const KNOWN_COMPONENTS: string[] = [
 	'carousel',
 	'chart',
 	'checkbox',
+	'code-block',
 	'collapsible',
 	'combobox',
 	'command',
@@ -34,12 +35,11 @@ export const KNOWN_COMPONENTS: string[] = [
 	'data-table',
 	'date-picker',
 	'dialog',
+	'drawer',
 	'dropdown-menu',
 	'empty',
 	'field',
-	'form-field',
 	'hover-card',
-	'icon',
 	'input',
 	'input-group',
 	'input-otp',
@@ -74,25 +74,36 @@ export const KNOWN_COMPONENTS: string[] = [
 	'toggle',
 	'toggle-group',
 	'tooltip',
+	'trace',
 ];
 
 /**
  * Known Spartan blocks (pre-built UI patterns).
  */
-export const KNOWN_BLOCKS: string[] = ['sidebar', 'login', 'signup', 'calendar'];
+export const KNOWN_BLOCKS: string[] = ['sidebar', 'login', 'signup', 'calendar', 'stepper'];
 
 /**
  * Known documentation topics.
  */
-export const DOCUMENTATION_TOPICS: string[] = [
+export const DOCUMENTATION_TOPICS = [
+	'introduction',
+	'changelog',
+	'about',
 	'installation',
-	'cli',
+	'components-json',
 	'theming',
+	'styles',
 	'dark-mode',
+	'cli',
+	'rtl',
 	'typography',
+	'figma',
+	'version-support',
 	'health-checks',
 	'update-guide',
-];
+	'mcp',
+	'skills',
+] as const;
 
 /**
  * Minimal HTML -> text converter for callers that want plain text.

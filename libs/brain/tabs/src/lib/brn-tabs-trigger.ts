@@ -61,7 +61,7 @@ export class BrnTabsTrigger implements OnDestroy {
 
 	public focus() {
 		this.elementRef.nativeElement.focus();
-		if (this._root.$activationMode() === 'automatic') {
+		if (this._root.$activationMode() === 'automatic' && !this.selected()) {
 			this.activate();
 		}
 	}

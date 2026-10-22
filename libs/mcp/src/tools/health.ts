@@ -1,6 +1,6 @@
 import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { z } from 'zod';
-import { SPARTAN_COMPONENTS_BASE, SPARTAN_DOCS_BASE } from './utils.js';
+import { DOCUMENTATION_TOPICS, SPARTAN_COMPONENTS_BASE, SPARTAN_DOCS_BASE } from './utils.js';
 
 export function registerHealthTools(server: McpServer): void {
 	server.registerTool(
@@ -11,7 +11,7 @@ export function registerHealthTools(server: McpServer): void {
 				'Check availability and response times for selected Spartan docs and component pages. This validates the docs site, not your local workspace health check.',
 			inputSchema: {
 				topics: z
-					.array(z.enum(['installation', 'cli', 'theming', 'dark-mode', 'typography', 'health-checks', 'update-guide']))
+					.array(z.enum(DOCUMENTATION_TOPICS))
 					.optional()
 					.describe('Docs topics to check; defaults to a standard set.'),
 				components: z
@@ -26,9 +26,7 @@ export function registerHealthTools(server: McpServer): void {
 					? args.topics
 					: ['installation', 'cli', 'theming', 'dark-mode', 'typography', 'health-checks', 'update-guide'];
 			const components =
-				args.components && Array.isArray(args.components)
-					? args.components
-					: ['accordion', 'button', 'table', 'form-field'];
+				args.components && Array.isArray(args.components) ? args.components : ['accordion', 'button', 'table', 'field'];
 
 			interface CheckResult {
 				label: string;

@@ -15,7 +15,7 @@
 import { FocusKeyManager, type FocusableOption } from '@angular/cdk/a11y';
 import { type Direction, Directionality } from '@angular/cdk/bidi';
 import { type BooleanInput } from '@angular/cdk/coercion';
-import { ENTER, SPACE, hasModifierKey } from '@angular/cdk/keycodes';
+import { hasModifierKey } from '@angular/cdk/keycodes';
 import { SharedResizeObserver } from '@angular/cdk/observers/private';
 import { Platform, normalizePassiveListenerOptions } from '@angular/cdk/platform';
 import { ViewportRuler } from '@angular/cdk/scrolling';
@@ -131,21 +131,18 @@ export abstract class BrnTabsPaginatedList implements AfterContentChecked, After
 	 */
 	public readonly disablePagination = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
-	/** The index of the active tab. */
-	private readonly _selectedIndex = computed(() => {
+	/** Index of the active tab among this list's items, or undefined when there isn't one. */
+	private readonly _selectedItemIndex = computed(() => {
 		const currentTabKey = this._activeTab();
-		const tabs = this._tabs();
+		const trigger = currentTabKey ? this._tabs()[currentTabKey]?.trigger : undefined;
+		if (!trigger) return undefined;
 
-		let activeIndex = 0;
-		if (currentTabKey && this.items()) {
-			const currentTab = tabs[currentTabKey];
-			if (currentTab) {
-				activeIndex = this.items().indexOf(currentTab.trigger);
-			}
-		}
-
-		return activeIndex;
+		const index = this.items().indexOf(trigger);
+		return index >= 0 ? index : undefined;
 	});
+
+	/** The index of the active tab, falling back to the first tab. */
+	private readonly _selectedIndex = computed(() => this._selectedItemIndex() ?? 0);
 
 	/** Event emitted when the option is selected. */
 	public readonly selectFocusedIndex = output<number>();
@@ -176,13 +173,11 @@ export abstract class BrnTabsPaginatedList implements AfterContentChecked, After
 		});
 
 		effect(() => {
-			const selectedIndex = this._selectedIndex();
+			const selectedIndex = this._selectedItemIndex();
 
-			if (selectedIndex !== 0) {
+			if (selectedIndex !== undefined) {
 				this._selectedIndexChanged = true;
-				if (this._keyManager) {
-					this._keyManager.updateActiveItem(selectedIndex);
-				}
+				this._keyManager?.updateActiveItem(selectedIndex);
 			}
 		});
 	}
@@ -223,7 +218,7 @@ export abstract class BrnTabsPaginatedList implements AfterContentChecked, After
 			this.updatePagination();
 		};
 
-		this._keyManager = new FocusKeyManager<BrnPaginatedTabHeaderItem>(this.items())
+		this._keyManager = new FocusKeyManager<BrnPaginatedTabHeaderItem>(this.items, this._injector)
 			.withHorizontalOrientation(this._getLayoutDirection())
 			.withHomeAndEnd()
 			.withWrap()
@@ -335,10 +330,17 @@ export abstract class BrnTabsPaginatedList implements AfterContentChecked, After
 			return;
 		}
 
-		switch (event.keyCode) {
-			case ENTER:
-			case SPACE:
-				if (this.focusIndex !== this._selectedIndex()) {
+		// A programmatic selection (or any activation that bypasses the key manager) can move its
+		// active item away from the trigger that owns focus. Start every key from the focused item.
+		const focusedItem = this.items().find((item) => item.elementRef.nativeElement === event.target);
+		if (focusedItem) {
+			this._keyManager.updateActiveItem(focusedItem);
+		}
+
+		switch (event.key) {
+			case 'Enter':
+			case ' ':
+				if (this.focusIndex !== this._selectedItemIndex()) {
 					const item = this.items()[this.focusIndex];
 
 					if (item && !item.disabled) {

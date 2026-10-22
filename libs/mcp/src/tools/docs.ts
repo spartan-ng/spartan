@@ -1,27 +1,24 @@
 import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { z } from 'zod';
 import { cacheManager } from './cache.js';
-import { SPARTAN_DOCS_BASE, extractCodeBlocks, extractHeadings, extractLinks, fetchContent } from './utils.js';
+import {
+	DOCUMENTATION_TOPICS,
+	SPARTAN_DOCS_BASE,
+	extractCodeBlocks,
+	extractHeadings,
+	extractLinks,
+	fetchContent,
+} from './utils.js';
 
 export function registerDocsTools(server: McpServer): void {
 	server.registerTool(
 		'spartan_docs_get',
 		{
 			title: 'Get a Spartan docs section',
-			description:
-				'Fetch an official Spartan documentation section by topic (installation, cli, theming, dark-mode, typography, health-checks, update-guide).',
+			description: `Fetch an official Spartan documentation section by topic (${DOCUMENTATION_TOPICS.join(', ')}).`,
 			inputSchema: {
 				topic: z
-					.enum([
-						'installation',
-						'cli',
-						'theming',
-						'dark-mode',
-						'typography',
-						'health-checks',
-						'update-guide',
-						'analog-dark-mode',
-					])
+					.enum([...DOCUMENTATION_TOPICS, 'analog-dark-mode'])
 					.describe("Documentation topic to fetch. Includes 'analog-dark-mode' external article."),
 				format: z.enum(['html', 'text']).default('html').describe('Return format: raw HTML or plain text.'),
 				extract: z

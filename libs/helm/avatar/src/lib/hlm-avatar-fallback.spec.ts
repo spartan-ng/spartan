@@ -1,13 +1,16 @@
 import { ChangeDetectionStrategy, Component, PLATFORM_ID } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
+import { HlmAvatar } from './hlm-avatar';
 import { HlmAvatarFallback } from './hlm-avatar-fallback';
 
 @Component({
 	selector: 'hlm-mock',
-	imports: [HlmAvatarFallback],
+	imports: [HlmAvatar, HlmAvatarFallback],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<span hlmAvatarFallback [class]="userCls">fallback2</span>
+		<hlm-avatar>
+			<span hlmAvatarFallback [class]="userCls">fallback2</span>
+		</hlm-avatar>
 	`,
 })
 class HlmMock {

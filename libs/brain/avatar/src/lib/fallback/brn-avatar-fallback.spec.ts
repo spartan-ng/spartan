@@ -1,14 +1,17 @@
 import { ChangeDetectionStrategy, Component, PLATFORM_ID } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
+import { BrnAvatar } from '../brn-avatar';
 import { BrnAvatarFallback } from './brn-avatar-fallback';
 
 @Component({
 	selector: 'brn-mock',
-	imports: [BrnAvatarFallback],
+	imports: [BrnAvatar, BrnAvatarFallback],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<span *brnAvatarFallback>fallback</span>
-		<span brnAvatarFallback>fallback2</span>
+		<brn-avatar>
+			<span *brnAvatarFallback>fallback</span>
+			<span brnAvatarFallback>fallback2</span>
+		</brn-avatar>
 	`,
 })
 class BrnMock {}

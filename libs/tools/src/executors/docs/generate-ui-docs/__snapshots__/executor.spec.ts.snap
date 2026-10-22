@@ -1299,21 +1299,39 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
     "brain": {
       "BrnAvatar": {
         "exportAs": "brnAvatar",
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "hostStyles",
+            "required": false,
+            "type": "string",
+          },
+        ],
         "models": [],
         "outputs": [],
-        "selector": "brn-avatar",
+        "selector": "[brnAvatar],brn-avatar",
       },
       "BrnAvatarFallback": {
         "exportAs": "brnAvatarFallback",
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "hostStyles",
+            "required": false,
+            "type": "string",
+          },
+        ],
         "models": [],
         "outputs": [],
         "selector": "[brnAvatarFallback]",
       },
       "BrnAvatarImage": {
         "exportAs": "brnAvatarImage",
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "hostStyles",
+            "required": false,
+            "type": "string",
+          },
+        ],
         "models": [],
         "outputs": [],
         "selector": "img[brnAvatarImage]",
@@ -1328,10 +1346,15 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "required": false,
             "type": "'default' | 'sm' | 'lg'",
           },
+          {
+            "name": "hostStyles",
+            "required": false,
+            "type": "string",
+          },
         ],
         "models": [],
         "outputs": [],
-        "selector": "hlm-avatar",
+        "selector": "[hlmAvatar],hlm-avatar",
       },
       "HlmAvatarBadge": {
         "exportAs": "hlmAvatarBadge",
@@ -1342,7 +1365,13 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
       },
       "HlmAvatarFallback": {
         "exportAs": "hlmAvatarFallback",
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "hostStyles",
+            "required": false,
+            "type": "string",
+          },
+        ],
         "models": [],
         "outputs": [],
         "selector": "[hlmAvatarFallback]",
@@ -1363,7 +1392,13 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
       },
       "HlmAvatarImage": {
         "exportAs": "hlmAvatarImage",
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "hostStyles",
+            "required": false,
+            "type": "string",
+          },
+        ],
         "models": [],
         "outputs": [],
         "selector": "img[hlmAvatarImage]",

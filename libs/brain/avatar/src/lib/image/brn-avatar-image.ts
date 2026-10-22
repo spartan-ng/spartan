@@ -1,23 +1,51 @@
-import { Directive, computed, signal } from '@angular/core';
+import { DestroyRef, Directive, ElementRef, computed, inject, input } from '@angular/core';
+import { BrnAvatar } from '../brn-avatar';
 
 @Directive({
 	selector: 'img[brnAvatarImage]',
 	exportAs: 'brnAvatarImage',
 	host: {
+		'[style]': 'hostStyles()',
+		'[style.visibility]': "canShow() ? null : 'hidden'",
 		'(load)': '_onLoad()',
 		'(error)': '_onError()',
 	},
 })
 export class BrnAvatarImage {
-	private readonly _loaded = signal(false);
+	private readonly _avatar = inject(BrnAvatar);
+	private readonly _image = inject<ElementRef<HTMLImageElement>>(ElementRef).nativeElement;
+	private readonly _destroyRef = inject(DestroyRef);
 
-	protected _onError() {
-		this._loaded.set(false);
+	/**
+	 * Styles applied to the host element. Bound via `[style]` so they apply through the CSSOM and are
+	 * not blocked by a strict Content-Security-Policy.
+	 */
+	public readonly hostStyles = input<string>('grid-area: 1 / 1');
+
+	public readonly canShow = computed(() => this._avatar.status() === 'loaded');
+
+	constructor() {
+		// The image may already be loaded before this directive is created, e.g. during hydration
+		// or when a cached image is reused. In that case the load event will never fire.
+		if (this._image.complete && this._image.naturalWidth > 0) {
+			this._onLoad();
+		} else {
+			this._avatar.setStatus('loading');
+		}
+
+		// If the image is removed, the fallback should become visible again.
+		this._destroyRef.onDestroy(() => {
+			if (this._avatar.status() === 'loaded') {
+				this._avatar.setStatus('idle');
+			}
+		});
 	}
 
-	protected _onLoad() {
-		this._loaded.set(true);
+	protected _onError(): void {
+		this._avatar.setStatus('error');
 	}
 
-	public readonly canShow = computed(() => this._loaded());
+	protected _onLoad(): void {
+		this._avatar.setStatus('loaded');
+	}
 }

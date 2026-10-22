@@ -96,7 +96,7 @@ export class HlmTabsPaginatedList extends BrnTabsPaginatedList {
 		),
 	);
 
-	protected _itemSelected(event: KeyboardEvent) {
-		event.preventDefault();
+	protected _itemSelected(_event: KeyboardEvent) {
+		/* noop - the native button activation selects the focused tab */
 	}
 }

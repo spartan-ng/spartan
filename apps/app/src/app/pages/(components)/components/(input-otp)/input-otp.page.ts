@@ -22,6 +22,7 @@ import { metaWith } from '../../../../shared/meta/meta.util';
 import { InputOtpDisabled } from './input-otp--disabled.preview';
 import { InputOtpFormExample } from './input-otp--form.example';
 import { InputOtpInvalid } from './input-otp--invalid.preview';
+import { InputOtpMasked } from './input-otp--masked.preview';
 import { InputOtpRtl } from './input-otp--rtl.preview';
 import { InputOtpSeparator } from './input-otp--separator.preview';
 import { defaultImports, defaultSkeleton, InputOtpPreview } from './input-otp.preview';
@@ -52,6 +53,7 @@ export const routeMeta: RouteMeta = {
 		CodeRtlPreview,
 		InputOtpPreview,
 		InputOtpSeparator,
+		InputOtpMasked,
 		InputOtpDisabled,
 		InputOtpInvalid,
 		InputOtpFormExample,
@@ -151,6 +153,21 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_separatorCode()" />
 			</spartan-tabs>
 
+			<h3 id="masked" spartanH4>Masked</h3>
+			<p class="${hlmP} mb-6">
+				Use the
+				<code class="${hlmCode}">mask</code>
+				prop to visually obscure entered characters. The form value remains unmasked. Customize the mask character with
+				<code class="${hlmCode}">maskChar</code>
+				.
+			</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-input-otp-masked />
+				</div>
+				<spartan-code secondTab [code]="_maskedCode()" />
+			</spartan-tabs>
+
 			<h3 id="disabled" spartanH4>Disabled</h3>
 			<p class="${hlmP} mb-6">
 				Use the
@@ -222,6 +239,7 @@ export default class InputOtpPage {
 	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('input-otp');
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
 	protected readonly _separatorCode = computed(() => this._snippets()['separator']);
+	protected readonly _maskedCode = computed(() => this._snippets()['masked']);
 	protected readonly _disabledCode = computed(() => this._snippets()['disabled']);
 	protected readonly _invalidCode = computed(() => this._snippets()['invalid']);
 	protected readonly _formCode = computed(() => this._snippets()['form']);

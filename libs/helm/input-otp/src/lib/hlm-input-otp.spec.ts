@@ -88,6 +88,32 @@ describe('HlmInputOtp', () => {
 		expect(input).toHaveClass('custom-class');
 	});
 
+	it('masks filled slots and supports a custom mask character', async () => {
+		const { container } = await render(
+			`<hlm-input-otp mask maskChar="*" value="123456" length="6">
+				<hlm-input-otp-group>
+					<hlm-input-otp-slot index="0" />
+					<hlm-input-otp-slot index="1" />
+					<hlm-input-otp-slot index="2" />
+				</hlm-input-otp-group>
+				<hlm-input-otp-separator />
+				<hlm-input-otp-group>
+					<hlm-input-otp-slot index="3" />
+					<hlm-input-otp-slot index="4" />
+					<hlm-input-otp-slot index="5" />
+				</hlm-input-otp-group>
+			</hlm-input-otp>`,
+			{ imports: [HlmInputOtpImports] },
+		);
+
+		const input = container.querySelector('input[data-slot="input-otp"]') as HTMLInputElement;
+		const slots = container.querySelectorAll('brn-input-otp-slot');
+
+		expect(input.value).toBe('123456');
+		expect(slots[0]).toHaveTextContent('*');
+		expect(slots[5]).toHaveTextContent('*');
+	});
+
 	it('supports reactive forms on the hlm root', async () => {
 		const { container, fixture } = await render(HlmInputOtpFormHost);
 		const host = fixture.componentInstance;

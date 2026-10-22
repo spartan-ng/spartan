@@ -39,3 +39,23 @@ type Story = StoryObj<HlmInputOtp>;
 export const Default: Story = {
 	args: {},
 };
+
+export const Masked: Story = {
+	render: () => ({
+		template: `
+		<hlm-input-otp mask value="123456" length="6">
+			<div hlmInputOtpGroup>
+				<hlm-input-otp-slot index="0" />
+				<hlm-input-otp-slot index="1" />
+				<hlm-input-otp-slot index="2" />
+			</div>
+			<hlm-input-otp-separator />
+			<div hlmInputOtpGroup>
+				<hlm-input-otp-slot index="3" />
+				<hlm-input-otp-slot index="4" />
+				<hlm-input-otp-slot index="5" />
+			</div>
+		</hlm-input-otp>
+		`,
+	}),
+};

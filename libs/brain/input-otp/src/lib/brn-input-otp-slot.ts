@@ -14,7 +14,7 @@ import { injectBrnInputOtp } from './brn-input-otp.token';
 		'[attr.data-matches-spartan-invalid]': '_spartanInvalid() ? "true" : null',
 	},
 	template: `
-		{{ _slot().char }}
+		{{ _slot().displayChar }}
 
 		@if (_slot().hasFakeCaret) {
 			<ng-content />

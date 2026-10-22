@@ -11,7 +11,17 @@ import type { ClassValue } from 'clsx';
 	hostDirectives: [
 		{
 			directive: BrnInputOtp,
-			inputs: ['length', 'value', 'disabled', 'inputId', 'hostStyles', 'autofocus', 'transformPaste'],
+			inputs: [
+				'length',
+				'value',
+				'disabled',
+				'inputId',
+				'hostStyles',
+				'autofocus',
+				'transformPaste',
+				'mask',
+				'maskChar',
+			],
 			outputs: ['valueChange', 'completed'],
 		},
 	],

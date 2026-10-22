@@ -72,6 +72,12 @@ export class BrnInputOtp implements ControlValueAccessor {
 	/** The number of slots. */
 	public readonly length = input.required<number, NumberInput>({ transform: numberAttribute });
 
+	/** Whether entered characters should be visually masked. */
+	public readonly mask = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
+
+	/** The character used to mask entered characters. */
+	public readonly maskChar = input<string>('•');
+
 	/** If true, the element is focused automatically on init **/
 	public readonly autofocus = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
@@ -95,6 +101,8 @@ export class BrnInputOtp implements ControlValueAccessor {
 		const value = this.value() ?? '';
 		const focused = this._focused();
 		const length = this.length();
+		const mask = this.mask();
+		const maskChar = this.maskChar();
 		const slots = Array.from({ length: this.length() }).map((_, slotIndex) => {
 			const char = value[slotIndex] !== undefined ? value[slotIndex] : null;
 
@@ -102,6 +110,7 @@ export class BrnInputOtp implements ControlValueAccessor {
 
 			return {
 				char,
+				displayChar: char !== null && mask ? maskChar : char,
 				isActive,
 				hasFakeCaret: isActive && value.length === slotIndex,
 			};

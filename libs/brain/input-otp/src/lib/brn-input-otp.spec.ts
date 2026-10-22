@@ -14,6 +14,8 @@ describe('BrnInputOtp', () => {
 			inputId?: string;
 			inputAutocomplete?: string;
 			autofocus?: boolean;
+			mask?: boolean;
+			maskChar?: string;
 		} = {},
 	) => {
 		const {
@@ -23,6 +25,8 @@ describe('BrnInputOtp', () => {
 			inputId,
 			inputAutocomplete = 'one-time-code',
 			autofocus = false,
+			mask = false,
+			maskChar,
 		} = options;
 
 		let template = `
@@ -32,6 +36,8 @@ describe('BrnInputOtp', () => {
         data-testid="brnInputOtp"
         ${disabled ? 'disabled' : ''}
         [autofocus]="${autofocus}"
+        ${mask ? 'mask' : ''}
+        ${maskChar ? `maskChar="${maskChar}"` : ''}
         ${inputId ? `inputId="${inputId}"` : ''}
       >
     `;
@@ -183,6 +189,36 @@ describe('BrnInputOtp', () => {
 
 			expect(getSlot(3)).toHaveAttribute('data-active', 'true');
 			expect(getCaret(3)).not.toBeInTheDocument();
+		});
+	});
+
+	describe('mask behavior', () => {
+		it('masks filled slots while keeping the raw value', async () => {
+			const { user, input, getSlot } = await setup({ length: 4, mask: true });
+
+			await user.click(input);
+			await user.keyboard('1234');
+
+			expect(input.value).toBe('1234');
+			expect(getSlot(0)).toHaveTextContent('•');
+			expect(getSlot(3)).toHaveTextContent('•');
+		});
+
+		it('supports a custom mask character', async () => {
+			const { user, input, getSlot } = await setup({ length: 4, mask: true, maskChar: '*' });
+
+			await user.click(input);
+			await user.keyboard('12');
+
+			expect(input.value).toBe('12');
+			expect(getSlot(0)).toHaveTextContent('*');
+			expect(getSlot(1)).toHaveTextContent('*');
+		});
+
+		it('does not mask empty slots', async () => {
+			const { getSlot } = await setup({ length: 4, mask: true });
+
+			expect(getSlot(0)).not.toHaveTextContent('•');
 		});
 	});
 

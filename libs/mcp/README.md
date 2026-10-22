@@ -14,8 +14,8 @@
 ## What it provides
 
 - **Components** - list components and fetch a component's documentation, with structured Brain API (`Brn*`) / Helm API (`Hlm*`) extraction or raw code blocks.
-- **Blocks** - list and fetch pre-built UI patterns (sidebar, login, signup, calendar) and analyze the components/packages they depend on.
-- **Docs** - fetch official documentation topics (installation, cli, theming, dark-mode, typography, health-checks, update-guide) with optional code/heading/link extraction.
+- **Blocks** - list and fetch pre-built UI patterns (sidebar, login, signup, calendar, stepper) and analyze the components/packages they depend on.
+- **Docs** - fetch official documentation topics (introduction, changelog, about, installation, components-json, theming, styles, dark-mode, cli, rtl, typography, figma, version-support, health-checks, update-guide, mcp, skills) with optional code/heading/link extraction.
 - **Analysis** - inspect a component's dependencies (npm packages, Angular CDK, peer components, imports) and its accessibility features (ARIA, keyboard, screen reader, WCAG).
 - **Health** - check availability of the Spartan docs site and surface the Spartan CLI health-check commands.
 - **Caching** - version-aware on-disk cache with status, clear, rebuild, switch-version, and list-versions tools.

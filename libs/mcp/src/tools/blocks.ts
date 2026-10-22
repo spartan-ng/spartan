@@ -17,7 +17,7 @@ export function registerBlockTools(server: McpServer): void {
 			title: 'List Spartan UI blocks',
 			description:
 				'Returns a list of known Spartan Angular UI blocks (pre-built UI patterns) with their documentation URLs. ' +
-				'Blocks are higher-level compositions of components like sidebars, login forms, signup forms, and calendars. ' +
+				'Blocks are higher-level compositions of components like sidebars, login forms, signup forms, calendars, and steppers. ' +
 				'Use this to discover available blocks, then call spartan_blocks_get with specific block names to get detailed code.',
 			inputSchema: {},
 		},
@@ -51,7 +51,7 @@ export function registerBlockTools(server: McpServer): void {
 				name: z
 					.string()
 					.min(1, 'name is required')
-					.describe("Block name (kebab-case), e.g., 'sidebar', 'login', 'signup', 'calendar'."),
+					.describe("Block name (kebab-case), e.g., 'sidebar', 'login', 'signup', 'calendar', 'stepper'."),
 				format: z.enum(['html', 'text']).default('html').describe('Return format: raw HTML or plain text.'),
 				noCache: z.boolean().default(false).describe('Bypass cache when true.'),
 				spartanVersion: z

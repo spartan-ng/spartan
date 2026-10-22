@@ -1,3 +1,7 @@
+## <small>1.8.1-beta.2 (2026-10-22)</small>
+
+- fix(mcp): add missing components mcp, update prompts (#1818) ([24f16c0](https://github.com/spartan-ng/spartan/commit/24f16c0)), closes [#1818](https://github.com/spartan-ng/spartan/issues/1818)
+
 ## <small>1.8.1-beta.1 (2026-10-22)</small>
 
 - fix(calendar): constrain month and year dropdown targets to min and max (#1814) ([0c835e4](https://github.com/spartan-ng/spartan/commit/0c835e4)), closes [#1814](https://github.com/spartan-ng/spartan/issues/1814)

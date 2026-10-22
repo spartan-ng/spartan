@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { BrnTabs, BrnTabsContent, BrnTabsTrigger } from '@spartan-ng/brain/tabs';
 import { render, screen } from '@testing-library/angular';
-import { userEvent } from '@vitest/browser/context';
+import userEvent from '@testing-library/user-event';
 import { HlmTabsPaginatedList } from '../hlm-tabs-paginated-list';
 
 @Component({
@@ -31,35 +31,33 @@ class HlmPaginatedTabsSpec {
 }
 
 // Regression tests for https://github.com/spartan-ng/spartan/issues/1794. In manual activation mode
-// Enter and Space must activate the focused tab, but `_itemSelected` calls `preventDefault()`,
-// which cancels the native button activation.
+// Enter and Space must activate the focused tab, but `_itemSelected` called `preventDefault()`,
+// which cancelled the native button activation.
 describe('HlmTabsPaginatedList manual activation', () => {
-	const focusSecondTab = async () => {
+	const setup = async () => {
 		const result = await render(HlmPaginatedTabsSpec);
-		screen.getByTestId('trigger-A').focus();
+		// Select C but focus B, so the key manager's focus index and the selected index differ.
+		result.fixture.componentInstance.active.set('C');
+		result.fixture.detectChanges();
+		screen.getByTestId('trigger-B').focus();
 		result.fixture.detectChanges();
 
-		await userEvent.keyboard('{ArrowRight}');
-		result.fixture.detectChanges();
-
-		expect(document.activeElement).toBe(screen.getByTestId('trigger-B'));
-		expect(result.fixture.componentInstance.active()).toBe('A');
-		return result;
+		return { ...result, user: userEvent.setup() };
 	};
 
 	it('should activate the focused tab on Enter', async () => {
-		const { fixture } = await focusSecondTab();
+		const { fixture, user } = await setup();
 
-		await userEvent.keyboard('{Enter}');
+		await user.keyboard('[Enter]');
 		fixture.detectChanges();
 
 		expect(fixture.componentInstance.active()).toBe('B');
 	});
 
 	it('should activate the focused tab on Space', async () => {
-		const { fixture } = await focusSecondTab();
+		const { fixture, user } = await setup();
 
-		await userEvent.keyboard('{Space}');
+		await user.keyboard('[Space]');
 		fixture.detectChanges();
 
 		expect(fixture.componentInstance.active()).toBe('B');

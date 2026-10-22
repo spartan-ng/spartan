@@ -9,7 +9,7 @@ import { HlmTabsPaginatedList } from '../hlm-tabs-paginated-list';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div [(brnTabs)]="active" activationMode="manual" (tabActivated)="activated($event)">
-			<hlm-paginated-tabs-list>
+			<hlm-paginated-tabs-list (selectFocusedIndex)="focusedIndexes.push($event)">
 				@for (key of keys; track key) {
 					<button [brnTabsTrigger]="key" [attr.data-testid]="'trigger-' + key">Tab {{ key }}</button>
 				}
@@ -24,6 +24,7 @@ class HlmPaginatedTabsSpec {
 	public readonly keys = ['A', 'B', 'C'];
 	public readonly active = signal<string | undefined>('A');
 	public readonly activations: string[] = [];
+	public readonly focusedIndexes: number[] = [];
 
 	public activated(key: string) {
 		this.activations.push(key);
@@ -61,5 +62,20 @@ describe('HlmTabsPaginatedList manual activation', () => {
 		fixture.detectChanges();
 
 		expect(fixture.componentInstance.active()).toBe('B');
+	});
+
+	it('should emit selectFocusedIndex when activating the first tab with no selection', async () => {
+		const { fixture } = await render(HlmPaginatedTabsSpec);
+		fixture.componentInstance.active.set(undefined);
+		fixture.detectChanges();
+
+		screen.getByTestId('trigger-A').focus();
+		fixture.detectChanges();
+
+		await userEvent.setup().keyboard('[Enter]');
+		fixture.detectChanges();
+
+		expect(fixture.componentInstance.focusedIndexes).toEqual([0]);
+		expect(fixture.componentInstance.active()).toBe('A');
 	});
 });

@@ -340,7 +340,7 @@ export abstract class BrnTabsPaginatedList implements AfterContentChecked, After
 		switch (event.key) {
 			case 'Enter':
 			case ' ':
-				if (this.focusIndex !== this._selectedIndex()) {
+				if (this.focusIndex !== this._selectedItemIndex()) {
 					const item = this.items()[this.focusIndex];
 
 					if (item && !item.disabled) {

@@ -10,7 +10,7 @@ import {
 import { toObservable } from '@angular/core/rxjs-interop';
 import { render, type RenderResult, screen } from '@testing-library/angular';
 import type { Observable } from 'rxjs';
-import { BrnTabs } from './brn-tabs';
+import { type BrnActivationMode, BrnTabs } from './brn-tabs';
 import { BrnTabsContent } from './brn-tabs-content';
 import { BrnTabsContentLazy } from './brn-tabs-content-lazy';
 import { BrnTabsList } from './brn-tabs-list';
@@ -292,7 +292,7 @@ class BrnTabsListActivationSpec {
 	imports: [BrnTabs, BrnTabsList, BrnTabsTrigger, BrnTabsContent],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<div [(brnTabs)]="active" (tabActivated)="activations.push($event)">
+		<div [(brnTabs)]="active" (tabActivated)="activations.push($event)" [activationMode]="activationMode()">
 			<div brnTabsList>
 				@for (key of keys(); track key) {
 					<button [brnTabsTrigger]="key" [attr.data-testid]="'list-' + key">Tab {{ key }}</button>
@@ -306,6 +306,7 @@ class BrnTabsListActivationSpec {
 })
 class BrnTabsListDynamicSpec {
 	public readonly keys = signal(['A', 'B', 'C']);
+	public readonly activationMode = input<BrnActivationMode>('automatic');
 	public readonly active = signal<string | undefined>('A');
 	public readonly activations: string[] = [];
 }
@@ -428,6 +429,7 @@ describe('BrnTabsList keyboard navigation with triggers that change at runtime',
 		fixture.componentInstance.keys.set(['A', 'C', 'D']);
 		fixture.detectChanges();
 
+		screen.getByTestId('list-A').focus();
 		screen.getByTestId('list-A').click();
 
 		key(screen.getByTestId('list-A'), ARROW_RIGHT);
@@ -542,5 +544,25 @@ describe('BrnTabsList active index synchronization', () => {
 
 		expect(document.activeElement).toBe(screen.getByTestId('list-A'));
 		expect(fixture.componentInstance.active()).toBe('A');
+	});
+
+	it('should follow focus, not the selected tab, in manual activation mode', async () => {
+		const { fixture } = await renderFourTabs();
+		fixture.componentRef.setInput('activationMode', 'manual');
+		fixture.detectChanges();
+
+		screen.getByTestId('list-A').focus();
+		key(screen.getByTestId('list-A'), ARROW_RIGHT);
+		expect(document.activeElement).toBe(screen.getByTestId('list-B'));
+		expect(fixture.componentInstance.active()).toBe('A');
+
+		// Programmatic selection without moving focus: focus and selection may diverge here.
+		fixture.componentInstance.active.set('D');
+		fixture.detectChanges();
+
+		key(screen.getByTestId('list-B'), ARROW_RIGHT);
+
+		expect(document.activeElement).toBe(screen.getByTestId('list-C'));
+		expect(fixture.componentInstance.active()).toBe('D');
 	});
 });

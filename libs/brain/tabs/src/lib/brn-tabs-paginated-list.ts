@@ -15,7 +15,7 @@
 import { FocusKeyManager, type FocusableOption } from '@angular/cdk/a11y';
 import { type Direction, Directionality } from '@angular/cdk/bidi';
 import { type BooleanInput } from '@angular/cdk/coercion';
-import { ENTER, SPACE, hasModifierKey } from '@angular/cdk/keycodes';
+import { hasModifierKey } from '@angular/cdk/keycodes';
 import { SharedResizeObserver } from '@angular/cdk/observers/private';
 import { Platform, normalizePassiveListenerOptions } from '@angular/cdk/platform';
 import { ViewportRuler } from '@angular/cdk/scrolling';
@@ -330,9 +330,9 @@ export abstract class BrnTabsPaginatedList implements AfterContentChecked, After
 			return;
 		}
 
-		switch (event.keyCode) {
-			case ENTER:
-			case SPACE:
+		switch (event.key) {
+			case 'Enter':
+			case ' ':
 				if (this.focusIndex !== this._selectedIndex()) {
 					const item = this.items()[this.focusIndex];
 

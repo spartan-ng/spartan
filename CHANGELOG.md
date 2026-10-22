@@ -1,3 +1,7 @@
+## <small>1.8.1-beta.3 (2026-10-22)</small>
+
+- fix(tabs): reactive tabs trigger, stale after mouse click (#1817) ([3b407e1](https://github.com/spartan-ng/spartan/commit/3b407e1)), closes [#1817](https://github.com/spartan-ng/spartan/issues/1817) [#1792](https://github.com/spartan-ng/spartan/issues/1792) [#1792](https://github.com/spartan-ng/spartan/issues/1792) [#1780](https://github.com/spartan-ng/spartan/issues/1780) [#1793](https://github.com/spartan-ng/spartan/issues/1793) [#1793](https://github.com/spartan-ng/spartan/issues/1793) [#1794](https://github.com/spartan-ng/spartan/issues/1794) [#1794](https://github.com/spartan-ng/spartan/issues/1794)
+
 ## <small>1.8.1-beta.2 (2026-10-22)</small>
 
 - fix(mcp): add missing components mcp, update prompts (#1818) ([24f16c0](https://github.com/spartan-ng/spartan/commit/24f16c0)), closes [#1818](https://github.com/spartan-ng/spartan/issues/1818)

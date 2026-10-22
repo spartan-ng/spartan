@@ -496,3 +496,51 @@ describe('BrnTabsPaginatedList keyboard navigation with triggers that change at 
 		expect(fixture.componentInstance.activations).toEqual(['A', 'C']);
 	});
 });
+
+// Regression tests for https://github.com/spartan-ng/spartan/issues/1780. BrnTabsList seeds the
+// key manager from the active tab only on the first keydown, so activation paths that bypass the
+// key manager (mouse click, programmatic change) leave its active index stale.
+describe('BrnTabsList active index synchronization', () => {
+	const renderFourTabs = async () => {
+		const result = await render(BrnTabsListDynamicSpec);
+		result.fixture.componentInstance.keys.set(['A', 'B', 'C', 'D']);
+		result.fixture.detectChanges();
+		return result;
+	};
+
+	it('should continue from a tab clicked after keyboard navigation', async () => {
+		const { fixture } = await renderFourTabs();
+
+		screen.getByTestId('list-A').focus();
+		key(screen.getByTestId('list-A'), ARROW_RIGHT);
+		expect(document.activeElement).toBe(screen.getByTestId('list-B'));
+
+		// A real click focuses the trigger before activating it.
+		screen.getByTestId('list-D').focus();
+		screen.getByTestId('list-D').click();
+		fixture.detectChanges();
+
+		key(screen.getByTestId('list-D'), ARROW_RIGHT);
+
+		expect(document.activeElement).toBe(screen.getByTestId('list-A'));
+		expect(fixture.componentInstance.active()).toBe('A');
+	});
+
+	it('should continue from the selected tab after a programmatic change', async () => {
+		const { fixture } = await renderFourTabs();
+
+		screen.getByTestId('list-A').focus();
+		key(screen.getByTestId('list-A'), ARROW_RIGHT);
+		expect(document.activeElement).toBe(screen.getByTestId('list-B'));
+
+		fixture.componentInstance.active.set('D');
+		fixture.detectChanges();
+
+		// Tabbing into the list lands on the selected trigger.
+		screen.getByTestId('list-D').focus();
+		key(screen.getByTestId('list-D'), ARROW_RIGHT);
+
+		expect(document.activeElement).toBe(screen.getByTestId('list-A'));
+		expect(fixture.componentInstance.active()).toBe('A');
+	});
+});

@@ -66,7 +66,7 @@ export class BrnInputOtpInput {
 
 		if (input.value !== sanitized) {
 			input.value = sanitized;
-			input.setSelectionRange(sanitized.length, sanitized.length);
+			this.setSelectionRange(sanitized.length, sanitized.length);
 		}
 
 		this._otp.updateValue(sanitized);
@@ -82,7 +82,18 @@ export class BrnInputOtpInput {
 		const sanitized = this._otp.sanitizeValue(content);
 
 		input.value = sanitized;
-		input.setSelectionRange(sanitized.length, sanitized.length);
+		this.setSelectionRange(sanitized.length, sanitized.length);
 		this._otp.updateValue(sanitized);
+	}
+
+	private setSelectionRange(start: number, end: number): void {
+		const input = this._elementRef.nativeElement;
+
+		// Number/date/email inputs throw when setSelectionRange is called.
+		if (!['text', 'search', 'url', 'tel', 'password'].includes(input.type)) {
+			return;
+		}
+
+		input.setSelectionRange(start, end);
 	}
 }

@@ -11,6 +11,7 @@ import {
 	numberAttribute,
 	output,
 	signal,
+	untracked,
 } from '@angular/core';
 import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { BrnFieldControl, provideBrnLabelable } from '@spartan-ng/brain/field';
@@ -100,7 +101,12 @@ export class BrnInputOtp implements ControlValueAccessor {
 
 	/** The value controlling the input */
 	public readonly valueInput = input<string | null>(null, { alias: 'value' });
-	public readonly value = linkedSignal(() => this.sanitizeValue(this.valueInput()));
+	public readonly value = linkedSignal(() => {
+		const valueInput = this.valueInput();
+
+		// Keep configuration changes from resetting the current value.
+		return untracked(() => this.sanitizeValue(valueInput));
+	});
 
 	/** Emits when the value changes. */
 	public readonly valueChange = output<string>();

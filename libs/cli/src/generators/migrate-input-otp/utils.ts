@@ -299,9 +299,15 @@ export function hasInputOtpInputDirective(content: string): boolean {
 function mergeAttributes(existing: ParsedAttribute[], added: ParsedAttribute[]): ParsedAttribute[] {
 	const merged = [...existing];
 
+	const isClassBindingPair = (current: ParsedAttribute, incoming: ParsedAttribute) =>
+		(current.name === 'class' && incoming.name === '[class]') ||
+		(current.name === '[class]' && incoming.name === 'class');
+
 	for (const attribute of added) {
 		const name = attributeName(attribute);
-		const index = merged.findIndex((current) => attributeName(current) === name);
+		const index = merged.findIndex(
+			(current) => attributeName(current) === name && !isClassBindingPair(current, attribute),
+		);
 
 		if (index === -1) {
 			merged.push(attribute);

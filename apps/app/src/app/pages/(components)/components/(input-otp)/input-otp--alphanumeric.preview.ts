@@ -5,7 +5,7 @@ import { HlmInputOtpImports } from '@spartan-ng/helm/input-otp';
 	selector: 'spartan-input-otp-alphanumeric',
 	imports: [HlmInputOtpImports],
 	template: `
-		<hlm-input-otp slotPattern="[A-Za-z0-9]" length="6">
+		<hlm-input-otp slotPattern="[A-Za-z0-9]" inputMode="text" length="6">
 			<hlm-input-otp-group>
 				<hlm-input-otp-slot index="0" />
 				<hlm-input-otp-slot index="1" />

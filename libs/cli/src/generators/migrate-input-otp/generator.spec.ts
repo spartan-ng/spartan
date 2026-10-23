@@ -145,6 +145,24 @@ describe('migrate-input-otp generator', () => {
 		);
 	});
 
+	it('should preserve static classes when moving an inputClass binding', async () => {
+		tree.write(
+			'app/src/app/app.component.html',
+			`
+			<brn-input-otp length="6" [inputClass]="classes">
+				<input brnInputOtpInput class="custom" />
+			</brn-input-otp>
+			`,
+		);
+
+		await migrateInputOtpGenerator(tree, { skipFormat: true });
+
+		const content = tree.read('app/src/app/app.component.html', 'utf-8');
+		expect(content).toContain('class="custom"');
+		expect(content).toContain('[class]="classes"');
+		expect(content).not.toContain('[inputClass]');
+	});
+
 	it('should not treat quoted values as helm usage', async () => {
 		tree.write(
 			'app/src/app/app.component.html',

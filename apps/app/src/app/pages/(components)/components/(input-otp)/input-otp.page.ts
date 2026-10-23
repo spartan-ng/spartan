@@ -290,7 +290,7 @@ export default class InputOtpPage {
 	protected readonly _patternCode = computed(() => this._snippets()['pattern']);
 	protected readonly _disabledCode = computed(() => this._snippets()['disabled']);
 	protected readonly _invalidCode = computed(() => this._snippets()['invalid']);
-	protected readonly _fourDigitsCode = computed(() => this._snippets()['four-digits']);
+	protected readonly _fourDigitsCode = computed(() => this._snippets()['fourDigits']);
 	protected readonly _alphanumericCode = computed(() => this._snippets()['alphanumeric']);
 	protected readonly _formCode = computed(() => this._snippets()['form']);
 	protected readonly _rtlCode = computed(() => this._snippets()['rtl']);

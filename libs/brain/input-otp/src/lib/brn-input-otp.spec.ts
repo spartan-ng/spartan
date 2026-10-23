@@ -1,9 +1,32 @@
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { render, screen } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
 import type { InputMode } from './brn-input-otp';
 import { BrnInputOtp } from './brn-input-otp';
 import { BrnInputOtpInput } from './brn-input-otp-input';
 import { BrnInputOtpSlot } from './brn-input-otp-slot';
+
+@Component({
+	selector: 'brn-input-otp-config-host',
+	imports: [BrnInputOtp, BrnInputOtpInput, BrnInputOtpSlot],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<div brnInputOtp [length]="length()" [slotPattern]="slotPattern()" (valueChange)="changes.push($event)">
+			<brn-input-otp-slot index="0" />
+			<brn-input-otp-slot index="1" />
+			<brn-input-otp-slot index="2" />
+			<brn-input-otp-slot index="3" />
+			<brn-input-otp-slot index="4" />
+			<brn-input-otp-slot index="5" />
+			<input brnInputOtpInput />
+		</div>
+	`,
+})
+class BrnInputOtpConfigHost {
+	public readonly length = signal(6);
+	public readonly slotPattern = signal<string | null>(null);
+	public readonly changes: string[] = [];
+}
 
 describe('BrnInputOtp', () => {
 	const setup = async (
@@ -264,6 +287,82 @@ describe('BrnInputOtp', () => {
 			await user.keyboard('a1B2!');
 
 			expect(input.value).toBe('a1B2');
+		});
+	});
+
+	describe('number input', () => {
+		it('does not call setSelectionRange on unsupported input types', async () => {
+			const { container } = await render(
+				`<div brnInputOtp [length]="4">
+					<brn-input-otp-slot index="0" />
+					<brn-input-otp-slot index="1" />
+					<brn-input-otp-slot index="2" />
+					<brn-input-otp-slot index="3" />
+					<input type="number" brnInputOtpInput />
+				</div>`,
+				{ imports: [BrnInputOtp, BrnInputOtpInput, BrnInputOtpSlot] },
+			);
+
+			const input = container.querySelector('input') as HTMLInputElement;
+			const user = userEvent.setup();
+
+			await user.click(input);
+			await user.keyboard('12345');
+
+			expect(input.value).toBe('1235');
+
+			await userEvent.click(input);
+			await userEvent.paste('123456');
+
+			expect(input.value).toBe('1234');
+		});
+	});
+
+	describe('configuration changes', () => {
+		it('preserves the current value when length changes and applies it on the next edit', async () => {
+			const { container, fixture } = await render(BrnInputOtpConfigHost);
+			const host = fixture.componentInstance;
+			const input = container.querySelector('input') as HTMLInputElement;
+			const user = userEvent.setup();
+
+			await user.click(input);
+			await user.keyboard('123456');
+
+			host.length.set(4);
+			fixture.detectChanges();
+			await fixture.whenStable();
+
+			expect(input.value).toBe('123456');
+			expect(host.changes.at(-1)).toBe('123456');
+
+			await user.click(input);
+			await user.keyboard('7');
+
+			expect(input.value).toBe('1237');
+			expect(host.changes.at(-1)).toBe('1237');
+		});
+
+		it('preserves the current value when slotPattern changes and applies it on the next edit', async () => {
+			const { container, fixture } = await render(BrnInputOtpConfigHost);
+			const host = fixture.componentInstance;
+			const input = container.querySelector('input') as HTMLInputElement;
+			const user = userEvent.setup();
+
+			await user.click(input);
+			await user.keyboard('12a3');
+
+			host.slotPattern.set('[0-9]');
+			fixture.detectChanges();
+			await fixture.whenStable();
+
+			expect(input.value).toBe('12a3');
+			expect(host.changes.at(-1)).toBe('12a3');
+
+			await user.click(input);
+			await user.keyboard('b');
+
+			expect(input.value).toBe('123');
+			expect(host.changes.at(-1)).toBe('123');
 		});
 	});
 

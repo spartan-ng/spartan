@@ -114,6 +114,27 @@ describe('HlmInputOtp', () => {
 		expect(slots[5]).toHaveTextContent('*');
 	});
 
+	it('filters characters using the slotPattern input', async () => {
+		const { container } = await render(
+			`<hlm-input-otp slotPattern="[0-9]" length="6">
+				<hlm-input-otp-group>
+					<hlm-input-otp-slot index="0" />
+					<hlm-input-otp-slot index="1" />
+					<hlm-input-otp-slot index="2" />
+				</hlm-input-otp-group>
+			</hlm-input-otp>`,
+			{ imports: [HlmInputOtpImports] },
+		);
+
+		const input = container.querySelector('input[data-slot="input-otp"]') as HTMLInputElement;
+		const user = userEvent.setup();
+
+		await user.click(input);
+		await user.keyboard('1a2b3');
+
+		expect(input.value).toBe('123');
+	});
+
 	it('supports reactive forms on the hlm root', async () => {
 		const { container, fixture } = await render(HlmInputOtpFormHost);
 		const host = fixture.componentInstance;

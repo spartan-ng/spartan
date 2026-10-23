@@ -21,6 +21,7 @@ import type { ClassValue } from 'clsx';
 				'transformPaste',
 				'mask',
 				'maskChar',
+				'slotPattern',
 			],
 			outputs: ['valueChange', 'completed'],
 		},

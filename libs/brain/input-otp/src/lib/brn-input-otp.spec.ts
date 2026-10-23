@@ -16,6 +16,8 @@ describe('BrnInputOtp', () => {
 			autofocus?: boolean;
 			mask?: boolean;
 			maskChar?: string;
+			slotPattern?: string;
+			value?: string;
 		} = {},
 	) => {
 		const {
@@ -27,6 +29,8 @@ describe('BrnInputOtp', () => {
 			autofocus = false,
 			mask = false,
 			maskChar,
+			slotPattern,
+			value,
 		} = options;
 
 		let template = `
@@ -38,6 +42,8 @@ describe('BrnInputOtp', () => {
         [autofocus]="${autofocus}"
         ${mask ? 'mask' : ''}
         ${maskChar ? `maskChar="${maskChar}"` : ''}
+        ${slotPattern ? `slotPattern="${slotPattern}"` : ''}
+        ${value ? `value="${value}"` : ''}
         ${inputId ? `inputId="${inputId}"` : ''}
       >
     `;
@@ -219,6 +225,45 @@ describe('BrnInputOtp', () => {
 			const { getSlot } = await setup({ length: 4, mask: true });
 
 			expect(getSlot(0)).not.toHaveTextContent('•');
+		});
+	});
+
+	describe('pattern behavior', () => {
+		it('filters characters that do not match the pattern', async () => {
+			const { user, input, getSlot } = await setup({ length: 4, slotPattern: '[0-9]' });
+
+			await user.click(input);
+			await user.keyboard('1a2b3');
+
+			expect(input.value).toBe('123');
+			expect(getSlot(0)).toHaveTextContent('1');
+			expect(getSlot(2)).toHaveTextContent('3');
+		});
+
+		it('filters pasted characters', async () => {
+			const { input } = await setup({ length: 4, slotPattern: '[0-9]' });
+
+			await userEvent.click(input);
+			await userEvent.paste('1a2b34');
+
+			expect(input.value).toBe('1234');
+		});
+
+		it('normalizes an external value', async () => {
+			const { input, getSlot } = await setup({ length: 4, slotPattern: '[0-9]', value: '12a3' });
+
+			expect(input.value).toBe('123');
+			expect(getSlot(0)).toHaveTextContent('1');
+			expect(getSlot(2)).toHaveTextContent('3');
+		});
+
+		it('supports alphanumeric patterns', async () => {
+			const { user, input } = await setup({ length: 4, slotPattern: '[A-Za-z0-9]' });
+
+			await user.click(input);
+			await user.keyboard('a1B2!');
+
+			expect(input.value).toBe('a1B2');
 		});
 	});
 

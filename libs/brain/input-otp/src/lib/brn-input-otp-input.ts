@@ -17,7 +17,7 @@ const DEFAULT_INPUT_STYLES =
 		'[disabled]': '_otp.disabledState()',
 		'[value]': '_otp.value() ?? ""',
 		'[style]': '_inputStyles()',
-		'(input)': 'onInputChange($event)',
+		'(input)': 'onInputChange()',
 		'(paste)': 'onPaste($event)',
 		'(focus)': '_otp.onFocus()',
 		'(blur)': '_otp.onBlur()',
@@ -50,26 +50,39 @@ export class BrnInputOtpInput {
 		this._elementRef.nativeElement.focus();
 	}
 
-	protected onInputChange(event: Event): void {
-		let newValue = (event.target as HTMLInputElement).value;
+	protected onInputChange(): void {
+		const input = this._elementRef.nativeElement;
 		const length = this._otp.length();
 
-		if (newValue.length > length) {
-			// Replace the last character when length is exceeded
-			newValue = newValue.slice(0, length - 1) + newValue.slice(-1);
+		// Do not clamp here so that typing when the input is full replaces the
+		// last character instead of dropping the newly typed character.
+		let sanitized = this._otp.sanitizeValue(input.value, false);
+
+		if (sanitized.length > length) {
+			sanitized = sanitized.slice(0, length - 1) + sanitized.slice(-1);
 		}
 
-		this._otp.updateValue(newValue);
+		sanitized = sanitized.slice(0, length);
+
+		if (input.value !== sanitized) {
+			input.value = sanitized;
+			input.setSelectionRange(sanitized.length, sanitized.length);
+		}
+
+		this._otp.updateValue(sanitized);
 	}
 
 	protected onPaste(event: ClipboardEvent): void {
 		event.preventDefault();
+		const input = this._elementRef.nativeElement;
 		const clipboardData = event.clipboardData?.getData('text/plain') || '';
 		const length = this._otp.length();
 
 		const content = this._otp.transformPaste()(clipboardData, length);
-		const newValue = content.slice(0, length);
+		const sanitized = this._otp.sanitizeValue(content);
 
-		this._otp.updateValue(newValue);
+		input.value = sanitized;
+		input.setSelectionRange(sanitized.length, sanitized.length);
+		this._otp.updateValue(sanitized);
 	}
 }

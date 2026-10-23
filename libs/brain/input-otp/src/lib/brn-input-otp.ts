@@ -72,6 +72,14 @@ export class BrnInputOtp implements ControlValueAccessor {
 	/** The number of slots. */
 	public readonly length = input.required<number, NumberInput>({ transform: numberAttribute });
 
+	/**
+	 * Optional per-character pattern. Each typed or pasted character must match this
+	 * pattern. Strings are treated as a single-character regular expression.
+	 *
+	 * Examples: '[0-9]', '[A-Za-z0-9]'
+	 */
+	public readonly slotPattern = input<string | RegExp | null>(null);
+
 	/** Whether entered characters should be visually masked. */
 	public readonly mask = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
@@ -92,7 +100,7 @@ export class BrnInputOtp implements ControlValueAccessor {
 
 	/** The value controlling the input */
 	public readonly valueInput = input<string | null>(null, { alias: 'value' });
-	public readonly value = linkedSignal(this.valueInput);
+	public readonly value = linkedSignal(() => this.sanitizeValue(this.valueInput()));
 
 	/** Emits when the value changes. */
 	public readonly valueChange = output<string>();
@@ -136,6 +144,21 @@ export class BrnInputOtp implements ControlValueAccessor {
 		});
 	}
 
+	/** @internal */
+	public sanitizeValue(value: string | null | undefined, clamp = true): string {
+		const length = this.length();
+		const text = value ?? '';
+		const pattern = this.slotPattern();
+		const regex = pattern ? toCharRegex(pattern) : null;
+		const filtered = regex
+			? Array.from(text)
+					.filter((char) => regex.test(char))
+					.join('')
+			: text;
+
+		return clamp ? filtered.slice(0, length) : filtered;
+	}
+
 	/** Focus the underlying input element. */
 	public focus(): void {
 		this._input()?.focus();
@@ -166,9 +189,12 @@ export class BrnInputOtp implements ControlValueAccessor {
 
 	/** CONTROL VALUE ACCESSOR */
 	writeValue(value: string | null): void {
-		this.value.set(value);
-		if (value?.length === this.length()) {
-			this.completed.emit(value ?? '');
+		const sanitizedValue = this.sanitizeValue(value);
+
+		this.value.set(sanitizedValue);
+
+		if (sanitizedValue.length === this.length()) {
+			this.completed.emit(sanitizedValue);
 		}
 	}
 
@@ -192,13 +218,23 @@ export class BrnInputOtp implements ControlValueAccessor {
 	public updateValue(newValue: string): void {
 		const previousValue = this.value() ?? '';
 		const length = this.length();
+		const sanitizedValue = this.sanitizeValue(newValue);
 
-		this.value.set(newValue);
-		this.valueChange.emit(newValue);
-		this._onChange?.(newValue);
+		this.value.set(sanitizedValue);
+		this.valueChange.emit(sanitizedValue);
+		this._onChange?.(sanitizedValue);
 
-		if (this.isCompleted(newValue, previousValue, length)) {
-			this.completed.emit(newValue);
+		if (this.isCompleted(sanitizedValue, previousValue, length)) {
+			this.completed.emit(sanitizedValue);
 		}
 	}
+}
+
+function toCharRegex(pattern: string | RegExp): RegExp {
+	if (pattern instanceof RegExp) {
+		// Strip stateful flags so repeated .test() calls remain deterministic.
+		return new RegExp(`^(?:${pattern.source})$`, pattern.flags.replace(/[gy]/g, ''));
+	}
+
+	return new RegExp(`^(?:${pattern})$`);
 }

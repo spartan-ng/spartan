@@ -1,3 +1,7 @@
+## <small>1.8.2 (2026-10-23)</small>
+
+- fix: create classes() mutation observer outside the angular zone (#1825) ([20d6eb0](https://github.com/spartan-ng/spartan/commit/20d6eb0)), closes [#1825](https://github.com/spartan-ng/spartan/issues/1825) [#1823](https://github.com/spartan-ng/spartan/issues/1823)
+
 ## <small>1.8.1 (2026-10-22)</small>
 
 - fix: 1.8.1 (#1820) ([5bc49a2](https://github.com/spartan-ng/spartan/commit/5bc49a2)), closes [#1820](https://github.com/spartan-ng/spartan/issues/1820) [#1816](https://github.com/spartan-ng/spartan/issues/1816) [#1795](https://github.com/spartan-ng/spartan/issues/1795) [#1815](https://github.com/spartan-ng/spartan/issues/1815) [#1769](https://github.com/spartan-ng/spartan/issues/1769) [#1814](https://github.com/spartan-ng/spartan/issues/1814) [#1813](https://github.com/spartan-ng/spartan/issues/1813) [#1812](https://github.com/spartan-ng/spartan/issues/1812) [#1818](https://github.com/spartan-ng/spartan/issues/1818) [#1817](https://github.com/spartan-ng/spartan/issues/1817) [#1792](https://github.com/spartan-ng/spartan/issues/1792) [#1792](https://github.com/spartan-ng/spartan/issues/1792) [#1780](https://github.com/spartan-ng/spartan/issues/1780) [#1793](https://github.com/spartan-ng/spartan/issues/1793) [#1793](https://github.com/spartan-ng/spartan/issues/1793) [#1794](https://github.com/spartan-ng/spartan/issues/1794) [#1794](https://github.com/spartan-ng/spartan/issues/1794)

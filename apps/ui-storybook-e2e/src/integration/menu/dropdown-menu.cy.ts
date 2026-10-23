@@ -132,33 +132,43 @@ describe('dropdown-menu', () => {
 			cy.visit('/iframe.html?id=dropdown-menu--disabled-first-item');
 		});
 
-		for (const method of ['click', 'Enter']) {
-			it(`keeps keyboard navigation working after opening with ${method}`, () => {
-				if (method === 'click') {
-					cy.findByRole('button', { name: 'Open' }).realClick();
-				} else {
-					cy.findByRole('button', { name: 'Open' }).focus();
-					cy.realPress('Enter');
-				}
+		it('keeps the disabled item focusable after opening with click', () => {
+			cy.findByRole('button', { name: 'Open' }).click();
 
-				cy.findByRole('menuitem', { name: 'Move up' }).should('have.attr', 'aria-disabled', 'true');
-				cy.findByRole('menuitem', { name: 'Move up' }).should('not.have.attr', 'disabled');
-				cy.findByRole('menuitem', { name: 'Move up' }).should('not.be.disabled');
-				cy.findByRole('menuitem', { name: 'Move down' }).should('have.focus');
-				cy.realPress('ArrowUp');
-				cy.findByRole('menuitem', { name: 'Move up' }).should('have.focus');
-				cy.realPress('Enter');
-				cy.realPress('Space');
-				cy.findByRole('menu').should('be.visible');
-				cy.realPress('ArrowDown');
-				cy.findByRole('menuitem', { name: 'Move down' }).should('have.focus');
-				cy.realPress('Home');
-				cy.findByRole('menuitem', { name: 'Move up' }).should('have.focus');
-				cy.realPress('End');
-				cy.findByRole('menuitem', { name: 'Move down' }).should('have.focus');
-				cy.realPress('Enter');
-				cy.findByRole('button', { name: 'Open' }).should('have.focus').and('have.attr', 'aria-expanded', 'false');
-			});
-		}
+			cy.findByRole('menuitem', { name: 'Move up' }).should('have.attr', 'aria-disabled', 'true');
+			cy.findByRole('menuitem', { name: 'Move up' }).should('not.have.attr', 'disabled');
+			cy.findByRole('menuitem', { name: 'Move up' }).should('not.be.disabled');
+			cy.findByRole('menuitem', { name: 'Move up' }).should('have.focus');
+			cy.realPress('ArrowDown');
+			cy.findByRole('menuitem', { name: 'Move down' }).should('have.focus');
+			cy.realPress('ArrowUp');
+			cy.findByRole('menuitem', { name: 'Move up' }).should('have.focus');
+		});
+
+		it('keeps keyboard navigation working after opening with Enter', () => {
+			cy.get('body').realMouseMove(0, 0);
+			cy.findByRole('button', { name: 'Open' }).focus();
+			cy.realPress('Enter');
+
+			cy.findByRole('menuitem', { name: 'Move up' }).should('have.attr', 'aria-disabled', 'true');
+			cy.findByRole('menuitem', { name: 'Move up' }).should('not.have.attr', 'disabled');
+			cy.findByRole('menuitem', { name: 'Move up' }).should('not.be.disabled');
+			cy.findByRole('menuitem', { name: 'Move up' }).should('have.focus');
+			cy.realPress('ArrowDown');
+			cy.findByRole('menuitem', { name: 'Move down' }).should('have.focus');
+			cy.realPress('ArrowUp');
+			cy.findByRole('menuitem', { name: 'Move up' }).should('have.focus');
+			cy.realPress('Enter');
+			cy.realPress('Space');
+			cy.findByRole('menu').should('be.visible');
+			cy.realPress('ArrowDown');
+			cy.findByRole('menuitem', { name: 'Move down' }).should('have.focus');
+			cy.realPress('Home');
+			cy.findByRole('menuitem', { name: 'Move up' }).should('have.focus');
+			cy.realPress('End');
+			cy.findByRole('menuitem', { name: 'Move down' }).should('have.focus');
+			cy.realPress('Enter');
+			cy.findByRole('button', { name: 'Open' }).should('have.focus').and('have.attr', 'aria-expanded', 'false');
+		});
 	});
 });

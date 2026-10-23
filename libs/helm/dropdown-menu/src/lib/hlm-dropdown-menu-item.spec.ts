@@ -12,7 +12,9 @@ import { HlmDropdownMenuTrigger } from './hlm-dropdown-menu-trigger';
 		<button [hlmDropdownMenuTrigger]="menu">Open</button>
 		<ng-template #menu>
 			<hlm-dropdown-menu>
-				<button hlmDropdownMenuItem disabled (triggered)="activations.push('up')">Move up</button>
+				<button hlmDropdownMenuItem disabled (triggered)="activations.push('up')" (click)="clicks.push('up')">
+					Move up
+				</button>
 				<button hlmDropdownMenuItem (triggered)="activations.push('down')">Move down</button>
 			</hlm-dropdown-menu>
 		</ng-template>
@@ -20,6 +22,7 @@ import { HlmDropdownMenuTrigger } from './hlm-dropdown-menu-trigger';
 })
 class DisabledFirstItemHost {
 	public readonly activations: string[] = [];
+	public readonly clicks: string[] = [];
 }
 
 // Regression for #1777: a native disabled button cannot receive the focus CDK gives menu items.
@@ -66,5 +69,19 @@ describe('HlmDropdownMenuItem disabled focus', () => {
 
 		await user.keyboard('[ArrowDown][Enter]');
 		expect(fixture.componentInstance.activations).toEqual(['down']);
+	});
+
+	it('does not run consumer click handlers for a disabled item', async () => {
+		const { fixture } = await render(DisabledFirstItemHost);
+		const user = userEvent.setup();
+		screen.getByRole('button', { name: 'Open' }).click();
+		const first = await screen.findByRole('menuitem', { name: 'Move up' });
+		await vi.waitFor(() => expect(document.activeElement).toBe(first));
+
+		first.click();
+		await user.keyboard('[Enter][Space]');
+
+		expect(fixture.componentInstance.clicks).toEqual([]);
+		expect(fixture.componentInstance.activations).toEqual([]);
 	});
 });

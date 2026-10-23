@@ -1302,7 +1302,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "brn-avatar",
+        "selector": "[brnAvatar],brn-avatar",
       },
       "BrnAvatarFallback": {
         "exportAs": "brnAvatarFallback",
@@ -1313,7 +1313,13 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
       },
       "BrnAvatarImage": {
         "exportAs": "brnAvatarImage",
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "hostStyles",
+            "required": false,
+            "type": "string",
+          },
+        ],
         "models": [],
         "outputs": [],
         "selector": "img[brnAvatarImage]",
@@ -1331,7 +1337,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "hlm-avatar",
+        "selector": "[hlmAvatar],hlm-avatar",
       },
       "HlmAvatarBadge": {
         "exportAs": "hlmAvatarBadge",
@@ -1363,7 +1369,13 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
       },
       "HlmAvatarImage": {
         "exportAs": "hlmAvatarImage",
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "hostStyles",
+            "required": false,
+            "type": "string",
+          },
+        ],
         "models": [],
         "outputs": [],
         "selector": "img[hlmAvatarImage]",

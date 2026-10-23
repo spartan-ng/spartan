@@ -315,6 +315,53 @@ describe('migrate-input-otp generator', () => {
 		expect(component).toContain('BrnInputOtpInput');
 	});
 
+	it('should update the declaring NgModule for non-standalone components', async () => {
+		tree.write(
+			'app/src/app/app.component.ts',
+			`
+			import { Component } from '@angular/core';
+
+			@Component({
+				selector: 'app-root',
+				templateUrl: './app.component.html',
+				standalone: false,
+			})
+			export class AppComponent {}
+			`,
+		);
+		tree.write(
+			'app/src/app/app.component.html',
+			`
+			<brn-input-otp length="6">
+				<brn-input-otp-slot index="0" />
+			</brn-input-otp>
+			`,
+		);
+		tree.write(
+			'app/src/app/app.module.ts',
+			`
+			import { NgModule } from '@angular/core';
+			import { BrnInputOtp, BrnInputOtpSlot } from '@spartan-ng/brain/input-otp';
+			import { AppComponent } from './app.component';
+
+			@NgModule({
+				declarations: [AppComponent],
+				imports: [BrnInputOtp, BrnInputOtpSlot],
+			})
+			export class AppModule {}
+			`,
+		);
+
+		await migrateInputOtpGenerator(tree, { skipFormat: true });
+
+		const template = tree.read('app/src/app/app.component.html', 'utf-8');
+		const module = tree.read('app/src/app/app.module.ts', 'utf-8');
+
+		expect(template).toContain('<input brnInputOtpInput />');
+		expect(module).toContain('imports: [BrnInputOtp, BrnInputOtpSlot, BrnInputOtpInput]');
+		expect(module).toContain('BrnInputOtpInput');
+	});
+
 	it('should leave containerStyles usage for the healthcheck to report', async () => {
 		const template = `
 			<brn-input-otp length="6" [containerStyles]="containerStyles">

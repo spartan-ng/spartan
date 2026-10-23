@@ -60,10 +60,34 @@ function migrateMarkup(tree: Tree) {
 			continue;
 		}
 
-		const updated = ensureInputImport(content);
+		const updatedComponent = hasImportsArray(content) ? ensureInputImport(content) : content;
 
-		if (updated !== content) {
-			updatedContents.set(componentPath, updated);
+		if (updatedComponent !== content) {
+			updatedContents.set(componentPath, updatedComponent);
+		}
+
+		const componentClassName = getComponentClassName(updatedComponent);
+
+		if (!componentClassName) {
+			continue;
+		}
+
+		const modulePath = findDeclaringModule(updatedContents, componentClassName);
+
+		if (!modulePath || modulePath === componentPath) {
+			continue;
+		}
+
+		const moduleContent = updatedContents.get(modulePath) ?? tree.read(modulePath, 'utf-8');
+
+		if (!moduleContent) {
+			continue;
+		}
+
+		const updatedModule = ensureInputImport(moduleContent);
+
+		if (updatedModule !== moduleContent) {
+			updatedContents.set(modulePath, updatedModule);
 		}
 	}
 
@@ -177,6 +201,46 @@ function mapTemplateOwners(files: Map<string, string>): Map<string, string> {
 	}
 
 	return owners;
+}
+
+function hasImportsArray(content: string): boolean {
+	return /imports\s*:\s*\[/.test(content);
+}
+
+function getComponentClassName(content: string): string | null {
+	const componentIndex = content.indexOf('@Component');
+
+	if (componentIndex === -1) {
+		return null;
+	}
+
+	const componentSource = content.slice(componentIndex);
+	const classMatch = componentSource.match(/(?:export\s+)?class\s+(\w+)/);
+
+	return classMatch?.[1] ?? null;
+}
+
+function findDeclaringModule(files: Map<string, string>, className: string): string | null {
+	const classNamePattern = new RegExp(`\\b${escapeRegExp(className)}\\b`);
+	let fallbackModule: string | null = null;
+
+	for (const [filePath, content] of files) {
+		if (!filePath.endsWith('.ts') || !content.includes('@NgModule')) {
+			continue;
+		}
+
+		const declarations = content.match(/declarations\s*:\s*\[([^\]]*)\]/);
+
+		if (declarations && classNamePattern.test(declarations[1])) {
+			return filePath;
+		}
+
+		if (classNamePattern.test(content)) {
+			fallbackModule ??= filePath;
+		}
+	}
+
+	return fallbackModule;
 }
 
 function ensureInputImport(content: string): string {

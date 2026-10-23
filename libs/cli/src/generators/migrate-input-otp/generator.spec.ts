@@ -137,8 +137,7 @@ describe('migrate-input-otp generator', () => {
 		await migrateInputOtpGenerator(tree, { skipFormat: true });
 
 		const content = tree.read('app/src/app/app.component.html', 'utf-8');
-		expect(content).toContain('<brn-input-otp');
-		expect(content).toContain('length="6"');
+		expect(content).toContain('<brn-input-otp length="6">');
 		expect(content).not.toContain('inputClass=');
 		expect(content).not.toContain('[inputAutocomplete]');
 		expect(content).toContain(
@@ -146,7 +145,139 @@ describe('migrate-input-otp generator', () => {
 		);
 	});
 
-	it('should not migrate brain input otp elements without a helm attribute', async () => {
+	it('should not treat quoted values as helm usage', async () => {
+		tree.write(
+			'app/src/app/app.component.html',
+			`
+			<brn-input-otp length="6" inputClass="hlm-input">
+				<brn-input-otp-slot index="0" />
+			</brn-input-otp>
+			`,
+		);
+
+		await migrateInputOtpGenerator(tree, { skipFormat: true });
+
+		const content = tree.read('app/src/app/app.component.html', 'utf-8');
+		expect(content).toContain('<brn-input-otp length="6">');
+		expect(content).not.toContain('<hlm-input-otp');
+		expect(content).toContain('<input brnInputOtpInput class="hlm-input" />');
+	});
+
+	it('should parse quoted attribute values containing >', async () => {
+		tree.write(
+			'app/src/app/app.component.html',
+			`
+			<brn-input-otp length="6" [disabled]="attempts > 3" inputClass="custom">
+				<brn-input-otp-slot index="0" />
+			</brn-input-otp>
+			`,
+		);
+
+		await migrateInputOtpGenerator(tree, { skipFormat: true });
+
+		const content = tree.read('app/src/app/app.component.html', 'utf-8');
+		expect(content).toContain('<brn-input-otp length="6" [disabled]="attempts > 3">');
+		expect(content).toContain('<input brnInputOtpInput class="custom" />');
+	});
+
+	it('should add the input import without creating a double comma', async () => {
+		tree.write(
+			'app/src/app/app.component.ts',
+			`
+			import { Component } from '@angular/core';
+			import {
+				BrnInputOtp,
+				BrnInputOtpSlot,
+			} from '@spartan-ng/brain/input-otp';
+
+			@Component({
+				imports: [BrnInputOtp, BrnInputOtpSlot],
+				template: \`
+					<brn-input-otp length="6">
+						<brn-input-otp-slot index="0" />
+					</brn-input-otp>
+				\`
+			})
+			export class AppComponent {}
+			`,
+		);
+
+		await migrateInputOtpGenerator(tree, { skipFormat: true });
+
+		const content = tree.read('app/src/app/app.component.ts', 'utf-8');
+		expect(content).not.toContain(',,');
+		expect(content).toContain('BrnInputOtpInput');
+	});
+
+	it('should support namespace imports', async () => {
+		tree.write(
+			'app/src/app/app.component.ts',
+			`
+			import { Component } from '@angular/core';
+			import * as BrnOtp from '@spartan-ng/brain/input-otp';
+
+			@Component({
+				imports: [BrnOtp.BrnInputOtp, BrnOtp.BrnInputOtpSlot],
+				template: \`
+					<brn-input-otp length="6">
+						<brn-input-otp-slot index="0" />
+					</brn-input-otp>
+				\`
+			})
+			export class AppComponent {}
+			`,
+		);
+
+		await migrateInputOtpGenerator(tree, { skipFormat: true });
+
+		const content = tree.read('app/src/app/app.component.ts', 'utf-8');
+		expect(content).toContain("import { BrnInputOtpInput } from '@spartan-ng/brain/input-otp';");
+		expect(content).toContain('BrnOtp.BrnInputOtp, BrnOtp.BrnInputOtpSlot, BrnInputOtpInput');
+	});
+
+	it('should support aliased imports', async () => {
+		tree.write(
+			'app/src/app/app.component.ts',
+			`
+			import { Component } from '@angular/core';
+			import {
+				BrnInputOtp as InputOtp,
+				BrnInputOtpSlot as InputOtpSlot,
+			} from '@spartan-ng/brain/input-otp';
+
+			@Component({
+				imports: [InputOtp, InputOtpSlot],
+				template: \`
+					<brn-input-otp length="6">
+						<brn-input-otp-slot index="0" />
+					</brn-input-otp>
+				\`
+			})
+			export class AppComponent {}
+			`,
+		);
+
+		await migrateInputOtpGenerator(tree, { skipFormat: true });
+
+		const content = tree.read('app/src/app/app.component.ts', 'utf-8');
+		expect(content).toContain('BrnInputOtpInput');
+		expect(content).toContain('imports: [InputOtp, InputOtpSlot, BrnInputOtpInput]');
+	});
+
+	it('should update the owning component imports for external templates', async () => {
+		tree.write(
+			'app/src/app/app.component.ts',
+			`
+			import { Component } from '@angular/core';
+			import { BrnInputOtp, BrnInputOtpSlot } from '@spartan-ng/brain/input-otp';
+
+			@Component({
+				imports: [BrnInputOtp, BrnInputOtpSlot],
+				templateUrl: './app.component.html',
+			})
+			export class AppComponent {}
+			`,
+		);
 		tree.write(
 			'app/src/app/app.component.html',
 			`
@@ -158,8 +289,27 @@ describe('migrate-input-otp generator', () => {
 
 		await migrateInputOtpGenerator(tree, { skipFormat: true });
 
+		const template = tree.read('app/src/app/app.component.html', 'utf-8');
+		const component = tree.read('app/src/app/app.component.ts', 'utf-8');
+
+		expect(template).toContain('<input brnInputOtpInput />');
+		expect(component).toContain('imports: [BrnInputOtp, BrnInputOtpSlot, BrnInputOtpInput]');
+		expect(component).toContain('BrnInputOtpInput');
+	});
+
+	it('should leave containerStyles usage for the healthcheck to report', async () => {
+		const template = `
+			<brn-input-otp length="6" [containerStyles]="containerStyles">
+				<brn-input-otp-slot index="0" />
+			</brn-input-otp>
+		`;
+
+		tree.write('app/src/app/app.component.html', template);
+
+		await migrateInputOtpGenerator(tree, { skipFormat: true });
+
 		const content = tree.read('app/src/app/app.component.html', 'utf-8');
-		expect(content).not.toContain('<hlm-input-otp');
-		expect(content).toContain('<brn-input-otp length="6">');
+		expect(content).toContain('[containerStyles]="containerStyles"');
+		expect(content).not.toContain('<input brnInputOtpInput');
 	});
 });

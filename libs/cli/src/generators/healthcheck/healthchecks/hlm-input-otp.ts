@@ -1,5 +1,14 @@
 import { visitNotIgnoredFiles } from '@nx/devkit';
 import migrateInputOtp from '../../migrate-input-otp/generator';
+import {
+	findInputOtpElements,
+	findOpeningTags,
+	hasContainerStyles,
+	hasHelmAttribute,
+	hasInputOtpInputDirective,
+	parseAttributes,
+	splitInputAttributes,
+} from '../../migrate-input-otp/utils';
 import { type Healthcheck, HealthcheckSeverity } from '../healthchecks';
 
 export const inputOtpHealthcheck: Healthcheck = {
@@ -16,12 +25,46 @@ export const inputOtpHealthcheck: Healthcheck = {
 				return;
 			}
 
-			if (/<brn-input-otp(?![\w-])/g.test(contents)) {
-				failure(
-					'The <brn-input-otp> element API has changed. Use <hlm-input-otp> or add <input brnInputOtpInput /> for brain usage.',
-					HealthcheckSeverity.Error,
-					true,
-				);
+			for (const element of findInputOtpElements(contents)) {
+				const attrs = parseAttributes(element.attrs);
+
+				if (hasContainerStyles(attrs)) {
+					failure(
+						'The containerStyles input was removed. Move custom container styles to the host or input before migrating input-otp.',
+						HealthcheckSeverity.Error,
+						false,
+					);
+					continue;
+				}
+
+				if (hasHelmAttribute(attrs)) {
+					failure(
+						'Legacy <brn-input-otp hlmInputOtp> usage found. Use <hlm-input-otp> instead.',
+						HealthcheckSeverity.Error,
+						true,
+					);
+					continue;
+				}
+
+				const { inputAttrs } = splitInputAttributes(attrs);
+
+				if (inputAttrs.length > 0 || !hasInputOtpInputDirective(element.inner)) {
+					failure(
+						'Brain <brn-input-otp> usage is missing <input brnInputOtpInput /> or still has input-specific attributes on the root.',
+						HealthcheckSeverity.Error,
+						true,
+					);
+				}
+			}
+
+			for (const tag of findOpeningTags(contents, 'hlm-input-otp')) {
+				if (hasContainerStyles(parseAttributes(tag.attrs))) {
+					failure(
+						'The containerStyles input was removed. Move custom container styles to the host or input before migrating input-otp.',
+						HealthcheckSeverity.Error,
+						false,
+					);
+				}
 			}
 		});
 	},

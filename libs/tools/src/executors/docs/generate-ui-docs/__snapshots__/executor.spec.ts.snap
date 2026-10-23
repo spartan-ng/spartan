@@ -5932,21 +5932,6 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "type": "string",
           },
           {
-            "name": "inputAutocomplete",
-            "required": false,
-            "type": "'one-time-code' | 'off'",
-          },
-          {
-            "name": "inputStyles",
-            "required": false,
-            "type": "string",
-          },
-          {
-            "name": "containerStyles",
-            "required": false,
-            "type": "string",
-          },
-          {
             "name": "disabled",
             "required": false,
             "type": "boolean",
@@ -5957,14 +5942,19 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "type": "number",
           },
           {
-            "name": "inputMode",
+            "name": "slotPattern",
             "required": false,
-            "type": "InputMode",
+            "type": "string | RegExp | null",
           },
           {
-            "name": "inputClass",
+            "name": "mask",
             "required": false,
-            "type": "ClassValue",
+            "type": "boolean",
+          },
+          {
+            "name": "maskChar",
+            "required": false,
+            "type": "string",
           },
           {
             "name": "autofocus",
@@ -5993,7 +5983,30 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "type": "string",
           },
         ],
-        "selector": "brn-input-otp",
+        "selector": "brn-input-otp, [brnInputOtp]",
+      },
+      "BrnInputOtpInput": {
+        "exportAs": "brnInputOtpInput",
+        "inputs": [
+          {
+            "name": "autocomplete",
+            "required": false,
+            "type": "'one-time-code' | 'off'",
+          },
+          {
+            "name": "inputMode",
+            "required": false,
+            "type": "InputMode",
+          },
+          {
+            "name": "inputStyles",
+            "required": false,
+            "type": "string | undefined",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "input[brnInputOtpInput]",
       },
       "BrnInputOtpSlot": {
         "exportAs": "brnInputOtpSlot",
@@ -6017,10 +6030,90 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
     "helm": {
       "HlmInputOtp": {
         "exportAs": "hlmInputOtp",
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "inputAutocomplete",
+            "required": false,
+            "type": "'one-time-code' | 'off'",
+          },
+          {
+            "name": "inputMode",
+            "required": false,
+            "type": "InputMode",
+          },
+          {
+            "name": "inputClass",
+            "required": false,
+            "type": "ClassValue",
+          },
+          {
+            "name": "inputStyles",
+            "required": false,
+            "type": "string | undefined",
+          },
+          {
+            "name": "length",
+            "required": true,
+            "type": "number",
+          },
+          {
+            "name": "value",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "inputId",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "hostStyles",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "autofocus",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "transformPaste",
+            "required": false,
+            "type": "(pastedText: string, length: number) => string",
+          },
+          {
+            "name": "mask",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "maskChar",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "slotPattern",
+            "required": false,
+            "type": "string | RegExp | null",
+          },
+        ],
         "models": [],
-        "outputs": [],
-        "selector": "brn-input-otp[hlmInputOtp], brn-input-otp[hlm]",
+        "outputs": [
+          {
+            "name": "valueChange",
+            "type": "string",
+          },
+          {
+            "name": "completed",
+            "type": "string",
+          },
+        ],
+        "selector": "hlm-input-otp",
       },
       "HlmInputOtpFakeCaret": {
         "exportAs": "hlmInputOtpFakeCaret",

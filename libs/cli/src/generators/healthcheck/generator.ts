@@ -24,6 +24,7 @@ import { helmDialogPortalHealthcheck } from './healthchecks/hlm-dialog-portal';
 import { helmFormFieldHealthcheck } from './healthchecks/hlm-form-field';
 import { helmIconHealthcheck } from './healthchecks/hlm-icon';
 import { hlmInputIdHealthcheck } from './healthchecks/hlm-input-id';
+import { inputOtpHealthcheck } from './healthchecks/hlm-input-otp';
 import { helmMenuHealthcheck } from './healthchecks/hlm-menu';
 import { progressHealthcheck } from './healthchecks/hlm-progress';
 import { scrollAreaHealthcheck } from './healthchecks/hlm-scroll-area';
@@ -71,6 +72,7 @@ export async function healthcheckGenerator(tree: Tree, options: HealthcheckGener
 		sonnerHealthcheck,
 		brnSelectHealthcheck,
 		brnInputOtpMaxLengthRename,
+		inputOtpHealthcheck,
 		scaffoldIntegrityHealthcheck,
 	];
 

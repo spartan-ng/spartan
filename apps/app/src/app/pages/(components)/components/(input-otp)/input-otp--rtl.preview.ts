@@ -1,22 +1,15 @@
 import { Component, computed, inject } from '@angular/core';
 import { TranslateService, Translations } from '@spartan-ng/app/app/shared/translate.service';
-import { BrnInputOtpImports } from '@spartan-ng/brain/input-otp';
 import { HlmFieldImports } from '@spartan-ng/helm/field';
 import { HlmInputOtpImports } from '@spartan-ng/helm/input-otp';
 
 @Component({
 	selector: 'spartan-input-otp-rtl',
-	imports: [HlmFieldImports, HlmInputOtpImports, BrnInputOtpImports],
+	imports: [HlmFieldImports, HlmInputOtpImports],
 	template: `
 		<hlm-field class="mx-auto max-w-xs" [dir]="_dir()">
 			<label hlmFieldLabel for="input-otp-rtl">{{ _t()['verificationCode'] }}</label>
-			<brn-input-otp
-				inputId="input-otp-rtl"
-				hlmInputOtp
-				value="123456"
-				length="6"
-				inputClass="disabled:cursor-not-allowed"
-			>
+			<hlm-input-otp inputId="input-otp-rtl" value="123456" length="6">
 				<hlm-input-otp-group>
 					<hlm-input-otp-slot index="0" />
 					<hlm-input-otp-slot index="1" />
@@ -25,7 +18,7 @@ import { HlmInputOtpImports } from '@spartan-ng/helm/input-otp';
 					<hlm-input-otp-slot index="4" />
 					<hlm-input-otp-slot index="5" />
 				</hlm-input-otp-group>
-			</brn-input-otp>
+			</hlm-input-otp>
 		</hlm-field>
 	`,
 })

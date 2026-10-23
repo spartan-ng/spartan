@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
-import { BrnInputOtpImports } from '@spartan-ng/brain/input-otp';
 import { HlmInputOtpImports } from '@spartan-ng/helm/input-otp';
 
 @Component({
 	selector: 'spartan-input-otp-separator',
-	imports: [HlmInputOtpImports, BrnInputOtpImports],
+	imports: [HlmInputOtpImports],
 	template: `
-		<brn-input-otp hlmInputOtp length="6" inputClass="disabled:cursor-not-allowed">
+		<hlm-input-otp length="6">
 			<hlm-input-otp-group>
 				<hlm-input-otp-slot index="0" />
 				<hlm-input-otp-slot index="1" />
@@ -21,7 +20,7 @@ import { HlmInputOtpImports } from '@spartan-ng/helm/input-otp';
 				<hlm-input-otp-slot index="4" />
 				<hlm-input-otp-slot index="5" />
 			</hlm-input-otp-group>
-		</brn-input-otp>
+		</hlm-input-otp>
 	`,
 })
 export class InputOtpSeparator {}

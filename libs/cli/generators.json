@@ -75,6 +75,11 @@
 			"schema": "./src/generators/migrate-input-id/schema.json",
 			"description": "Migrate renamed Helm id inputs to inputId"
 		},
+		"migrate-input-otp": {
+			"factory": "./src/generators/migrate-input-otp/generator",
+			"schema": "./src/generators/migrate-input-otp/schema.json",
+			"description": "Migrate input-otp to the directive-based API"
+		},
 		"migrate-icon": {
 			"factory": "./src/generators/migrate-icon/generator",
 			"schema": "./src/generators/migrate-icon/schema.json",
@@ -206,6 +211,11 @@
 			"factory": "./src/generators/migrate-input-id/compat",
 			"schema": "./src/generators/migrate-input-id/schema.json",
 			"description": "Migrate renamed Helm id inputs to inputId"
+		},
+		"migrate-input-otp": {
+			"factory": "./src/generators/migrate-input-otp/compat",
+			"schema": "./src/generators/migrate-input-otp/schema.json",
+			"description": "Migrate input-otp to the directive-based API"
 		},
 		"migrate-icon": {
 			"factory": "./src/generators/migrate-icon/compat",

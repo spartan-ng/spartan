@@ -20,6 +20,7 @@ import { BrnCalendarHeader } from '../brn-calendar-header';
 import { type BrnCalendarBase, provideBrnCalendar } from '../brn-calendar.token';
 import { injectBrnCalendarI18n, type Weekday } from '../i18n/calendar-i18n';
 import { compareDays } from '../utils/compare-days';
+import { findInitialFocusedDate } from '../utils/find-enabled-date';
 
 @Directive({
 	selector: '[brnCalendarMulti]',
@@ -116,9 +117,10 @@ export class BrnCalendarMulti<T> implements BrnCalendarBase<T> {
 	/**
 	 * The focused date.
 	 */
-	public readonly focusedDate = linkedSignal(() =>
-		this.constrainDate(this.defaultFocusedDate() ?? this._dateAdapter.now()),
-	);
+	public readonly focusedDate = linkedSignal(() => {
+		const date = this.constrainDate(this.defaultFocusedDate() ?? this._dateAdapter.now());
+		return this.disabled() ? date : findInitialFocusedDate(date, this._dateAdapter, (day) => this.isDateDisabled(day));
+	});
 
 	/** Emits whenever the focused date changes. */
 	public readonly focusedDateChange = output<T>();

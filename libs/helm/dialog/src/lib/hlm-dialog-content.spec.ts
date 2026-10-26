@@ -63,7 +63,7 @@ describe('HlmDialogContent', () => {
 		await waitFor(() => expect(screen.getByRole('button', { name: 'Dismiss' })).toBeTruthy());
 	});
 
-	it('takes its width from the viewport, not from the auto-width overlay pane', async () => {
+	it('sizes its width by the viewport (w-[calc(100vw-2rem)]), not w-full, which collapses in the overlay pane', async () => {
 		await render(DialogHost);
 
 		await waitFor(() => expect(document.querySelector('hlm-dialog-content')).toBeTruthy());

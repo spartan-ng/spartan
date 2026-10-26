@@ -67,6 +67,25 @@ describe('info generator', () => {
 		expect(info.tailwindCssFile).toBe('src/styles.css');
 	});
 
+	it('reports the stylesheet that imports Tailwind when several candidates exist', () => {
+		tree.delete('src/styles.css');
+		tree.write('src/styles.scss', "@use './tailwind';");
+		tree.write('src/tailwind.css', "@import 'tailwindcss/theme.css' layer(theme);");
+
+		const info = collectSpartanInfo(tree, availableComponents);
+
+		expect(info.tailwindCssFile).toBe('src/tailwind.css');
+	});
+
+	it('falls back to the first existing stylesheet when none imports Tailwind', () => {
+		tree.write('src/styles.css', 'body { margin: 0; }');
+		tree.write('src/global.css', 'html { color: black; }');
+
+		const info = collectSpartanInfo(tree, availableComponents);
+
+		expect(info.tailwindCssFile).toBe('src/styles.css');
+	});
+
 	it('detects installed components from helm and brain imports', () => {
 		const info = collectSpartanInfo(tree, availableComponents);
 

@@ -73,9 +73,35 @@ export class BrnCalendarRange<T> implements BrnCalendarBase<T> {
 	/**
 	 * The focused date.
 	 */
-	public readonly focusedDate = linkedSignal(() => {
-		const date = this.constrainDate(this.defaultFocusedDate() ?? this.startDate() ?? this._dateAdapter.now());
-		return this.disabled() ? date : findInitialFocusedDate(date, this._dateAdapter, (day) => this.isDateDisabled(day));
+	public readonly focusedDate = linkedSignal({
+		source: () => ({
+			initialDate: this.constrainDate(this.defaultFocusedDate() ?? this.startDate() ?? this._dateAdapter.now()),
+			startingDate: this.defaultFocusedDate(),
+			selectedDate: this.startDate(),
+			min: this.min(),
+			max: this.max(),
+			disabled: this.disabled(),
+			dateDisabled: this.dateDisabled(),
+		}),
+		computation: (source, previous) => {
+			if (source.disabled) return source.initialDate;
+			// Availability changes must not reset keyboard focus to the default date.
+			// A new initial date or changed limits should still reset it.
+			const preserveFocus =
+				previous !== undefined &&
+				previous.source.startingDate === source.startingDate &&
+				previous.source.selectedDate === source.selectedDate &&
+				previous.source.min === source.min &&
+				previous.source.max === source.max &&
+				previous.source.disabled === source.disabled;
+			const target = preserveFocus ? previous.value : source.initialDate;
+			return findInitialFocusedDate(
+				target,
+				this._dateAdapter,
+				(day) => this.isDateDisabled(day),
+				{ min: source.min, max: source.max },
+			);
+		},
 	});
 
 	/** Emits whenever the focused date changes. */

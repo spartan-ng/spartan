@@ -63,7 +63,9 @@ export class BrnCalendarCellButton<T> {
 	}
 
 	/** Whether this date is focusable */
-	public readonly focusable = computed(() => this._dateAdapter.isSameDay(this._calendar.focusedDate(), this.date()));
+	public readonly focusable = computed(
+		() => !this.disabled() && this._dateAdapter.isSameDay(this._calendar.focusedDate(), this.date()),
+	);
 
 	public readonly outside = computed(() => {
 		const focusedDate = this._calendar.focusedDate();
@@ -186,7 +188,13 @@ export class BrnCalendarCellButton<T> {
 	}
 
 	private focusEnabledDate(target: T, direction: 1 | -1): void {
-		const date = findEnabledDate(target, direction, this._dateAdapter, (day) => this._calendar.isDateDisabled(day));
+		const date = findEnabledDate(
+			target,
+			direction,
+			this._dateAdapter,
+			(day) => this._calendar.isDateDisabled(day),
+			{ min: this._calendar.min(), max: this._calendar.max() },
+		);
 		if (date !== undefined) this._calendar.setFocusedDate(date);
 	}
 

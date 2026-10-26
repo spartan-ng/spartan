@@ -20,6 +20,21 @@ describe('enabled calendar focus', () => {
 		expect(findInitialFocusedDate(max, adapter, blocked)).toEqual(new Date(2026, 8, 18));
 	});
 
+	it('searches past a full year of disabled dates inside the allowed range', () => {
+		const start = new Date(2026, 8, 19);
+		const min = start;
+		const firstAvailable = new Date(2028, 0, 1);
+		const blocked = (date: Date) =>
+			adapter.isBefore(date, min) || adapter.isBefore(date, firstAvailable);
+		expect(findInitialFocusedDate(start, adapter, blocked, { min })).toEqual(firstAvailable);
+	});
+
+	it('returns no result at the end of a bounded disabled range', () => {
+		const min = new Date(2026, 8, 19);
+		const max = new Date(2026, 8, 21);
+		expect(findEnabledDate(min, 1, adapter, () => true, { min, max })).toBeUndefined();
+	});
+
 	it('stops searching if every date is disabled', () => {
 		const start = new Date(2026, 8, 19);
 		expect(findEnabledDate(start, 1, adapter, () => true)).toBeUndefined();

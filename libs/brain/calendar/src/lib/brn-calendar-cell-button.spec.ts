@@ -17,10 +17,10 @@ import { BrnCalendarCellButton } from './brn-calendar-cell-button';
 	`,
 })
 class CalendarHost {
-	readonly start = signal(new Date(2026, 8, 18));
-	readonly min = signal<Date | undefined>(undefined);
-	readonly max = signal<Date | undefined>(undefined);
-	readonly dateDisabled = signal<(date: Date) => boolean>((date) => date.getDay() === 0 || date.getDay() === 6);
+	public readonly start = signal(new Date(2026, 8, 18));
+	public readonly min = signal<Date | undefined>(undefined);
+	public readonly max = signal<Date | undefined>(undefined);
+	public readonly dateDisabled = signal<(date: Date) => boolean>((date) => date.getDay() === 0 || date.getDay() === 6);
 }
 
 function dayButton(container: HTMLElement, day: number): HTMLButtonElement {
@@ -34,10 +34,22 @@ function dayButton(container: HTMLElement, day: number): HTMLButtonElement {
 describe('BrnCalendar keyboard navigation', () => {
 	it('skips disabled weekends on ArrowRight', async () => {
 		const { container, fixture } = await render(CalendarHost);
+		dayButton(container, 18).focus();
 		fireEvent.keyDown(dayButton(container, 18), { key: 'ArrowRight' });
 		fixture.detectChanges();
-		await waitFor(() => expect(dayButton(container, 21).tabIndex).toBe(0));
+		await waitFor(() => expect(document.activeElement).toBe(dayButton(container, 21)));
+		expect(dayButton(container, 21).tabIndex).toBe(0);
 		expect(dayButton(container, 19).disabled).toBe(true);
+	});
+
+	it('moves actual keyboard focus across a month boundary', async () => {
+		const { container, fixture } = await render(CalendarHost);
+		fixture.componentInstance.start.set(new Date(2026, 8, 30));
+		fixture.detectChanges();
+		dayButton(container, 30).focus();
+		fireEvent.keyDown(dayButton(container, 30), { key: 'ArrowRight' });
+		fixture.detectChanges();
+		await waitFor(() => expect(document.activeElement).toBe(dayButton(container, 1)));
 	});
 
 	it('keeps the tab stop on an enabled day when the initial day is disabled', async () => {

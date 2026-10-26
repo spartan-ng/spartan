@@ -52,6 +52,19 @@ describe('BrnCalendar keyboard navigation', () => {
 		await waitFor(() => expect(document.activeElement).toBe(dayButton(container, 1)));
 	});
 
+	it('preserves keyboard focus when disabled dates change but the current date is enabled', async () => {
+		const { container, fixture } = await render(CalendarHost);
+		dayButton(container, 18).focus();
+		fireEvent.keyDown(dayButton(container, 18), { key: 'ArrowRight' });
+		fixture.detectChanges();
+		await waitFor(() => expect(document.activeElement).toBe(dayButton(container, 21)));
+
+		fixture.componentInstance.dateDisabled.set((date: Date) => date.getDay() === 0);
+		fixture.detectChanges();
+		expect(dayButton(container, 21).tabIndex).toBe(0);
+		expect(document.activeElement).toBe(dayButton(container, 21));
+	});
+
 	it('keeps the tab stop on an enabled day when the initial day is disabled', async () => {
 		const { container, fixture } = await render(CalendarHost);
 		fixture.componentInstance.start.set(new Date(2026, 8, 19));

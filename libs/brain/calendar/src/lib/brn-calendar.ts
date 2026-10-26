@@ -87,7 +87,7 @@ export class BrnCalendar<T> implements BrnCalendarBase<T> {
 			disabled: this.disabled(),
 			dateDisabled: this.dateDisabled(),
 		}),
-		computation: (source, previous) => {
+		computation: (source, previous): T => {
 			if (source.disabled) return source.initialDate;
 			// Availability changes must not reset keyboard focus to the default date.
 			// A new initial date or changed limits should still reset it.
@@ -98,7 +98,7 @@ export class BrnCalendar<T> implements BrnCalendarBase<T> {
 				previous.source.min === source.min &&
 				previous.source.max === source.max &&
 				previous.source.disabled === source.disabled;
-			const target = preserveFocus ? previous.value : source.initialDate;
+			const target: T = preserveFocus ? (previous.value as T) : source.initialDate;
 			return findInitialFocusedDate(
 				target,
 				this._dateAdapter,

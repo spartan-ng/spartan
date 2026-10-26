@@ -327,6 +327,28 @@ describe('Toaster', () => {
 		);
 	});
 
+	it('should remove the theme preference listener from the media query list it was added to', async () => {
+		const matchMedia = window.matchMedia.bind(window);
+		const lists: MediaQueryList[] = [];
+		const matchMediaSpy = vi.spyOn(window, 'matchMedia').mockImplementation((query: string) => {
+			const list = matchMedia(query);
+			vi.spyOn(list, 'addEventListener');
+			vi.spyOn(list, 'removeEventListener');
+			lists.push(list);
+			return list;
+		});
+
+		const { fixture } = await setup({ callback: noop });
+		await fixture.whenStable();
+		fixture.destroy();
+		matchMediaSpy.mockRestore();
+
+		const observed = lists.filter((list) => vi.mocked(list.addEventListener).mock.calls.length > 0);
+		expect(observed).toHaveLength(1);
+		const [type, listener] = vi.mocked(observed[0].addEventListener).mock.calls[0];
+		expect(observed[0].removeEventListener).toHaveBeenCalledWith(type, listener);
+	});
+
 	it('should render the custom action when provided', async () => {
 		const { user, trigger, container } = await setup({
 			callback: (toast) =>

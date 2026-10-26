@@ -1110,7 +1110,7 @@
 	}
 
 	.spartan-questionnaire-actions {
-		@apply gap-2 sm:min-h-9;
+		@apply min-h-11 gap-2 sm:min-h-9;
 	}
 
 	/* MARK: Resizable */

@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, input, provideZonelessChangeDetection } from '@angular/core';
+import { axe } from '@spartan-ng/brain/testing';
 import { render, waitFor } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
 import { noop } from 'rxjs';
@@ -97,6 +98,48 @@ describe('Toaster', () => {
 
 		const toasts = Array.from(container.querySelectorAll('[data-sonner-toast]'));
 		expect(toasts.length).toBe(1);
+	});
+
+	it('should render each toast as a list item inside the toaster list', async () => {
+		const { user, trigger, container } = await setup({
+			callback: (toast) => {
+				toast('First toast');
+				toast('Second toast');
+			},
+		});
+
+		await user.click(trigger);
+
+		const list = container.querySelector('[data-sonner-toaster]');
+		expect(list).not.toBeNull();
+		expect(list).toHaveAttribute('role', 'list');
+
+		const listItems = Array.from(list?.children ?? []);
+		expect(listItems).toHaveLength(2);
+
+		for (const listItem of listItems) {
+			expect(listItem.tagName).toBe('LI');
+			expect(listItem).toHaveAttribute('data-sonner-toast');
+			// `role="status"` is not allowed on `li`; the toast is a live region via aria-live.
+			expect(listItem).not.toHaveAttribute('role');
+			expect(listItem).toHaveAttribute('aria-live', 'polite');
+			expect(listItem).toHaveAttribute('aria-atomic', 'true');
+		}
+	});
+
+	it('should not have accessibility violations', async () => {
+		const { user, trigger, container } = await setup({
+			callback: (toast) =>
+				toast('Saved', {
+					description: 'Your changes have been saved',
+					action: { label: 'Undo', onClick: noop },
+				}),
+		});
+
+		await user.click(trigger);
+		await waitFor(() => expect(container.querySelector('[data-sonner-toast]')).not.toBeNull());
+
+		expect(await axe(container)).toHaveNoViolations();
 	});
 
 	it('should show a toast with custom duration', async () => {
@@ -325,6 +368,28 @@ describe('Toaster', () => {
 		expect(icon).toContainHTML(
 			'<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-badge-check"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" /><path d="m9 12 2 2 4-4" /></svg>',
 		);
+	});
+
+	it('should remove the theme preference listener from the media query list it was added to', async () => {
+		const matchMedia = window.matchMedia.bind(window);
+		const lists: MediaQueryList[] = [];
+		const matchMediaSpy = vi.spyOn(window, 'matchMedia').mockImplementation((query: string) => {
+			const list = matchMedia(query);
+			vi.spyOn(list, 'addEventListener');
+			vi.spyOn(list, 'removeEventListener');
+			lists.push(list);
+			return list;
+		});
+
+		const { fixture } = await setup({ callback: noop });
+		await fixture.whenStable();
+		fixture.destroy();
+		matchMediaSpy.mockRestore();
+
+		const observed = lists.filter((list) => vi.mocked(list.addEventListener).mock.calls.length > 0);
+		expect(observed).toHaveLength(1);
+		const [type, listener] = vi.mocked(observed[0].addEventListener).mock.calls[0];
+		expect(observed[0].removeEventListener).toHaveBeenCalledWith(type, listener);
 	});
 
 	it('should render the custom action when provided', async () => {

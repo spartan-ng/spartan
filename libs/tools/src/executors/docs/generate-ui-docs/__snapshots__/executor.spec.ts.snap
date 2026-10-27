@@ -10268,7 +10268,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "brn-sonner-toast",
+        "selector": "li[brnSonnerToast]",
       },
       "BrnSonnerToaster": {
         "exportAs": "brnSonnerToaster",

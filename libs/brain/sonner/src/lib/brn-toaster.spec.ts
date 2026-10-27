@@ -112,6 +112,7 @@ describe('Toaster', () => {
 
 		const list = container.querySelector('[data-sonner-toaster]');
 		expect(list).not.toBeNull();
+		expect(list).toHaveAttribute('role', 'list');
 
 		const listItems = Array.from(list?.children ?? []);
 		expect(listItems).toHaveLength(2);

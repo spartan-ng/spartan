@@ -2,7 +2,6 @@ import { afterNextRender, Component, computed, type OnDestroy, signal } from '@a
 import { form, FormField, FormRoot, maxLength, minLength, required, submit } from '@angular/forms/signals';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideRefreshCw } from '@ng-icons/lucide';
-import { BrnInputOtpImports } from '@spartan-ng/brain/input-otp';
 import { toast } from '@spartan-ng/brain/sonner';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmCardImports } from '@spartan-ng/helm/card';
@@ -20,7 +19,6 @@ import { HlmToasterImports } from '@spartan-ng/helm/sonner';
 		HlmToasterImports,
 		HlmCardImports,
 		HlmFieldImports,
-		BrnInputOtpImports,
 		HlmInputOtpImports,
 	],
 	providers: [provideIcons({ lucideRefreshCw })],
@@ -51,11 +49,9 @@ import { HlmToasterImports } from '@spartan-ng/helm/sonner';
 							}
 						</button>
 					</div>
-					<brn-input-otp
-						hlmInputOtp
+					<hlm-input-otp
 						[length]="maxLength"
 						inputId="otp-verification"
-						inputClass="disabled:cursor-not-allowed"
 						[formField]="form.otp"
 						[transformPaste]="transformPaste"
 						(completed)="submit()"
@@ -75,7 +71,7 @@ import { HlmToasterImports } from '@spartan-ng/helm/sonner';
 							<hlm-input-otp-slot index="4" />
 							<hlm-input-otp-slot index="5" />
 						</hlm-input-otp-group>
-					</brn-input-otp>
+					</hlm-input-otp>
 					<hlm-field-description>
 						<a href="#">I no longer have access to this email address.</a>
 					</hlm-field-description>

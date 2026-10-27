@@ -2,7 +2,7 @@ import { formatFiles, type Tree } from '@nx/devkit';
 import { visitFiles } from '../../utils/visit-files';
 import type { MigrateBrnInputOtpMaxLength } from './schema';
 
-const inputOtpTagPattern = /<(brn-input-otp)\b[^>]*>/g;
+const inputOtpTagPattern = /<(?:brn|hlm)-input-otp(?![\w-])[^>]*>/g;
 
 export async function migrateBrnInputOtpMaxLength(tree: Tree, { skipFormat }: MigrateBrnInputOtpMaxLength) {
 	renameMaxLengthInput(tree);

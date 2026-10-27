@@ -1,22 +1,21 @@
-import { BrnInputOtp } from '@spartan-ng/brain/input-otp';
 import { HlmInputOtp, HlmInputOtpGroup, HlmInputOtpSeparator, HlmInputOtpSlot } from '@spartan-ng/helm/input-otp';
 import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';
 
-const meta: Meta<BrnInputOtp> = {
+const meta: Meta<HlmInputOtp> = {
 	title: 'Input OTP',
-	component: BrnInputOtp,
+	component: HlmInputOtp,
 	tags: ['autodocs'],
 	args: {},
 	argTypes: {},
 	decorators: [
 		moduleMetadata({
-			imports: [BrnInputOtp, HlmInputOtp, HlmInputOtpGroup, HlmInputOtpSeparator, HlmInputOtpSlot],
+			imports: [HlmInputOtp, HlmInputOtpGroup, HlmInputOtpSeparator, HlmInputOtpSlot],
 		}),
 	],
 	render: ({ ...args }) => ({
 		props: args,
 		template: `
-		<brn-input-otp hlmInputOtp maxLength="6" inputClass="disabled:cursor-not-allowed" [autofocus]="true">
+		<hlm-input-otp length="6" [autofocus]="true">
 			<div hlmInputOtpGroup>
 				<hlm-input-otp-slot index="0" />
 				<hlm-input-otp-slot index="1" />
@@ -28,15 +27,35 @@ const meta: Meta<BrnInputOtp> = {
 				<hlm-input-otp-slot index="4" />
 				<hlm-input-otp-slot index="5" />
 			</div>
-		</brn-input-otp>
+		</hlm-input-otp>
 		`,
 	}),
 };
 
 export default meta;
 
-type Story = StoryObj<BrnInputOtp>;
+type Story = StoryObj<HlmInputOtp>;
 
 export const Default: Story = {
 	args: {},
+};
+
+export const Masked: Story = {
+	render: () => ({
+		template: `
+		<hlm-input-otp mask value="123456" length="6">
+			<div hlmInputOtpGroup>
+				<hlm-input-otp-slot index="0" />
+				<hlm-input-otp-slot index="1" />
+				<hlm-input-otp-slot index="2" />
+			</div>
+			<hlm-input-otp-separator />
+			<div hlmInputOtpGroup>
+				<hlm-input-otp-slot index="3" />
+				<hlm-input-otp-slot index="4" />
+				<hlm-input-otp-slot index="5" />
+			</div>
+		</hlm-input-otp>
+		`,
+	}),
 };

@@ -16,8 +16,8 @@ export const brnInputOtpMaxLengthRename: Healthcheck = {
 				return;
 			}
 
-			// matches the legacy maxLength input on a brn-input-otp element ([maxLength] or maxLength=)
-			if (/<brn-input-otp\b[^>]*\bmaxLength\b/g.test(contents)) {
+			// matches the legacy maxLength input on a brn-input-otp or hlm-input-otp element ([maxLength] or maxLength=)
+			if (/<(?:brn|hlm)-input-otp(?![\w-])[^>]*\bmaxLength\b/g.test(contents)) {
 				failure('brn-input-otp is using the renamed maxLength input.', HealthcheckSeverity.Error, true);
 			}
 		});

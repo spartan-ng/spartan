@@ -14,7 +14,7 @@ import { injectBrnInputOtp } from './brn-input-otp.token';
 		'[attr.data-matches-spartan-invalid]': '_spartanInvalid() ? "true" : null',
 	},
 	template: `
-		{{ _slot().char }}
+		{{ _slot().displayChar }}
 
 		@if (_slot().hasFakeCaret) {
 			<ng-content />
@@ -31,7 +31,15 @@ export class BrnInputOtpSlot {
 	/** Whether to force the input into an invalid state. */
 	public readonly forceInvalid = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
-	protected readonly _slot = computed(() => this._inputOtp.context()[this.index()]);
+	protected readonly _slot = computed(
+		() =>
+			this._inputOtp.context()[this.index()] ?? {
+				char: null,
+				displayChar: null,
+				isActive: false,
+				hasFakeCaret: false,
+			},
+	);
 
 	protected readonly _ariaInvalid = this._inputOtp.invalid;
 	protected readonly _touched = this._inputOtp.touched;

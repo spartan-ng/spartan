@@ -19,9 +19,13 @@ import { SectionIntro } from '../../../../shared/layout/section-intro';
 import { SectionSubHeading } from '../../../../shared/layout/section-sub-heading';
 import { Tabs } from '../../../../shared/layout/tabs';
 import { metaWith } from '../../../../shared/meta/meta.util';
+import { InputOtpAlphanumeric } from './input-otp--alphanumeric.preview';
 import { InputOtpDisabled } from './input-otp--disabled.preview';
 import { InputOtpFormExample } from './input-otp--form.example';
+import { InputOtpFourDigits } from './input-otp--four-digits.preview';
 import { InputOtpInvalid } from './input-otp--invalid.preview';
+import { InputOtpMasked } from './input-otp--masked.preview';
+import { InputOtpPattern } from './input-otp--pattern.preview';
 import { InputOtpRtl } from './input-otp--rtl.preview';
 import { InputOtpSeparator } from './input-otp--separator.preview';
 import { defaultImports, defaultSkeleton, InputOtpPreview } from './input-otp.preview';
@@ -52,8 +56,12 @@ export const routeMeta: RouteMeta = {
 		CodeRtlPreview,
 		InputOtpPreview,
 		InputOtpSeparator,
+		InputOtpMasked,
+		InputOtpPattern,
 		InputOtpDisabled,
 		InputOtpInvalid,
+		InputOtpFourDigits,
+		InputOtpAlphanumeric,
 		InputOtpFormExample,
 		InputOtpRtl,
 	],
@@ -138,6 +146,19 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
 
+			<h3 id="pattern" spartanH4>Pattern</h3>
+			<p class="${hlmP} mb-6">
+				Use the
+				<code class="${hlmCode}">slotPattern</code>
+				prop to restrict the characters that can be entered. The example below only accepts digits.
+			</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-input-otp-pattern />
+				</div>
+				<spartan-code secondTab [code]="_patternCode()" />
+			</spartan-tabs>
+
 			<h3 id="separator" spartanH4>Separator</h3>
 			<p class="${hlmP} mb-6">
 				Use the
@@ -177,12 +198,55 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_invalidCode()" />
 			</spartan-tabs>
 
+			<h3 id="four-digits" spartanH4>Four Digits</h3>
+			<p class="${hlmP} mb-6">
+				A common pattern for PIN codes. Use
+				<code class="${hlmCode}">slotPattern="[0-9]"</code>
+				and
+				<code class="${hlmCode}">length="4"</code>
+				.
+			</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-input-otp-four-digits />
+				</div>
+				<spartan-code secondTab [code]="_fourDigitsCode()" />
+			</spartan-tabs>
+
+			<h3 id="alphanumeric" spartanH4>Alphanumeric</h3>
+			<p class="${hlmP} mb-6">
+				Use
+				<code class="${hlmCode}">slotPattern="[A-Za-z0-9]"</code>
+				to accept both letters and numbers.
+			</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-input-otp-alphanumeric />
+				</div>
+				<spartan-code secondTab [code]="_alphanumericCode()" />
+			</spartan-tabs>
+
+			<h3 id="masked" spartanH4>Masked</h3>
+			<p class="${hlmP} mb-6">
+				Use the
+				<code class="${hlmCode}">mask</code>
+				prop to visually obscure entered characters. The form value remains unmasked. Customize the mask character with
+				<code class="${hlmCode}">maskChar</code>
+				.
+			</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-input-otp-masked />
+				</div>
+				<spartan-code secondTab [code]="_maskedCode()" />
+			</spartan-tabs>
+
 			<h3 id="form" spartanH4>Form</h3>
 			<p class="${hlmP} mb-6">
-				Sync the otp to a form by adding
-				<code class="${hlmCode}">formControlName</code>
+				Sync the OTP to an Angular Signal Form by binding
+				<code class="${hlmCode}">[formField]</code>
 				to
-				<code class="${hlmCode}">brn-input-otp</code>
+				<code class="${hlmCode}">hlm-input-otp</code>
 				.
 			</p>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
@@ -222,8 +286,12 @@ export default class InputOtpPage {
 	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('input-otp');
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
 	protected readonly _separatorCode = computed(() => this._snippets()['separator']);
+	protected readonly _maskedCode = computed(() => this._snippets()['masked']);
+	protected readonly _patternCode = computed(() => this._snippets()['pattern']);
 	protected readonly _disabledCode = computed(() => this._snippets()['disabled']);
 	protected readonly _invalidCode = computed(() => this._snippets()['invalid']);
+	protected readonly _fourDigitsCode = computed(() => this._snippets()['fourDigits']);
+	protected readonly _alphanumericCode = computed(() => this._snippets()['alphanumeric']);
 	protected readonly _formCode = computed(() => this._snippets()['form']);
 	protected readonly _rtlCode = computed(() => this._snippets()['rtl']);
 	protected readonly _defaultSkeleton = defaultSkeleton;

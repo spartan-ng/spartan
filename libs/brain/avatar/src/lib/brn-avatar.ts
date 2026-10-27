@@ -1,18 +1,25 @@
-import { ChangeDetectionStrategy, Component, contentChild } from '@angular/core';
-import { BrnAvatarImage } from './image';
+import { Directive, signal } from '@angular/core';
 
-@Component({
-	selector: 'brn-avatar',
+export type BrnAvatarStatus = 'idle' | 'loading' | 'loaded' | 'error';
+
+/**
+ * Avatar container. Provides the positioning context for the absolutely positioned image and
+ * intentionally does not set `display`.
+ */
+@Directive({
+	selector: '[brnAvatar],brn-avatar',
 	exportAs: 'brnAvatar',
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	template: `
-		@if (_image()?.canShow()) {
-			<ng-content select="[brnAvatarImage]" />
-		} @else {
-			<ng-content select="[brnAvatarFallback]" />
-		}
-	`,
+	host: {
+		'[style.position]': "'relative'",
+		'[attr.data-status]': 'status()',
+	},
 })
 export class BrnAvatar {
-	protected readonly _image = contentChild(BrnAvatarImage);
+	private readonly _status = signal<BrnAvatarStatus>('idle');
+	public readonly status = this._status.asReadonly();
+
+	/** @internal */
+	public setStatus(status: BrnAvatarStatus): void {
+		this._status.set(status);
+	}
 }

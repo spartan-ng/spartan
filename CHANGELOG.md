@@ -1,3 +1,11 @@
+## 1.9.0-beta.1 (2026-10-27)
+
+- feat(avatar): rework around shared directive state, keep image in DOM… (#1821) ([ac64109](https://github.com/spartan-ng/spartan/commit/ac64109)), closes [#1821](https://github.com/spartan-ng/spartan/issues/1821) [#1703](https://github.com/spartan-ng/spartan/issues/1703)
+- feat(input-otp): refactor brn-input-otp as directive, add brn-input-otp-input (#1824) ([0534ca5](https://github.com/spartan-ng/spartan/commit/0534ca5)), closes [#1824](https://github.com/spartan-ng/spartan/issues/1824)
+- chore(release): backmerge main into beta ([98344b5](https://github.com/spartan-ng/spartan/commit/98344b5))
+- chore(release): backmerge main into beta ([4391cac](https://github.com/spartan-ng/spartan/commit/4391cac))
+- docs: add new contributors to our 300 ([2082a4d](https://github.com/spartan-ng/spartan/commit/2082a4d))
+
 ## <small>1.8.3 (2026-10-27)</small>
 
 - fix: 1.8.3 (#1840) ([691276b](https://github.com/spartan-ng/spartan/commit/691276b)), closes [#1840](https://github.com/spartan-ng/spartan/issues/1840) [#1833](https://github.com/spartan-ng/spartan/issues/1833) [#1834](https://github.com/spartan-ng/spartan/issues/1834) [#1830](https://github.com/spartan-ng/spartan/issues/1830) [#1724](https://github.com/spartan-ng/spartan/issues/1724) [#1835](https://github.com/spartan-ng/spartan/issues/1835)

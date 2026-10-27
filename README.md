@@ -14,8 +14,10 @@ Welcome to the spartan mono-repo. This Nx repository is home to **spartan/ui** -
 un-styled UI primitives for Angular with copy-paste, shadcn-style helm styles - and the **spartan/stack**,
 an opinionated full-stack setup built on AnalogJs.
 
-spartan/ui is **1.0** and stable: production-ready, [semantically versioned](https://semver.org), and
-shipping more than 55 components. Install it from npm with
+spartan/ui is **stable** on the **1.x** line: production-ready,
+[semantically versioned](https://semver.org), and shipping more than 55 components.
+Check the latest published version on npm (`@spartan-ng/brain` / `@spartan-ng/cli`) rather than
+assuming a fixed patch. Install with
 [`@spartan-ng/brain`](https://www.npmjs.com/package/@spartan-ng/brain) and the
 [`@spartan-ng/cli`](https://www.npmjs.com/package/@spartan-ng/cli), or explore everything at
 [spartan.ng](https://www.spartan.ng).

@@ -45,6 +45,7 @@ import type { Position, Theme, ToasterProps } from './types';
 				@for (pos of _possiblePositions(); track pos) {
 					<ol
 						#listRef
+						role="list"
 						[tabIndex]="-1"
 						[class]="userClass()"
 						data-sonner-toaster
@@ -63,7 +64,8 @@ import type { Position, Theme, ToasterProps } from './types';
 						(pointerup)="_interacting.set(false)"
 					>
 						@for (toast of _toasts() | toastFilter: $index : pos; track toast.id) {
-							<brn-sonner-toast
+							<li
+								brnSonnerToast
 								[index]="$index"
 								[toast]="toast"
 								[invert]="invert()"
@@ -112,7 +114,7 @@ import type { Position, Theme, ToasterProps } from './types';
 								} @else {
 									<brn-sonner-icon type="info" info-icon />
 								}
-							</brn-sonner-toast>
+							</li>
 						}
 					</ol>
 				}

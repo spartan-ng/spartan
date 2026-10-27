@@ -1,3 +1,7 @@
+## <small>1.8.3-beta.2 (2026-10-27)</small>
+
+- fix(sonner): fix toaster list semantics and aria role (#1835) ([f94ee10](https://github.com/spartan-ng/spartan/commit/f94ee10)), closes [#1835](https://github.com/spartan-ng/spartan/issues/1835)
+
 ## <small>1.8.3-beta.1 (2026-10-26)</small>
 
 - fix(cli): report the stylesheet that imports Tailwind in info (#1834) ([142c0c0](https://github.com/spartan-ng/spartan/commit/142c0c0)), closes [#1834](https://github.com/spartan-ng/spartan/issues/1834)

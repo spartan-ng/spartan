@@ -7,11 +7,11 @@ import {
 	computed,
 	effect,
 	ElementRef,
+	inject,
 	input,
 	linkedSignal,
 	type OnDestroy,
 	signal,
-	viewChild,
 } from '@angular/core';
 import clsx from 'clsx';
 import { defaultClasses, injectBrnSonnerToasterConfig } from './brn-toaster.token';
@@ -23,151 +23,146 @@ import { toastState } from './state';
 import type { ToastAction, ToastProps, ToastT } from './types';
 
 @Component({
-	selector: 'brn-sonner-toast',
+	// eslint-disable-next-line @angular-eslint/component-selector
+	selector: 'li[brnSonnerToast]',
 	exportAs: 'brnSonnerToast',
 	imports: [NgComponentOutlet, IsStringPipe, AsComponentPipe, NgTemplateOutlet],
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: {
+		'data-sonner-toast': '',
+		'[attr.aria-live]': "toast().important ? 'assertive' : 'polite'",
+		'aria-atomic': 'true',
+		tabindex: '0',
+		'[class]': '_toastClasses()',
+		'[attr.data-styled]': '!(toast().component || toast().unstyled || unstyled())',
+		'[attr.data-mounted]': '_mounted()',
+		'[attr.data-promise]': '!!toast().promise',
+		'[attr.data-removed]': '_removed()',
+		'[attr.data-visible]': '_isVisible()',
+		'[attr.data-y-position]': '_coords()[0]',
+		'[attr.data-x-position]': '_coords()[1]',
+		'[attr.data-index]': 'index()',
+		'[attr.data-front]': '_isFront()',
+		'[attr.data-swiping]': '_swiping()',
+		'[attr.data-dismissible]': 'toast().dismissible',
+		'[attr.data-type]': '_toastType()',
+		'[attr.data-invert]': '_invert()',
+		'[attr.data-swipe-out]': '_swipeOut()',
+		'[attr.data-expanded]': 'expanded() || (expandByDefault() && _mounted())',
+		'[attr.data-testid]': 'toast().testId',
+		'[style]': '_toastStyle()',
+		'(pointerdown)': 'onPointerDown($event)',
+		'(pointerup)': 'onPointerUp()',
+		'(pointermove)': 'onPointerMove($event)',
+	},
 	template: `
-		<li
-			#toastRef
-			data-sonner-toast
-			[attr.aria-live]="toast().important ? 'assertive' : 'polite'"
-			aria-atomic="true"
-			role="status"
-			tabindex="0"
-			[class]="_toastClasses()"
-			[attr.data-styled]="!(toast().component || toast().unstyled || unstyled())"
-			[attr.data-mounted]="_mounted()"
-			[attr.data-promise]="!!toast().promise"
-			[attr.data-removed]="_removed()"
-			[attr.data-visible]="_isVisible()"
-			[attr.data-y-position]="_coords()[0]"
-			[attr.data-x-position]="_coords()[1]"
-			[attr.data-index]="index()"
-			[attr.data-front]="_isFront()"
-			[attr.data-swiping]="_swiping()"
-			[attr.data-dismissible]="toast().dismissible"
-			[attr.data-type]="_toastType()"
-			[attr.data-invert]="_invert()"
-			[attr.data-swipe-out]="_swipeOut()"
-			[attr.data-expanded]="expanded() || (expandByDefault() && _mounted())"
-			[attr.data-testid]="toast().testId"
-			[style]="_toastStyle()"
-			(pointerdown)="onPointerDown($event)"
-			(pointerup)="onPointerUp()"
-			(pointermove)="onPointerMove($event)"
-		>
-			@if (_closeButton() && !toast().component) {
-				<button
-					aria-label="Close toast"
-					[attr.data-disabled]="_disabled()"
-					data-close-button
-					(click)="onCloseButtonClick()"
-					[class]="_closeButtonClasses()"
+		@if (_closeButton() && !toast().component) {
+			<button
+				aria-label="Close toast"
+				[attr.data-disabled]="_disabled()"
+				data-close-button
+				(click)="onCloseButtonClick()"
+				[class]="_closeButtonClasses()"
+			>
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					width="12"
+					height="12"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="1.5"
+					stroke-linecap="round"
+					stroke-linejoin="round"
 				>
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						width="12"
-						height="12"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						stroke-width="1.5"
-						stroke-linecap="round"
-						stroke-linejoin="round"
-					>
-						<line x1="18" y1="6" x2="6" y2="18" />
-						<line x1="6" y1="6" x2="18" y2="18" />
-					</svg>
-				</button>
-			}
+					<line x1="18" y1="6" x2="6" y2="18" />
+					<line x1="6" y1="6" x2="18" y2="18" />
+				</svg>
+			</button>
+		}
 
-			@if (toast().component) {
-				<ng-container *ngComponentOutlet="toast().component | asComponent; inputs: toast().componentProps" />
-			} @else {
-				@if (_toastType() !== 'default' || toast().icon || toast().promise) {
-					<div data-icon>
-						@if (_toastType() === 'loading' && !toast().icon) {
-							<ng-content select="[loading-icon]" />
-						}
-						@if (toast().icon) {
-							<ng-container *ngComponentOutlet="toast().icon | asComponent; inputs: toast().componentProps" />
-						} @else {
-							@switch (_toastType()) {
-								@case ('success') {
-									<ng-content select="[success-icon]" />
-								}
-								@case ('error') {
-									<ng-content select="[error-icon]" />
-								}
-								@case ('warning') {
-									<ng-content select="[warning-icon]" />
-								}
-								@case ('info') {
-									<ng-content select="[info-icon]" />
-								}
+		@if (toast().component) {
+			<ng-container *ngComponentOutlet="toast().component | asComponent; inputs: toast().componentProps" />
+		} @else {
+			@if (_toastType() !== 'default' || toast().icon || toast().promise) {
+				<div data-icon>
+					@if (_toastType() === 'loading' && !toast().icon) {
+						<ng-content select="[loading-icon]" />
+					}
+					@if (toast().icon) {
+						<ng-container *ngComponentOutlet="toast().icon | asComponent; inputs: toast().componentProps" />
+					} @else {
+						@switch (_toastType()) {
+							@case ('success') {
+								<ng-content select="[success-icon]" />
 							}
+							@case ('error') {
+								<ng-content select="[error-icon]" />
+							}
+							@case ('warning') {
+								<ng-content select="[warning-icon]" />
+							}
+							@case ('info') {
+								<ng-content select="[info-icon]" />
+							}
+						}
+					}
+				</div>
+			}
+			<div data-content>
+				@if (toast().title; as title) {
+					<div data-title [class]="_titleClasses()">
+						@if (title | isString) {
+							{{ toast().title }}
+						} @else {
+							<ng-container *ngComponentOutlet="title | asComponent; inputs: toast().componentProps" />
 						}
 					</div>
 				}
-				<div data-content>
-					@if (toast().title; as title) {
-						<div data-title [class]="_titleClasses()">
-							@if (title | isString) {
-								{{ toast().title }}
-							} @else {
-								<ng-container *ngComponentOutlet="title | asComponent; inputs: toast().componentProps" />
-							}
-						</div>
-					}
-					@if (toast().description; as description) {
-						<div data-description [class]="_toastDescriptionClasses()">
-							@if (description | isString) {
-								{{ toast().description }}
-							} @else {
-								<ng-container *ngComponentOutlet="description | asComponent; inputs: toast().componentProps" />
-							}
-						</div>
-					}
-				</div>
-				@if (toast().cancel; as cancel) {
-					@if (cancelActionTemplate(); as cancelAction) {
-						<ng-container
-							*ngTemplateOutlet="
-								cancelAction.templateRef;
-								context: { $implicit: _wrappedCancelAction(), toast: toast() }
-							"
-						/>
-					} @else {
-						<button
-							data-button
-							data-cancel
-							[style]="cancelButtonStyle() ?? toast().cancelButtonStyle"
-							[class]="_cancelButtonClasses()"
-							(click)="onCancelClick($event)"
-						>
-							{{ cancel.label }}
-						</button>
-					}
+				@if (toast().description; as description) {
+					<div data-description [class]="_toastDescriptionClasses()">
+						@if (description | isString) {
+							{{ toast().description }}
+						} @else {
+							<ng-container *ngComponentOutlet="description | asComponent; inputs: toast().componentProps" />
+						}
+					</div>
 				}
-				@if (toast().action; as action) {
-					@if (actionTemplate(); as actionTemplate) {
-						<ng-container
-							*ngTemplateOutlet="actionTemplate.templateRef; context: { $implicit: _wrappedAction(), toast: toast() }"
-						/>
-					} @else {
-						<button
-							data-button
-							[style]="actionButtonStyle() ?? toast().actionButtonStyle"
-							[class]="_actionButtonClasses()"
-							(click)="onActionClick($event)"
-						>
-							{{ action.label }}
-						</button>
-					}
+			</div>
+			@if (toast().cancel; as cancel) {
+				@if (cancelActionTemplate(); as cancelAction) {
+					<ng-container
+						*ngTemplateOutlet="cancelAction.templateRef; context: { $implicit: _wrappedCancelAction(), toast: toast() }"
+					/>
+				} @else {
+					<button
+						data-button
+						data-cancel
+						[style]="cancelButtonStyle() ?? toast().cancelButtonStyle"
+						[class]="_cancelButtonClasses()"
+						(click)="onCancelClick($event)"
+					>
+						{{ cancel.label }}
+					</button>
 				}
 			}
-		</li>
+			@if (toast().action; as action) {
+				@if (actionTemplate(); as actionTemplate) {
+					<ng-container
+						*ngTemplateOutlet="actionTemplate.templateRef; context: { $implicit: _wrappedAction(), toast: toast() }"
+					/>
+				} @else {
+					<button
+						data-button
+						[style]="actionButtonStyle() ?? toast().actionButtonStyle"
+						[class]="_actionButtonClasses()"
+						(click)="onActionClick($event)"
+					>
+						{{ action.label }}
+					</button>
+				}
+			}
+		}
 	`,
 })
 export class BrnSonnerToast implements AfterViewInit, OnDestroy {
@@ -215,7 +210,7 @@ export class BrnSonnerToast implements AfterViewInit, OnDestroy {
 	private readonly _offsetBeforeRemove = signal(0);
 	private readonly _initialHeight = signal(0);
 
-	private readonly _toastRef = viewChild.required<ElementRef<HTMLLIElement>>('toastRef');
+	private readonly _toastRef = inject<ElementRef<HTMLLIElement>>(ElementRef);
 
 	protected readonly _classes = computed(() => ({
 		...defaultClasses,
@@ -336,7 +331,7 @@ export class BrnSonnerToast implements AfterViewInit, OnDestroy {
 	ngAfterViewInit() {
 		this._remainingTime = this.toast().duration ?? this.duration() ?? this._config.toastLifetime;
 		this._mounted.set(true);
-		const height = this._toastRef().nativeElement.getBoundingClientRect().height;
+		const height = this._toastRef.nativeElement.getBoundingClientRect().height;
 		this._initialHeight.set(height);
 		this._addHeight({ toastId: this.toast().id, height, position: this._toastPosition() });
 	}
@@ -400,7 +395,7 @@ export class BrnSonnerToast implements AfterViewInit, OnDestroy {
 
 		this._pointerStartRef = null;
 		const swipeAmount = Number(
-			this._toastRef().nativeElement.style.getPropertyValue('--swipe-amount').replace('px', '') || 0,
+			this._toastRef.nativeElement.style.getPropertyValue('--swipe-amount').replace('px', '') || 0,
 		);
 
 		// Remove only if threshold is met
@@ -412,7 +407,7 @@ export class BrnSonnerToast implements AfterViewInit, OnDestroy {
 			return;
 		}
 
-		this._toastRef().nativeElement.style.setProperty('--swipe-amount', '0px');
+		this._toastRef.nativeElement.style.setProperty('--swipe-amount', '0px');
 		this._swiping.set(false);
 	}
 
@@ -428,7 +423,7 @@ export class BrnSonnerToast implements AfterViewInit, OnDestroy {
 		const isAllowedToSwipe = Math.abs(clampedY) > swipeStartThreshold;
 
 		if (isAllowedToSwipe) {
-			this._toastRef().nativeElement.style.setProperty('--swipe-amount', `${yPosition}px`);
+			this._toastRef.nativeElement.style.setProperty('--swipe-amount', `${yPosition}px`);
 		} else if (Math.abs(xPosition) > swipeStartThreshold) {
 			// User is swiping in wrong direction, so we disable swipe gesture
 			// for the current pointer down interaction

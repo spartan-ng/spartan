@@ -25,6 +25,7 @@ import { AvatarDropdownPreview } from './avatar--dropdown.preview';
 import { AvatarGroupCountPreview } from './avatar--group-count.preview';
 import { AvatarGroupIconPreview } from './avatar--group-icon.preview';
 import { AvatarGroupPreview } from './avatar--group.preview';
+import { AvatarNgOptimizedImagePreview } from './avatar--ng-optimized-image.preview';
 import { AvatarRtlPreview } from './avatar--rtl.preview';
 import { AvatarSizesPreview } from './avatar--sizes.preview';
 import { AvatarPreview, defaultImports, defaultSkeleton } from './avatar.preview';
@@ -55,6 +56,7 @@ export const routeMeta: RouteMeta = {
 		CodeRtlPreview,
 		AvatarPreview,
 		AvatarBasicPreview,
+		AvatarNgOptimizedImagePreview,
 		AvatarBadgePreview,
 		AvatarBadgeIconPreview,
 		AvatarSizesPreview,
@@ -95,6 +97,26 @@ export const routeMeta: RouteMeta = {
 					<spartan-avatar-basic-preview />
 				</div>
 				<spartan-code secondTab [code]="_basicCode()" />
+			</spartan-tabs>
+
+			<h3 id="examples__ng-optimized-image" spartanH4>NgOptimizedImage</h3>
+			<p class="${hlmP}">
+				The avatar image is rendered immediately and hidden until it loads, so Angular's
+				<code class="${hlmCode}">NgOptimizedImage</code>
+				directive works with
+				<code class="${hlmCode}">ngSrc</code>
+				as well as a regular
+				<code class="${hlmCode}">src</code>
+				. The image is only visually hidden, not removed from the layout, so native lazy loading still loads it when it
+				enters the viewport. Use
+				<code class="${hlmCode}">fill</code>
+				to let the image fill the avatar.
+			</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-avatar-ng-optimized-image-preview />
+				</div>
+				<spartan-code secondTab [code]="_ngOptimizedImageCode()" />
 			</spartan-tabs>
 
 			<h3 id="examples__badge" spartanH4>Badge</h3>
@@ -217,6 +239,7 @@ export default class AvatarPage {
 	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('avatar');
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
 	protected readonly _basicCode = computed(() => this._snippets()['basic']);
+	protected readonly _ngOptimizedImageCode = computed(() => this._snippets()['ngOptimizedImage']);
 	protected readonly _badgeCode = computed(() => this._snippets()['badge']);
 	protected readonly _badgeIconCode = computed(() => this._snippets()['badgeIcon']);
 	protected readonly _groupCode = computed(() => this._snippets()['group']);

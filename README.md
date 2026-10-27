@@ -199,6 +199,11 @@ Our initial 300 contributors and sponsors are featured here and on the front pag
 161. [michelAlexis](https://github.com/michelAlexis)
 162. [stanislavnastasiu-dev](https://github.com/stanislavnastasiu-dev)
 163. [hemanth004](https://github.com/hemanth004)
+164. [GabeSilvaDev](https://github.com/GabeSilvaDev)
+165. [Sepandard](https://github.com/Sepandard)
+166. [carlospalacin](https://github.com/carlospalacin)
+167. [bence444](https://github.com/bence444)
+168. [pjalinski](https://github.com/pjalinski)
 
 ### Sponsor spartan
 

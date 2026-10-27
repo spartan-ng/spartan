@@ -1052,7 +1052,7 @@
 	}
 
 	.spartan-questionnaire-actions {
-		@apply gap-1.5 sm:min-h-7;
+		@apply min-h-11 gap-1.5 sm:min-h-7;
 	}
 
 	/* MARK: Radio Group */

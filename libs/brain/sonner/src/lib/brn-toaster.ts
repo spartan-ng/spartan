@@ -45,6 +45,7 @@ import type { Position, Theme, ToasterProps } from './types';
 				@for (pos of _possiblePositions(); track pos) {
 					<ol
 						#listRef
+						role="list"
 						[tabIndex]="-1"
 						[class]="userClass()"
 						data-sonner-toaster
@@ -63,7 +64,8 @@ import type { Position, Theme, ToasterProps } from './types';
 						(pointerup)="_interacting.set(false)"
 					>
 						@for (toast of _toasts() | toastFilter: $index : pos; track toast.id) {
-							<brn-sonner-toast
+							<li
+								brnSonnerToast
 								[index]="$index"
 								[toast]="toast"
 								[invert]="invert()"
@@ -112,7 +114,7 @@ import type { Position, Theme, ToasterProps } from './types';
 								} @else {
 									<brn-sonner-icon type="info" info-icon />
 								}
-							</brn-sonner-toast>
+							</li>
 						}
 					</ol>
 				}
@@ -215,20 +217,14 @@ export class BrnSonnerToaster {
 		afterNextRender(() => {
 			this._document.addEventListener('keydown', this.handleKeydown);
 
-			const window = this._window;
-			if (window) {
-				this._window
-					.matchMedia('(prefers-color-scheme: dark)')
-					.addEventListener('change', this.handleThemePreferenceChange);
-			}
+			// matchMedia returns a new MediaQueryList on every call, so the listener has to be
+			// removed from the same list it was added to.
+			const prefersDark = this._window?.matchMedia('(prefers-color-scheme: dark)');
+			prefersDark?.addEventListener('change', this.handleThemePreferenceChange);
 
 			destroyRef.onDestroy(() => {
 				this._document.removeEventListener('keydown', this.handleKeydown);
-				if (window) {
-					window
-						.matchMedia('(prefers-color-scheme: dark)')
-						.removeEventListener('change', this.handleThemePreferenceChange);
-				}
+				prefersDark?.removeEventListener('change', this.handleThemePreferenceChange);
 			});
 		});
 	}

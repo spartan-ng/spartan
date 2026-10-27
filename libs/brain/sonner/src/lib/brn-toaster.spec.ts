@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, input, provideZonelessChangeDetection } from '@angular/core';
+import { axe } from '@spartan-ng/brain/testing';
 import { render, waitFor } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
 import { noop } from 'rxjs';
@@ -97,6 +98,48 @@ describe('Toaster', () => {
 
 		const toasts = Array.from(container.querySelectorAll('[data-sonner-toast]'));
 		expect(toasts.length).toBe(1);
+	});
+
+	it('should render each toast as a list item inside the toaster list', async () => {
+		const { user, trigger, container } = await setup({
+			callback: (toast) => {
+				toast('First toast');
+				toast('Second toast');
+			},
+		});
+
+		await user.click(trigger);
+
+		const list = container.querySelector('[data-sonner-toaster]');
+		expect(list).not.toBeNull();
+		expect(list).toHaveAttribute('role', 'list');
+
+		const listItems = Array.from(list?.children ?? []);
+		expect(listItems).toHaveLength(2);
+
+		for (const listItem of listItems) {
+			expect(listItem.tagName).toBe('LI');
+			expect(listItem).toHaveAttribute('data-sonner-toast');
+			// `role="status"` is not allowed on `li`; the toast is a live region via aria-live.
+			expect(listItem).not.toHaveAttribute('role');
+			expect(listItem).toHaveAttribute('aria-live', 'polite');
+			expect(listItem).toHaveAttribute('aria-atomic', 'true');
+		}
+	});
+
+	it('should not have accessibility violations', async () => {
+		const { user, trigger, container } = await setup({
+			callback: (toast) =>
+				toast('Saved', {
+					description: 'Your changes have been saved',
+					action: { label: 'Undo', onClick: noop },
+				}),
+		});
+
+		await user.click(trigger);
+		await waitFor(() => expect(container.querySelector('[data-sonner-toast]')).not.toBeNull());
+
+		expect(await axe(container)).toHaveNoViolations();
 	});
 
 	it('should show a toast with custom duration', async () => {

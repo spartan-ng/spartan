@@ -89,6 +89,41 @@ const open = async (host: Type<ScrollContainerHost>, scrollStrategy: BrnOverlayO
 	return { ref, overlayRef, updatePosition, scroller, gap };
 };
 
+describe('BrnOverlayService aria-modal', () => {
+	afterEach(() => {
+		TestBed.resetTestingModule();
+		document.querySelectorAll('.cdk-overlay-container').forEach((el) => el.remove());
+	});
+
+	const openWithAria = (ariaModal: boolean) => {
+		const fixture = TestBed.createComponent(ScrollContainerHost);
+		fixture.detectChanges();
+		const component = fixture.componentInstance;
+		const createSpy = vi.spyOn(TestBed.inject(Overlay), 'create');
+
+		TestBed.inject(BrnOverlayService).open(component.content(), component.vcr, {}, {
+			attachTo: component.anchor(),
+			attachPositions: [{ originX: 'start', originY: 'bottom', overlayX: 'start', overlayY: 'top' }],
+			role: 'dialog',
+			ariaModal,
+		});
+
+		return (createSpy.mock.results[0].value as OverlayRef).overlayElement;
+	};
+
+	it('sets aria-modal when ariaModal is true', () => {
+		const pane = openWithAria(true);
+		expect(pane.getAttribute('role')).toBe('dialog');
+		expect(pane.getAttribute('aria-modal')).toBe('true');
+	});
+
+	it('omits aria-modal when ariaModal is false', () => {
+		const pane = openWithAria(false);
+		expect(pane.getAttribute('role')).toBe('dialog');
+		expect(pane.hasAttribute('aria-modal')).toBe(false);
+	});
+});
+
 describe('BrnOverlayService scroll containers', () => {
 	afterEach(() => {
 		TestBed.resetTestingModule();

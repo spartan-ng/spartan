@@ -1,3 +1,17 @@
+## <small>1.8.3 (2026-10-27)</small>
+
+- fix: 1.8.3 (#1840) ([691276b](https://github.com/spartan-ng/spartan/commit/691276b)), closes [#1840](https://github.com/spartan-ng/spartan/issues/1840) [#1833](https://github.com/spartan-ng/spartan/issues/1833) [#1834](https://github.com/spartan-ng/spartan/issues/1834) [#1830](https://github.com/spartan-ng/spartan/issues/1830) [#1724](https://github.com/spartan-ng/spartan/issues/1724) [#1835](https://github.com/spartan-ng/spartan/issues/1835)
+- fix(cli): report the stylesheet that imports Tailwind in info (#1834) ([142c0c0](https://github.com/spartan-ng/spartan/commit/142c0c0)), closes [#1834](https://github.com/spartan-ng/spartan/issues/1834)
+- fix(questionnaire): move actions min-height into theme styles (#1830) ([16d4442](https://github.com/spartan-ng/spartan/commit/16d4442)), closes [#1830](https://github.com/spartan-ng/spartan/issues/1830) [#1724](https://github.com/spartan-ng/spartan/issues/1724)
+- fix(sonner): fix toaster list semantics and aria role (#1835) ([f94ee10](https://github.com/spartan-ng/spartan/commit/f94ee10)), closes [#1835](https://github.com/spartan-ng/spartan/issues/1835)
+- fix(sonner): remove the theme preference listener from the list it was added to (#1833) ([d7a719b](https://github.com/spartan-ng/spartan/commit/d7a719b)), closes [#1833](https://github.com/spartan-ng/spartan/issues/1833)
+- chore(release): 1.8.3-beta.1 ([92892d5](https://github.com/spartan-ng/spartan/commit/92892d5))
+- chore(release): 1.8.3-beta.2 ([80f934e](https://github.com/spartan-ng/spartan/commit/80f934e))
+- chore(release): backmerge main into beta ([c2743c9](https://github.com/spartan-ng/spartan/commit/c2743c9))
+- chore(release): backmerge main into beta ([28359e6](https://github.com/spartan-ng/spartan/commit/28359e6))
+- chore(release): backmerge main into beta ([3d491e8](https://github.com/spartan-ng/spartan/commit/3d491e8))
+- docs: add new contributors to our 300 ([4851f7c](https://github.com/spartan-ng/spartan/commit/4851f7c))
+
 ## <small>1.8.3-beta.2 (2026-10-27)</small>
 
 - fix(sonner): fix toaster list semantics and aria role (#1835) ([f94ee10](https://github.com/spartan-ng/spartan/commit/f94ee10)), closes [#1835](https://github.com/spartan-ng/spartan/issues/1835)

@@ -8,30 +8,39 @@ export const BRN_TOOLTIP_POSITIONS_MAP: Record<BrnTooltipPosition, ConnectedPosi
 		originY: 'top',
 		overlayX: 'center',
 		overlayY: 'bottom',
-		offsetY: -8,
 	},
 	bottom: {
 		originX: 'center',
 		originY: 'bottom',
 		overlayX: 'center',
 		overlayY: 'top',
-		offsetY: 8,
 	},
 	left: {
 		originX: 'start',
 		originY: 'center',
 		overlayX: 'end',
 		overlayY: 'center',
-		offsetX: -8,
 	},
 	right: {
 		originX: 'end',
 		originY: 'center',
 		overlayX: 'start',
 		overlayY: 'center',
-		offsetX: 8,
 	},
 };
+
+export function getTooltipSideOffset(position: BrnTooltipPosition, sideOffset: number): { x: number; y: number } {
+	switch (position) {
+		case 'top':
+			return { x: 0, y: -sideOffset };
+		case 'bottom':
+			return { x: 0, y: sideOffset };
+		case 'left':
+			return { x: -sideOffset, y: 0 };
+		case 'right':
+			return { x: sideOffset, y: 0 };
+	}
+}
 
 /** Fallback order for each preferred position when it doesn't fit in the viewport. */
 export const BRN_TOOLTIP_FALLBACK_POSITIONS: Record<BrnTooltipPosition, BrnTooltipPosition[]> = {

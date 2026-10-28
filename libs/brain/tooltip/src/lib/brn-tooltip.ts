@@ -29,6 +29,7 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 import { Directionality } from '@angular/cdk/bidi';
+import type { NumberInput } from '@angular/cdk/coercion';
 import { hasModifierKey } from '@angular/cdk/keycodes';
 import { waitForElementAnimations } from '@spartan-ng/brain/core';
 import { of, Subject, Subscription, timer } from 'rxjs';
@@ -39,6 +40,7 @@ import {
 	BRN_TOOLTIP_FALLBACK_POSITIONS,
 	BRN_TOOLTIP_POSITIONS_MAP,
 	BrnTooltipPosition,
+	getTooltipSideOffset,
 	resolveTooltipPosition,
 } from './brn-tooltip-position';
 import { BrnTooltipType } from './brn-tooltip-type';
@@ -84,6 +86,7 @@ export class BrnTooltip {
 	public readonly brnTooltip = input<BrnTooltipType>(null);
 	public readonly showDelay = input<number, number>(this._config.showDelay, { transform: numberAttribute });
 	public readonly hideDelay = input<number, number>(this._config.hideDelay, { transform: numberAttribute });
+	public readonly sideOffset = input<number, NumberInput>(this._config.sideOffset, { transform: numberAttribute });
 
 	public readonly show = output<void>();
 	public readonly hide = output<void>();
@@ -209,8 +212,9 @@ export class BrnTooltip {
 	private _getAdjustedPositionFor(pos: BrnTooltipPosition): ConnectedPosition {
 		const position = BRN_TOOLTIP_POSITIONS_MAP[pos];
 		const isLtr = this._dir.value !== 'rtl';
-		const baseOffsetX = position.offsetX != null ? (isLtr ? position.offsetX : -position.offsetX) : 0;
-		const baseOffsetY = position.offsetY ?? 0;
+		const { x: sideOffsetX, y: sideOffsetY } = getTooltipSideOffset(pos, this.sideOffset());
+		const baseOffsetX = isLtr ? sideOffsetX : -sideOffsetX;
+		const baseOffsetY = sideOffsetY;
 		const { x: compensationX, y: compensationY } = this._getVisualViewportCompensation(position, isLtr);
 
 		// CDK renders offsetX/offsetY as a transform on the pane, so fold the viewport compensation in here.

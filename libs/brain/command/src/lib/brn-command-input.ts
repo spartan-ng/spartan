@@ -6,6 +6,7 @@ import { injectBrnCommand } from './brn-command.token';
 
 @Directive({
 	selector: 'input[brnCommandInput]',
+	exportAs: 'brnCommandInput',
 	providers: [provideBrnCommandInput(BrnCommandInput)],
 	host: {
 		'[id]': 'id()',

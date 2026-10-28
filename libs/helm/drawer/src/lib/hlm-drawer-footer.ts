@@ -3,6 +3,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
 	selector: '[hlmDrawerFooter],hlm-drawer-footer',
+	exportAs: 'hlmDrawerFooter',
 	host: { 'data-slot': 'drawer-footer' },
 })
 export class HlmDrawerFooter {

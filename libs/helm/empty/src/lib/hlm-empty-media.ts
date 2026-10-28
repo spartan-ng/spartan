@@ -21,6 +21,7 @@ export type EmptyMediaVariants = VariantProps<typeof emptyMediaVariants>;
 
 @Directive({
 	selector: '[hlmEmptyMedia],hlm-empty-media',
+	exportAs: 'hlmEmptyMedia',
 	host: {
 		'data-slot': 'empty-media',
 		'[attr.data-variant]': 'variant()',

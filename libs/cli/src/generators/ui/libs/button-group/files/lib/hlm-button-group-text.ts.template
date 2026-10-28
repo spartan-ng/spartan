@@ -3,6 +3,7 @@ import { classes } from '<%- importAlias %>/utils';
 
 @Directive({
 	selector: '[hlmButtonGroupText],hlm-button-group-text',
+	exportAs: 'hlmButtonGroupText',
 	host: {
 		'data-slot': 'button-group-text',
 	},

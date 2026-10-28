@@ -4,6 +4,7 @@ import { classes } from '<%- importAlias %>/utils';
 
 @Directive({
 	selector: '[hlmComboboxList]',
+	exportAs: 'hlmComboboxList',
 	hostDirectives: [{ directive: BrnComboboxList, inputs: ['id'] }],
 	host: { 'data-slot': 'combobox-list' },
 })

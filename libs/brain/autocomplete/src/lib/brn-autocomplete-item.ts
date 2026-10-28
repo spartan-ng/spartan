@@ -8,6 +8,7 @@ import { injectBrnAutocompleteBase } from './brn-autocomplete.token';
 
 @Directive({
 	selector: '[brnAutocompleteItem]',
+	exportAs: 'brnAutocompleteItem',
 	providers: [provideBrnAutocompleteItem(BrnAutocompleteItem)],
 	host: {
 		role: 'option',

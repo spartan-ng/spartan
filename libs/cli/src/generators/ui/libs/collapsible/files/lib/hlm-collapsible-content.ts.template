@@ -4,6 +4,7 @@ import { classes } from '<%- importAlias %>/utils';
 
 @Directive({
 	selector: '[hlmCollapsibleContent],hlm-collapsible-content',
+	exportAs: 'hlmCollapsibleContent',
 	hostDirectives: [{ directive: BrnCollapsibleContent, inputs: ['id'] }],
 	host: { 'data-slot': 'collapsible-content' },
 })

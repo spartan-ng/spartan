@@ -6,6 +6,7 @@ import { BrnSelectContent } from './brn-select-content';
 
 @Directive({
 	selector: '[brnSelectScrollUp]',
+	exportAs: 'brnSelectScrollUp',
 	host: {
 		'aria-hidden': 'true',
 		'[attr.data-hidden]': '!_showScrollUp() ? "" : null',

@@ -13,6 +13,7 @@ import { injectHlmMenubarConfig } from './hlm-menubar-token';
 
 @Directive({
 	selector: 'button[hlmMenubarTrigger]',
+	exportAs: 'hlmMenubarTrigger',
 	providers: [{ provide: MENU_SIDE, useExisting: forwardRef(() => HlmMenubarTrigger) }],
 	hostDirectives: [
 		{

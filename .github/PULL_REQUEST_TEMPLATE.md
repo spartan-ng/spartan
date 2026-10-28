@@ -43,6 +43,7 @@ What kind of change does this PR introduce?
 - [ ] carousel
 - [ ] chart
 - [ ] checkbox
+- [ ] code-block
 - [ ] collapsible
 - [ ] combobox
 - [ ] command
@@ -89,6 +90,7 @@ What kind of change does this PR introduce?
 - [ ] toggle
 - [ ] toggle-group
 - [ ] tooltip
+- [ ] trace
 - [ ] typography
 
 ### Others

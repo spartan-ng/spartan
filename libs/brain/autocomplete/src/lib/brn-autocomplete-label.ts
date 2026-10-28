@@ -2,6 +2,7 @@ import { Directive, input } from '@angular/core';
 
 @Directive({
 	selector: '[brnAutocompleteLabel]',
+	exportAs: 'brnAutocompleteLabel',
 	host: {
 		'[id]': 'id()',
 	},

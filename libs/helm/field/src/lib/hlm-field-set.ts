@@ -3,6 +3,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
 	selector: 'fieldset[hlmFieldSet]',
+	exportAs: 'hlmFieldSet',
 	host: { 'data-slot': 'field-set' },
 })
 export class HlmFieldSet {

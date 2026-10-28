@@ -7,6 +7,7 @@ import { classes } from '@spartan-ng/helm/utils';
 @Component({
 	// eslint-disable-next-line @angular-eslint/component-selector
 	selector: 'button[hlmNavigationMenuTrigger]',
+	exportAs: 'hlmNavigationMenuTrigger',
 	imports: [NgIcon],
 	providers: [provideIcons({ lucideChevronDown })],
 	changeDetection: ChangeDetectionStrategy.OnPush,

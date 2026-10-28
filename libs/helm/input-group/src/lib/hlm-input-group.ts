@@ -3,6 +3,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
 	selector: '[hlmInputGroup],hlm-input-group',
+	exportAs: 'hlmInputGroup',
 	host: {
 		'data-slot': 'input-group',
 		role: 'group',

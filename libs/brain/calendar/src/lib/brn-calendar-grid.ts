@@ -3,6 +3,7 @@ import { injectBrnCalendar } from './brn-calendar.token';
 
 @Directive({
 	selector: '[brnCalendarGrid]',
+	exportAs: 'brnCalendarGrid',
 	host: {
 		role: 'grid',
 		'[attr.aria-labelledby]': '_calendar.header()?.id()',

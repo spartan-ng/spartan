@@ -3,6 +3,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
 	selector: '[hlmSheetHeader],hlm-sheet-header',
+	exportAs: 'hlmSheetHeader',
 	host: { 'data-slot': 'sheet-header' },
 })
 export class HlmSheetHeader {

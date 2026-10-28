@@ -3,6 +3,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
 	selector: 'ul[hlmSidebarMenuSub]',
+	exportAs: 'hlmSidebarMenuSub',
 	host: {
 		'data-slot': 'sidebar-menu-sub',
 		'data-sidebar': 'menu-sub',

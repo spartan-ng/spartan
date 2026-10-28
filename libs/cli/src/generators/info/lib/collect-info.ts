@@ -82,8 +82,15 @@ function detectIconLibrary(dependencies: Record<string, string>): string | null 
 	return Object.keys(dependencies).some((dep) => dep.startsWith('@ng-icons/')) ? '@ng-icons' : null;
 }
 
+// `@import "tailwindcss"` or one of its parts, e.g. `@import 'tailwindcss/theme.css' layer(theme)`.
+const TAILWIND_IMPORT = /@import\s+(?:url\()?["']tailwindcss(?:\/[^"']*)?["']/;
+
 function detectStyleFile(tree: Tree): string | null {
-	return STYLE_FILE_CANDIDATES.find((candidate) => tree.exists(candidate)) ?? null;
+	const existing = STYLE_FILE_CANDIDATES.filter((candidate) => tree.exists(candidate));
+	// Prefer the stylesheet that imports Tailwind: an app may keep `src/styles.scss` next to a
+	// separate `src/tailwind.css`.
+	const importsTailwind = existing.find((candidate) => TAILWIND_IMPORT.test(tree.read(candidate, 'utf-8') ?? ''));
+	return importsTailwind ?? existing[0] ?? null;
 }
 
 function detectInstalledComponents(tree: Tree, importAlias: string, availableComponents: string[]): string[] {

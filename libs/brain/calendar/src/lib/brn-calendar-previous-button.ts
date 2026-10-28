@@ -5,6 +5,7 @@ import { injectBrnCalendarI18n } from './i18n/calendar-i18n';
 
 @Directive({
 	selector: 'button[brnCalendarPreviousButton]',
+	exportAs: 'brnCalendarPreviousButton',
 	host: {
 		type: 'button',
 		'data-slot': 'calendar-previous-button',

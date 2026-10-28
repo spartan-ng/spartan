@@ -3,6 +3,7 @@ import { booleanAttribute, ChangeDetectionStrategy, Component, input } from '@an
 
 @Component({
 	selector: 'brn-sonner-loader',
+	exportAs: 'brnSonnerLoader',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div class="sonner-loading-wrapper" [attr.data-visible]="isVisible()">

@@ -6,6 +6,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Component({
 	selector: 'hlm-autocomplete-item',
+	exportAs: 'hlmAutocompleteItem',
 	imports: [NgIcon],
 	providers: [provideIcons({ lucideCheck })],
 	changeDetection: ChangeDetectionStrategy.OnPush,

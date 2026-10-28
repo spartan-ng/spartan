@@ -140,4 +140,19 @@ describe('migrate-collapsible generator', () => {
 		expect(content).toContain(`</hlm-collapsible-content>`);
 		expect(content).toContain(`</hlm-collapsible>`);
 	});
+
+	it('should leave the Helm Trace collapsible files untouched', async () => {
+		const traceCollapsible = `
+			import { Directive } from '@angular/core';
+			import { BrnCollapsible } from '@spartan-ng/brain/collapsible';
+
+			@Directive({ selector: 'hlm-trace-collapsible' })
+			export class HlmTraceCollapsible {}
+		`;
+		tree.write('libs/ui/trace/src/lib/hlm-trace-collapsible.ts', traceCollapsible);
+
+		await migrateCollapsibleGenerator(tree, { skipFormat: true });
+
+		expect(tree.read('libs/ui/trace/src/lib/hlm-trace-collapsible.ts', 'utf-8')).toBe(traceCollapsible);
+	});
 });

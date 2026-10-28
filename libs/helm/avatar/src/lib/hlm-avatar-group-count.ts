@@ -3,6 +3,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
 	selector: '[hlmAvatarGroupCount],hlm-avatar-group-count',
+	exportAs: 'hlmAvatarGroupCount',
 	host: {
 		'data-slot': 'avatar-group-count',
 	},

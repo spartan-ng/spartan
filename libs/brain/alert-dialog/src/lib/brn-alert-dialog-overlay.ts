@@ -4,6 +4,7 @@ import { BrnDialogOverlay } from '@spartan-ng/brain/dialog';
 
 @Directive({
 	selector: '[brnAlertDialogOverlay],brn-alert-dialog-overlay',
+	exportAs: 'brnAlertDialogOverlay',
 	providers: [provideCustomClassSettableExisting(() => BrnAlertDialogOverlay)],
 })
 export class BrnAlertDialogOverlay extends BrnDialogOverlay {}

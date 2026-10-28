@@ -3,6 +3,7 @@ import { injectBrnSelectBase } from './brn-select.token';
 
 @Directive({
 	selector: '[brnSelectPlaceholder]',
+	exportAs: 'brnSelectPlaceholder',
 	host: {
 		'[attr.data-hidden]': '_hasValue() ? "" : null',
 	},

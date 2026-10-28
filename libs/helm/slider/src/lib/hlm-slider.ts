@@ -4,6 +4,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Component({
 	selector: 'hlm-slider, brn-slider [hlm]',
+	exportAs: 'hlmSlider',
 	imports: [BrnSliderImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	hostDirectives: [

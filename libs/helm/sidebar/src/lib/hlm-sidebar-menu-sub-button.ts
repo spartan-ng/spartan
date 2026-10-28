@@ -6,6 +6,7 @@ import { injectHlmSidebarConfig } from './hlm-sidebar.token';
 
 @Directive({
 	selector: 'a[hlmSidebarMenuSubButton], button[hlmSidebarMenuSubButton]',
+	exportAs: 'hlmSidebarMenuSubButton',
 	host: {
 		'data-slot': 'sidebar-menu-sub-button',
 		'data-sidebar': 'menu-sub-button',

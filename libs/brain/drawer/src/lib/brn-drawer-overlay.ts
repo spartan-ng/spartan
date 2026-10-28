@@ -4,6 +4,7 @@ import { BrnDialogOverlay } from '@spartan-ng/brain/dialog';
 
 @Directive({
 	selector: '[brnDrawerOverlay],brn-drawer-overlay',
+	exportAs: 'brnDrawerOverlay',
 	providers: [provideCustomClassSettableExisting(() => BrnDrawerOverlay)],
 })
 export class BrnDrawerOverlay extends BrnDialogOverlay {}

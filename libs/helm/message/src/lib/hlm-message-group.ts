@@ -3,6 +3,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
 	selector: '[hlmMessageGroup],hlm-message-group',
+	exportAs: 'hlmMessageGroup',
 	host: { 'data-slot': 'message-group' },
 })
 export class HlmMessageGroup {

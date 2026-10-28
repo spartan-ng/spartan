@@ -6,6 +6,7 @@ import type { ClassValue } from 'clsx';
 
 @Directive({
 	selector: '[hlmRadioGroup],hlm-radio-group',
+	exportAs: 'hlmRadioGroup',
 	hostDirectives: [
 		{
 			directive: BrnRadioGroup,

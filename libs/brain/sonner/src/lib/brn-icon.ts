@@ -3,6 +3,7 @@ import type { ToastTypes } from './types';
 
 @Component({
 	selector: 'brn-sonner-icon',
+	exportAs: 'brnSonnerIcon',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		@switch (type()) {

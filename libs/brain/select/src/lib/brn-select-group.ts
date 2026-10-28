@@ -3,6 +3,7 @@ import { BrnSelectLabel } from './brn-select-label';
 
 @Directive({
 	selector: '[brnSelectGroup]',
+	exportAs: 'brnSelectGroup',
 	host: {
 		role: 'group',
 		'[attr.aria-labelledby]': '_labelledby()',

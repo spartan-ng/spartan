@@ -4,6 +4,7 @@ import { injectHlmSidebarConfig } from './hlm-sidebar.token';
 
 @Directive({
 	selector: '[hlmSidebarWrapper],hlm-sidebar-wrapper',
+	exportAs: 'hlmSidebarWrapper',
 	host: {
 		'data-slot': 'sidebar-wrapper',
 		'[style.--sidebar-width]': 'sidebarWidth()',

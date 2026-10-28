@@ -3,6 +3,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
 	selector: '[hlmBreadcrumbPage]',
+	exportAs: 'hlmBreadcrumbPage',
 	host: {
 		'data-slot': 'breadcrumb-page',
 		role: 'link',

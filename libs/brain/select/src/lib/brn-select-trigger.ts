@@ -8,6 +8,7 @@ import { injectBrnSelectBase } from './brn-select.token';
 
 @Directive({
 	selector: 'button[brnSelectTrigger]',
+	exportAs: 'brnSelectTrigger',
 	host: {
 		role: 'combobox',
 		'aria-haspopup': 'listbox',

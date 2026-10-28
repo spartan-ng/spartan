@@ -12,6 +12,7 @@ const parseDividedString = (value: NumberInput): NumberInput => {
 
 @Directive({
 	selector: '[hlmAspectRatio]',
+	exportAs: 'hlmAspectRatio',
 	host: {
 		'data-slot': 'aspect-ratio',
 		'[style.--ratio]': 'ratio()',

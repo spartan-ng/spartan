@@ -4,6 +4,7 @@ import { injectBrnComboboxBase } from './brn-combobox.token';
 
 @Directive({
 	selector: 'button[brnComboboxTrigger]',
+	exportAs: 'brnComboboxTrigger',
 	host: {
 		type: 'button',
 		role: 'combobox',

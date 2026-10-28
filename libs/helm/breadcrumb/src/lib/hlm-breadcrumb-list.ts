@@ -3,6 +3,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
 	selector: '[hlmBreadcrumbList]',
+	exportAs: 'hlmBreadcrumbList',
 	host: {
 		'data-slot': 'breadcrumb-list',
 	},

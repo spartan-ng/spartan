@@ -3,6 +3,7 @@ import { injectBrnAccordion } from './brn-accordion-token';
 
 @Directive({
 	selector: '[brnAccordionHeader]',
+	exportAs: 'brnAccordionHeader',
 	host: {
 		'[attr.data-orientation]': '_orientation()',
 	},

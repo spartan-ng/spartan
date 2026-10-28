@@ -3,12 +3,17 @@ import { z } from 'zod';
 import { KNOWN_COMPONENTS, SPARTAN_COMPONENTS_BASE, extractAPIInfo, extractCodeBlocks, fetchContent } from './utils.js';
 
 export function registerPromptHandlers(server: McpServer): void {
-	server.prompt(
+	server.registerPrompt(
 		'spartan-get-started',
-		'Get started with a Spartan UI component',
 		{
-			componentName: z.string().describe("Name of the Spartan UI component (e.g., 'button', 'calendar')"),
-			variant: z.enum(['brain', 'helm']).optional().describe("Which API to use: 'brain' (unstyled) or 'helm' (styled)"),
+			description: 'Get started with a Spartan UI component',
+			argsSchema: {
+				componentName: z.string().describe("Name of the Spartan UI component (e.g., 'button', 'calendar')"),
+				variant: z
+					.enum(['brain', 'helm'])
+					.optional()
+					.describe("Which API to use: 'brain' (unstyled) or 'helm' (styled)"),
+			},
 		},
 		async (args) => {
 			const componentName = args.componentName.toLowerCase();
@@ -91,11 +96,13 @@ npm install @spartan-ng/${variant === 'brain' ? 'brain' : 'helm'}/${componentNam
 		},
 	);
 
-	server.prompt(
+	server.registerPrompt(
 		'spartan-compare-apis',
-		'Compare Brain API vs Helm API for a component',
 		{
-			componentName: z.string().describe('Name of the Spartan UI component to compare'),
+			description: 'Compare Brain API vs Helm API for a component',
+			argsSchema: {
+				componentName: z.string().describe('Name of the Spartan UI component to compare'),
+			},
 		},
 		async (args) => {
 			const componentName = args.componentName.toLowerCase();
@@ -146,13 +153,15 @@ More details: ${componentUrl}
 		},
 	);
 
-	server.prompt(
+	server.registerPrompt(
 		'spartan-implement-feature',
-		'Get help implementing a specific feature with a Spartan UI component',
 		{
-			componentName: z.string().describe('Spartan UI component to use'),
-			feature: z.string().describe("Feature to implement (e.g., 'form validation', 'multi-select', 'date range')"),
-			framework: z.string().optional().describe("Framework context (e.g., 'standalone', 'NgModule', 'with Signals')"),
+			description: 'Get help implementing a specific feature with a Spartan UI component',
+			argsSchema: {
+				componentName: z.string().describe('Spartan UI component to use'),
+				feature: z.string().describe("Feature to implement (e.g., 'form validation', 'multi-select', 'date range')"),
+				framework: z.string().optional().describe("Framework context (e.g., 'standalone', 'NgModule', 'with Signals')"),
+			},
 		},
 		async (args) => {
 			const componentName = args.componentName.toLowerCase();
@@ -202,12 +211,14 @@ Need more help? Check the full documentation: ${componentUrl}
 		},
 	);
 
-	server.prompt(
+	server.registerPrompt(
 		'spartan-troubleshoot',
-		'Get help troubleshooting issues with a Spartan UI component',
 		{
-			componentName: z.string().describe("Component you're having issues with"),
-			issue: z.string().describe('Description of the problem'),
+			description: 'Get help troubleshooting issues with a Spartan UI component',
+			argsSchema: {
+				componentName: z.string().describe("Component you're having issues with"),
+				issue: z.string().describe('Description of the problem'),
+			},
 		},
 		async (args) => {
 			const componentName = args.componentName.toLowerCase();
@@ -268,9 +279,11 @@ Still stuck? Provide more details about your setup and error messages.
 		},
 	);
 
-	server.prompt(
+	server.registerPrompt(
 		'spartan-list-components',
-		'List all available Spartan UI components with their categories',
+		{
+			description: 'List all available Spartan UI components with their categories',
+		},
 		async () => {
 			const categories: Record<string, string[]> = {
 				'Form Controls': [
@@ -294,15 +307,26 @@ Still stuck? Provide more details about your setup and error messages.
 					'toggle-group',
 					'slider',
 				],
-				'Data Display': ['table', 'card', 'badge', 'avatar', 'separator', 'progress', 'skeleton', 'spinner', 'chart'],
+				'Data Display': [
+					'table',
+					'card',
+					'badge',
+					'avatar',
+					'separator',
+					'progress',
+					'skeleton',
+					'spinner',
+					'chart',
+					'code-block',
+				],
 				Navigation: ['breadcrumb', 'menubar', 'pagination', 'tabs', 'command'],
 				Feedback: ['alert', 'alert-dialog', 'dialog', 'sonner', 'tooltip', 'hover-card'],
-				Overlay: ['popover', 'dropdown-menu', 'context-menu', 'sheet'],
+				Overlay: ['popover', 'dropdown-menu', 'context-menu', 'sheet', 'drawer'],
 				Layout: ['aspect-ratio', 'scroll-area', 'collapsible', 'accordion', 'carousel', 'resizable', 'sidebar'],
 				'Date & Time': ['calendar', 'date-picker'],
-				Advanced: ['data-table', 'form-field', 'combobox', 'icon', 'navigation-menu'],
+				Advanced: ['data-table', 'combobox', 'navigation-menu'],
 				Utility: ['empty', 'kbd'],
-				Chat: ['attachment', 'bubble', 'marker', 'message', 'message-scroller'],
+				Chat: ['attachment', 'bubble', 'marker', 'message', 'message-scroller', 'trace'],
 			};
 			const categorized = new Set(Object.values(categories).flat());
 			const additional = KNOWN_COMPONENTS.filter((component) => !categorized.has(component));

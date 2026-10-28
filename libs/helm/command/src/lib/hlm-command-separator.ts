@@ -4,6 +4,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
 	selector: '[hlmCommandSeparator],hlm-command-separator',
+	exportAs: 'hlmCommandSeparator',
 	hostDirectives: [BrnCommandSeparator],
 	host: {
 		'data-slot': 'command-separator',

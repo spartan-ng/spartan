@@ -4,6 +4,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
 	selector: '[hlmTabsContent]',
+	exportAs: 'hlmTabsContent',
 	hostDirectives: [{ directive: BrnTabsContent, inputs: ['brnTabsContent: hlmTabsContent'] }],
 	host: {
 		'data-slot': 'tabs-content',

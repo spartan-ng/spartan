@@ -3,6 +3,7 @@ import { classes } from '<%- importAlias %>/utils';
 
 @Directive({
 	selector: '[hlmCommandShortcut],hlm-command-shortcut',
+	exportAs: 'hlmCommandShortcut',
 	host: {
 		'data-slot': 'command-shortcut',
 	},

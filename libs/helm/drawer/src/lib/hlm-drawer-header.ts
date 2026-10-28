@@ -3,6 +3,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
 	selector: '[hlmDrawerHeader],hlm-drawer-header',
+	exportAs: 'hlmDrawerHeader',
 	host: { 'data-slot': 'drawer-header' },
 })
 export class HlmDrawerHeader {

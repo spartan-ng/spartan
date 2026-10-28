@@ -5,6 +5,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Component({
 	selector: 'hlm-dropdown-menu-checkbox-indicator',
+	exportAs: 'hlmDropdownMenuCheckboxIndicator',
 	imports: [NgIcon],
 	providers: [provideIcons({ lucideCheck })],
 	changeDetection: ChangeDetectionStrategy.OnPush,

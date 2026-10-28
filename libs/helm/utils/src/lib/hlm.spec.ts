@@ -1,11 +1,15 @@
+import { NgClass } from '@angular/common';
 import {
 	AfterViewInit,
 	ChangeDetectionStrategy,
 	Component,
 	createEnvironmentInjector,
+	Directive,
+	DoCheck,
 	ElementRef,
 	EnvironmentInjector,
 	Injector,
+	provideZoneChangeDetection,
 	runInInjectionContext,
 	signal,
 	viewChild,
@@ -510,5 +514,43 @@ describe('classes', () => {
 		expect(classNames).toContain('custom-utility');
 		expect(classNames).toContain('data-testid');
 		expect(classNames).toContain('external-added-class');
+	});
+
+	// https://github.com/spartan-ng/spartan/issues/1823
+	it('should not trigger zone change detection loops when class attributes are rewritten', async () => {
+		@Directive({ selector: '[hlmTestClasses]' })
+		class TestClassesDirective {
+			constructor() {
+				classes(() => 'inline-flex');
+			}
+		}
+
+		let checks = 0;
+
+		@Component({
+			imports: [NgClass, TestClassesDirective],
+			// the loop only happens when the host is checked on every pass
+			// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
+			changeDetection: ChangeDetectionStrategy.Eager,
+			// NgClass calls removeClass on every check, which mutates the class attribute
+			template: `
+				<span hlmTestClasses>badge</span>
+				<div class="foo" [ngClass]="{ foo: false }"></div>
+			`,
+		})
+		class TestComponent implements DoCheck {
+			ngDoCheck() {
+				// a loop would never yield, so bail out to keep the test from hanging
+				if (++checks > 50) throw new Error('change detection loop');
+			}
+		}
+
+		TestBed.configureTestingModule({ providers: [provideZoneChangeDetection()] });
+		const fixture = TestBed.createComponent(TestComponent);
+		fixture.autoDetectChanges();
+		await fixture.whenStable();
+		await new Promise((resolve) => setTimeout(resolve, 50));
+
+		expect(checks).toBeLessThan(10);
 	});
 });

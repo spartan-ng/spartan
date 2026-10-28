@@ -1,5 +1,6 @@
 import { visitNotIgnoredFiles } from '@nx/devkit';
 import { migrateCollapsibleGenerator } from '../../migrate-collapsible/generator';
+import { HELM_COLLAPSIBLE_FILES } from '../../migrate-collapsible/helm-collapsible-files';
 import { type Healthcheck, HealthcheckSeverity } from '../healthchecks';
 
 export const brainCollapsibleHealthcheck: Healthcheck = {
@@ -11,12 +12,8 @@ export const brainCollapsibleHealthcheck: Healthcheck = {
 				return;
 			}
 
-			// skip HlmCollapsible itself
-			if (
-				file.endsWith('hlm-collapsible.ts') ||
-				file.endsWith('hlm-collapsible-trigger.ts') ||
-				file.endsWith('hlm-collapsible-content.ts')
-			) {
+			// skip the Helm Collapsible and Trace implementations
+			if (HELM_COLLAPSIBLE_FILES.some((name) => file.endsWith(name))) {
 				return;
 			}
 

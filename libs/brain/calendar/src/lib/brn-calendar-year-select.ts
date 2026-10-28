@@ -7,6 +7,7 @@ import { injectBrnCalendarI18n } from './i18n/calendar-i18n';
 
 @Directive({
 	selector: 'brnSelect[brnCalendarYearSelect],hlm-select[brnCalendarYearSelect]',
+	exportAs: 'brnCalendarYearSelect',
 })
 export class BrnCalendarYearSelect {
 	/** Access the select */
@@ -46,6 +47,11 @@ export class BrnCalendarYearSelect {
 		const targetDate = this._dateAdapter.set(this._dateAdapter.startOfMonth(focusedDate), { year });
 		const lastDay = this._dateAdapter.getDate(this._dateAdapter.endOfMonth(targetDate));
 		const day = Math.min(this._dateAdapter.getDate(focusedDate), lastDay);
-		this._calendar.setFocusedDate(this._dateAdapter.set(targetDate, { day }));
+		// Like the previous/next buttons, constrain the target to min/max instead of letting
+		// setFocusedDate reject it: otherwise the grid stays on the old year.
+		const target = this._calendar.constrainDate(this._dateAdapter.set(targetDate, { day }));
+		this._calendar.setFocusedDate(target);
+		// Keep the select on the year actually shown when the target was rejected.
+		this._select.writeValue(this._dateAdapter.getYear(this._calendar.focusedDate()));
 	}
 }

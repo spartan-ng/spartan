@@ -6,6 +6,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Component({
 	selector: 'hlm-select-scroll-down',
+	exportAs: 'hlmSelectScrollDown',
 	imports: [NgIcon],
 	providers: [provideIcons({ lucideChevronDown })],
 	changeDetection: ChangeDetectionStrategy.OnPush,

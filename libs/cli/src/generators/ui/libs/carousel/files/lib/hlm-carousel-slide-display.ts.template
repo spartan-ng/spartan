@@ -4,6 +4,7 @@ import { HlmCarousel } from './hlm-carousel';
 
 @Component({
 	selector: 'hlm-carousel-slide-display',
+	exportAs: 'hlmCarouselSlideDisplay',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'data-slot': 'carousel-slide-display',

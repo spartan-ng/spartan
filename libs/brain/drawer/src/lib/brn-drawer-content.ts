@@ -9,6 +9,7 @@ import { BrnDrawer } from './brn-drawer';
 
 @Directive({
 	selector: '[brnDrawerContent]',
+	exportAs: 'brnDrawerContent',
 	providers: [
 		provideExposesStateProviderExisting(() => BrnDrawerContent),
 		provideExposedSideProviderExisting(() => BrnDrawerContent),

@@ -6,6 +6,7 @@ import { BrnLabelable } from './brn-labelable';
 
 @Directive({
 	selector: '[brnField],brn-field',
+	exportAs: 'brnField',
 	providers: [BrnFieldA11yService],
 	host: {
 		'[attr.data-invalid]': '_invalid() ? "true" : null',

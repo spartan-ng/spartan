@@ -4,6 +4,7 @@ import { provideScrollbarOptions } from 'ngx-scrollbar';
 
 @Directive({
 	selector: 'ng-scrollbar[hlm],ng-scrollbar[hlmScrollbar]',
+	exportAs: 'hlmScrollArea',
 	providers: [provideScrollbarOptions({ visibility: 'hover' })],
 	host: {
 		'data-slot': 'scroll-area',

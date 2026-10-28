@@ -4,6 +4,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
 	selector: '[hlmMenubar],hlm-menubar',
+	exportAs: 'hlmMenubar',
 	hostDirectives: [CdkMenuBar],
 	host: {
 		'data-slot': 'menubar',

@@ -2,6 +2,7 @@ import { Directive, input } from '@angular/core';
 
 @Directive({
 	selector: '[hlmBreadcrumb]',
+	exportAs: 'hlmBreadcrumb',
 	host: {
 		'data-slot': 'breadcrumb',
 		role: 'navigation',

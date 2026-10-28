@@ -8,6 +8,7 @@ const PAGE_KEYS = ['PageUp', 'PageDown'];
 
 @Directive({
 	selector: '[brnSliderThumb]',
+	exportAs: 'brnSliderThumb',
 	host: {
 		role: 'slider',
 		'[attr.aria-label]': `_computedAriaLabel()`,

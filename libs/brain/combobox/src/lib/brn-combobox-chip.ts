@@ -3,6 +3,7 @@ import { injectBrnComboboxBase } from './brn-combobox.token';
 
 @Directive({
 	selector: '[brnComboboxChip]',
+	exportAs: 'brnComboboxChip',
 	host: {
 		tabindex: '-1',
 		'[attr.data-disabled]': '_disabled() ? "" : null',

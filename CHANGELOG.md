@@ -1,3 +1,99 @@
+## <small>1.8.3 (2026-10-27)</small>
+
+- fix: 1.8.3 (#1840) ([691276b](https://github.com/spartan-ng/spartan/commit/691276b)), closes [#1840](https://github.com/spartan-ng/spartan/issues/1840) [#1833](https://github.com/spartan-ng/spartan/issues/1833) [#1834](https://github.com/spartan-ng/spartan/issues/1834) [#1830](https://github.com/spartan-ng/spartan/issues/1830) [#1724](https://github.com/spartan-ng/spartan/issues/1724) [#1835](https://github.com/spartan-ng/spartan/issues/1835)
+- fix(cli): report the stylesheet that imports Tailwind in info (#1834) ([142c0c0](https://github.com/spartan-ng/spartan/commit/142c0c0)), closes [#1834](https://github.com/spartan-ng/spartan/issues/1834)
+- fix(questionnaire): move actions min-height into theme styles (#1830) ([16d4442](https://github.com/spartan-ng/spartan/commit/16d4442)), closes [#1830](https://github.com/spartan-ng/spartan/issues/1830) [#1724](https://github.com/spartan-ng/spartan/issues/1724)
+- fix(sonner): fix toaster list semantics and aria role (#1835) ([f94ee10](https://github.com/spartan-ng/spartan/commit/f94ee10)), closes [#1835](https://github.com/spartan-ng/spartan/issues/1835)
+- fix(sonner): remove the theme preference listener from the list it was added to (#1833) ([d7a719b](https://github.com/spartan-ng/spartan/commit/d7a719b)), closes [#1833](https://github.com/spartan-ng/spartan/issues/1833)
+- chore(release): 1.8.3-beta.1 ([92892d5](https://github.com/spartan-ng/spartan/commit/92892d5))
+- chore(release): 1.8.3-beta.2 ([80f934e](https://github.com/spartan-ng/spartan/commit/80f934e))
+- chore(release): backmerge main into beta ([c2743c9](https://github.com/spartan-ng/spartan/commit/c2743c9))
+- chore(release): backmerge main into beta ([28359e6](https://github.com/spartan-ng/spartan/commit/28359e6))
+- chore(release): backmerge main into beta ([3d491e8](https://github.com/spartan-ng/spartan/commit/3d491e8))
+- docs: add new contributors to our 300 ([4851f7c](https://github.com/spartan-ng/spartan/commit/4851f7c))
+
+## <small>1.8.3-beta.2 (2026-10-27)</small>
+
+- fix(sonner): fix toaster list semantics and aria role (#1835) ([f94ee10](https://github.com/spartan-ng/spartan/commit/f94ee10)), closes [#1835](https://github.com/spartan-ng/spartan/issues/1835)
+
+## <small>1.8.3-beta.1 (2026-10-26)</small>
+
+- fix(cli): report the stylesheet that imports Tailwind in info (#1834) ([142c0c0](https://github.com/spartan-ng/spartan/commit/142c0c0)), closes [#1834](https://github.com/spartan-ng/spartan/issues/1834)
+- fix(questionnaire): move actions min-height into theme styles (#1830) ([16d4442](https://github.com/spartan-ng/spartan/commit/16d4442)), closes [#1830](https://github.com/spartan-ng/spartan/issues/1830) [#1724](https://github.com/spartan-ng/spartan/issues/1724)
+- fix(sonner): remove the theme preference listener from the list it was added to (#1833) ([d7a719b](https://github.com/spartan-ng/spartan/commit/d7a719b)), closes [#1833](https://github.com/spartan-ng/spartan/issues/1833)
+- chore(release): backmerge main into beta ([c2743c9](https://github.com/spartan-ng/spartan/commit/c2743c9))
+- chore(release): backmerge main into beta ([28359e6](https://github.com/spartan-ng/spartan/commit/28359e6))
+- chore(release): backmerge main into beta ([3d491e8](https://github.com/spartan-ng/spartan/commit/3d491e8))
+- docs: add new contributors to our 300 ([4851f7c](https://github.com/spartan-ng/spartan/commit/4851f7c))
+
+## <small>1.8.2 (2026-10-23)</small>
+
+- fix: create classes() mutation observer outside the angular zone (#1825) ([20d6eb0](https://github.com/spartan-ng/spartan/commit/20d6eb0)), closes [#1825](https://github.com/spartan-ng/spartan/issues/1825) [#1823](https://github.com/spartan-ng/spartan/issues/1823)
+
+## <small>1.8.1 (2026-10-22)</small>
+
+- fix: 1.8.1 (#1820) ([5bc49a2](https://github.com/spartan-ng/spartan/commit/5bc49a2)), closes [#1820](https://github.com/spartan-ng/spartan/issues/1820) [#1816](https://github.com/spartan-ng/spartan/issues/1816) [#1795](https://github.com/spartan-ng/spartan/issues/1795) [#1815](https://github.com/spartan-ng/spartan/issues/1815) [#1769](https://github.com/spartan-ng/spartan/issues/1769) [#1814](https://github.com/spartan-ng/spartan/issues/1814) [#1813](https://github.com/spartan-ng/spartan/issues/1813) [#1812](https://github.com/spartan-ng/spartan/issues/1812) [#1818](https://github.com/spartan-ng/spartan/issues/1818) [#1817](https://github.com/spartan-ng/spartan/issues/1817) [#1792](https://github.com/spartan-ng/spartan/issues/1792) [#1792](https://github.com/spartan-ng/spartan/issues/1792) [#1780](https://github.com/spartan-ng/spartan/issues/1780) [#1793](https://github.com/spartan-ng/spartan/issues/1793) [#1793](https://github.com/spartan-ng/spartan/issues/1793) [#1794](https://github.com/spartan-ng/spartan/issues/1794) [#1794](https://github.com/spartan-ng/spartan/issues/1794)
+- fix(calendar): constrain month and year dropdown targets to min and max (#1814) ([0c835e4](https://github.com/spartan-ng/spartan/commit/0c835e4)), closes [#1814](https://github.com/spartan-ng/spartan/issues/1814)
+- fix(dialog): keep the dialogs below open on an outside click of a stacked dialog (#1813) ([130bf98](https://github.com/spartan-ng/spartan/commit/130bf98)), closes [#1813](https://github.com/spartan-ng/spartan/issues/1813) [#1812](https://github.com/spartan-ng/spartan/issues/1812)
+- fix(mcp): add missing components mcp, update prompts (#1818) ([24f16c0](https://github.com/spartan-ng/spartan/commit/24f16c0)), closes [#1818](https://github.com/spartan-ng/spartan/issues/1818)
+- fix(tabs): emit tabActivated once per key in automatic mode (#1816) ([4252ed1](https://github.com/spartan-ng/spartan/commit/4252ed1)), closes [#1816](https://github.com/spartan-ng/spartan/issues/1816) [#1795](https://github.com/spartan-ng/spartan/issues/1795)
+- fix(tabs): reactive tabs trigger, stale after mouse click (#1817) ([3b407e1](https://github.com/spartan-ng/spartan/commit/3b407e1)), closes [#1817](https://github.com/spartan-ng/spartan/issues/1817) [#1792](https://github.com/spartan-ng/spartan/issues/1792) [#1792](https://github.com/spartan-ng/spartan/issues/1792) [#1780](https://github.com/spartan-ng/spartan/issues/1780) [#1793](https://github.com/spartan-ng/spartan/issues/1793) [#1793](https://github.com/spartan-ng/spartan/issues/1793) [#1794](https://github.com/spartan-ng/spartan/issues/1794) [#1794](https://github.com/spartan-ng/spartan/issues/1794)
+- fix(tooltip): keep parent and app default options under hlmTooltip (#1815) ([542c27a](https://github.com/spartan-ng/spartan/commit/542c27a)), closes [#1815](https://github.com/spartan-ng/spartan/issues/1815) [#1769](https://github.com/spartan-ng/spartan/issues/1769)
+- chore(release): 1.8.1-beta.1 ([e4ef36e](https://github.com/spartan-ng/spartan/commit/e4ef36e))
+- chore(release): 1.8.1-beta.2 ([529611a](https://github.com/spartan-ng/spartan/commit/529611a))
+- chore(release): 1.8.1-beta.3 ([b122771](https://github.com/spartan-ng/spartan/commit/b122771))
+- chore(release): backmerge main into beta ([c5d721b](https://github.com/spartan-ng/spartan/commit/c5d721b))
+- chore(release): backmerge main into beta ([163d719](https://github.com/spartan-ng/spartan/commit/163d719))
+- docs: add new contributors to our 300 ([03b5560](https://github.com/spartan-ng/spartan/commit/03b5560))
+
+## <small>1.8.1-beta.3 (2026-10-22)</small>
+
+- fix(tabs): reactive tabs trigger, stale after mouse click (#1817) ([3b407e1](https://github.com/spartan-ng/spartan/commit/3b407e1)), closes [#1817](https://github.com/spartan-ng/spartan/issues/1817) [#1792](https://github.com/spartan-ng/spartan/issues/1792) [#1792](https://github.com/spartan-ng/spartan/issues/1792) [#1780](https://github.com/spartan-ng/spartan/issues/1780) [#1793](https://github.com/spartan-ng/spartan/issues/1793) [#1793](https://github.com/spartan-ng/spartan/issues/1793) [#1794](https://github.com/spartan-ng/spartan/issues/1794) [#1794](https://github.com/spartan-ng/spartan/issues/1794)
+
+## <small>1.8.1-beta.2 (2026-10-22)</small>
+
+- fix(mcp): add missing components mcp, update prompts (#1818) ([24f16c0](https://github.com/spartan-ng/spartan/commit/24f16c0)), closes [#1818](https://github.com/spartan-ng/spartan/issues/1818)
+
+## <small>1.8.1-beta.1 (2026-10-22)</small>
+
+- fix(calendar): constrain month and year dropdown targets to min and max (#1814) ([0c835e4](https://github.com/spartan-ng/spartan/commit/0c835e4)), closes [#1814](https://github.com/spartan-ng/spartan/issues/1814)
+- fix(dialog): keep the dialogs below open on an outside click of a stacked dialog (#1813) ([130bf98](https://github.com/spartan-ng/spartan/commit/130bf98)), closes [#1813](https://github.com/spartan-ng/spartan/issues/1813) [#1812](https://github.com/spartan-ng/spartan/issues/1812)
+- fix(tabs): emit tabActivated once per key in automatic mode (#1816) ([4252ed1](https://github.com/spartan-ng/spartan/commit/4252ed1)), closes [#1816](https://github.com/spartan-ng/spartan/issues/1816) [#1795](https://github.com/spartan-ng/spartan/issues/1795)
+- fix(tooltip): keep parent and app default options under hlmTooltip (#1815) ([542c27a](https://github.com/spartan-ng/spartan/commit/542c27a)), closes [#1815](https://github.com/spartan-ng/spartan/issues/1815) [#1769](https://github.com/spartan-ng/spartan/issues/1769)
+- chore(release): backmerge main into beta ([c5d721b](https://github.com/spartan-ng/spartan/commit/c5d721b))
+- chore(release): backmerge main into beta ([163d719](https://github.com/spartan-ng/spartan/commit/163d719))
+- docs: add new contributors to our 300 ([03b5560](https://github.com/spartan-ng/spartan/commit/03b5560))
+
+## 1.8.0 (2026-10-16)
+
+- feat: 1.8.0 (#1806) ([8cd3d05](https://github.com/spartan-ng/spartan/commit/8cd3d05)), closes [#1806](https://github.com/spartan-ng/spartan/issues/1806) [#1804](https://github.com/spartan-ng/spartan/issues/1804) [#1802](https://github.com/spartan-ng/spartan/issues/1802) [#1799](https://github.com/spartan-ng/spartan/issues/1799)
+- feat: add exportAs (#1805) ([27ab1b6](https://github.com/spartan-ng/spartan/commit/27ab1b6)), closes [#1805](https://github.com/spartan-ng/spartan/issues/1805) [#1764](https://github.com/spartan-ng/spartan/issues/1764) [#1764](https://github.com/spartan-ng/spartan/issues/1764)
+- feat(cli): support adding all components non-interactively (#1696) ([35983a3](https://github.com/spartan-ng/spartan/commit/35983a3)), closes [#1696](https://github.com/spartan-ng/spartan/issues/1696)
+- feat(trace): add trace component (#1802) ([0396bbe](https://github.com/spartan-ng/spartan/commit/0396bbe)), closes [#1802](https://github.com/spartan-ng/spartan/issues/1802)
+- chore(release): 1.8.0-beta.1 ([08ccdd1](https://github.com/spartan-ng/spartan/commit/08ccdd1))
+- chore(release): 1.8.0-beta.2 ([c77ecdd](https://github.com/spartan-ng/spartan/commit/c77ecdd))
+- chore(release): backmerge main into beta ([7738c82](https://github.com/spartan-ng/spartan/commit/7738c82))
+- chore(release): backmerge main into beta ([e261b7f](https://github.com/spartan-ng/spartan/commit/e261b7f))
+- fix: expose form state on interactive elements (#1732) ([63b0f04](https://github.com/spartan-ng/spartan/commit/63b0f04)), closes [#1732](https://github.com/spartan-ng/spartan/issues/1732) [#1727](https://github.com/spartan-ng/spartan/issues/1727)
+- fix(popover): follow anchors that scroll inside a scroll container (#1799) ([6163e85](https://github.com/spartan-ng/spartan/commit/6163e85)), closes [#1799](https://github.com/spartan-ng/spartan/issues/1799)
+- Merge pull request #1804 from spartan-ng/feat/code-block ([51f0b34](https://github.com/spartan-ng/spartan/commit/51f0b34)), closes [#1804](https://github.com/spartan-ng/spartan/issues/1804)
+- docs: add new contributors to our 300 ([b981464](https://github.com/spartan-ng/spartan/commit/b981464))
+
+## 1.8.0-beta.2 (2026-10-16)
+
+- fix: expose form state on interactive elements (#1732) ([63b0f04](https://github.com/spartan-ng/spartan/commit/63b0f04)), closes [#1732](https://github.com/spartan-ng/spartan/issues/1732) [#1727](https://github.com/spartan-ng/spartan/issues/1727)
+- fix(popover): follow anchors that scroll inside a scroll container (#1799) ([6163e85](https://github.com/spartan-ng/spartan/commit/6163e85)), closes [#1799](https://github.com/spartan-ng/spartan/issues/1799)
+- feat: add exportAs (#1805) ([27ab1b6](https://github.com/spartan-ng/spartan/commit/27ab1b6)), closes [#1805](https://github.com/spartan-ng/spartan/issues/1805) [#1764](https://github.com/spartan-ng/spartan/issues/1764) [#1764](https://github.com/spartan-ng/spartan/issues/1764)
+- feat(cli): support adding all components non-interactively (#1696) ([35983a3](https://github.com/spartan-ng/spartan/commit/35983a3)), closes [#1696](https://github.com/spartan-ng/spartan/issues/1696)
+
+## 1.8.0-beta.1 (2026-10-16)
+
+- feat(trace): add trace component (#1802) ([0396bbe](https://github.com/spartan-ng/spartan/commit/0396bbe)), closes [#1802](https://github.com/spartan-ng/spartan/issues/1802)
+- Merge pull request #1804 from spartan-ng/feat/code-block ([51f0b34](https://github.com/spartan-ng/spartan/commit/51f0b34)), closes [#1804](https://github.com/spartan-ng/spartan/issues/1804)
+- chore(release): backmerge main into beta ([7738c82](https://github.com/spartan-ng/spartan/commit/7738c82))
+- chore(release): backmerge main into beta ([e261b7f](https://github.com/spartan-ng/spartan/commit/e261b7f))
+- docs: add new contributors to our 300 ([b981464](https://github.com/spartan-ng/spartan/commit/b981464))
+
 ## 1.7.0 (2026-10-14)
 
 - feat: 1.7.0 (#1800) ([afa6638](https://github.com/spartan-ng/spartan/commit/afa6638)), closes [#1800](https://github.com/spartan-ng/spartan/issues/1800) [#1772](https://github.com/spartan-ng/spartan/issues/1772) [#1770](https://github.com/spartan-ng/spartan/issues/1770) [#1798](https://github.com/spartan-ng/spartan/issues/1798)

@@ -4,6 +4,7 @@ import { classes } from '<%- importAlias %>/utils';
 
 @Directive({
 	selector: '[hlmButtonGroupSeparator],hlm-button-group-separator',
+	exportAs: 'hlmButtonGroupSeparator',
 	providers: [provideBrnSeparatorConfig({ orientation: 'vertical' })],
 	hostDirectives: [{ directive: BrnSeparator, inputs: ['orientation', 'decorative'] }],
 	host: {

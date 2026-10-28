@@ -5,6 +5,7 @@ import { BrnOverlayRef } from './brn-overlay-ref';
 
 @Directive({
 	selector: '[brnOverlayContent]',
+	exportAs: 'brnOverlayContent',
 	providers: [provideExposesStateProviderExisting(() => BrnOverlayContent)],
 })
 export class BrnOverlayContent<T extends Record<string, unknown>> {

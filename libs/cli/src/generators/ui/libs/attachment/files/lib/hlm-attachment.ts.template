@@ -29,6 +29,7 @@ export type AttachmentState = 'idle' | 'uploading' | 'processing' | 'error' | 'd
 
 @Directive({
 	selector: '[hlmAttachment],hlm-attachment',
+	exportAs: 'hlmAttachment',
 	host: {
 		'data-slot': 'attachment',
 		'[attr.data-state]': 'state()',

@@ -4,6 +4,7 @@ import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
 	selector: '[hlmAutocompleteSeparator]',
+	exportAs: 'hlmAutocompleteSeparator',
 	hostDirectives: [{ directive: BrnAutocompleteSeparator, inputs: ['orientation'] }],
 	host: { 'data-slot': 'autocomplete-separator' },
 })

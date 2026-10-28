@@ -23,6 +23,7 @@ import { compareDays } from './utils/compare-days';
 
 @Directive({
 	selector: '[brnCalendar]',
+	exportAs: 'brnCalendar',
 	providers: [provideBrnCalendar(BrnCalendar)],
 })
 export class BrnCalendar<T> implements BrnCalendarBase<T> {

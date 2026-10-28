@@ -12,6 +12,7 @@ import { injectBrnSlider } from './brn-slider.token';
 
 @Directive({
 	selector: '[brnSliderTick]',
+	exportAs: 'brnSliderTick',
 	host: {
 		'data-slot': 'slider-tick',
 	},

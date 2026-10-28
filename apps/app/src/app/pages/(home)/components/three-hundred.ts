@@ -205,6 +205,12 @@ export class ThreeHundred {
 		'bsarnii',
 		'michelAlexis',
 		'stanislavnastasiu-dev',
+		'hemanth004',
+		'GabeSilvaDev',
+		'Sepandard',
+		'carlospalacin',
+		'bence444',
+		'pjalinski',
 	];
 	protected readonly _contributorCountRoundedToNextMultipleOf10 = Math.ceil(this._contributors.length / 10) * 10;
 	protected readonly _countNeededToGetToNextMultipleOf10 =

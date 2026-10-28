@@ -15,6 +15,7 @@ import { ClassValue } from 'clsx';
 
 @Component({
 	selector: 'hlm-date-picker-trigger',
+	exportAs: 'hlmDatePickerTrigger',
 	imports: [HlmButtonImports, HlmPopoverTrigger, NgIcon, BrnFieldControlDescribedBy],
 	providers: [provideIcons({ lucideChevronDown }), provideBrnDatePickerTrigger(HlmDatePickerTrigger)],
 	changeDetection: ChangeDetectionStrategy.OnPush,

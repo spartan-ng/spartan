@@ -1,23 +1,20 @@
-import { Directive, ElementRef, Renderer2, effect, inject, signal } from '@angular/core';
-import { injectExposesStateProvider } from '@spartan-ng/brain/core';
+import { Directive, inject } from '@angular/core';
+import { BrnOverlayRef } from '@spartan-ng/brain/overlay';
 import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
 	selector: '[hlmPopoverContent],hlm-popover-content',
 	exportAs: 'hlmPopoverContent',
-	host: { 'data-slot': 'popover-content' },
+	host: {
+		'data-slot': 'popover-content',
+		'[attr.data-state]': 'state()',
+	},
 })
 export class HlmPopoverContent {
-	private readonly _stateProvider = injectExposesStateProvider({ host: true });
-	public state = this._stateProvider.state ?? signal('closed');
-	private readonly _renderer = inject(Renderer2);
-	private readonly _element = inject(ElementRef);
+	private readonly _overlayRef = inject(BrnOverlayRef);
+	public state = this._overlayRef.state;
 
 	constructor() {
-		effect(() => {
-			this._renderer.setAttribute(this._element.nativeElement, 'data-state', this.state());
-		});
-
 		classes(() => 'spartan-popover-content relative flex w-72 flex-col outline-none');
 	}
 }

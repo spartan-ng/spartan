@@ -15,9 +15,11 @@ import { PageBottomNavLink } from '../../../../shared/layout/page-bottom-nav/pag
 import { PageNav } from '../../../../shared/layout/page-nav/page-nav';
 import { SectionIntro } from '../../../../shared/layout/section-intro';
 import { SectionSubHeading } from '../../../../shared/layout/section-sub-heading';
+import { SectionSubSubHeading } from '../../../../shared/layout/section-sub-sub-heading';
 import { Tabs } from '../../../../shared/layout/tabs';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
+import { HoverCardSidesPreview } from './hover-card--sides.preview';
 import { HoverCardPreview, defaultImports, defaultSkeleton } from './hover-card.preview';
 
 export const routeMeta: RouteMeta = {
@@ -42,9 +44,11 @@ export const routeMeta: RouteMeta = {
 		PageBottomNav,
 		PageBottomNavLink,
 		HoverCardPreview,
+		HoverCardSidesPreview,
 		RtlHeader,
 		CodeRtlPreview,
 		HoverCardRtlPreview,
+		SectionSubSubHeading,
 	],
 	template: `
 		<section spartanMainSection>
@@ -68,6 +72,16 @@ export const routeMeta: RouteMeta = {
 				<spartan-code [code]="_defaultImports" />
 				<spartan-code [code]="_defaultSkeleton" />
 			</div>
+
+			<spartan-section-sub-heading id="examples">Examples</spartan-section-sub-heading>
+
+			<h3 id="sides" spartanH4>Sides</h3>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-hover-card-sides-preview />
+				</div>
+				<spartan-code secondTab [code]="_sidesCode()" />
+			</spartan-tabs>
 
 			<spartan-header-rtl />
 			<spartan-tabs firstTab="Preview" secondTab="Code">
@@ -98,6 +112,7 @@ export default class HoverCardPage {
 
 	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('hover-card');
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
+	protected readonly _sidesCode = computed(() => this._snippets()['sides']);
 	protected readonly _rtlCode = computed(() => this._snippets()['rtl']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;

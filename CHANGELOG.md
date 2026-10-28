@@ -1,3 +1,7 @@
+## 1.9.0-beta.2 (2026-10-28)
+
+- fix: resolve correct dialog ref (#1841) ([63f2a7d](https://github.com/spartan-ng/spartan/commit/63f2a7d)), closes [#1841](https://github.com/spartan-ng/spartan/issues/1841) [#1811](https://github.com/spartan-ng/spartan/issues/1811)
+
 ## 1.9.0-beta.1 (2026-10-27)
 
 - feat(avatar): rework around shared directive state, keep image in DOM… (#1821) ([ac64109](https://github.com/spartan-ng/spartan/commit/ac64109)), closes [#1821](https://github.com/spartan-ng/spartan/issues/1821) [#1703](https://github.com/spartan-ng/spartan/issues/1703)

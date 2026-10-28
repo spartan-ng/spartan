@@ -1,5 +1,5 @@
-import { Directive, input, signal } from '@angular/core';
-import { injectExposesStateProvider } from '@spartan-ng/brain/core';
+import { Directive, inject, input } from '@angular/core';
+import { BrnDialogRef } from '@spartan-ng/brain/dialog';
 import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
@@ -12,8 +12,8 @@ import { classes } from '@spartan-ng/helm/utils';
 	},
 })
 export class HlmAlertDialogContent {
-	private readonly _stateProvider = injectExposesStateProvider({ optional: true, host: true });
-	public readonly state = this._stateProvider?.state ?? signal('closed');
+	private readonly _dialogRef = inject(BrnDialogRef);
+	public readonly state = this._dialogRef.state;
 
 	public readonly size = input<'sm' | 'default'>('default');
 

@@ -178,12 +178,18 @@
 			--scroll-fade-t: 0px;
 		}
 		to {
-			--scroll-fade-t: var(--_scroll-fade-size-t, var(--scroll-fade-size, min(12%, --spacing(10))));
+			--scroll-fade-t: var(
+				--_scroll-fade-size-t,
+				var(--scroll-fade-size, min(12%, calc(--theme(--spacing, 0.25rem) * 10)))
+			);
 		}
 	}
 	@keyframes scroll-fade-reveal-b {
 		from {
-			--scroll-fade-b: var(--_scroll-fade-size-b, var(--scroll-fade-size, min(12%, --spacing(10))));
+			--scroll-fade-b: var(
+				--_scroll-fade-size-b,
+				var(--scroll-fade-size, min(12%, calc(--theme(--spacing, 0.25rem) * 10)))
+			);
 		}
 		to {
 			--scroll-fade-b: 0px;
@@ -194,12 +200,18 @@
 			--scroll-fade-s: 0px;
 		}
 		to {
-			--scroll-fade-s: var(--_scroll-fade-size-s, var(--scroll-fade-size, min(12%, --spacing(10))));
+			--scroll-fade-s: var(
+				--_scroll-fade-size-s,
+				var(--scroll-fade-size, min(12%, calc(--theme(--spacing, 0.25rem) * 10)))
+			);
 		}
 	}
 	@keyframes scroll-fade-reveal-e {
 		from {
-			--scroll-fade-e: var(--_scroll-fade-size-e, var(--scroll-fade-size, min(12%, --spacing(10))));
+			--scroll-fade-e: var(
+				--_scroll-fade-size-e,
+				var(--scroll-fade-size, min(12%, calc(--theme(--spacing, 0.25rem) * 10)))
+			);
 		}
 		to {
 			--scroll-fade-e: 0px;
@@ -208,8 +220,14 @@
 }
 
 @utility scroll-fade {
-	--_scroll-fade-size-t: var(--scroll-fade-t-size, var(--scroll-fade-size, min(12%, --spacing(10))));
-	--_scroll-fade-size-b: var(--scroll-fade-b-size, var(--scroll-fade-size, min(12%, --spacing(10))));
+	--_scroll-fade-size-t: var(
+		--scroll-fade-t-size,
+		var(--scroll-fade-size, min(12%, calc(--theme(--spacing, 0.25rem) * 10)))
+	);
+	--_scroll-fade-size-b: var(
+		--scroll-fade-b-size,
+		var(--scroll-fade-size, min(12%, calc(--theme(--spacing, 0.25rem) * 10)))
+	);
 	--scroll-fade-block: linear-gradient(
 		to bottom,
 		transparent 0,
@@ -230,8 +248,8 @@
 			scroll-fade-reveal-b 1ms ease-in-out;
 		animation-timeline: scroll(self y), scroll(self y);
 		animation-range:
-			0 var(--scroll-fade-reveal, --spacing(24)),
-			calc(100% - var(--scroll-fade-reveal, --spacing(24))) 100%;
+			0 var(--scroll-fade-reveal, calc(--theme(--spacing, 0.25rem) * 24)),
+			calc(100% - var(--scroll-fade-reveal, calc(--theme(--spacing, 0.25rem) * 24))) 100%;
 		animation-fill-mode: both;
 	}
 
@@ -242,8 +260,14 @@
 }
 
 @utility scroll-fade-y {
-	--_scroll-fade-size-t: var(--scroll-fade-t-size, var(--scroll-fade-size, min(12%, --spacing(10))));
-	--_scroll-fade-size-b: var(--scroll-fade-b-size, var(--scroll-fade-size, min(12%, --spacing(10))));
+	--_scroll-fade-size-t: var(
+		--scroll-fade-t-size,
+		var(--scroll-fade-size, min(12%, calc(--theme(--spacing, 0.25rem) * 10)))
+	);
+	--_scroll-fade-size-b: var(
+		--scroll-fade-b-size,
+		var(--scroll-fade-size, min(12%, calc(--theme(--spacing, 0.25rem) * 10)))
+	);
 	--scroll-fade-block: linear-gradient(
 		to bottom,
 		transparent 0,
@@ -264,8 +288,8 @@
 			scroll-fade-reveal-b 1ms ease-in-out;
 		animation-timeline: scroll(self y), scroll(self y);
 		animation-range:
-			0 var(--scroll-fade-reveal, --spacing(24)),
-			calc(100% - var(--scroll-fade-reveal, --spacing(24))) 100%;
+			0 var(--scroll-fade-reveal, calc(--theme(--spacing, 0.25rem) * 24)),
+			calc(100% - var(--scroll-fade-reveal, calc(--theme(--spacing, 0.25rem) * 24))) 100%;
 		animation-fill-mode: both;
 	}
 
@@ -276,8 +300,14 @@
 }
 
 @utility scroll-fade-x {
-	--_scroll-fade-size-s: var(--scroll-fade-s-size, var(--scroll-fade-size, min(12%, --spacing(10))));
-	--_scroll-fade-size-e: var(--scroll-fade-e-size, var(--scroll-fade-size, min(12%, --spacing(10))));
+	--_scroll-fade-size-s: var(
+		--scroll-fade-s-size,
+		var(--scroll-fade-size, min(12%, calc(--theme(--spacing, 0.25rem) * 10)))
+	);
+	--_scroll-fade-size-e: var(
+		--scroll-fade-e-size,
+		var(--scroll-fade-size, min(12%, calc(--theme(--spacing, 0.25rem) * 10)))
+	);
 	--scroll-fade-inline: linear-gradient(
 		to right,
 		transparent 0,
@@ -307,8 +337,8 @@
 			scroll-fade-reveal-e 1ms ease-in-out;
 		animation-timeline: scroll(self inline), scroll(self inline);
 		animation-range:
-			0 var(--scroll-fade-reveal, --spacing(24)),
-			calc(100% - var(--scroll-fade-reveal, --spacing(24))) 100%;
+			0 var(--scroll-fade-reveal, calc(--theme(--spacing, 0.25rem) * 24)),
+			calc(100% - var(--scroll-fade-reveal, calc(--theme(--spacing, 0.25rem) * 24))) 100%;
 		animation-fill-mode: both;
 	}
 
@@ -319,7 +349,10 @@
 }
 
 @utility scroll-fade-t {
-	--_scroll-fade-size-t: var(--scroll-fade-t-size, var(--scroll-fade-size, min(12%, --spacing(10))));
+	--_scroll-fade-size-t: var(
+		--scroll-fade-t-size,
+		var(--scroll-fade-size, min(12%, calc(--theme(--spacing, 0.25rem) * 10)))
+	);
 	--scroll-fade-mask: linear-gradient(to bottom, transparent 0, #000 var(--scroll-fade-t, 0px), #000 100%);
 	-webkit-mask-image: var(--scroll-fade-mask);
 	mask-image: var(--scroll-fade-mask);
@@ -331,7 +364,7 @@
 	@supports (animation-timeline: scroll()) {
 		animation: scroll-fade-reveal-t 1ms ease-in-out;
 		animation-timeline: scroll(self y);
-		animation-range: 0 var(--scroll-fade-reveal, --spacing(24));
+		animation-range: 0 var(--scroll-fade-reveal, calc(--theme(--spacing, 0.25rem) * 24));
 		animation-fill-mode: both;
 	}
 
@@ -341,7 +374,10 @@
 }
 
 @utility scroll-fade-b {
-	--_scroll-fade-size-b: var(--scroll-fade-b-size, var(--scroll-fade-size, min(12%, --spacing(10))));
+	--_scroll-fade-size-b: var(
+		--scroll-fade-b-size,
+		var(--scroll-fade-size, min(12%, calc(--theme(--spacing, 0.25rem) * 10)))
+	);
 	--scroll-fade-mask: linear-gradient(to bottom, #000 0, #000 calc(100% - var(--scroll-fade-b, 0px)), transparent 100%);
 	-webkit-mask-image: var(--scroll-fade-mask);
 	mask-image: var(--scroll-fade-mask);
@@ -353,7 +389,7 @@
 	@supports (animation-timeline: scroll()) {
 		animation: scroll-fade-reveal-b 1ms ease-in-out;
 		animation-timeline: scroll(self y);
-		animation-range: calc(100% - var(--scroll-fade-reveal, --spacing(24))) 100%;
+		animation-range: calc(100% - var(--scroll-fade-reveal, calc(--theme(--spacing, 0.25rem) * 24))) 100%;
 		animation-fill-mode: both;
 	}
 
@@ -363,7 +399,10 @@
 }
 
 @utility scroll-fade-l {
-	--_scroll-fade-size-s: var(--scroll-fade-s-size, var(--scroll-fade-size, min(12%, --spacing(10))));
+	--_scroll-fade-size-s: var(
+		--scroll-fade-s-size,
+		var(--scroll-fade-size, min(12%, calc(--theme(--spacing, 0.25rem) * 10)))
+	);
 	--scroll-fade-mask: linear-gradient(to right, transparent 0, #000 var(--scroll-fade-s, 0px), #000 100%);
 	-webkit-mask-image: var(--scroll-fade-mask);
 	mask-image: var(--scroll-fade-mask);
@@ -375,7 +414,7 @@
 	@supports (animation-timeline: scroll()) {
 		animation: scroll-fade-reveal-s 1ms ease-in-out;
 		animation-timeline: scroll(self x);
-		animation-range: 0 var(--scroll-fade-reveal, --spacing(24));
+		animation-range: 0 var(--scroll-fade-reveal, calc(--theme(--spacing, 0.25rem) * 24));
 		animation-fill-mode: both;
 	}
 
@@ -385,7 +424,10 @@
 }
 
 @utility scroll-fade-r {
-	--_scroll-fade-size-e: var(--scroll-fade-e-size, var(--scroll-fade-size, min(12%, --spacing(10))));
+	--_scroll-fade-size-e: var(
+		--scroll-fade-e-size,
+		var(--scroll-fade-size, min(12%, calc(--theme(--spacing, 0.25rem) * 10)))
+	);
 	--scroll-fade-mask: linear-gradient(to right, #000 0, #000 calc(100% - var(--scroll-fade-e, 0px)), transparent 100%);
 	-webkit-mask-image: var(--scroll-fade-mask);
 	mask-image: var(--scroll-fade-mask);
@@ -397,7 +439,7 @@
 	@supports (animation-timeline: scroll()) {
 		animation: scroll-fade-reveal-e 1ms ease-in-out;
 		animation-timeline: scroll(self x);
-		animation-range: calc(100% - var(--scroll-fade-reveal, --spacing(24))) 100%;
+		animation-range: calc(100% - var(--scroll-fade-reveal, calc(--theme(--spacing, 0.25rem) * 24))) 100%;
 		animation-fill-mode: both;
 	}
 
@@ -407,7 +449,10 @@
 }
 
 @utility scroll-fade-s {
-	--_scroll-fade-size-s: var(--scroll-fade-s-size, var(--scroll-fade-size, min(12%, --spacing(10))));
+	--_scroll-fade-size-s: var(
+		--scroll-fade-s-size,
+		var(--scroll-fade-size, min(12%, calc(--theme(--spacing, 0.25rem) * 10)))
+	);
 	--scroll-fade-mask: linear-gradient(to right, transparent 0, #000 var(--scroll-fade-s, 0px), #000 100%);
 	&:where([dir='rtl'], [dir='rtl'] *) {
 		--scroll-fade-mask: linear-gradient(to left, transparent 0, #000 var(--scroll-fade-s, 0px), #000 100%);
@@ -422,7 +467,7 @@
 	@supports (animation-timeline: scroll()) {
 		animation: scroll-fade-reveal-s 1ms ease-in-out;
 		animation-timeline: scroll(self inline);
-		animation-range: 0 var(--scroll-fade-reveal, --spacing(24));
+		animation-range: 0 var(--scroll-fade-reveal, calc(--theme(--spacing, 0.25rem) * 24));
 		animation-fill-mode: both;
 	}
 
@@ -432,7 +477,10 @@
 }
 
 @utility scroll-fade-e {
-	--_scroll-fade-size-e: var(--scroll-fade-e-size, var(--scroll-fade-size, min(12%, --spacing(10))));
+	--_scroll-fade-size-e: var(
+		--scroll-fade-e-size,
+		var(--scroll-fade-size, min(12%, calc(--theme(--spacing, 0.25rem) * 10)))
+	);
 	--scroll-fade-mask: linear-gradient(to right, #000 0, #000 calc(100% - var(--scroll-fade-e, 0px)), transparent 100%);
 	&:where([dir='rtl'], [dir='rtl'] *) {
 		--scroll-fade-mask: linear-gradient(to left, #000 0, #000 calc(100% - var(--scroll-fade-e, 0px)), transparent 100%);
@@ -447,7 +495,7 @@
 	@supports (animation-timeline: scroll()) {
 		animation: scroll-fade-reveal-e 1ms ease-in-out;
 		animation-timeline: scroll(self inline);
-		animation-range: calc(100% - var(--scroll-fade-reveal, --spacing(24))) 100%;
+		animation-range: calc(100% - var(--scroll-fade-reveal, calc(--theme(--spacing, 0.25rem) * 24))) 100%;
 		animation-fill-mode: both;
 	}
 
@@ -457,27 +505,27 @@
 }
 
 @utility scroll-fade-* {
-	--scroll-fade-size: --spacing(--value(integer));
+	--scroll-fade-size: calc(--theme(--spacing, 0.25rem) * --value(integer));
 	--scroll-fade-size: --value([length], [percentage]);
 }
 
 @utility scroll-fade-t-* {
-	--scroll-fade-t-size: --spacing(--value(integer));
+	--scroll-fade-t-size: calc(--theme(--spacing, 0.25rem) * --value(integer));
 	--scroll-fade-t-size: --value([length], [percentage]);
 }
 
 @utility scroll-fade-b-* {
-	--scroll-fade-b-size: --spacing(--value(integer));
+	--scroll-fade-b-size: calc(--theme(--spacing, 0.25rem) * --value(integer));
 	--scroll-fade-b-size: --value([length], [percentage]);
 }
 
 @utility scroll-fade-s-* {
-	--scroll-fade-s-size: --spacing(--value(integer));
+	--scroll-fade-s-size: calc(--theme(--spacing, 0.25rem) * --value(integer));
 	--scroll-fade-s-size: --value([length], [percentage]);
 }
 
 @utility scroll-fade-e-* {
-	--scroll-fade-e-size: --spacing(--value(integer));
+	--scroll-fade-e-size: calc(--theme(--spacing, 0.25rem) * --value(integer));
 	--scroll-fade-e-size: --value([length], [percentage]);
 }
 
@@ -567,7 +615,7 @@
 }
 
 @utility shimmer-spread-* {
-	--shimmer-spread: --spacing(--value(integer));
+	--shimmer-spread: calc(--theme(--spacing, 0.25rem) * --value(integer));
 	--shimmer-spread: --value([length], [percentage]);
 }
 

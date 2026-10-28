@@ -1,3 +1,7 @@
+## 1.9.0-beta.3 (2026-10-28)
+
+- fix(dialog): restore viewport width lost with the style support (#1837) ([dd4486e](https://github.com/spartan-ng/spartan/commit/dd4486e)), closes [#1837](https://github.com/spartan-ng/spartan/issues/1837)
+
 ## 1.9.0-beta.2 (2026-10-28)
 
 - fix: resolve correct dialog ref (#1841) ([63f2a7d](https://github.com/spartan-ng/spartan/commit/63f2a7d)), closes [#1841](https://github.com/spartan-ng/spartan/issues/1841) [#1811](https://github.com/spartan-ng/spartan/issues/1811)

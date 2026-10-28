@@ -25,6 +25,7 @@ import {
 	Renderer2,
 	runInInjectionContext,
 	type TemplateRef,
+	untracked,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
@@ -86,7 +87,7 @@ export class BrnTooltip {
 	public readonly brnTooltip = input<BrnTooltipType>(null);
 	public readonly showDelay = input<number, number>(this._config.showDelay, { transform: numberAttribute });
 	public readonly hideDelay = input<number, number>(this._config.hideDelay, { transform: numberAttribute });
-	public readonly sideOffset = input<number, NumberInput>(this._config.sideOffset, { transform: numberAttribute });
+	public readonly sideOffset = input<number, NumberInput>(this._config.sideOffset ?? 8, { transform: numberAttribute });
 
 	public readonly show = output<void>();
 	public readonly hide = output<void>();
@@ -116,6 +117,17 @@ export class BrnTooltip {
 				this._setupDelayMechanism();
 				this._cleanupTriggerEvents();
 				this._initTriggers();
+
+				effect(() => {
+					this.sideOffset();
+					untracked(() => {
+						if (!this._overlayRef) return;
+						this._updatePosition();
+						if (this._overlayRef.hasAttached()) {
+							this._overlayRef.updatePosition();
+						}
+					});
+				});
 
 				/**
 				 * This effect is used to update the tooltip content when the tooltip text changes.

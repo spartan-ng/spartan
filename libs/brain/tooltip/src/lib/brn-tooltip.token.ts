@@ -8,7 +8,7 @@ export interface BrnTooltipOptions {
 	/** Default delay when the tooltip is hidden. */
 	hideDelay: number;
 	/** Default distance in px between the tooltip and its trigger. */
-	sideOffset: number;
+	sideOffset?: number;
 	/** Default position for tooltips. */
 	position?: BrnTooltipPosition;
 	/** Additional classes for the SVG element in the tooltip arrow. */

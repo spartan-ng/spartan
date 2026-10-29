@@ -99,6 +99,27 @@ describe('BrnCalendar keyboard navigation', () => {
 		await waitFor(() => expect(dayButton(container, 2).tabIndex).toBe(0));
 	});
 
+	it('moves Home to the first enabled day when min falls inside the month', async () => {
+		const { container, fixture } = await render(CalendarHost);
+		fixture.componentInstance.start.set(new Date(2026, 8, 15));
+		fixture.componentInstance.min.set(new Date(2026, 8, 10));
+		fixture.detectChanges();
+		dayButton(container, 15).focus();
+		fireEvent.keyDown(dayButton(container, 15), { key: 'Home' });
+		fixture.detectChanges();
+		await waitFor(() => expect(document.activeElement).toBe(dayButton(container, 10)));
+	});
+
+	it('moves End to the last enabled day when max falls inside the month', async () => {
+		const { container, fixture } = await render(CalendarHost);
+		fixture.componentInstance.start.set(new Date(2026, 8, 15));
+		fixture.componentInstance.max.set(new Date(2026, 8, 18));
+		fixture.detectChanges();
+		dayButton(container, 15).focus();
+		fireEvent.keyDown(dayButton(container, 15), { key: 'End' });
+		fixture.detectChanges();
+		await waitFor(() => expect(document.activeElement).toBe(dayButton(container, 18)));
+	});
 	it('skips a disabled same-numbered day on PageUp', async () => {
 		const { container, fixture } = await render(CalendarHost);
 		fixture.componentInstance.start.set(new Date(2026, 9, 19));

@@ -1,13 +1,16 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
+import { HlmAvatar } from './hlm-avatar';
 import { HlmAvatarImage } from './hlm-avatar-image';
 
 @Component({
 	selector: 'hlm-mock',
-	imports: [HlmAvatarImage],
+	imports: [HlmAvatar, HlmAvatarImage],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<img hlmAvatarImage alt="Avatar image" [class]="userCls" />
+		<hlm-avatar>
+			<img hlmAvatarImage alt="Avatar image" [class]="userCls" />
+		</hlm-avatar>
 	`,
 })
 class HlmMock {

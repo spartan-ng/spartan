@@ -1,3 +1,32 @@
+## 1.9.0-beta.5 (2026-10-29)
+
+- fix: compile hlm-tailwind-preset with a tailwind prefix (#1846) ([f5bb935](https://github.com/spartan-ng/spartan/commit/f5bb935)), closes [#1846](https://github.com/spartan-ng/spartan/issues/1846) [#1694](https://github.com/spartan-ng/spartan/issues/1694)
+- fix(popover): restore aria-modal option on overlay pane (#1843) ([4767fb2](https://github.com/spartan-ng/spartan/commit/4767fb2)), closes [#1843](https://github.com/spartan-ng/spartan/issues/1843) [#1664](https://github.com/spartan-ng/spartan/issues/1664)
+- docs: stop advertising a fixed 1.0 version in skills (#1839) ([64ff151](https://github.com/spartan-ng/spartan/commit/64ff151)), closes [#1839](https://github.com/spartan-ng/spartan/issues/1839) [#1691](https://github.com/spartan-ng/spartan/issues/1691)
+
+## 1.9.0-beta.4 (2026-10-29)
+
+- fix(button): restore primary hover for nova and lyra (#1844) ([2d2c675](https://github.com/spartan-ng/spartan/commit/2d2c675)), closes [#1844](https://github.com/spartan-ng/spartan/issues/1844) [shadcn-ui/ui#10807](https://github.com/shadcn-ui/ui/issues/10807)
+- feat(tooltip): add sideOffset input (#1845) ([b22b381](https://github.com/spartan-ng/spartan/commit/b22b381)), closes [#1845](https://github.com/spartan-ng/spartan/issues/1845) [#1765](https://github.com/spartan-ng/spartan/issues/1765)
+- chore(release): backmerge main into beta ([f88ab39](https://github.com/spartan-ng/spartan/commit/f88ab39))
+- docs: add new contributors to our 300 ([855f23e](https://github.com/spartan-ng/spartan/commit/855f23e))
+
+## 1.9.0-beta.3 (2026-10-28)
+
+- fix(dialog): restore viewport width lost with the style support (#1837) ([dd4486e](https://github.com/spartan-ng/spartan/commit/dd4486e)), closes [#1837](https://github.com/spartan-ng/spartan/issues/1837)
+
+## 1.9.0-beta.2 (2026-10-28)
+
+- fix: resolve correct dialog ref (#1841) ([63f2a7d](https://github.com/spartan-ng/spartan/commit/63f2a7d)), closes [#1841](https://github.com/spartan-ng/spartan/issues/1841) [#1811](https://github.com/spartan-ng/spartan/issues/1811)
+
+## 1.9.0-beta.1 (2026-10-27)
+
+- feat(avatar): rework around shared directive state, keep image in DOM… (#1821) ([ac64109](https://github.com/spartan-ng/spartan/commit/ac64109)), closes [#1821](https://github.com/spartan-ng/spartan/issues/1821) [#1703](https://github.com/spartan-ng/spartan/issues/1703)
+- feat(input-otp): refactor brn-input-otp as directive, add brn-input-otp-input (#1824) ([0534ca5](https://github.com/spartan-ng/spartan/commit/0534ca5)), closes [#1824](https://github.com/spartan-ng/spartan/issues/1824)
+- chore(release): backmerge main into beta ([98344b5](https://github.com/spartan-ng/spartan/commit/98344b5))
+- chore(release): backmerge main into beta ([4391cac](https://github.com/spartan-ng/spartan/commit/4391cac))
+- docs: add new contributors to our 300 ([2082a4d](https://github.com/spartan-ng/spartan/commit/2082a4d))
+
 ## <small>1.8.3 (2026-10-27)</small>
 
 - fix: 1.8.3 (#1840) ([691276b](https://github.com/spartan-ng/spartan/commit/691276b)), closes [#1840](https://github.com/spartan-ng/spartan/issues/1840) [#1833](https://github.com/spartan-ng/spartan/issues/1833) [#1834](https://github.com/spartan-ng/spartan/issues/1834) [#1830](https://github.com/spartan-ng/spartan/issues/1830) [#1724](https://github.com/spartan-ng/spartan/issues/1724) [#1835](https://github.com/spartan-ng/spartan/issues/1835)

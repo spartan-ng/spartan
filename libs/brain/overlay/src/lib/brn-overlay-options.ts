@@ -10,6 +10,7 @@ import type { StaticProvider } from '@angular/core';
 export type BrnOverlayOptions = {
 	attachPositions: ConnectedPosition[];
 	attachTo: FlexibleConnectedPositionStrategyOrigin | null | undefined;
+	ariaModal: boolean;
 	/** Move focus to the first tabbable element inside the overlay when it opens. */
 	autoFocus: boolean;
 	backdropClass: string | string[];

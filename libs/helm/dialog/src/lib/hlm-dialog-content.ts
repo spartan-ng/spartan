@@ -57,6 +57,9 @@ export class HlmDialogContent {
 	private readonly _dynamicComponentClass = this._dialogContext?.$dynamicComponentClass;
 
 	constructor() {
-		classes(() => ['spartan-dialog-content relative mx-auto w-full outline-none sm:mx-0', this._dynamicComponentClass]);
+		classes(() => [
+			'spartan-dialog-content relative mx-auto w-[calc(100vw-2rem)] outline-none sm:mx-0',
+			this._dynamicComponentClass,
+		]);
 	}
 }

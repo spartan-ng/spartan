@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
-import { injectExposedSideProvider, injectExposesStateProvider } from '@spartan-ng/brain/core';
-import { BrnDrawerHandle } from '@spartan-ng/brain/drawer';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { BrnDialogRef } from '@spartan-ng/brain/dialog';
+import { BrnDrawer, BrnDrawerHandle } from '@spartan-ng/brain/drawer';
 import { classes } from '@spartan-ng/helm/utils';
 
 @Component({
@@ -10,7 +10,7 @@ import { classes } from '@spartan-ng/helm/utils';
 	hostDirectives: [{ directive: BrnDrawerHandle, inputs: ['closeThreshold'] }],
 	host: {
 		'data-slot': 'drawer-content',
-		'[attr.data-vaul-drawer-direction]': '_sideProvider.side()',
+		'[attr.data-vaul-drawer-direction]': '_drawer.direction()',
 		'[attr.data-state]': 'state()',
 	},
 	template: `
@@ -19,9 +19,10 @@ import { classes } from '@spartan-ng/helm/utils';
 	`,
 })
 export class HlmDrawerContent {
-	private readonly _stateProvider = injectExposesStateProvider({ host: true });
-	protected readonly _sideProvider = injectExposedSideProvider({ host: true });
-	public readonly state = this._stateProvider.state ?? signal('closed');
+	private readonly _dialogRef = inject(BrnDialogRef);
+	protected readonly _drawer = inject(BrnDrawer);
+
+	public readonly state = this._dialogRef.state;
 
 	constructor() {
 		classes(() => [

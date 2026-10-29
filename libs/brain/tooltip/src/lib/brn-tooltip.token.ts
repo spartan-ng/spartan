@@ -7,6 +7,8 @@ export interface BrnTooltipOptions {
 	showDelay: number;
 	/** Default delay when the tooltip is hidden. */
 	hideDelay: number;
+	/** Default distance in px between the tooltip and its trigger. */
+	sideOffset?: number;
 	/** Default position for tooltips. */
 	position?: BrnTooltipPosition;
 	/** Additional classes for the SVG element in the tooltip arrow. */
@@ -20,6 +22,7 @@ export interface BrnTooltipOptions {
 export const defaultOptions: BrnTooltipOptions = {
 	showDelay: 0,
 	hideDelay: 0,
+	sideOffset: 8,
 	svgClasses: '',
 	arrowClasses: () => '',
 	tooltipContentClasses: '',

@@ -17,9 +17,11 @@ export function findEnabledDate<T>(
 	// Allow multi-year disabled ranges, but cap searches with no far boundary.
 	// Explicit calendar boundaries stop the search as soon as they are crossed.
 	for (let step = 0; step < 3660; step++) {
-		if (bounds?.min && adapter.isBefore(date, adapter.startOfDay(bounds.min))) return undefined;
-		if (bounds?.max && adapter.isAfter(date, adapter.endOfDay(bounds.max))) return undefined;
-		if (!isDisabled(date)) return date;
+		const beforeMin = bounds?.min !== undefined && adapter.isBefore(date, adapter.startOfDay(bounds.min));
+		const afterMax = bounds?.max !== undefined && adapter.isAfter(date, adapter.endOfDay(bounds.max));
+		// Only stop at a bound when moving farther out, not toward the allowed range.
+		if ((beforeMin && direction === -1) || (afterMax && direction === 1)) return undefined;
+		if (!beforeMin && !afterMax && !isDisabled(date)) return date;
 		date = direction === 1 ? adapter.add(date, { days: 1 }) : adapter.subtract(date, { days: 1 });
 	}
 	return undefined;

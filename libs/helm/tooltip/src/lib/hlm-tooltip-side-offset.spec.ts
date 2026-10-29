@@ -45,10 +45,39 @@ class TooltipDynamicSideOffsetHost {
 	public readonly offset = signal(8);
 }
 
+@Component({
+	selector: 'hlm-tooltip-zero-side-offset-host',
+	imports: [HlmTooltip],
+	providers: [Directionality],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<div style="position: fixed; inset: 0; display: flex; align-items: center; justify-content: center">
+			<button hlmTooltip="tip" position="bottom" [sideOffset]="0">trigger</button>
+		</div>
+	`,
+})
+class TooltipZeroSideOffsetHost {}
+
+@Component({
+	selector: 'hlm-tooltip-rtl-side-offset-host',
+	imports: [HlmTooltip],
+	providers: [Directionality],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<div style="position: fixed; inset: 0; display: flex; align-items: center; justify-content: center">
+			<button hlmTooltip="tip" position="right" [sideOffset]="20">trigger</button>
+		</div>
+	`,
+})
+class TooltipRtlSideOffsetHost {}
+
 const pane = () => document.querySelector<HTMLElement>('.cdk-overlay-pane');
+const triggerRect = () => screen.getByText('trigger').getBoundingClientRect();
+const tooltipRect = () => document.querySelector('[role="tooltip"]')!.getBoundingClientRect();
 
 describe('HlmTooltip sideOffset', () => {
 	afterEach(() => {
+		document.documentElement.dir = '';
 		document.querySelectorAll('.cdk-overlay-container').forEach((el) => el.remove());
 	});
 
@@ -88,5 +117,24 @@ describe('HlmTooltip sideOffset', () => {
 		fixture.detectChanges();
 
 		await waitFor(() => expect(pane()?.style.transform).toContain('translateY(16px)'));
+	});
+
+	it('supports an explicit 0 offset', async () => {
+		await render(TooltipZeroSideOffsetHost);
+
+		fireEvent.pointerEnter(screen.getByText('trigger'), { pointerType: 'mouse' });
+
+		await waitFor(() => expect(Math.abs(tooltipRect().top - triggerRect().bottom)).toBeLessThan(1));
+	});
+
+	it('keeps the gap on the correct side in RTL', async () => {
+		document.documentElement.dir = 'rtl';
+
+		await render(TooltipRtlSideOffsetHost);
+
+		fireEvent.pointerEnter(screen.getByText('trigger'), { pointerType: 'mouse' });
+
+		// `right` places the tooltip on the physical left in RTL; the offset must still point away from the trigger.
+		await waitFor(() => expect(Math.abs(triggerRect().left - tooltipRect().right - 20)).toBeLessThan(1));
 	});
 });

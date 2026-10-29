@@ -104,14 +104,7 @@ export class BrnTooltip {
 
 	constructor() {
 		afterNextRender(() => {
-			this._dir.change.pipe(takeUntilDestroyed(this._destroyRef)).subscribe(() => {
-				if (this._overlayRef) {
-					this._updatePosition();
-					if (this._overlayRef.hasAttached()) {
-						this._overlayRef.updatePosition();
-					}
-				}
-			});
+			this._dir.change.pipe(takeUntilDestroyed(this._destroyRef)).subscribe(() => this._refreshOverlayPosition());
 
 			runInInjectionContext(this._injector, () => {
 				this._setupDelayMechanism();
@@ -120,13 +113,7 @@ export class BrnTooltip {
 
 				effect(() => {
 					this.sideOffset();
-					untracked(() => {
-						if (!this._overlayRef) return;
-						this._updatePosition();
-						if (this._overlayRef.hasAttached()) {
-							this._overlayRef.updatePosition();
-						}
-					});
+					untracked(() => this._refreshOverlayPosition());
 				});
 
 				/**
@@ -198,6 +185,15 @@ export class BrnTooltip {
 	private _dismiss(): void {
 		this._tooltipHovered = false;
 		this.delay(false, -1);
+	}
+
+	/** Rebuild the positions from the current inputs and re-apply them to the overlay, if one exists. */
+	private _refreshOverlayPosition(): void {
+		if (!this._overlayRef) return;
+		this._updatePosition();
+		if (this._overlayRef.hasAttached()) {
+			this._overlayRef.updatePosition();
+		}
 	}
 
 	private _updatePosition(): void {

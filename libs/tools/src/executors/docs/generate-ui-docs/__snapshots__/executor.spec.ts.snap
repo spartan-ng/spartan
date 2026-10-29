@@ -11364,6 +11364,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "required": false,
             "type": "number",
           },
+          {
+            "name": "sideOffset",
+            "required": false,
+            "type": "number",
+          },
         ],
         "models": [],
         "outputs": [
@@ -11429,6 +11434,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
           },
           {
             "name": "showDelay",
+            "required": false,
+            "type": "number",
+          },
+          {
+            "name": "sideOffset",
             "required": false,
             "type": "number",
           },

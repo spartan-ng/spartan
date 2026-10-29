@@ -10,6 +10,19 @@ describe('enabled calendar focus', () => {
 		expect(findEnabledDate(new Date(2026, 8, 20), -1, adapter, weekend)).toEqual(new Date(2026, 8, 18));
 	});
 
+	it('searches inward to the first enabled day when a boundary is inside the month', () => {
+		const min = new Date(2026, 8, 10);
+		const max = new Date(2026, 8, 18);
+		expect(findEnabledDate(new Date(2026, 8, 1), 1, adapter, () => false, { min })).toEqual(min);
+		expect(findEnabledDate(new Date(2026, 8, 30), -1, adapter, () => false, { max })).toEqual(max);
+	});
+
+	it('stops at a boundary when the search moves away from the allowed range', () => {
+		const min = new Date(2026, 8, 10);
+		const max = new Date(2026, 8, 18);
+		expect(findEnabledDate(new Date(2026, 8, 1), -1, adapter, () => false, { min })).toBeUndefined();
+		expect(findEnabledDate(new Date(2026, 8, 30), 1, adapter, () => false, { max })).toBeUndefined();
+	});
 	it('does not start keyboard focus on a disabled date', () => {
 		expect(findInitialFocusedDate(new Date(2026, 8, 19), adapter, weekend)).toEqual(new Date(2026, 8, 21));
 	});

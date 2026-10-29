@@ -17,10 +17,7 @@ allowed-tools:
 
 spartan/ui is an Angular UI library on the **stable 1.x** line (`@spartan-ng/brain`,
 `@spartan-ng/cli`, `@spartan-ng/mcp`). Do **not** assume a fixed version such as 1.0 — read the
-declared dependency versions for Brain, Helm, and CLI from
-`npx nx g @spartan-ng/cli:info --json` (Nx) or `ng g @spartan-ng/cli:info --json` (Angular CLI)
-(field `versions`; these are `package.json` ranges, not lockfile-resolved installs). For the latest
-published MCP package version, check npm (`@spartan-ng/mcp`).
+declared dependency versions for Brain, Helm, and CLI from `npx nx g @spartan-ng/cli:info --json` (Nx) or `ng g @spartan-ng/cli:info --json` (Angular CLI) (field `versions`; these are `package.json` ranges, not lockfile-resolved installs). For the latest published MCP package version, check npm (`@spartan-ng/mcp`).
 
 It uses a **two-layer architecture**:
 

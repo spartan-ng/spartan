@@ -233,6 +233,11 @@ export class BrnOverlayService {
 			element.tabIndex = -1;
 			element.setAttribute('role', options.role);
 		}
+		if (options.ariaModal) {
+			element.setAttribute('aria-modal', 'true');
+		} else {
+			element.removeAttribute('aria-modal');
+		}
 	}
 
 	private _connectDismissalEvents<Result>(

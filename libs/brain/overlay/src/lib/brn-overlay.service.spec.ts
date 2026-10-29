@@ -101,12 +101,17 @@ describe('BrnOverlayService aria-modal', () => {
 		const component = fixture.componentInstance;
 		const createSpy = vi.spyOn(TestBed.inject(Overlay), 'create');
 
-		TestBed.inject(BrnOverlayService).open(component.content(), component.vcr, {}, {
-			attachTo: component.anchor(),
-			attachPositions: [{ originX: 'start', originY: 'bottom', overlayX: 'start', overlayY: 'top' }],
-			role: 'dialog',
-			ariaModal,
-		});
+		TestBed.inject(BrnOverlayService).open(
+			component.content(),
+			component.vcr,
+			{},
+			{
+				attachTo: component.anchor(),
+				attachPositions: [{ originX: 'start', originY: 'bottom', overlayX: 'start', overlayY: 'top' }],
+				role: 'dialog',
+				ariaModal,
+			},
+		);
 
 		return (createSpy.mock.results[0].value as OverlayRef).overlayElement;
 	};

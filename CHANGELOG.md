@@ -1,3 +1,10 @@
+## 1.9.0-beta.4 (2026-10-29)
+
+- fix(button): restore primary hover for nova and lyra (#1844) ([2d2c675](https://github.com/spartan-ng/spartan/commit/2d2c675)), closes [#1844](https://github.com/spartan-ng/spartan/issues/1844) [shadcn-ui/ui#10807](https://github.com/shadcn-ui/ui/issues/10807)
+- feat(tooltip): add sideOffset input (#1845) ([b22b381](https://github.com/spartan-ng/spartan/commit/b22b381)), closes [#1845](https://github.com/spartan-ng/spartan/issues/1845) [#1765](https://github.com/spartan-ng/spartan/issues/1765)
+- chore(release): backmerge main into beta ([f88ab39](https://github.com/spartan-ng/spartan/commit/f88ab39))
+- docs: add new contributors to our 300 ([855f23e](https://github.com/spartan-ng/spartan/commit/855f23e))
+
 ## 1.9.0-beta.3 (2026-10-28)
 
 - fix(dialog): restore viewport width lost with the style support (#1837) ([dd4486e](https://github.com/spartan-ng/spartan/commit/dd4486e)), closes [#1837](https://github.com/spartan-ng/spartan/issues/1837)

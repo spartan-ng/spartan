@@ -69,6 +69,10 @@ export class BrnOverlay<TResult = unknown, TContext extends Record<string, unkno
 	public readonly id = input<string>(`brn-overlay-${++overlayIdSequence}`);
 	public readonly state = input<BrnOverlayState | null>(null);
 	public readonly role = input<BrnOverlayOptions['role']>(this._defaultOptions.role);
+	public readonly ariaModal = input<boolean, BooleanInput>(this._defaultOptions.ariaModal, {
+		alias: 'aria-modal',
+		transform: booleanAttribute,
+	});
 	public readonly hasBackdrop = input<boolean, BooleanInput>(this._defaultOptions.hasBackdrop, {
 		transform: booleanAttribute,
 	});
@@ -95,6 +99,7 @@ export class BrnOverlay<TResult = unknown, TContext extends Record<string, unkno
 	protected readonly _options = computed<Partial<BrnOverlayOptions>>(() => ({
 		id: this.id(),
 		role: this.role(),
+		ariaModal: this.ariaModal(),
 		direction: this._directionality.valueSignal(),
 		hasBackdrop: this.hasBackdrop(),
 		positionStrategy: this.getPositionStrategy(),

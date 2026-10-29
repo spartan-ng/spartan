@@ -1,3 +1,9 @@
+## 1.9.0-beta.5 (2026-10-29)
+
+- fix: compile hlm-tailwind-preset with a tailwind prefix (#1846) ([f5bb935](https://github.com/spartan-ng/spartan/commit/f5bb935)), closes [#1846](https://github.com/spartan-ng/spartan/issues/1846) [#1694](https://github.com/spartan-ng/spartan/issues/1694)
+- fix(popover): restore aria-modal option on overlay pane (#1843) ([4767fb2](https://github.com/spartan-ng/spartan/commit/4767fb2)), closes [#1843](https://github.com/spartan-ng/spartan/issues/1843) [#1664](https://github.com/spartan-ng/spartan/issues/1664)
+- docs: stop advertising a fixed 1.0 version in skills (#1839) ([64ff151](https://github.com/spartan-ng/spartan/commit/64ff151)), closes [#1839](https://github.com/spartan-ng/spartan/issues/1839) [#1691](https://github.com/spartan-ng/spartan/issues/1691)
+
 ## 1.9.0-beta.4 (2026-10-29)
 
 - fix(button): restore primary hover for nova and lyra (#1844) ([2d2c675](https://github.com/spartan-ng/spartan/commit/2d2c675)), closes [#1844](https://github.com/spartan-ng/spartan/issues/1844) [shadcn-ui/ui#10807](https://github.com/shadcn-ui/ui/issues/10807)

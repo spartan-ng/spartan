@@ -1,6 +1,7 @@
 import { computed, DestroyRef, Directive, ElementRef, inject, input } from '@angular/core';
 import { injectDateAdapter } from '@spartan-ng/brain/date-time';
 import { injectBrnCalendar } from './brn-calendar.token';
+import { findEnabledDate } from './utils/find-enabled-date';
 
 @Directive({
 	selector: 'button[brnCalendarCellButton]',
@@ -62,7 +63,9 @@ export class BrnCalendarCellButton<T> {
 	}
 
 	/** Whether this date is focusable */
-	public readonly focusable = computed(() => this._dateAdapter.isSameDay(this._calendar.focusedDate(), this.date()));
+	public readonly focusable = computed(
+		() => !this.disabled() && this._dateAdapter.isSameDay(this._calendar.focusedDate(), this.date()),
+	);
 
 	public readonly outside = computed(() => {
 		const focusedDate = this._calendar.focusedDate();
@@ -87,7 +90,7 @@ export class BrnCalendarCellButton<T> {
 			days: this.getDirection() === 'rtl' ? 1 : -1,
 		});
 
-		this._calendar.setFocusedDate(targetDate);
+		this.focusEnabledDate(targetDate, this.getDirection() === 'rtl' ? 1 : -1);
 	}
 
 	/**
@@ -101,7 +104,7 @@ export class BrnCalendarCellButton<T> {
 			days: this.getDirection() === 'rtl' ? -1 : 1,
 		});
 
-		this._calendar.setFocusedDate(targetDate);
+		this.focusEnabledDate(targetDate, this.getDirection() === 'rtl' ? -1 : 1);
 	}
 
 	/**
@@ -110,7 +113,7 @@ export class BrnCalendarCellButton<T> {
 	protected focusAbove(event: Event): void {
 		event.preventDefault();
 		event.stopPropagation();
-		this._calendar.setFocusedDate(this._dateAdapter.subtract(this._calendar.focusedDate(), { days: 7 }));
+		this.focusEnabledDate(this._dateAdapter.subtract(this._calendar.focusedDate(), { days: 7 }), -1);
 	}
 
 	/**
@@ -119,7 +122,7 @@ export class BrnCalendarCellButton<T> {
 	protected focusBelow(event: Event): void {
 		event.preventDefault();
 		event.stopPropagation();
-		this._calendar.setFocusedDate(this._dateAdapter.add(this._calendar.focusedDate(), { days: 7 }));
+		this.focusEnabledDate(this._dateAdapter.add(this._calendar.focusedDate(), { days: 7 }), 1);
 	}
 
 	/**
@@ -128,7 +131,7 @@ export class BrnCalendarCellButton<T> {
 	protected focusFirst(event: Event): void {
 		event.preventDefault();
 		event.stopPropagation();
-		this._calendar.setFocusedDate(this._dateAdapter.startOfMonth(this._calendar.focusedDate()));
+		this.focusEnabledDate(this._dateAdapter.startOfMonth(this._calendar.focusedDate()), 1);
 	}
 
 	/**
@@ -137,7 +140,7 @@ export class BrnCalendarCellButton<T> {
 	protected focusLast(event: Event): void {
 		event.preventDefault();
 		event.stopPropagation();
-		this._calendar.setFocusedDate(this._dateAdapter.endOfMonth(this._calendar.focusedDate()));
+		this.focusEnabledDate(this._dateAdapter.endOfMonth(this._calendar.focusedDate()), -1);
 	}
 
 	/**
@@ -156,9 +159,9 @@ export class BrnCalendarCellButton<T> {
 
 		// if we are on a date that does not exist in the previous month, we should focus the last day of the month.
 		if (date > this._dateAdapter.getDate(lastDay)) {
-			this._calendar.setFocusedDate(lastDay);
+			this.focusEnabledDate(lastDay, -1);
 		} else {
-			this._calendar.setFocusedDate(this._dateAdapter.set(previousMonthTarget, { day: date }));
+			this.focusEnabledDate(this._dateAdapter.set(previousMonthTarget, { day: date }), -1);
 		}
 	}
 
@@ -178,10 +181,21 @@ export class BrnCalendarCellButton<T> {
 
 		// if we are on a date that does not exist in the next month, we should focus the last day of the month.
 		if (date > this._dateAdapter.getDate(lastDay)) {
-			this._calendar.setFocusedDate(lastDay);
+			this.focusEnabledDate(lastDay, 1);
 		} else {
-			this._calendar.setFocusedDate(this._dateAdapter.set(nextMonthTarget, { day: date }));
+			this.focusEnabledDate(this._dateAdapter.set(nextMonthTarget, { day: date }), 1);
 		}
+	}
+
+	private focusEnabledDate(target: T, direction: 1 | -1): void {
+		const date = findEnabledDate(
+			target,
+			direction,
+			this._dateAdapter,
+			(day) => this._calendar.isDateDisabled(day),
+			{ min: this._calendar.min(), max: this._calendar.max() },
+		);
+		if (date !== undefined) this._calendar.setFocusedDate(date);
 	}
 
 	/**

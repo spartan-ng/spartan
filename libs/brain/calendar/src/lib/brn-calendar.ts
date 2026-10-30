@@ -20,6 +20,7 @@ import { BrnCalendarHeader } from './brn-calendar-header';
 import { type BrnCalendarBase, provideBrnCalendar } from './brn-calendar.token';
 import { injectBrnCalendarI18n, type Weekday } from './i18n/calendar-i18n';
 import { compareDays } from './utils/compare-days';
+import { findInitialFocusedDate } from './utils/find-enabled-date';
 
 @Directive({
 	selector: '[brnCalendar]',
@@ -76,9 +77,36 @@ export class BrnCalendar<T> implements BrnCalendarBase<T> {
 	/**
 	 * The focused date.
 	 */
-	public readonly focusedDate = linkedSignal(() =>
-		this.constrainDate(this.defaultFocusedDate() ?? this.date() ?? this._dateAdapter.now()),
-	);
+	public readonly focusedDate = linkedSignal({
+		source: () => ({
+			initialDate: this.constrainDate(this.defaultFocusedDate() ?? this.date() ?? this._dateAdapter.now()),
+			startingDate: this.defaultFocusedDate(),
+			selectedDate: this.date(),
+			min: this.min(),
+			max: this.max(),
+			disabled: this.disabled(),
+			dateDisabled: this.dateDisabled(),
+		}),
+		computation: (source, previous): T => {
+			if (source.disabled) return source.initialDate;
+			// Availability changes must not reset keyboard focus to the default date.
+			// A new initial date or changed limits should still reset it.
+			const preserveFocus =
+				previous !== undefined &&
+				previous.source.startingDate === source.startingDate &&
+				previous.source.selectedDate === source.selectedDate &&
+				previous.source.min === source.min &&
+				previous.source.max === source.max &&
+				previous.source.disabled === source.disabled;
+			const target: T = preserveFocus ? (previous.value as T) : source.initialDate;
+			return findInitialFocusedDate(
+				target,
+				this._dateAdapter,
+				(day) => this.isDateDisabled(day),
+				{ min: source.min, max: source.max },
+			);
+		},
+	});
 
 	/** Emits whenever the focused date changes. */
 	public readonly focusedDateChange = output<T>();

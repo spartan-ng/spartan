@@ -108,6 +108,14 @@ export class BrnSelectTrigger {
 			// activation on keyup (click -> toggle()), undoing the commit that happens below.
 			event.preventDefault();
 
+			// Space is a printable character while a type-ahead search is running (APG). Feed it
+			// to the search instead of committing. Enter always commits. Space commits only when
+			// type-ahead is idle (#1766).
+			if (event.key === ' ' && this._select.keyManager.isTyping()) {
+				this._select.keyManager.onKeydown(event);
+				return;
+			}
+
 			this._select.selectActiveItem();
 			return;
 		}

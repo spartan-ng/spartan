@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
-import { fireEvent, render } from '@testing-library/angular';
+import { fireEvent, render, waitFor } from '@testing-library/angular';
 import { HlmSelectImports } from '../../index';
 
 // Lets afterNextRender (overlay open + keyManager active-item effect) and microtasks settle.
@@ -25,6 +25,44 @@ const flush = async () => {
 	`,
 })
 class SelectKeyboardHost {}
+
+@Component({
+	selector: 'hlm-select-typeahead-space-host',
+	imports: [HlmSelectImports],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<hlm-select class="w-56">
+			<hlm-select-trigger>
+				<hlm-select-value placeholder="Select a status" />
+			</hlm-select-trigger>
+			<hlm-select-content *hlmSelectPortal>
+				<hlm-select-item value="In Bearbeitung">In Bearbeitung</hlm-select-item>
+				<hlm-select-item value="In Prüfung">In Prüfung</hlm-select-item>
+			</hlm-select-content>
+		</hlm-select>
+	`,
+})
+class SelectTypeaheadSpaceHost {}
+
+@Component({
+	selector: 'hlm-select-multiple-typeahead-space-host',
+	imports: [HlmSelectImports],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<hlm-select-multiple [(value)]="selected">
+			<hlm-select-trigger class="w-56">
+				<hlm-select-placeholder>Select a status</hlm-select-placeholder>
+			</hlm-select-trigger>
+			<hlm-select-content *hlmSelectPortal>
+				<hlm-select-item value="In Bearbeitung">In Bearbeitung</hlm-select-item>
+				<hlm-select-item value="In Prüfung">In Prüfung</hlm-select-item>
+			</hlm-select-content>
+		</hlm-select-multiple>
+	`,
+})
+class SelectMultipleTypeaheadSpaceHost {
+	public readonly selected = signal<string[] | null>(null);
+}
 
 @Component({
 	selector: 'hlm-select-multiple-keyboard-host',
@@ -93,6 +131,7 @@ describe('HlmSelect keyboard', () => {
 
 	const trigger = () => document.querySelector('button[brnselecttrigger]') as HTMLButtonElement;
 	const listboxOpen = () => trigger().getAttribute('aria-expanded') === 'true';
+	const highlightedValue = () => document.querySelector('[data-highlighted]')?.getAttribute('data-value');
 
 	it('opens on ArrowDown', async () => {
 		const view = await render(SelectKeyboardHost);
@@ -165,6 +204,106 @@ describe('HlmSelect keyboard', () => {
 		expect(listboxOpen()).toBe(false);
 		expect(document.querySelector('[role="listbox"]')).toBeNull();
 		expect(trigger().textContent?.toLowerCase()).toContain('apple');
+	});
+
+	// Regression (#1766): while a type-ahead search is running, Space is another printable
+	// character (APG). It must extend the search so "In P" can reach "In Prüfung", not commit.
+	it('extends type-ahead with Space so "In P" highlights In Prüfung', async () => {
+		const view = await render(SelectTypeaheadSpaceHost);
+		trigger().focus();
+
+		fireEvent.keyDown(trigger(), { key: 'ArrowDown' });
+		view.detectChanges();
+		await flush();
+		expect(listboxOpen()).toBe(true);
+
+		for (const key of ['I', 'n', ' ', 'P']) {
+			fireEvent.keyDown(trigger(), { key });
+			view.detectChanges();
+		}
+
+		expect(listboxOpen()).toBe(true);
+		expect(trigger().textContent?.toLowerCase()).toContain('select a status');
+
+		await waitFor(
+			() => {
+				expect(highlightedValue()).toBe('In Prüfung');
+			},
+			{ timeout: 2000 },
+		);
+		expect(listboxOpen()).toBe(true);
+	});
+
+	// Enter still commits while a search is in progress. The first option stays highlighted
+	// until the buffer flushes, so Enter selects that option rather than extending the search.
+	it('commits on Enter while type-ahead is active', async () => {
+		const view = await render(SelectTypeaheadSpaceHost);
+		trigger().focus();
+
+		fireEvent.keyDown(trigger(), { key: 'ArrowDown' });
+		view.detectChanges();
+		await flush();
+		expect(listboxOpen()).toBe(true);
+
+		fireEvent.keyDown(trigger(), { key: 'I' });
+		fireEvent.keyDown(trigger(), { key: 'Enter' });
+		view.detectChanges();
+		await flush();
+
+		expect(listboxOpen()).toBe(false);
+		expect(document.querySelector('[role="listbox"]')).toBeNull();
+		expect(trigger().textContent).toContain('In Bearbeitung');
+	});
+
+	// Letters alone still move visual focus and do not commit.
+	it('moves visual focus by letter type-ahead without committing', async () => {
+		const view = await render(SelectKeyboardHost);
+		trigger().focus();
+
+		fireEvent.keyDown(trigger(), { key: 'ArrowDown' });
+		view.detectChanges();
+		await flush();
+		expect(listboxOpen()).toBe(true);
+
+		fireEvent.keyDown(trigger(), { key: 'b' });
+		view.detectChanges();
+
+		await waitFor(
+			() => {
+				expect(highlightedValue()).toBe('banana');
+			},
+			{ timeout: 2000 },
+		);
+		expect(listboxOpen()).toBe(true);
+		expect(trigger().textContent?.toLowerCase()).toContain('select a fruit');
+	});
+
+	// Same collision on the multi-select: Space must extend the search, not toggle the highlight.
+	it('does not toggle when Space extends type-ahead in a multiple select', async () => {
+		const view = await render(SelectMultipleTypeaheadSpaceHost);
+		const host = view.fixture.componentInstance;
+		trigger().focus();
+
+		fireEvent.keyDown(trigger(), { key: 'ArrowDown' });
+		view.detectChanges();
+		await flush();
+		expect(listboxOpen()).toBe(true);
+
+		for (const key of ['I', 'n', ' ', 'P']) {
+			fireEvent.keyDown(trigger(), { key });
+			view.detectChanges();
+		}
+
+		expect(host.selected()).toBeNull();
+		expect(listboxOpen()).toBe(true);
+
+		await waitFor(
+			() => {
+				expect(highlightedValue()).toBe('In Prüfung');
+			},
+			{ timeout: 2000 },
+		);
+		expect(host.selected()).toBeNull();
 	});
 
 	// Tab moves focus on to the next control and dismisses the panel without committing.

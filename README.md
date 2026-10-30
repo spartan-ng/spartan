@@ -201,6 +201,10 @@ Our initial 300 contributors and sponsors are featured here and on the front pag
 167. [bence444](https://github.com/bence444)
 168. [pjalinski](https://github.com/pjalinski)
 169. [mdezey](https://github.com/mdezey)
+170. [ant1quar](https://github.com/ant1quar)
+171. [erkamyaman](https://github.com/erkamyaman)
+172. [nilsfunke](https://github.com/nilsfunke)
+173. [wajrock](https://github.com/wajrock)
 
 ### Sponsor spartan
 

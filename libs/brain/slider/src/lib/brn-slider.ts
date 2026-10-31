@@ -219,15 +219,18 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 		}
 
 		const totalCount = Math.floor((max - min) / step) + 1;
+		// Rounded like `setValue`, so a step of 0.1 gives 0.3 rather than 0.30000000000000004.
+		const decimalCount = Math.max(getDecimalCount(min), getDecimalCount(step));
+		const tickAt = (i: number) => roundValue(min + i * step, decimalCount);
 
 		// No need to reduce
 		if (totalCount <= maxTicks) {
-			return Array.from({ length: totalCount }, (_, i) => min + i * step);
+			return Array.from({ length: totalCount }, (_, i) => tickAt(i));
 		}
 
 		const stride = Math.ceil(totalCount / maxTicks);
 
-		return Array.from({ length: totalCount }, (_, i) => min + i * step).filter((_, index) => index % stride === 0);
+		return Array.from({ length: totalCount }, (_, i) => tickAt(i)).filter((_, index) => index % stride === 0);
 	});
 
 	/** @internal Disabled state that can be controlled internally or externally. */
@@ -297,11 +300,16 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 
 		const currentValue = this.normalizedValue();
 
+		const minGap = roundValue(this.minStepsBetweenThumbs() * this.step(), decimalCount);
+		const maxGap = roundValue(this.maxStepsBetweenThumbs() * this.step(), decimalCount);
+
 		if (this.preventStepOverThumb() && currentValue.length > 1) {
-			const gap = this.minStepsBetweenThumbs() * this.step();
-			const lowerBound = atIndex > 0 ? Math.max(this.min(), currentValue[atIndex - 1] + gap) : this.min();
+			const lowerBound =
+				atIndex > 0 ? Math.max(this.min(), roundValue(currentValue[atIndex - 1] + minGap, decimalCount)) : this.min();
 			const upperBound =
-				atIndex < currentValue.length - 1 ? Math.min(this.max(), currentValue[atIndex + 1] - gap) : this.max();
+				atIndex < currentValue.length - 1
+					? Math.min(this.max(), roundValue(currentValue[atIndex + 1] - minGap, decimalCount))
+					: this.max();
 			value = clamp(value, [lowerBound, upperBound]);
 		}
 
@@ -319,9 +327,9 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 		// Only validate the gaps adjacent to the moved thumb so that a state which already
 		// violates the constraint (e.g. set programmatically via a form control) can still be
 		// brought back into compliance by dragging.
-		if (!isGapAtIndexWithinBounds(newValue, newValIndex, this.minStepsBetweenThumbs() * this.step(), true)) return;
+		if (!isGapAtIndexWithinBounds(newValue, newValIndex, minGap, true, decimalCount)) return;
 
-		if (!isGapAtIndexWithinBounds(newValue, newValIndex, this.maxStepsBetweenThumbs() * this.step(), false)) return;
+		if (!isGapAtIndexWithinBounds(newValue, newValIndex, maxGap, false, decimalCount)) return;
 
 		this.valueIndexToChange.set(newValIndex);
 
@@ -419,8 +427,15 @@ function clamp(value: number, [min, max]: [number, number]): number {
  * the thumbs back into compliance.
  *
  * @param isMin When `true`, the adjacent gaps must be `>= bound`; otherwise they must be `<= bound`.
+ * @param decimalCount The step's decimal places, to which each gap is rounded before it is compared.
  */
-function isGapAtIndexWithinBounds(values: number[], index: number, bound: number, isMin: boolean): boolean {
+function isGapAtIndexWithinBounds(
+	values: number[],
+	index: number,
+	bound: number,
+	isMin: boolean,
+	decimalCount: number,
+): boolean {
 	if (isMin ? bound <= 0 : !Number.isFinite(bound)) {
 		return true;
 	}
@@ -428,8 +443,9 @@ function isGapAtIndexWithinBounds(values: number[], index: number, bound: number
 	const leftGap = index > 0 ? values[index] - values[index - 1] : undefined;
 	const rightGap = index < values.length - 1 ? values[index + 1] - values[index] : undefined;
 
-	for (const gap of [leftGap, rightGap]) {
-		if (gap === undefined) continue;
+	for (const rawGap of [leftGap, rightGap]) {
+		if (rawGap === undefined) continue;
+		const gap = roundValue(rawGap, decimalCount);
 		if (isMin ? gap < bound : gap > bound) return false;
 	}
 

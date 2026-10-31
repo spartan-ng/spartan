@@ -300,15 +300,22 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 
 		const currentValue = this.normalizedValue();
 
-		const minGap = roundValue(this.minStepsBetweenThumbs() * this.step(), decimalCount);
-		const maxGap = roundValue(this.maxStepsBetweenThumbs() * this.step(), decimalCount);
+		const minGap = this.minStepsBetweenThumbs() * this.step();
+		const maxGap = this.maxStepsBetweenThumbs() * this.step();
+		// Floating point error in a gap is far below a step: 0.7 - 0.4 is 0.29999999999999993.
+		const gapTolerance = this.step() * GAP_TOLERANCE;
 
 		if (this.preventStepOverThumb() && currentValue.length > 1) {
+			// A neighbour plus the minimum gap, without the floating point error of the sum
+			// (0.2 + 3 * 0.1 is 0.5000000000000001): it has no more digits than both together.
+			const gapDecimalCount = decimalCount + getDecimalCount(this.minStepsBetweenThumbs());
+			const besideNeighbour = (neighbour: number, gap: number) =>
+				roundValue(neighbour + gap, Math.max(getDecimalCount(neighbour), gapDecimalCount));
 			const lowerBound =
-				atIndex > 0 ? Math.max(this.min(), roundValue(currentValue[atIndex - 1] + minGap, decimalCount)) : this.min();
+				atIndex > 0 ? Math.max(this.min(), besideNeighbour(currentValue[atIndex - 1], minGap)) : this.min();
 			const upperBound =
 				atIndex < currentValue.length - 1
-					? Math.min(this.max(), roundValue(currentValue[atIndex + 1] - minGap, decimalCount))
+					? Math.min(this.max(), besideNeighbour(currentValue[atIndex + 1], -minGap))
 					: this.max();
 			value = clamp(value, [lowerBound, upperBound]);
 		}
@@ -327,9 +334,9 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 		// Only validate the gaps adjacent to the moved thumb so that a state which already
 		// violates the constraint (e.g. set programmatically via a form control) can still be
 		// brought back into compliance by dragging.
-		if (!isGapAtIndexWithinBounds(newValue, newValIndex, minGap, true, decimalCount)) return;
+		if (!isGapAtIndexWithinBounds(newValue, newValIndex, minGap, true, gapTolerance)) return;
 
-		if (!isGapAtIndexWithinBounds(newValue, newValIndex, maxGap, false, decimalCount)) return;
+		if (!isGapAtIndexWithinBounds(newValue, newValIndex, maxGap, false, gapTolerance)) return;
 
 		this.valueIndexToChange.set(newValIndex);
 
@@ -406,13 +413,18 @@ function areArrsEqual(arr1: unknown[], arr2: unknown[]): boolean {
 	return String(arr1) === String(arr2);
 }
 
+/** A fraction of a step: far above floating point error, far below any gap a step can make. */
+const GAP_TOLERANCE = 1e-9;
+
 function roundValue(value: number, decimalCount: number): number {
 	const rounder = Math.pow(10, decimalCount);
 	return Math.round(value * rounder) / rounder;
 }
 
 function getDecimalCount(value: number): number {
-	return (String(value).split('.')[1] || '').length;
+	// `String(0.0000001)` is `'1e-7'`: the exponent counts as decimal places too.
+	const [mantissa, exponent = '0'] = String(value).toLowerCase().split('e');
+	return Math.max(0, (mantissa.split('.')[1] || '').length - Number(exponent));
 }
 
 function clamp(value: number, [min, max]: [number, number]): number {
@@ -427,14 +439,14 @@ function clamp(value: number, [min, max]: [number, number]): number {
  * the thumbs back into compliance.
  *
  * @param isMin When `true`, the adjacent gaps must be `>= bound`; otherwise they must be `<= bound`.
- * @param decimalCount The step's decimal places, to which each gap is rounded before it is compared.
+ * @param tolerance How far a gap may miss the bound by floating point error alone.
  */
 function isGapAtIndexWithinBounds(
 	values: number[],
 	index: number,
 	bound: number,
 	isMin: boolean,
-	decimalCount: number,
+	tolerance: number,
 ): boolean {
 	if (isMin ? bound <= 0 : !Number.isFinite(bound)) {
 		return true;
@@ -443,10 +455,9 @@ function isGapAtIndexWithinBounds(
 	const leftGap = index > 0 ? values[index] - values[index - 1] : undefined;
 	const rightGap = index < values.length - 1 ? values[index + 1] - values[index] : undefined;
 
-	for (const rawGap of [leftGap, rightGap]) {
-		if (rawGap === undefined) continue;
-		const gap = roundValue(rawGap, decimalCount);
-		if (isMin ? gap < bound : gap > bound) return false;
+	for (const gap of [leftGap, rightGap]) {
+		if (gap === undefined) continue;
+		if (isMin ? gap < bound - tolerance : gap > bound + tolerance) return false;
 	}
 
 	return true;

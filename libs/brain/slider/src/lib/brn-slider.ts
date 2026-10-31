@@ -219,15 +219,18 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 		}
 
 		const totalCount = Math.floor((max - min) / step) + 1;
+		// Rounded like `setValue`, so a step of 0.1 gives 0.3 rather than 0.30000000000000004.
+		const decimalCount = Math.max(getDecimalCount(min), getDecimalCount(step));
+		const tickAt = (i: number) => roundValue(min + i * step, decimalCount);
 
 		// No need to reduce
 		if (totalCount <= maxTicks) {
-			return Array.from({ length: totalCount }, (_, i) => min + i * step);
+			return Array.from({ length: totalCount }, (_, i) => tickAt(i));
 		}
 
 		const stride = Math.ceil(totalCount / maxTicks);
 
-		return Array.from({ length: totalCount }, (_, i) => min + i * step).filter((_, index) => index % stride === 0);
+		return Array.from({ length: totalCount }, (_, i) => tickAt(i)).filter((_, index) => index % stride === 0);
 	});
 
 	/** @internal Disabled state that can be controlled internally or externally. */
@@ -297,11 +300,23 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 
 		const currentValue = this.normalizedValue();
 
+		const minGap = this.minStepsBetweenThumbs() * this.step();
+		const maxGap = this.maxStepsBetweenThumbs() * this.step();
+		// Floating point error in a gap is far below a step: 0.7 - 0.4 is 0.29999999999999993.
+		const gapTolerance = this.step() * GAP_TOLERANCE;
+
 		if (this.preventStepOverThumb() && currentValue.length > 1) {
-			const gap = this.minStepsBetweenThumbs() * this.step();
-			const lowerBound = atIndex > 0 ? Math.max(this.min(), currentValue[atIndex - 1] + gap) : this.min();
+			// A neighbour plus the minimum gap, without the floating point error of the sum
+			// (0.2 + 3 * 0.1 is 0.5000000000000001): it has no more digits than both together.
+			const gapDecimalCount = decimalCount + getDecimalCount(this.minStepsBetweenThumbs());
+			const besideNeighbour = (neighbour: number, gap: number) =>
+				roundValue(neighbour + gap, Math.max(getDecimalCount(neighbour), gapDecimalCount));
+			const lowerBound =
+				atIndex > 0 ? Math.max(this.min(), besideNeighbour(currentValue[atIndex - 1], minGap)) : this.min();
 			const upperBound =
-				atIndex < currentValue.length - 1 ? Math.min(this.max(), currentValue[atIndex + 1] - gap) : this.max();
+				atIndex < currentValue.length - 1
+					? Math.min(this.max(), besideNeighbour(currentValue[atIndex + 1], -minGap))
+					: this.max();
 			value = clamp(value, [lowerBound, upperBound]);
 		}
 
@@ -319,9 +334,9 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 		// Only validate the gaps adjacent to the moved thumb so that a state which already
 		// violates the constraint (e.g. set programmatically via a form control) can still be
 		// brought back into compliance by dragging.
-		if (!isGapAtIndexWithinBounds(newValue, newValIndex, this.minStepsBetweenThumbs() * this.step(), true)) return;
+		if (!isGapAtIndexWithinBounds(newValue, newValIndex, minGap, true, gapTolerance)) return;
 
-		if (!isGapAtIndexWithinBounds(newValue, newValIndex, this.maxStepsBetweenThumbs() * this.step(), false)) return;
+		if (!isGapAtIndexWithinBounds(newValue, newValIndex, maxGap, false, gapTolerance)) return;
 
 		this.valueIndexToChange.set(newValIndex);
 
@@ -398,13 +413,18 @@ function areArrsEqual(arr1: unknown[], arr2: unknown[]): boolean {
 	return String(arr1) === String(arr2);
 }
 
+/** A fraction of a step: far above floating point error, far below any gap a step can make. */
+const GAP_TOLERANCE = 1e-9;
+
 function roundValue(value: number, decimalCount: number): number {
 	const rounder = Math.pow(10, decimalCount);
 	return Math.round(value * rounder) / rounder;
 }
 
 function getDecimalCount(value: number): number {
-	return (String(value).split('.')[1] || '').length;
+	// `String(0.0000001)` is `'1e-7'`: the exponent counts as decimal places too.
+	const [mantissa, exponent = '0'] = String(value).toLowerCase().split('e');
+	return Math.max(0, (mantissa.split('.')[1] || '').length - Number(exponent));
 }
 
 function clamp(value: number, [min, max]: [number, number]): number {
@@ -419,8 +439,15 @@ function clamp(value: number, [min, max]: [number, number]): number {
  * the thumbs back into compliance.
  *
  * @param isMin When `true`, the adjacent gaps must be `>= bound`; otherwise they must be `<= bound`.
+ * @param tolerance How far a gap may miss the bound by floating point error alone.
  */
-function isGapAtIndexWithinBounds(values: number[], index: number, bound: number, isMin: boolean): boolean {
+function isGapAtIndexWithinBounds(
+	values: number[],
+	index: number,
+	bound: number,
+	isMin: boolean,
+	tolerance: number,
+): boolean {
 	if (isMin ? bound <= 0 : !Number.isFinite(bound)) {
 		return true;
 	}
@@ -430,7 +457,7 @@ function isGapAtIndexWithinBounds(values: number[], index: number, bound: number
 
 	for (const gap of [leftGap, rightGap]) {
 		if (gap === undefined) continue;
-		if (isMin ? gap < bound : gap > bound) return false;
+		if (isMin ? gap < bound - tolerance : gap > bound + tolerance) return false;
 	}
 
 	return true;

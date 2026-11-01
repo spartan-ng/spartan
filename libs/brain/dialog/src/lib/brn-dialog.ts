@@ -19,14 +19,13 @@ import {
 	ViewContainerRef,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { nextBrnDialogId } from './brn-dialog-id';
 import type { BrnDialogOptions } from './brn-dialog-options';
 import type { BrnDialogRef } from './brn-dialog-ref';
 import type { BrnDialogState } from './brn-dialog-state';
 import { injectBrnDialogDefaultOptions } from './brn-dialog-token';
 import { cssClassesToArray } from './brn-dialog-utils';
 import { BrnDialogService } from './brn-dialog.service';
-
-let dialogIdSequence = 0;
 
 type DialogContentRegistration<TContext> = {
 	template: TemplateRef<unknown>;
@@ -66,7 +65,7 @@ export class BrnDialog<TResult = unknown, TContext extends Record<string, unknow
 	public readonly stateChanged = output<BrnDialogState>();
 	public readonly stateComputed = computed<BrnDialogState>(() => this._dialogRef()?.state() ?? 'closed');
 
-	public readonly id = input<string>(`brn-dialog-${++dialogIdSequence}`);
+	public readonly id = input<string>(nextBrnDialogId());
 	public readonly state = input<BrnDialogState | null>(null);
 	public readonly role = input<BrnDialogOptions['role']>(this._defaultOptions.role);
 	public readonly hasBackdrop = input<boolean, BooleanInput>(this._defaultOptions.hasBackdrop, {

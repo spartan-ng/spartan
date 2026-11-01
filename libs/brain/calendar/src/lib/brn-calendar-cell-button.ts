@@ -131,7 +131,11 @@ export class BrnCalendarCellButton<T> {
 	protected focusFirst(event: Event): void {
 		event.preventDefault();
 		event.stopPropagation();
-		this.focusEnabledDate(this._dateAdapter.startOfMonth(this._calendar.focusedDate()), 1);
+		this.focusEnabledDate(
+			this._dateAdapter.startOfMonth(this._calendar.focusedDate()),
+			1,
+			this._dateAdapter.endOfMonth(this._calendar.focusedDate()),
+		);
 	}
 
 	/**
@@ -140,7 +144,11 @@ export class BrnCalendarCellButton<T> {
 	protected focusLast(event: Event): void {
 		event.preventDefault();
 		event.stopPropagation();
-		this.focusEnabledDate(this._dateAdapter.endOfMonth(this._calendar.focusedDate()), -1);
+		this.focusEnabledDate(
+			this._dateAdapter.endOfMonth(this._calendar.focusedDate()),
+			-1,
+			this._dateAdapter.startOfMonth(this._calendar.focusedDate()),
+		);
 	}
 
 	/**
@@ -187,13 +195,19 @@ export class BrnCalendarCellButton<T> {
 		}
 	}
 
-	private focusEnabledDate(target: T, direction: 1 | -1): void {
+	private focusEnabledDate(target: T, direction: 1 | -1, boundary?: T): void {
+		let min = this._calendar.min();
+		let max = this._calendar.max();
+		if (boundary !== undefined) {
+			if (direction === 1 && (max === undefined || this._dateAdapter.isBefore(boundary, max))) max = boundary;
+			if (direction === -1 && (min === undefined || this._dateAdapter.isAfter(boundary, min))) min = boundary;
+		}
 		const date = findEnabledDate(
 			target,
 			direction,
 			this._dateAdapter,
 			(day) => this._calendar.isDateDisabled(day),
-			{ min: this._calendar.min(), max: this._calendar.max() },
+			{ min, max },
 		);
 		if (date !== undefined) this._calendar.setFocusedDate(date);
 	}

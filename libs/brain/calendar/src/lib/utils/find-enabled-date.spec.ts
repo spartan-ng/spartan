@@ -37,8 +37,7 @@ describe('enabled calendar focus', () => {
 		const start = new Date(2026, 8, 19);
 		const min = start;
 		const firstAvailable = new Date(2028, 0, 1);
-		const blocked = (date: Date) =>
-			adapter.isBefore(date, min) || adapter.isBefore(date, firstAvailable);
+		const blocked = (date: Date) => adapter.isBefore(date, min) || adapter.isBefore(date, firstAvailable);
 		expect(findInitialFocusedDate(start, adapter, blocked, { min })).toEqual(firstAvailable);
 	});
 

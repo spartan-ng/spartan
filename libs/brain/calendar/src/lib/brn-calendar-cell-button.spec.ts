@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { By } from '@angular/platform-browser';
 import { fireEvent, render, waitFor } from '@testing-library/angular';
 import { BrnCalendar } from './brn-calendar';
 import { BrnCalendarCellButton } from './brn-calendar-cell-button';
@@ -85,18 +86,34 @@ describe('BrnCalendar keyboard navigation', () => {
 		const { container, fixture } = await render(CalendarHost);
 		fixture.componentInstance.dateDisabled.set((date: Date) => date.getDate() === 25);
 		fixture.detectChanges();
+		dayButton(container, 18).focus();
 		fireEvent.keyDown(dayButton(container, 18), { key: 'ArrowDown' });
 		fixture.detectChanges();
-		await waitFor(() => expect(dayButton(container, 26).tabIndex).toBe(0));
+		await waitFor(() => expect(document.activeElement).toBe(dayButton(container, 26)));
 	});
 
 	it('finds the first enabled day on Home', async () => {
 		const { container, fixture } = await render(CalendarHost);
 		fixture.componentInstance.start.set(new Date(2026, 10, 18));
 		fixture.detectChanges();
+		dayButton(container, 18).focus();
 		fireEvent.keyDown(dayButton(container, 18), { key: 'Home' });
 		fixture.detectChanges();
-		await waitFor(() => expect(dayButton(container, 2).tabIndex).toBe(0));
+		await waitFor(() => expect(document.activeElement).toBe(dayButton(container, 2)));
+	});
+
+	it.each(['Home', 'End'])('keeps %s inside the focused month when availability changes', async (key) => {
+		const { container, fixture } = await render(CalendarHost);
+		const calendar = fixture.debugElement.query(By.directive(BrnCalendar)).injector.get(BrnCalendar<Date>);
+		const current = dayButton(container, 18);
+		current.focus();
+		// Availability may change between rendering the focused cell and handling its key event.
+		const availability = vi.spyOn(calendar, 'isDateDisabled').mockImplementation((date) => date.getMonth() === 8);
+		fireEvent.keyDown(current, { key });
+		fixture.detectChanges();
+		expect(calendar.focusedDate()).toEqual(new Date(2026, 8, 18));
+		expect(document.activeElement).toBe(current);
+		availability.mockRestore();
 	});
 
 	it('moves Home to the first enabled day when min falls inside the month', async () => {
@@ -124,17 +141,19 @@ describe('BrnCalendar keyboard navigation', () => {
 		const { container, fixture } = await render(CalendarHost);
 		fixture.componentInstance.start.set(new Date(2026, 9, 19));
 		fixture.detectChanges();
+		dayButton(container, 19).focus();
 		fireEvent.keyDown(dayButton(container, 19), { key: 'PageUp' });
 		fixture.detectChanges();
-		await waitFor(() => expect(dayButton(container, 18).tabIndex).toBe(0));
+		await waitFor(() => expect(document.activeElement).toBe(dayButton(container, 18)));
 	});
 
 	it('uses the previous enabled date for ArrowRight in RTL', async () => {
 		const { container, fixture } = await render(CalendarHost);
 		const button = dayButton(container, 18);
 		button.style.direction = 'rtl';
+		button.focus();
 		fireEvent.keyDown(button, { key: 'ArrowRight' });
 		fixture.detectChanges();
-		await waitFor(() => expect(dayButton(container, 17).tabIndex).toBe(0));
+		await waitFor(() => expect(document.activeElement).toBe(dayButton(container, 17)));
 	});
 });

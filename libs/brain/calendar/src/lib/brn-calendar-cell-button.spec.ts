@@ -9,7 +9,14 @@ import { BrnCalendarCellButton } from './brn-calendar-cell-button';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<button type="button">Before</button>
-		<div brnCalendar #calendar="brnCalendar" [defaultFocusedDate]="start()" [dateDisabled]="dateDisabled()" [min]="min()" [max]="max()">
+		<div
+			brnCalendar
+			#calendar="brnCalendar"
+			[defaultFocusedDate]="start()"
+			[dateDisabled]="dateDisabled()"
+			[min]="min()"
+			[max]="max()"
+		>
 			@for (day of calendar.days(); track day.getTime()) {
 				<button brnCalendarCellButton [date]="day">{{ day.getDate() }}</button>
 			}

@@ -202,13 +202,10 @@ export class BrnCalendarCellButton<T> {
 			if (direction === 1 && (max === undefined || this._dateAdapter.isBefore(boundary, max))) max = boundary;
 			if (direction === -1 && (min === undefined || this._dateAdapter.isAfter(boundary, min))) min = boundary;
 		}
-		const date = findEnabledDate(
-			target,
-			direction,
-			this._dateAdapter,
-			(day) => this._calendar.isDateDisabled(day),
-			{ min, max },
-		);
+		const date = findEnabledDate(target, direction, this._dateAdapter, (day) => this._calendar.isDateDisabled(day), {
+			min,
+			max,
+		});
 		if (date !== undefined) this._calendar.setFocusedDate(date);
 	}
 

@@ -17,6 +17,15 @@ const pointerClick = (target: Element) => {
 	fireEvent.click(target);
 };
 
+/** Dispatches Escape from inside the top overlay pane; `handled` marks it as consumed by an inner element first. */
+const pressEscape = (handled = false) => {
+	const pane = Array.from(document.querySelectorAll<HTMLElement>('.cdk-overlay-pane')).at(-1)!;
+	if (handled) pane.addEventListener('keydown', (event) => event.preventDefault(), { once: true });
+	const event = new KeyboardEvent('keydown', { key: 'Escape', bubbles: true, cancelable: true });
+	pane.dispatchEvent(event);
+	return event;
+};
+
 function backdrops(): HTMLElement[] {
 	return Array.from(document.querySelectorAll<HTMLElement>('.cdk-overlay-backdrop'));
 }
@@ -43,5 +52,22 @@ describe('BrnDialogService', () => {
 
 		expect(above.state()).toBe('closed');
 		expect(below.state()).toBe('open');
+	});
+
+	it('closes a dialog on Escape and marks the event as handled', () => {
+		const dialog = TestBed.inject(BrnDialogService).open(DialogContent);
+
+		const event = pressEscape();
+
+		expect(dialog.state()).toBe('closed');
+		expect(event.defaultPrevented).toBe(true);
+	});
+
+	it('stays open on an Escape that was already handled inside it', () => {
+		const dialog = TestBed.inject(BrnDialogService).open(DialogContent);
+
+		pressEscape(true);
+
+		expect(dialog.state()).toBe('open');
 	});
 });

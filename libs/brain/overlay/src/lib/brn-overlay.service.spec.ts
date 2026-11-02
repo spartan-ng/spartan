@@ -129,6 +129,56 @@ describe('BrnOverlayService aria-modal', () => {
 	});
 });
 
+describe('BrnOverlayService escape', () => {
+	afterEach(() => {
+		TestBed.resetTestingModule();
+		document.querySelectorAll('.cdk-overlay-container').forEach((el) => el.remove());
+	});
+
+	const openOverlay = () => {
+		const fixture = TestBed.createComponent(ScrollContainerHost);
+		fixture.detectChanges();
+		const component = fixture.componentInstance;
+		const createSpy = vi.spyOn(TestBed.inject(Overlay), 'create');
+
+		const ref = TestBed.inject(BrnOverlayService).open(
+			component.content(),
+			component.vcr,
+			{},
+			{
+				attachTo: component.anchor(),
+				attachPositions: [{ originX: 'start', originY: 'bottom', overlayX: 'start', overlayY: 'top' }],
+			},
+		);
+
+		return { ref, pane: (createSpy.mock.results[0].value as OverlayRef).overlayElement };
+	};
+
+	const pressEscape = (pane: HTMLElement) => {
+		const event = new KeyboardEvent('keydown', { key: 'Escape', bubbles: true, cancelable: true });
+		pane.dispatchEvent(event);
+		return event;
+	};
+
+	it('closes on Escape and marks the event as handled', () => {
+		const { ref, pane } = openOverlay();
+
+		const event = pressEscape(pane);
+
+		expect(ref.state()).toBe('closed');
+		expect(event.defaultPrevented).toBe(true);
+	});
+
+	it('stays open on an Escape that was already handled inside it', () => {
+		const { ref, pane } = openOverlay();
+		pane.addEventListener('keydown', (event) => event.preventDefault(), { once: true });
+
+		pressEscape(pane);
+
+		expect(ref.state()).toBe('open');
+	});
+});
+
 describe('BrnOverlayService scroll containers', () => {
 	afterEach(() => {
 		TestBed.resetTestingModule();

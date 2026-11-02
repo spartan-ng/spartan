@@ -290,10 +290,28 @@ function writeStackblitzMeta(tree: Tree): void {
 
 	const presetCss = tree.read('libs/brain/hlm-tailwind-preset.css', 'utf-8') ?? '';
 
+	writeInstallationPresetSnippet(tree, presetCss);
+
 	const meta = { baseDependencies, devDependencies, presetCss };
 	const metaPath = 'apps/app/src/public/data/stackblitz-meta.json';
 	tree.write(metaPath, JSON.stringify(meta, null, 2));
 	logger.info(`StackBlitz metadata generated at ${metaPath}`);
+}
+
+export function formatInstallationPresetSnippet(presetCss: string): string {
+	return `/**
+ * Generated from \`libs/brain/hlm-tailwind-preset.css\` — do not edit by hand.
+ * Regenerate with \`npx nx generate @spartan-ng/tools:generate-hlm-component-preview\`.
+ */
+export const hlmTailwindPreset =
+\t${JSON.stringify(presetCss)};
+`;
+}
+
+function writeInstallationPresetSnippet(tree: Tree, presetCss: string): void {
+	const snippetPath = 'apps/app/src/app/pages/(documentation)/documentation/(ui)/hlm-tailwind-preset.snippet.ts';
+	tree.write(snippetPath, formatInstallationPresetSnippet(presetCss));
+	logger.info(`Installation preset snippet generated at ${snippetPath}`);
 }
 
 /**

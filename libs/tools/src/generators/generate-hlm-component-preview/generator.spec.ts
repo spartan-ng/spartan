@@ -1,6 +1,6 @@
 import type { Tree } from '@nx/devkit';
 import { createTreeWithEmptyWorkspace } from '@nx/devkit/testing';
-import generateHlmComponentManualInstallation from './generator';
+import generateHlmComponentManualInstallation, { formatInstallationPresetSnippet } from './generator';
 
 describe('generateHlmComponentManualInstallation (Angular)', () => {
 	let tree: Tree;
@@ -77,6 +77,12 @@ export function localUtil() {}
 
 		// './utils' should NOT appear in the merged imports
 		expect(JSON.stringify(data.button['vega'])).not.toContain('./utils');
+	});
+
+	it('formats the installation preset snippet from CSS text', () => {
+		expect(formatInstallationPresetSnippet('@import "preset";\n')).toContain(
+			`${JSON.stringify('@import "preset";\n')}`,
+		);
 	});
 
 	it('replaces <%- importAlias %> in Angular imports', async () => {

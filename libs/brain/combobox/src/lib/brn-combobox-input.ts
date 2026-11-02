@@ -144,7 +144,8 @@ export class BrnComboboxInput<T> {
 				this._combobox.open();
 			}
 
-			if (event.key === 'Escape') {
+			if (event.key === 'Escape' && this._combobox.hasValue()) {
+				event.preventDefault();
 				this._combobox.resetValue();
 			}
 		}

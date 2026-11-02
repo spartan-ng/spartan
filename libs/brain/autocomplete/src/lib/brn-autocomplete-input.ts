@@ -72,6 +72,11 @@ export class BrnAutocompleteInput<T> {
 	protected readonly _touched = computed(() => this._autocomplete.controlState?.()?.touched);
 	protected readonly _dirty = computed(() => this._autocomplete.controlState?.()?.dirty);
 
+	private readonly _hasValue = computed(() => {
+		const value = this._autocomplete.value();
+		return this._autocomplete.search() !== '' || (value ?? '') !== '';
+	});
+
 	constructor() {
 		this._autocomplete.registerAutocompleteInput(this);
 
@@ -120,7 +125,8 @@ export class BrnAutocompleteInput<T> {
 				this._autocomplete.open();
 			}
 
-			if (event.key === 'Escape') {
+			if (event.key === 'Escape' && this._hasValue()) {
+				event.preventDefault();
 				this._autocomplete.resetValue();
 			}
 		}

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, input, type Provider } from '@angular/core';
 import { render } from '@testing-library/angular';
-import { provideBrnCalendarI18n } from '../i18n/calendar-i18n';
+import { BrnCalendarI18nToken, provideBrnCalendarI18n } from '../i18n/calendar-i18n';
 import { BrnMonthYearCalendar } from './brn-month-year-calendar';
 import { BrnMonthYearCalendarNextButton } from './brn-month-year-calendar-next-button';
 import { BrnMonthYearCalendarPreviousButton } from './brn-month-year-calendar-previous-button';
@@ -21,11 +21,11 @@ class MonthYearCalendarHost {
 }
 
 async function setup(view: BrnMonthYearCalendarView, providers: Provider[] = []) {
-	const { getByTestId } = await render(MonthYearCalendarHost, {
+	const { getByTestId, fixture } = await render(MonthYearCalendarHost, {
 		inputs: { view },
 		providers,
 	});
-	return { previous: getByTestId('previous'), next: getByTestId('next') };
+	return { previous: getByTestId('previous'), next: getByTestId('next'), fixture };
 }
 
 describe('BrnMonthYearCalendar navigation buttons', () => {
@@ -74,6 +74,47 @@ describe('BrnMonthYearCalendar navigation buttons', () => {
 
 			expect(previous).toHaveAttribute('aria-label', 'Année précédente');
 			expect(next).toHaveAttribute('aria-label', 'Année suivante');
+		});
+
+		it('should translate a single label key and keep the defaults for the others', async () => {
+			const { previous, next } = await setup('month', [
+				provideBrnCalendarI18n({ labelNextYear: () => 'Année suivante' }),
+			]);
+
+			expect(previous).toHaveAttribute('aria-label', 'Go to the previous year');
+			expect(next).toHaveAttribute('aria-label', 'Année suivante');
+		});
+
+		it('should update the labels when the view changes', async () => {
+			const { previous, next, fixture } = await setup('year', [frenchI18n]);
+
+			fixture.componentRef.setInput('view', 'month');
+			fixture.detectChanges();
+
+			expect(previous).toHaveAttribute('aria-label', 'Année précédente');
+			expect(next).toHaveAttribute('aria-label', 'Année suivante');
+
+			fixture.componentRef.setInput('view', 'year');
+			fixture.detectChanges();
+
+			expect(previous).toHaveAttribute('aria-label', 'Années précédentes');
+			expect(next).toHaveAttribute('aria-label', 'Années suivantes');
+		});
+
+		it('should update the labels when the language changes at runtime', async () => {
+			const { previous, next, fixture } = await setup('year', [provideBrnCalendarI18n()]);
+
+			expect(previous).toHaveAttribute('aria-label', 'Go to the previous years');
+			expect(next).toHaveAttribute('aria-label', 'Go to the next years');
+
+			fixture.debugElement.injector.get(BrnCalendarI18nToken).use({
+				labelPreviousYears: () => 'Années précédentes',
+				labelNextYears: () => 'Années suivantes',
+			});
+			fixture.detectChanges();
+
+			expect(previous).toHaveAttribute('aria-label', 'Années précédentes');
+			expect(next).toHaveAttribute('aria-label', 'Années suivantes');
 		});
 	});
 });

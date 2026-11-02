@@ -80,6 +80,7 @@ describe('calendar previous/next month buttons', () => {
 		const date = focused(fixture);
 		expect(date.getFullYear()).toBe(2026);
 		expect(date.getMonth()).toBe(9);
+		expect(date.getDate()).toBe(19);
 		expect(isWeekend(date)).toBe(false);
 	});
 

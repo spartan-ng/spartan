@@ -1,3 +1,13 @@
+## <small>1.9.1-beta.1 (2026-11-03)</small>
+
+- fix(calendar): make year navigation aria-labels translatable (#1855) ([c661326](https://github.com/spartan-ng/spartan/commit/c661326)), closes [#1855](https://github.com/spartan-ng/spartan/issues/1855) [#1854](https://github.com/spartan-ng/spartan/issues/1854)
+- fix(dialog): share id sequence between brn-dialog and dialog service (#1853) ([54ad422](https://github.com/spartan-ng/spartan/commit/54ad422)), closes [#1853](https://github.com/spartan-ng/spartan/issues/1853) [#1665](https://github.com/spartan-ng/spartan/issues/1665)
+- chore(release): backmerge main into beta ([8d8b14d](https://github.com/spartan-ng/spartan/commit/8d8b14d))
+- chore(release): backmerge main into beta ([9bfe359](https://github.com/spartan-ng/spartan/commit/9bfe359))
+- chore(release): backmerge main into beta ([38d2125](https://github.com/spartan-ng/spartan/commit/38d2125))
+- docs: add new contributors to our 300 ([9ae9e33](https://github.com/spartan-ng/spartan/commit/9ae9e33))
+- docs: add new contributors to our 300 ([f5db49d](https://github.com/spartan-ng/spartan/commit/f5db49d))
+
 ## 1.9.0 (2026-10-29)
 
 - Merge pull request #1847 from spartan-ng/beta ([283ddcd](https://github.com/spartan-ng/spartan/commit/283ddcd)), closes [#1847](https://github.com/spartan-ng/spartan/issues/1847)

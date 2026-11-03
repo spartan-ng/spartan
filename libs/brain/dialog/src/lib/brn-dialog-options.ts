@@ -19,6 +19,7 @@ export type BrnDialogOptions = {
 	backdropClass: string | string[];
 	direction?: Direction;
 	closeOnOutsidePointerEvents: boolean;
+	closePredicate?: (event: Event) => boolean;
 	disableClose: boolean;
 	hasBackdrop: boolean;
 	id: string;

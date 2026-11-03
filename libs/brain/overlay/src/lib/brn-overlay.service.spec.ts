@@ -129,6 +129,66 @@ describe('BrnOverlayService aria-modal', () => {
 	});
 });
 
+describe('BrnOverlayService closePredicate', () => {
+	afterEach(() => {
+		TestBed.resetTestingModule();
+		document.querySelectorAll('.cdk-overlay-container').forEach((el) => el.remove());
+	});
+
+	const openWithPredicate = (closePredicate: (event: Event) => boolean) => {
+		const fixture = TestBed.createComponent(ScrollContainerHost);
+		fixture.detectChanges();
+		const component = fixture.componentInstance;
+
+		return TestBed.inject(BrnOverlayService).open(
+			component.content(),
+			component.vcr,
+			{},
+			{
+				attachTo: component.anchor(),
+				attachPositions: [{ originX: 'start', originY: 'bottom', overlayX: 'start', overlayY: 'top' }],
+				closeOnOutsidePointerEvents: true,
+				closePredicate,
+			},
+		);
+	};
+
+	it('stays open on an outside pointer event when closePredicate returns false', () => {
+		const closePredicate = vi.fn(() => false);
+		const ref = openWithPredicate(closePredicate);
+		const event = new MouseEvent('click');
+
+		expect(ref.dismiss('outside', event)).toBe(false);
+		expect(closePredicate).toHaveBeenCalledWith(event);
+		expect(ref.open).toBe(true);
+	});
+
+	it('closes on an outside pointer event when closePredicate returns true', () => {
+		const ref = openWithPredicate(() => true);
+
+		expect(ref.dismiss('outside', new MouseEvent('click'))).toBe(true);
+		expect(ref.open).toBe(false);
+	});
+
+	it('ignores closePredicate for escape', () => {
+		const closePredicate = vi.fn(() => false);
+		const ref = openWithPredicate(closePredicate);
+
+		expect(ref.dismiss('escape', new KeyboardEvent('keydown', { key: 'Escape' }))).toBe(true);
+		expect(closePredicate).not.toHaveBeenCalled();
+		expect(ref.open).toBe(false);
+	});
+
+	it('still accepts a bare event target (legacy form) and skips closePredicate', () => {
+		const closePredicate = vi.fn(() => false);
+		const ref = openWithPredicate(closePredicate);
+
+		expect(ref.dismiss('outside', document.body)).toBe(true);
+		expect(closePredicate).not.toHaveBeenCalled();
+		expect(ref.open).toBe(false);
+	});
+});
+
 describe('BrnOverlayService scroll containers', () => {
 	afterEach(() => {
 		TestBed.resetTestingModule();

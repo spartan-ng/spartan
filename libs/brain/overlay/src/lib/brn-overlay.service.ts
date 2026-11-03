@@ -264,7 +264,7 @@ export class BrnOverlayService {
 		event: MouseEvent | KeyboardEvent,
 	): void {
 		if (this._overlayStack.at(-1) !== overlayRef) return;
-		if (ref.dismiss(reason, event.target) && reason === 'escape') event.preventDefault();
+		if (ref.dismiss(reason, event) && reason === 'escape') event.preventDefault();
 	}
 
 	private _removeFromStack(overlayRef: OverlayRef): void {

@@ -245,6 +245,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "type": "boolean",
           },
           {
+            "name": "closePredicate",
+            "required": false,
+            "type": "BrnDialogOptions['closePredicate']",
+          },
+          {
             "name": "attachTo",
             "required": false,
             "type": "BrnDialogOptions['attachTo']",
@@ -415,6 +420,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "name": "closeOnOutsidePointerEvents",
             "required": false,
             "type": "boolean",
+          },
+          {
+            "name": "closePredicate",
+            "required": false,
+            "type": "BrnDialogOptions['closePredicate']",
           },
           {
             "name": "attachTo",
@@ -4555,6 +4565,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "type": "boolean",
           },
           {
+            "name": "closePredicate",
+            "required": false,
+            "type": "BrnDialogOptions['closePredicate']",
+          },
+          {
             "name": "attachTo",
             "required": false,
             "type": "BrnDialogOptions['attachTo']",
@@ -4727,6 +4742,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "name": "closeOnOutsidePointerEvents",
             "required": false,
             "type": "boolean",
+          },
+          {
+            "name": "closePredicate",
+            "required": false,
+            "type": "BrnDialogOptions['closePredicate']",
           },
           {
             "name": "attachTo",
@@ -4942,6 +4962,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "type": "boolean",
           },
           {
+            "name": "closePredicate",
+            "required": false,
+            "type": "BrnDialogOptions['closePredicate']",
+          },
+          {
             "name": "attachTo",
             "required": false,
             "type": "BrnDialogOptions['attachTo']",
@@ -5137,6 +5162,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "name": "closeOnOutsidePointerEvents",
             "required": false,
             "type": "boolean",
+          },
+          {
+            "name": "closePredicate",
+            "required": false,
+            "type": "BrnDialogOptions['closePredicate']",
           },
           {
             "name": "attachTo",
@@ -7026,6 +7056,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "type": "boolean",
           },
           {
+            "name": "closePredicate",
+            "required": false,
+            "type": "BrnOverlayOptions['closePredicate']",
+          },
+          {
             "name": "attachTo",
             "required": false,
             "type": "BrnOverlayOptions['attachTo']",
@@ -7464,6 +7499,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "name": "closeOnOutsidePointerEvents",
             "required": false,
             "type": "boolean",
+          },
+          {
+            "name": "closePredicate",
+            "required": false,
+            "type": "BrnOverlayOptions['closePredicate']",
           },
           {
             "name": "attachTo",
@@ -9369,6 +9409,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "type": "boolean",
           },
           {
+            "name": "closePredicate",
+            "required": false,
+            "type": "BrnDialogOptions['closePredicate']",
+          },
+          {
             "name": "attachTo",
             "required": false,
             "type": "BrnDialogOptions['attachTo']",
@@ -9551,6 +9596,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "name": "closeOnOutsidePointerEvents",
             "required": false,
             "type": "boolean",
+          },
+          {
+            "name": "closePredicate",
+            "required": false,
+            "type": "BrnDialogOptions['closePredicate']",
           },
           {
             "name": "attachTo",

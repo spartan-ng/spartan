@@ -81,6 +81,7 @@ export class BrnDialog<TResult = unknown, TContext extends Record<string, unknow
 		this._defaultOptions.closeOnOutsidePointerEvents,
 		{ transform: booleanAttribute },
 	);
+	public readonly closePredicate = input<BrnDialogOptions['closePredicate']>(this._defaultOptions.closePredicate);
 
 	public readonly attachTo = input<BrnDialogOptions['attachTo']>(this._defaultOptions.attachTo);
 	public readonly attachPositions = input<BrnDialogOptions['attachPositions']>(this._defaultOptions.attachPositions);
@@ -111,6 +112,7 @@ export class BrnDialog<TResult = unknown, TContext extends Record<string, unknow
 		scrollStrategy: this.getScrollStrategy(),
 		restoreFocus: this.restoreFocus(),
 		closeOnOutsidePointerEvents: this.closeOnOutsidePointerEvents(),
+		closePredicate: this.closePredicate(),
 		attachTo: this.getAttachTo(),
 		attachPositions: this.attachPositions(),
 		autoFocus: this.autoFocus(),

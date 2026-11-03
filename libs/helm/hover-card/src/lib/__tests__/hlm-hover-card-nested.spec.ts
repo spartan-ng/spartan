@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { fireEvent, render } from '@testing-library/angular';
+import { fireEvent, render, waitFor } from '@testing-library/angular';
 import { HlmHoverCardImports } from '../../index';
 
 const flush = async () => {
@@ -51,10 +51,11 @@ describe('HlmHoverCard nested content', () => {
 
 		fireEvent.mouseLeave(document.querySelector('[data-testid="nested-trigger"]') as HTMLButtonElement);
 		view.detectChanges();
-		await flush();
 
-		const [outerContent, nestedContent] = contents();
-		expect(nestedContent.getAttribute('data-state')).toBe('closed');
-		expect(outerContent.getAttribute('data-state')).toBe('open');
+		await waitFor(() => {
+			const [outerContent, nestedContent] = contents();
+			expect(nestedContent.getAttribute('data-state')).toBe('closed');
+			expect(outerContent.getAttribute('data-state')).toBe('open');
+		});
 	});
 });

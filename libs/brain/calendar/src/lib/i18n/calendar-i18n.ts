@@ -24,6 +24,14 @@ export interface BrnCalendarI18n {
 	formatMonth: (month: number) => string;
 	labelPrevious: () => string;
 	labelNext: () => string;
+	/** The label of the month/year calendar button that goes to the previous year (month view). */
+	labelPreviousYear?: () => string;
+	/** The label of the month/year calendar button that goes to the next year (month view). */
+	labelNextYear?: () => string;
+	/** The label of the month/year calendar button that goes to the previous page of years (year view). */
+	labelPreviousYears?: () => string;
+	/** The label of the month/year calendar button that goes to the next page of years (year view). */
+	labelNextYears?: () => string;
 	labelWeekday: (index: number) => string;
 	months: () => [string, string, string, string, string, string, string, string, string, string, string, string];
 	years: (startYear?: number, endYear?: number) => number[];
@@ -46,7 +54,7 @@ export function provideBrnCalendarI18n(configuration?: Partial<BrnCalendarI18n>)
 	};
 }
 
-const defaultCalendarI18n: BrnCalendarI18n = {
+const defaultCalendarI18n: Required<BrnCalendarI18n> = {
 	formatWeekdayName: (index: number) => {
 		const weekdays = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
 		return weekdays[index];
@@ -76,6 +84,10 @@ const defaultCalendarI18n: BrnCalendarI18n = {
 	},
 	labelPrevious: () => 'Go to the previous month',
 	labelNext: () => 'Go to the next month',
+	labelPreviousYear: () => 'Go to the previous year',
+	labelNextYear: () => 'Go to the next year',
+	labelPreviousYears: () => 'Go to the previous years',
+	labelNextYears: () => 'Go to the next years',
 	labelWeekday: (index: number) => {
 		const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 		return weekdays[index];

@@ -1,4 +1,5 @@
 import { computed, Directive } from '@angular/core';
+import { injectBrnCalendarI18n } from '../i18n/calendar-i18n';
 import { injectBrnMonthYearCalendar } from './brn-month-year-calendar.token';
 
 @Directive({
@@ -17,9 +18,15 @@ export class BrnMonthYearCalendarPreviousButton {
 	/** Access the month/year selector */
 	protected readonly _monthYear = injectBrnMonthYearCalendar();
 
+	/** Access the calendar i18n */
+	private readonly _i18n = injectBrnCalendarI18n();
+
 	protected readonly _disabled = computed(() => this._monthYear.isPreviousDisabled());
 
-	protected readonly _label = computed(() =>
-		this._monthYear.view() === 'month' ? 'Go to the previous year' : 'Go to the previous years',
-	);
+	protected readonly _label = computed(() => {
+		const config = this._i18n.config();
+		return this._monthYear.view() === 'month'
+			? (config.labelPreviousYear?.() ?? 'Go to the previous year')
+			: (config.labelPreviousYears?.() ?? 'Go to the previous years');
+	});
 }

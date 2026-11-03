@@ -266,5 +266,30 @@ describe('BrnComboboxInput', () => {
 			// the input is inside the overlay, so Tab must be intercepted
 			expect(event.defaultPrevented).toBe(true);
 		});
+
+		it('clears the value and prevents default on Escape when collapsed', async () => {
+			const combobox = keyboardComboboxStub();
+			combobox.value.set('angular');
+			await renderInput(combobox);
+			const input = screen.getByLabelText('Test');
+
+			const event = new KeyboardEvent('keydown', { key: 'Escape', bubbles: true, cancelable: true });
+			input.dispatchEvent(event);
+
+			expect(combobox.resetValue).toHaveBeenCalledTimes(1);
+			expect(event.defaultPrevented).toBe(true);
+		});
+
+		it('leaves Escape to outer handlers when there is nothing to clear', async () => {
+			const combobox = keyboardComboboxStub();
+			await renderInput(combobox);
+			const input = screen.getByLabelText('Test');
+
+			const event = new KeyboardEvent('keydown', { key: 'Escape', bubbles: true, cancelable: true });
+			input.dispatchEvent(event);
+
+			expect(combobox.resetValue).not.toHaveBeenCalled();
+			expect(event.defaultPrevented).toBe(false);
+		});
 	});
 });

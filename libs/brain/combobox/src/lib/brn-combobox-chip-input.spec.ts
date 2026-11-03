@@ -173,5 +173,30 @@ describe('BrnComboboxChipInput', () => {
 
 			expect(combobox.removeLastSelectedItem).toHaveBeenCalledTimes(1);
 		});
+
+		it('clears the selection and prevents default on Escape when collapsed', async () => {
+			const combobox = comboboxStub();
+			combobox.value.set(['angular']);
+			await renderChipInput(combobox);
+			const input = screen.getByLabelText('Test');
+
+			const event = new KeyboardEvent('keydown', { key: 'Escape', bubbles: true, cancelable: true });
+			input.dispatchEvent(event);
+
+			expect(combobox.resetValue).toHaveBeenCalledTimes(1);
+			expect(event.defaultPrevented).toBe(true);
+		});
+
+		it('leaves Escape to outer handlers when there is nothing to clear', async () => {
+			const combobox = comboboxStub();
+			await renderChipInput(combobox);
+			const input = screen.getByLabelText('Test');
+
+			const event = new KeyboardEvent('keydown', { key: 'Escape', bubbles: true, cancelable: true });
+			input.dispatchEvent(event);
+
+			expect(combobox.resetValue).not.toHaveBeenCalled();
+			expect(event.defaultPrevented).toBe(false);
+		});
 	});
 });

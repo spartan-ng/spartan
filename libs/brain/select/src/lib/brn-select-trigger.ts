@@ -89,6 +89,8 @@ export class BrnSelectTrigger {
 	}
 
 	protected toggle() {
+		// Safari doesn't focus a clicked button, but keyboard navigation listens on the trigger
+		this._host.nativeElement.focus();
 		this._select.toggle();
 	}
 

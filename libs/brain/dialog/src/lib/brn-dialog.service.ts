@@ -110,14 +110,14 @@ export class BrnDialogService {
 		overlayRef
 			.outsidePointerEvents()
 			.pipe(takeUntil(closed$))
-			.subscribe(() => {
-				if (this._isTopmostOutsideTarget(overlayRef)) dialogRef.dismiss('outside');
+			.subscribe((event) => {
+				if (this._isTopmostOutsideTarget(overlayRef)) dialogRef.dismiss('outside', event);
 			});
 
 		overlayRef
 			.backdropClick()
 			.pipe(takeUntil(closed$))
-			.subscribe(() => dialogRef.dismiss('backdrop'));
+			.subscribe((event) => dialogRef.dismiss('backdrop', event));
 
 		overlayRef
 			.keydownEvents()

@@ -44,4 +44,34 @@ describe('BrnDialogService', () => {
 		expect(above.state()).toBe('closed');
 		expect(below.state()).toBe('open');
 	});
+
+	it('does not close a dialog when closePredicate returns false', () => {
+		const dialog = TestBed.inject(BrnDialogService).open(DialogContent, undefined, undefined, {
+			closePredicate: () => false,
+		});
+
+		pointerClick(backdrops()[0]);
+
+		expect(dialog.state()).toBe('open');
+	});
+
+	it('closes a dialog when closePredicate returns true', () => {
+		const dialog = TestBed.inject(BrnDialogService).open(DialogContent, undefined, undefined, {
+			closePredicate: () => true,
+		});
+
+		pointerClick(backdrops()[0]);
+
+		expect(dialog.state()).toBe('closed');
+	});
+
+	it('passes the outside event to closePredicate', () => {
+		const closePredicate = vi.fn(() => false);
+
+		TestBed.inject(BrnDialogService).open(DialogContent, undefined, undefined, { closePredicate });
+
+		pointerClick(backdrops()[0]);
+
+		expect(closePredicate).toHaveBeenCalledWith(expect.any(Event));
+	});
 });

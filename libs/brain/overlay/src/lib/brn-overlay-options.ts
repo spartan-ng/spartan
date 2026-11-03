@@ -15,6 +15,7 @@ export type BrnOverlayOptions = {
 	autoFocus: boolean;
 	backdropClass: string | string[];
 	closeOnOutsidePointerEvents: boolean;
+	closePredicate?: (event: Event) => boolean;
 	direction?: Direction;
 	disableClose: boolean;
 	hasBackdrop: boolean;

@@ -122,7 +122,7 @@ export class BrnDialogService {
 		overlayRef
 			.keydownEvents()
 			.pipe(
-				filter((event) => event.key === 'Escape'),
+				filter((event) => event.key === 'Escape' && !event.defaultPrevented),
 				takeUntil(closed$),
 			)
 			.subscribe((event) => {

@@ -417,6 +417,44 @@ describe('accordion', () => {
 		);
 	});
 
+	describe('focus rings', () => {
+		// The focus ring is a 3px box-shadow, so it is clipped when it extends past the overflow-hidden content host.
+		const RING_SIZE = 3;
+
+		const verifyRingNotClipped = (selector: string) => {
+			cy.get(selector).first().as('control');
+			cy.get('hlm-accordion-content').first().as('content');
+
+			cy.get('@control').focus();
+			cy.get('@control').should('be.focused');
+
+			cy.get('@control').then(($control) => {
+				cy.get('@content').then(($content) => {
+					const control = $control[0].getBoundingClientRect();
+					const content = $content[0].getBoundingClientRect();
+
+					expect(control.left - RING_SIZE, 'ring left edge').to.be.gte(content.left);
+					expect(control.right + RING_SIZE, 'ring right edge').to.be.lte(content.right);
+					expect(control.top - RING_SIZE, 'ring top edge').to.be.gte(content.top);
+				});
+			});
+		};
+
+		beforeEach(() => {
+			cy.visit('/iframe.html?id=accordion--focus-rings-in-content');
+			cy.get('hlm-accordion-item').first().should('have.attr', 'data-state', 'open');
+			cy.get('hlm-accordion-content').should('be.visible');
+		});
+
+		it('does not clip the focus ring of an input inside the content', () => {
+			verifyRingNotClipped('input[hlmInput]');
+		});
+
+		it('does not clip the focus ring of the slider thumb at its minimum value', () => {
+			verifyRingNotClipped('[role="slider"]');
+		});
+	});
+
 	describe('default accessibility', () => {
 		['default', 'multiple', 'with-form-inputs', 'with-tapable', 'button-state-sync'].forEach((story) => {
 			it(`should have no accessibility violations in ${story} story`, () => {

@@ -6,6 +6,7 @@ import { HlmAccordionImports } from '@spartan-ng/helm/accordion';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 
 import { HlmInput } from '@spartan-ng/helm/input';
+import { HlmSliderImports } from '@spartan-ng/helm/slider';
 import type { Meta, StoryObj } from '@storybook/angular';
 import { moduleMetadata } from '@storybook/angular';
 
@@ -15,7 +16,7 @@ const meta: Meta<BrnAccordion> = {
 	tags: ['autodocs'],
 	decorators: [
 		moduleMetadata({
-			imports: [BrnAccordionImports, HlmAccordionImports, NgIcon, HlmInput],
+			imports: [BrnAccordionImports, HlmAccordionImports, NgIcon, HlmInput, HlmSliderImports],
 			providers: [provideIcons({ lucideChevronDown })],
 		}),
 	],
@@ -343,3 +344,21 @@ export class ButtonStateSyncStory {
 		this._thirdOpened.set(!this._thirdOpened());
 	}
 }
+
+export const FocusRingsInContent: Story = {
+	render: () => ({
+		template: /* HTML */ `
+			<hlm-accordion>
+				<hlm-accordion-item isOpened>
+					<hlm-accordion-trigger>Settings</hlm-accordion-trigger>
+					<hlm-accordion-content>
+						<div class="flex w-full items-center gap-4">
+							<hlm-slider class="flex-1" [value]="[0]" />
+							<input hlmInput type="number" class="w-20" value="0" />
+						</div>
+					</hlm-accordion-content>
+				</hlm-accordion-item>
+			</hlm-accordion>
+		`,
+	}),
+};

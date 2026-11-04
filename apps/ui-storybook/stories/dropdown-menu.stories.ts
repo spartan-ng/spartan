@@ -257,3 +257,17 @@ export const Submenu: Story = {
     `,
 	}),
 };
+
+export const DisabledFirstItem: Story = {
+	render: () => ({
+		template: `
+      <button hlmBtn [hlmDropdownMenuTrigger]="menu">Open</button>
+      <ng-template #menu>
+        <hlm-dropdown-menu>
+          <button hlmDropdownMenuItem disabled>Move up</button>
+          <button hlmDropdownMenuItem>Move down</button>
+        </hlm-dropdown-menu>
+      </ng-template>
+    `,
+	}),
+};

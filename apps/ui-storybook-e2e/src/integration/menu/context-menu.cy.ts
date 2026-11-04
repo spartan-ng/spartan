@@ -16,9 +16,10 @@ describe('context-menu', () => {
 				},
 			});
 
-			cy.findByText(/right click here/i).realClick({ button: 'right' });
+			cy.findByText(/right click here/i).should('be.visible').realClick({ button: 'right' });
+			cy.findByRole('menu');
 			cy.findAllByRole('menu').should('have.length', 1);
-			cy.findByText(/more tools/i).realHover();
+			cy.findByText(/more tools/i).should('be.visible').realHover();
 			cy.findAllByRole('menu').should('have.length', 2);
 			cy.findByText(/more/i).realHover();
 			cy.findByText(/save page as/i).realClick();

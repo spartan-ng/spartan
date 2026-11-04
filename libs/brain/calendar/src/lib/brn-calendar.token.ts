@@ -14,6 +14,8 @@ export interface BrnCalendarBase<T> {
 	isEndOfRange: (date: T) => boolean;
 	isBetweenRange: (date: T) => boolean;
 
+	min: Signal<T | undefined>;
+	max: Signal<T | undefined>;
 	disabled: Signal<boolean>;
 	focusedDate: Signal<T>;
 	header: Signal<BrnCalendarHeader | undefined>;

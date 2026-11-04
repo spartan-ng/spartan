@@ -1,3 +1,5 @@
+export { hlmTailwindPreset } from './hlm-tailwind-preset.snippet';
+
 export const tailwindImports = `
 @layer theme, base, components, utilities;
 @import "tailwindcss/theme.css" layer(theme);

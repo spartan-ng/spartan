@@ -20,6 +20,7 @@ import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import {
 	cssVariables,
+	hlmTailwindPreset,
 	spartanPresetImport,
 	tailwindAutocompletion,
 	tailwindImports,
@@ -139,6 +140,25 @@ export const routeMeta: RouteMeta = {
 					<p class="${hlmP}">Our preset already includes tw-animate-css and &#64;angular/cdk/overlay-prebuilt.css</p>
 				</div>
 			</div>
+
+			<h4 spartanH4 id="preset-contents" class="mt-8">Preset contents</h4>
+			<p class="${hlmP}">
+				The preset ships with
+				<code class="${hlmCode}">&#64;spartan-ng/brain</code>
+				. Below is the full
+				<code class="${hlmCode}">hlm-tailwind-preset.css</code>
+				for reference or manual copy-paste. Source of truth:
+				<a
+					class="${hlmCode} underline"
+					href="https://github.com/spartan-ng/spartan/blob/main/libs/brain/hlm-tailwind-preset.css"
+					target="_blank"
+					rel="noopener noreferrer"
+				>
+					libs/brain/hlm-tailwind-preset.css
+				</a>
+				.
+			</p>
+			<spartan-code class="mt-4" fileName="hlm-tailwind-preset.css" [code]="_hlmTailwindPreset" />
 
 			<h4 spartanH4 id="add-theme-variables" class="mt-8">2.3 Add Theme Variables</h4>
 			<p class="${hlmP}">You have two options for adding spartan's CSS variables:</p>
@@ -287,6 +307,7 @@ export const routeMeta: RouteMeta = {
 export default class InstallationPage {
 	protected readonly _tailwindImports = tailwindImports;
 	protected readonly _spartanPresetImport = spartanPresetImport;
+	protected readonly _hlmTailwindPreset = hlmTailwindPreset;
 	protected readonly _cssVariables = cssVariables;
 	protected readonly _tailwindAutocompletion = tailwindAutocompletion;
 	protected readonly _tailwindPrettierSorting = tailwindPrettierSorting;

@@ -1,4 +1,5 @@
 import { BrnSelect } from './lib/brn-select';
+import { BrnSelectAll } from './lib/brn-select-all';
 import { BrnSelectContent } from './lib/brn-select-content';
 import { BrnSelectGroup } from './lib/brn-select-group';
 import { BrnSelectItem } from './lib/brn-select-item';
@@ -15,6 +16,7 @@ import { BrnSelectValueTemplate } from './lib/brn-select-value-template';
 import { BrnSelectValues } from './lib/brn-select-values';
 
 export * from './lib/brn-select';
+export * from './lib/brn-select-all';
 export * from './lib/brn-select-content';
 export * from './lib/brn-select-group';
 export * from './lib/brn-select-item';
@@ -34,6 +36,7 @@ export * from './lib/brn-select.token';
 
 export const BrnSelectImports = [
 	BrnSelect,
+	BrnSelectAll,
 	BrnSelectContent,
 	BrnSelectGroup,
 	BrnSelectItem,

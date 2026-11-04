@@ -482,15 +482,15 @@
 	}
 
 	.spartan-dropdown-menu-item {
-		@apply hover:bg-accent focus:bg-accent hover:text-accent-foreground focus:text-accent-foreground data-[variant=destructive]:text-destructive data-[variant=destructive]:hover:bg-destructive/10 data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:hover:bg-destructive/20 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:hover:text-destructive data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[ng-icon]:text-destructive not-data-[variant=destructive]:hover:**:text-accent-foreground not-data-[variant=destructive]:focus:**:text-accent-foreground gap-2 rounded-none px-2 py-2 text-xs data-inset:ps-7 [&_ng-icon:not([class*='text-'])]:text-[length:--spacing(4)];
+		@apply hover:bg-accent focus-visible:bg-accent hover:text-accent-foreground focus-visible:text-accent-foreground data-[variant=destructive]:text-destructive data-[variant=destructive]:hover:bg-destructive/10 data-[variant=destructive]:focus-visible:bg-destructive/10 dark:data-[variant=destructive]:hover:bg-destructive/20 dark:data-[variant=destructive]:focus-visible:bg-destructive/20 data-[variant=destructive]:hover:text-destructive data-[variant=destructive]:focus-visible:text-destructive data-[variant=destructive]:*:[ng-icon]:text-destructive not-data-[variant=destructive]:hover:**:text-accent-foreground not-data-[variant=destructive]:focus-visible:**:text-accent-foreground gap-2 rounded-none px-2 py-2 text-xs data-inset:ps-7 [&_ng-icon:not([class*='text-'])]:text-[length:--spacing(4)];
 	}
 
 	.spartan-dropdown-menu-checkbox-item {
-		@apply hover:bg-accent focus:bg-accent hover:text-accent-foreground focus:text-accent-foreground hover:**:text-accent-foreground focus:**:text-accent-foreground gap-2 rounded-none py-2 ps-2 pe-8 text-xs data-inset:ps-7 [&_ng-icon:not([class*='text-'])]:text-[length:--spacing(4)];
+		@apply hover:bg-accent focus-visible:bg-accent hover:text-accent-foreground focus-visible:text-accent-foreground hover:**:text-accent-foreground focus-visible:**:text-accent-foreground gap-2 rounded-none py-2 ps-2 pe-8 text-xs data-inset:ps-7 [&_ng-icon:not([class*='text-'])]:text-[length:--spacing(4)];
 	}
 
 	.spartan-dropdown-menu-radio-item {
-		@apply hover:bg-accent focus:bg-accent hover:text-accent-foreground focus:text-accent-foreground hover:**:text-accent-foreground focus:**:text-accent-foreground gap-2 rounded-none py-2 ps-2 pe-8 text-xs data-inset:ps-7 [&_ng-icon:not([class*='text-'])]:text-[length:--spacing(4)];
+		@apply hover:bg-accent focus-visible:bg-accent hover:text-accent-foreground focus-visible:text-accent-foreground hover:**:text-accent-foreground focus-visible:**:text-accent-foreground gap-2 rounded-none py-2 ps-2 pe-8 text-xs data-inset:ps-7 [&_ng-icon:not([class*='text-'])]:text-[length:--spacing(4)];
 	}
 
 	.spartan-dropdown-menu-item-indicator {
@@ -506,7 +506,7 @@
 	}
 
 	.spartan-dropdown-menu-shortcut {
-		@apply text-muted-foreground group-focus/dropdown-menu-item:text-accent-foreground ms-auto text-xs tracking-widest;
+		@apply text-muted-foreground group-hover/dropdown-menu-item:text-accent-foreground group-focus-visible/dropdown-menu-item:text-accent-foreground ms-auto text-xs tracking-widest;
 	}
 
 	.spartan-dropdown-menu-sub-content {

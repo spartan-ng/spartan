@@ -452,6 +452,9 @@ export class BrnTooltip {
 	}
 
 	private _detach(): void {
+		// Removing the content under the pointer fires no pointerleave, so a hover that began during the
+		// exit animation would otherwise keep blocking _hide() on the next show.
+		this._tooltipHovered = false;
 		this._clearAriaDescribedBy();
 		this._positionChangeSub?.unsubscribe();
 		this._positionChangeSub = undefined;

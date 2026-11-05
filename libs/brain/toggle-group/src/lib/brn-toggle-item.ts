@@ -34,7 +34,7 @@ export class BrnToggleGroupItem<T> {
 	});
 
 	/** Whether the toggle is disabled either from itself or from the group. */
-	protected readonly _disabled = computed(() => this.disabled() || this._group?.disabled());
+	protected readonly _disabled = computed(() => this.disabled() || this._group?.disabledState());
 
 	/** The current state of the toggle when not used in a group. */
 	public readonly state = model<'on' | 'off'>('off');

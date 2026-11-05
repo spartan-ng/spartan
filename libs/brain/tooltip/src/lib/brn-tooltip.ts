@@ -170,7 +170,10 @@ export class BrnTooltip {
 		this._listenersRefs = [
 			...this._listenersRefs,
 			this._renderer.listen(overlayRef.hostElement, 'pointerenter', (event: PointerEvent) => {
-				if (this._isHoverPointer(event)) this._tooltipHovered = true;
+				// Closing content is removed without a pointerleave, which would leave the flag stuck.
+				if (this._isHoverPointer(event) && this._componentRef?.instance.state() !== 'closed') {
+					this._tooltipHovered = true;
+				}
 			}),
 			this._renderer.listen(overlayRef.hostElement, 'pointerleave', (event: PointerEvent) => {
 				if (!this._isHoverPointer(event)) return;

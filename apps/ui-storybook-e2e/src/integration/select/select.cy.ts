@@ -425,6 +425,27 @@ describe('select', () => {
 				});
 			});
 		});
+
+		it('should show the selected item clear of the sticky scroll buttons when reopened', () => {
+			cy.get('[brnselecttrigger]').click();
+			for (let i = 0; i < 12; i++) {
+				cy.realPress('ArrowDown');
+			}
+			cy.realPress('Enter');
+			cy.get('hlm-select-content').should('not.exist');
+
+			cy.get('[brnselecttrigger]').click();
+			cy.get('hlm-select-scroll-up').should('not.have.attr', 'data-hidden');
+			cy.get('hlm-select-item[data-highlighted]').then(($item) => {
+				cy.get('hlm-select-scroll-up').then(($up) => {
+					cy.get('hlm-select-scroll-down').then(($down) => {
+						const item = $item[0].getBoundingClientRect();
+						expect(item.top).to.be.at.least($up[0].getBoundingClientRect().bottom - 1);
+						expect(item.bottom).to.be.at.most($down[0].getBoundingClientRect().top + 1);
+					});
+				});
+			});
+		});
 	});
 
 	describe('falsy value', () => {

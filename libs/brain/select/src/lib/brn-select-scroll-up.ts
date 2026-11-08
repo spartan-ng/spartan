@@ -1,4 +1,4 @@
-import { DestroyRef, Directive, ElementRef, inject } from '@angular/core';
+import { afterRenderEffect, DestroyRef, Directive, ElementRef, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { fromEvent, interval, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -21,6 +21,16 @@ export class BrnSelectScrollUp {
 	protected readonly _showScrollUp = this._selectContent.showScrollUp;
 
 	private readonly _endReached = new Subject<boolean>();
+
+	constructor() {
+		afterRenderEffect({
+			write: () => {
+				if (this._showScrollUp()) {
+					this._selectContent.scrollBy(this._el.nativeElement.offsetHeight);
+				}
+			},
+		});
+	}
 
 	protected _scrollUp() {
 		const mouseLeave$ = fromEvent(this._el.nativeElement, 'mouseleave');

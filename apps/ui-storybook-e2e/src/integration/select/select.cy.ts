@@ -394,6 +394,37 @@ describe('select', () => {
 			cy.get('hlm-select-scroll-up').should('exist');
 			cy.get('hlm-select-scroll-down').should('exist');
 		});
+
+		it('should keep the highlighted item clear of the sticky scroll buttons', () => {
+			cy.get('[brnselecttrigger]').click();
+			cy.get('hlm-select-content').should('exist');
+
+			// arrow down past the visible area so the list scrolls and both buttons show
+			for (let i = 0; i < 12; i++) {
+				cy.realPress('ArrowDown');
+			}
+			cy.get('hlm-select-scroll-down').should('not.have.attr', 'data-hidden');
+			cy.get('hlm-select-item[data-highlighted]').then(($item) => {
+				cy.get('hlm-select-scroll-down').then(($button) => {
+					const item = $item[0].getBoundingClientRect();
+					const button = $button[0].getBoundingClientRect();
+					expect(item.bottom).to.be.at.most(button.top + 1);
+				});
+			});
+
+			// arrow back up until the list scrolls the other way
+			for (let i = 0; i < 6; i++) {
+				cy.realPress('ArrowUp');
+			}
+			cy.get('hlm-select-scroll-up').should('not.have.attr', 'data-hidden');
+			cy.get('hlm-select-item[data-highlighted]').then(($item) => {
+				cy.get('hlm-select-scroll-up').then(($button) => {
+					const item = $item[0].getBoundingClientRect();
+					const button = $button[0].getBoundingClientRect();
+					expect(item.top).to.be.at.least(button.bottom - 1);
+				});
+			});
+		});
 	});
 
 	describe('falsy value', () => {

@@ -31,6 +31,9 @@ export class HlmSelectContent {
 	public readonly showScroll = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
 	constructor() {
-		classes(() => 'spartan-select-content relative flex w-(--brn-select-width) overflow-x-hidden overflow-y-auto');
+		classes(() => [
+			'spartan-select-content relative flex w-(--brn-select-width) overflow-x-hidden overflow-y-auto',
+			this.showScroll() && 'scroll-py-6',
+		]);
 	}
 }

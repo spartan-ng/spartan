@@ -1,5 +1,5 @@
 import { type FactoryProvider, inject, InjectionToken } from '@angular/core';
-import { type ClassValue } from 'clsx';
+import { type ClassValue } from 'cn';
 import { type BrnTooltipPosition } from './brn-tooltip-position';
 
 export interface BrnTooltipOptions {

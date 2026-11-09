@@ -13,7 +13,7 @@ import {
 	type OnDestroy,
 	signal,
 } from '@angular/core';
-import clsx from 'clsx';
+import { clsx } from 'cn';
 import { defaultClasses, injectBrnSonnerToasterConfig } from './brn-toaster.token';
 import { BrnToastAction } from './directives/brn-toast-action';
 import { BrnToastCancelAction } from './directives/brn-toast-cancel-action';

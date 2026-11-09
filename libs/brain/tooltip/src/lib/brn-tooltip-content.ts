@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, input, signal } from '@angular/core';
-import { ClassValue } from 'clsx';
+import { ClassValue } from 'cn';
 import { BrnTooltipPosition } from './brn-tooltip-position';
 import { BrnTooltipStringTemplateOutlet } from './brn-tooltip-string-template-outlet';
 import { BrnTooltipType } from './brn-tooltip-type';

@@ -9,7 +9,7 @@ import {
 } from '@nx/devkit';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { coerce, lt, validRange } from 'semver';
+import { coerce, lt } from 'semver';
 import { getCliPackageVersion } from '../../utils/version-utils';
 import { visitFiles } from '../../utils/visit-files';
 import { CN_VERSION } from '../base/versions';
@@ -69,6 +69,11 @@ export async function migrateCnGenerator(
 	}
 
 	return installTask;
+}
+
+/** Whether a source still references clsx / tailwind-merge after migrate-cn, so it needs a manual migration. */
+export function needsManualMigration(content: string): boolean {
+	return !KNOWN_HLM_FINGERPRINTS.has(sourceFingerprint(content)) && LEGACY_IMPORT_REGEX.test(replaceImports(content));
 }
 
 /** Whether migrate-cn would change the given source (used by the healthcheck to decide if the fix helps). */
@@ -197,19 +202,16 @@ function updateDependencies(tree: Tree, stillUsed: Set<string>, replacedHlm: boo
 
 	const dependencies: Record<string, string> = { cn: CN_VERSION };
 
-	// The new hlm.ts imports brnClasses, which needs a brain released together with this CLI (brain and cli
-	// release in lockstep). Like the ui generator, request the cli version declared by the workspace so a
-	// prerelease cli asks for the matching (published) prerelease brain. Unparsable ranges ('latest') are kept.
+	// The new hlm.ts imports brnClasses, which needs the brain released together with this CLI (brain and cli
+	// release in lockstep). The declared cli range is not enough: `^1.9.0` also matches the cli running now
+	// while still allowing a brain without brnClasses. A prerelease cli asks for the matching prerelease brain.
+	// References without a version ('latest', '*', `workspace:*`) are kept.
 	const packageJson = readJson(tree, 'package.json');
-	const declaredVersion = (name: string): string | undefined =>
-		packageJson.dependencies?.[name] ?? packageJson.devDependencies?.[name];
-	const declaredBrain = declaredVersion('@spartan-ng/brain');
+	const declaredBrain: string | undefined =
+		packageJson.dependencies?.['@spartan-ng/brain'] ?? packageJson.devDependencies?.['@spartan-ng/brain'];
+	const targetBrainVersion = getCliPackageVersion(true);
 	const brainVersion = coerce(declaredBrain)?.version;
-	// ignore references that aren't a semver range (e.g. `workspace:*`), brain may not be a workspace package
-	const declaredCli = declaredVersion('@spartan-ng/cli');
-	const targetBrainVersion = declaredCli && validRange(declaredCli) ? declaredCli : getCliPackageVersion();
-	const minimumBrainVersion = coerce(targetBrainVersion)?.version;
-	const brainTooOld = brainVersion && minimumBrainVersion && lt(brainVersion, minimumBrainVersion);
+	const brainTooOld = brainVersion !== undefined && lt(brainVersion, targetBrainVersion);
 	if (brainTooOld || (!declaredBrain && replacedHlm)) {
 		dependencies['@spartan-ng/brain'] = targetBrainVersion;
 	}

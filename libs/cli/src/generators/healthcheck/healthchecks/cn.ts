@@ -1,5 +1,5 @@
 import { visitFiles } from '../../../utils/visit-files';
-import migrateCnGenerator, { canMigrateAutomatically } from '../../migrate-cn/generator';
+import migrateCnGenerator, { canMigrateAutomatically, needsManualMigration } from '../../migrate-cn/generator';
 import { LEGACY_IMPORT_REGEX, SOURCE_FILE_REGEX } from '../../migrate-cn/lib/legacy-imports';
 import { type Healthcheck, HealthcheckSeverity } from '../healthchecks';
 
@@ -21,7 +21,9 @@ export const cnHealthcheck: Healthcheck = {
 			}
 
 			if (LEGACY_IMPORT_REGEX.test(contents)) {
-				(canMigrateAutomatically(contents) ? fixable : manual).push(file);
+				if (canMigrateAutomatically(contents)) fixable.push(file);
+				// a file can be both, e.g. a rewritable import next to a `require('clsx')`
+				if (needsManualMigration(contents)) manual.push(file);
 			}
 		});
 

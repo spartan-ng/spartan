@@ -1,12 +1,13 @@
 import { visitFiles } from '../../../utils/visit-files';
-import migrateCnGenerator from '../../migrate-cn/generator';
+import migrateCnGenerator, { canMigrateAutomatically } from '../../migrate-cn/generator';
 import { LEGACY_IMPORT_REGEX, SOURCE_FILE_REGEX } from '../../migrate-cn/lib/legacy-imports';
 import { type Healthcheck, HealthcheckSeverity } from '../healthchecks';
 
 export const cnHealthcheck: Healthcheck = {
 	name: 'cn class merging',
 	async detect(tree, failure) {
-		const files: string[] = [];
+		const fixable: string[] = [];
+		const manual: string[] = [];
 
 		// same scope as migrate-cn, so the offered fix addresses every reported file
 		visitFiles(tree, '.', (file) => {
@@ -20,15 +21,24 @@ export const cnHealthcheck: Healthcheck = {
 			}
 
 			if (LEGACY_IMPORT_REGEX.test(contents)) {
-				files.push(file);
+				(canMigrateAutomatically(contents) ? fixable : manual).push(file);
 			}
 		});
 
-		if (files.length > 0) {
+		if (fixable.length > 0) {
 			failure(
-				`${files.length} file(s) use 'clsx' or 'tailwind-merge'; spartan now uses 'cn' for class merging.`,
+				`${fixable.length} file(s) use 'clsx' or 'tailwind-merge'; spartan now uses 'cn' for class merging.`,
 				HealthcheckSeverity.Warning,
 				true,
+			);
+		}
+
+		if (manual.length > 0) {
+			failure(
+				`${manual.join(', ')} use 'clsx' or 'tailwind-merge' in a way that can't be migrated automatically; ` +
+					`please migrate them to 'cn' manually.`,
+				HealthcheckSeverity.Warning,
+				false,
 			);
 		}
 	},

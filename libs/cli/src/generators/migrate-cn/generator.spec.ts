@@ -2,7 +2,7 @@ import { readJson, type Tree, writeJson } from '@nx/devkit';
 import { createTreeWithEmptyWorkspace } from '@nx/devkit/testing';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { migrateCnGenerator } from './generator';
+import { canMigrateAutomatically, migrateCnGenerator } from './generator';
 import { sourceFingerprint } from './lib/source-fingerprint';
 
 const hlmTemplate = readFileSync(
@@ -143,6 +143,23 @@ export function hlm(...inputs: ClassValue[]) {
 		await migrateCnGenerator(tree, { skipFormat: true });
 
 		expect(readJson(tree, 'package.json').dependencies['@spartan-ng/brain']).toBeDefined();
+	});
+
+	it('should not copy a workspace protocol cli reference to brain', async () => {
+		writeJson(tree, 'package.json', {
+			dependencies: { '@spartan-ng/brain': '1.0.0' },
+			devDependencies: { '@spartan-ng/cli': 'workspace:*' },
+		});
+
+		await migrateCnGenerator(tree, { skipFormat: true });
+
+		expect(readJson(tree, 'package.json').dependencies['@spartan-ng/brain']).not.toContain('workspace');
+	});
+
+	it('should only report sources it can change as automatically migratable', () => {
+		expect(canMigrateAutomatically(`import { clsx } from 'clsx';`)).toBe(true);
+		expect(canMigrateAutomatically(previousHlm)).toBe(true);
+		expect(canMigrateAutomatically(`const { clsx } = require('clsx');`)).toBe(false);
 	});
 
 	it('should not bump a brain version it cannot compare', async () => {

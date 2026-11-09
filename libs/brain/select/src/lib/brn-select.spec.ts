@@ -1,4 +1,4 @@
-import { Component, signal, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal, viewChild } from '@angular/core';
 import { BrnPopover, BrnPopoverContent, provideBrnPopoverDefaultOptions } from '@spartan-ng/brain/popover';
 import { render, screen } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
@@ -11,6 +11,7 @@ import { BrnSelectTrigger } from './brn-select-trigger';
 @Component({
 	imports: [BrnPopover, BrnPopoverContent, BrnSelect, BrnSelectContent, BrnSelectItem, BrnSelectList, BrnSelectTrigger],
 	providers: [provideBrnPopoverDefaultOptions({ role: null })],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div brnPopover brnSelect [disabled]="disabled()" [value]="value()" (valueChange)="onChange($event)">
 			<button brnSelectTrigger>{{ value() }}</button>

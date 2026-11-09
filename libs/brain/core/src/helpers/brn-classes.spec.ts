@@ -17,9 +17,33 @@ import {
 import { TestBed } from '@angular/core/testing';
 import { render } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
-import { classes } from './hlm';
+import { type ClassValue, cn } from 'cn';
+import { createCn } from 'cn/config';
+import { brnClasses, type BrnClassesOptions } from './brn-classes';
 
-describe('classes', () => {
+// mirrors the `classes` wrapper from @spartan-ng/helm/utils
+function classes(computed: () => ClassValue[] | string, options: Omit<BrnClassesOptions, 'merge'> = {}) {
+	brnClasses(computed, { ...options, merge: cn });
+}
+
+describe('brnClasses', () => {
+	it('should merge with the provided merge function', async () => {
+		await TestBed.configureTestingModule({}).compileComponents();
+
+		const element = document.createElement('div');
+		const elementRef = new ElementRef(element);
+		const merge = createCn({ extend: { classGroups: { 'font-size': [{ text: ['hero'] }] } } });
+
+		TestBed.runInInjectionContext(() => {
+			brnClasses(() => 'text-sm text-hero', { elementRef, merge });
+		});
+
+		await new Promise((resolve) => setTimeout(resolve, 0));
+
+		// the default config would keep both, as text-hero is not a known font-size
+		expect(element.className).toBe('text-hero');
+	});
+
 	it('should work when called within injection context', async () => {
 		await TestBed.configureTestingModule({}).compileComponents();
 
@@ -223,7 +247,7 @@ describe('classes', () => {
 
 		await new Promise((resolve) => setTimeout(resolve, 0));
 
-		// Should only have one background color due to tailwind-merge
+		// Should only have one background color due to the merge function
 		// Later registered classes should take precedence
 		const classNames = element.className.split(' ').filter((c) => c.length > 0);
 		expect(classNames).toContain('bg-red-500'); // Later registration wins
@@ -518,7 +542,7 @@ describe('classes', () => {
 
 	// https://github.com/spartan-ng/spartan/issues/1823
 	it('should not trigger zone change detection loops when class attributes are rewritten', async () => {
-		@Directive({ selector: '[hlmTestClasses]' })
+		@Directive({ selector: '[brnTestClasses]' })
 		class TestClassesDirective {
 			constructor() {
 				classes(() => 'inline-flex');
@@ -534,7 +558,7 @@ describe('classes', () => {
 			changeDetection: ChangeDetectionStrategy.Eager,
 			// NgClass calls removeClass on every check, which mutates the class attribute
 			template: `
-				<span hlmTestClasses>badge</span>
+				<span brnTestClasses>badge</span>
 				<div class="foo" [ngClass]="{ foo: false }"></div>
 			`,
 		})

@@ -2,8 +2,14 @@ import { readJson, type Tree, writeJson } from '@nx/devkit';
 import { createTreeWithEmptyWorkspace } from '@nx/devkit/testing';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { canMigrateAutomatically, migrateCnGenerator } from './generator';
+import { getCliPackageVersion } from '../../utils/version-utils';
+import { canMigrateAutomatically, migrateCnGenerator, needsManualMigration } from './generator';
 import { sourceFingerprint } from './lib/source-fingerprint';
+
+vi.mock('../../utils/version-utils', async (importOriginal) => {
+	const actual = await importOriginal<typeof import('../../utils/version-utils')>();
+	return { ...actual, getCliPackageVersion: vi.fn(actual.getCliPackageVersion) };
+});
 
 const hlmTemplate = readFileSync(
 	join(__dirname, '..', 'ui', 'libs', 'utils', 'files', 'lib', 'hlm.ts.template'),
@@ -162,6 +168,12 @@ export function hlm(...inputs: ClassValue[]) {
 		expect(canMigrateAutomatically(`const { clsx } = require('clsx');`)).toBe(false);
 	});
 
+	it('should report sources that still reference clsx after the migration as manual', () => {
+		expect(needsManualMigration(previousHlm)).toBe(false);
+		expect(needsManualMigration(`import { clsx } from 'clsx';`)).toBe(false);
+		expect(needsManualMigration(`import { clsx } from 'clsx';\nconst lite = require('clsx/lite');`)).toBe(true);
+	});
+
 	it('should not bump a brain version it cannot compare', async () => {
 		writeJson(tree, 'package.json', { dependencies: { '@spartan-ng/brain': 'latest', clsx: '^2.1.1' } });
 
@@ -170,15 +182,34 @@ export function hlm(...inputs: ClassValue[]) {
 		expect(readJson(tree, 'package.json').dependencies['@spartan-ng/brain']).toBe('latest');
 	});
 
-	it('should bump brain to the declared (prerelease) cli version', async () => {
-		writeJson(tree, 'package.json', {
-			dependencies: { '@spartan-ng/brain': '1.9.0' },
-			devDependencies: { '@spartan-ng/cli': '99.0.0-beta.1' },
-		});
+	it('should bump brain to the running (prerelease) cli version', async () => {
+		vi.mocked(getCliPackageVersion).mockReturnValueOnce('99.0.0-beta.1');
+		writeJson(tree, 'package.json', { dependencies: { '@spartan-ng/brain': '1.9.0' } });
 
 		await migrateCnGenerator(tree, { skipFormat: true });
 
 		expect(readJson(tree, 'package.json').dependencies['@spartan-ng/brain']).toBe('99.0.0-beta.1');
+	});
+
+	it('should bump a brain older than the running cli even when the declared cli range allows it', async () => {
+		vi.mocked(getCliPackageVersion).mockReturnValueOnce('1.10.0');
+		writeJson(tree, 'package.json', {
+			dependencies: { '@spartan-ng/brain': '1.9.0' },
+			devDependencies: { '@spartan-ng/cli': '^1.9.0' },
+		});
+
+		await migrateCnGenerator(tree, { skipFormat: true });
+
+		expect(readJson(tree, 'package.json').dependencies['@spartan-ng/brain']).toBe('1.10.0');
+	});
+
+	it('should keep a brain range without a version', async () => {
+		writeJson(tree, 'package.json', { dependencies: { '@spartan-ng/brain': '*' } });
+		tree.write('libs/ui/utils/src/lib/hlm.ts', previousHlm);
+
+		await migrateCnGenerator(tree, { skipFormat: true });
+
+		expect(readJson(tree, 'package.json').dependencies['@spartan-ng/brain']).toBe('*');
 	});
 
 	it('should keep tailwind-merge when an import could not be migrated', async () => {

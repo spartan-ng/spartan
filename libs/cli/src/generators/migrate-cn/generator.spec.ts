@@ -136,6 +136,15 @@ export function hlm(...inputs: ClassValue[]) {
 		expect(dependencies.clsx).toBeUndefined();
 	});
 
+	it('should add brain when a replaced hlm.ts needs it', async () => {
+		writeJson(tree, 'package.json', { dependencies: { clsx: '^2.1.1' } });
+		tree.write('libs/ui/utils/src/lib/hlm.ts', previousHlm);
+
+		await migrateCnGenerator(tree, { skipFormat: true });
+
+		expect(readJson(tree, 'package.json').dependencies['@spartan-ng/brain']).toBeDefined();
+	});
+
 	it('should not bump a brain version it cannot compare', async () => {
 		writeJson(tree, 'package.json', { dependencies: { '@spartan-ng/brain': 'latest', clsx: '^2.1.1' } });
 

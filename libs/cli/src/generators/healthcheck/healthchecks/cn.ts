@@ -1,4 +1,4 @@
-import { visitNotIgnoredFiles } from '@nx/devkit';
+import { visitFiles } from '../../../utils/visit-files';
 import migrateCnGenerator from '../../migrate-cn/generator';
 import { LEGACY_IMPORT_REGEX, SOURCE_FILE_REGEX } from '../../migrate-cn/lib/legacy-imports';
 import { type Healthcheck, HealthcheckSeverity } from '../healthchecks';
@@ -8,7 +8,8 @@ export const cnHealthcheck: Healthcheck = {
 	async detect(tree, failure) {
 		const files: string[] = [];
 
-		visitNotIgnoredFiles(tree, '/', (file) => {
+		// same scope as migrate-cn, so the offered fix addresses every reported file
+		visitFiles(tree, '.', (file) => {
 			if (!SOURCE_FILE_REGEX.test(file)) {
 				return;
 			}

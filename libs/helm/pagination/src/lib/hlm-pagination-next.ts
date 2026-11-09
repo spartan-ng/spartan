@@ -5,7 +5,7 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronRight } from '@ng-icons/lucide';
 import type { ButtonVariants } from '@spartan-ng/helm/button';
 import { hlm } from '@spartan-ng/helm/utils';
-import type { ClassValue } from 'clsx';
+import type { ClassValue } from 'cn';
 import { HlmPaginationLink } from './hlm-pagination-link';
 import { injectHlmPaginationConfig } from './hlm-pagination.token';
 

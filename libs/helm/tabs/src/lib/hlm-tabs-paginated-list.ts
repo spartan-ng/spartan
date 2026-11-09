@@ -14,7 +14,7 @@ import { lucideChevronLeft, lucideChevronRight } from '@ng-icons/lucide';
 import { type BrnPaginatedTabHeaderItem, BrnTabsPaginatedList, BrnTabsTrigger } from '@spartan-ng/brain/tabs';
 import { buttonVariants } from '@spartan-ng/helm/button';
 import { classes, hlm } from '@spartan-ng/helm/utils';
-import type { ClassValue } from 'clsx';
+import type { ClassValue } from 'cn';
 import type { Observable } from 'rxjs';
 import { listVariants } from './hlm-tabs-list';
 

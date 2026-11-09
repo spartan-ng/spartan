@@ -44,6 +44,31 @@ describe('brnClasses', () => {
 		expect(element.className).toBe('text-hero');
 	});
 
+	it('should keep applying classes after the merge function threw', async () => {
+		await TestBed.configureTestingModule({}).compileComponents();
+
+		const element = document.createElement('div');
+		const elementRef = new ElementRef(element);
+		const state = signal('p-2');
+		let shouldThrow = true;
+		const merge = (...inputs: ClassValue[]) => {
+			if (shouldThrow) throw new Error('merge failed');
+			return cn(...inputs);
+		};
+
+		TestBed.runInInjectionContext(() => {
+			brnClasses(() => state(), { elementRef, merge });
+		});
+
+		expect(() => TestBed.tick()).toThrow('merge failed');
+
+		shouldThrow = false;
+		state.set('p-4');
+		TestBed.tick();
+
+		expect(element.className).toBe('p-4');
+	});
+
 	it('should work when called within injection context', async () => {
 		await TestBed.configureTestingModule({}).compileComponents();
 

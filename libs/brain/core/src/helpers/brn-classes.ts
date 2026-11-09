@@ -237,6 +237,15 @@ function updateElement(manager: ElementClassManager): void {
 
 	manager.isUpdating = true;
 
+	// the merge function is user-provided (e.g. createCn), never leave the manager stuck in updating mode
+	try {
+		applyClasses(manager);
+	} finally {
+		manager.isUpdating = false;
+	}
+}
+
+function applyClasses(manager: ElementClassManager): void {
 	// Handle initialization: capture base classes after first source registration
 	if (!manager.hasInitialized && manager.sources.size > 0) {
 		// Get current classes on element (may include SSR classes)
@@ -277,8 +286,6 @@ function updateElement(manager: ElementClassManager): void {
 	if (manager.element.className !== classesToApply) {
 		manager.element.className = classesToApply;
 	}
-
-	manager.isUpdating = false;
 }
 
 function cleanupManager(element: HTMLElement): void {

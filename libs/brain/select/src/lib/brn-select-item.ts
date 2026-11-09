@@ -16,8 +16,8 @@ import { injectBrnSelectBase } from './brn-select.token';
 		'[attr.data-highlighted]': '_highlighted() ? "" : null',
 		'[attr.data-value]': 'value()',
 		'[attr.aria-selected]': 'active()',
-		'[attr.aria-disabled]': '_disabled()',
-		'[attr.data-disabled]': '_disabled() ? "" : null',
+		'[attr.aria-disabled]': 'disabled',
+		'[attr.data-disabled]': 'disabled ? "" : null',
 		'(click)': 'select()',
 		'(mouseenter)': 'activate()',
 		'(mousedown)': 'onMouseDown($event)',
@@ -46,7 +46,7 @@ export class BrnSelectItem<T> implements Highlightable {
 
 	/** Expose disabled as a value - used by the Highlightable interface */
 	public get disabled() {
-		return this._disabled();
+		return this._disabled() || this._select.disabledState();
 	}
 
 	/** Whether the item is selected. */
@@ -74,7 +74,7 @@ export class BrnSelectItem<T> implements Highlightable {
 	}
 
 	protected select(): void {
-		if (this._disabled()) {
+		if (this.disabled) {
 			return;
 		}
 
@@ -83,7 +83,7 @@ export class BrnSelectItem<T> implements Highlightable {
 	}
 
 	protected activate(): void {
-		if (this._disabled()) {
+		if (this.disabled) {
 			return;
 		}
 

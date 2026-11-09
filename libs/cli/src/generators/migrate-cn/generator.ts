@@ -6,10 +6,11 @@ import {
 	readJson,
 	removeDependenciesFromPackageJson,
 	type Tree,
+	updateJson,
 } from '@nx/devkit';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { coerce, lt } from 'semver';
+import { lt, minVersion, validRange } from 'semver';
 import { getCliPackageVersion } from '../../utils/version-utils';
 import { visitFiles } from '../../utils/visit-files';
 import { CN_VERSION } from '../base/versions';
@@ -210,9 +211,19 @@ function updateDependencies(tree: Tree, stillUsed: Set<string>, replacedHlm: boo
 	const declaredBrain: string | undefined =
 		packageJson.dependencies?.['@spartan-ng/brain'] ?? packageJson.devDependencies?.['@spartan-ng/brain'];
 	const targetBrainVersion = getCliPackageVersion(true);
-	const brainVersion = coerce(declaredBrain)?.version;
+	// minVersion keeps prereleases (1.9.0-beta.4 is older than 1.9.0), '*' has no version to compare
+	const brainRange = declaredBrain ? validRange(declaredBrain) : null;
+	const brainVersion = brainRange && brainRange !== '*' ? minVersion(brainRange)?.version : undefined;
 	const brainTooOld = brainVersion !== undefined && lt(brainVersion, targetBrainVersion);
-	if (brainTooOld || (!declaredBrain && replacedHlm)) {
+	if (brainTooOld) {
+		// set it in place: addDependenciesToPackageJson compares coerced versions, so it would keep `^1.10.0-beta.4`
+		updateJson(tree, 'package.json', (json) => {
+			for (const section of ['dependencies', 'devDependencies']) {
+				if (json[section]?.['@spartan-ng/brain']) json[section]['@spartan-ng/brain'] = targetBrainVersion;
+			}
+			return json;
+		});
+	} else if (!declaredBrain && replacedHlm) {
 		dependencies['@spartan-ng/brain'] = targetBrainVersion;
 	}
 

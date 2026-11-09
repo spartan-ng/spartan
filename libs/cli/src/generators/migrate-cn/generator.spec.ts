@@ -203,6 +203,18 @@ export function hlm(...inputs: ClassValue[]) {
 		expect(readJson(tree, 'package.json').dependencies['@spartan-ng/brain']).toBe('1.10.0');
 	});
 
+	it.each(['1.10.0-beta.4', '^1.10.0-beta.4'])(
+		'should bump a prerelease brain (%s) older than the cli',
+		async (brain) => {
+			vi.mocked(getCliPackageVersion).mockReturnValueOnce('1.10.0');
+			writeJson(tree, 'package.json', { dependencies: { '@spartan-ng/brain': brain } });
+
+			await migrateCnGenerator(tree, { skipFormat: true });
+
+			expect(readJson(tree, 'package.json').dependencies['@spartan-ng/brain']).toBe('1.10.0');
+		},
+	);
+
 	it('should keep a brain range without a version', async () => {
 		writeJson(tree, 'package.json', { dependencies: { '@spartan-ng/brain': '*' } });
 		tree.write('libs/ui/utils/src/lib/hlm.ts', previousHlm);

@@ -11,6 +11,7 @@ import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-
 import { metaWith } from '@spartan-ng/app/app/shared/meta/meta.util';
 import { HlmAlertImports } from '@spartan-ng/helm/alert';
 import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
+import { TabsCli } from '../../../../shared/layout/tabs-cli';
 
 export const routeMeta: RouteMeta = {
 	data: { breadcrumb: 'Theming' },
@@ -30,6 +31,7 @@ export const routeMeta: RouteMeta = {
 		Code,
 		HlmAlertImports,
 		SectionSubSubHeading,
+		TabsCli,
 	],
 	template: `
 		<section spartanMainSection>
@@ -245,6 +247,52 @@ export const routeMeta: RouteMeta = {
 			<p class="${hlmP}">Use the new color with Tailwind classes:</p>
 
 			<spartan-code class="mt-6" code='<div class="bg-warning text-warning-foreground">Warning message</div>' />
+
+			<spartan-section-sub-heading id="class-merging">Customizing class merging</spartan-section-sub-heading>
+
+			<p class="${hlmP}">
+				Components merge their classes with the
+				<code class="${hlmCode}">hlm</code>
+				function from
+				<code class="${hlmCode}">&#64;spartan-ng/helm/utils</code>
+				which uses
+				<a href="https://www.npmjs.com/package/cn" target="_blank" rel="noreferrer" class="${hlmCode} underline">cn</a>
+				to resolve Tailwind conflicts. When you add custom theme values (for example a
+				<code class="${hlmCode}">text-hero</code>
+				font size) register them with
+				<code class="${hlmCode}">createCn</code>
+				in your
+				<code class="${hlmCode}">hlm.ts</code>
+				so they override each other correctly:
+			</p>
+
+			<spartan-code
+				class="mt-6"
+				fileName="libs/ui/utils/src/lib/hlm.ts"
+				code="import { createCn } from 'cn/config';
+
+export const hlm = createCn({
+  extend: { classGroups: { 'font-size': [{ text: ['hero'] }] } },
+});"
+			/>
+
+			<p class="${hlmP}">
+				The
+				<code class="${hlmCode}">classes</code>
+				helper merges with the same
+				<code class="${hlmCode}">hlm</code>
+				function, so the configuration applies to every component. Projects that still use
+				<code class="${hlmCode}">clsx</code>
+				and
+				<code class="${hlmCode}">tailwind-merge</code>
+				can migrate with:
+			</p>
+
+			<spartan-cli-tabs
+				class="mt-6 mb-6"
+				nxCode="nx g @spartan-ng/cli:migrate-cn"
+				ngCode="ng g @spartan-ng/cli:migrate-cn"
+			/>
 
 			<spartan-section-sub-heading id="base-colors">Base Colors</spartan-section-sub-heading>
 

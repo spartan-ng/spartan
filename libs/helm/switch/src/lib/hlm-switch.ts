@@ -13,7 +13,7 @@ import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
 import { BrnSwitch, type BrnSwitchSize } from '@spartan-ng/brain/switch';
 import { hlm } from '@spartan-ng/helm/utils';
-import type { ClassValue } from 'clsx';
+import type { ClassValue } from 'cn';
 import { HlmSwitchThumb } from './hlm-switch-thumb';
 
 export const HLM_SWITCH_VALUE_ACCESSOR = {

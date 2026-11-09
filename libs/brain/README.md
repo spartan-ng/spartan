@@ -89,7 +89,7 @@ spartan/ui requires Tailwind CSS v4.
 
 - Angular `>=21.0.0 <23.0.0` (core, common, forms, cdk)
 - `rxjs` `>=6.6.0`
-- `clsx` `>=2.0.0`
+- `cn` `^0.5.2`
 - `tailwindcss` `>=4.0.0`
 - `tw-animate-css` `>=1.0.0` _(imported by the Tailwind preset)_
 - `luxon` `>=3.0.0` _(optional - only required for `@spartan-ng/brain/date-time-luxon`)_

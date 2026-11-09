@@ -2,7 +2,7 @@ import { computed, Directive, inject, input } from '@angular/core';
 import { BrnFieldControlDescribedBy } from '@spartan-ng/brain/field';
 import { BrnRadioGroup } from '@spartan-ng/brain/radio-group';
 import { classes } from '<%- importAlias %>/utils';
-import type { ClassValue } from 'clsx';
+import type { ClassValue } from 'cn';
 
 @Directive({
 	selector: '[hlmRadioGroup],hlm-radio-group',

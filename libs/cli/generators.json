@@ -40,6 +40,11 @@
 			"schema": "./src/generators/migrate-brn-switch-changed-event/schema.json",
 			"description": "Migrate brn-switch changed event to checkedChange"
 		},
+		"migrate-cn": {
+			"factory": "./src/generators/migrate-cn/generator",
+			"schema": "./src/generators/migrate-cn/schema.json",
+			"description": "Migrate clsx and tailwind-merge to cn and move the classes() logic to @spartan-ng/brain/core"
+		},
 		"migrate-core": {
 			"factory": "./src/generators/migrate-core/generator",
 			"schema": "./src/generators/migrate-core/schema.json",
@@ -176,6 +181,11 @@
 			"factory": "./src/generators/migrate-brn-switch-changed-event/compat",
 			"schema": "./src/generators/migrate-brn-switch-changed-event/schema.json",
 			"description": "Migrate brn-switch changed event to checkedChange"
+		},
+		"migrate-cn": {
+			"factory": "./src/generators/migrate-cn/compat",
+			"schema": "./src/generators/migrate-cn/schema.json",
+			"description": "Migrate clsx and tailwind-merge to cn and move the classes() logic to @spartan-ng/brain/core"
 		},
 		"migrate-core": {
 			"factory": "./src/generators/migrate-scroll-area/compat",

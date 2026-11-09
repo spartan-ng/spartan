@@ -11,7 +11,7 @@ import { BrnFieldControl, BrnFieldControlDescribedBy } from '@spartan-ng/brain/f
 import { ButtonVariants, HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmPopoverTrigger } from '@spartan-ng/helm/popover';
 import { hlm } from '@spartan-ng/helm/utils';
-import { ClassValue } from 'clsx';
+import { ClassValue } from 'cn';
 
 @Component({
 	selector: 'hlm-date-picker-trigger',

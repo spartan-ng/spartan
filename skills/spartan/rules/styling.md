@@ -74,8 +74,8 @@ whitespace-nowrap`.
 ## The `hlm()` utility
 
 When you compute classes in TypeScript, merge them with `hlm()` from `@spartan-ng/helm/utils` (it
-wraps `clsx` + `tailwind-merge`, so later classes win conflicts). Do not concatenate class strings
-by hand.
+uses [`cn`](https://www.npmjs.com/package/cn), so later classes win conflicts). Do not concatenate
+class strings by hand.
 
 ```ts
 import { hlm } from '@spartan-ng/helm/utils';
@@ -122,7 +122,7 @@ When you need to fold the user's class into a `computed` alongside conditional c
 ```ts
 import { Component, computed, input } from '@angular/core';
 import { hlm } from '@spartan-ng/helm/utils';
-import type { ClassValue } from 'clsx';
+import type { ClassValue } from 'cn';
 
 @Component({
 	selector: 'app-badge',

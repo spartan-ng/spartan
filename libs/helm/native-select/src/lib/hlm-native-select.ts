@@ -16,7 +16,7 @@ import { lucideChevronDown } from '@ng-icons/lucide';
 import { BrnFieldControl, provideBrnLabelable } from '@spartan-ng/brain/field';
 import { type ChangeFn, type TouchFn } from '@spartan-ng/brain/forms';
 import { classes, hlm } from '@spartan-ng/helm/utils';
-import type { ClassValue } from 'clsx';
+import type { ClassValue } from 'cn';
 
 export const HLM_NATIVE_SELECT_VALUE_ACCESSOR = {
 	provide: NG_VALUE_ACCESSOR,

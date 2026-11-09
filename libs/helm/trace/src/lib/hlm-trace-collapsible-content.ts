@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { BrnCollapsibleContent } from '@spartan-ng/brain/collapsible';
 import { classes, hlm } from '@spartan-ng/helm/utils';
-import { ClassValue } from 'clsx';
+import { ClassValue } from 'cn';
 
 @Component({
 	selector: 'hlm-trace-collapsible-content',

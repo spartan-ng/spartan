@@ -62,7 +62,7 @@ function mergeImports(imports: string[]) {
 		if (namedMatch) {
 			const beforeBrace = clause.slice(0, clause.indexOf('{')).replace(',', '').trim();
 			// A leading `type` before the brace means this is a type-only named import
-			// (e.g. `import type { ClassValue } from 'clsx'`). It is NOT a default import,
+			// (e.g. `import type { ClassValue } from 'cn'`). It is NOT a default import,
 			// so all of its names are type-only and no default should be recorded.
 			const isTypeOnly = beforeBrace === 'type';
 			if (beforeBrace && !beforeBrace.startsWith('*') && !isTypeOnly) {
@@ -264,7 +264,7 @@ function writeStackblitzMeta(tree: Tree): void {
 		// caret would break the build with TS2554.
 		'@tanstack/angular-table': pick('@tanstack/angular-table', '^8.21.0').replace(/^[\^~]/, ''),
 		'class-variance-authority': pick('class-variance-authority', '^0.7.0'),
-		clsx: pick('clsx', '^2.1.1'),
+		cn: pick('cn', '^0.5.2'),
 		// Example-specific runtime deps not declared as helm peers (so not captured in the project):
 		// the carousel autoplay plugin, the luxon date adapter used by date-picker, and ngx-scrollbar
 		// behind scroll-area.
@@ -272,7 +272,6 @@ function writeStackblitzMeta(tree: Tree): void {
 		luxon: pick('luxon', '^3.0.0'),
 		'ngx-scrollbar': pick('ngx-scrollbar', '^18.0.0'),
 		rxjs: pick('rxjs', '~7.8.0'),
-		'tailwind-merge': pick('tailwind-merge', '^3.5.0'),
 		'zone.js': pick('zone.js', '~0.15.0'),
 	};
 

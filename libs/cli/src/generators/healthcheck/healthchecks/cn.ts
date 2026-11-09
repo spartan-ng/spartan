@@ -1,5 +1,6 @@
 import { visitNotIgnoredFiles } from '@nx/devkit';
 import migrateCnGenerator from '../../migrate-cn/generator';
+import { LEGACY_IMPORT_REGEX, SOURCE_FILE_REGEX } from '../../migrate-cn/lib/legacy-imports';
 import { type Healthcheck, HealthcheckSeverity } from '../healthchecks';
 
 export const cnHealthcheck: Healthcheck = {
@@ -8,7 +9,7 @@ export const cnHealthcheck: Healthcheck = {
 		const files: string[] = [];
 
 		visitNotIgnoredFiles(tree, '/', (file) => {
-			if (!file.endsWith('.ts')) {
+			if (!SOURCE_FILE_REGEX.test(file)) {
 				return;
 			}
 
@@ -17,14 +18,14 @@ export const cnHealthcheck: Healthcheck = {
 				return;
 			}
 
-			if (/from\s*['"](clsx|clsx\/lite|tailwind-merge)['"]/.test(contents)) {
+			if (LEGACY_IMPORT_REGEX.test(contents)) {
 				files.push(file);
 			}
 		});
 
 		if (files.length > 0) {
 			failure(
-				`${files.length} file(s) import from 'clsx' or 'tailwind-merge'; spartan now uses 'cn' for class merging.`,
+				`${files.length} file(s) use 'clsx' or 'tailwind-merge'; spartan now uses 'cn' for class merging.`,
 				HealthcheckSeverity.Warning,
 				true,
 			);

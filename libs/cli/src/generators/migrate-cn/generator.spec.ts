@@ -111,6 +111,50 @@ export function hlm(...inputs: ClassValue[]) {
 		expect(dependencies['@spartan-ng/brain']).not.toBe('0.0.1');
 	});
 
+	it('should migrate clsx/lite and default + named clsx imports to cn', async () => {
+		tree.write(
+			'apps/app/src/util.ts',
+			`import { clsx as join, type ClassValue } from 'clsx/lite';\nimport clsx, { type ClassArray } from 'clsx';\n`,
+		);
+
+		await migrateCnGenerator(tree, { skipFormat: true });
+
+		expect(tree.read('apps/app/src/util.ts', 'utf-8')).toBe(
+			`import { clsx as join, type ClassValue } from 'cn';\nimport { clsx, type ClassArray } from 'cn';\n`,
+		);
+		expect(readJson(tree, 'package.json').dependencies.clsx).toBeUndefined();
+	});
+
+	it('should keep a dependency that is still required from a JavaScript file', async () => {
+		tree.write('libs/ui/utils/src/lib/hlm.ts', previousHlm);
+		tree.write('tools/scripts/classes.cjs', `const { twMerge } = require('tailwind-merge');\n`);
+
+		await migrateCnGenerator(tree, { skipFormat: true });
+
+		const { dependencies } = readJson(tree, 'package.json');
+		expect(dependencies['tailwind-merge']).toBe('^3.3.1');
+		expect(dependencies.clsx).toBeUndefined();
+	});
+
+	it('should not bump a brain version it cannot compare', async () => {
+		writeJson(tree, 'package.json', { dependencies: { '@spartan-ng/brain': 'latest', clsx: '^2.1.1' } });
+
+		await migrateCnGenerator(tree, { skipFormat: true });
+
+		expect(readJson(tree, 'package.json').dependencies['@spartan-ng/brain']).toBe('latest');
+	});
+
+	it('should bump brain to the declared (prerelease) cli version', async () => {
+		writeJson(tree, 'package.json', {
+			dependencies: { '@spartan-ng/brain': '1.9.0' },
+			devDependencies: { '@spartan-ng/cli': '99.0.0-beta.1' },
+		});
+
+		await migrateCnGenerator(tree, { skipFormat: true });
+
+		expect(readJson(tree, 'package.json').dependencies['@spartan-ng/brain']).toBe('99.0.0-beta.1');
+	});
+
 	it('should keep tailwind-merge when an import could not be migrated', async () => {
 		tree.write('apps/app/src/util.ts', `import { experimentalParseClassName } from 'tailwind-merge';\n`);
 

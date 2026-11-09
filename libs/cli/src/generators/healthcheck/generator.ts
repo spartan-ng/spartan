@@ -1,4 +1,4 @@
-import { formatFiles, logger, type Tree } from '@nx/devkit';
+import { formatFiles, installPackagesTask, logger, type Tree } from '@nx/devkit';
 import { prompt } from 'enquirer';
 import { getImportAlias } from '../../utils/config';
 import { type Healthcheck, type HealthcheckReport, HealthcheckStatus, isHealthcheckFixable } from './healthchecks';
@@ -112,6 +112,9 @@ export async function healthcheckGenerator(tree: Tree, options: HealthcheckGener
 	if (!options.skipFormat) {
 		await formatFiles(tree);
 	}
+
+	// fixes may change package.json (e.g. migrate-cn swaps clsx / tailwind-merge for cn); installs only if it changed
+	return (): void => installPackagesTask(tree);
 }
 
 export default healthcheckGenerator;

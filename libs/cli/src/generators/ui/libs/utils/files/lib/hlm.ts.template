@@ -30,6 +30,8 @@ interface ElementClassManager {
 	isUpdating: boolean;
 	nextOrder: number;
 	hasInitialized: boolean;
+	/** The class list this manager last wrote, to tell external class changes apart from its own. */
+	appliedClasses: Set<string> | null;
 	restoreRafId: number | null;
 	/** Transitions are suppressed until the first effect writes correct classes */
 	transitionsSuppressed: boolean;
@@ -79,6 +81,7 @@ export function classes(computed: () => ClassValue[] | string, options: ClassesO
 				isUpdating: false,
 				nextOrder: 0,
 				hasInitialized: false,
+				appliedClasses: null,
 				restoreRafId: null,
 				transitionsSuppressed: false,
 				previousTransition: '',
@@ -186,26 +189,6 @@ function setupGlobalObserver(platformId: Object): void {
 					if (manager && observedElements.has(element)) {
 						if (manager.isUpdating) continue; // Ignore changes we're making
 
-						// Update base classes to include any externally added classes
-						const currentClasses = toClassList(element.className);
-						const allSourceClasses = new Set<string>();
-
-						// Collect all classes from all sources
-						for (const source of manager.sources.values()) {
-							for (const className of source.classes) {
-								allSourceClasses.add(className);
-							}
-						}
-
-						// Any classes not from sources become new base classes
-						manager.baseClasses.clear();
-
-						for (const className of currentClasses) {
-							if (!allSourceClasses.has(className)) {
-								manager.baseClasses.add(className);
-							}
-						}
-
 						updateElement(manager);
 					}
 				}
@@ -246,6 +229,10 @@ function updateElement(manager: ElementClassManager): void {
 		});
 
 		manager.hasInitialized = true;
+	} else if (manager.appliedClasses) {
+		// Reconcile with the live element instead of waiting for the mutation observer: a class binding
+		// that changed in the same tick as a source would otherwise be overwritten with stale base classes.
+		syncBaseClasses(manager);
 	}
 
 	// Get classes from all sources, sorted by registration order (later takes precedence)
@@ -266,8 +253,26 @@ function updateElement(manager: ElementClassManager): void {
 	if (manager.element.className !== classesToApply) {
 		manager.element.className = classesToApply;
 	}
+	manager.appliedClasses = new Set(toClassList(classesToApply));
 
 	manager.isUpdating = false;
+}
+
+function syncBaseClasses(manager: ElementClassManager): void {
+	const applied = manager.appliedClasses!;
+	const current = new Set(toClassList(manager.element.className));
+
+	for (const className of applied) {
+		if (!current.has(className)) {
+			manager.baseClasses.delete(className);
+		}
+	}
+
+	for (const className of current) {
+		if (!applied.has(className)) {
+			manager.baseClasses.add(className);
+		}
+	}
 }
 
 function cleanupManager(element: HTMLElement): void {

@@ -9,6 +9,7 @@ import {
 	ElementRef,
 	EnvironmentInjector,
 	Injector,
+	input,
 	provideZoneChangeDetection,
 	runInInjectionContext,
 	signal,
@@ -552,5 +553,47 @@ describe('classes', () => {
 		await new Promise((resolve) => setTimeout(resolve, 50));
 
 		expect(checks).toBeLessThan(10);
+	});
+	it('should keep a [class] change made in the same tick as a classes() source change', async () => {
+		@Directive({ selector: '[hlmTestLine]' })
+		class TestLineDirective {
+			public readonly line = input<'solid' | 'dotted'>('solid');
+
+			constructor() {
+				classes(() => (this.line() === 'solid' ? 'border-solid' : 'border-dotted'));
+			}
+		}
+
+		@Component({
+			imports: [TestLineDirective],
+			changeDetection: ChangeDetectionStrategy.OnPush,
+			template: `
+				<span hlmTestLine [line]="line()" [class]="color()"></span>
+			`,
+		})
+		class TestComponent {
+			public readonly line = signal<'solid' | 'dotted'>('solid');
+			public readonly color = signal('text-red-500');
+		}
+
+		const fixture = TestBed.createComponent(TestComponent);
+		fixture.autoDetectChanges();
+		await fixture.whenStable();
+		await new Promise((resolve) => setTimeout(resolve, 0));
+
+		const element: HTMLElement = fixture.nativeElement.querySelector('span');
+		expect(element.classList).toContain('text-red-500');
+
+		// both bindings change in one change detection pass
+		fixture.componentInstance.line.set('dotted');
+		fixture.componentInstance.color.set('text-blue-500');
+		await fixture.whenStable();
+		await new Promise((resolve) => setTimeout(resolve, 0));
+
+		const classNames = element.className.split(' ').filter((c) => c.length > 0);
+		expect(classNames).toContain('border-dotted');
+		expect(classNames).toContain('text-blue-500');
+		expect(classNames).not.toContain('text-red-500');
+		expect(classNames).not.toContain('border-solid');
 	});
 });

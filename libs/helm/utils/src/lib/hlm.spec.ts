@@ -596,4 +596,24 @@ describe('classes', () => {
 		expect(classNames).not.toContain('text-red-500');
 		expect(classNames).not.toContain('border-solid');
 	});
+
+	it('should keep a class added externally before the first classes() update', async () => {
+		await TestBed.configureTestingModule({}).compileComponents();
+
+		const element = document.createElement('div');
+		document.body.appendChild(element);
+
+		TestBed.runInInjectionContext(() => {
+			classes(() => 'border-solid', { elementRef: new ElementRef(element) });
+		});
+
+		// the observer sees this before the first effect has registered the source
+		element.classList.add('text-red-500');
+		await new Promise((resolve) => setTimeout(resolve, 0));
+		TestBed.tick();
+
+		expect(element.className.split(' ')).toEqual(expect.arrayContaining(['border-solid', 'text-red-500']));
+
+		element.remove();
+	});
 });

@@ -187,7 +187,8 @@ function setupGlobalObserver(platformId: Object): void {
 
 					// Only process elements we're managing
 					if (manager && observedElements.has(element)) {
-						if (manager.isUpdating) continue; // Ignore changes we're making
+						// Ignore our own writes, and wait for the first source: its effect captures the live classes
+						if (manager.isUpdating || !manager.hasInitialized) continue;
 
 						updateElement(manager);
 					}

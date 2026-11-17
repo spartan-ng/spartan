@@ -19,6 +19,8 @@ import { HlmPaginationNext } from './hlm-pagination-next';
 import { HlmPaginationPrevious } from './hlm-pagination-previous';
 import { injectHlmPaginationConfig } from './hlm-pagination.token';
 
+let nextId = 0;
+
 @Component({
 	selector: 'hlm-numbered-pagination',
 	exportAs: 'hlmNumberedPagination',
@@ -45,8 +47,12 @@ import { injectHlmPaginationConfig } from './hlm-pagination.token';
 			<nav hlmPagination>
 				<ul hlmPaginationContent>
 					@if (showEdges() && !_isFirstPageActive()) {
-						<li hlmPaginationItem (click)="goToPrevious()">
-							<hlm-pagination-previous [aria-label]="previousAriaLabel()" [text]="previousLabel()" />
+						<li hlmPaginationItem>
+							<hlm-pagination-previous
+								[aria-label]="previousAriaLabel()"
+								[text]="previousLabel()"
+								(click)="goToPrevious()"
+							/>
 						</li>
 					}
 
@@ -55,24 +61,30 @@ import { injectHlmPaginationConfig } from './hlm-pagination.token';
 							@if (page === '...') {
 								<hlm-pagination-ellipsis />
 							} @else {
-								<a hlmPaginationLink [isActive]="currentPage() === page" (click)="currentPage.set(page)">
+								<button
+									type="button"
+									hlmPaginationLink
+									[isActive]="currentPage() === page"
+									(click)="currentPage.set(page)"
+								>
 									{{ page }}
-								</a>
+								</button>
 							}
 						</li>
 					}
 
 					@if (showEdges() && !_isLastPageActive()) {
-						<li hlmPaginationItem (click)="goToNext()">
-							<hlm-pagination-next [aria-label]="nextAriaLabel()" [text]="nextLabel()" />
+						<li hlmPaginationItem>
+							<hlm-pagination-next [aria-label]="nextAriaLabel()" [text]="nextLabel()" (click)="goToNext()" />
 						</li>
 					}
 				</ul>
 			</nav>
 
 			<!-- Show Page Size selector -->
+			<label class="sr-only" [for]="_pageSizeTriggerId">{{ pageSizeAriaLabel() }}</label>
 			<hlm-select [(value)]="itemsPerPage" class="ml-auto">
-				<hlm-select-trigger class="w-fit">
+				<hlm-select-trigger class="w-fit" [buttonId]="_pageSizeTriggerId">
 					<hlm-select-value />
 				</hlm-select-trigger>
 				<hlm-select-content *hlmSelectPortal>
@@ -163,6 +175,14 @@ export class HlmNumberedPagination {
 	 * Defaults to config's previousAriaLabel
 	 */
 	public readonly previousAriaLabel = input<string>(this._config.previousAriaLabel);
+
+	/**
+	 * The accessible label of the page size selector
+	 * Defaults to config's pageSizeAriaLabel
+	 */
+	public readonly pageSizeAriaLabel = input<string>(this._config.pageSizeAriaLabel);
+
+	protected readonly _pageSizeTriggerId = `hlm-numbered-pagination-page-size-${nextId++}`;
 
 	protected readonly _pageSizesWithCurrent = computed(() => {
 		const pageSizes = this.pageSizes();

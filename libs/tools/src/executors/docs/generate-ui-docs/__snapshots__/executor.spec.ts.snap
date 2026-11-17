@@ -7164,6 +7164,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "required": false,
             "type": "string",
           },
+          {
+            "name": "pageSizeAriaLabel",
+            "required": false,
+            "type": "string",
+          },
         ],
         "models": [
           {
@@ -7235,6 +7240,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
           },
           {
             "name": "previousAriaLabel",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "pageSizeAriaLabel",
             "required": false,
             "type": "string",
           },

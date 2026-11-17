@@ -17,6 +17,13 @@ import { injectHlmDatePickerConfig } from './hlm-date-picker.token';
 	providers: [provideIcons({ lucideCalendar, lucideX }), provideBrnDatePickerTrigger(HlmDatePickerInput)],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	hostDirectives: [HlmInputGroup],
+	host: {
+		// ARIA attributes belong on the inner <input>, the host has no role.
+		'[attr.aria-label]': 'null',
+		'[attr.aria-labelledby]': 'null',
+		'[attr.aria-describedby]': 'null',
+		'[attr.aria-invalid]': 'null',
+	},
 	template: `
 		<input
 			#input
@@ -26,8 +33,11 @@ import { injectHlmDatePickerConfig } from './hlm-date-picker.token';
 			[placeholder]="placeholder()"
 			[disabled]="_disabled()"
 			[forceInvalid]="forceInvalid()"
-			[attr.aria-invalid]="_ariaInvalid()"
-			[attr.data-invalid]="_ariaInvalid()"
+			[attr.aria-label]="ariaLabel()"
+			[attr.aria-labelledby]="ariaLabelledby()"
+			[aria-describedby]="ariaDescribedby()"
+			[aria-invalid]="_ariaInvalid()"
+			[attr.data-invalid]="_invalid?.() ? 'true' : null"
 			[attr.data-touched]="_touched?.() ? 'true' : null"
 			[attr.data-dirty]="_dirty?.() ? 'true' : null"
 			[attr.data-matches-spartan-invalid]="_spartanInvalid() ? 'true' : null"
@@ -67,12 +77,13 @@ export class HlmDatePickerInput<T> extends BrnDateInput<T> implements BrnDatePic
 	private readonly _config = injectHlmDatePickerConfig<T>();
 	private readonly _fieldControl = inject(BrnFieldControl, { optional: true });
 
-	private readonly _invalid = this._fieldControl?.invalid;
+	protected readonly _invalid = this._fieldControl?.invalid;
 	protected readonly _spartanInvalid = computed(() => this.forceInvalid() || this._fieldControl?.spartanInvalid());
 	protected readonly _dirty = this._fieldControl?.dirty;
 	protected readonly _touched = this._fieldControl?.touched;
 
-	protected readonly _ariaInvalid = computed(() => (this._invalid?.() ? 'true' : null));
+	/** Passed to the inner input's aria-invalid input: the consumer override, else the matcher result. */
+	protected readonly _ariaInvalid = computed(() => this.ariaInvalidInput() ?? !!this._spartanInvalid());
 
 	/**
 	 * Parses input text into a date value. Return `null` for invalid

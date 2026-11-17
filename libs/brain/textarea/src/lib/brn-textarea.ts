@@ -9,8 +9,8 @@ import { BrnFieldControl, provideBrnLabelable } from '@spartan-ng/brain/field';
 	hostDirectives: [BrnFieldControl],
 	host: {
 		'[id]': 'id()',
-		'[attr.aria-invalid]': '_ariaInvalid?.() ? "true" : null',
-		'[attr.data-invalid]': '_ariaInvalid?.() ? "true" : null',
+		'[attr.aria-invalid]': '_ariaInvalid() ? "true" : null',
+		'[attr.data-invalid]': '_invalid?.() ? "true" : null',
 		'[attr.data-touched]': '_touched?.() ? "true" : null',
 		'[attr.data-dirty]': '_dirty?.() ? "true" : null',
 		'[attr.data-matches-spartan-invalid]': '_spartanInvalid() ? "true" : null',
@@ -27,10 +27,22 @@ export class BrnTextarea {
 	/** Whether to force the textarea into an invalid state. */
 	public readonly forceInvalid = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
+	/**
+	 * Manual override for aria-invalid, e.g. for server-side validation errors.
+	 * When not set, it follows the error state matcher (and `forceInvalid`).
+	 */
+	public readonly ariaInvalidInput = input<boolean | undefined, BooleanInput>(undefined, {
+		transform: (v: BooleanInput) => (v === '' || v === undefined ? undefined : booleanAttribute(v)),
+		alias: 'aria-invalid',
+	});
+
 	public readonly labelableId = this.id;
 
-	protected readonly _ariaInvalid = this._fieldControl?.invalid;
+	protected readonly _invalid = this._fieldControl?.invalid;
 	protected readonly _touched = this._fieldControl?.touched;
 	protected readonly _dirty = this._fieldControl?.dirty;
 	protected readonly _spartanInvalid = computed(() => this.forceInvalid() || this._fieldControl?.spartanInvalid());
+
+	/** aria-invalid follows the same state that drives the visible error: the consumer override, else the matcher result. */
+	protected readonly _ariaInvalid = computed(() => this.ariaInvalidInput() ?? this._spartanInvalid());
 }

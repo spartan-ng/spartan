@@ -40,8 +40,17 @@ import type { Position, Theme, ToasterProps } from './types';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	styleUrl: 'brn-toaster.css',
 	template: `
-		@if (_toasts().length > 0) {
-			<section [attr.aria-label]="'Notifications ' + _hotKeyLabel()" [tabIndex]="-1">
+		<!--
+			The live region is always rendered so it exists before the first toast is added;
+			screen readers do not announce content inserted together with its live region.
+		-->
+		<section
+			[attr.aria-label]="'Notifications ' + _hotKeyLabel()"
+			[tabIndex]="-1"
+			aria-live="polite"
+			aria-atomic="false"
+		>
+			@if (_toasts().length > 0) {
 				@for (pos of _possiblePositions(); track pos) {
 					<ol
 						#listRef
@@ -118,8 +127,8 @@ import type { Position, Theme, ToasterProps } from './types';
 						}
 					</ol>
 				}
-			</section>
-		}
+			}
+		</section>
 	`,
 })
 export class BrnSonnerToaster {

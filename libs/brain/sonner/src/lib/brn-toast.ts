@@ -30,8 +30,9 @@ import type { ToastAction, ToastProps, ToastT } from './types';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'data-sonner-toast': '',
-		'[attr.aria-live]': "toast().important ? 'assertive' : 'polite'",
-		'aria-atomic': 'true',
+		// regular toasts are announced by the toaster's polite live region; important ones interrupt
+		'[attr.aria-live]': "toast().important ? 'assertive' : null",
+		'[attr.aria-atomic]': "toast().important ? 'true' : null",
 		tabindex: '0',
 		'[class]': '_toastClasses()',
 		'[attr.data-styled]': '!(toast().component || toast().unstyled || unstyled())',

@@ -5,7 +5,7 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronLeft } from '@ng-icons/lucide';
 import type { ButtonVariants } from '@spartan-ng/helm/button';
 import { hlm } from '@spartan-ng/helm/utils';
-import type { ClassValue } from 'clsx';
+import type { ClassValue } from 'cn';
 import { HlmPaginationLink } from './hlm-pagination-link';
 import { injectHlmPaginationConfig } from './hlm-pagination.token';
 
@@ -16,18 +16,32 @@ import { injectHlmPaginationConfig } from './hlm-pagination.token';
 	providers: [provideIcons({ lucideChevronLeft })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<a
-			hlmPaginationLink
-			[class]="_computedClass()"
-			[link]="link()"
-			[queryParams]="queryParams()"
-			[queryParamsHandling]="queryParamsHandling()"
-			[size]="_size()"
-			[attr.aria-label]="ariaLabel()"
-		>
-			<ng-icon name="lucideChevronLeft" class="spartan-rtl-flip" />
-			<span [class]="_labelClass()">{{ text() }}</span>
-		</a>
+		@if (link() === undefined) {
+			<!-- Without a link this is an action, so render a focusable button instead of an anchor without href. -->
+			<button
+				type="button"
+				hlmPaginationLink
+				[class]="_computedClass()"
+				[size]="_size()"
+				[attr.aria-label]="ariaLabel()"
+			>
+				<ng-icon name="lucideChevronLeft" class="spartan-rtl-flip" />
+				<span [class]="_labelClass()">{{ text() }}</span>
+			</button>
+		} @else {
+			<a
+				hlmPaginationLink
+				[class]="_computedClass()"
+				[link]="link()"
+				[queryParams]="queryParams()"
+				[queryParamsHandling]="queryParamsHandling()"
+				[size]="_size()"
+				[attr.aria-label]="ariaLabel()"
+			>
+				<ng-icon name="lucideChevronLeft" class="spartan-rtl-flip" />
+				<span [class]="_labelClass()">{{ text() }}</span>
+			</a>
+		}
 	`,
 })
 export class HlmPaginationPrevious {

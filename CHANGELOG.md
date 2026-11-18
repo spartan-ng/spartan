@@ -1,3 +1,28 @@
+## 1.10.0-beta.2 (2026-11-18)
+
+- fix(calendar): disabled date focus 1807 (#1831) ([050cf33](https://github.com/spartan-ng/spartan/commit/050cf33)), closes [#1831](https://github.com/spartan-ng/spartan/issues/1831)
+- fix(pagination): make numbered pagination operable with the keyboard (#1883) ([99ebb60](https://github.com/spartan-ng/spartan/commit/99ebb60)), closes [#1883](https://github.com/spartan-ng/spartan/issues/1883)
+- feat: move classes() logic to brain and replace clsx + tailwind-merge with cn (#1875) ([2912232](https://github.com/spartan-ng/spartan/commit/2912232)), closes [#1875](https://github.com/spartan-ng/spartan/issues/1875)
+- docs(repo): show hlm-tailwind-preset.css contents on installation page (#1842) ([6f84162](https://github.com/spartan-ng/spartan/commit/6f84162)), closes [#1842](https://github.com/spartan-ng/spartan/issues/1842) [#1133](https://github.com/spartan-ng/spartan/issues/1133)
+
+## 1.10.0-beta.1 (2026-11-18)
+
+- feat(cli): support migrating all components non-interactively (#1803) ([d6b4945](https://github.com/spartan-ng/spartan/commit/d6b4945)), closes [#1803](https://github.com/spartan-ng/spartan/issues/1803)
+- fix(autocomplete): inherit disabled state on options (#1873) ([8e12b4f](https://github.com/spartan-ng/spartan/commit/8e12b4f)), closes [#1873](https://github.com/spartan-ng/spartan/issues/1873)
+- fix(select): inherit disabled state in options (#1872) ([431125f](https://github.com/spartan-ng/spartan/commit/431125f)), closes [#1872](https://github.com/spartan-ng/spartan/issues/1872)
+- fix(toggle-group): disable items when the form control is disabled (#1867) ([94c3a18](https://github.com/spartan-ng/spartan/commit/94c3a18)), closes [#1867](https://github.com/spartan-ng/spartan/issues/1867)
+- build: upgrade playwright to 1.65 so chromium installs on ubuntu 26.04 (#1886) ([d6989cb](https://github.com/spartan-ng/spartan/commit/d6989cb)), closes [#1886](https://github.com/spartan-ng/spartan/issues/1886)
+
+## <small>1.9.1-beta.1 (2026-11-03)</small>
+
+- fix(calendar): make year navigation aria-labels translatable (#1855) ([c661326](https://github.com/spartan-ng/spartan/commit/c661326)), closes [#1855](https://github.com/spartan-ng/spartan/issues/1855) [#1854](https://github.com/spartan-ng/spartan/issues/1854)
+- fix(dialog): share id sequence between brn-dialog and dialog service (#1853) ([54ad422](https://github.com/spartan-ng/spartan/commit/54ad422)), closes [#1853](https://github.com/spartan-ng/spartan/issues/1853) [#1665](https://github.com/spartan-ng/spartan/issues/1665)
+- chore(release): backmerge main into beta ([8d8b14d](https://github.com/spartan-ng/spartan/commit/8d8b14d))
+- chore(release): backmerge main into beta ([9bfe359](https://github.com/spartan-ng/spartan/commit/9bfe359))
+- chore(release): backmerge main into beta ([38d2125](https://github.com/spartan-ng/spartan/commit/38d2125))
+- docs: add new contributors to our 300 ([9ae9e33](https://github.com/spartan-ng/spartan/commit/9ae9e33))
+- docs: add new contributors to our 300 ([f5db49d](https://github.com/spartan-ng/spartan/commit/f5db49d))
+
 ## 1.9.0 (2026-10-29)
 
 - Merge pull request #1847 from spartan-ng/beta ([283ddcd](https://github.com/spartan-ng/spartan/commit/283ddcd)), closes [#1847](https://github.com/spartan-ng/spartan/issues/1847)

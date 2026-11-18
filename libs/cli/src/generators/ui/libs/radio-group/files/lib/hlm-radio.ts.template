@@ -16,7 +16,7 @@ import {
 } from '@angular/core';
 import { BrnRadio, BrnRadioGroup, type BrnRadioChange } from '@spartan-ng/brain/radio-group';
 import { hlm } from '<%- importAlias %>/utils';
-import type { ClassValue } from 'clsx';
+import type { ClassValue } from 'cn';
 
 @Component({
 	selector: 'hlm-radio',

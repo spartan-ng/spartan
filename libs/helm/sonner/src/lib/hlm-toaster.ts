@@ -5,7 +5,7 @@ import { lucideCircleCheck, lucideInfo, lucideLoader2, lucideOctagonX, lucideTri
 import { BrnSonnerImports, type ToasterProps } from '@spartan-ng/brain/sonner';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { hlm } from '@spartan-ng/helm/utils';
-import type { ClassValue } from 'clsx';
+import type { ClassValue } from 'cn';
 
 @Component({
 	selector: 'hlm-toaster',

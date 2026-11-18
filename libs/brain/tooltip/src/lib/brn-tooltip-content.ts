@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, input, signal } from '@angular/core';
-import { ClassValue } from 'clsx';
+import type { BrnClassValue } from '@spartan-ng/brain/core';
 import { BrnTooltipPosition } from './brn-tooltip-position';
 import { BrnTooltipStringTemplateOutlet } from './brn-tooltip-string-template-outlet';
 import { BrnTooltipType } from './brn-tooltip-type';
@@ -30,9 +30,9 @@ export class BrnTooltipContent {
 	public readonly id = input<string>(`brn-tooltip-${++uniqueId}`);
 	public readonly state = signal<'closed' | 'open' | 'instant-open'>('closed');
 
-	protected readonly _tooltipClass = signal<ClassValue>('');
-	protected readonly _arrowClass = signal<ClassValue>('');
-	protected readonly _svgClass = signal<ClassValue>('');
+	protected readonly _tooltipClass = signal<BrnClassValue>('');
+	protected readonly _arrowClass = signal<BrnClassValue>('');
+	protected readonly _svgClass = signal<BrnClassValue>('');
 
 	protected readonly _position = signal<BrnTooltipPosition>('top');
 	protected readonly _tooltipText = signal<BrnTooltipType>(null);
@@ -40,9 +40,9 @@ export class BrnTooltipContent {
 	public setProps(
 		tooltipText: BrnTooltipType,
 		position: BrnTooltipPosition,
-		tooltipClasses: ClassValue,
-		arrowClasses: ClassValue,
-		svgClasses: ClassValue,
+		tooltipClasses: BrnClassValue,
+		arrowClasses: BrnClassValue,
+		svgClasses: BrnClassValue,
 	): void {
 		if (tooltipText) {
 			this._tooltipText.set(tooltipText);

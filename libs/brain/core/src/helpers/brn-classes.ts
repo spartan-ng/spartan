@@ -34,12 +34,15 @@ interface ElementClassManager {
 	/** The merge function of the first source registered on this element */
 	merge: BrnClassMerge;
 	sources: Map<number, { classes: Set<string>; order: number }>;
+	/** Classes wanted by everything except the sources, in write order; the latest write wins conflicts */
 	baseClasses: Set<string>;
 	isUpdating: boolean;
 	nextOrder: number;
 	hasInitialized: boolean;
 	/** The class list this manager last wrote, to tell external class changes apart from its own. */
 	appliedClasses: Set<string> | null;
+	/** The className this manager last wrote; the observer skips mutations that only show it */
+	writtenClassName: string | null;
 	restoreRafId: number | null;
 	/** Transitions are suppressed until the first effect writes correct classes */
 	transitionsSuppressed: boolean;
@@ -94,12 +97,14 @@ export function brnClasses(computed: () => BrnClassValue[] | string, options: Br
 				nextOrder: 0,
 				hasInitialized: false,
 				appliedClasses: null,
+				writtenClassName: null,
 				restoreRafId: null,
 				transitionsSuppressed: false,
 				previousTransition: '',
 				previousTransitionPriority: '',
 			};
 			elementClassManagers.set(element, manager);
+			trackClassList(manager);
 
 			// Setup global observer if needed and register this element. Created outside the zone so
 			// class mutations don't trigger app-wide change detection (and loop if CD writes a class).
@@ -200,8 +205,9 @@ function setupGlobalObserver(platformId: Object): void {
 
 					// Only process elements we're managing
 					if (manager && observedElements.has(element)) {
-						// Ignore our own writes, and wait for the first source: its effect captures the live classes
-						if (manager.isUpdating || !manager.hasInitialized) continue;
+						// Wait for the first source (its effect captures the live classes), and skip our own writes:
+						// the callback runs after they're done, so only the written value tells them apart
+						if (!manager.hasInitialized || element.className === manager.writtenClassName) continue;
 
 						updateElement(manager);
 					}
@@ -260,8 +266,7 @@ function applyClasses(manager: ElementClassManager): void {
 
 		manager.hasInitialized = true;
 	} else if (manager.appliedClasses) {
-		// Reconcile with the live element instead of waiting for the mutation observer: a class binding
-		// that changed in the same tick as a source would otherwise be overwritten with stale base classes.
+		// Pick up a className or class attribute write before the observer reports it
 		syncBaseClasses(manager);
 	}
 
@@ -278,40 +283,85 @@ function applyClasses(manager: ElementClassManager): void {
 		allSourceClasses.length > 0 || manager.baseClasses.size > 0
 			? manager.merge([...allSourceClasses, ...manager.baseClasses])
 			: '';
-	const applied = new Set(toClassList(classesToApply));
-	// Forget merged-out base classes like before, so a cleared binding can't bring them back
-	for (const className of manager.baseClasses) {
-		if (!applied.has(className)) manager.baseClasses.delete(className);
-	}
 
 	// Apply the classes to the element
 	if (manager.element.className !== classesToApply) {
 		manager.element.className = classesToApply;
 	}
-	manager.appliedClasses = applied;
+	manager.appliedClasses = new Set(toClassList(classesToApply));
+	manager.writtenClassName = manager.element.className;
 }
 
+/**
+ * classList writes are tracked, so the element only differs from what we wrote after a className or
+ * class attribute write. Those replace the whole list, so the base classes become the live ones.
+ */
 function syncBaseClasses(manager: ElementClassManager): void {
 	const applied = manager.appliedClasses!;
-	const current = new Set(toClassList(manager.element.className));
+	const current = toClassList(manager.element.className);
+	if (current.length === applied.size && current.every((className) => applied.has(className))) return;
 
-	for (const className of applied) {
-		if (!current.has(className)) {
-			manager.baseClasses.delete(className);
-		}
-	}
-
+	const fromSources = new Set([...applied].filter((className) => !manager.baseClasses.has(className)));
+	manager.baseClasses.clear();
 	for (const className of current) {
-		if (!applied.has(className)) {
-			manager.baseClasses.add(className);
-		}
+		if (!fromSources.has(className)) manager.baseClasses.add(className);
 	}
+}
+
+const trackedMethods = ['add', 'remove', 'toggle', 'replace'] as const;
+
+/**
+ * Angular applies `[class]` and `[class.x]` through `classList`. Recording those writes keeps every wanted
+ * class, including one the merge currently drops, so it comes back once the class it lost to is removed.
+ * The DOM can't tell us that: removing a class that isn't on the element changes nothing there.
+ */
+function trackClassList(manager: ElementClassManager): void {
+	const list = manager.element.classList;
+	if (!list) return;
+	const native = { add: list.add, remove: list.remove };
+	const wanted = manager.baseClasses;
+
+	const write = (apply: () => void, nativeWrite: () => void) => {
+		apply();
+		// Until the first source runs, its effect reads the live classes, so they have to be on the element
+		if (manager.hasInitialized) updateElement(manager);
+		else nativeWrite();
+	};
+
+	list.add = (...tokens: string[]) =>
+		write(
+			() => tokens.forEach((token) => (wanted.delete(token), wanted.add(token))),
+			() => native.add.apply(list, tokens),
+		);
+	list.remove = (...tokens: string[]) =>
+		write(
+			() => tokens.forEach((token) => wanted.delete(token)),
+			() => native.remove.apply(list, tokens),
+		);
+	list.toggle = (token: string, force?: boolean) => {
+		const on = force ?? !wanted.has(token);
+		if (on) list.add(token);
+		else list.remove(token);
+		return on;
+	};
+	list.replace = (oldToken: string, newToken: string) => {
+		if (!wanted.has(oldToken)) return false;
+		list.remove(oldToken);
+		list.add(newToken);
+		return true;
+	};
+}
+
+function untrackClassList(element: HTMLElement): void {
+	// The overrides are own properties, deleting them restores the native DOMTokenList methods
+	for (const method of trackedMethods) delete (element.classList as Partial<DOMTokenList>)[method];
 }
 
 function cleanupManager(element: HTMLElement): void {
 	// Remove from global tracking
 	observedElements.delete(element);
 	elementClassManagers.delete(element);
+	untrackClassList(element);
 
 	// If no more elements being tracked, cleanup global observer
 	if (observedElements.size === 0 && globalObserver) {

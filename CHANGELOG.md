@@ -1,3 +1,7 @@
+## 1.10.0-beta.3 (2026-11-18)
+
+- fix(calendar): enable month nav when only the matching day is disabled (#1848) ([5898452](https://github.com/spartan-ng/spartan/commit/5898452)), closes [#1848](https://github.com/spartan-ng/spartan/issues/1848) [#1810](https://github.com/spartan-ng/spartan/issues/1810)
+
 ## 1.10.0-beta.2 (2026-11-18)
 
 - fix(calendar): disabled date focus 1807 (#1831) ([050cf33](https://github.com/spartan-ng/spartan/commit/050cf33)), closes [#1831](https://github.com/spartan-ng/spartan/issues/1831)

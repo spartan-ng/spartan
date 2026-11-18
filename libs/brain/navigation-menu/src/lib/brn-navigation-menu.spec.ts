@@ -174,6 +174,29 @@ describe('BrnNavigationMenu', () => {
 			expect(document.activeElement).toBe(trigger);
 			expect(trigger).toHaveAttribute('aria-expanded', 'false');
 		});
+
+		it('marks Escape as handled when it closes the menu from the trigger', async () => {
+			await setup();
+			const trigger = screen.getByTestId('trigger1');
+			await open('item1', 'content1');
+
+			const event = new KeyboardEvent('keydown', { key: 'Escape', bubbles: true, cancelable: true });
+			trigger.dispatchEvent(event);
+			view.detectChanges();
+
+			expect(trigger).toHaveAttribute('aria-expanded', 'false');
+			expect(event.defaultPrevented).toBe(true);
+		});
+
+		it('leaves Escape to outer handlers when the menu is closed', async () => {
+			await setup();
+			const trigger = screen.getByTestId('trigger1');
+
+			const event = new KeyboardEvent('keydown', { key: 'Escape', bubbles: true, cancelable: true });
+			trigger.dispatchEvent(event);
+
+			expect(event.defaultPrevented).toBe(false);
+		});
 	});
 
 	describe('keyboard entry into content', () => {

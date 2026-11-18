@@ -743,4 +743,86 @@ describe('brnClasses', () => {
 		expect(handleError).toHaveBeenCalledWith(expect.objectContaining({ message: 'merge failed' }));
 		element.remove();
 	});
+
+	describe('tracked classList', () => {
+		const settle = () => new Promise((resolve) => setTimeout(resolve, 0));
+		const sorted = (element: HTMLElement) => element.className.split(' ').filter(Boolean).sort();
+		let element: HTMLElement;
+
+		beforeEach(async () => {
+			await TestBed.configureTestingModule({}).compileComponents();
+			element = document.createElement('div');
+			document.body.appendChild(element);
+		});
+
+		afterEach(() => element.remove());
+
+		function track(initial = '') {
+			element.className = initial;
+			TestBed.runInInjectionContext(() => {
+				classes(() => 'inline-flex', { elementRef: new ElementRef(element) });
+			});
+			TestBed.tick();
+		}
+
+		it('should toggle a class back on when toggled twice in the same tick', async () => {
+			track('active');
+
+			expect(element.classList.toggle('active')).toBe(false);
+			expect(element.classList.toggle('active')).toBe(true);
+			await settle();
+
+			expect(sorted(element)).toEqual(['active', 'inline-flex']);
+		});
+
+		it('should keep a classList write made right after a className write', async () => {
+			track();
+
+			element.className = 'm-2';
+			element.classList.add('p-4');
+			await settle();
+
+			expect(sorted(element)).toEqual(['inline-flex', 'm-2', 'p-4']);
+		});
+
+		it('should forget merged-out classes when className is rewritten in a different order', async () => {
+			track();
+			element.classList.add('p-2');
+			element.classList.add('p-4');
+			await settle();
+			expect(sorted(element)).toEqual(['inline-flex', 'p-4']);
+
+			element.className = 'p-4 inline-flex';
+			await settle();
+			element.classList.remove('p-4');
+			await settle();
+
+			expect(sorted(element)).toEqual(['inline-flex']);
+		});
+
+		it('should not replace a class the merge dropped from the element', async () => {
+			track();
+			element.classList.add('bg-red-500');
+			element.classList.add('bg-blue-500');
+			await settle();
+
+			expect(element.classList.replace('bg-red-500', 'm-2')).toBe(false);
+			element.classList.remove('bg-blue-500');
+			await settle();
+
+			expect(sorted(element)).toEqual(['bg-red-500', 'inline-flex']);
+		});
+
+		it('should toggle on a class the merge dropped from the element', async () => {
+			track();
+			element.classList.add('bg-red-500');
+			element.classList.add('bg-blue-500');
+			await settle();
+
+			expect(element.classList.toggle('bg-red-500')).toBe(true);
+			await settle();
+
+			expect(sorted(element)).toEqual(['bg-red-500', 'inline-flex']);
+		});
+	});
 });

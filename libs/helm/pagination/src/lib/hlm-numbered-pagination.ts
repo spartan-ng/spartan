@@ -2,8 +2,14 @@ import type { BooleanInput, NumberInput } from '@angular/cdk/coercion';
 import {
 	ChangeDetectionStrategy,
 	Component,
+	DestroyRef,
+	ElementRef,
+	Renderer2,
+	type Signal,
+	afterRenderEffect,
 	booleanAttribute,
 	computed,
+	inject,
 	input,
 	model,
 	numberAttribute,
@@ -214,6 +220,10 @@ export class HlmNumberedPagination {
 		return createPageArray(correctedCurrentPage, this.itemsPerPage(), this.totalItems(), this.maxSize());
 	});
 
+	constructor() {
+		keepPaginationFocus(this._pages);
+	}
+
 	protected goToPrevious(): void {
 		this.currentPage.set(this.currentPage() - 1);
 	}
@@ -232,6 +242,36 @@ export class HlmNumberedPagination {
 }
 
 type Page = number | '...';
+
+/**
+ * Previous / Next are removed on the first / last page, and page buttons can scroll out of the
+ * range. When the focused control is removed, move focus to the current page (or the first
+ * remaining control) so keyboard users keep their place.
+ */
+export function keepPaginationFocus(pages: Signal<Page[]>): void {
+	const host = inject<ElementRef<HTMLElement>>(ElementRef).nativeElement;
+	let lastFocused: Element | null = null;
+
+	const unlisten = inject(Renderer2).listen(host, 'focusin', (event: FocusEvent) => {
+		lastFocused = event.target as Element | null;
+	});
+	inject(DestroyRef).onDestroy(unlisten);
+
+	afterRenderEffect(() => {
+		pages();
+		if (!lastFocused || lastFocused.isConnected) return;
+		lastFocused = null;
+
+		const doc = host.ownerDocument;
+		if (doc.activeElement && doc.activeElement !== doc.body) return;
+
+		const nav = host.querySelector('nav') ?? host;
+		const current = nav.querySelector<HTMLElement>('[aria-current="page"]');
+		current?.focus();
+		if (current && doc.activeElement === current) return;
+		nav.querySelector<HTMLElement>('a[href], button:not([disabled])')?.focus();
+	});
+}
 
 /**
  * Checks that the instance.currentPage property is within bounds for the current page range.

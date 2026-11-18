@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { HlmSelectImports } from '<%- importAlias %>/select';
 import { classes } from '<%- importAlias %>/utils';
-import { createPageArray, outOfBoundCorrection } from './hlm-numbered-pagination';
+import { createPageArray, keepPaginationFocus, outOfBoundCorrection } from './hlm-numbered-pagination';
 import { HlmPagination } from './hlm-pagination';
 import { HlmPaginationContent } from './hlm-pagination-content';
 import { HlmPaginationEllipsis } from './hlm-pagination-ellipsis';
@@ -197,7 +197,7 @@ export class HlmNumberedPaginationQueryParams {
 	 */
 	public readonly pageSizeAriaLabel = input<string>(this._config.pageSizeAriaLabel);
 
-	protected readonly _pageSizeTriggerId = `hlm-numbered-pagination-page-size-${nextId++}`;
+	protected readonly _pageSizeTriggerId = `hlm-numbered-pagination-query-params-page-size-${nextId++}`;
 
 	protected readonly _pageSizesWithCurrent = computed(() => {
 		const pageSizes = this.pageSizes();
@@ -231,5 +231,6 @@ export class HlmNumberedPaginationQueryParams {
 
 	constructor() {
 		classes(() => 'flex items-center justify-between gap-2 px-4 py-2');
+		keepPaginationFocus(this._pages);
 	}
 }

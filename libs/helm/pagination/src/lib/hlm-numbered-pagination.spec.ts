@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { provideRouter } from '@angular/router';
-import { render, screen } from '@testing-library/angular';
+import { render, screen, within } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
 import { HlmNumberedPagination } from './hlm-numbered-pagination';
 import { HlmNumberedPaginationQueryParams } from './hlm-numbered-pagination-query-params';
@@ -15,6 +15,43 @@ import { provideHlmPaginationConfig } from './hlm-pagination.token';
 	`,
 })
 class NumberedPaginationHost {
+	public readonly page = signal(2);
+	public readonly pageSize = signal(10);
+}
+
+@Component({
+	selector: 'hlm-numbered-pagination-edges-host',
+	imports: [HlmNumberedPagination],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<hlm-numbered-pagination
+			[(currentPage)]="page"
+			[(itemsPerPage)]="pageSize"
+			[totalItems]="100"
+			[showEdges]="showEdges()"
+		/>
+	`,
+})
+class EdgesToggleHost {
+	public readonly page = signal(2);
+	public readonly pageSize = signal(10);
+	public readonly showEdges = signal(true);
+}
+
+@Component({
+	selector: 'hlm-numbered-pagination-shared-host',
+	imports: [HlmNumberedPagination],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<div data-testid="first">
+			<hlm-numbered-pagination [(currentPage)]="page" [(itemsPerPage)]="pageSize" [totalItems]="100" />
+		</div>
+		<div data-testid="second">
+			<hlm-numbered-pagination [(currentPage)]="page" [(itemsPerPage)]="pageSize" [totalItems]="100" />
+		</div>
+	`,
+})
+class SharedPageHost {
 	public readonly page = signal(2);
 	public readonly pageSize = signal(10);
 }
@@ -115,5 +152,32 @@ describe('HlmNumberedPagination accessibility', () => {
 		expect(labels).toHaveLength(2);
 		expect(labels[0].htmlFor).not.toBe(labels[1].htmlFor);
 		expect(screen.getAllByRole('combobox', { name: 'Items per page' })).toHaveLength(2);
+	});
+
+	it('moves focus to the current page when the edges are hidden', async () => {
+		const { fixture } = await render(EdgesToggleHost);
+
+		screen.getByRole('button', { name: 'Go to previous page' }).focus();
+		fixture.componentInstance.showEdges.set(false);
+		await fixture.whenStable();
+
+		expect(screen.queryByRole('button', { name: 'Go to previous page' })).not.toBeInTheDocument();
+		expect(screen.getByRole('button', { name: '2' })).toHaveFocus();
+	});
+
+	it('restores focus in the pagination that last had it when both share the page', async () => {
+		const user = userEvent.setup();
+		const { fixture } = await render(SharedPageHost);
+		const first = within(screen.getByTestId('first'));
+		const second = within(screen.getByTestId('second'));
+
+		// focus visits the first pagination, then moves to the second one
+		first.getByRole('button', { name: 'Go to previous page' }).focus();
+		second.getByRole('button', { name: 'Go to previous page' }).focus();
+		await user.keyboard('{Enter}');
+		await fixture.whenStable();
+
+		expect(fixture.componentInstance.page()).toBe(1);
+		expect(second.getByRole('button', { name: '1' })).toHaveFocus();
 	});
 });

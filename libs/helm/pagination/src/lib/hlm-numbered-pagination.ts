@@ -221,7 +221,7 @@ export class HlmNumberedPagination {
 	});
 
 	constructor() {
-		keepPaginationFocus(this._pages);
+		keepPaginationFocus(this._pages, this.showEdges);
 	}
 
 	protected goToPrevious(): void {
@@ -248,17 +248,28 @@ type Page = number | '...';
  * range. When the focused control is removed, move focus to the current page (or the first
  * remaining control) so keyboard users keep their place.
  */
-export function keepPaginationFocus(pages: Signal<Page[]>): void {
+export function keepPaginationFocus(...watched: Signal<unknown>[]): void {
 	const host = inject<ElementRef<HTMLElement>>(ElementRef).nativeElement;
+	const renderer = inject(Renderer2);
 	let lastFocused: Element | null = null;
 
-	const unlisten = inject(Renderer2).listen(host, 'focusin', (event: FocusEvent) => {
+	const unlistenIn = renderer.listen(host, 'focusin', (event: FocusEvent) => {
 		lastFocused = event.target as Element | null;
 	});
-	inject(DestroyRef).onDestroy(unlisten);
+	// Forget the control once focus moves to an element outside this pagination (e.g. another
+	// pagination on the page). Removing the focused control moves focus to the body without a
+	// focusin, so that case still restores focus after the render.
+	const unlistenOut = renderer.listen('document', 'focusin', (event: FocusEvent) => {
+		if (!host.contains(event.target as Node | null)) lastFocused = null;
+	});
+	inject(DestroyRef).onDestroy(() => {
+		unlistenIn();
+		unlistenOut();
+	});
 
 	afterRenderEffect(() => {
-		pages();
+		// re-check after any render that can remove a focused control
+		watched.forEach((signal) => signal());
 		if (!lastFocused || lastFocused.isConnected) return;
 		lastFocused = null;
 

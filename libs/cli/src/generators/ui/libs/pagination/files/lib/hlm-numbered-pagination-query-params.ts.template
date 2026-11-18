@@ -231,6 +231,6 @@ export class HlmNumberedPaginationQueryParams {
 
 	constructor() {
 		classes(() => 'flex items-center justify-between gap-2 px-4 py-2');
-		keepPaginationFocus(this._pages);
+		keepPaginationFocus(this._pages, this.showEdges);
 	}
 }

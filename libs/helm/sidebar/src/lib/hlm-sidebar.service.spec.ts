@@ -12,6 +12,12 @@ import { HlmSidebarService } from './hlm-sidebar.service';
 		<textarea aria-label="Notes"></textarea>
 		<div contenteditable="true" aria-label="Editor" role="textbox"></div>
 		<div data-testid="shadow-host"></div>
+		<input type="checkbox" aria-label="Agree" />
+		<input type="radio" aria-label="Choice" />
+		<input type="range" aria-label="Volume" />
+		<input type="email" aria-label="Email" />
+		<input type="search" aria-label="Search" />
+		<input type="number" aria-label="Quantity" />
 	`,
 })
 class SidebarServiceHost {
@@ -70,6 +76,30 @@ describe('HlmSidebarService keyboard shortcut', () => {
 
 		const before = isExpanded();
 		const event = pressShortcut(input);
+
+		expect(isExpanded()).toBe(before);
+		expect(event.defaultPrevented).toBe(false);
+	});
+
+	it.each([
+		['checkbox', 'Agree'],
+		['radio', 'Choice'],
+		['range', 'Volume'],
+	])('still toggles the sidebar from a %s input, which has no use for the shortcut', (_type, name) => {
+		const before = isExpanded();
+		const event = pressShortcut(screen.getByLabelText(name));
+
+		expect(isExpanded()).toBe(!before);
+		expect(event.defaultPrevented).toBe(true);
+	});
+
+	it.each([
+		['email', 'Email'],
+		['search', 'Search'],
+		['number', 'Quantity'],
+	])('leaves the shortcut to a text-like %s input', (_type, name) => {
+		const before = isExpanded();
+		const event = pressShortcut(screen.getByLabelText(name));
 
 		expect(isExpanded()).toBe(before);
 		expect(event.defaultPrevented).toBe(false);

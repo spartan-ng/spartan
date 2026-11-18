@@ -143,8 +143,24 @@ function originalTarget(event: Event): EventTarget | null {
 	return event.composedPath?.()[0] ?? event.target;
 }
 
+/** Input types that do not take text, so they have no use for Ctrl/Cmd+B. */
+const NON_TEXT_INPUT_TYPES = new Set([
+	'button',
+	'checkbox',
+	'color',
+	'file',
+	'hidden',
+	'image',
+	'radio',
+	'range',
+	'reset',
+	'submit',
+]);
+
 function isEditableTarget(target: EventTarget | null): boolean {
 	const element = target as HTMLElement | null;
 	if (!element || typeof element.tagName !== 'string') return false;
-	return element.isContentEditable || ['INPUT', 'TEXTAREA', 'SELECT'].includes(element.tagName);
+	if (element.isContentEditable) return true;
+	if (element.tagName === 'INPUT') return !NON_TEXT_INPUT_TYPES.has((element as HTMLInputElement).type);
+	return element.tagName === 'TEXTAREA' || element.tagName === 'SELECT';
 }

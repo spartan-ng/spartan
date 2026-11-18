@@ -1,6 +1,8 @@
-import { visitFiles } from '../../../utils/visit-files';
-import migrateCnGenerator, { canMigrateAutomatically, needsManualMigration } from '../../migrate-cn/generator';
-import { LEGACY_IMPORT_REGEX, SOURCE_FILE_REGEX } from '../../migrate-cn/lib/legacy-imports';
+import migrateCnGenerator, {
+	canMigrateAutomatically,
+	needsManualMigration,
+	visitSpartanSources,
+} from '../../migrate-cn/generator';
 import { type Healthcheck, HealthcheckSeverity } from '../healthchecks';
 
 export const cnHealthcheck: Healthcheck = {
@@ -9,22 +11,11 @@ export const cnHealthcheck: Healthcheck = {
 		const fixable: string[] = [];
 		const manual: string[] = [];
 
-		// same scope as migrate-cn, so the offered fix addresses every reported file
-		visitFiles(tree, '.', (file) => {
-			if (!SOURCE_FILE_REGEX.test(file)) {
-				return;
-			}
-
-			const contents = tree.read(file, 'utf-8');
-			if (!contents) {
-				return;
-			}
-
-			if (LEGACY_IMPORT_REGEX.test(contents)) {
-				if (canMigrateAutomatically(contents)) fixable.push(file);
-				// a file can be both, e.g. a rewritable import next to a `require('clsx')`
-				if (needsManualMigration(contents)) manual.push(file);
-			}
+		// same scope as migrate-cn: the generated helm libraries, other code may use clsx / tailwind-merge on purpose
+		visitSpartanSources(tree, (file, contents) => {
+			if (canMigrateAutomatically(contents)) fixable.push(file);
+			// a file can be both, e.g. a rewritable import next to a `require('clsx')`
+			if (needsManualMigration(contents)) manual.push(file);
 		});
 
 		if (fixable.length > 0) {

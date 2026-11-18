@@ -94,15 +94,44 @@ export function hlm(...inputs: ClassValue[]) {
 
 	it('should migrate default clsx and renamed tailwind-merge imports', async () => {
 		tree.write(
-			'apps/app/src/util.ts',
+			'libs/ui/custom/src/util.ts',
 			`import clsx from 'clsx';\nimport { createTailwindMerge, getDefaultConfig as config, twJoin } from 'tailwind-merge';\n`,
 		);
 
 		await migrateCnGenerator(tree, { skipFormat: true });
 
-		expect(tree.read('apps/app/src/util.ts', 'utf-8')).toBe(
+		expect(tree.read('libs/ui/custom/src/util.ts', 'utf-8')).toBe(
 			`import { clsx } from 'cn';\nimport { twJoin } from 'cn';\nimport { createTwMerge as createTailwindMerge, defaultConfig as config } from 'cn/config';\n`,
 		);
+	});
+
+	it('should leave code outside of the helm libraries alone', async () => {
+		tree.write('libs/ui/utils/src/lib/hlm.ts', previousHlm);
+		tree.write('apps/app/src/util.ts', `import { clsx } from 'clsx';\n`);
+
+		await migrateCnGenerator(tree, { skipFormat: true });
+
+		expect(tree.read('apps/app/src/util.ts', 'utf-8')).toBe(`import { clsx } from 'clsx';\n`);
+		expect(readJson(tree, 'package.json').dependencies.clsx).toBe('^2.1.1');
+		expect(readJson(tree, 'package.json').dependencies['tailwind-merge']).toBeUndefined();
+	});
+
+	it('should only rewrite real imports, not import text inside strings', async () => {
+		const snippet = "const snippet = `import { clsx } from 'clsx';`;\n";
+		tree.write('libs/ui/custom/src/util.ts', `import { clsx } from 'clsx';\n${snippet}`);
+
+		await migrateCnGenerator(tree, { skipFormat: true });
+
+		expect(tree.read('libs/ui/custom/src/util.ts', 'utf-8')).toBe(`import { clsx } from 'cn';\n${snippet}`);
+	});
+
+	it('should migrate the helm libraries in the componentsPath of components.json', async () => {
+		writeJson(tree, 'components.json', { componentsPath: 'src/components' });
+		tree.write('src/components/utils/src/lib/hlm.ts', previousHlm);
+
+		await migrateCnGenerator(tree, { skipFormat: true });
+
+		expect(tree.read('src/components/utils/src/lib/hlm.ts', 'utf-8')).toBe(hlmTemplate);
 	});
 
 	it('should swap the dependencies', async () => {
@@ -119,13 +148,13 @@ export function hlm(...inputs: ClassValue[]) {
 
 	it('should migrate clsx/lite and default + named clsx imports to cn', async () => {
 		tree.write(
-			'apps/app/src/util.ts',
+			'libs/ui/custom/src/util.ts',
 			`import { clsx as join, type ClassValue } from 'clsx/lite';\nimport clsx, { type ClassArray } from 'clsx';\n`,
 		);
 
 		await migrateCnGenerator(tree, { skipFormat: true });
 
-		expect(tree.read('apps/app/src/util.ts', 'utf-8')).toBe(
+		expect(tree.read('libs/ui/custom/src/util.ts', 'utf-8')).toBe(
 			`import { clsx as join, type ClassValue } from 'cn';\nimport { clsx, type ClassArray } from 'cn';\n`,
 		);
 		expect(readJson(tree, 'package.json').dependencies.clsx).toBeUndefined();
@@ -225,11 +254,11 @@ export function hlm(...inputs: ClassValue[]) {
 	});
 
 	it('should keep tailwind-merge when an import could not be migrated', async () => {
-		tree.write('apps/app/src/util.ts', `import { experimentalParseClassName } from 'tailwind-merge';\n`);
+		tree.write('libs/ui/custom/src/util.ts', `import { experimentalParseClassName } from 'tailwind-merge';\n`);
 
 		await migrateCnGenerator(tree, { skipFormat: true });
 
-		expect(tree.read('apps/app/src/util.ts', 'utf-8')).toContain(`from 'tailwind-merge'`);
+		expect(tree.read('libs/ui/custom/src/util.ts', 'utf-8')).toContain(`from 'tailwind-merge'`);
 		expect(readJson(tree, 'package.json').dependencies['tailwind-merge']).toBe('^3.3.1');
 	});
 });

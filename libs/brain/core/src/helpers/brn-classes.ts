@@ -10,10 +10,11 @@ import {
 	PLATFORM_ID,
 	runInInjectionContext,
 } from '@angular/core';
-import { type ClassValue, clsx } from 'cn';
+import type { BrnClassValue } from './brn-class-value';
+import { cssClassesToArray } from './css-classes-to-array';
 
 /** Merges class values into a single class string, resolving Tailwind conflicts (e.g. `hlm`). */
-export type BrnClassMerge = (...inputs: ClassValue[]) => string;
+export type BrnClassMerge = (...inputs: BrnClassValue[]) => string;
 
 export interface BrnClassesOptions {
 	/** The function used to merge the classes, typically `hlm` from `@spartan-ng/helm/utils`. */
@@ -59,7 +60,7 @@ let sourceCounter = 0;
  * The classes are merged with `options.merge`, so a customized merge function (e.g. one created
  * with `createCn` from `cn/config`) is respected.
  */
-export function brnClasses(computed: () => ClassValue[] | string, options: BrnClassesOptions) {
+export function brnClasses(computed: () => BrnClassValue[] | string, options: BrnClassesOptions) {
 	runInInjectionContext(options.injector ?? inject(Injector), () => {
 		const elementRef = options.elementRef ?? inject(ElementRef);
 		const platformId = inject(PLATFORM_ID);
@@ -117,8 +118,9 @@ export function brnClasses(computed: () => ClassValue[] | string, options: BrnCl
 		const sourceOrder = manager.nextOrder++;
 
 		function updateClasses(): void {
-			// Get the new classes from the computed function
-			const newClasses = toClassList(computed());
+			// Get the new classes from the computed function, the merge function resolves arrays and objects
+			const value = computed();
+			const newClasses = toClassList(typeof value === 'string' ? value : options.merge(value));
 
 			// Update this source's classes, keeping the original order
 			manager!.sources.set(sourceId, {
@@ -303,18 +305,16 @@ function cleanupManager(element: HTMLElement): void {
 // Cache for parsed class lists to avoid repeated string operations
 const classListCache = new Map<string, string[]>();
 
-function toClassList(className: string | ClassValue[]): string[] {
-	// For simple string inputs, use cache to avoid repeated parsing
-	if (typeof className === 'string' && classListCache.has(className)) {
+function toClassList(className: string): string[] {
+	// Use the cache to avoid repeated parsing
+	if (classListCache.has(className)) {
 		return classListCache.get(className)!;
 	}
 
-	const result = clsx(className)
-		.split(' ')
-		.filter((c) => c.length > 0);
+	const result = cssClassesToArray(className);
 
-	// Cache string results, but limit cache size to prevent memory growth
-	if (typeof className === 'string' && classListCache.size < 1000) {
+	// Cache results, but limit cache size to prevent memory growth
+	if (classListCache.size < 1000) {
 		classListCache.set(className, result);
 	}
 

@@ -32,7 +32,8 @@ import type { ToastAction, ToastProps, ToastT } from './types';
 		'data-sonner-toast': '',
 		// regular toasts are announced by the toaster's polite live region; important ones interrupt
 		'[attr.aria-live]': "toast().important ? 'assertive' : null",
-		'[attr.aria-atomic]': "toast().important ? 'true' : null",
+		// read the whole toast when it is updated, e.g. a new title with an unchanged description
+		'aria-atomic': 'true',
 		tabindex: '0',
 		'[class]': '_toastClasses()',
 		'[attr.data-styled]': '!(toast().component || toast().unstyled || unstyled())',

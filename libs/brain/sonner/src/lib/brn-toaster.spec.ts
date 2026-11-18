@@ -123,7 +123,8 @@ describe('Toaster', () => {
 			// `role="status"` is not allowed on `li`; regular toasts are announced by the toaster's live region.
 			expect(listItem).not.toHaveAttribute('role');
 			expect(listItem).not.toHaveAttribute('aria-live');
-			expect(listItem).not.toHaveAttribute('aria-atomic');
+			// updates re-read the whole toast, not only the changed node
+			expect(listItem).toHaveAttribute('aria-atomic', 'true');
 		}
 	});
 

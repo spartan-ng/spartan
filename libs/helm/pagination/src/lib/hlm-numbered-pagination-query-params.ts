@@ -70,6 +70,7 @@ let nextId = 0;
 								[queryParams]="{ page }"
 								queryParamsHandling="merge"
 								[isActive]="currentPage() === page"
+								[attr.tabindex]="currentPage() === page ? -1 : null"
 							>
 								{{ page }}
 							</a>

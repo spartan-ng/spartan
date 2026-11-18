@@ -70,6 +70,24 @@ class BothPaginationsHost {
 	public readonly pageSize = signal(10);
 }
 
+@Component({
+	selector: 'hlm-numbered-pagination-query-params-host',
+	imports: [HlmNumberedPaginationQueryParams],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<hlm-numbered-pagination-query-params
+			link="/items"
+			[currentPage]="1"
+			[(itemsPerPage)]="pageSize"
+			[totalItems]="totalItems()"
+		/>
+	`,
+})
+class QueryParamsPaginationHost {
+	public readonly pageSize = signal(10);
+	public readonly totalItems = signal(100);
+}
+
 describe('HlmNumberedPagination accessibility', () => {
 	it('renders page numbers as focusable buttons and marks the current page', async () => {
 		await render(NumberedPaginationHost);
@@ -179,5 +197,16 @@ describe('HlmNumberedPagination accessibility', () => {
 
 		expect(fixture.componentInstance.page()).toBe(1);
 		expect(second.getByRole('button', { name: '1' })).toHaveFocus();
+	});
+
+	it('keeps focus on the only page when the other pages disappear (query params variant)', async () => {
+		const { fixture } = await render(QueryParamsPaginationHost, { providers: [provideRouter([])] });
+
+		screen.getByRole('link', { name: 'Go to next page' }).focus();
+		fixture.componentInstance.totalItems.set(5);
+		await fixture.whenStable();
+
+		expect(screen.queryByRole('link', { name: 'Go to next page' })).not.toBeInTheDocument();
+		expect(screen.getByText('1', { selector: 'a[aria-current="page"]' })).toHaveFocus();
 	});
 });

@@ -3,6 +3,7 @@ import type { AbstractControl, FormGroupDirective, NgControl, NgForm } from '@an
 import type { Subscription } from 'rxjs';
 import type { ControlState } from './control-state';
 import type { ErrorStateMatcher } from './error-options';
+import { onParentFormSubmitOrReset } from './parent-form-events';
 import { controlStateEqual, type StateTracker } from './state-tracker';
 
 export class SignalStateTracker implements StateTracker {
@@ -26,7 +27,7 @@ export class SignalStateTracker implements StateTracker {
 		if (!control) {
 			return null;
 		}
-		// `submitted` on NgForm / FormGroupDirective is read untracked, so depend on submits explicitly.
+		// `submitted` on NgForm / FormGroupDirective is read untracked, so depend on submit / reset explicitly.
 		this._submitVersion();
 		return this._matcher?.isInvalid(control, this._controlParent) ?? false;
 	});
@@ -54,9 +55,9 @@ export class SignalStateTracker implements StateTracker {
 		private readonly _parentFormGroup: FormGroupDirective | null,
 		private readonly _parentForm: NgForm | null,
 	) {
-		this._submitSubscription = this._controlParent?.ngSubmit?.subscribe(() => {
-			this._submitVersion.update((v) => v + 1);
-		});
+		this._submitSubscription = onParentFormSubmitOrReset(this._controlParent, () =>
+			this._submitVersion.update((v) => v + 1),
+		);
 	}
 
 	public destroy(): void {

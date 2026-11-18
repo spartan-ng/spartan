@@ -3,6 +3,7 @@ import type { AbstractControl, FormGroupDirective, NgControl, NgForm } from '@an
 import type { Subscription } from 'rxjs';
 import type { ControlState } from './control-state';
 import type { ErrorStateMatcher } from './error-options';
+import { onParentFormSubmitOrReset } from './parent-form-events';
 import { controlStateEqual, type StateTracker } from './state-tracker';
 
 export class ReactiveStateTracker implements StateTracker {
@@ -52,11 +53,10 @@ export class ReactiveStateTracker implements StateTracker {
 				this._stateVersion.update((v) => v + 1);
 			});
 		}
-		// Submitting the parent form emits no event on the child control, but the
-		// matcher may depend on `submitted`, so re-run it when the form is submitted.
-		this._submitSubscription = this._controlParent?.ngSubmit?.subscribe(() => {
-			this._stateVersion.update((v) => v + 1);
-		});
+		// the matcher may depend on the parent's `submitted` state
+		this._submitSubscription = onParentFormSubmitOrReset(this._controlParent, () =>
+			this._stateVersion.update((v) => v + 1),
+		);
 	}
 
 	public destroy(): void {

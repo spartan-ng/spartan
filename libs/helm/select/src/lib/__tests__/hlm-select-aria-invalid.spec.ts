@@ -47,4 +47,19 @@ describe('HlmSelect aria-invalid', () => {
 
 		expect(container.querySelector('hlm-select-trigger > button')).toHaveAttribute('aria-invalid', 'true');
 	});
+
+	it('keeps an explicit false from the consumer over the error state matcher', async () => {
+		const { container, fixture } = await render(AriaInvalidHost);
+		const control = container.querySelector('hlm-select-trigger > button')!;
+		fixture.componentInstance.control.markAsTouched();
+		fixture.componentInstance.override.set(false);
+		fixture.detectChanges();
+
+		expect(control).not.toHaveAttribute('aria-invalid');
+
+		fixture.componentInstance.override.set(undefined);
+		fixture.detectChanges();
+
+		expect(control).toHaveAttribute('aria-invalid', 'true');
+	});
 });

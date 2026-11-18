@@ -1,4 +1,12 @@
-import type { AbstractControl, ControlEvent, FormGroupDirective, NgControl, NgForm } from '@angular/forms';
+import {
+	type AbstractControl,
+	type ControlEvent,
+	type FormGroupDirective,
+	FormResetEvent,
+	FormSubmittedEvent,
+	type NgControl,
+	type NgForm,
+} from '@angular/forms';
 import { Subject } from 'rxjs';
 import { ErrorStateMatcher } from './error-options';
 import { ReactiveStateTracker } from './reactive-state-tracker';
@@ -28,7 +36,7 @@ class SubmittedMatcher extends ErrorStateMatcher {
 }
 
 function createMockForm() {
-	return { submitted: false, ngSubmit: new Subject<void>() };
+	return { submitted: false, form: { events: new Subject<ControlEvent>() } };
 }
 
 describe('ReactiveStateTracker', () => {
@@ -129,7 +137,7 @@ describe('ReactiveStateTracker', () => {
 		expect(tracker.spartanInvalid()).toBe(false);
 	});
 
-	it('should re-run the matcher when the parent form is submitted', () => {
+	it('should re-run the matcher when the parent form is submitted or reset', () => {
 		const form = createMockForm();
 		const control = createMockControl({ invalid: true, touched: false });
 		const tracker = new ReactiveStateTracker(
@@ -141,9 +149,15 @@ describe('ReactiveStateTracker', () => {
 		expect(tracker.spartanInvalid()).toBe(false);
 
 		form.submitted = true;
-		form.ngSubmit.next();
+		form.form.events.next(new FormSubmittedEvent(form as unknown as NgForm));
 
 		expect(tracker.spartanInvalid()).toBe(true);
+
+		// resetForm() emits the reset event first and clears `submitted` afterwards
+		form.form.events.next(new FormResetEvent(form as unknown as NgForm));
+		form.submitted = false;
+
+		expect(tracker.spartanInvalid()).toBe(false);
 	});
 
 	it('should stop listening to form submits on destroy', () => {
@@ -155,6 +169,6 @@ describe('ReactiveStateTracker', () => {
 			form as unknown as NgForm,
 		).destroy();
 
-		expect(form.ngSubmit.observed).toBe(false);
+		expect(form.form.events.observed).toBe(false);
 	});
 });

@@ -97,6 +97,18 @@ class ReactiveSubmitFormHost {
 	public readonly form = new FormGroup({ email: new FormControl('', [Validators.required]) });
 }
 
+@Component({
+	selector: 'hlm-input-a11y-standalone-model-host',
+	imports: [HlmInput, FormsModule],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<form>
+			<input hlmInput ngModel required [ngModelOptions]="{ standalone: true }" />
+		</form>
+	`,
+})
+class StandaloneModelInFormHost {}
+
 describe('HlmInput accessibility', () => {
 	describe('aria-invalid', () => {
 		it('is not announced for an invalid but untouched field (default matcher)', async () => {
@@ -160,6 +172,23 @@ describe('HlmInput accessibility', () => {
 			fixture.detectChanges();
 			expect(input).not.toHaveAttribute('aria-invalid');
 			expect(input).not.toHaveAttribute('data-matches-spartan-invalid');
+		});
+
+		it('is cleared on reset for a standalone ngModel inside a submitted form', async () => {
+			const { container, fixture } = await render(StandaloneModelInFormHost);
+			const form = container.querySelector('form')!;
+			const input = container.querySelector('input')!;
+			await fixture.whenStable();
+
+			fireEvent.submit(form);
+			fixture.detectChanges();
+			expect(input).toHaveAttribute('aria-invalid', 'true');
+
+			// the standalone control is not part of the form, so resetting it emits nothing on the control
+			fireEvent.reset(form);
+			await fixture.whenStable();
+			fixture.detectChanges();
+			expect(input).not.toHaveAttribute('aria-invalid');
 		});
 
 		it('is set when the field is forced invalid', async () => {

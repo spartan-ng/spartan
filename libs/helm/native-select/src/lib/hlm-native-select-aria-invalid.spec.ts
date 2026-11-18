@@ -44,4 +44,20 @@ describe('HlmNativeSelect aria-invalid', () => {
 
 		expect(container.querySelector('select')).toHaveAttribute('aria-invalid', 'true');
 	});
+
+	it('keeps an explicit false from the consumer over the error state matcher', async () => {
+		const { container, fixture } = await render(AriaInvalidHost);
+		const control = container.querySelector('select')!;
+		fixture.componentInstance.control.markAsTouched();
+		fixture.componentInstance.override.set(false);
+		fixture.detectChanges();
+
+		expect(control).not.toHaveAttribute('aria-invalid');
+		expect(control).toHaveAttribute('data-invalid', 'true');
+
+		fixture.componentInstance.override.set(undefined);
+		fixture.detectChanges();
+
+		expect(control).toHaveAttribute('aria-invalid', 'true');
+	});
 });

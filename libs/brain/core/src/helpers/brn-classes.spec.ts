@@ -8,6 +8,7 @@ import {
 	DoCheck,
 	ElementRef,
 	EnvironmentInjector,
+	ErrorHandler,
 	Injector,
 	provideZoneChangeDetection,
 	runInInjectionContext,
@@ -601,5 +602,118 @@ describe('brnClasses', () => {
 		await new Promise((resolve) => setTimeout(resolve, 50));
 
 		expect(checks).toBeLessThan(10);
+	});
+
+	it('should merge once when several class bindings change in the same pass', async () => {
+		let merges = 0;
+		const merge = (...inputs: ClassValue[]) => (merges++, cn(...inputs));
+
+		@Directive({ selector: '[brnTestClasses]' })
+		class TestClassesDirective {
+			constructor() {
+				brnClasses(() => 'inline-flex', { merge });
+			}
+		}
+
+		@Component({
+			imports: [TestClassesDirective],
+			changeDetection: ChangeDetectionStrategy.OnPush,
+			template: `
+				<span brnTestClasses [class.p-2]="on()" [class.m-2]="on()" [class.gap-2]="on()"></span>
+			`,
+		})
+		class TestComponent {
+			public readonly on = signal(false);
+		}
+
+		const fixture = TestBed.createComponent(TestComponent);
+		fixture.autoDetectChanges();
+		await fixture.whenStable();
+
+		merges = 0;
+		fixture.componentInstance.on.set(true);
+		await fixture.whenStable();
+		await new Promise((resolve) => setTimeout(resolve, 0));
+
+		expect(fixture.nativeElement.querySelector('span').className).toBe('inline-flex p-2 m-2 gap-2');
+		expect(merges).toBe(1);
+	});
+
+	it('should drop a source class once the source stops emitting it, even after classList.toggle', async () => {
+		await TestBed.configureTestingModule({}).compileComponents();
+
+		const element = document.createElement('div');
+		const elementRef = new ElementRef(element);
+		const line = signal('border-solid');
+
+		TestBed.runInInjectionContext(() => {
+			classes(() => line(), { elementRef });
+		});
+		TestBed.tick();
+
+		// a third-party toggle of a class it sees on the element removes it natively
+		expect(element.classList.toggle('border-solid')).toBe(false);
+
+		line.set('border-dotted');
+		TestBed.tick();
+
+		expect(element.className).toBe('border-dotted');
+	});
+
+	it('should report a merge error from a class binding without breaking the host template', async () => {
+		const handleError = vi.fn();
+		const merge = (...inputs: ClassValue[]) => {
+			const merged = cn(...inputs);
+			if (merged.includes('boom')) throw new Error('merge failed');
+			return merged;
+		};
+
+		@Directive({ selector: '[brnTestClasses]' })
+		class TestClassesDirective {
+			constructor() {
+				brnClasses(() => 'inline-flex', { merge });
+			}
+		}
+
+		@Component({
+			imports: [TestClassesDirective],
+			changeDetection: ChangeDetectionStrategy.OnPush,
+			template: `
+				<span brnTestClasses [class.boom]="on()"></span>
+				<p>{{ on() ? 'on' : 'off' }}</p>
+			`,
+		})
+		class TestComponent {
+			public readonly on = signal(false);
+		}
+
+		TestBed.configureTestingModule({
+			rethrowApplicationErrors: false,
+			providers: [{ provide: ErrorHandler, useValue: { handleError } }],
+		});
+		const fixture = TestBed.createComponent(TestComponent);
+		fixture.autoDetectChanges();
+		await fixture.whenStable();
+
+		fixture.componentInstance.on.set(true);
+		await fixture.whenStable();
+		await new Promise((resolve) => setTimeout(resolve, 0));
+
+		expect(fixture.nativeElement.querySelector('p').textContent).toBe('on');
+		expect(handleError).toHaveBeenCalledWith(expect.objectContaining({ message: 'merge failed' }));
+	});
+
+	it('should replace a source class through classList.replace like the native method', async () => {
+		await TestBed.configureTestingModule({}).compileComponents();
+
+		const element = document.createElement('div');
+		const elementRef = new ElementRef(element);
+
+		TestBed.runInInjectionContext(() => {
+			classes(() => 'border-solid', { elementRef });
+		});
+		TestBed.tick();
+
+		expect(element.classList.replace('border-solid', 'border-dashed')).toBe(true);
 	});
 });

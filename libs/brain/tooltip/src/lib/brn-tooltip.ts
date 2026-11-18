@@ -452,6 +452,8 @@ export class BrnTooltip {
 	}
 
 	private _detach(): void {
+		// The content may be removed while hovered, which fires no pointerleave.
+		this._tooltipHovered = false;
 		this._clearAriaDescribedBy();
 		this._positionChangeSub?.unsubscribe();
 		this._positionChangeSub = undefined;

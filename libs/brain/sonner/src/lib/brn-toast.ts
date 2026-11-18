@@ -13,7 +13,6 @@ import {
 	type OnDestroy,
 	signal,
 } from '@angular/core';
-import clsx from 'clsx';
 import { defaultClasses, injectBrnSonnerToasterConfig } from './brn-toaster.token';
 import { BrnToastAction } from './directives/brn-toast-action';
 import { BrnToastCancelAction } from './directives/brn-toast-cancel-action';
@@ -21,6 +20,11 @@ import { AsComponentPipe } from './pipes/as-component.pipe';
 import { IsStringPipe } from './pipes/is-string.pipe';
 import { toastState } from './state';
 import type { ToastAction, ToastProps, ToastT } from './types';
+
+/** Joins the (optional) class strings of a toast. */
+function joinClasses(...classes: (string | undefined)[]): string {
+	return classes.filter(Boolean).join(' ');
+}
 
 @Component({
 	// eslint-disable-next-line @angular-eslint/component-selector
@@ -30,7 +34,9 @@ import type { ToastAction, ToastProps, ToastT } from './types';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'data-sonner-toast': '',
-		'[attr.aria-live]': "toast().important ? 'assertive' : 'polite'",
+		// regular toasts are announced by the toaster's polite live region; important ones interrupt
+		'[attr.aria-live]': "toast().important ? 'assertive' : null",
+		// read the whole toast when it is updated, e.g. a new title with an unchanged description
 		'aria-atomic': 'true',
 		tabindex: '0',
 		'[class]': '_toastClasses()',
@@ -261,7 +267,7 @@ export class BrnSonnerToast implements AfterViewInit, OnDestroy {
 	);
 
 	protected readonly _toastClasses = computed(() =>
-		clsx(
+		joinClasses(
 			this.userClass(),
 			this._toastClass(),
 			this._classes().toast,
@@ -279,22 +285,22 @@ export class BrnSonnerToast implements AfterViewInit, OnDestroy {
 		...this.style(),
 	}));
 	protected readonly _actionButtonClasses = computed(() =>
-		clsx(this._classes().actionButton, this.toast().classes?.actionButton),
+		joinClasses(this._classes().actionButton, this.toast().classes?.actionButton),
 	);
 	protected readonly _cancelButtonClasses = computed(() =>
-		clsx(this._classes().cancelButton, this.toast().classes?.cancelButton),
+		joinClasses(this._classes().cancelButton, this.toast().classes?.cancelButton),
 	);
 	protected readonly _toastDescriptionClasses = computed(() =>
-		clsx(
+		joinClasses(
 			this.descriptionClass(),
 			this._toastDescriptionClass(),
 			this._classes().description,
 			this.toast().classes?.description,
 		),
 	);
-	protected readonly _titleClasses = computed(() => clsx(this._classes().title, this.toast().classes?.title));
+	protected readonly _titleClasses = computed(() => joinClasses(this._classes().title, this.toast().classes?.title));
 	protected readonly _closeButtonClasses = computed(() =>
-		clsx(this._classes().closeButton, this.toast().classes?.closeButton),
+		joinClasses(this._classes().closeButton, this.toast().classes?.closeButton),
 	);
 
 	constructor() {

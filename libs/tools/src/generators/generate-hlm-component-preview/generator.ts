@@ -62,7 +62,7 @@ function mergeImports(imports: string[]) {
 		if (namedMatch) {
 			const beforeBrace = clause.slice(0, clause.indexOf('{')).replace(',', '').trim();
 			// A leading `type` before the brace means this is a type-only named import
-			// (e.g. `import type { ClassValue } from 'clsx'`). It is NOT a default import,
+			// (e.g. `import type { ClassValue } from 'cn'`). It is NOT a default import,
 			// so all of its names are type-only and no default should be recorded.
 			const isTypeOnly = beforeBrace === 'type';
 			if (beforeBrace && !beforeBrace.startsWith('*') && !isTypeOnly) {
@@ -264,7 +264,7 @@ function writeStackblitzMeta(tree: Tree): void {
 		// caret would break the build with TS2554.
 		'@tanstack/angular-table': pick('@tanstack/angular-table', '^8.21.0').replace(/^[\^~]/, ''),
 		'class-variance-authority': pick('class-variance-authority', '^0.7.0'),
-		clsx: pick('clsx', '^2.1.1'),
+		cn: pick('cn', '^0.5.2'),
 		// Example-specific runtime deps not declared as helm peers (so not captured in the project):
 		// the carousel autoplay plugin, the luxon date adapter used by date-picker, and ngx-scrollbar
 		// behind scroll-area.
@@ -272,7 +272,6 @@ function writeStackblitzMeta(tree: Tree): void {
 		luxon: pick('luxon', '^3.0.0'),
 		'ngx-scrollbar': pick('ngx-scrollbar', '^18.0.0'),
 		rxjs: pick('rxjs', '~7.8.0'),
-		'tailwind-merge': pick('tailwind-merge', '^3.5.0'),
 		'zone.js': pick('zone.js', '~0.15.0'),
 	};
 
@@ -290,10 +289,28 @@ function writeStackblitzMeta(tree: Tree): void {
 
 	const presetCss = tree.read('libs/brain/hlm-tailwind-preset.css', 'utf-8') ?? '';
 
+	writeInstallationPresetSnippet(tree, presetCss);
+
 	const meta = { baseDependencies, devDependencies, presetCss };
 	const metaPath = 'apps/app/src/public/data/stackblitz-meta.json';
 	tree.write(metaPath, JSON.stringify(meta, null, 2));
 	logger.info(`StackBlitz metadata generated at ${metaPath}`);
+}
+
+export function formatInstallationPresetSnippet(presetCss: string): string {
+	return `/**
+ * Generated from \`libs/brain/hlm-tailwind-preset.css\` — do not edit by hand.
+ * Regenerate with \`npx nx generate @spartan-ng/tools:generate-hlm-component-preview\`.
+ */
+export const hlmTailwindPreset =
+\t${JSON.stringify(presetCss)};
+`;
+}
+
+function writeInstallationPresetSnippet(tree: Tree, presetCss: string): void {
+	const snippetPath = 'apps/app/src/app/pages/(documentation)/documentation/(ui)/hlm-tailwind-preset.snippet.ts';
+	tree.write(snippetPath, formatInstallationPresetSnippet(presetCss));
+	logger.info(`Installation preset snippet generated at ${snippetPath}`);
 }
 
 /**

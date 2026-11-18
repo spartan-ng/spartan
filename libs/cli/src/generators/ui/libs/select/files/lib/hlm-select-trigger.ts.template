@@ -5,7 +5,7 @@ import { lucideChevronDown } from '@ng-icons/lucide';
 import { BrnFieldControlDescribedBy } from '@spartan-ng/brain/field';
 import { BrnSelectTrigger } from '@spartan-ng/brain/select';
 import { hlm } from '<%- importAlias %>/utils';
-import type { ClassValue } from 'clsx';
+import type { ClassValue } from 'cn';
 
 @Component({
 	selector: 'hlm-select-trigger',

@@ -1,4 +1,4 @@
-import { twMerge } from 'tailwind-merge';
+import { twMerge } from 'cn';
 import {
 	type ArrayLiteralExpression,
 	type CallExpression,

@@ -59,7 +59,7 @@ export class HlmSidebarService {
 				if (
 					event.key === this._config.sidebarKeyboardShortcut &&
 					(event.ctrlKey || event.metaKey) &&
-					!isEditableTarget(event.target)
+					!isEditableTarget(originalTarget(event))
 				) {
 					event.preventDefault();
 					this.toggleSidebar();
@@ -138,6 +138,11 @@ export class HlmSidebarService {
  * Text fields and rich text editors own their keyboard shortcuts (e.g. bold, or moving the caret
  * with Ctrl+B on macOS), so the sidebar shortcut must not toggle the sidebar or prevent them there.
  */
+/** The element the event started on, also when it comes from inside an open shadow root. */
+function originalTarget(event: Event): EventTarget | null {
+	return event.composedPath?.()[0] ?? event.target;
+}
+
 function isEditableTarget(target: EventTarget | null): boolean {
 	const element = target as HTMLElement | null;
 	if (!element || typeof element.tagName !== 'string') return false;

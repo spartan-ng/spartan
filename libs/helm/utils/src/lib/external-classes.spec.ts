@@ -244,4 +244,35 @@ describe('classes() with external class bindings', () => {
 
 		expect(classList(element)).toEqual(['border-solid', 'm-2']);
 	});
+
+	it('tracks classList when its methods are read-only on the prototype, like Domino during SSR', async () => {
+		const methods = ['add', 'remove', 'toggle', 'replace'] as const;
+		const originals = methods.map((method) => Object.getOwnPropertyDescriptor(DOMTokenList.prototype, method)!);
+		for (const [i, method] of methods.entries()) {
+			Object.defineProperty(DOMTokenList.prototype, method, { ...originals[i], writable: false });
+		}
+
+		try {
+			@Component({
+				imports: [LineDirective],
+				changeDetection: ChangeDetectionStrategy.OnPush,
+				template: `
+					<span hlmLine class="bg-red-500" [class.bg-blue-500]="active()"></span>
+				`,
+			})
+			class Host {
+				public readonly active = signal(true);
+			}
+
+			const { component, element } = await setup(Host);
+			component.active.set(false);
+			await settle();
+
+			expect(classList(element)).toEqual(['bg-red-500', 'border-solid']);
+		} finally {
+			for (const [i, method] of methods.entries()) {
+				Object.defineProperty(DOMTokenList.prototype, method, originals[i]);
+			}
+		}
+	});
 });

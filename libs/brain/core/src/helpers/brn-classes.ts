@@ -339,28 +339,34 @@ function trackClassList(manager: ElementClassManager): void {
 	// A source class is on the element without being wanted, so check both like the native methods do
 	const has = (token: string) => wanted.has(token) || list.contains(token);
 
-	list.add = (...tokens: string[]) =>
+	const add = (...tokens: string[]) =>
 		write(
 			() => tokens.forEach((token) => (wanted.delete(token), wanted.add(token))),
 			() => native.add.apply(list, tokens),
 		);
-	list.remove = (...tokens: string[]) =>
+	const remove = (...tokens: string[]) =>
 		write(
 			() => tokens.forEach((token) => wanted.delete(token)),
 			() => native.remove.apply(list, tokens),
 		);
-	list.toggle = (token: string, force?: boolean) => {
+	const toggle = (token: string, force?: boolean) => {
 		const on = force ?? !has(token);
-		if (on) list.add(token);
-		else list.remove(token);
+		if (on) add(token);
+		else remove(token);
 		return on;
 	};
-	list.replace = (oldToken: string, newToken: string) => {
+	const replace = (oldToken: string, newToken: string) => {
 		if (!has(oldToken)) return false;
-		list.remove(oldToken);
-		list.add(newToken);
+		remove(oldToken);
+		add(newToken);
 		return true;
 	};
+
+	// Domino (SSR) declares these read-only on the prototype, so assigning them would throw
+	const overrides = { add, remove, toggle, replace };
+	for (const method of trackedMethods) {
+		Object.defineProperty(list, method, { value: overrides[method], configurable: true, writable: true });
+	}
 }
 
 /**

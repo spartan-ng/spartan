@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { render, screen } from '@testing-library/angular';
 import { HlmSidebarService } from './hlm-sidebar.service';
+import { provideHlmSidebarConfig } from './hlm-sidebar.token';
 
 @Component({
 	selector: 'hlm-sidebar-service-host',
@@ -42,23 +43,19 @@ function pressShortcut(target: Element): KeyboardEvent {
 	return event;
 }
 
-const COOKIE_NAME = 'sidebar_state';
-const readCookie = () =>
-	document.cookie
-		.split('; ')
-		.find((cookie) => cookie.startsWith(`${COOKIE_NAME}=`))
-		?.slice(COOKIE_NAME.length + 1);
+// A dedicated cookie name keeps the suite away from the real `sidebar_state` cookie, which other
+// suites in the same browser (and the developer's own sessions) may rely on.
+const TEST_COOKIE_NAME = 'sidebar_state_service_spec';
 
 describe('HlmSidebarService keyboard shortcut', () => {
 	let sidebar: HlmSidebarService;
-	let previousCookie: string | undefined;
 	// the test viewport may be below the mobile breakpoint, where the shortcut toggles the mobile sheet
 	const isExpanded = () => (sidebar.isMobile() ? sidebar.openMobile() : sidebar.open());
 
 	beforeEach(async () => {
-		// setOpen() writes the sidebar cookie; remember it so other suites do not see this one's state
-		previousCookie = readCookie();
-		const { fixture } = await render(SidebarServiceHost);
+		const { fixture } = await render(SidebarServiceHost, {
+			providers: [provideHlmSidebarConfig({ sidebarCookieName: TEST_COOKIE_NAME })],
+		});
 		// the shortcut listener is registered after the first render
 		TestBed.tick();
 		await fixture.whenStable();
@@ -68,8 +65,7 @@ describe('HlmSidebarService keyboard shortcut', () => {
 	});
 
 	afterEach(() => {
-		document.cookie =
-			previousCookie === undefined ? `${COOKIE_NAME}=; path=/; max-age=0` : `${COOKIE_NAME}=${previousCookie}; path=/`;
+		document.cookie = `${TEST_COOKIE_NAME}=; path=/; max-age=0`;
 	});
 
 	it('toggles the sidebar outside of editable elements', () => {

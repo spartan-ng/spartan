@@ -31,8 +31,21 @@ class NestedHoverCardHost {}
 
 const contents = () => Array.from(document.querySelectorAll<HTMLElement>('hlm-hover-card-content'));
 
+// The real browser pointer rests wherever the previous interaction left it. When an overlay opens
+// underneath it, the browser dispatches trusted mouse events (e.g. a mouseleave on the outer content)
+// that race with the synthetic events below. Ignore them so only the test drives hover state.
+const pointerEvents = ['mouseover', 'mouseout', 'mouseenter', 'mouseleave'];
+const ignoreRealPointer = (event: Event) => {
+	if (event.isTrusted) event.stopImmediatePropagation();
+};
+
 describe('HlmHoverCard nested content', () => {
+	beforeEach(() => {
+		pointerEvents.forEach((type) => window.addEventListener(type, ignoreRealPointer, true));
+	});
+
 	afterEach(() => {
+		pointerEvents.forEach((type) => window.removeEventListener(type, ignoreRealPointer, true));
 		document.querySelectorAll('.cdk-overlay-container').forEach((el) => el.remove());
 	});
 

@@ -1,4 +1,4 @@
-import { formatFiles, logger, type Tree } from '@nx/devkit';
+import { formatFiles, installPackagesTask, logger, type Tree } from '@nx/devkit';
 import { prompt } from 'enquirer';
 import { getImportAlias } from '../../utils/config';
 import { type Healthcheck, type HealthcheckReport, HealthcheckStatus, isHealthcheckFixable } from './healthchecks';
@@ -14,6 +14,7 @@ import { brnSwitchChangedEventRename } from './healthchecks/brn-switch-changed-e
 import { brainToggleHealthcheck } from './healthchecks/brn-toggle';
 import { brainToggleGroupHealthcheck } from './healthchecks/brn-toggle-group';
 import { brainToggleGroup2Healthcheck } from './healthchecks/brn-toggle-group-2';
+import { cnHealthcheck } from './healthchecks/cn';
 import { coreImportsHealthcheck } from './healthchecks/core-imports';
 import { helmImportsHealthcheck } from './healthchecks/helm-imports';
 import { hlmImportHealthcheck } from './healthchecks/hlm';
@@ -73,6 +74,7 @@ export async function healthcheckGenerator(tree: Tree, options: HealthcheckGener
 		brnSelectHealthcheck,
 		brnInputOtpMaxLengthRename,
 		inputOtpHealthcheck,
+		cnHealthcheck,
 		scaffoldIntegrityHealthcheck,
 	];
 
@@ -110,6 +112,9 @@ export async function healthcheckGenerator(tree: Tree, options: HealthcheckGener
 	if (!options.skipFormat) {
 		await formatFiles(tree);
 	}
+
+	// fixes may change package.json (e.g. migrate-cn swaps clsx / tailwind-merge for cn); installs only if it changed
+	return (): void => installPackagesTask(tree);
 }
 
 export default healthcheckGenerator;

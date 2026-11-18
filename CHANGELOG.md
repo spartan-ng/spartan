@@ -1,3 +1,10 @@
+## 1.10.0-beta.2 (2026-11-18)
+
+- fix(calendar): disabled date focus 1807 (#1831) ([050cf33](https://github.com/spartan-ng/spartan/commit/050cf33)), closes [#1831](https://github.com/spartan-ng/spartan/issues/1831)
+- fix(pagination): make numbered pagination operable with the keyboard (#1883) ([99ebb60](https://github.com/spartan-ng/spartan/commit/99ebb60)), closes [#1883](https://github.com/spartan-ng/spartan/issues/1883)
+- feat: move classes() logic to brain and replace clsx + tailwind-merge with cn (#1875) ([2912232](https://github.com/spartan-ng/spartan/commit/2912232)), closes [#1875](https://github.com/spartan-ng/spartan/issues/1875)
+- docs(repo): show hlm-tailwind-preset.css contents on installation page (#1842) ([6f84162](https://github.com/spartan-ng/spartan/commit/6f84162)), closes [#1842](https://github.com/spartan-ng/spartan/issues/1842) [#1133](https://github.com/spartan-ng/spartan/issues/1133)
+
 ## 1.10.0-beta.1 (2026-11-18)
 
 - feat(cli): support migrating all components non-interactively (#1803) ([d6b4945](https://github.com/spartan-ng/spartan/commit/d6b4945)), closes [#1803](https://github.com/spartan-ng/spartan/issues/1803)

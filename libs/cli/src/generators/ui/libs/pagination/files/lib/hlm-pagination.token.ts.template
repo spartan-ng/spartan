@@ -7,6 +7,7 @@ export interface HlmPaginationConfig {
 	previousAriaLabel: string;
 	nextLabel: string;
 	nextAriaLabel: string;
+	pageSizeAriaLabel: string;
 }
 
 const defaultConfig: HlmPaginationConfig = {
@@ -16,6 +17,7 @@ const defaultConfig: HlmPaginationConfig = {
 	nextAriaLabel: 'Go to next page',
 	previousLabel: 'Previous',
 	previousAriaLabel: 'Go to previous page',
+	pageSizeAriaLabel: 'Items per page',
 };
 
 const HlmPaginationConfigToken = new InjectionToken<HlmPaginationConfig>('HlmPaginationConfig');

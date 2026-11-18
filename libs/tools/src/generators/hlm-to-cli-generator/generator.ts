@@ -119,10 +119,12 @@ function getPeerDependencies(tree: Tree, entrypoint: string) {
 	const peerDependencies: Record<string, string> = {};
 
 	for (const file of tsFiles) {
-		const fileContent = tree.read(file, 'utf-8');
+		const fileContent = tree.read(file, 'utf-8') ?? '';
 
 		for (const [dependency, version] of Object.entries(allPeerDependencies)) {
-			if (fileContent.includes(dependency)) {
+			// match the module specifier (e.g. 'cn' or 'cn/config'), not any occurrence of the name in the file
+			const escapedDependency = dependency.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+			if (new RegExp(`['"]${escapedDependency}(/[^'"]*)?['"]`).test(fileContent)) {
 				peerDependencies[dependency] = version;
 			}
 		}

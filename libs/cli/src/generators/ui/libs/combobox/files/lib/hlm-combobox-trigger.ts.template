@@ -6,7 +6,7 @@ import { BrnComboboxAnchor, BrnComboboxPopoverTrigger, BrnComboboxTrigger } from
 import { BrnFieldControlDescribedBy } from '@spartan-ng/brain/field';
 import { ButtonVariants, HlmButton } from '<%- importAlias %>/button';
 import { hlm } from '<%- importAlias %>/utils';
-import type { ClassValue } from 'clsx';
+import type { ClassValue } from 'cn';
 
 @Component({
 	selector: 'hlm-combobox-trigger',

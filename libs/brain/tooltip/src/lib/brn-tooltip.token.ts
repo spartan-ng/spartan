@@ -1,5 +1,5 @@
 import { type FactoryProvider, inject, InjectionToken } from '@angular/core';
-import { type ClassValue } from 'clsx';
+import type { BrnClassValue } from '@spartan-ng/brain/core';
 import { type BrnTooltipPosition } from './brn-tooltip-position';
 
 export interface BrnTooltipOptions {
@@ -12,11 +12,11 @@ export interface BrnTooltipOptions {
 	/** Default position for tooltips. */
 	position?: BrnTooltipPosition;
 	/** Additional classes for the SVG element in the tooltip arrow. */
-	svgClasses: ClassValue;
+	svgClasses: BrnClassValue;
 	/** Additional classes for the tooltip arrow element based on position. */
-	arrowClasses: (position: BrnTooltipPosition) => ClassValue;
+	arrowClasses: (position: BrnTooltipPosition) => BrnClassValue;
 	/** Additional classes for the tooltip content element. */
-	tooltipContentClasses: ClassValue;
+	tooltipContentClasses: BrnClassValue;
 }
 
 export const defaultOptions: BrnTooltipOptions = {

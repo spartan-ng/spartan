@@ -716,4 +716,31 @@ describe('brnClasses', () => {
 
 		expect(element.classList.replace('border-solid', 'border-dashed')).toBe(true);
 	});
+
+	it('should report a merge error from an external className write', async () => {
+		const handleError = vi.fn();
+		TestBed.configureTestingModule({
+			rethrowApplicationErrors: false,
+			providers: [{ provide: ErrorHandler, useValue: { handleError } }],
+		});
+
+		const element = document.createElement('div');
+		document.body.appendChild(element);
+		const merge = (...inputs: ClassValue[]) => {
+			const merged = cn(...inputs);
+			if (merged.includes('boom')) throw new Error('merge failed');
+			return merged;
+		};
+
+		TestBed.runInInjectionContext(() => {
+			brnClasses(() => 'inline-flex', { elementRef: new ElementRef(element), merge });
+		});
+		TestBed.tick();
+
+		element.className = 'boom';
+		await new Promise((resolve) => setTimeout(resolve, 0));
+
+		expect(handleError).toHaveBeenCalledWith(expect.objectContaining({ message: 'merge failed' }));
+		element.remove();
+	});
 });

@@ -215,7 +215,7 @@ function setupGlobalObserver(platformId: Object): void {
 						// the callback runs after they're done, so only the written value tells them apart
 						if (!manager.hasInitialized || element.className === manager.writtenClassName) continue;
 
-						updateElement(manager);
+						updateElementOutsideAngular(manager);
 					}
 				}
 			}
@@ -375,13 +375,18 @@ function scheduleUpdate(manager: ElementClassManager): void {
 		// A source update or cleanup in between already handled it
 		if (!manager.updateQueued || elementClassManagers.get(manager.element) !== manager) return;
 
-		try {
-			updateElement(manager);
-		} catch (error) {
-			if (!manager.errorHandler) throw error;
-			manager.errorHandler.handleError(error);
-		}
+		updateElementOutsideAngular(manager);
 	});
+}
+
+/** For the observer and batched updates, where nothing in Angular would catch a throwing merge */
+function updateElementOutsideAngular(manager: ElementClassManager): void {
+	try {
+		updateElement(manager);
+	} catch (error) {
+		if (!manager.errorHandler) throw error;
+		manager.errorHandler.handleError(error);
+	}
 }
 
 function untrackClassList(element: HTMLElement): void {

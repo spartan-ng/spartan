@@ -2,6 +2,7 @@ export * from './helpers/brn-class-value';
 export * from './helpers/brn-classes';
 export * from './helpers/computed-previous';
 export * from './helpers/create-hover-observable';
+export * from './helpers/create-injection-token';
 export * from './helpers/css-classes-to-array';
 export * from './helpers/custom-element-class-settable';
 export * from './helpers/debounced-signal';

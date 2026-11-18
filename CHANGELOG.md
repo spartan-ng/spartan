@@ -1,3 +1,7 @@
+## 1.10.0-beta.4 (2026-11-18)
+
+- fix: keep external classes on the element when they conflict with or race a classes() source (#1879) ([901a988](https://github.com/spartan-ng/spartan/commit/901a988)), closes [#1879](https://github.com/spartan-ng/spartan/issues/1879)
+
 ## 1.10.0-beta.3 (2026-11-18)
 
 - fix(calendar): enable month nav when only the matching day is disabled (#1848) ([5898452](https://github.com/spartan-ng/spartan/commit/5898452)), closes [#1848](https://github.com/spartan-ng/spartan/issues/1848) [#1810](https://github.com/spartan-ng/spartan/issues/1810)

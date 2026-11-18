@@ -1,6 +1,15 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { provideErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@spartan-ng/brain/forms';
+import { ChangeDetectionStrategy, Component, Injectable } from '@angular/core';
+import {
+	type AbstractControl,
+	FormControl,
+	FormGroup,
+	type FormGroupDirective,
+	FormsModule,
+	type NgForm,
+	ReactiveFormsModule,
+	Validators,
+} from '@angular/forms';
+import { ErrorStateMatcher, provideErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@spartan-ng/brain/forms';
 import { fireEvent, render } from '@testing-library/angular';
 import { HlmInput } from './hlm-input';
 
@@ -65,6 +74,29 @@ class OverrideHost {
 })
 class TemplateFormHost {}
 
+/** Shows errors once the form (template-driven or reactive) has been submitted. */
+@Injectable()
+class ShowOnSubmitErrorStateMatcher implements ErrorStateMatcher {
+	isInvalid(control: AbstractControl | null, form: FormGroupDirective | NgForm | null): boolean {
+		return !!(control?.invalid && form?.submitted);
+	}
+}
+
+@Component({
+	selector: 'hlm-input-a11y-reactive-form-host',
+	imports: [HlmInput, ReactiveFormsModule],
+	providers: [provideErrorStateMatcher(ShowOnSubmitErrorStateMatcher)],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<form [formGroup]="form">
+			<input hlmInput formControlName="email" />
+		</form>
+	`,
+})
+class ReactiveSubmitFormHost {
+	public readonly form = new FormGroup({ email: new FormControl('', [Validators.required]) });
+}
+
 describe('HlmInput accessibility', () => {
 	describe('aria-invalid', () => {
 		it('is not announced for an invalid but untouched field (default matcher)', async () => {
@@ -111,6 +143,23 @@ describe('HlmInput accessibility', () => {
 
 			expect(input).toHaveAttribute('aria-invalid', 'true');
 			expect(input).toHaveAttribute('data-matches-spartan-invalid', 'true');
+		});
+
+		it('follows the submitted state of a reactive form through submit and reset', async () => {
+			const { container, fixture } = await render(ReactiveSubmitFormHost);
+			const form = container.querySelector('form')!;
+			const input = container.querySelector('input')!;
+			expect(input).not.toHaveAttribute('aria-invalid');
+
+			fireEvent.submit(form);
+			fixture.detectChanges();
+			expect(input).toHaveAttribute('aria-invalid', 'true');
+
+			fireEvent.reset(form);
+			await fixture.whenStable();
+			fixture.detectChanges();
+			expect(input).not.toHaveAttribute('aria-invalid');
+			expect(input).not.toHaveAttribute('data-matches-spartan-invalid');
 		});
 
 		it('is set when the field is forced invalid', async () => {

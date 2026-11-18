@@ -22,7 +22,7 @@ import { injectBrnAutocompleteBase } from './brn-autocomplete.token';
 		'[attr.aria-activedescendant]': '_isExpanded() ? _activeDescendant() : null',
 		'[attr.autocomplete]': 'autocomplete()',
 		'[attr.aria-invalid]': '_ariaInvalid() ? "true": null',
-		'[attr.data-invalid]': '_ariaInvalid() ? "true": null',
+		'[attr.data-invalid]': '_invalid() ? "true": null',
 		'[attr.data-matches-spartan-invalid]': '_spartanInvalid() ? "true": null',
 		'[attr.data-touched]': '_touched() ? "true": null',
 		'[attr.data-dirty]': '_dirty() ? "true": null',
@@ -61,10 +61,9 @@ export class BrnAutocompleteInput<T> {
 
 	protected readonly _activeDescendant = signal<string | undefined>(undefined);
 
-	/** Computed aria-invalid: uses manual override if provided, otherwise reads from parent error state. */
-	protected readonly _ariaInvalid = computed(
-		() => this.ariaInvalidInput() ?? this._autocomplete.controlState?.()?.invalid,
-	);
+	/** Computed aria-invalid: uses the manual override if provided, otherwise the error state matcher result. */
+	protected readonly _ariaInvalid = computed(() => this.ariaInvalidInput() ?? !!this._spartanInvalid());
+	protected readonly _invalid = computed(() => this._autocomplete.controlState?.()?.invalid);
 
 	protected readonly _spartanInvalid = computed(
 		() => this.forceInvalid() || this._autocomplete.controlState?.()?.spartanInvalid,

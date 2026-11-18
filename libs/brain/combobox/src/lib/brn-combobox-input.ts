@@ -23,7 +23,7 @@ import { ComboboxInputMode, injectBrnComboboxBase } from './brn-combobox.token';
 		'[attr.aria-controls]': '_isExpanded() ? _comboboxListId() : null',
 		'[attr.aria-activedescendant]': '_isExpanded() ? _activeDescendant() : null',
 		'[attr.aria-invalid]': '_isCombobox() && _ariaInvalid() ? "true": null',
-		'[attr.data-invalid]': '_isCombobox() && _ariaInvalid() ? "true": null',
+		'[attr.data-invalid]': '_isCombobox() && _invalid() ? "true": null',
 		'[attr.data-matches-spartan-invalid]': '_isCombobox() && _spartanInvalid() ? "true": null',
 		'[attr.data-touched]': '_isCombobox() && _touched() ? "true": null',
 		'[attr.data-dirty]': '_isCombobox() && _dirty() ? "true": null',
@@ -63,8 +63,9 @@ export class BrnComboboxInput<T> {
 
 	protected readonly _activeDescendant = signal<string | undefined>(undefined);
 
-	/** Computed aria-invalid: uses manual override if provided, otherwise reads from parent error state. */
-	protected readonly _ariaInvalid = computed(() => this.ariaInvalidInput() ?? this._combobox.controlState?.()?.invalid);
+	/** Computed aria-invalid: uses the manual override if provided, otherwise the error state matcher result. */
+	protected readonly _ariaInvalid = computed(() => this.ariaInvalidInput() ?? !!this._spartanInvalid());
+	protected readonly _invalid = computed(() => this._combobox.controlState?.()?.invalid);
 
 	protected readonly _dirty = computed(() => this._combobox.controlState?.()?.dirty);
 	protected readonly _touched = computed(() => this._combobox.controlState?.()?.touched);

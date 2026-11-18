@@ -260,7 +260,8 @@ export function keepPaginationFocus(...watched: Signal<unknown>[]): void {
 	// pagination on the page). Removing the focused control moves focus to the body without a
 	// focusin, so that case still restores focus after the render.
 	const unlistenOut = renderer.listen('document', 'focusin', (event: FocusEvent) => {
-		if (!host.contains(event.target as Node | null)) lastFocused = null;
+		// the composed path is not retargeted, so it also works when the pagination is in a shadow root
+		if (!event.composedPath().includes(host)) lastFocused = null;
 	});
 	inject(DestroyRef).onDestroy(() => {
 		unlistenIn();

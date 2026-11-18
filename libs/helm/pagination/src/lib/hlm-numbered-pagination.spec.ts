@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal, ViewEncapsulation } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { render, screen, within } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
@@ -84,6 +84,23 @@ class BothPaginationsHost {
 	`,
 })
 class QueryParamsPaginationHost {
+	public readonly pageSize = signal(10);
+	public readonly totalItems = signal(100);
+}
+
+@Component({
+	selector: 'hlm-numbered-pagination-shadow-host',
+	imports: [HlmNumberedPagination],
+	// the test needs a real shadow root; no styles are involved
+	// eslint-disable-next-line @nx/workspace-avoid-component-styles
+	encapsulation: ViewEncapsulation.ShadowDom,
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<hlm-numbered-pagination [(currentPage)]="page" [(itemsPerPage)]="pageSize" [totalItems]="totalItems()" />
+	`,
+})
+class ShadowPaginationHost {
+	public readonly page = signal(1);
 	public readonly pageSize = signal(10);
 	public readonly totalItems = signal(100);
 }
@@ -208,5 +225,17 @@ describe('HlmNumberedPagination accessibility', () => {
 
 		expect(screen.queryByRole('link', { name: 'Go to next page' })).not.toBeInTheDocument();
 		expect(screen.getByText('1', { selector: 'a[aria-current="page"]' })).toHaveFocus();
+	});
+
+	it('restores focus when the pagination is rendered inside a shadow root', async () => {
+		const { fixture } = await render(ShadowPaginationHost);
+		const root = (fixture.nativeElement as HTMLElement).shadowRoot as ShadowRoot;
+
+		root.querySelector<HTMLElement>('[aria-label="Go to next page"]')!.focus();
+		fixture.componentInstance.totalItems.set(5);
+		await fixture.whenStable();
+
+		expect(root.querySelector('[aria-label="Go to next page"]')).toBeNull();
+		expect(root.activeElement).toBe(root.querySelector('[aria-current="page"]'));
 	});
 });

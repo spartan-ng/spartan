@@ -3,6 +3,7 @@ import {
 	DestroyRef,
 	effect,
 	ElementRef,
+	ErrorHandler,
 	HostAttributeToken,
 	inject,
 	Injector,
@@ -37,6 +38,9 @@ interface ElementClassManager {
 	/** Classes wanted by everything except the sources, in write order; the latest write wins conflicts */
 	baseClasses: Set<string>;
 	isUpdating: boolean;
+	/** A classList write is waiting for the batched merge */
+	updateQueued: boolean;
+	errorHandler: ErrorHandler | null;
 	nextOrder: number;
 	hasInitialized: boolean;
 	/** The class list this manager last wrote, to tell external class changes apart from its own. */
@@ -94,6 +98,8 @@ export function brnClasses(computed: () => BrnClassValue[] | string, options: Br
 				sources: new Map(),
 				baseClasses: initialBaseClasses,
 				isUpdating: false,
+				updateQueued: false,
+				errorHandler: inject(ErrorHandler, { optional: true }),
 				nextOrder: 0,
 				hasInitialized: false,
 				appliedClasses: null,
@@ -238,6 +244,8 @@ function updateElement(manager: ElementClassManager): void {
 }
 
 function applyClasses(manager: ElementClassManager): void {
+	manager.updateQueued = false;
+
 	// Handle initialization: capture base classes after first source registration
 	if (!manager.hasInitialized && manager.sources.size > 0) {
 		// Get current classes on element (may include SSR classes)
@@ -294,7 +302,8 @@ function applyClasses(manager: ElementClassManager): void {
 
 /**
  * classList writes are tracked, so the element only differs from what we wrote after a className or
- * class attribute write. Those replace the whole list, so the base classes become the live ones.
+ * class attribute write. Those replace the whole list, so the base classes become the live ones and a
+ * class the merge had dropped is forgotten.
  */
 function syncBaseClasses(manager: ElementClassManager): void {
 	const applied = manager.appliedClasses!;
@@ -324,9 +333,11 @@ function trackClassList(manager: ElementClassManager): void {
 	const write = (apply: () => void, nativeWrite: () => void) => {
 		apply();
 		// Until the first source runs, its effect reads the live classes, so they have to be on the element
-		if (manager.hasInitialized) updateElement(manager);
+		if (manager.hasInitialized) scheduleUpdate(manager);
 		else nativeWrite();
 	};
+	// A source class is on the element without being wanted, so check both like the native methods do
+	const has = (token: string) => wanted.has(token) || list.contains(token);
 
 	list.add = (...tokens: string[]) =>
 		write(
@@ -339,17 +350,38 @@ function trackClassList(manager: ElementClassManager): void {
 			() => native.remove.apply(list, tokens),
 		);
 	list.toggle = (token: string, force?: boolean) => {
-		const on = force ?? !wanted.has(token);
+		const on = force ?? !has(token);
 		if (on) list.add(token);
 		else list.remove(token);
 		return on;
 	};
 	list.replace = (oldToken: string, newToken: string) => {
-		if (!wanted.has(oldToken)) return false;
+		if (!has(oldToken)) return false;
 		list.remove(oldToken);
 		list.add(newToken);
 		return true;
 	};
+}
+
+/**
+ * Angular writes each class binding separately, so merging per write would run the merge once per binding.
+ * One merge per element per tick still lands before paint, and keeps a throwing merge out of Angular's renderer.
+ */
+function scheduleUpdate(manager: ElementClassManager): void {
+	if (manager.updateQueued) return;
+	manager.updateQueued = true;
+
+	queueMicrotask(() => {
+		// A source update or cleanup in between already handled it
+		if (!manager.updateQueued || elementClassManagers.get(manager.element) !== manager) return;
+
+		try {
+			updateElement(manager);
+		} catch (error) {
+			if (!manager.errorHandler) throw error;
+			manager.errorHandler.handleError(error);
+		}
+	});
 }
 
 function untrackClassList(element: HTMLElement): void {

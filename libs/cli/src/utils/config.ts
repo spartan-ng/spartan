@@ -82,6 +82,12 @@ export async function getImportAlias(tree: Tree, isAngularCli: boolean): Promise
 	return config.importAlias;
 }
 
+// The folder the helm libraries are generated into (no prompt; the default for a project without components.json).
+export function getComponentsPath(tree: Tree): string {
+	if (!tree.exists(configPath)) return 'libs/ui';
+	return readJson(tree, configPath).componentsPath ?? 'libs/ui';
+}
+
 // Add the default "style" to components.json when it is missing.
 export async function backfillStyleInComponentsJson(tree: Tree): Promise<void> {
 	if (!tree.exists(configPath)) return;

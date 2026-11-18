@@ -361,7 +361,7 @@ import { Directive, input, signal } from '@angular/core';
 import { BrnButton } from '@spartan-ng/brain/button';
 import { classes } from '@spartan-ng/helm/utils';
 import { cva, type VariantProps } from 'class-variance-authority';
-import type { ClassValue } from 'clsx';
+import type { ClassValue } from 'cn';
 import { injectBrnButtonConfig } from './hlm-button.token';
 
 export const buttonVariants = cva(
@@ -434,7 +434,7 @@ export class HlmButton {
 				import { BrnButton } from '@spartan-ng/brain/button';
 				import { classes } from '@spartan-ng/helm/utils';
 				import { cva, type VariantProps } from 'class-variance-authority';
-				import type { ClassValue } from 'clsx';
+				import type { ClassValue } from 'cn';
 				import { injectBrnButtonConfig } from './hlm-button.token';
 
 				export const buttonVariants = cva(

@@ -15,6 +15,7 @@ import { provideHlmSidebarConfig } from './hlm-sidebar.token';
 		<div data-testid="shadow-host"></div>
 		<div contenteditable="true" aria-label="Rich editor">
 			<svg data-testid="svg-in-editor" width="10" height="10"><circle cx="5" cy="5" r="4" /></svg>
+			<input type="checkbox" aria-label="Task in editor" />
 			<span contenteditable="false">
 				<svg data-testid="svg-in-locked-island" width="10" height="10"><circle cx="5" cy="5" r="4" /></svg>
 			</span>
@@ -131,6 +132,14 @@ describe('HlmSidebarService keyboard shortcut', () => {
 	it('toggles the sidebar from an svg inside a non-editable island within an editor', () => {
 		const before = isExpanded();
 		const event = pressShortcut(screen.getByTestId('svg-in-locked-island'));
+
+		expect(isExpanded()).toBe(!before);
+		expect(event.defaultPrevented).toBe(true);
+	});
+
+	it('toggles the sidebar from a checkbox that sits inside an editor', () => {
+		const before = isExpanded();
+		const event = pressShortcut(screen.getByLabelText('Task in editor'));
 
 		expect(isExpanded()).toBe(!before);
 		expect(event.defaultPrevented).toBe(true);

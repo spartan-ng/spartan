@@ -169,8 +169,9 @@ function nearestHtmlElement(target: EventTarget | null): HTMLElement | null {
 function isEditableTarget(target: EventTarget | null): boolean {
 	const element = nearestHtmlElement(target);
 	if (!element) return false;
+	// inputs first: a checkbox inside an editor reports isContentEditable, but takes no text
+	if (element.tagName === 'INPUT') return !NON_TEXT_INPUT_TYPES.has((element as HTMLInputElement).type);
 	// isContentEditable also respects a contenteditable="false" boundary inside an editor
 	if (element.isContentEditable) return true;
-	if (element.tagName === 'INPUT') return !NON_TEXT_INPUT_TYPES.has((element as HTMLInputElement).type);
 	return element.tagName === 'TEXTAREA' || element.tagName === 'SELECT';
 }

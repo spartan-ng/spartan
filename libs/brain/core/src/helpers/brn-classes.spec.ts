@@ -10,6 +10,7 @@ import {
 	EnvironmentInjector,
 	ErrorHandler,
 	Injector,
+	input,
 	provideZoneChangeDetection,
 	runInInjectionContext,
 	signal,
@@ -824,5 +825,45 @@ describe('brnClasses', () => {
 
 			expect(sorted(element)).toEqual(['bg-red-500', 'inline-flex']);
 		});
+
+		it('should not track a token the native classList rejects', async () => {
+			track();
+
+			expect(() => element.classList.add('p-2 p-4')).toThrow();
+			element.classList.add('m-2');
+			await settle();
+
+			expect(sorted(element)).toEqual(['inline-flex', 'm-2']);
+		});
+	});
+
+	it('should keep a static class that a source also produces once the source changes', async () => {
+		@Directive({ selector: '[brnDisplay]' })
+		class Display {
+			public readonly block = input(false);
+
+			constructor() {
+				classes(() => (this.block() ? 'block' : 'inline-flex'));
+			}
+		}
+
+		@Component({
+			imports: [Display],
+			changeDetection: ChangeDetectionStrategy.OnPush,
+			template: `
+				<span brnDisplay [block]="block()" class="inline-flex"></span>
+			`,
+		})
+		class Host {
+			public readonly block = signal(false);
+		}
+
+		const fixture = TestBed.createComponent(Host);
+		fixture.autoDetectChanges();
+		await fixture.whenStable();
+		fixture.componentInstance.block.set(true);
+		await fixture.whenStable();
+
+		expect(fixture.nativeElement.querySelector('span').className).toBe('inline-flex');
 	});
 });

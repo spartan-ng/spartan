@@ -174,7 +174,7 @@
 		"ng-packagr": "21.2.5",
 		"nx": "22.7.5",
 		"picocolors": "^1.1.1",
-		"playwright": "^1.47.2",
+		"playwright": "^1.65.1",
 		"postcss": "^8.5.13",
 		"postcss-import": "~16.1.0",
 		"postcss-preset-env": "~10.0.5",

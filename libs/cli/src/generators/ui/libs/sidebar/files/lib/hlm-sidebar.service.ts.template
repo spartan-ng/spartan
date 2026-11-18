@@ -157,9 +157,19 @@ const NON_TEXT_INPUT_TYPES = new Set([
 	'submit',
 ]);
 
+/** The element itself, or its nearest HTML ancestor for e.g. an svg, which has no `isContentEditable`. */
+function nearestHtmlElement(target: EventTarget | null): HTMLElement | null {
+	let element = target as Element | null;
+	while (element && typeof (element as HTMLElement).isContentEditable !== 'boolean') {
+		element = element.parentElement;
+	}
+	return element as HTMLElement | null;
+}
+
 function isEditableTarget(target: EventTarget | null): boolean {
-	const element = target as HTMLElement | null;
-	if (!element || typeof element.tagName !== 'string') return false;
+	const element = nearestHtmlElement(target);
+	if (!element) return false;
+	// isContentEditable also respects a contenteditable="false" boundary inside an editor
 	if (element.isContentEditable) return true;
 	if (element.tagName === 'INPUT') return !NON_TEXT_INPUT_TYPES.has((element as HTMLInputElement).type);
 	return element.tagName === 'TEXTAREA' || element.tagName === 'SELECT';

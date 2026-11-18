@@ -12,6 +12,12 @@ import { HlmSidebarService } from './hlm-sidebar.service';
 		<textarea aria-label="Notes"></textarea>
 		<div contenteditable="true" aria-label="Editor" role="textbox"></div>
 		<div data-testid="shadow-host"></div>
+		<div contenteditable="true" aria-label="Rich editor">
+			<svg data-testid="svg-in-editor" width="10" height="10"><circle cx="5" cy="5" r="4" /></svg>
+			<span contenteditable="false">
+				<svg data-testid="svg-in-locked-island" width="10" height="10"><circle cx="5" cy="5" r="4" /></svg>
+			</span>
+		</div>
 		<input type="checkbox" aria-label="Agree" />
 		<input type="radio" aria-label="Choice" />
 		<input type="range" aria-label="Volume" />
@@ -36,12 +42,22 @@ function pressShortcut(target: Element): KeyboardEvent {
 	return event;
 }
 
+const COOKIE_NAME = 'sidebar_state';
+const readCookie = () =>
+	document.cookie
+		.split('; ')
+		.find((cookie) => cookie.startsWith(`${COOKIE_NAME}=`))
+		?.slice(COOKIE_NAME.length + 1);
+
 describe('HlmSidebarService keyboard shortcut', () => {
 	let sidebar: HlmSidebarService;
+	let previousCookie: string | undefined;
 	// the test viewport may be below the mobile breakpoint, where the shortcut toggles the mobile sheet
 	const isExpanded = () => (sidebar.isMobile() ? sidebar.openMobile() : sidebar.open());
 
 	beforeEach(async () => {
+		// setOpen() writes the sidebar cookie; remember it so other suites do not see this one's state
+		previousCookie = readCookie();
 		const { fixture } = await render(SidebarServiceHost);
 		// the shortcut listener is registered after the first render
 		TestBed.tick();
@@ -51,7 +67,10 @@ describe('HlmSidebarService keyboard shortcut', () => {
 		sidebar.setOpenMobile(false);
 	});
 
-	afterEach(() => sidebar.setOpen(true));
+	afterEach(() => {
+		document.cookie =
+			previousCookie === undefined ? `${COOKIE_NAME}=; path=/; max-age=0` : `${COOKIE_NAME}=${previousCookie}; path=/`;
+	});
 
 	it('toggles the sidebar outside of editable elements', () => {
 		const before = isExpanded();
@@ -103,5 +122,21 @@ describe('HlmSidebarService keyboard shortcut', () => {
 
 		expect(isExpanded()).toBe(before);
 		expect(event.defaultPrevented).toBe(false);
+	});
+
+	it('leaves the shortcut to a focusable svg inside an editor', () => {
+		const before = isExpanded();
+		const event = pressShortcut(screen.getByTestId('svg-in-editor'));
+
+		expect(isExpanded()).toBe(before);
+		expect(event.defaultPrevented).toBe(false);
+	});
+
+	it('toggles the sidebar from an svg inside a non-editable island within an editor', () => {
+		const before = isExpanded();
+		const event = pressShortcut(screen.getByTestId('svg-in-locked-island'));
+
+		expect(isExpanded()).toBe(!before);
+		expect(event.defaultPrevented).toBe(true);
 	});
 });

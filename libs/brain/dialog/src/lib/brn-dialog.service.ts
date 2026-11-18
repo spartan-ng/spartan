@@ -10,6 +10,7 @@ import {
 import type { TemplateRef, ViewContainerRef } from '@angular/core';
 import { ElementRef, inject, Injectable, type InjectOptions, Injector, type StaticProvider } from '@angular/core';
 import { filter, takeUntil } from 'rxjs/operators';
+import { nextBrnDialogId } from './brn-dialog-id';
 import type { BrnDialogOptions } from './brn-dialog-options';
 import { BrnDialogRef } from './brn-dialog-ref';
 import { injectBrnDialogDefaultOptions } from './brn-dialog-token';
@@ -40,7 +41,7 @@ export class BrnDialogService {
 		const mergedOptions: BrnDialogOptions = {
 			...this._defaultOptions,
 			...options,
-			id: options?.id ?? `brn-dialog-${dialogId}`,
+			id: options?.id ?? nextBrnDialogId(),
 		};
 
 		if (this._cdkDialog.getDialogById(mergedOptions.id)) {

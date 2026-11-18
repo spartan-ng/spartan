@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, input, model } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { fireEvent, render } from '@testing-library/angular';
 import { BrnToggleGroup } from './brn-toggle-group';
 import { BrnToggleGroupItem } from './brn-toggle-item';
@@ -52,6 +52,20 @@ class BrnToggleGroupNonNullableSpec {
 class BrnToggleGroupDirectiveFormSpec {
 	public readonly value = model<string | string[]>();
 	public readonly type = input('single');
+}
+
+@Component({
+	imports: [BrnToggleGroupItem, BrnToggleGroup, ReactiveFormsModule],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<brn-toggle-group [formControl]="control">
+			<button brnToggleGroupItem value="option-1">Option 1</button>
+			<button brnToggleGroupItem value="option-2">Option 2</button>
+		</brn-toggle-group>
+	`,
+})
+class BrnToggleGroupReactiveFormSpec {
+	public readonly control = new FormControl<string | null>(null);
 }
 
 describe('BrnToggleGroupDirective', () => {
@@ -110,6 +124,25 @@ describe('BrnToggleGroupDirective', () => {
 		expect(buttons[0]).toHaveAttribute('disabled');
 		expect(buttons[1]).toHaveAttribute('disabled');
 		expect(buttons[2]).toHaveAttribute('disabled');
+	});
+
+	it('should disable all toggle buttons when the form control is disabled', async () => {
+		const { getAllByRole, fixture, detectChanges } = await render(BrnToggleGroupReactiveFormSpec);
+		const buttons = getAllByRole('button');
+
+		expect(buttons[0]).not.toHaveAttribute('disabled');
+
+		fixture.componentInstance.control.disable();
+		detectChanges();
+
+		expect(buttons[0]).toHaveAttribute('disabled');
+		expect(buttons[1]).toHaveAttribute('disabled');
+
+		fixture.componentInstance.control.enable();
+		detectChanges();
+
+		expect(buttons[0]).not.toHaveAttribute('disabled');
+		expect(buttons[1]).not.toHaveAttribute('disabled');
 	});
 
 	it('should initially select the button with the provided value (type = single)', async () => {

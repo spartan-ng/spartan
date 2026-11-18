@@ -1,4 +1,4 @@
-import type { AbstractControl, ControlEvent, NgControl } from '@angular/forms';
+import type { AbstractControl, ControlEvent, FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { ErrorStateMatcher } from './error-options';
 import { ReactiveStateTracker } from './reactive-state-tracker';
@@ -19,6 +19,16 @@ function createMockControl(overrides: Partial<AbstractControl> = {}): MockContro
 
 function createMockNgControl(control: MockControl | null = null): NgControl {
 	return { control } as unknown as NgControl;
+}
+
+class SubmittedMatcher extends ErrorStateMatcher {
+	override isInvalid(control: AbstractControl | null, form: FormGroupDirective | NgForm | null): boolean {
+		return !!(control?.invalid && (control.touched || form?.submitted));
+	}
+}
+
+function createMockForm() {
+	return { submitted: false, ngSubmit: new Subject<void>() };
 }
 
 describe('ReactiveStateTracker', () => {
@@ -117,5 +127,34 @@ describe('ReactiveStateTracker', () => {
 		const tracker = new ReactiveStateTracker(ngControl, matcher, null, null);
 
 		expect(tracker.spartanInvalid()).toBe(false);
+	});
+
+	it('should re-run the matcher when the parent form is submitted', () => {
+		const form = createMockForm();
+		const control = createMockControl({ invalid: true, touched: false });
+		const tracker = new ReactiveStateTracker(
+			createMockNgControl(control),
+			new SubmittedMatcher(),
+			null,
+			form as unknown as NgForm,
+		);
+		expect(tracker.spartanInvalid()).toBe(false);
+
+		form.submitted = true;
+		form.ngSubmit.next();
+
+		expect(tracker.spartanInvalid()).toBe(true);
+	});
+
+	it('should stop listening to form submits on destroy', () => {
+		const form = createMockForm();
+		new ReactiveStateTracker(
+			createMockNgControl(createMockControl()),
+			matcher,
+			null,
+			form as unknown as NgForm,
+		).destroy();
+
+		expect(form.ngSubmit.observed).toBe(false);
 	});
 });

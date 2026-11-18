@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { provideErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@spartan-ng/brain/forms';
-import { render } from '@testing-library/angular';
+import { fireEvent, render } from '@testing-library/angular';
 import { HlmInput } from './hlm-input';
 
 @Component({
@@ -52,6 +52,19 @@ class OverrideHost {
 	public readonly control = new FormControl('valid value');
 }
 
+@Component({
+	selector: 'hlm-input-a11y-template-form-host',
+	imports: [HlmInput, FormsModule],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<form>
+			<input hlmInput name="email" ngModel required />
+			<button type="submit">Save</button>
+		</form>
+	`,
+})
+class TemplateFormHost {}
+
 describe('HlmInput accessibility', () => {
 	describe('aria-invalid', () => {
 		it('is not announced for an invalid but untouched field (default matcher)', async () => {
@@ -84,6 +97,20 @@ describe('HlmInput accessibility', () => {
 			control.markAsDirty();
 			fixture.detectChanges();
 			expect(input).toHaveAttribute('aria-invalid', 'true');
+		});
+
+		it('is announced once the template-driven form is submitted', async () => {
+			const { container, fixture } = await render(TemplateFormHost);
+			const input = container.querySelector('input')!;
+			await fixture.whenStable();
+			fixture.detectChanges();
+			expect(input).not.toHaveAttribute('aria-invalid');
+
+			fireEvent.submit(container.querySelector('form')!);
+			fixture.detectChanges();
+
+			expect(input).toHaveAttribute('aria-invalid', 'true');
+			expect(input).toHaveAttribute('data-matches-spartan-invalid', 'true');
 		});
 
 		it('is set when the field is forced invalid', async () => {

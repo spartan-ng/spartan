@@ -8,6 +8,7 @@ import { controlStateEqual, type StateTracker } from './state-tracker';
 export class ReactiveStateTracker implements StateTracker {
 	private readonly _stateVersion = signal(0);
 	private readonly _eventsSubscription?: Subscription;
+	private readonly _submitSubscription?: Subscription;
 
 	public readonly controlState = computed<ControlState | null>(
 		() => {
@@ -51,9 +52,15 @@ export class ReactiveStateTracker implements StateTracker {
 				this._stateVersion.update((v) => v + 1);
 			});
 		}
+		// Submitting the parent form emits no event on the child control, but the
+		// matcher may depend on `submitted`, so re-run it when the form is submitted.
+		this._submitSubscription = this._controlParent?.ngSubmit?.subscribe(() => {
+			this._stateVersion.update((v) => v + 1);
+		});
 	}
 
 	public destroy(): void {
 		this._eventsSubscription?.unsubscribe();
+		this._submitSubscription?.unsubscribe();
 	}
 }

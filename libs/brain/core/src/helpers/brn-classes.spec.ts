@@ -605,6 +605,48 @@ describe('brnClasses', () => {
 		expect(checks).toBeLessThan(10);
 	});
 
+	it('should not run an extra zone change detection pass for a batched merge', async () => {
+		@Directive({ selector: '[brnTestClasses]' })
+		class TestClassesDirective {
+			constructor() {
+				classes(() => 'inline-flex');
+			}
+		}
+
+		let checks = 0;
+
+		@Component({
+			imports: [TestClassesDirective],
+			// counts every pass the zone triggers
+			// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
+			changeDetection: ChangeDetectionStrategy.Eager,
+			template: `
+				<button brnTestClasses [class.on]="on" (click)="on = !on">toggle</button>
+			`,
+		})
+		class TestComponent implements DoCheck {
+			public on = false;
+
+			ngDoCheck() {
+				checks++;
+			}
+		}
+
+		TestBed.configureTestingModule({ providers: [provideZoneChangeDetection()] });
+		const fixture = TestBed.createComponent(TestComponent);
+		fixture.autoDetectChanges();
+		await fixture.whenStable();
+		await new Promise((resolve) => setTimeout(resolve, 0));
+
+		checks = 0;
+		fixture.nativeElement.querySelector('button').click();
+		await fixture.whenStable();
+		await new Promise((resolve) => setTimeout(resolve, 0));
+
+		expect(fixture.nativeElement.querySelector('button').className).toBe('inline-flex on');
+		expect(checks).toBe(1);
+	});
+
 	it('should merge once when several class bindings change in the same pass', async () => {
 		let merges = 0;
 		const merge = (...inputs: ClassValue[]) => (merges++, cn(...inputs));

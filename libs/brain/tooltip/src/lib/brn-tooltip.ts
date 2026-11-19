@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
 	ConnectedPosition,
 	FlexibleConnectedPositionStrategy,
@@ -170,6 +171,7 @@ export class BrnTooltip {
 		this._listenersRefs = [
 			...this._listenersRefs,
 			this._renderer.listen(overlayRef.hostElement, 'pointerenter', (event: PointerEvent) => {
+				(globalThis as any).__tt?.push(`${performance.now().toFixed(0)} host enter trusted=${event.isTrusted}`);
 				if (this._isHoverPointer(event)) this._tooltipHovered = true;
 			}),
 			this._renderer.listen(overlayRef.hostElement, 'pointerleave', (event: PointerEvent) => {
@@ -281,12 +283,17 @@ export class BrnTooltip {
 		this._listenersRefs = [
 			...this._listenersRefs,
 			this._renderer.listen(this._elementRef.nativeElement, 'pointerenter', (event: PointerEvent) => {
+				(globalThis as any).__tt?.push(`${performance.now().toFixed(0)} trigger enter trusted=${event.isTrusted}`);
 				if (this._isHoverPointer(event)) this._requestShow();
 			}),
 			this._renderer.listen(this._elementRef.nativeElement, 'pointerleave', (event: PointerEvent) => {
 				if (this._isHoverPointer(event)) this.delay(false, this.hideDelay());
 			}),
-			this._renderer.listen(this._elementRef.nativeElement, 'focus', () => this._requestShow()),
+			this._renderer.listen(
+				this._elementRef.nativeElement,
+				'focus',
+				() => ((globalThis as any).__tt?.push(`${performance.now().toFixed(0)} focus`), this._requestShow()),
+			),
 			this._renderer.listen(this._elementRef.nativeElement, 'blur', () => this.delay(false, this.hideDelay())),
 		];
 	}
@@ -305,7 +312,11 @@ export class BrnTooltip {
 	private _initScrollListener(): void {
 		this._listenersRefs = [
 			...this._listenersRefs,
-			this._renderer.listen(this._document.defaultView, 'scroll', () => this._hide()),
+			this._renderer.listen(
+				this._document.defaultView,
+				'scroll',
+				() => ((globalThis as any).__tt?.push(`${performance.now().toFixed(0)} scroll`), this._hide()),
+			),
 		];
 	}
 
@@ -317,6 +328,7 @@ export class BrnTooltip {
 	}
 
 	private delay(isShow: boolean, delay = -1, instant = false): void {
+		(globalThis as any).__tt?.push(`${performance.now().toFixed(0)} delay show=${isShow} d=${delay}`);
 		this._delaySubject?.next({ isShow, delay, instant });
 	}
 
@@ -330,6 +342,7 @@ export class BrnTooltip {
 				takeUntilDestroyed(this._destroyRef),
 			)
 			.subscribe((config) => {
+				(globalThis as any).__tt?.push(`${performance.now().toFixed(0)} fire show=${config.isShow}`);
 				if (config.isShow) {
 					this._show(config.instant);
 				} else {
@@ -339,6 +352,7 @@ export class BrnTooltip {
 	}
 
 	private _show(instant = false): void {
+		(globalThis as any).__tt?.push(`${performance.now().toFixed(0)} _show`);
 		if (!this._tooltipText() || this.mutableTooltipDisabled()) {
 			return;
 		}
@@ -425,6 +439,9 @@ export class BrnTooltip {
 	}
 
 	private _hide(): void {
+		(globalThis as any).__tt?.push(
+			`${performance.now().toFixed(0)} _hide ref=${!!this._componentRef} hovered=${this._tooltipHovered} state=${this._componentRef?.instance.state()}`,
+		);
 		if (!this._componentRef || this._tooltipHovered) return;
 		// Already closing (exit animation in flight): nothing to do.
 		if (this._componentRef.instance.state() === 'closed') return;
@@ -443,7 +460,13 @@ export class BrnTooltip {
 		const content = componentRef.location.nativeElement as HTMLElement;
 		afterNextRender(
 			() => {
+				(globalThis as any).__tt?.push(
+					`${performance.now().toFixed(0)} afterNextRender anims=${content.getAnimations?.().length}`,
+				);
 				void waitForElementAnimations(content).then(() => {
+					(globalThis as any).__tt?.push(
+						`${performance.now().toFixed(0)} anims done gen=${generation}/${this._closeGeneration}`,
+					);
 					if (generation === this._closeGeneration) this._detach();
 				});
 			},
@@ -452,6 +475,7 @@ export class BrnTooltip {
 	}
 
 	private _detach(): void {
+		(globalThis as any).__tt?.push(`${performance.now().toFixed(0)} _detach`);
 		// The content may be removed while hovered, which fires no pointerleave.
 		this._tooltipHovered = false;
 		this._clearAriaDescribedBy();

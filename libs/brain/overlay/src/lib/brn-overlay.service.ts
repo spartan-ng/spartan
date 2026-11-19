@@ -249,7 +249,7 @@ export class BrnOverlayService {
 			overlayRef.outsidePointerEvents().pipe(map((event) => ({ event, reason: 'outside' as const }))),
 			overlayRef.backdropClick().pipe(map((event) => ({ event, reason: 'backdrop' as const }))),
 			overlayRef.keydownEvents().pipe(
-				filter((event) => event.key === 'Escape'),
+				filter((event) => event.key === 'Escape' && !event.defaultPrevented),
 				map((event) => ({ event, reason: 'escape' as const })),
 			),
 		)

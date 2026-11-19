@@ -120,11 +120,41 @@ describe('Toaster', () => {
 		for (const listItem of listItems) {
 			expect(listItem.tagName).toBe('LI');
 			expect(listItem).toHaveAttribute('data-sonner-toast');
-			// `role="status"` is not allowed on `li`; the toast is a live region via aria-live.
+			// `role="status"` is not allowed on `li`; regular toasts are announced by the toaster's live region.
 			expect(listItem).not.toHaveAttribute('role');
-			expect(listItem).toHaveAttribute('aria-live', 'polite');
+			expect(listItem).not.toHaveAttribute('aria-live');
+			// updates re-read the whole toast, not only the changed node
 			expect(listItem).toHaveAttribute('aria-atomic', 'true');
 		}
+	});
+
+	it('should render the polite live region before the first toast', async () => {
+		const { user, trigger, container } = await setup({
+			callback: (toast) => toast('Hello world'),
+		});
+
+		const region = container.querySelector('section');
+		expect(region).toHaveAttribute('aria-live', 'polite');
+		expect(region).toHaveAttribute('aria-atomic', 'false');
+		expect(container.querySelector('[data-sonner-toast]')).toBeNull();
+
+		await user.click(trigger);
+
+		// the toast is added to the existing region instead of arriving together with it
+		expect(container.querySelector('section')).toBe(region);
+		expect(region?.querySelector('[data-sonner-toast]')).not.toBeNull();
+	});
+
+	it('should announce important toasts assertively', async () => {
+		const { user, trigger, container } = await setup({
+			callback: (toast) => toast.error('Payment failed', { important: true }),
+		});
+
+		await user.click(trigger);
+
+		const listItem = container.querySelector('[data-sonner-toast]');
+		expect(listItem).toHaveAttribute('aria-live', 'assertive');
+		expect(listItem).toHaveAttribute('aria-atomic', 'true');
 	});
 
 	it('should not have accessibility violations', async () => {

@@ -1,10 +1,14 @@
-import { computed } from '@angular/core';
+import { computed, signal } from '@angular/core';
 import type { AbstractControl, FormGroupDirective, NgControl, NgForm } from '@angular/forms';
+import type { Subscription } from 'rxjs';
 import type { ControlState } from './control-state';
 import type { ErrorStateMatcher } from './error-options';
+import { onParentFormSubmitOrReset } from './parent-form-events';
 import { controlStateEqual, type StateTracker } from './state-tracker';
 
 export class SignalStateTracker implements StateTracker {
+	private readonly _submitVersion = signal(0);
+	private readonly _submitSubscription?: Subscription;
 	private readonly _control = computed(() => {
 		const control = this._ngControl.control as AbstractControl | null | undefined;
 		if (!control) return null;
@@ -23,6 +27,8 @@ export class SignalStateTracker implements StateTracker {
 		if (!control) {
 			return null;
 		}
+		// `submitted` on NgForm / FormGroupDirective is read untracked, so depend on submit / reset explicitly.
+		this._submitVersion();
 		return this._matcher?.isInvalid(control, this._controlParent) ?? false;
 	});
 
@@ -48,9 +54,13 @@ export class SignalStateTracker implements StateTracker {
 		private readonly _matcher: ErrorStateMatcher | null,
 		private readonly _parentFormGroup: FormGroupDirective | null,
 		private readonly _parentForm: NgForm | null,
-	) {}
+	) {
+		this._submitSubscription = onParentFormSubmitOrReset(this._controlParent, () =>
+			this._submitVersion.update((v) => v + 1),
+		);
+	}
 
 	public destroy(): void {
-		// No subscriptions to clean up for signal-based controls
+		this._submitSubscription?.unsubscribe();
 	}
 }

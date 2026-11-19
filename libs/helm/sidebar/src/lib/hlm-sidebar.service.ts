@@ -56,7 +56,11 @@ export class HlmSidebarService {
 
 			// Add keyboard shortcut listener
 			const keydownHandler = (event: KeyboardEvent) => {
-				if (event.key === this._config.sidebarKeyboardShortcut && (event.ctrlKey || event.metaKey)) {
+				if (
+					event.key === this._config.sidebarKeyboardShortcut &&
+					(event.ctrlKey || event.metaKey) &&
+					!isEditableTarget(originalTarget(event))
+				) {
 					event.preventDefault();
 					this.toggleSidebar();
 				}
@@ -128,4 +132,46 @@ export class HlmSidebarService {
 			this._open.set(cookieValue === 'true');
 		}
 	}
+}
+
+/**
+ * Text fields and rich text editors own their keyboard shortcuts (e.g. bold, or moving the caret
+ * with Ctrl+B on macOS), so the sidebar shortcut must not toggle the sidebar or prevent them there.
+ */
+/** The element the event started on, also when it comes from inside an open shadow root. */
+function originalTarget(event: Event): EventTarget | null {
+	return event.composedPath?.()[0] ?? event.target;
+}
+
+/** Input types that do not take text, so they have no use for Ctrl/Cmd+B. */
+const NON_TEXT_INPUT_TYPES = new Set([
+	'button',
+	'checkbox',
+	'color',
+	'file',
+	'hidden',
+	'image',
+	'radio',
+	'range',
+	'reset',
+	'submit',
+]);
+
+/** The element itself, or its nearest HTML ancestor for e.g. an svg, which has no `isContentEditable`. */
+function nearestHtmlElement(target: EventTarget | null): HTMLElement | null {
+	let element = target as Element | null;
+	while (element && typeof (element as HTMLElement).isContentEditable !== 'boolean') {
+		element = element.parentElement;
+	}
+	return element as HTMLElement | null;
+}
+
+function isEditableTarget(target: EventTarget | null): boolean {
+	const element = nearestHtmlElement(target);
+	if (!element) return false;
+	// inputs first: a checkbox inside an editor reports isContentEditable, but takes no text
+	if (element.tagName === 'INPUT') return !NON_TEXT_INPUT_TYPES.has((element as HTMLInputElement).type);
+	// isContentEditable also respects a contenteditable="false" boundary inside an editor
+	if (element.isContentEditable) return true;
+	return element.tagName === 'TEXTAREA' || element.tagName === 'SELECT';
 }

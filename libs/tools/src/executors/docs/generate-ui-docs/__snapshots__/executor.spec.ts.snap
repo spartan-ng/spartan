@@ -3961,6 +3961,26 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "type": "boolean",
           },
           {
+            "name": "aria-label",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "name": "aria-labelledby",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "name": "aria-describedby",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "name": "aria-invalid",
+            "required": false,
+            "type": "boolean | undefined",
+          },
+          {
             "name": "clearAriaLabel",
             "required": false,
             "type": "string",
@@ -4019,6 +4039,26 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "name": "forceInvalid",
             "required": false,
             "type": "boolean",
+          },
+          {
+            "name": "aria-label",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "name": "aria-labelledby",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "name": "aria-describedby",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "name": "aria-invalid",
+            "required": false,
+            "type": "boolean | undefined",
           },
           {
             "name": "clearAriaLabel",
@@ -4153,6 +4193,26 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "name": "forceInvalid",
             "required": false,
             "type": "boolean",
+          },
+          {
+            "name": "aria-label",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "name": "aria-labelledby",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "name": "aria-describedby",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "name": "aria-invalid",
+            "required": false,
+            "type": "boolean | undefined",
           },
           {
             "name": "clearAriaLabel",
@@ -4314,6 +4374,26 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "type": "boolean",
           },
           {
+            "name": "aria-label",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "name": "aria-labelledby",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "name": "aria-describedby",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "name": "aria-invalid",
+            "required": false,
+            "type": "boolean | undefined",
+          },
+          {
             "name": "clearAriaLabel",
             "required": false,
             "type": "string",
@@ -4428,6 +4508,26 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "name": "forceInvalid",
             "required": false,
             "type": "boolean",
+          },
+          {
+            "name": "aria-label",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "name": "aria-labelledby",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "name": "aria-describedby",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "name": "aria-invalid",
+            "required": false,
+            "type": "boolean | undefined",
           },
           {
             "name": "clearAriaLabel",
@@ -5833,6 +5933,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "required": false,
             "type": "boolean",
           },
+          {
+            "name": "aria-invalid",
+            "required": false,
+            "type": "boolean | undefined",
+          },
         ],
         "models": [],
         "outputs": [],
@@ -5852,6 +5957,16 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "name": "forceInvalid",
             "required": false,
             "type": "boolean",
+          },
+          {
+            "name": "aria-invalid",
+            "required": false,
+            "type": "boolean | undefined",
+          },
+          {
+            "name": "aria-describedby",
+            "required": false,
+            "type": "string | null",
           },
         ],
         "models": [],
@@ -8450,6 +8565,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "required": false,
             "type": "boolean",
           },
+          {
+            "name": "aria-invalid",
+            "required": false,
+            "type": "boolean | undefined",
+          },
         ],
         "models": [],
         "outputs": [
@@ -8546,6 +8666,16 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "name": "required",
             "required": false,
             "type": "boolean",
+          },
+          {
+            "name": "aria-invalid",
+            "required": false,
+            "type": "boolean | undefined",
+          },
+          {
+            "name": "aria-describedby",
+            "required": false,
+            "type": "string | null",
           },
         ],
         "models": [],
@@ -11046,6 +11176,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "required": false,
             "type": "boolean",
           },
+          {
+            "name": "aria-invalid",
+            "required": false,
+            "type": "boolean | undefined",
+          },
         ],
         "models": [],
         "outputs": [],
@@ -11065,6 +11200,16 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "name": "forceInvalid",
             "required": false,
             "type": "boolean",
+          },
+          {
+            "name": "aria-invalid",
+            "required": false,
+            "type": "boolean | undefined",
+          },
+          {
+            "name": "aria-describedby",
+            "required": false,
+            "type": "string | null",
           },
         ],
         "models": [],

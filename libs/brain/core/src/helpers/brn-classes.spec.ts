@@ -424,6 +424,8 @@ describe('brnClasses', () => {
 		element.className = 'bg-blue-500';
 
 		const elementRef = new ElementRef(element);
+		// All restores share one frame: let the one an earlier test scheduled run before mocking it
+		await new Promise((resolve) => requestAnimationFrame(resolve));
 		const rafSpy = vi.spyOn(window, 'requestAnimationFrame');
 		let restoreTransition: FrameRequestCallback | undefined;
 

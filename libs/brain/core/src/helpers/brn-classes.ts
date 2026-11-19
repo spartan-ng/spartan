@@ -28,19 +28,30 @@ const elementClassManagers = new WeakMap<HTMLElement, ElementClassManager>();
 // Global mutation observer for all elements
 let globalObserver: MutationObserver | null = null;
 const observedElements = new Set<HTMLElement>();
+// Managers whose suppressed transitions are restored in the next frame, all in one callback
+const pendingTransitionRestores = new Set<ElementClassManager>();
+let transitionRestoreRafId: number | null = null;
+
+interface ClassSource {
+	classes: readonly string[];
+	order: number;
+}
 
 interface ElementClassManager {
 	element: HTMLElement;
 	/** The merge function of the first source registered on this element */
 	merge: BrnClassMerge;
-	sources: Map<number, { classes: Set<string>; order: number }>;
+	sources: Map<number, ClassSource>;
+	/** The sources by registration order, reset when a source is added or removed */
+	sortedSources: ClassSource[] | null;
 	baseClasses: Set<string>;
 	isUpdating: boolean;
 	nextOrder: number;
 	hasInitialized: boolean;
 	/** The class list this manager last wrote, to tell external class changes apart from its own. */
 	appliedClasses: Set<string> | null;
-	restoreRafId: number | null;
+	/** The `className` the element had after the last update, unchanged means no external class changes */
+	appliedClassName: string | null;
 	/** Transitions are suppressed until the first effect writes correct classes */
 	transitionsSuppressed: boolean;
 	/** Original inline transition value to restore after suppression (empty string = none was set) */
@@ -89,12 +100,13 @@ export function brnClasses(computed: () => BrnClassValue[] | string, options: Br
 				element,
 				merge: options.merge,
 				sources: new Map(),
+				sortedSources: null,
 				baseClasses: initialBaseClasses,
 				isUpdating: false,
 				nextOrder: 0,
 				hasInitialized: false,
 				appliedClasses: null,
-				restoreRafId: null,
+				appliedClassName: null,
 				transitionsSuppressed: false,
 				previousTransition: '',
 				previousTransitionPriority: '',
@@ -126,10 +138,13 @@ export function brnClasses(computed: () => BrnClassValue[] | string, options: Br
 			const newClasses = toClassList(typeof value === 'string' ? value : options.merge(value));
 
 			// Update this source's classes, keeping the original order
-			manager!.sources.set(sourceId, {
-				classes: new Set(newClasses),
-				order: sourceOrder,
-			});
+			const source = manager!.sources.get(sourceId);
+			if (source) {
+				source.classes = newClasses;
+			} else {
+				manager!.sources.set(sourceId, { classes: newClasses, order: sourceOrder });
+				manager!.sortedSources = null;
+			}
 
 			// Update the element
 			updateElement(manager!);
@@ -139,18 +154,14 @@ export function brnClasses(computed: () => BrnClassValue[] | string, options: Br
 			// with transitions disabled first, then re-enables them.
 			if (manager!.transitionsSuppressed) {
 				manager!.transitionsSuppressed = false;
-				manager!.restoreRafId = requestAnimationFrame(() => {
-					manager!.restoreRafId = null;
-					restoreTransitionSuppression(manager!);
-				});
+				scheduleTransitionRestore(manager!);
 			}
 		}
 
 		// Register cleanup with DestroyRef
 		destroyRef.onDestroy(() => {
-			if (manager!.restoreRafId !== null) {
-				cancelAnimationFrame(manager!.restoreRafId);
-				manager!.restoreRafId = null;
+			if (pendingTransitionRestores.delete(manager!)) {
+				restoreTransitionSuppression(manager!);
 			}
 
 			if (manager!.transitionsSuppressed) {
@@ -160,6 +171,7 @@ export function brnClasses(computed: () => BrnClassValue[] | string, options: Br
 
 			// Remove this source from the manager
 			manager!.sources.delete(sourceId);
+			manager!.sortedSources = null;
 
 			// If no more sources, clean up the manager
 			if (manager!.sources.size === 0) {
@@ -176,6 +188,17 @@ export function brnClasses(computed: () => BrnClassValue[] | string, options: Br
 		 * effect which works in both browser and SSR.
 		 */
 		effect(updateClasses);
+	});
+}
+
+function scheduleTransitionRestore(manager: ElementClassManager): void {
+	pendingTransitionRestores.add(manager);
+	transitionRestoreRafId ??= requestAnimationFrame(() => {
+		transitionRestoreRafId = null;
+		for (const pending of pendingTransitionRestores) {
+			restoreTransitionSuppression(pending);
+		}
+		pendingTransitionRestores.clear();
 	});
 }
 
@@ -201,7 +224,9 @@ function setupGlobalObserver(platformId: Object): void {
 					// Only process elements we're managing
 					if (manager && observedElements.has(element)) {
 						// Ignore our own writes, and wait for the first source: its effect captures the live classes
-						if (manager.isUpdating || !manager.hasInitialized) continue;
+						if (manager.isUpdating || !manager.hasInitialized || element.className === manager.appliedClassName) {
+							continue;
+						}
 
 						updateElement(manager);
 					}
@@ -259,17 +284,17 @@ function applyClasses(manager: ElementClassManager): void {
 		});
 
 		manager.hasInitialized = true;
-	} else if (manager.appliedClasses) {
+	} else if (manager.appliedClasses && manager.element.className !== manager.appliedClassName) {
 		// Reconcile with the live element instead of waiting for the mutation observer: a class binding
 		// that changed in the same tick as a source would otherwise be overwritten with stale base classes.
 		syncBaseClasses(manager);
 	}
 
 	// Get classes from all sources, sorted by registration order (later takes precedence)
-	const sortedSources = Array.from(manager.sources.entries()).sort(([, a], [, b]) => a.order - b.order);
+	manager.sortedSources ??= Array.from(manager.sources.values()).sort((a, b) => a.order - b.order);
 
 	const allSourceClasses: string[] = [];
-	for (const [, source] of sortedSources) {
+	for (const source of manager.sortedSources) {
 		allSourceClasses.push(...source.classes);
 	}
 
@@ -289,6 +314,7 @@ function applyClasses(manager: ElementClassManager): void {
 		manager.element.className = classesToApply;
 	}
 	manager.appliedClasses = applied;
+	manager.appliedClassName = classesToApply;
 }
 
 function syncBaseClasses(manager: ElementClassManager): void {
@@ -331,10 +357,12 @@ function toClassList(className: string): string[] {
 
 	const result = cssClassesToArray(className);
 
-	// Cache results, but limit cache size to prevent memory growth
-	if (classListCache.size < 1000) {
-		classListCache.set(className, result);
+	// Cache results, but limit cache size to prevent memory growth: start over once it is full, so the
+	// class strings in use now are cached rather than the first ones ever seen
+	if (classListCache.size >= 1000) {
+		classListCache.clear();
 	}
+	classListCache.set(className, result);
 
 	return result;
 }

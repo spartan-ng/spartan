@@ -63,7 +63,13 @@ export class BrnOverlayRef<OverlayResult = unknown> {
 		);
 	}
 
-	public dismiss(reason: BrnOverlayDismissReason, target?: EventTarget | null): boolean {
+	/**
+	 * Dismisses the overlay for a user interaction. Pass the triggering `Event` so `closePredicate`
+	 * can inspect it; passing only its target (the legacy form) skips the predicate.
+	 */
+	public dismiss(reason: BrnOverlayDismissReason, targetOrEvent?: EventTarget | Event | null): boolean {
+		const event = targetOrEvent instanceof Event ? targetOrEvent : undefined;
+		const target = targetOrEvent instanceof Event ? targetOrEvent.target : targetOrEvent;
 		const options = this.initialOptions;
 		if (!this.open || options.disableClose) return false;
 		if (reason === 'outside') {
@@ -72,6 +78,7 @@ export class BrnOverlayRef<OverlayResult = unknown> {
 			// Treat them as inside the widget and let the trigger's own handler toggle instead - this
 			// avoids a close/re-open race that flickers the open/close animation.
 			if (this._isWithinOrigin(target)) return false;
+			if (event && !(options.closePredicate?.(event) ?? true)) return false;
 		}
 
 		this.close();

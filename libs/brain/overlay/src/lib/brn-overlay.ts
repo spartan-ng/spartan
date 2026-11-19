@@ -86,6 +86,7 @@ export class BrnOverlay<TResult = unknown, TContext extends Record<string, unkno
 		this._defaultOptions.closeOnOutsidePointerEvents,
 		{ transform: booleanAttribute },
 	);
+	public readonly closePredicate = input<BrnOverlayOptions['closePredicate']>(this._defaultOptions.closePredicate);
 
 	public readonly attachTo = input<BrnOverlayOptions['attachTo']>(this._defaultOptions.attachTo);
 	public readonly attachPositions = input<BrnOverlayOptions['attachPositions']>(this._defaultOptions.attachPositions);
@@ -105,6 +106,7 @@ export class BrnOverlay<TResult = unknown, TContext extends Record<string, unkno
 		positionStrategy: this.getPositionStrategy(),
 		scrollStrategy: this.getScrollStrategy(),
 		closeOnOutsidePointerEvents: this.closeOnOutsidePointerEvents(),
+		closePredicate: this.closePredicate(),
 		attachTo: this.getAttachTo(),
 		attachPositions: this.getAttachPositions(),
 		disableClose: this.disableClose(),

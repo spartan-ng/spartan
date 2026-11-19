@@ -835,6 +835,35 @@ describe('brnClasses', () => {
 
 			expect(sorted(element)).toEqual(['inline-flex', 'm-2']);
 		});
+
+		it('should merge a className write even when the next classList write is rejected', async () => {
+			track();
+
+			element.className = 'm-2';
+			expect(() => element.classList.add('p-2 p-4')).toThrow();
+			await settle();
+
+			expect(sorted(element)).toEqual(['inline-flex', 'm-2']);
+		});
+
+		it('should keep the old class when replace rejects the new token', async () => {
+			track('active');
+
+			expect(() => element.classList.replace('active', 'p-2 p-4')).toThrow();
+			await settle();
+
+			expect(sorted(element)).toEqual(['active', 'inline-flex']);
+		});
+
+		it('should replace a tracked class', async () => {
+			track('active');
+
+			expect(element.classList.replace('active', 'idle')).toBe(true);
+			expect(element.classList.replace('missing', 'other')).toBe(false);
+			await settle();
+
+			expect(sorted(element)).toEqual(['idle', 'inline-flex']);
+		});
 	});
 
 	it('should keep a static class that a source also produces once the source changes', async () => {

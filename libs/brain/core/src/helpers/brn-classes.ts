@@ -224,8 +224,9 @@ function setupGlobalObserver(platformId: Object): void {
 }
 
 function updateElement(manager: ElementClassManager): void {
-	manager.updateQueued = false;
 	adoptOutsideWrite(manager);
+	// After adopting: this merge is the one adopting queued
+	manager.updateQueued = false;
 
 	// Get classes from all sources, sorted by registration order (later takes precedence)
 	const sortedSources = Array.from(manager.sources.entries()).sort(([, a], [, b]) => a.order - b.order);
@@ -271,6 +272,8 @@ function adoptOutsideWrite(manager: ElementClassManager): void {
 		if (!fromSources.has(className)) manager.baseClasses.add(className);
 	}
 	manager.writtenClassName = current;
+	// The observer now sees nothing new, so merge from here even if the write that got us here throws
+	scheduleUpdate(manager);
 }
 
 const trackedMethods = ['add', 'remove', 'toggle', 'replace'] as const;
@@ -283,7 +286,7 @@ const trackedMethods = ['add', 'remove', 'toggle', 'replace'] as const;
 function trackClassList(manager: ElementClassManager): void {
 	const list = manager.element.classList;
 	if (!list) return;
-	const native = { add: list.add, remove: list.remove };
+	const native = { add: list.add, remove: list.remove, replace: list.replace };
 	const wanted = manager.baseClasses;
 
 	// Write to the DOM right away so the classList answers like the native one; only the merge is batched
@@ -314,11 +317,19 @@ function trackClassList(manager: ElementClassManager): void {
 		else remove(token);
 		return on;
 	};
+	// One native call, so both tokens are validated before anything changes
 	const replace = (oldToken: string, newToken: string) => {
-		if (!list.contains(oldToken)) return false;
-		remove(oldToken);
-		add(newToken);
-		return true;
+		let replaced = false;
+		write(
+			() => {
+				if (!replaced) return;
+				wanted.delete(oldToken);
+				wanted.delete(newToken);
+				wanted.add(newToken);
+			},
+			() => (replaced = native.replace.call(list, oldToken, newToken)),
+		);
+		return replaced;
 	};
 
 	// Domino (SSR) declares these read-only on the prototype, so assigning them would throw

@@ -40,6 +40,7 @@ interface ElementClassManager {
 	/** A classList write is waiting for the batched merge */
 	updateQueued: boolean;
 	errorHandler: ErrorHandler | null;
+	zone: NgZone;
 	nextOrder: number;
 	/** The className as brnClasses last left it (null until the first source runs); a difference is an outside write */
 	writtenClassName: string | null;
@@ -95,6 +96,7 @@ export function brnClasses(computed: () => BrnClassValue[] | string, options: Br
 				baseClasses: initialBaseClasses,
 				updateQueued: false,
 				errorHandler: inject(ErrorHandler, { optional: true }),
+				zone: inject(NgZone),
 				nextOrder: 0,
 				writtenClassName: null,
 				restoreRafId: null,
@@ -107,7 +109,7 @@ export function brnClasses(computed: () => BrnClassValue[] | string, options: Br
 
 			// Setup global observer if needed and register this element. Created outside the zone so
 			// class mutations don't trigger app-wide change detection (and loop if CD writes a class).
-			inject(NgZone).runOutsideAngular(() => setupGlobalObserver(platformId));
+			manager.zone.runOutsideAngular(() => setupGlobalObserver(platformId));
 			observedElements.add(element);
 
 			// Suppress transitions until the first effect writes correct classes and
@@ -347,12 +349,16 @@ function scheduleUpdate(manager: ElementClassManager): void {
 	if (manager.updateQueued) return;
 	manager.updateQueued = true;
 
-	queueMicrotask(() => {
-		// A source update or cleanup in between already handled it
-		if (!manager.updateQueued || elementClassManagers.get(manager.element) !== manager) return;
+	// Tracked writes come from the renderer inside the zone; a microtask queued there would make zone.js
+	// fire onMicrotaskEmpty again and run a second change detection pass for every class binding change
+	manager.zone.runOutsideAngular(() =>
+		queueMicrotask(() => {
+			// A source update or cleanup in between already handled it
+			if (!manager.updateQueued || elementClassManagers.get(manager.element) !== manager) return;
 
-		updateElementOutsideAngular(manager);
-	});
+			updateElementOutsideAngular(manager);
+		}),
+	);
 }
 
 /** For batched updates (tracked writes and the observer), where nothing in Angular would catch a throwing merge */

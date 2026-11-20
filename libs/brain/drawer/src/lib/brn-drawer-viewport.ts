@@ -599,7 +599,9 @@ export class BrnDrawerViewport {
 			// gesture that never started); recomputing from them would re-apply drag progress.
 			const snapPointProgress = this._snapPointProgress();
 			if (swiping && details && Number.isFinite(details.deltaY)) {
-				resolvedProgress = offsetToProgress(clamp(baseOffset + details.deltaY, 0, popupHeight));
+				// Toward dismissal is positive, as in the release: an upward drag closes an `up` drawer.
+				const dragDelta = this._drawer.swipeDirection() === 'up' ? -details.deltaY : details.deltaY;
+				resolvedProgress = offsetToProgress(clamp(baseOffset + dragDelta, 0, popupHeight));
 			} else if (snapPointProgress !== null) {
 				resolvedProgress = snapPointProgress;
 			}

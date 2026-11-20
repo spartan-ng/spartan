@@ -124,7 +124,11 @@ export class BrnDrawerSwipeArea {
 				this._ngZone.run(() => this._drawer.openFromSwipeArea());
 				// The popup renders in the next change detection: measure and position it then, before its
 				// first paint. Measuring now would read the popup without its bound styles.
-				afterNextRender({ read: () => this._applySwipeMovement() }, { injector: this._injector });
+				// A release in the same event (a trailing `buttons: 0` move) ends the gesture before then.
+				afterNextRender(
+					{ read: () => this._swipeActive() && this._applySwipeMovement() },
+					{ injector: this._injector },
+				);
 				return;
 			}
 
@@ -158,18 +162,46 @@ export class BrnDrawerSwipeArea {
 
 		// Moves are handled outside Angular to skip a change detection per move.
 		const onPointerMove = (event: PointerEvent) => this._onPointerEvent(event);
-		const onTouchMove = (event: TouchEvent) => this._swipe.handleMove(event, this._element);
+		let touchStart: { x: number; y: number } | null = null;
+		const onTouchStart = (event: TouchEvent) => {
+			const touch = event.touches[0];
+			touchStart = event.touches.length === 1 && touch ? { x: touch.clientX, y: touch.clientY } : null;
+		};
+		const onTouchMove = (event: TouchEvent) => {
+			this._preventNativeScroll(event, touchStart);
+			this._swipe.handleMove(event, this._element);
+		};
 		this._ngZone.runOutsideAngular(() => {
 			this._element.addEventListener('pointermove', onPointerMove);
+			this._element.addEventListener('touchstart', onTouchStart, { passive: true });
 			this._element.addEventListener('touchmove', onTouchMove);
 		});
 
 		destroyRef.onDestroy(() => {
 			this._element.removeEventListener('pointermove', onPointerMove);
+			this._element.removeEventListener('touchstart', onTouchStart);
 			this._element.removeEventListener('touchmove', onTouchMove);
 			this._releaseGuardCleanup?.();
 			this._clearSwipeStyles();
 		});
+	}
+
+	/**
+	 * Not in Base UI. The `touch-action` keeps the browser from scrolling along the swipe axis, but iOS
+	 * Safari scrolls the page anyway, which cancels the opening gesture of an `up` or `down` swipe area.
+	 * Cancel the native scroll for moves along the swipe axis, as the touch action does elsewhere.
+	 */
+	private _preventNativeScroll(event: TouchEvent, start: { x: number; y: number } | null): void {
+		const touch = event.touches[0];
+		if (!start || !touch || event.touches.length !== 1 || !event.cancelable || !this._enabled()) return;
+
+		const dx = Math.abs(touch.clientX - start.x);
+		const dy = Math.abs(touch.clientY - start.y);
+		if (dx === 0 && dy === 0) return;
+
+		const direction = this.resolvedSwipeDirection();
+		const vertical = direction === 'up' || direction === 'down';
+		if (vertical ? dy >= dx : dx >= dy) event.preventDefault();
 	}
 
 	protected _onPointerDown(event: PointerEvent): void {
@@ -212,6 +244,7 @@ export class BrnDrawerSwipeArea {
 
 	private _finishSwipeInteraction(): void {
 		this._resetSwipeInteractionState();
+		this._drawer.applyDeferredScrollLock();
 		// Only a gesture that leaves the drawer open has a release click to guard against.
 		if (this._drawer.isOpen()) this._enableDismissAfterRelease();
 		this._dragDelta = { x: 0, y: 0 };

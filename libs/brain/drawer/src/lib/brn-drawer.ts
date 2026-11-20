@@ -169,6 +169,8 @@ export class BrnDrawer<
 	/** Whether a swipe area opened the drawer: focus then returns without scrolling the page. */
 	private readonly _openedBySwipeArea = signal(false);
 	private _focusBeforeSwipeAreaOpen: HTMLElement | null = null;
+	/** The scroll strategy held back while the swipe area gesture that opened the drawer runs. */
+	private _deferredScrollStrategy: { strategy: BrnDialogOptions['scrollStrategy'] } | null = null;
 
 	constructor() {
 		super();
@@ -214,6 +216,7 @@ export class BrnDrawer<
 			const target = this._focusBeforeSwipeAreaOpen;
 			this._focusBeforeSwipeAreaOpen = null;
 			this._openedBySwipeArea.set(false);
+			this._deferredScrollStrategy = null;
 			const active = this._document.activeElement;
 			if (target?.isConnected && (!active || active === this._document.body)) target.focus({ preventScroll: true });
 		});
@@ -260,11 +263,30 @@ export class BrnDrawer<
 		return this.positionStrategy() ?? this._positionBuilder.global().top('0').left('0');
 	}
 
+	/** Applies the scroll lock held back while the swipe area gesture that opened the drawer ran. */
+	public applyDeferredScrollLock(): void {
+		const deferred = this._deferredScrollStrategy;
+		this._deferredScrollStrategy = null;
+		if (!deferred || !this.isOpen()) return;
+
+		const { strategy } = deferred;
+		const options = this._scrollStrategyOptions;
+		this.updateScrollStrategy(
+			strategy === 'close'
+				? options.close()
+				: strategy === 'reposition'
+					? options.reposition()
+					: (strategy ?? options.block()),
+		);
+	}
+
 	/** Opens the drawer from a swipe area gesture. */
 	public openFromSwipeArea(): void {
 		if (!this.isOpen()) {
 			const active = this._document.activeElement;
-			this._focusBeforeSwipeAreaOpen = active instanceof HTMLElement && active !== this._document.body ? active : null;
+			// Restored by hand on close (see the constructor), so only when focus restoration is on.
+			const restore = this.restoreFocus() === true && active instanceof HTMLElement && active !== this._document.body;
+			this._focusBeforeSwipeAreaOpen = restore ? active : null;
 			this._openedBySwipeArea.set(true);
 		}
 		this.open();
@@ -273,6 +295,11 @@ export class BrnDrawer<
 	protected override resolveOptions(options: Partial<BrnDialogOptions>): Partial<BrnDialogOptions> {
 		const modal = this.modal();
 		const restoreFocusWithoutScroll = this._openedBySwipeArea() && options.restoreFocus === true;
+		// Locking the page scroll moves the document, and iOS then reports the touches of the running
+		// gesture with the old scroll offset, so the swipe area would read a huge drag and close the
+		// drawer. The swipe area cancels native scrolling meanwhile; lock once its gesture ends.
+		const deferScrollLock = modal === true && this._openedBySwipeArea();
+		this._deferredScrollStrategy = deferScrollLock ? { strategy: options.scrollStrategy } : null;
 		return {
 			...options,
 			restoreFocus: restoreFocusWithoutScroll ? false : options.restoreFocus,
@@ -281,8 +308,10 @@ export class BrnDrawer<
 			maxWidth: '100%',
 			maxHeight: '100%',
 			hasBackdrop: modal === true && options.hasBackdrop,
-			scrollStrategy: modal === true ? options.scrollStrategy : this._scrollStrategyOptions.noop(),
+			scrollStrategy: modal === true && !deferScrollLock ? options.scrollStrategy : this._scrollStrategyOptions.noop(),
 			trapFocus: modal !== false,
+			// A non modal drawer leaves the page usable, so it must not tell screen readers otherwise.
+			ariaModal: modal === false ? false : options.ariaModal,
 			closeOnFocusOut: modal === false && !!options.closeOnOutsidePointerEvents,
 			autoFocus: options.autoFocus === false ? NO_AUTO_FOCUS_SELECTOR : options.autoFocus,
 		};

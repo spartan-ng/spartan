@@ -51,6 +51,25 @@ const NESTED_TEMPLATE = (childAttributes = '', childContent = 'Child') => `
 describe('BrnDrawerViewport', () => {
 	afterEach(() => cleanupOverlays());
 
+	it.each([
+		[true, 'true', true],
+		['trap-focus', 'true', true],
+		[false, 'false', false],
+	] as const)(
+		'with modal %s, sets aria-modal %s and hides the page from assistive technology: %s',
+		async (modal, ariaModal, pageHidden) => {
+			const page = document.body.appendChild(document.createElement('main'));
+			const { view } = await renderDrawer(drawerTemplate('<button>Inside</button>', { drawer: '[modal]="modal"' }), {
+				props: { modal },
+			});
+			await settle(view);
+
+			expect(document.querySelector('cdk-dialog-container')?.getAttribute('aria-modal')).toBe(ariaModal);
+			expect(page.getAttribute('aria-hidden') === 'true').toBe(pageHidden);
+			page.remove();
+		},
+	);
+
 	it('registers the non-passive document touchmove listener only while open', async () => {
 		const activeListeners = new Set<EventListenerOrEventListenerObject>();
 		const addEventListener = document.addEventListener.bind(document);
@@ -590,6 +609,26 @@ describe('BrnDrawerViewport', () => {
 				expect(popup).not.toHaveAttribute('data-ending-style');
 			},
 		);
+
+		// Not in Base UI, which adds the raw vertical delta here for both directions.
+		it.each([
+			['down', 1],
+			['up', -1],
+		] as const)('reports snap point progress toward dismissal while dragging a %s drawer', async (direction, sign) => {
+			const { view } = await renderDrawer(
+				snapDrawer(`[snapPoints]="['100px', '200px']" [defaultSnapPoint]="'200px'" swipeDirection="${direction}"`),
+			);
+			const viewport = byTestId('viewport');
+			mockHitTest(byTestId('popup'));
+			expect(backdrop().style.getPropertyValue('--drawer-swipe-progress')).toBe('0');
+
+			firePointer(viewport, 'pointerdown', { ...press, clientX: 10, clientY: 150 });
+			firePointer(viewport, 'pointermove', { ...drag, clientX: 10, clientY: 150 + sign });
+			firePointer(viewport, 'pointermove', { ...drag, clientX: 10, clientY: 150 + sign * 51 });
+			await settle(view, 0);
+
+			expect(Number(backdrop().style.getPropertyValue('--drawer-swipe-progress'))).toBeCloseTo(0.5, 1);
+		});
 
 		it('keeps the resting snap point progress when a press never starts a swipe', async () => {
 			const { view } = await renderDrawer(

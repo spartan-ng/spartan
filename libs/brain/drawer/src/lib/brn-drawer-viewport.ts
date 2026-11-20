@@ -8,6 +8,7 @@ import {
 	effect,
 	ElementRef,
 	inject,
+	NgZone,
 	signal,
 	untracked,
 } from '@angular/core';
@@ -94,7 +95,6 @@ interface TouchScrollState {
 		'[attr.data-nested]': '_drawer.nested ? "" : null',
 		'[style.pointer-events]': '_drawer.isOpen() ? null : "none"',
 		'(pointerdown)': '_onPointerDown($event)',
-		'(pointermove)': '_onPointerMove($event)',
 		'(pointerup)': '_onPointerUp($event)',
 		'(pointercancel)': '_onPointerCancel($event)',
 		'(click)': '_onClick($event)',
@@ -197,6 +197,12 @@ export class BrnDrawerViewport {
 		this._observeViewportSize(destroyRef);
 		this._listenToTouchMove();
 
+		// Pointer moves fire on every hover, so they're handled outside Angular to skip a change
+		// detection per move. A drag writes styles directly; the signals it sets schedule rendering.
+		const onPointerMove = (event: PointerEvent) => this._onPointerMove(event);
+		inject(NgZone).runOutsideAngular(() => this._element.addEventListener('pointermove', onPointerMove));
+		destroyRef.onDestroy(() => this._element.removeEventListener('pointermove', onPointerMove));
+
 		// Settle on the active snap point whenever it changes outside of a drag.
 		effect(() => {
 			if (!this._snapPointRange() || this._swipe.swiping()) return;
@@ -257,7 +263,7 @@ export class BrnDrawerViewport {
 		this._swipe.handleStart(event);
 	}
 
-	protected _onPointerMove(event: PointerEvent): void {
+	private _onPointerMove(event: PointerEvent): void {
 		if (event.pointerType === 'touch') return;
 		this._swipe.handleMove(event, this._element);
 	}

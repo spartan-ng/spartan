@@ -1,4 +1,4 @@
-import { DEFAULT_DIALOG_CONFIG } from '@angular/cdk/dialog';
+import { DEFAULT_DIALOG_CONFIG, Dialog } from '@angular/cdk/dialog';
 import { ChangeDetectionStrategy, Component, viewChild } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { BrnDialog } from './brn-dialog';
@@ -36,6 +36,20 @@ describe('BrnDialog options', () => {
 			expect.anything(),
 			expect.objectContaining({ trapFocus: false, closeOnFocusOut: true }),
 		);
+	});
+
+	it('emits openChangeComplete(false) when the CDK closes the dialog itself', () => {
+		const fixture = TestBed.createComponent(FocusOptionsHost);
+		fixture.detectChanges();
+		const dialog = fixture.componentInstance.dialog();
+		const openChangeComplete = vi.fn();
+		dialog.openChangeComplete.subscribe(openChangeComplete);
+
+		dialog.open();
+		fixture.detectChanges();
+		TestBed.inject(Dialog).closeAll();
+
+		expect(openChangeComplete).toHaveBeenLastCalledWith(false);
 	});
 
 	it('keeps the CDK default dialog size when no size is given', () => {

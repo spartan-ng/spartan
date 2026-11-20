@@ -4,7 +4,8 @@ import { BrnDrawer } from './brn-drawer';
 
 /**
  * Opens the enclosing drawer, or the one passed to `brnDrawerTriggerFor` (a trigger outside the
- * drawer). `payload` is exposed as `BrnDrawer.payload()` while the drawer is open.
+ * drawer). `payload` is exposed as `BrnDrawer.payload()` while the drawer is open. With several
+ * triggers, only the one that opened the drawer reports it as expanded.
  */
 @Directive({
 	selector: 'button[brnDrawerTrigger],button[brnDrawerTriggerFor]',
@@ -20,10 +21,16 @@ export class BrnDrawerTrigger extends BrnDialogTrigger {
 		return this.brnDrawerTriggerFor() ?? this._drawer ?? undefined;
 	}
 
+	protected override isActiveTrigger(): boolean {
+		const activeTrigger = this.getDialog()?.activeTrigger();
+		return !activeTrigger || activeTrigger === this;
+	}
+
 	public override open(): void {
 		const drawer = this.getDialog();
 		if (!drawer) return;
 		drawer.payload.set(this.payload());
+		drawer.activeTrigger.set(this);
 		drawer.open();
 	}
 }

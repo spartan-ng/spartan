@@ -12,6 +12,7 @@ import {
 	inject,
 	Injector,
 	input,
+	NgZone,
 	signal,
 	untracked,
 } from '@angular/core';
@@ -55,11 +56,9 @@ const isHorizontal = (direction: BrnDrawerSwipeDirection) => direction === 'left
 		'[style.touch-action]':
 			'resolvedSwipeDirection() === "left" || resolvedSwipeDirection() === "right" ? "pan-y" : "pan-x"',
 		'(pointerdown)': '_onPointerDown($event)',
-		'(pointermove)': '_onPointerEvent($event)',
 		'(pointerup)': '_onPointerEvent($event)',
 		'(pointercancel)': '_onPointerEvent($event)',
 		'(touchstart)': '_swipe.handleStart($event)',
-		'(touchmove)': '_swipe.handleMove($event, _element)',
 		'(touchend)': '_swipe.handleEnd($event)',
 		'(touchcancel)': '_swipe.handleEnd($event)',
 	},
@@ -69,6 +68,7 @@ export class BrnDrawerSwipeArea {
 	private readonly _provider = inject(BrnDrawerProvider, { optional: true });
 	private readonly _document = inject(DOCUMENT);
 	private readonly _injector = inject(Injector);
+	private readonly _ngZone = inject(NgZone);
 	protected readonly _element: HTMLElement = inject(ElementRef).nativeElement;
 
 	/** Whether the swipe area is disabled. */
@@ -119,7 +119,8 @@ export class BrnDrawerSwipeArea {
 
 			if (!this._openedBySwipe && !this._drawer.isOpen()) {
 				this._openedBySwipe = true;
-				this._drawer.openFromSwipeArea();
+				// Moves are handled outside Angular: open inside it, so the popup renders.
+				this._ngZone.run(() => this._drawer.openFromSwipeArea());
 				// The popup renders in the next change detection: position it before its first paint.
 				afterNextRender({ read: () => this._applySwipeMovement() }, { injector: this._injector });
 			}
@@ -152,7 +153,17 @@ export class BrnDrawerSwipeArea {
 			});
 		});
 
+		// Moves are handled outside Angular to skip a change detection per move.
+		const onPointerMove = (event: PointerEvent) => this._onPointerEvent(event);
+		const onTouchMove = (event: TouchEvent) => this._swipe.handleMove(event, this._element);
+		this._ngZone.runOutsideAngular(() => {
+			this._element.addEventListener('pointermove', onPointerMove);
+			this._element.addEventListener('touchmove', onTouchMove);
+		});
+
 		destroyRef.onDestroy(() => {
+			this._element.removeEventListener('pointermove', onPointerMove);
+			this._element.removeEventListener('touchmove', onTouchMove);
 			this._releaseGuardCleanup?.();
 			this._clearSwipeStyles();
 		});

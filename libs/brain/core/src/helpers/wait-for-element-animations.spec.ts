@@ -73,6 +73,15 @@ describe('waitForAnimations', () => {
 		expect(animation.playState).toBe('finished');
 	});
 
+	it('does not wait on an infinite animation', async () => {
+		const el = track(mount());
+		const animation = el.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 1000, iterations: Infinity });
+
+		const start = performance.now();
+		await waitForAnimations([animation]);
+		expect(performance.now() - start).toBeLessThan(500);
+	});
+
 	// The fallback timer guarantees teardown even if an animation never reaches `finished`
 	// (e.g. paused/stuck), so the overlay can never get wedged open.
 	it('resolves via the fallback timer when an animation never finishes', async () => {

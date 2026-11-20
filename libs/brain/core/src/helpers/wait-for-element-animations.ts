@@ -12,14 +12,16 @@ export function getActiveElementAnimations(elements: readonly (HTMLElement | nul
 }
 
 export async function waitForAnimations(animations: readonly Animation[]): Promise<void> {
-	if (!animations.length) return;
+	// An infinite animation (a spinner, a pulse) never finishes, so waiting on it only stalls.
+	const finite = animations.filter((animation) => animation.effect?.getComputedTiming().endTime !== Infinity);
+	if (!finite.length) return;
 
 	let timeout: ReturnType<typeof setTimeout> | undefined;
-	const fallbackMs = getFallbackTimeout(animations);
+	const fallbackMs = getFallbackTimeout(finite);
 
 	try {
 		await Promise.race([
-			Promise.allSettled(animations.map((animation) => animation.finished)),
+			Promise.allSettled(finite.map((animation) => animation.finished)),
 			new Promise<void>((resolve) => {
 				timeout = setTimeout(resolve, fallbackMs);
 			}),

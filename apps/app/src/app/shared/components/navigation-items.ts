@@ -46,7 +46,7 @@ export const components: Link[] = [
 	{ label: 'Data Table', url: '/data-table' },
 	{ label: 'Date Picker', url: '/date-picker' },
 	{ label: 'Dialog', url: '/dialog' },
-	{ label: 'Drawer', url: '/drawer' },
+	{ label: 'Drawer', url: '/drawer', new: true },
 	{ label: 'Dropdown Menu', url: '/dropdown-menu' },
 	{ label: 'Empty', url: '/empty' },
 	{ label: 'Field', url: '/field' },

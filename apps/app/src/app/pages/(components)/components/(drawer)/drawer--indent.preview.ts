@@ -17,7 +17,8 @@ import { HlmDrawerImports } from '@spartan-ng/helm/drawer';
 				class="bg-background relative flex min-h-full origin-[center_top] [transform:scale(1)_translateY(0)] items-center justify-center [transition-duration:calc(400ms*var(--indent-transition)),calc(250ms*var(--indent-transition))] will-change-transform [--indent-radius:calc(1rem*(1-var(--drawer-swipe-progress)))] [--indent-transition:calc(1-clamp(0,calc(var(--drawer-swipe-progress)*100000),1))] [transition:transform_0.4s_cubic-bezier(0.32,0.72,0,1),border-radius_0.25s_cubic-bezier(0.32,0.72,0,1)] data-active:transform-[scale(calc(0.98+(0.02*var(--drawer-swipe-progress))))_translateY(calc(0.5rem*(1-var(--drawer-swipe-progress))))] data-active:rounded-t-(--indent-radius)"
 			>
 				<!-- Your app content, e.g. <router-outlet /> -->
-				<hlm-drawer showSwipeHandle>
+				<!-- "reposition" keeps the page in place: on iOS, the default scroll lock repaints the indent. -->
+				<hlm-drawer showSwipeHandle scrollStrategy="reposition">
 					<button id="drawer-indent-trigger" hlmDrawerTrigger hlmBtn variant="outline">Open Drawer</button>
 					<hlm-drawer-content *hlmDrawerPortal="let ctx">
 						<hlm-drawer-header>

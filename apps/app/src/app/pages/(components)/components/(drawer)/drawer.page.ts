@@ -251,7 +251,7 @@ export const routeMeta: RouteMeta = {
 				Set
 				<code class="${hlmCode}">[modal]="false"</code>
 				to keep the page interactive while the drawer is open, and
-				<code class="${hlmCode}">[closeOnOutsidePointerEvents]="false"</code>
+				<code class="${hlmCode} break-all">[closeOnOutsidePointerEvents]="false"</code>
 				to keep it open on outside clicks.
 				<code class="${hlmCode}">modal="trap-focus"</code>
 				traps focus without locking the page.

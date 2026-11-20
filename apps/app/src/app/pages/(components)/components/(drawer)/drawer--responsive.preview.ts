@@ -15,7 +15,7 @@ import { map } from 'rxjs/operators';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<ng-template #profileForm let-formClass="formClass">
-			<form class="grid items-start gap-6" [class]="formClass">
+			<form class="grid items-start gap-6" [class]="formClass" (submit)="$event.preventDefault()">
 				<div class="grid gap-3">
 					<label hlmLabel for="responsive-email">Email</label>
 					<input hlmInput type="email" id="responsive-email" value="shadcn@example.com" />

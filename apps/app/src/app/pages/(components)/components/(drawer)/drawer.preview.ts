@@ -23,7 +23,7 @@ import { map } from 'rxjs/operators';
 					<p hlmDrawerDescription>We'll prepare your order as soon as possible.</p>
 				</hlm-drawer-header>
 				<div class="flex-1 overflow-y-auto p-4">
-					<hlm-radio-group class="gap-2" [(ngModel)]="deliveryTime">
+					<hlm-radio-group class="gap-2" aria-label="Delivery time" [(ngModel)]="deliveryTime">
 						@for (time of _deliveryTimes; track time.value) {
 							<label hlmFieldLabel [for]="time.id">
 								<div hlmField orientation="horizontal">

@@ -161,6 +161,26 @@ describe('BrnDrawerSwipeArea', () => {
 		expect(listener).toHaveBeenCalledTimes(1);
 	});
 
+	it('returns focus without scrolling the page when the drawer closes', async () => {
+		const view = await render(SwipeAreaHost);
+		const outside = document.querySelector('[data-testid="outside"]') as HTMLButtonElement;
+		outside.focus();
+		const focus = vi.spyOn(outside, 'focus');
+
+		await dragUp(200);
+		view.detectChanges();
+		await wait(50);
+		expect(popup()?.getAttribute('data-state')).toBe('open');
+
+		popup()?.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+		view.detectChanges();
+		await wait(100);
+
+		expect(popup()).toBeNull();
+		expect(focus).toHaveBeenCalledWith({ preventScroll: true });
+		expect(document.activeElement).toBe(outside);
+	});
+
 	it('does nothing when disabled', async () => {
 		const view = await render(SwipeAreaHost, { inputs: { disabled: true } });
 

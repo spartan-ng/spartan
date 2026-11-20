@@ -119,7 +119,7 @@ export class BrnDrawerSwipeArea {
 
 			if (!this._openedBySwipe && !this._drawer.isOpen()) {
 				this._openedBySwipe = true;
-				this._drawer.open();
+				this._drawer.openFromSwipeArea();
 				// The popup renders in the next change detection: position it before its first paint.
 				afterNextRender({ read: () => this._applySwipeMovement() }, { injector: this._injector });
 			}
@@ -186,7 +186,7 @@ export class BrnDrawerSwipeArea {
 		if (shouldOpen) {
 			if (!this._drawer.isOpen()) {
 				this._openedBySwipe = true;
-				this._drawer.open();
+				this._drawer.openFromSwipeArea();
 			}
 		} else if (this._openedBySwipe && this._drawer.isOpen()) {
 			this._drawer.close();

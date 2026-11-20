@@ -120,6 +120,8 @@ export class BrnDialog<TResult = unknown, TContext extends Record<string, unknow
 			scrollStrategy: this.getScrollStrategy(),
 			restoreFocus: this.restoreFocus(),
 			closeOnOutsidePointerEvents: this.closeOnOutsidePointerEvents(),
+			closeOnFocusOut: this.closeOnFocusOut(),
+			trapFocus: this.trapFocus(),
 			attachTo: this.getAttachTo(),
 			attachPositions: this.attachPositions(),
 			autoFocus: this.autoFocus(),

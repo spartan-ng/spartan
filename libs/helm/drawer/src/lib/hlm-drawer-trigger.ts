@@ -7,7 +7,7 @@ import { BrnDrawerTrigger } from '@spartan-ng/brain/drawer';
 	hostDirectives: [
 		{
 			directive: BrnDrawerTrigger,
-			inputs: ['id', 'type', 'payload', 'brnDrawerTriggerFor: hlmDrawerTriggerFor'],
+			inputs: ['id', 'type', 'payload', 'disabled', 'brnDrawerTriggerFor: hlmDrawerTriggerFor'],
 		},
 	],
 	host: { 'data-slot': 'drawer-trigger' },

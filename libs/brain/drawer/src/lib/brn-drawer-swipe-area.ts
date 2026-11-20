@@ -1,4 +1,5 @@
 // Adapted from Base UI (https://github.com/mui/base-ui), MIT License, Copyright (c) 2019 Material-UI SAS.
+import type { BooleanInput } from '@angular/cdk/coercion';
 import { DOCUMENT } from '@angular/common';
 import {
 	afterEveryRender,
@@ -72,7 +73,7 @@ export class BrnDrawerSwipeArea {
 	protected readonly _element: HTMLElement = inject(ElementRef).nativeElement;
 
 	/** Whether the swipe area is disabled. */
-	public readonly disabled = input(false, { transform: booleanAttribute });
+	public readonly disabled = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 	/** The swipe direction that opens the drawer. Defaults to the opposite of the drawer `swipeDirection`. */
 	public readonly swipeDirection = input<BrnDrawerSwipeDirection>();
 

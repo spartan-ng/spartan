@@ -117,6 +117,30 @@ const cls = hlm("spartan-foo");
 			expect(result).not.toContain("\\'");
 		});
 
+		it('keeps --spartan-* custom properties in arbitrary properties', async () => {
+			const source = `
+const cls = hlm(['spartan-foo [--spartan-overlay-backdrop-opacity:0] data-swiping:[--spartan-overlay-backdrop-transition:none]']);
+`;
+
+			const result = await applyTransform(source, baseStyleMap);
+
+			expect(result).toContain('[--spartan-overlay-backdrop-opacity:0]');
+			expect(result).toContain('data-swiping:[--spartan-overlay-backdrop-transition:none]');
+			expect(result).toContain('bg-background gap-4 rounded-xl');
+			expect(result).not.toContain('spartan-foo');
+		});
+
+		it('replaces spartan classes in an array literal passed to hlm', async () => {
+			const source = `
+const cls = computed(() => hlm(['spartan-foo flex', 'block'], this.userClass()));
+`;
+
+			const result = await applyTransform(source, baseStyleMap);
+
+			expect(result).toContain('bg-background gap-4 rounded-xl flex');
+			expect(result).not.toContain('spartan-foo');
+		});
+
 		it('handles multiple classes', async () => {
 			const source = `
 const cls = hlm("spartan-foo spartan-bar");

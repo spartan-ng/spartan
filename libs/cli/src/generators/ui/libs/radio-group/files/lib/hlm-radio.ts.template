@@ -37,8 +37,8 @@ import type { ClassValue } from 'cn';
 			[value]="value()"
 			[required]="required()"
 			[disabled]="disabled()"
-			[attr.aria-invalid]="_ariaInvalid() ? 'true' : null"
-			[attr.data-invalid]="_ariaInvalid() ? 'true' : null"
+			[attr.aria-invalid]="_groupSpartanInvalid() ? 'true' : null"
+			[attr.data-invalid]="_invalid() ? 'true' : null"
 			[attr.data-dirty]="_dirty() ? 'true' : null"
 			[attr.data-touched]="_touched() ? 'true' : null"
 			[attr.data-matches-spartan-invalid]="_groupSpartanInvalid() ? 'true' : null"
@@ -59,7 +59,7 @@ export class HlmRadio<T = unknown> {
 	private readonly _isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 	private readonly _radioGroup = inject(BrnRadioGroup, { optional: true });
 
-	protected readonly _ariaInvalid = computed(() => this._radioGroup?.controlState?.()?.invalid);
+	protected readonly _invalid = computed(() => this._radioGroup?.controlState?.()?.invalid);
 
 	protected readonly _touched = computed(() => this._radioGroup?.controlState?.()?.touched);
 	protected readonly _dirty = computed(() => this._radioGroup?.controlState?.()?.dirty);

@@ -72,8 +72,15 @@ const renderChipInput = async (combobox: ReturnType<typeof comboboxStub>) =>
 
 describe('BrnComboboxChipInput', () => {
 	describe('form-state attributes', () => {
-		it('sets aria-invalid and data-invalid when the control is invalid', async () => {
-			await renderChipInput(comboboxStub({ state: { invalid: true } }));
+		it('sets only data-invalid while the error state matcher does not report the error', async () => {
+			await renderChipInput(comboboxStub({ state: { invalid: true, spartanInvalid: false } }));
+			const input = screen.getByLabelText('Test');
+			expect(input).not.toHaveAttribute('aria-invalid');
+			expect(input).toHaveAttribute('data-invalid', 'true');
+		});
+
+		it('sets aria-invalid once the error state matcher reports the error', async () => {
+			await renderChipInput(comboboxStub({ state: { invalid: true, spartanInvalid: true } }));
 			const input = screen.getByLabelText('Test');
 			expect(input).toHaveAttribute('aria-invalid', 'true');
 			expect(input).toHaveAttribute('data-invalid', 'true');

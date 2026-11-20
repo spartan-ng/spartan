@@ -60,8 +60,8 @@ export class BrnSelectTrigger {
 
 	protected readonly _isPlaceholder = computed(() => !this._select.hasValue());
 
-	/** Computed aria-invalid: uses manual override if provided, otherwise reads from parent error state. */
-	protected readonly _ariaInvalid = computed(() => this.ariaInvalidInput() ?? this._select.controlState?.()?.invalid);
+	/** Computed aria-invalid: uses the manual override if provided, otherwise the error state matcher result. */
+	protected readonly _ariaInvalid = computed(() => this.ariaInvalidInput() ?? !!this._spartanInvalid());
 	protected readonly _touched = computed(() => this._select?.controlState?.()?.touched);
 	protected readonly _dirty = computed(() => this._select?.controlState?.()?.dirty);
 	protected readonly _spartanInvalid = computed(

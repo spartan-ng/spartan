@@ -1,3 +1,13 @@
+## 1.10.0-beta.5 (2026-11-19)
+
+- test(tooltip): park the real mouse away from the trigger before each spec (#1891) ([37b58c2](https://github.com/spartan-ng/spartan/commit/37b58c2)), closes [#1891](https://github.com/spartan-ng/spartan/issues/1891)
+- fix(combobox, autocomplete): prevent default on escape when it clears the value (#1857) ([fabc882](https://github.com/spartan-ng/spartan/commit/fabc882)), closes [#1857](https://github.com/spartan-ng/spartan/issues/1857)
+- fix(dialog, popover): ignore escape already handled inside the overlay (#1858) ([b3e2f88](https://github.com/spartan-ng/spartan/commit/b3e2f88)), closes [#1858](https://github.com/spartan-ng/spartan/issues/1858)
+- fix: align aria-invalid with the error state matcher and keep consumer aria (#1882) ([65aef21](https://github.com/spartan-ng/spartan/commit/65aef21)), closes [#1882](https://github.com/spartan-ng/spartan/issues/1882) [#1881](https://github.com/spartan-ng/spartan/issues/1881) [#1819](https://github.com/spartan-ng/spartan/issues/1819)
+- fix(sidebar): ignore the toggle shortcut inside editable elements (#1884) ([d049fba](https://github.com/spartan-ng/spartan/commit/d049fba)), closes [#1884](https://github.com/spartan-ng/spartan/issues/1884)
+- fix(sonner): keep the toaster live region rendered before the first toast (#1885) ([6021832](https://github.com/spartan-ng/spartan/commit/6021832)), closes [#1885](https://github.com/spartan-ng/spartan/issues/1885)
+- fix(tooltip): reset hover flag when the content detaches (#1865) ([f743dad](https://github.com/spartan-ng/spartan/commit/f743dad)), closes [#1865](https://github.com/spartan-ng/spartan/issues/1865)
+
 ## 1.10.0-beta.4 (2026-11-18)
 
 - fix: keep external classes on the element when they conflict with or race a classes() source (#1879) ([901a988](https://github.com/spartan-ng/spartan/commit/901a988)), closes [#1879](https://github.com/spartan-ng/spartan/issues/1879)

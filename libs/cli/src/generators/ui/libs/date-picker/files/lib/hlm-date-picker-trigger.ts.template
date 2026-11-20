@@ -26,8 +26,8 @@ import { ClassValue } from 'cn';
 			type="button"
 			[class]="_computedClass()"
 			[disabled]="_disabled()"
-			[attr.aria-invalid]="_ariaInvalid()"
-			[attr.data-invalid]="_ariaInvalid()"
+			[attr.aria-invalid]="_spartanInvalid() ? 'true' : null"
+			[attr.data-invalid]="_invalid?.() ? 'true' : null"
 			[attr.data-touched]="_touched?.() ? 'true' : null"
 			[attr.data-dirty]="_dirty?.() ? 'true' : null"
 			[attr.data-matches-spartan-invalid]="_spartanInvalid() ? 'true' : null"
@@ -58,12 +58,10 @@ export class HlmDatePickerTrigger implements BrnDatePickerTriggerBase {
 	private readonly _fieldControl = inject(BrnFieldControl, { optional: true });
 	private readonly _datePicker = injectBrnDatePicker();
 
-	private readonly _invalid = this._fieldControl?.invalid;
+	protected readonly _invalid = this._fieldControl?.invalid;
 	protected readonly _spartanInvalid = computed(() => this.forceInvalid() || this._fieldControl?.spartanInvalid());
 	protected readonly _dirty = this._fieldControl?.dirty;
 	protected readonly _touched = this._fieldControl?.touched;
-
-	protected readonly _ariaInvalid = computed(() => (this._invalid?.() ? 'true' : null));
 
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	protected readonly _computedClass = computed(() =>

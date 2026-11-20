@@ -10,15 +10,14 @@ import type { ClassValue } from 'cn';
 	hostDirectives: [
 		{
 			directive: BrnRadioGroup,
-			inputs: ['name', 'value', 'disabled', 'required'],
+			inputs: ['name', 'value', 'disabled', 'required', 'aria-invalid'],
 			outputs: ['valueChange'],
 		},
-		BrnFieldControlDescribedBy,
+		{ directive: BrnFieldControlDescribedBy, inputs: ['aria-describedby'] },
 	],
 	host: {
 		'data-slot': 'radio-group',
-		'[attr.aria-invalid]': '_ariaInvalid() ? "true" : null',
-		'[attr.data-invalid]': '_ariaInvalid() ? "true" : null',
+		'[attr.data-invalid]': '_invalid() ? "true" : null',
 		'[attr.data-dirty]': '_dirty() ? "true" : null',
 		'[attr.data-touched]': '_touched() ? "true" : null',
 	},
@@ -26,7 +25,7 @@ import type { ClassValue } from 'cn';
 export class HlmRadioGroup {
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	private readonly _brnRadioGroup = inject(BrnRadioGroup);
-	protected readonly _ariaInvalid = computed(() => this._brnRadioGroup.controlState?.()?.invalid);
+	protected readonly _invalid = computed(() => this._brnRadioGroup.controlState?.()?.invalid);
 
 	protected readonly _touched = computed(() => this._brnRadioGroup.controlState?.()?.touched);
 	protected readonly _dirty = computed(() => this._brnRadioGroup.controlState?.()?.dirty);

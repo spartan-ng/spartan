@@ -34,7 +34,7 @@ export const BRN_RADIO_GROUP_CONTROL_VALUE_ACCESSOR = {
 		'[dir]': 'direction()',
 		'(focusout)': 'onTouched()',
 		'[attr.aria-invalid]': '_ariaInvalid() ? "true" : null',
-		'[attr.data-invalid]': '_ariaInvalid() ? "true" : null',
+		'[attr.data-invalid]': '_invalid() ? "true" : null',
 		'[attr.data-dirty]': '_dirty() ? "true" : null',
 		'[attr.data-touched]': '_touched() ? "true" : null',
 		'[attr.data-matches-spartan-invalid]': '_spartanInvalid() ? "true" : null',
@@ -91,8 +91,19 @@ export class BrnRadioGroup<T = unknown> implements ControlValueAccessor {
 	public readonly disabledState = linkedSignal(() => this.disabled());
 
 	public readonly controlState = this._fieldControl?.controlState;
-	protected readonly _ariaInvalid = computed(() => this._fieldControl?.invalid());
+	/**
+	 * Manual override for aria-invalid, e.g. for server-side validation errors.
+	 * When not set, it follows the error state matcher.
+	 */
+	public readonly ariaInvalidInput = input<boolean | undefined, BooleanInput>(undefined, {
+		transform: (v: BooleanInput) => (v === '' || v === undefined ? undefined : booleanAttribute(v)),
+		alias: 'aria-invalid',
+	});
+
+	protected readonly _invalid = computed(() => this._fieldControl?.invalid());
 	protected readonly _spartanInvalid = computed(() => this._fieldControl?.spartanInvalid());
+	/** aria-invalid follows the same state that drives the visible error: the consumer override, else the matcher result. */
+	protected readonly _ariaInvalid = computed(() => this.ariaInvalidInput() ?? this._spartanInvalid());
 	protected readonly _dirty = computed(() => this._fieldControl?.dirty());
 	protected readonly _touched = computed(() => this._fieldControl?.touched());
 

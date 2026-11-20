@@ -144,7 +144,7 @@ export class BrnDrawerSwipeArea {
 		effect(() => {
 			if (this._enabled()) return;
 			untracked(() => {
-				if (this._swipeActive()) this._enableDismissAfterRelease();
+				if (this._swipeActive() && this._drawer.isOpen()) this._enableDismissAfterRelease();
 				this._swipe.reset();
 				this._dragDelta = { x: 0, y: 0 };
 				this._clearSwipeStyles();
@@ -198,7 +198,8 @@ export class BrnDrawerSwipeArea {
 
 	private _finishSwipeInteraction(): void {
 		this._resetSwipeInteractionState();
-		this._enableDismissAfterRelease();
+		// Only a gesture that leaves the drawer open has a release click to guard against.
+		if (this._drawer.isOpen()) this._enableDismissAfterRelease();
 		this._dragDelta = { x: 0, y: 0 };
 		this._clearSwipeStyles();
 	}

@@ -145,6 +145,7 @@ export class BrnDrawer<
 	/** Whether a swipe area is driving an open gesture and writing the popup's movement vars. */
 	public swipeAreaActive = false;
 	private _isNestedDrawerOpen = false;
+	private _reportedToParent = false;
 
 	constructor() {
 		super();
@@ -158,11 +159,15 @@ export class BrnDrawer<
 			if (!this.mounted()) untracked(() => this.nestedOpenDrawerCount.set(0));
 		});
 
-		// Report this drawer, plus the drawers nested in it, to the parent while open.
+		// Report this drawer, plus the drawers nested in it, to the parent while open, and zero once it
+		// closes. A drawer that never opened must not touch the count a sibling reports.
 		effect(() => {
 			const parent = this.parentDrawer;
 			if (!parent) return;
-			const count = this.isOpen() ? this.nestedOpenDrawerCount() + 1 : 0;
+			const open = this.isOpen();
+			if (!open && !this._reportedToParent) return;
+			const count = open ? this.nestedOpenDrawerCount() + 1 : 0;
+			this._reportedToParent = open;
 			untracked(() => parent.nestedOpenDrawerCount.set(count));
 		});
 
@@ -172,7 +177,7 @@ export class BrnDrawer<
 		});
 
 		inject(DestroyRef).onDestroy(() => {
-			this.parentDrawer?.nestedOpenDrawerCount.set(0);
+			if (this._reportedToParent) this.parentDrawer?.nestedOpenDrawerCount.set(0);
 			this._provider?.removeDrawer(this);
 		});
 
@@ -248,8 +253,13 @@ export class BrnDrawer<
 
 			const closeWatcher = new CloseWatcher();
 			// The browser destroys the watcher before `close` fires, so handle the request on `cancel`.
-			closeWatcher.addEventListener('cancel', () => {
-				if (!this.disableClose()) this.close();
+			closeWatcher.addEventListener('cancel', (event) => {
+				// Preventing the cancel keeps the watcher alive for the next back gesture.
+				if (this.disableClose()) {
+					event.preventDefault();
+					return;
+				}
+				this.close();
 			});
 			onCleanup(() => closeWatcher.destroy());
 		});

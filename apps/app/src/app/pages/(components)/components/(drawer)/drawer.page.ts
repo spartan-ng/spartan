@@ -369,11 +369,11 @@ export default class DrawerPage {
 	private readonly _snippets = inject(PrimitiveSnippetsService).getSnippets('drawer');
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
 	protected readonly _positionCode = computed(() => this._snippets()['position']);
-	protected readonly _swipeHandleCode = computed(() => this._snippets()['swipe-handle']);
-	protected readonly _swipeAreaCode = computed(() => this._snippets()['swipe-area']);
+	protected readonly _swipeHandleCode = computed(() => this._snippets()['swipeHandle']);
+	protected readonly _swipeAreaCode = computed(() => this._snippets()['swipeArea']);
 	protected readonly _nestedCode = computed(() => this._snippets()['nested']);
-	protected readonly _nonModalCode = computed(() => this._snippets()['non-modal']);
-	protected readonly _snapPointsCode = computed(() => this._snippets()['snap-points']);
+	protected readonly _nonModalCode = computed(() => this._snippets()['nonModal']);
+	protected readonly _snapPointsCode = computed(() => this._snippets()['snapPoints']);
 	protected readonly _responsiveCode = computed(() => this._snippets()['responsive']);
 	protected readonly _rtlCode = computed(() => this._snippets()['rtl']);
 	protected readonly _defaultSkeleton = defaultSkeleton;

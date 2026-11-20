@@ -35,6 +35,9 @@ export class BrnDialogService {
 	private readonly _scrollStrategies = inject(ScrollStrategyOptions);
 	private readonly _injector = inject(Injector);
 	private readonly _defaultOptions = injectBrnDialogDefaultOptions();
+	/** The `aria-hidden` of the page before the first dialog opened, restored while no modal is open. */
+	private _pageAriaHidden: Map<Element, string | null> | null = null;
+	private _openFocusTrappingDialogs = 0;
 
 	public open<DialogContext, DialogResult = unknown>(
 		content: ComponentType<unknown> | TemplateRef<unknown>,
@@ -72,9 +75,10 @@ export class BrnDialogService {
 			close: (result: unknown = undefined) => brnDialogRef.close(result as DialogResult),
 		};
 
-		// The CDK hides the rest of the page from assistive technology once the first dialog moves focus
-		// in. A dialog that doesn't trap focus leaves the page usable, so it must stay accessible too.
-		const restorePageAccessibility = mergedOptions.trapFocus ? null : this._snapshotPageAriaHidden();
+		// The CDK hides the rest of the page from assistive technology only when the first dialog opens.
+		// A dialog that doesn't trap focus leaves the page usable, so the page is hidden exactly while a
+		// dialog that traps focus is open, whichever dialog opened first.
+		if (!this._cdkDialog.openDialogs.length) this._pageAriaHidden = this._snapshotPageAriaHidden();
 
 		const cdkDialogRef = this._cdkDialog.open<DialogResult, BrnDialogContext<DialogContext>, unknown>(content, {
 			id: mergedOptions.id,
@@ -114,9 +118,15 @@ export class BrnDialogService {
 			},
 		});
 
-		if (restorePageAccessibility) {
-			cdkDialogRef.containerInstance._focusTrapped?.pipe(take(1)).subscribe(restorePageAccessibility);
-		}
+		const trapsFocus = mergedOptions.trapFocus;
+		if (trapsFocus) this._openFocusTrappingDialogs++;
+		// Runs after the CDK hides the page, which subscribes first.
+		cdkDialogRef.containerInstance._focusTrapped?.pipe(take(1)).subscribe(() => this._syncPageAriaHidden());
+		cdkDialogRef.closed.subscribe(() => {
+			if (trapsFocus) this._openFocusTrappingDialogs--;
+			this._syncPageAriaHidden();
+			if (!this._cdkDialog.openDialogs.length) this._pageAriaHidden = null;
+		});
 
 		this._connectDismissalEvents(brnDialogRef, cdkDialogRef.overlayRef);
 		if (mergedOptions.closeOnFocusOut) this._connectFocusOut(brnDialogRef, cdkDialogRef.overlayRef);
@@ -183,16 +193,29 @@ export class BrnDialogService {
 		dialogRef.closed$.subscribe(() => this._document.removeEventListener('focusin', onFocusIn, true));
 	}
 
-	/** Records the `aria-hidden` of the overlay container's siblings and returns a restore function. */
-	private _snapshotPageAriaHidden(): () => void {
-		const siblings = Array.from(this._overlayContainer.getContainerElement().parentElement?.children ?? []);
-		const snapshot = new Map(siblings.map((sibling) => [sibling, sibling.getAttribute('aria-hidden')]));
-		return () => {
-			for (const [sibling, value] of snapshot) {
-				if (value === null) sibling.removeAttribute('aria-hidden');
-				else sibling.setAttribute('aria-hidden', value);
-			}
-		};
+	/** Records the `aria-hidden` of the overlay container's siblings that the CDK hides. */
+	private _snapshotPageAriaHidden(): Map<Element, string | null> {
+		const container = this._overlayContainer.getContainerElement();
+		const siblings = Array.from(container.parentElement?.children ?? []).filter(
+			(sibling) =>
+				sibling !== container &&
+				sibling.nodeName !== 'SCRIPT' &&
+				sibling.nodeName !== 'STYLE' &&
+				!sibling.hasAttribute('aria-live') &&
+				!sibling.hasAttribute('popover'),
+		);
+		return new Map(siblings.map((sibling) => [sibling, sibling.getAttribute('aria-hidden')]));
+	}
+
+	/** Hides the page while a dialog that traps focus is open, and restores it otherwise. */
+	private _syncPageAriaHidden(): void {
+		const snapshot = this._pageAriaHidden;
+		if (!snapshot) return;
+		for (const [sibling, value] of snapshot) {
+			if (this._openFocusTrappingDialogs > 0) sibling.setAttribute('aria-hidden', 'true');
+			else if (value === null) sibling.removeAttribute('aria-hidden');
+			else sibling.setAttribute('aria-hidden', value);
+		}
 	}
 
 	private _isTopmostOutsideTarget(overlayRef: OverlayRef): boolean {

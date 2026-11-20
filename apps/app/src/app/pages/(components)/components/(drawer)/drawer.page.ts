@@ -19,7 +19,6 @@ import { Tabs } from '../../../../shared/layout/tabs';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { DrawerDetachedTriggersPreview } from './drawer--detached-triggers.preview';
-import { DrawerIndentPreview } from './drawer--indent.preview';
 import { DrawerNestedPreview } from './drawer--nested.preview';
 import { DrawerNonModalPreview } from './drawer--non-modal.preview';
 import { DrawerPositionPreview } from './drawer--position.preview';
@@ -29,6 +28,7 @@ import { DrawerSnapPointsPreview } from './drawer--snap-points.preview';
 import { DrawerSwipeAreaPreview } from './drawer--swipe-area.preview';
 import { DrawerSwipeHandlePreview } from './drawer--swipe-handle.preview';
 import { DrawerVirtualKeyboardPreview } from './drawer--virtual-keyboard.preview';
+import { DrawerIndentFrame } from './drawer-indent-frame';
 import { DrawerPreview, defaultImports, defaultSkeleton } from './drawer.preview';
 
 export const routeMeta: RouteMeta = {
@@ -64,7 +64,7 @@ export const routeMeta: RouteMeta = {
 		DrawerSnapPointsPreview,
 		DrawerResponsivePreview,
 		DrawerDetachedTriggersPreview,
-		DrawerIndentPreview,
+		DrawerIndentFrame,
 		DrawerVirtualKeyboardPreview,
 		DrawerRtl,
 	],
@@ -326,11 +326,12 @@ export const routeMeta: RouteMeta = {
 				<code class="${hlmCode}">data-active</code>
 				while a drawer in the provider is open, and the indent receives
 				<code class="${hlmCode}">--drawer-swipe-progress</code>
-				so it follows a swipe.
+				so it follows a swipe. Place them in your root component, around the app content; the preview runs the same code
+				inside its frame.
 			</p>
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
-					<spartan-drawer-indent-preview />
+					<spartan-drawer-indent-frame />
 				</div>
 				<spartan-code secondTab [code]="_indentCode()" />
 			</spartan-tabs>

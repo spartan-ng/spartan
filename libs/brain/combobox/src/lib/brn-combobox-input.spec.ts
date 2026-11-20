@@ -134,8 +134,15 @@ describe('BrnComboboxInput', () => {
 	});
 
 	describe('form-state attributes in combobox mode', () => {
-		it('sets aria-invalid and data-invalid when the control is invalid', async () => {
-			await renderInput(comboboxStub(null, { invalid: true }));
+		it('sets only data-invalid while the error state matcher does not report the error', async () => {
+			await renderInput(comboboxStub(null, { invalid: true, spartanInvalid: false }));
+			const input = screen.getByLabelText('Test');
+			expect(input).not.toHaveAttribute('aria-invalid');
+			expect(input).toHaveAttribute('data-invalid', 'true');
+		});
+
+		it('sets aria-invalid once the error state matcher reports the error', async () => {
+			await renderInput(comboboxStub(null, { invalid: true, spartanInvalid: true }));
 			const input = screen.getByLabelText('Test');
 			expect(input).toHaveAttribute('aria-invalid', 'true');
 			expect(input).toHaveAttribute('data-invalid', 'true');
@@ -265,6 +272,31 @@ describe('BrnComboboxInput', () => {
 			expect(combobox.isExpanded()).toBe(false);
 			// the input is inside the overlay, so Tab must be intercepted
 			expect(event.defaultPrevented).toBe(true);
+		});
+
+		it('clears the value and prevents default on Escape when collapsed', async () => {
+			const combobox = keyboardComboboxStub();
+			combobox.value.set('angular');
+			await renderInput(combobox);
+			const input = screen.getByLabelText('Test');
+
+			const event = new KeyboardEvent('keydown', { key: 'Escape', bubbles: true, cancelable: true });
+			input.dispatchEvent(event);
+
+			expect(combobox.resetValue).toHaveBeenCalledTimes(1);
+			expect(event.defaultPrevented).toBe(true);
+		});
+
+		it('leaves Escape to outer handlers when there is nothing to clear', async () => {
+			const combobox = keyboardComboboxStub();
+			await renderInput(combobox);
+			const input = screen.getByLabelText('Test');
+
+			const event = new KeyboardEvent('keydown', { key: 'Escape', bubbles: true, cancelable: true });
+			input.dispatchEvent(event);
+
+			expect(combobox.resetValue).not.toHaveBeenCalled();
+			expect(event.defaultPrevented).toBe(false);
 		});
 	});
 });

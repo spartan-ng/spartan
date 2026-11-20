@@ -271,6 +271,8 @@ export class BrnNavigationMenuTrigger implements OnInit, OnDestroy, FocusableOpt
 	}
 
 	protected onEscape(e: Event) {
+		// Only claim Escape when it closes the menu, so a surrounding dialog or sheet still gets it otherwise
+		if (this._navigationMenu.value() === undefined) return;
 		e.preventDefault();
 		this._deactivate();
 	}

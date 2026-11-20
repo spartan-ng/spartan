@@ -34,7 +34,9 @@ function joinClasses(...classes: (string | undefined)[]): string {
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'data-sonner-toast': '',
-		'[attr.aria-live]': "toast().important ? 'assertive' : 'polite'",
+		// regular toasts are announced by the toaster's polite live region; important ones interrupt
+		'[attr.aria-live]': "toast().important ? 'assertive' : null",
+		// read the whole toast when it is updated, e.g. a new title with an unchanged description
 		'aria-atomic': 'true',
 		tabindex: '0',
 		'[class]': '_toastClasses()',

@@ -202,14 +202,14 @@ describe('select', () => {
 			// initial
 			cy.get('[brnselecttrigger]').should('not.have.attr', 'data-touched');
 			cy.get('[brnselecttrigger]').should('not.have.attr', 'data-dirty');
-			cy.get('[brnselecttrigger]').should('have.attr', 'aria-invalid', 'true');
+			cy.get('[brnselecttrigger]').should('not.have.attr', 'aria-invalid');
 			cy.get('[brnselecttrigger]').should('not.have.attr', 'data-matches-spartan-invalid');
 
 			// on open
 			cy.get('[brnselecttrigger]').click();
 			cy.get('[brnselecttrigger]').should('not.have.attr', 'data-touched');
 			cy.get('[brnselecttrigger]').should('not.have.attr', 'data-dirty');
-			cy.get('[brnselecttrigger]').should('have.attr', 'aria-invalid', 'true');
+			cy.get('[brnselecttrigger]').should('not.have.attr', 'aria-invalid');
 			cy.get('[brnselecttrigger]').should('not.have.attr', 'data-matches-spartan-invalid');
 			cy.get('body').click();
 
@@ -275,14 +275,14 @@ describe('select', () => {
 			// initial
 			cy.get('[brnselecttrigger]').should('not.have.attr', 'data-touched');
 			cy.get('[brnselecttrigger]').should('not.have.attr', 'data-dirty');
-			cy.get('[brnselecttrigger]').should('have.attr', 'aria-invalid', 'true');
+			cy.get('[brnselecttrigger]').should('not.have.attr', 'aria-invalid');
 			cy.get('[brnselecttrigger]').should('not.have.attr', 'data-matches-spartan-invalid');
 
 			// on open
 			cy.get('[brnselecttrigger]').click();
 			cy.get('[brnselecttrigger]').should('not.have.attr', 'data-touched');
 			cy.get('[brnselecttrigger]').should('not.have.attr', 'data-dirty');
-			cy.get('[brnselecttrigger]').should('have.attr', 'aria-invalid', 'true');
+			cy.get('[brnselecttrigger]').should('not.have.attr', 'aria-invalid');
 			cy.get('[brnselecttrigger]').should('not.have.attr', 'data-matches-spartan-invalid');
 			cy.get('[brnselecttrigger]').click();
 

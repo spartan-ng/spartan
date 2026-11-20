@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { userEvent } from '@vitest/browser/context';
 import { BrnTooltip } from './brn-tooltip';
 
 @Component({
@@ -16,6 +17,16 @@ const pointer = (target: Element, type: 'pointerenter' | 'pointerleave') =>
 	target.dispatchEvent(new PointerEvent(type, { pointerType: 'mouse' }));
 
 describe('BrnTooltip', () => {
+	// The real mouse starts at (0,0), where both the trigger and the not-yet-positioned overlay sit.
+	// Linux Chrome then fires a trusted pointerenter on the overlay that the synthetic events never undo.
+	beforeEach(async () => {
+		const away = document.createElement('div');
+		away.style.cssText = 'position:fixed;left:300px;top:200px;width:20px;height:20px';
+		document.body.appendChild(away);
+		await userEvent.hover(away);
+		away.remove();
+	});
+
 	afterEach(() => {
 		TestBed.resetTestingModule();
 		document.querySelectorAll('.cdk-overlay-container').forEach((el) => el.remove());

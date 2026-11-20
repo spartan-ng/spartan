@@ -50,6 +50,24 @@ export abstract class BrnDateInput<V> {
 	/** Forces the invalid state visually, regardless of form control state. */
 	public readonly forceInvalid = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
+	/** Accessible name of the text input. Forwarded to the inner `<input>`, not the host. */
+	public readonly ariaLabel = input<string | null>(null, { alias: 'aria-label' });
+
+	/** Id(s) of the element(s) labelling the text input. Forwarded to the inner `<input>`, not the host. */
+	public readonly ariaLabelledby = input<string | null>(null, { alias: 'aria-labelledby' });
+
+	/** Id(s) of the element(s) describing the text input. Forwarded to the inner `<input>`, not the host. */
+	public readonly ariaDescribedby = input<string | null>(null, { alias: 'aria-describedby' });
+
+	/**
+	 * Manual override for aria-invalid, e.g. for server-side validation errors.
+	 * When not set, it follows the error state matcher (and `forceInvalid`).
+	 */
+	public readonly ariaInvalidInput = input<boolean | undefined, BooleanInput>(undefined, {
+		transform: (v: BooleanInput) => (v === '' || v === undefined ? undefined : booleanAttribute(v)),
+		alias: 'aria-invalid',
+	});
+
 	/** Accessible label for the clear button. */
 	public readonly clearAriaLabel = input<string>('Clear date');
 

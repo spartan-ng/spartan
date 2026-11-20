@@ -167,4 +167,55 @@ describe('BrnDialogService', () => {
 
 		outside.remove();
 	});
+
+	it('keeps closing on focus out after focus passes through a stacked overlay', async () => {
+		const outside = document.body.appendChild(document.createElement('button'));
+		const service = TestBed.inject(BrnDialogService);
+		const parent = service.open(FocusableDialogContent, undefined, undefined, {
+			closeOnFocusOut: true,
+			trapFocus: false,
+		});
+		await settle();
+		service.open(FocusableDialogContent, undefined, undefined, { trapFocus: false, autoFocus: false });
+		await settle();
+		const [parentPane, childPane] = Array.from(document.querySelectorAll<HTMLElement>('.cdk-overlay-pane'));
+		parentPane.querySelector<HTMLElement>('#first')!.focus();
+
+		childPane.querySelector<HTMLElement>('#first')!.focus();
+		expect(parent.state()).toBe('open');
+
+		outside.focus();
+		expect(parent.state()).toBe('closed');
+
+		outside.remove();
+	});
+
+	it('hides the page from assistive technology only for a dialog that traps focus', async () => {
+		const page = document.body.appendChild(document.createElement('main'));
+		const service = TestBed.inject(BrnDialogService);
+
+		const nonModal = service.open(FocusableDialogContent, undefined, undefined, { trapFocus: false });
+		await settle();
+		expect(page.hasAttribute('aria-hidden')).toBe(false);
+		nonModal.forceClose();
+
+		service.open(FocusableDialogContent);
+		await settle();
+		expect(page.getAttribute('aria-hidden')).toBe('true');
+
+		page.remove();
+	});
+
+	it('emits openChangeComplete(false) after closed, so a handler can open the dialog again', async () => {
+		const dialog = TestBed.inject(BrnDialogService).open(DialogContent);
+		await settle();
+		const events: string[] = [];
+		dialog.closed$.subscribe(() => events.push('closed'));
+		dialog.openChangeComplete$.subscribe((open) => events.push(`complete:${open}`));
+
+		dialog.close();
+		await settle();
+
+		expect(events).toEqual(['closed', 'complete:false']);
+	});
 });

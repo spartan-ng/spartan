@@ -3,14 +3,16 @@ import { CdkDialogContainer, Dialog, DIALOG_DATA } from '@angular/cdk/dialog';
 import {
 	type ComponentType,
 	FlexibleConnectedPositionStrategy,
+	OverlayContainer,
 	OverlayOutsideClickDispatcher,
 	OverlayPositionBuilder,
 	type OverlayRef,
 	ScrollStrategyOptions,
 } from '@angular/cdk/overlay';
+import { DOCUMENT } from '@angular/common';
 import type { TemplateRef, ViewContainerRef } from '@angular/core';
 import { ElementRef, inject, Injectable, type InjectOptions, Injector, type StaticProvider } from '@angular/core';
-import { filter, takeUntil } from 'rxjs/operators';
+import { filter, take, takeUntil } from 'rxjs/operators';
 import { nextBrnDialogId } from './brn-dialog-id';
 import type { BrnDialogOptions } from './brn-dialog-options';
 import { BrnDialogRef } from './brn-dialog-ref';
@@ -27,6 +29,8 @@ export const injectBrnDialogContext = <DialogContext = unknown>(options: InjectO
 export class BrnDialogService {
 	private readonly _overlayCloseDispatcher = inject(OverlayOutsideClickDispatcher);
 	private readonly _cdkDialog = inject(Dialog);
+	private readonly _overlayContainer = inject(OverlayContainer);
+	private readonly _document = inject(DOCUMENT);
 	private readonly _positionBuilder = inject(OverlayPositionBuilder);
 	private readonly _scrollStrategies = inject(ScrollStrategyOptions);
 	private readonly _injector = inject(Injector);
@@ -68,6 +72,10 @@ export class BrnDialogService {
 			close: (result: unknown = undefined) => brnDialogRef.close(result as DialogResult),
 		};
 
+		// The CDK hides the rest of the page from assistive technology once the first dialog moves focus
+		// in. A dialog that doesn't trap focus leaves the page usable, so it must stay accessible too.
+		const restorePageAccessibility = mergedOptions.trapFocus ? null : this._snapshotPageAriaHidden();
+
 		const cdkDialogRef = this._cdkDialog.open<DialogResult, BrnDialogContext<DialogContext>, unknown>(content, {
 			id: mergedOptions.id,
 			role: mergedOptions.role,
@@ -93,17 +101,22 @@ export class BrnDialogService {
 				mergedOptions.ariaLabelledBy === undefined ? `brn-dialog-title-${dialogId}` : mergedOptions.ariaLabelledBy,
 			ariaLabel: mergedOptions.ariaLabel,
 			ariaModal: mergedOptions.ariaModal,
-			container: mergedOptions.trapFocus
-				? undefined
-				: {
-						type: CdkDialogContainer,
-						providers: () => [{ provide: FocusTrapFactory, useClass: BrnInertFocusTrapFactory, deps: [] }],
-					},
+			// Only when not trapping: an explicit undefined would override a DEFAULT_DIALOG_CONFIG container.
+			...(!mergedOptions.trapFocus && {
+				container: {
+					type: CdkDialogContainer,
+					providers: () => [{ provide: FocusTrapFactory, useClass: BrnInertFocusTrapFactory, deps: [] }],
+				},
+			}),
 			providers: (dialogRef) => {
 				brnDialogRef = new BrnDialogRef(dialogRef, this._injector, dialogId, mergedOptions);
 				return this._createProviders(brnDialogRef, mergedOptions);
 			},
 		});
+
+		if (restorePageAccessibility) {
+			cdkDialogRef.containerInstance._focusTrapped?.pipe(take(1)).subscribe(restorePageAccessibility);
+		}
 
 		this._connectDismissalEvents(brnDialogRef, cdkDialogRef.overlayRef);
 		if (mergedOptions.closeOnFocusOut) this._connectFocusOut(brnDialogRef, cdkDialogRef.overlayRef);
@@ -148,17 +161,38 @@ export class BrnDialogService {
 	private _connectFocusOut<Result>(dialogRef: BrnDialogRef<Result>, overlayRef: OverlayRef): void {
 		// Kept in a constant: the overlay ref no longer exposes its element once it is disposed.
 		const pane = overlayRef.overlayElement;
-		const onFocusOut = (event: FocusEvent) => {
-			const target = event.relatedTarget;
-			if (!(target instanceof Node) || pane.contains(target)) return;
-			// Focus moving into an overlay stacked above (a nested popup) stays within the dialog.
+		// Focus moving into an overlay stacked above (a nested popup) stays within the dialog, and
+		// leaving that overlay for the page leaves the dialog as well. Track focus on the document, as
+		// the pane gets no `focusout` when focus leaves a nested overlay.
+		const isWithinDialog = (target: Node) => {
+			if (pane.contains(target)) return true;
 			const overlays = this._overlayCloseDispatcher._attachedOverlays;
 			const above = overlays.slice(overlays.indexOf(overlayRef) + 1);
-			if (above.some((overlay) => overlay.hostElement.contains(target))) return;
-			dialogRef.dismiss('focus-out');
+			return above.some((overlay) => overlay.hostElement.contains(target));
 		};
-		pane.addEventListener('focusout', onFocusOut);
-		dialogRef.closed$.subscribe(() => pane.removeEventListener('focusout', onFocusOut));
+		const activeElement = this._document.activeElement;
+		let focusWithin = activeElement instanceof Node && isWithinDialog(activeElement);
+		const onFocusIn = (event: FocusEvent) => {
+			const target = event.target;
+			if (!(target instanceof Node)) return;
+			const wasWithin = focusWithin;
+			focusWithin = isWithinDialog(target);
+			if (wasWithin && !focusWithin) dialogRef.dismiss('focus-out');
+		};
+		this._document.addEventListener('focusin', onFocusIn, true);
+		dialogRef.closed$.subscribe(() => this._document.removeEventListener('focusin', onFocusIn, true));
+	}
+
+	/** Records the `aria-hidden` of the overlay container's siblings and returns a restore function. */
+	private _snapshotPageAriaHidden(): () => void {
+		const siblings = Array.from(this._overlayContainer.getContainerElement().parentElement?.children ?? []);
+		const snapshot = new Map(siblings.map((sibling) => [sibling, sibling.getAttribute('aria-hidden')]));
+		return () => {
+			for (const [sibling, value] of snapshot) {
+				if (value === null) sibling.removeAttribute('aria-hidden');
+				else sibling.setAttribute('aria-hidden', value);
+			}
+		};
 	}
 
 	private _isTopmostOutsideTarget(overlayRef: OverlayRef): boolean {

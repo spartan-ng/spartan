@@ -1,3 +1,4 @@
+// Portions adapted from Radix Primitives (https://github.com/radix-ui/primitives), MIT License, Copyright (c) 2022 WorkOS.
 import { isPlatformServer } from '@angular/common';
 import {
 	afterNextRender,

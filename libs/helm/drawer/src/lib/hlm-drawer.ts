@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, forwardRef } from '@angular/core';
+import type { BooleanInput } from '@angular/cdk/coercion';
+import { booleanAttribute, ChangeDetectionStrategy, Component, forwardRef, input } from '@angular/core';
 import { BrnDialog, provideBrnDialogDefaultOptions } from '@spartan-ng/brain/dialog';
 import { BrnDrawer } from '@spartan-ng/brain/drawer';
 import { HlmDrawerOverlay } from './hlm-drawer-overlay';
@@ -21,9 +22,13 @@ import { HlmDrawerOverlay } from './hlm-drawer-overlay';
 		}),
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: { 'data-slot': 'drawer' },
 	template: `
 		<hlm-drawer-overlay />
 		<ng-content />
 	`,
 })
-export class HlmDrawer extends BrnDrawer {}
+export class HlmDrawer extends BrnDrawer {
+	/** Renders a swipe handle at the edge of the drawer. */
+	public readonly showSwipeHandle = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
+}

@@ -1,3 +1,5 @@
+// Adapted from Sonner (https://github.com/emilkowalski/sonner), MIT License, Copyright (c) 2023 Emil Kowalski,
+// via ngx-sonner (https://github.com/tutkli/ngx-sonner), MIT License, Copyright (c) 2024 Clara Castillo.
 import { signal, type Type } from '@angular/core';
 import type { ExternalToast, HeightT, PromiseData, PromiseT, ToastT, ToastTypes } from './types';
 

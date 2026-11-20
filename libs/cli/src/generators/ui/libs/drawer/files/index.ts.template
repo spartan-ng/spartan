@@ -6,6 +6,7 @@ import { HlmDrawerFooter } from './lib/hlm-drawer-footer';
 import { HlmDrawerHeader } from './lib/hlm-drawer-header';
 import { HlmDrawerOverlay } from './lib/hlm-drawer-overlay';
 import { HlmDrawerPortal } from './lib/hlm-drawer-portal';
+import { HlmDrawerSwipeHandle } from './lib/hlm-drawer-swipe-handle';
 import { HlmDrawerTitle } from './lib/hlm-drawer-title';
 import { HlmDrawerTrigger } from './lib/hlm-drawer-trigger';
 
@@ -17,6 +18,7 @@ export * from './lib/hlm-drawer-footer';
 export * from './lib/hlm-drawer-header';
 export * from './lib/hlm-drawer-overlay';
 export * from './lib/hlm-drawer-portal';
+export * from './lib/hlm-drawer-swipe-handle';
 export * from './lib/hlm-drawer-title';
 export * from './lib/hlm-drawer-trigger';
 
@@ -29,6 +31,7 @@ export const HlmDrawerImports = [
 	HlmDrawerHeader,
 	HlmDrawerOverlay,
 	HlmDrawerPortal,
+	HlmDrawerSwipeHandle,
 	HlmDrawerTitle,
 	HlmDrawerTrigger,
 ] as const;

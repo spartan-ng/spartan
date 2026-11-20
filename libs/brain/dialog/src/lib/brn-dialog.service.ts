@@ -76,6 +76,10 @@ export class BrnDialogService {
 			data: contextOrData,
 			direction: mergedOptions.direction,
 			hasBackdrop: mergedOptions.hasBackdrop,
+			width: mergedOptions.width,
+			height: mergedOptions.height,
+			...(mergedOptions.maxWidth !== undefined && { maxWidth: mergedOptions.maxWidth }),
+			...(mergedOptions.maxHeight !== undefined && { maxHeight: mergedOptions.maxHeight }),
 			panelClass: mergedOptions.panelClass,
 			backdropClass: mergedOptions.backdropClass,
 			positionStrategy,
@@ -141,17 +145,19 @@ export class BrnDialogService {
 	}
 
 	private _connectFocusOut<Result>(dialogRef: BrnDialogRef<Result>, overlayRef: OverlayRef): void {
+		// Kept in a constant: the overlay ref no longer exposes its element once it is disposed.
+		const pane = overlayRef.overlayElement;
 		const onFocusOut = (event: FocusEvent) => {
 			const target = event.relatedTarget;
-			if (!(target instanceof Node) || overlayRef.overlayElement.contains(target)) return;
+			if (!(target instanceof Node) || pane.contains(target)) return;
 			// Focus moving into an overlay stacked above (a nested popup) stays within the dialog.
 			const overlays = this._overlayCloseDispatcher._attachedOverlays;
 			const above = overlays.slice(overlays.indexOf(overlayRef) + 1);
 			if (above.some((overlay) => overlay.hostElement.contains(target))) return;
 			dialogRef.dismiss('focus-out');
 		};
-		overlayRef.overlayElement.addEventListener('focusout', onFocusOut);
-		dialogRef.closed$.subscribe(() => overlayRef.overlayElement.removeEventListener('focusout', onFocusOut));
+		pane.addEventListener('focusout', onFocusOut);
+		dialogRef.closed$.subscribe(() => pane.removeEventListener('focusout', onFocusOut));
 	}
 
 	private _isTopmostOutsideTarget(overlayRef: OverlayRef): boolean {

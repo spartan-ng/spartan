@@ -1,3 +1,4 @@
+/* Adapted from Sonner (https://github.com/emilkowalski/sonner), MIT License, Copyright (c) 2023 Emil Kowalski. */
 html[dir='ltr'],
 [data-sonner-toaster][dir='ltr'] {
 	--toast-icon-margin-start: var(--brn-sonner-toast-icon-margin-start, -3px);

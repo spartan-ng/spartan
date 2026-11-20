@@ -206,6 +206,28 @@ describe('BrnDialogService', () => {
 		page.remove();
 	});
 
+	it('hides the page while a focus trapping dialog is open above a non trapping one', async () => {
+		const page = document.body.appendChild(document.createElement('main'));
+		const service = TestBed.inject(BrnDialogService);
+
+		const nonModal = service.open(FocusableDialogContent, undefined, undefined, { trapFocus: false });
+		await settle();
+		expect(page.hasAttribute('aria-hidden')).toBe(false);
+
+		const modal = service.open(FocusableDialogContent);
+		await settle();
+		expect(page.getAttribute('aria-hidden')).toBe('true');
+
+		modal.forceClose();
+		await settle();
+		expect(page.hasAttribute('aria-hidden')).toBe(false);
+
+		nonModal.forceClose();
+		await settle();
+		expect(page.hasAttribute('aria-hidden')).toBe(false);
+		page.remove();
+	});
+
 	it('emits openChangeComplete(false) after closed, so a handler can open the dialog again', async () => {
 		const dialog = TestBed.inject(BrnDialogService).open(DialogContent);
 		await settle();

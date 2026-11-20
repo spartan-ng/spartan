@@ -68,6 +68,7 @@ module.exports = [
 						'{projectRoot}/vite.config.{ts,mts}',
 						'{projectRoot}/**/test-setup.ts',
 						'{projectRoot}/src/testing/**/*.ts',
+						'{projectRoot}/*/src/lib/testing/**/*.ts',
 						'{projectRoot}/**/*.spec.ts',
 						'{projectRoot}/**/*.stories.ts',
 					],

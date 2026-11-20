@@ -32,6 +32,8 @@ export type BrnDrawerModal = boolean | 'trap-focus';
 
 /** The element the drawer focuses when it opens, unless `autoFocus` is set. */
 const DRAWER_POPUP_SELECTOR = '[data-drawer-popup]';
+/** Matches nothing, so the CDK leaves focus where it is (it focuses the container for `false`). */
+const NO_AUTO_FOCUS_SELECTOR = ':not(*)';
 
 /** Notifies listeners of nested swipe progress without going through change detection. */
 export class BrnDrawerNestedSwipeProgressStore {
@@ -90,8 +92,11 @@ export class BrnDrawer<
 	/** The active snap point. `undefined` uses `defaultSnapPoint`. */
 	public readonly snapPoint = model<BrnDrawerSnapPoint | null | undefined>(undefined);
 
-	/** What the drawer focuses when it opens. Defaults to the popup. */
+	/** What the drawer focuses when it opens. Defaults to the popup; `false` leaves focus in place. */
 	public override readonly autoFocus = input<BrnDialogOptions['autoFocus']>(DRAWER_POPUP_SELECTOR);
+
+	/** The last snap point set by the drawer itself, not bound by the parent. */
+	private readonly _internalSnapPoint = signal<BrnDrawerSnapPoint | null | undefined>(undefined);
 
 	/** The payload of the trigger that opened the drawer, cleared once it closes. */
 	public readonly payload = signal<unknown>(undefined);
@@ -104,7 +109,15 @@ export class BrnDrawer<
 	});
 	public readonly activeSnapPoint = computed<BrnDrawerSnapPoint | null>(() => {
 		const snapPoint = this.snapPoint();
-		return snapPoint === undefined ? this.resolvedDefaultSnapPoint() : snapPoint;
+		if (snapPoint === undefined) return this.resolvedDefaultSnapPoint();
+		// A value the drawer set itself that isn't one of the snap points falls back to the default.
+		// A value bound by the parent is used as is (an unknown one resolves to closed).
+		const snapPoints = this.snapPoints();
+		const setInternally = this._internalSnapPoint() === snapPoint;
+		if (setInternally && snapPoints?.length && !snapPoints.some((point) => Object.is(point, snapPoint))) {
+			return this.resolvedDefaultSnapPoint();
+		}
+		return snapPoint;
 	});
 	public readonly hasSnapPoints = computed(() => (this.snapPoints()?.length ?? 0) > 0);
 
@@ -207,6 +220,7 @@ export class BrnDrawer<
 	}
 
 	public setActiveSnapPoint(snapPoint: BrnDrawerSnapPoint | null): void {
+		this._internalSnapPoint.set(snapPoint);
 		this.snapPoint.set(snapPoint);
 	}
 
@@ -270,6 +284,7 @@ export class BrnDrawer<
 			scrollStrategy: modal === true ? options.scrollStrategy : this._scrollStrategyOptions.noop(),
 			trapFocus: modal !== false,
 			closeOnFocusOut: modal === false && !!options.closeOnOutsidePointerEvents,
+			autoFocus: options.autoFocus === false ? NO_AUTO_FOCUS_SELECTOR : options.autoFocus,
 		};
 	}
 
@@ -287,8 +302,9 @@ export class BrnDrawer<
 			const closeWatcher = new CloseWatcher();
 			// The browser destroys the watcher before `close` fires, so handle the request on `cancel`.
 			closeWatcher.addEventListener('cancel', (event) => {
-				// Preventing the cancel keeps the watcher alive for the next back gesture.
-				if (this.disableClose()) {
+				// Preventing the cancel keeps the watcher alive for the next back gesture. A cancel that
+				// can't be prevented closes the drawer anyway, like a native <dialog>.
+				if (this.disableClose() && event.cancelable) {
 					event.preventDefault();
 					return;
 				}

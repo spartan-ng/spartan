@@ -134,7 +134,8 @@ export function findScrollableAncestor(
 	// `getParentNode` crosses shadow boundaries (and slots). Non-HTML targets (SVG, MathML) can't
 	// scroll, but their HTML ancestors can.
 	let node: unknown = target;
-	while (isElement(node) && node !== root && !isLastTraversableNode(node)) {
+	// A shadow root is walked through to its host.
+	while ((isElement(node) || isShadowRoot(node)) && node !== root && !isLastTraversableNode(node)) {
 		if (isHTMLElement(node) && isScrollable(node, axis, allowOverflowIntent)) return node;
 		node = getParentNode(node);
 	}

@@ -1,4 +1,5 @@
-import { ApplicationRef, ChangeDetectionStrategy, Component } from '@angular/core';
+import { OverlayContainer } from '@angular/cdk/overlay';
+import { ApplicationRef, ChangeDetectionStrategy, Component, Injectable } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { fireEvent } from '@testing-library/angular';
 import { BrnDialogService } from './brn-dialog.service';
@@ -19,6 +20,17 @@ class DialogContent {}
 	`,
 })
 class FocusableDialogContent {}
+
+/** Renders the overlay container inside an open shadow root, as an app rendered in shadow DOM would. */
+@Injectable()
+class ShadowRootOverlayContainer extends OverlayContainer {
+	protected override _createContainer(): void {
+		super._createContainer();
+		const host = document.body.appendChild(document.createElement('div'));
+		host.setAttribute('data-testid', 'shadow-host');
+		host.attachShadow({ mode: 'open' }).appendChild(this._containerElement);
+	}
+}
 
 const nextFrame = () => new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
 
@@ -166,6 +178,27 @@ describe('BrnDialogService', () => {
 		expect(dismissed.state()).toBe('closed');
 
 		outside.remove();
+	});
+
+	it('closes on focus out when the overlay renders inside a shadow root', async () => {
+		TestBed.configureTestingModule({
+			providers: [{ provide: OverlayContainer, useClass: ShadowRootOverlayContainer }],
+		});
+		const outside = document.body.appendChild(document.createElement('button'));
+		const dialog = TestBed.inject(BrnDialogService).open(FocusableDialogContent, undefined, undefined, {
+			closeOnFocusOut: true,
+			trapFocus: false,
+		});
+		await settle();
+		const host = document.querySelector('[data-testid="shadow-host"]')!;
+		host.shadowRoot!.querySelector<HTMLElement>('.cdk-overlay-pane #first')!.focus();
+		expect(dialog.state()).toBe('open');
+
+		outside.focus();
+		expect(dialog.state()).toBe('closed');
+
+		outside.remove();
+		host.remove();
 	});
 
 	it('keeps closing on focus out after focus passes through a stacked overlay', async () => {

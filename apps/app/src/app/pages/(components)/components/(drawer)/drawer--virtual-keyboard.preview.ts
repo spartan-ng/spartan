@@ -12,27 +12,26 @@ import { HlmLabelImports } from '@spartan-ng/helm/label';
 	template: `
 		<hlm-drawer brnDrawerVirtualKeyboardProvider showSwipeHandle>
 			<button id="drawer-virtual-keyboard-trigger" hlmDrawerTrigger hlmBtn variant="outline">Edit Address</button>
-			<hlm-drawer-content *hlmDrawerPortal="let ctx">
+			<!-- A tall drawer with its own scroll area leaves room to scroll the field above the keyboard. -->
+			<hlm-drawer-content *hlmDrawerPortal="let ctx" class="h-[calc(100dvh-6rem)]">
 				<hlm-drawer-header>
 					<h3 hlmDrawerTitle>Shipping address</h3>
 					<p hlmDrawerDescription>On a phone, the focused field stays above the keyboard.</p>
 				</hlm-drawer-header>
-				<div class="grid gap-4 overflow-y-auto p-4">
-					<div class="grid gap-2">
-						<label hlmLabel for="virtual-keyboard-name">Full name</label>
-						<input hlmInput id="virtual-keyboard-name" autocomplete="name" />
-					</div>
-					<div class="grid gap-2">
-						<label hlmLabel for="virtual-keyboard-street">Street</label>
-						<input hlmInput id="virtual-keyboard-street" autocomplete="address-line1" />
-					</div>
-					<div class="grid gap-2">
-						<label hlmLabel for="virtual-keyboard-city">City</label>
-						<input hlmInput id="virtual-keyboard-city" autocomplete="address-level2" />
-					</div>
-					<div class="grid gap-2">
-						<label hlmLabel for="virtual-keyboard-zip">Postal code</label>
-						<input hlmInput id="virtual-keyboard-zip" autocomplete="postal-code" inputmode="numeric" />
+				<div class="min-h-0 flex-1 overflow-y-auto overscroll-contain p-4">
+					<div class="grid gap-4">
+						@for (field of _fields; track field.id) {
+							<div class="grid gap-2">
+								<label hlmLabel [for]="field.id">{{ field.label }}</label>
+								<input
+									hlmInput
+									[id]="field.id"
+									[type]="field.type"
+									[attr.autocomplete]="field.autocomplete"
+									[attr.inputmode]="field.inputmode"
+								/>
+							</div>
+						}
 					</div>
 				</div>
 				<hlm-drawer-footer>
@@ -42,4 +41,21 @@ import { HlmLabelImports } from '@spartan-ng/helm/label';
 		</hlm-drawer>
 	`,
 })
-export class DrawerVirtualKeyboardPreview {}
+export class DrawerVirtualKeyboardPreview {
+	protected readonly _fields = [
+		{ id: 'virtual-keyboard-name', label: 'Full name', type: 'text', autocomplete: 'name' },
+		{ id: 'virtual-keyboard-email', label: 'Email', type: 'email', autocomplete: 'email' },
+		{ id: 'virtual-keyboard-phone', label: 'Phone', type: 'tel', autocomplete: 'tel' },
+		{ id: 'virtual-keyboard-street', label: 'Street', type: 'text', autocomplete: 'address-line1' },
+		{ id: 'virtual-keyboard-apartment', label: 'Apartment', type: 'text', autocomplete: 'address-line2' },
+		{ id: 'virtual-keyboard-city', label: 'City', type: 'text', autocomplete: 'address-level2' },
+		{ id: 'virtual-keyboard-region', label: 'County', type: 'text', autocomplete: 'address-level1' },
+		{
+			id: 'virtual-keyboard-zip',
+			label: 'Postal code',
+			type: 'text',
+			autocomplete: 'postal-code',
+			inputmode: 'numeric',
+		},
+	];
+}

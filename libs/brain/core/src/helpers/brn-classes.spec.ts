@@ -652,6 +652,50 @@ describe('brnClasses', () => {
 		expect(checks).toBeLessThan(10);
 	});
 
+	it('should not run an extra zone change detection pass when suppressed transitions are restored', async () => {
+		@Directive({ selector: '[brnTestClasses]' })
+		class TestClassesDirective {
+			constructor() {
+				classes(() => 'inline-flex');
+			}
+		}
+
+		let checks = 0;
+
+		@Component({
+			imports: [TestClassesDirective],
+			// counts every pass the zone triggers
+			// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
+			changeDetection: ChangeDetectionStrategy.Eager,
+			template: `
+				<span brnTestClasses>a</span>
+				<span brnTestClasses>b</span>
+			`,
+		})
+		class TestComponent implements DoCheck {
+			ngDoCheck() {
+				checks++;
+			}
+		}
+
+		const frame = () => new Promise((resolve) => requestAnimationFrame(resolve));
+		// All restores share one frame: let the one an earlier test scheduled run first
+		await frame();
+
+		TestBed.configureTestingModule({ providers: [provideZoneChangeDetection()] });
+		const fixture = TestBed.createComponent(TestComponent);
+		fixture.autoDetectChanges();
+		const span = fixture.nativeElement.querySelector('span') as HTMLElement;
+		expect(span.style.getPropertyValue('transition')).toBe('none');
+
+		checks = 0;
+		await frame();
+		await frame();
+
+		expect(span.style.getPropertyValue('transition')).toBe('');
+		expect(checks).toBe(0);
+	});
+
 	it('should not run an extra zone change detection pass for a batched merge', async () => {
 		@Directive({ selector: '[brnTestClasses]' })
 		class TestClassesDirective {

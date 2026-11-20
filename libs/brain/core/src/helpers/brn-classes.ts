@@ -196,13 +196,16 @@ export function brnClasses(computed: () => BrnClassValue[] | string, options: Br
 
 function scheduleTransitionRestore(manager: ElementClassManager): void {
 	pendingTransitionRestores.add(manager);
-	transitionRestoreRafId ??= requestAnimationFrame(() => {
-		transitionRestoreRafId = null;
-		for (const pending of pendingTransitionRestores) {
-			restoreTransitionSuppression(pending);
-		}
-		pendingTransitionRestores.clear();
-	});
+	// Requested from the effect, inside the zone: the callback would trigger a change detection pass
+	transitionRestoreRafId ??= manager.zone.runOutsideAngular(() =>
+		requestAnimationFrame(() => {
+			transitionRestoreRafId = null;
+			for (const pending of pendingTransitionRestores) {
+				restoreTransitionSuppression(pending);
+			}
+			pendingTransitionRestores.clear();
+		}),
+	);
 }
 
 function restoreTransitionSuppression(manager: ElementClassManager): void {

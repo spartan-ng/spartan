@@ -1,3 +1,7 @@
+## 1.10.0-beta.8 (2026-11-20)
+
+- fix: request the transition restore frame outside the Angular zone (#1893) ([d8d9a98](https://github.com/spartan-ng/spartan/commit/d8d9a98)), closes [#1893](https://github.com/spartan-ng/spartan/issues/1893)
+
 ## 1.10.0-beta.7 (2026-11-20)
 
 - perf: skip classes() work for the element's own class writes (#1892) ([422feaf](https://github.com/spartan-ng/spartan/commit/422feaf)), closes [#1892](https://github.com/spartan-ng/spartan/issues/1892)

@@ -5583,6 +5583,24 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "outputs": [],
         "selector": "[hlmDrawerPortal]",
       },
+      "HlmDrawerSwipeArea": {
+        "exportAs": "hlmDrawerSwipeArea",
+        "inputs": [
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "swipeDirection",
+            "required": false,
+            "type": "BrnDrawerSwipeDirection",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmDrawerSwipeArea],hlm-drawer-swipe-area",
+      },
       "HlmDrawerSwipeHandle": {
         "exportAs": "hlmDrawerSwipeHandle",
         "inputs": [],

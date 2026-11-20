@@ -83,8 +83,11 @@ export class BrnDialogRef<DialogResult = unknown> {
 		);
 
 		this._cdkDialogRef.closed.subscribe((result) => {
+			// The CDK can close the dialog itself (e.g. the `close` scroll strategy), skipping `close()`.
+			const closedByCdk = this._phase() !== 'closed';
 			this._cancelStartingFrame();
 			this._phase.set('closed');
+			if (closedByCdk) this._openChangeComplete.next(false);
 			this._transitionStatus.set(undefined);
 			this._closed.next(result);
 			this._closed.complete();

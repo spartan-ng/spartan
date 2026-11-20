@@ -90,8 +90,13 @@ export class BrnDrawer<
 	/** The active snap point. `undefined` uses `defaultSnapPoint`. */
 	public readonly snapPoint = model<BrnDrawerSnapPoint | null | undefined>(undefined);
 
-	/** The payload of the trigger that opened the drawer. */
+	/** What the drawer focuses when it opens. Defaults to the popup. */
+	public override readonly autoFocus = input<BrnDialogOptions['autoFocus']>(DRAWER_POPUP_SELECTOR);
+
+	/** The payload of the trigger that opened the drawer, cleared once it closes. */
 	public readonly payload = signal<unknown>(undefined);
+	/** The trigger that opened the drawer, `null` when it was opened without one. */
+	public readonly activeTrigger = signal<object | null>(null);
 
 	public readonly resolvedDefaultSnapPoint = computed<BrnDrawerSnapPoint | null>(() => {
 		const defaultSnapPoint = this.defaultSnapPoint();
@@ -191,6 +196,8 @@ export class BrnDrawer<
 		// The swipe area doesn't take focus, so the element focused before it opened the drawer can be
 		// anywhere on the page. The CDK restores focus without `preventScroll`, which would scroll to it.
 		this.closed.subscribe(() => {
+			this.payload.set(undefined);
+			this.activeTrigger.set(null);
 			const target = this._focusBeforeSwipeAreaOpen;
 			this._focusBeforeSwipeAreaOpen = null;
 			this._openedBySwipeArea.set(false);
@@ -263,7 +270,6 @@ export class BrnDrawer<
 			scrollStrategy: modal === true ? options.scrollStrategy : this._scrollStrategyOptions.noop(),
 			trapFocus: modal !== false,
 			closeOnFocusOut: modal === false && !!options.closeOnOutsidePointerEvents,
-			autoFocus: options.autoFocus === this._defaultOptions.autoFocus ? DRAWER_POPUP_SELECTOR : options.autoFocus,
 		};
 	}
 

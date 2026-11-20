@@ -999,6 +999,27 @@ describe('brnClasses', () => {
 		});
 	});
 
+	it('should let the last of a repeated class win in a text source, the same as in a list source', async () => {
+		await TestBed.configureTestingModule({}).compileComponents();
+
+		const asText = document.createElement('div');
+		const asList = document.createElement('div');
+
+		// A default, a size variant, and a consumer override that repeats the default
+		const base = 'inline-flex px-2';
+		const size = 'px-4';
+		const override = 'px-2';
+
+		TestBed.runInInjectionContext(() => {
+			classes(() => `${base} ${size} ${override}`, { elementRef: new ElementRef(asText) });
+			classes(() => [base, size, override], { elementRef: new ElementRef(asList) });
+		});
+		TestBed.tick();
+
+		expect(asList.className).toBe('inline-flex px-2');
+		expect(asText.className).toBe('inline-flex px-2');
+	});
+
 	it('should keep a static class that a source also produces once the source changes', async () => {
 		@Directive({ selector: '[brnDisplay]' })
 		class Display {

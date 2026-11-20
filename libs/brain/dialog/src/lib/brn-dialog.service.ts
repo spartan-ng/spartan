@@ -76,8 +76,9 @@ export class BrnDialogService {
 			data: contextOrData,
 			direction: mergedOptions.direction,
 			hasBackdrop: mergedOptions.hasBackdrop,
-			width: mergedOptions.width,
-			height: mergedOptions.height,
+			// Only when set: an explicit undefined would override the CDK DEFAULT_DIALOG_CONFIG size.
+			...(mergedOptions.width !== undefined && { width: mergedOptions.width }),
+			...(mergedOptions.height !== undefined && { height: mergedOptions.height }),
 			...(mergedOptions.maxWidth !== undefined && { maxWidth: mergedOptions.maxWidth }),
 			...(mergedOptions.maxHeight !== undefined && { maxHeight: mergedOptions.maxHeight }),
 			panelClass: mergedOptions.panelClass,

@@ -1,4 +1,5 @@
-import { Dialog, DIALOG_DATA } from '@angular/cdk/dialog';
+import { FocusTrapFactory } from '@angular/cdk/a11y';
+import { CdkDialogContainer, Dialog, DIALOG_DATA } from '@angular/cdk/dialog';
 import {
 	type ComponentType,
 	FlexibleConnectedPositionStrategy,
@@ -87,6 +88,12 @@ export class BrnDialogService {
 				mergedOptions.ariaLabelledBy === undefined ? `brn-dialog-title-${dialogId}` : mergedOptions.ariaLabelledBy,
 			ariaLabel: mergedOptions.ariaLabel,
 			ariaModal: mergedOptions.ariaModal,
+			container: mergedOptions.trapFocus
+				? undefined
+				: {
+						type: CdkDialogContainer,
+						providers: () => [{ provide: FocusTrapFactory, useClass: BrnInertFocusTrapFactory, deps: [] }],
+					},
 			providers: (dialogRef) => {
 				brnDialogRef = new BrnDialogRef(dialogRef, this._injector, dialogId, mergedOptions);
 				return this._createProviders(brnDialogRef, mergedOptions);
@@ -94,6 +101,7 @@ export class BrnDialogService {
 		});
 
 		this._connectDismissalEvents(brnDialogRef, cdkDialogRef.overlayRef);
+		if (mergedOptions.closeOnFocusOut) this._connectFocusOut(brnDialogRef, cdkDialogRef.overlayRef);
 		return brnDialogRef;
 	}
 
@@ -132,6 +140,20 @@ export class BrnDialogService {
 			});
 	}
 
+	private _connectFocusOut<Result>(dialogRef: BrnDialogRef<Result>, overlayRef: OverlayRef): void {
+		const onFocusOut = (event: FocusEvent) => {
+			const target = event.relatedTarget;
+			if (!(target instanceof Node) || overlayRef.overlayElement.contains(target)) return;
+			// Focus moving into an overlay stacked above (a nested popup) stays within the dialog.
+			const overlays = this._overlayCloseDispatcher._attachedOverlays;
+			const above = overlays.slice(overlays.indexOf(overlayRef) + 1);
+			if (above.some((overlay) => overlay.hostElement.contains(target))) return;
+			dialogRef.dismiss('focus-out');
+		};
+		overlayRef.overlayElement.addEventListener('focusout', onFocusOut);
+		dialogRef.closed$.subscribe(() => overlayRef.overlayElement.removeEventListener('focusout', onFocusOut));
+	}
+
 	private _isTopmostOutsideTarget(overlayRef: OverlayRef): boolean {
 		const overlays = this._overlayCloseDispatcher._attachedOverlays;
 		const index = overlays.indexOf(overlayRef);
@@ -157,5 +179,15 @@ export class BrnDialogService {
 
 		const element = childOrigin instanceof ElementRef ? childOrigin.nativeElement : childOrigin;
 		return typeof Node !== 'undefined' && element instanceof Node ? parent.hostElement.contains(element) : false;
+	}
+}
+
+/** Creates focus traps whose tab anchors are disabled: the dialog still moves focus in, but Tab can leave it. */
+@Injectable()
+class BrnInertFocusTrapFactory extends FocusTrapFactory {
+	public override create(element: HTMLElement, deferCaptureElements?: boolean) {
+		const focusTrap = super.create(element, deferCaptureElements);
+		focusTrap.enabled = false;
+		return focusTrap;
 	}
 }

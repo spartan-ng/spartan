@@ -2,6 +2,7 @@
 import type { BooleanInput } from '@angular/cdk/coercion';
 import { ScrollStrategyOptions } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
+import { DOCUMENT } from '@angular/common';
 import {
 	booleanAttribute,
 	computed,
@@ -146,6 +147,10 @@ export class BrnDrawer<
 	public swipeAreaActive = false;
 	private _isNestedDrawerOpen = false;
 	private _reportedToParent = false;
+	private readonly _document = inject(DOCUMENT);
+	/** Whether a swipe area opened the drawer: focus then returns without scrolling the page. */
+	private readonly _openedBySwipeArea = signal(false);
+	private _focusBeforeSwipeAreaOpen: HTMLElement | null = null;
 
 	constructor() {
 		super();
@@ -182,6 +187,16 @@ export class BrnDrawer<
 		});
 
 		this._connectCloseWatcher();
+
+		// The swipe area doesn't take focus, so the element focused before it opened the drawer can be
+		// anywhere on the page. The CDK restores focus without `preventScroll`, which would scroll to it.
+		this.closed.subscribe(() => {
+			const target = this._focusBeforeSwipeAreaOpen;
+			this._focusBeforeSwipeAreaOpen = null;
+			this._openedBySwipeArea.set(false);
+			const active = this._document.activeElement;
+			if (target?.isConnected && (!active || active === this._document.body)) target.focus({ preventScroll: true });
+		});
 	}
 
 	public setActiveSnapPoint(snapPoint: BrnDrawerSnapPoint | null): void {
@@ -224,10 +239,22 @@ export class BrnDrawer<
 		return this.positionStrategy() ?? this._positionBuilder.global().top('0').left('0');
 	}
 
+	/** Opens the drawer from a swipe area gesture. */
+	public openFromSwipeArea(): void {
+		if (!this.isOpen()) {
+			const active = this._document.activeElement;
+			this._focusBeforeSwipeAreaOpen = active instanceof HTMLElement && active !== this._document.body ? active : null;
+			this._openedBySwipeArea.set(true);
+		}
+		this.open();
+	}
+
 	protected override resolveOptions(options: Partial<BrnDialogOptions>): Partial<BrnDialogOptions> {
 		const modal = this.modal();
+		const restoreFocusWithoutScroll = this._openedBySwipeArea() && options.restoreFocus === true;
 		return {
 			...options,
+			restoreFocus: restoreFocusWithoutScroll ? false : options.restoreFocus,
 			width: '100%',
 			height: '100%',
 			maxWidth: '100%',

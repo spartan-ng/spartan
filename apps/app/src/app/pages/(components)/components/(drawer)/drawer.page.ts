@@ -18,6 +18,8 @@ import { SectionSubHeading } from '../../../../shared/layout/section-sub-heading
 import { Tabs } from '../../../../shared/layout/tabs';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
+import { DrawerDetachedTriggersPreview } from './drawer--detached-triggers.preview';
+import { DrawerIndentPreview } from './drawer--indent.preview';
 import { DrawerNestedPreview } from './drawer--nested.preview';
 import { DrawerNonModalPreview } from './drawer--non-modal.preview';
 import { DrawerPositionPreview } from './drawer--position.preview';
@@ -26,6 +28,7 @@ import { DrawerRtl } from './drawer--rtl.preview';
 import { DrawerSnapPointsPreview } from './drawer--snap-points.preview';
 import { DrawerSwipeAreaPreview } from './drawer--swipe-area.preview';
 import { DrawerSwipeHandlePreview } from './drawer--swipe-handle.preview';
+import { DrawerVirtualKeyboardPreview } from './drawer--virtual-keyboard.preview';
 import { DrawerPreview, defaultImports, defaultSkeleton } from './drawer.preview';
 
 export const routeMeta: RouteMeta = {
@@ -60,6 +63,9 @@ export const routeMeta: RouteMeta = {
 		DrawerNonModalPreview,
 		DrawerSnapPointsPreview,
 		DrawerResponsivePreview,
+		DrawerDetachedTriggersPreview,
+		DrawerIndentPreview,
+		DrawerVirtualKeyboardPreview,
 		DrawerRtl,
 	],
 	template: `
@@ -289,6 +295,61 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_responsiveCode()" />
 			</spartan-tabs>
 
+			<h3 id="detached-triggers" spartanH4>Detached Triggers</h3>
+			<p class="${hlmP} mb-6">
+				A trigger can live outside the drawer: pass the drawer to
+				<code class="${hlmCode}">hlmDrawerTriggerFor</code>
+				. Several triggers can open the same drawer, each with its own
+				<code class="${hlmCode}">payload</code>
+				, which the drawer exposes as
+				<code class="${hlmCode}">payload()</code>
+				while it is open. Only the trigger that opened the drawer reports
+				<code class="${hlmCode}">aria-expanded="true"</code>
+				.
+			</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-drawer-detached-triggers-preview />
+				</div>
+				<spartan-code secondTab [code]="_detachedTriggersCode()" />
+			</spartan-tabs>
+
+			<h3 id="indent" spartanH4>Indent</h3>
+			<p class="${hlmP} mb-6">
+				Wrap the app in
+				<code class="${hlmCode}">brnDrawerProvider</code>
+				and mark the content that should step back with
+				<code class="${hlmCode}">brnDrawerIndent</code>
+				and the layer behind it with
+				<code class="${hlmCode}">brnDrawerIndentBackground</code>
+				. Both get
+				<code class="${hlmCode}">data-active</code>
+				while a drawer in the provider is open, and the indent receives
+				<code class="${hlmCode}">--drawer-swipe-progress</code>
+				so it follows a swipe.
+			</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-drawer-indent-preview />
+				</div>
+				<spartan-code secondTab [code]="_indentCode()" />
+			</spartan-tabs>
+
+			<h3 id="virtual-keyboard" spartanH4>Virtual Keyboard</h3>
+			<p class="${hlmP} mb-6">
+				Add
+				<code class="${hlmCode}">brnDrawerVirtualKeyboardProvider</code>
+				to a drawer with form fields. On touch devices it keeps the focused field above the software keyboard, sets
+				<code class="${hlmCode}">--drawer-keyboard-inset</code>
+				to the keyboard height, and focuses fields on the first tap. Open the example on a phone to try it.
+			</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-drawer-virtual-keyboard-preview />
+				</div>
+				<spartan-code secondTab [code]="_virtualKeyboardCode()" />
+			</spartan-tabs>
+
 			<spartan-header-rtl />
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanRtlCodePreview firstTab>
@@ -345,6 +406,13 @@ export const routeMeta: RouteMeta = {
 					<code class="${hlmCode}">BrnDrawerBackdrop</code>
 					.
 				</li>
+				<li>
+					New: snap points, nested drawers, non modal drawers,
+					<code class="${hlmCode}">hlm-drawer-swipe-area</code>
+					to open a drawer by swiping from the screen edge, detached triggers with a
+					<code class="${hlmCode}">payload</code>
+					, the indent effect and the virtual keyboard provider.
+				</li>
 			</ul>
 
 			<spartan-section-sub-heading id="brn-api">Brain API</spartan-section-sub-heading>
@@ -375,6 +443,9 @@ export default class DrawerPage {
 	protected readonly _nonModalCode = computed(() => this._snippets()['nonModal']);
 	protected readonly _snapPointsCode = computed(() => this._snippets()['snapPoints']);
 	protected readonly _responsiveCode = computed(() => this._snippets()['responsive']);
+	protected readonly _detachedTriggersCode = computed(() => this._snippets()['detachedTriggers']);
+	protected readonly _indentCode = computed(() => this._snippets()['indent']);
+	protected readonly _virtualKeyboardCode = computed(() => this._snippets()['virtualKeyboard']);
 	protected readonly _rtlCode = computed(() => this._snippets()['rtl']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;

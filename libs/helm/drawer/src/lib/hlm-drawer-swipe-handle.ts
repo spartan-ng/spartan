@@ -1,0 +1,17 @@
+import { Directive } from '@angular/core';
+import { classes } from '@spartan-ng/helm/utils';
+
+@Directive({
+	selector: '[hlmDrawerSwipeHandle],hlm-drawer-swipe-handle',
+	exportAs: 'hlmDrawerSwipeHandle',
+	host: { 'data-slot': 'drawer-swipe-handle', 'aria-hidden': 'true' },
+})
+export class HlmDrawerSwipeHandle {
+	constructor() {
+		classes(() => [
+			'spartan-drawer-swipe-handle relative z-10 flex shrink-0 cursor-grab transition-opacity duration-200 active:cursor-grabbing',
+			'group-data-nested-drawer-open/drawer-popup:opacity-0 group-data-nested-drawer-swiping/drawer-popup:opacity-100',
+			'group-data-[swipe-direction=left]/drawer-popup:order-last group-data-[swipe-direction=up]/drawer-popup:order-last',
+		]);
+	}
+}

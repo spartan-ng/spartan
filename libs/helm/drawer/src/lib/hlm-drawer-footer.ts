@@ -8,6 +8,6 @@ import { classes } from '@spartan-ng/helm/utils';
 })
 export class HlmDrawerFooter {
 	constructor() {
-		classes(() => 'spartan-drawer-footer mt-auto flex flex-col');
+		classes(() => 'spartan-drawer-footer mt-auto flex shrink-0 flex-col');
 	}
 }

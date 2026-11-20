@@ -1,20 +1,13 @@
-import { Directive, inject } from '@angular/core';
-import {
-	type ExposesSide,
-	provideExposedSideProviderExisting,
-	provideExposesStateProviderExisting,
-} from '@spartan-ng/brain/core';
-import { BrnDialogContent } from '@spartan-ng/brain/dialog';
-import { BrnDrawer } from './brn-drawer';
+// Adapted from Base UI (https://github.com/mui/base-ui), MIT License, Copyright (c) 2019 Material-UI SAS.
+import { Directive } from '@angular/core';
 
+/**
+ * The drawer content area. Pointer presses inside it don't start a swipe, so text can be
+ * selected and controls used; touch swipes still work.
+ */
 @Directive({
-	selector: '[brnDrawerContent]',
+	selector: '[brnDrawerContent],brn-drawer-content',
 	exportAs: 'brnDrawerContent',
-	providers: [
-		provideExposesStateProviderExisting(() => BrnDrawerContent),
-		provideExposedSideProviderExisting(() => BrnDrawerContent),
-	],
+	host: { 'data-drawer-content': '' },
 })
-export class BrnDrawerContent<T extends Record<string, unknown>> extends BrnDialogContent<T> implements ExposesSide {
-	public readonly side = inject(BrnDrawer).direction;
-}
+export class BrnDrawerContent {}

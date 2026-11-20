@@ -50,6 +50,16 @@ export class BrnDialogRef<DialogResult = unknown> {
 		return this.initialOptions.id;
 	}
 
+	/** The overlay pane the dialog is rendered in. */
+	public get overlayElement(): HTMLElement {
+		return this._cdkDialogRef.overlayRef.overlayElement;
+	}
+
+	/** The overlay backdrop, if the dialog has one. */
+	public get backdropElement(): HTMLElement | null {
+		return this._cdkDialogRef.overlayRef.backdropElement;
+	}
+
 	constructor(
 		private readonly _cdkDialogRef: DialogRef<DialogResult>,
 		private readonly _injector: Injector,
@@ -206,15 +216,13 @@ export class BrnDialogRef<DialogResult = unknown> {
 
 	/**
 	 * Keeps `data-starting-style` for exactly one rendered frame, so CSS transitions run from the
-	 * starting style to the open style. The style is flushed first: without a computed starting
-	 * style the browser has nothing to transition from.
+	 * starting style to the open style. Layout is flushed first: without a computed starting style
+	 * (on the overlay and everything rendered inside it) the browser has nothing to transition from.
 	 */
 	private _endStartingStyle(): void {
 		if (this._transitionStatus() !== 'starting') return;
 
-		const { overlayElement, backdropElement } = this._cdkDialogRef.overlayRef;
-		void getComputedStyle(overlayElement).transform;
-		if (backdropElement) void getComputedStyle(backdropElement).opacity;
+		void this._cdkDialogRef.overlayRef.overlayElement.offsetWidth;
 
 		this._startingFrame = requestAnimationFrame(() => {
 			this._startingFrame = null;

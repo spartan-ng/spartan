@@ -8,6 +8,6 @@ import { classes } from '@spartan-ng/helm/utils';
 })
 export class HlmDrawerHeader {
 	constructor() {
-		classes(() => 'spartan-drawer-header flex flex-col');
+		classes(() => 'spartan-drawer-header flex shrink-0 flex-col group-data-[swipe-axis=y]/drawer-popup:text-center');
 	}
 }

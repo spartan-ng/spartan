@@ -3,7 +3,7 @@ import { By } from '@angular/platform-browser';
 import { render, waitFor, type RenderResult } from '@testing-library/angular';
 import { userEvent } from '@vitest/browser/context';
 import { BrnDrawerImports } from '../index';
-import type { BrnDrawerModal, BrnDrawerSwipeDirection } from './brn-drawer';
+import { BrnDrawer, type BrnDrawerModal, type BrnDrawerSwipeDirection } from './brn-drawer';
 import { BrnDrawerProvider } from './brn-drawer-provider';
 
 const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -412,6 +412,54 @@ describe('BrnDrawerSwipeArea', () => {
 		expect(html.classList).not.toContain('cdk-global-scrollblock');
 		filler.remove();
 	});
+
+	it.each(['swipe area', 'open()'] as const)(
+		'locks the page scroll when the %s reopens a modal drawer during its exit transition',
+		async (reopenWith) => {
+			const filler = document.body.appendChild(document.createElement('div'));
+			filler.style.height = '3000px';
+			// An exit animation, so the drawer is still closing when it reopens. `!important` beats the
+			// global test setup that disables animations.
+			const style = document.head.appendChild(document.createElement('style'));
+			style.textContent = `
+				@keyframes swipe-retry-exit {
+					to {
+						opacity: 0;
+					}
+				}
+
+				.cdk-overlay-pane[data-ending-style] {
+					animation: swipe-retry-exit 1s !important;
+				}
+			`;
+			const view = await render(SwipeAreaHost, { inputs: { modal: true } });
+			const drawer = view.debugElement.query(By.directive(BrnDrawer)).injector.get(BrnDrawer);
+
+			try {
+				await dragUp(80);
+				view.detectChanges();
+				await wait(50);
+				expect(popup()?.getAttribute('data-state')).toBe('closed');
+				expect(popup()).not.toBeNull();
+
+				if (reopenWith === 'swipe area') {
+					await dragUp(200);
+				} else {
+					drawer.open();
+				}
+				view.detectChanges();
+				await wait(50);
+				expect(popup()?.getAttribute('data-state')).toBe('open');
+				expect(document.documentElement.classList).toContain('cdk-global-scrollblock');
+			} finally {
+				style.remove();
+				drawer.close();
+				view.detectChanges();
+				await wait(100);
+				filler.remove();
+			}
+		},
+	);
 
 	it('locks the page scroll when the swipe area is disabled during the opening gesture', async () => {
 		const filler = document.body.appendChild(document.createElement('div'));

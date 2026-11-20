@@ -171,6 +171,7 @@ export class BrnDrawer<
 	private _focusBeforeSwipeAreaOpen: HTMLElement | null = null;
 	/** The scroll strategy held back while the swipe area gesture that opened the drawer runs. */
 	private _deferredScrollStrategy: { strategy: BrnDialogOptions['scrollStrategy'] } | null = null;
+	private _openingFromSwipeArea = false;
 
 	constructor() {
 		super();
@@ -266,8 +267,9 @@ export class BrnDrawer<
 	/** Applies the scroll lock held back while the swipe area gesture that opened the drawer ran. */
 	public applyDeferredScrollLock(): void {
 		const deferred = this._deferredScrollStrategy;
-		this._deferredScrollStrategy = null;
+		// Kept while closing: reopening during the exit transition reuses the dialog and its options.
 		if (!deferred || !this.isOpen()) return;
+		this._deferredScrollStrategy = null;
 
 		const { strategy } = deferred;
 		const options = this._scrollStrategyOptions;
@@ -280,6 +282,13 @@ export class BrnDrawer<
 		);
 	}
 
+	public override open(): void {
+		super.open();
+		// A drawer reopened during its exit transition keeps the scroll lock an earlier swipe area
+		// gesture held back. Apply it now, unless a swipe area opens it: that waits for its gesture end.
+		if (!this._openingFromSwipeArea) this.applyDeferredScrollLock();
+	}
+
 	/** Opens the drawer from a swipe area gesture. */
 	public openFromSwipeArea(): void {
 		if (!this.isOpen()) {
@@ -289,7 +298,12 @@ export class BrnDrawer<
 			this._focusBeforeSwipeAreaOpen = restore ? active : null;
 			this._openedBySwipeArea.set(true);
 		}
-		this.open();
+		this._openingFromSwipeArea = true;
+		try {
+			this.open();
+		} finally {
+			this._openingFromSwipeArea = false;
+		}
 	}
 
 	protected override resolveOptions(options: Partial<BrnDialogOptions>): Partial<BrnDialogOptions> {

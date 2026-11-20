@@ -15,7 +15,7 @@ const nextMacrotask = () => wait(0);
 	imports: [BrnDrawerImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<div brnDrawer [modal]="modal()">
+		<div brnDrawer [modal]="modal()" [restoreFocus]="restoreFocus()">
 			<div
 				brnDrawerSwipeArea
 				[disabled]="disabled()"
@@ -34,6 +34,7 @@ const nextMacrotask = () => wait(0);
 class SwipeAreaHost {
 	public readonly disabled = input(false);
 	public readonly modal = input<boolean>(false);
+	public readonly restoreFocus = input(true);
 }
 
 /**
@@ -142,6 +143,18 @@ function fireTouch(target: Element, type: 'touchstart' | 'touchmove' | 'touchend
 			changedTouches: [touch],
 		}),
 	);
+}
+
+function touchEvent(target: Element, type: 'touchstart' | 'touchmove', point: { clientX: number; clientY: number }) {
+	const touch = new Touch({ identifier: 1, target, ...point });
+	return new TouchEvent(type, {
+		bubbles: true,
+		cancelable: true,
+		composed: true,
+		touches: [touch],
+		targetTouches: [touch],
+		changedTouches: [touch],
+	});
 }
 
 function click(target: Element, detail = 1) {
@@ -371,6 +384,71 @@ describe('BrnDrawerSwipeArea', () => {
 		expect(popup()).toBeNull();
 		expect(focus).toHaveBeenCalledWith({ preventScroll: true });
 		expect(document.activeElement).toBe(outside);
+	});
+
+	it('locks the page scroll of a modal drawer only once the opening gesture ends', async () => {
+		// The CDK only blocks the scroll of a page that can scroll.
+		const filler = document.body.appendChild(document.createElement('div'));
+		filler.style.height = '3000px';
+		const view = await render(SwipeAreaHost, { inputs: { modal: true } });
+		const html = document.documentElement;
+
+		const { x, y } = await dragUp(200, { release: false });
+		view.detectChanges();
+		await wait(50);
+		expect(popup()?.getAttribute('data-state')).toBe('open');
+		expect(html.classList).not.toContain('cdk-global-scrollblock');
+
+		await wait(200);
+		pointer(swipeArea(), 'pointerup', x, y);
+		view.detectChanges();
+		await wait(50);
+		expect(popup()?.getAttribute('data-state')).toBe('open');
+		expect(html.classList).toContain('cdk-global-scrollblock');
+
+		popup()?.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+		view.detectChanges();
+		await wait(100);
+		expect(html.classList).not.toContain('cdk-global-scrollblock');
+		filler.remove();
+	});
+
+	it('cancels native scrolling for touch moves along the swipe axis only', async () => {
+		const view = await render(SwipeAreaHost);
+		view.detectChanges();
+		const area = swipeArea();
+		const { left, top } = area.getBoundingClientRect();
+		const start = { clientX: left + 20, clientY: top + 20 };
+
+		area.dispatchEvent(touchEvent(area, 'touchstart', start));
+		const sideways = touchEvent(area, 'touchmove', { clientX: start.clientX + 12, clientY: start.clientY - 2 });
+		area.dispatchEvent(sideways);
+		expect(sideways.defaultPrevented).toBe(false);
+
+		area.dispatchEvent(touchEvent(area, 'touchstart', start));
+		const upward = touchEvent(area, 'touchmove', { clientX: start.clientX + 2, clientY: start.clientY - 12 });
+		area.dispatchEvent(upward);
+		expect(upward.defaultPrevented).toBe(true);
+	});
+
+	it('does not return focus when the drawer closes with restoreFocus false', async () => {
+		const view = await render(SwipeAreaHost, { inputs: { restoreFocus: false } });
+		const outside = document.querySelector('[data-testid="outside"]') as HTMLButtonElement;
+		outside.focus();
+		const focus = vi.spyOn(outside, 'focus');
+
+		await dragUp(200);
+		view.detectChanges();
+		await wait(50);
+		expect(popup()?.getAttribute('data-state')).toBe('open');
+		outside.blur();
+
+		popup()?.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+		view.detectChanges();
+		await wait(100);
+
+		expect(popup()).toBeNull();
+		expect(focus).not.toHaveBeenCalled();
 	});
 
 	it('does not open the drawer when disabled', async () => {

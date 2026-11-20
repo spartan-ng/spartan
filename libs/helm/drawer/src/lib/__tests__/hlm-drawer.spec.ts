@@ -72,6 +72,19 @@ async function openDrawer(view: Awaited<ReturnType<typeof render>>, button = tri
 })
 class DisabledTriggerHost {}
 
+@Component({
+	selector: 'hlm-drawer-content-handle-host',
+	imports: [HlmDrawerImports],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<hlm-drawer>
+			<button hlmDrawerTrigger>Open Drawer</button>
+			<hlm-drawer-content *hlmDrawerPortal showSwipeHandle>Content</hlm-drawer-content>
+		</hlm-drawer>
+	`,
+})
+class ContentSwipeHandleHost {}
+
 describe('HlmDrawer', () => {
 	afterEach(() => {
 		document.querySelectorAll('.cdk-overlay-container').forEach((el) => el.remove());
@@ -131,6 +144,13 @@ describe('HlmDrawer', () => {
 
 		view.fixture.componentRef.setInput('showSwipeHandle', true);
 		await openDrawer(view);
+		expect(document.querySelector('[data-slot="drawer-swipe-handle"]')).toBeTruthy();
+	});
+
+	it('renders the swipe handle for a bare showSwipeHandle attribute on the content', async () => {
+		const view = await render(ContentSwipeHandleHost);
+		await openDrawer(view);
+
 		expect(document.querySelector('[data-slot="drawer-swipe-handle"]')).toBeTruthy();
 	});
 

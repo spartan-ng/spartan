@@ -146,6 +146,21 @@ describe('BrnDrawerSwipeArea', () => {
 		expect(popup()?.getAttribute('data-state') ?? 'closed').toBe('closed');
 	});
 
+	it('lets the click through after a gesture that leaves the drawer closed', async () => {
+		const view = await render(SwipeAreaHost);
+		const listener = vi.fn();
+		document.addEventListener('click', listener);
+
+		const { x, y } = await dragUp(80);
+		swipeArea().dispatchEvent(
+			new MouseEvent('click', { bubbles: true, cancelable: true, detail: 1, clientX: x, clientY: y }),
+		);
+		view.detectChanges();
+		document.removeEventListener('click', listener);
+
+		expect(listener).toHaveBeenCalledTimes(1);
+	});
+
 	it('does nothing when disabled', async () => {
 		const view = await render(SwipeAreaHost, { inputs: { disabled: true } });
 

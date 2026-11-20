@@ -200,6 +200,8 @@ export class BrnDrawerViewport {
 		// Settle on the active snap point whenever it changes outside of a drag.
 		effect(() => {
 			if (!this._snapPointRange() || this._swipe.swiping()) return;
+			// Re-applied when the frontmost height changes: the backdrop and provider receive it.
+			this._drawer.frontmostHeight();
 			const progress = !this._drawer.isOpen() || this._drawer.nested ? 0 : (this._snapPointProgress() ?? 0);
 			untracked(() => this._applySwipeProgress(progress, true, false));
 		});
@@ -606,11 +608,20 @@ export class BrnDrawerViewport {
 		this._applySwipeProgress(resolvedProgress, true, swiping);
 	}
 
-	private _startSwipeRelease(popup: HTMLElement, direction: SwipeDirection, details: SwipeReleaseDetails): void {
+	/**
+	 * `snapPointOffset` is the offset the popup rested at when the gesture started: closing from a
+	 * snap point clears the active snap point before the release is resolved.
+	 */
+	private _startSwipeRelease(
+		popup: HTMLElement,
+		direction: SwipeDirection,
+		details: SwipeReleaseDetails,
+		snapPointOffset = this._drawer.activeSnapPointOffset(),
+	): void {
 		this._finishNestedSwipe();
 		this.setSwipeDismissed(true);
 		popup.style.removeProperty('transition');
-		const strength = this._resolveSwipeRelease(popup, direction, details);
+		const strength = this._resolveSwipeRelease(popup, direction, details, snapPointOffset);
 		this._swipeRelease.set(strength);
 		popup.style.setProperty(BrnDrawerCssVars.swipeStrength, strengthValue(strength));
 	}
@@ -619,15 +630,14 @@ export class BrnDrawerViewport {
 		popup: HTMLElement,
 		direction: SwipeDirection,
 		details: SwipeReleaseDetails,
+		snapPointOffset: number | null,
 	): number | null {
 		const size = getBaseSwipeSize(popup, direction);
 		if (size <= 0) return null;
 
 		// The snap point offset shifts the popup along the dismiss direction for both `down` and `up`.
 		const snapPointBaseOffset =
-			(direction === 'down' || direction === 'up') && this._drawer.hasSnapPoints()
-				? (this._drawer.activeSnapPointOffset() ?? 0)
-				: 0;
+			(direction === 'down' || direction === 'up') && this._drawer.hasSnapPoints() ? (snapPointOffset ?? 0) : 0;
 		const translation = snapPointBaseOffset + getDisplacement(direction, details.deltaX, details.deltaY);
 		const remainingDistance = Math.max(0, size - translation);
 		if (remainingDistance <= 0) return null;
@@ -743,9 +753,10 @@ export class BrnDrawerViewport {
 			// An unattributed gesture (e.g. a mostly horizontal flick) may settle but must not dismiss:
 			// the gesture drops a directionless dismissal, which would strand the popup visually closed.
 			if (!direction) return settleOnSnapPoint(fallbackSnapPoint);
+			const snapPointOffset = this._drawer.activeSnapPointOffset();
 			this._pendingSwipeCloseSnapPoint = this._drawer.activeSnapPoint();
 			this._drawer.setActiveSnapPoint(null);
-			this._startSwipeRelease(popup, swipeDirection, details);
+			this._startSwipeRelease(popup, swipeDirection, details, snapPointOffset);
 			return true;
 		};
 

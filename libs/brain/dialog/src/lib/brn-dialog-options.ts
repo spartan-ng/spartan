@@ -20,6 +20,8 @@ export type BrnDialogOptions = {
 	direction?: Direction;
 	closeOnOutsidePointerEvents: boolean;
 	disableClose: boolean;
+	/** Closes the dialog when focus moves outside of it. */
+	closeOnFocusOut: boolean;
 	hasBackdrop: boolean;
 	id: string;
 	panelClass: string | string[];
@@ -28,4 +30,6 @@ export type BrnDialogOptions = {
 	restoreFocus: RestoreFocusValue;
 	role: 'dialog' | 'alertdialog';
 	scrollStrategy: ScrollStrategy | 'close' | 'reposition' | null | undefined;
+	/** Whether Tab and Shift+Tab are kept inside the dialog. */
+	trapFocus: boolean;
 };

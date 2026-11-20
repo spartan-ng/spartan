@@ -3,8 +3,16 @@ import { afterNextRender, computed, type Injector, signal } from '@angular/core'
 import { getActiveElementAnimations, waitForAnimations } from '@spartan-ng/brain/core';
 import { type Observable, ReplaySubject, Subject } from 'rxjs';
 import type { BrnDialogOptions } from './brn-dialog-options';
-import type { BrnDialogDismissReason, BrnDialogPhase, BrnDialogState } from './brn-dialog-state';
+import type {
+	BrnDialogDismissReason,
+	BrnDialogPhase,
+	BrnDialogState,
+	BrnDialogTransitionStatus,
+} from './brn-dialog-state';
 import { cssClassesToArray } from './brn-dialog-utils';
+
+const STARTING_STYLE_ATTRIBUTE = 'data-starting-style';
+const ENDING_STYLE_ATTRIBUTE = 'data-ending-style';
 
 export class BrnDialogRef<DialogResult = unknown> {
 	private readonly _closing = new Subject<void>();
@@ -16,11 +24,20 @@ export class BrnDialogRef<DialogResult = unknown> {
 	private readonly _stateChanged = new ReplaySubject<BrnDialogState>(1);
 	public readonly stateChanged$ = this._stateChanged.asObservable();
 
+	/** Emits `true` once the open transition finished and `false` once the close transition finished. */
+	private readonly _openChangeComplete = new Subject<boolean>();
+	public readonly openChangeComplete$ = this._openChangeComplete.asObservable();
+
 	private readonly _phase = signal<BrnDialogPhase>('open');
 	public readonly phase = this._phase.asReadonly();
 	public readonly state = computed<BrnDialogState>(() => (this._phase() === 'open' ? 'open' : 'closed'));
 
+	private readonly _transitionStatus = signal<BrnDialogTransitionStatus>('starting');
+	public readonly transitionStatus = this._transitionStatus.asReadonly();
+
 	private _closeGeneration = 0;
+	private _openGeneration = 0;
+	private _startingFrame: number | null = null;
 	private _panelClasses: string[];
 	private _backdropClasses: string[];
 	private readonly _descriptionIds = new Set<string>();
@@ -42,18 +59,28 @@ export class BrnDialogRef<DialogResult = unknown> {
 		this._panelClasses = cssClassesToArray(initialOptions.panelClass);
 		this._backdropClasses = cssClassesToArray(initialOptions.backdropClass);
 		this._setDataState('open');
+		this._setTransitionStatus('starting');
 		this._stateChanged.next('open');
 
-		// The container's `aria-describedby` host binding writes `null` on its first pass, which can
-		// wipe the attribute set while the declarative content view is created. Re-assert once after.
-		afterNextRender(() => this._syncAriaDescribedBy(), { injector: this._injector });
+		afterNextRender(
+			() => {
+				// The container's `aria-describedby` host binding writes `null` on its first pass, which can
+				// wipe the attribute set while the declarative content view is created. Re-assert once after.
+				this._syncAriaDescribedBy();
+				this._endStartingStyle();
+			},
+			{ injector: this._injector },
+		);
 
 		this._cdkDialogRef.closed.subscribe((result) => {
+			this._cancelStartingFrame();
 			this._phase.set('closed');
+			this._transitionStatus.set(undefined);
 			this._closed.next(result);
 			this._closed.complete();
 			this._closing.complete();
 			this._stateChanged.complete();
+			this._openChangeComplete.complete();
 		});
 	}
 
@@ -61,10 +88,13 @@ export class BrnDialogRef<DialogResult = unknown> {
 		if (!this.open) return;
 
 		const generation = ++this._closeGeneration;
+		this._openGeneration++;
+		this._cancelStartingFrame();
 		const animationsBeforeClose = new Set(this._getActiveAnimations());
 
 		this._phase.set('closing');
 		this._setDataState('closed');
+		this._setTransitionStatus('ending');
 		this._closing.next();
 		this._stateChanged.next('closed');
 
@@ -93,14 +123,19 @@ export class BrnDialogRef<DialogResult = unknown> {
 		this._closeGeneration++;
 		this._phase.set('open');
 		this._setDataState('open');
+		this._setTransitionStatus(undefined);
 		this._stateChanged.next('open');
+
+		afterNextRender(() => void this._completeOpen(), { injector: this._injector });
 	}
 
 	public forceClose(result?: DialogResult): void {
 		if (this._phase() === 'closed') return;
 
 		this._closeGeneration++;
+		this._openGeneration++;
 		this._phase.set('closed');
+		this._openChangeComplete.next(false);
 		this._cdkDialogRef.close(result);
 	}
 
@@ -164,7 +199,49 @@ export class BrnDialogRef<DialogResult = unknown> {
 
 		if (generation === this._closeGeneration && this._phase() === 'closing') {
 			this._phase.set('closed');
+			this._openChangeComplete.next(false);
 			this._cdkDialogRef.close(result);
+		}
+	}
+
+	/**
+	 * Keeps `data-starting-style` for exactly one rendered frame, so CSS transitions run from the
+	 * starting style to the open style. The style is flushed first: without a computed starting
+	 * style the browser has nothing to transition from.
+	 */
+	private _endStartingStyle(): void {
+		if (this._transitionStatus() !== 'starting') return;
+
+		const { overlayElement, backdropElement } = this._cdkDialogRef.overlayRef;
+		void getComputedStyle(overlayElement).transform;
+		if (backdropElement) void getComputedStyle(backdropElement).opacity;
+
+		this._startingFrame = requestAnimationFrame(() => {
+			this._startingFrame = null;
+			if (this._transitionStatus() !== 'starting') return;
+			this._setTransitionStatus(undefined);
+			void this._completeOpen();
+		});
+	}
+
+	private _cancelStartingFrame(): void {
+		if (this._startingFrame === null) return;
+		cancelAnimationFrame(this._startingFrame);
+		this._startingFrame = null;
+	}
+
+	private async _completeOpen(): Promise<void> {
+		const generation = ++this._openGeneration;
+		await waitForAnimations(this._getActiveAnimations());
+		if (generation === this._openGeneration && this._phase() === 'open') this._openChangeComplete.next(true);
+	}
+
+	private _setTransitionStatus(status: BrnDialogTransitionStatus): void {
+		this._transitionStatus.set(status);
+		const { overlayElement, backdropElement } = this._cdkDialogRef.overlayRef;
+		for (const element of [overlayElement, backdropElement]) {
+			element?.toggleAttribute(STARTING_STYLE_ATTRIBUTE, status === 'starting');
+			element?.toggleAttribute(ENDING_STYLE_ATTRIBUTE, status === 'ending');
 		}
 	}
 

@@ -22,7 +22,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { nextBrnDialogId } from './brn-dialog-id';
 import type { BrnDialogOptions } from './brn-dialog-options';
 import type { BrnDialogRef } from './brn-dialog-ref';
-import type { BrnDialogState } from './brn-dialog-state';
+import type { BrnDialogState, BrnDialogTransitionStatus } from './brn-dialog-state';
 import { injectBrnDialogDefaultOptions } from './brn-dialog-token';
 import { cssClassesToArray } from './brn-dialog-utils';
 import { BrnDialogService } from './brn-dialog.service';
@@ -63,7 +63,10 @@ export class BrnDialog<TResult = unknown, TContext extends Record<string, unknow
 
 	public readonly closed = output<TResult>();
 	public readonly stateChanged = output<BrnDialogState>();
+	/** Emits `true` once the open transition finished and `false` once the close transition finished. */
+	public readonly openChangeComplete = output<boolean>();
 	public readonly stateComputed = computed<BrnDialogState>(() => this._dialogRef()?.state() ?? 'closed');
+	public readonly transitionStatus = computed<BrnDialogTransitionStatus>(() => this._dialogRef()?.transitionStatus());
 
 	public readonly id = input<string>(nextBrnDialogId());
 	public readonly state = input<BrnDialogState | null>(null);
@@ -76,6 +79,12 @@ export class BrnDialog<TResult = unknown, TContext extends Record<string, unknow
 		this._defaultOptions.scrollStrategy,
 	);
 	public readonly restoreFocus = input<BrnDialogOptions['restoreFocus']>(this._defaultOptions.restoreFocus);
+	public readonly closeOnFocusOut = input<boolean, BooleanInput>(this._defaultOptions.closeOnFocusOut, {
+		transform: booleanAttribute,
+	});
+	public readonly trapFocus = input<boolean, BooleanInput>(this._defaultOptions.trapFocus, {
+		transform: booleanAttribute,
+	});
 	public readonly closeOnOutsidePointerEvents = input<boolean, BooleanInput>(
 		this._defaultOptions.closeOnOutsidePointerEvents,
 		{ transform: booleanAttribute },
@@ -161,6 +170,10 @@ export class BrnDialog<TResult = unknown, TContext extends Record<string, unknow
 
 		dialogRef.stateChanged$.pipe(takeUntilDestroyed(this._destroyRef)).subscribe((state) => {
 			if (!this._destroyed) this.stateChanged.emit(state);
+		});
+
+		dialogRef.openChangeComplete$.pipe(takeUntilDestroyed(this._destroyRef)).subscribe((open) => {
+			if (!this._destroyed) this.openChangeComplete.emit(open);
 		});
 
 		dialogRef.closed$.pipe(takeUntilDestroyed(this._destroyRef)).subscribe((result) => {

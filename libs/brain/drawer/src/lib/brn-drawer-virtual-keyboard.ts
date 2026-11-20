@@ -1,6 +1,16 @@
 // Adapted from Base UI (https://github.com/mui/base-ui), MIT License, Copyright (c) 2019 Material-UI SAS.
 import { DOCUMENT } from '@angular/common';
-import { DestroyRef, Directive, effect, forwardRef, inject, InjectionToken, untracked } from '@angular/core';
+import {
+	afterNextRender,
+	DestroyRef,
+	Directive,
+	effect,
+	forwardRef,
+	inject,
+	InjectionToken,
+	Injector,
+	untracked,
+} from '@angular/core';
 import { BrnDrawer } from './brn-drawer';
 import { BrnDrawerCssVars } from './brn-drawer-css-vars';
 import {
@@ -89,6 +99,7 @@ const isAndroid = () => typeof navigator !== 'undefined' && /android/i.test(navi
 export class BrnDrawerVirtualKeyboardProvider implements BrnDrawerVirtualKeyboardHandlers {
 	private readonly _drawer = inject(BrnDrawer);
 	private readonly _document = inject(DOCUMENT);
+	private readonly _injector = inject(Injector);
 
 	private _pendingKeyboardFocusMoved = false;
 	private _keyboardTouchStart: { x: number; y: number } | null = null;
@@ -124,7 +135,18 @@ export class BrnDrawerVirtualKeyboardProvider implements BrnDrawerVirtualKeyboar
 					this._restoreKeyboardScrollAdjustment();
 					return;
 				}
-				onCleanup(this._connect(rootElement, modal === true, nestedDrawerOpen));
+				// Connect after the render: `_connect` reads the page scroll, which forces a layout. Run during
+				// change detection, that layout would compute the popup before its `data-starting-style`
+				// binding is applied, and the enter transition would have nothing to start from.
+				let disconnect: (() => void) | null = null;
+				const connectRef = afterNextRender(
+					{ read: () => (disconnect = this._connect(rootElement, modal === true, nestedDrawerOpen)) },
+					{ injector: this._injector },
+				);
+				onCleanup(() => {
+					connectRef.destroy();
+					disconnect?.();
+				});
 			});
 		});
 	}

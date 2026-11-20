@@ -77,6 +77,100 @@ describe('classes() with external class bindings', () => {
 		expect(classList(element)).toEqual(['bg-blue-500', 'border-solid']);
 	});
 
+	it('restores a static class once a conflicting [class.x] binding turns off', async () => {
+		@Component({
+			imports: [LineDirective],
+			changeDetection: ChangeDetectionStrategy.OnPush,
+			template: `
+				<span hlmLine class="bg-red-500" [class.bg-blue-500]="active()"></span>
+			`,
+		})
+		class Host {
+			public readonly active = signal(true);
+		}
+
+		const { component, element } = await setup(Host);
+		expect(classList(element)).toEqual(['bg-blue-500', 'border-solid']);
+
+		component.active.set(false);
+		await settle();
+		expect(classList(element)).toEqual(['bg-red-500', 'border-solid']);
+
+		component.active.set(true);
+		await settle();
+		expect(classList(element)).toEqual(['bg-blue-500', 'border-solid']);
+	});
+
+	it('restores a class from an object binding once a conflicting entry turns off', async () => {
+		@Component({
+			imports: [LineDirective],
+			changeDetection: ChangeDetectionStrategy.OnPush,
+			template: `
+				<span hlmLine [class]="{ 'p-2': true, 'p-4': big() }"></span>
+			`,
+		})
+		class Host {
+			public readonly big = signal(true);
+		}
+
+		const { component, element } = await setup(Host);
+		expect(classList(element)).toEqual(['border-solid', 'p-4']);
+
+		component.big.set(false);
+		await settle();
+
+		expect(classList(element)).toEqual(['border-solid', 'p-2']);
+	});
+
+	it('restores a static class when the binding and a source change in the same tick', async () => {
+		@Component({
+			imports: [LineDirective],
+			changeDetection: ChangeDetectionStrategy.OnPush,
+			template: `
+				<span hlmLine class="p-2" [line]="line()" [class.p-4]="big()"></span>
+			`,
+		})
+		class Host {
+			public readonly line = signal<'solid' | 'dotted'>('solid');
+			public readonly big = signal(true);
+		}
+
+		const { component, element } = await setup(Host);
+		component.line.set('dotted');
+		component.big.set(false);
+		await settle();
+
+		expect(classList(element)).toEqual(['border-dotted', 'p-2']);
+	});
+
+	it('restores the native classList methods once the last source is destroyed', async () => {
+		@Component({
+			imports: [LineDirective],
+			changeDetection: ChangeDetectionStrategy.OnPush,
+			template: `
+				@if (show()) {
+					<span hlmLine></span>
+				}
+				<i></i>
+			`,
+		})
+		class Host {
+			public readonly show = signal(true);
+		}
+
+		const fixture = TestBed.createComponent(Host);
+		fixture.autoDetectChanges();
+		await settle();
+		const element = fixture.nativeElement.querySelector('span') as HTMLElement;
+		expect(Object.hasOwn(element.classList, 'add')).toBe(true);
+
+		fixture.componentInstance.show.set(false);
+		await settle();
+
+		expect(Object.hasOwn(element.classList, 'add')).toBe(false);
+		expect(element.classList.add).toBe(DOMTokenList.prototype.add);
+	});
+
 	it('drops conflicting classes of a [class] string once the binding clears', async () => {
 		@Component({
 			imports: [LineDirective],
@@ -149,5 +243,36 @@ describe('classes() with external class bindings', () => {
 		const { element } = await setup(Host);
 
 		expect(classList(element)).toEqual(['border-solid', 'm-2']);
+	});
+
+	it('tracks classList when its methods are read-only on the prototype, like Domino during SSR', async () => {
+		const methods = ['add', 'remove', 'toggle', 'replace'] as const;
+		const originals = methods.map((method) => Object.getOwnPropertyDescriptor(DOMTokenList.prototype, method)!);
+		for (const [i, method] of methods.entries()) {
+			Object.defineProperty(DOMTokenList.prototype, method, { ...originals[i], writable: false });
+		}
+
+		try {
+			@Component({
+				imports: [LineDirective],
+				changeDetection: ChangeDetectionStrategy.OnPush,
+				template: `
+					<span hlmLine class="bg-red-500" [class.bg-blue-500]="active()"></span>
+				`,
+			})
+			class Host {
+				public readonly active = signal(true);
+			}
+
+			const { component, element } = await setup(Host);
+			component.active.set(false);
+			await settle();
+
+			expect(classList(element)).toEqual(['bg-red-500', 'border-solid']);
+		} finally {
+			for (const [i, method] of methods.entries()) {
+				Object.defineProperty(DOMTokenList.prototype, method, originals[i]);
+			}
+		}
 	});
 });

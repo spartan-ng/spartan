@@ -426,6 +426,8 @@ describe('brnClasses', () => {
 		element.className = 'bg-blue-500';
 
 		const elementRef = new ElementRef(element);
+		// All restores share one frame: let the one an earlier test scheduled run before mocking it
+		await new Promise((resolve) => requestAnimationFrame(resolve));
 		const rafSpy = vi.spyOn(window, 'requestAnimationFrame');
 		let restoreTransition: FrameRequestCallback | undefined;
 
@@ -531,6 +533,51 @@ describe('brnClasses', () => {
 		// shorthand on assignment - the default `ease` timing function is dropped from the value.
 		expect(element.style.getPropertyValue('transition')).toBe('opacity 0.3s');
 		expect(element.style.getPropertyPriority('transition')).toBe('important');
+	});
+
+	it('should restore all suppressed transitions in one frame and right away for a destroyed source', async () => {
+		await TestBed.configureTestingModule({}).compileComponents();
+
+		const first = document.createElement('div');
+		first.style.setProperty('transition', 'opacity 0.3s ease', 'important');
+		const second = document.createElement('div');
+		second.style.setProperty('transition', 'color 0.2s ease');
+
+		const parentInjector = TestBed.inject(EnvironmentInjector);
+		const firstInjector = createEnvironmentInjector([], parentInjector);
+		const secondInjector = createEnvironmentInjector([], parentInjector);
+
+		// All restores share one frame: let the one an earlier test scheduled run before mocking it
+		await new Promise((resolve) => requestAnimationFrame(resolve));
+		const rafSpy = vi.spyOn(window, 'requestAnimationFrame');
+		const frames: FrameRequestCallback[] = [];
+		rafSpy.mockImplementation((callback: FrameRequestCallback) => frames.push(callback));
+
+		try {
+			classes(() => 'bg-red-500', { elementRef: new ElementRef(first), injector: firstInjector });
+			classes(() => 'bg-blue-500', { elementRef: new ElementRef(second), injector: secondInjector });
+
+			// Drop the frame Angular requested to schedule change detection, then run both effects: both
+			// restores wait for the same frame
+			frames.length = 0;
+			TestBed.tick();
+			expect(first.style.getPropertyValue('transition')).toBe('none');
+			expect(second.style.getPropertyValue('transition')).toBe('none');
+			expect(frames).toHaveLength(1);
+
+			// A destroyed source gets its transition back right away, the other one keeps waiting
+			firstInjector.destroy();
+			expect(first.style.getPropertyValue('transition')).toBe('opacity 0.3s');
+			expect(first.style.getPropertyPriority('transition')).toBe('important');
+			expect(second.style.getPropertyValue('transition')).toBe('none');
+
+			frames[0](performance.now());
+			expect(second.style.getPropertyValue('transition')).toBe('color 0.2s');
+			expect(second.style.getPropertyPriority('transition')).toBe('');
+		} finally {
+			rafSpy.mockRestore();
+			secondInjector.destroy();
+		}
 	});
 
 	it('should preserve external classes added by mutation observer', async () => {

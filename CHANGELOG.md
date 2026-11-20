@@ -1,3 +1,7 @@
+## 1.10.0-beta.7 (2026-11-20)
+
+- perf: skip classes() work for the element's own class writes (#1892) ([422feaf](https://github.com/spartan-ng/spartan/commit/422feaf)), closes [#1892](https://github.com/spartan-ng/spartan/issues/1892)
+
 ## 1.10.0-beta.6 (2026-11-20)
 
 - fix: bring merged-out classes back once their conflicting class is removed (#1889) ([e07cf09](https://github.com/spartan-ng/spartan/commit/e07cf09)), closes [#1889](https://github.com/spartan-ng/spartan/issues/1889)

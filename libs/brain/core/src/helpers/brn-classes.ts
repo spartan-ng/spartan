@@ -29,12 +29,22 @@ const elementClassManagers = new WeakMap<HTMLElement, ElementClassManager>();
 // Global mutation observer for all elements
 let globalObserver: MutationObserver | null = null;
 const observedElements = new Set<HTMLElement>();
+// Managers whose suppressed transitions are restored in the next frame, all in one callback
+const pendingTransitionRestores = new Set<ElementClassManager>();
+let transitionRestoreRafId: number | null = null;
+
+interface ClassSource {
+	classes: Set<string>;
+	order: number;
+}
 
 interface ElementClassManager {
 	element: HTMLElement;
 	/** The merge function of the first source registered on this element */
 	merge: BrnClassMerge;
-	sources: Map<number, { classes: Set<string>; order: number }>;
+	sources: Map<number, ClassSource>;
+	/** The sources by registration order, reset when a source is added or removed */
+	sortedSources: ClassSource[] | null;
 	/** Classes wanted by everything except the sources, in write order; the latest write wins conflicts */
 	baseClasses: Set<string>;
 	/** A classList write is waiting for the batched merge */
@@ -44,7 +54,6 @@ interface ElementClassManager {
 	nextOrder: number;
 	/** The className as brnClasses last left it (null until the first source runs); a difference is an outside write */
 	writtenClassName: string | null;
-	restoreRafId: number | null;
 	/** Transitions are suppressed until the first effect writes correct classes */
 	transitionsSuppressed: boolean;
 	/** Original inline transition value to restore after suppression (empty string = none was set) */
@@ -93,13 +102,13 @@ export function brnClasses(computed: () => BrnClassValue[] | string, options: Br
 				element,
 				merge: options.merge,
 				sources: new Map(),
+				sortedSources: null,
 				baseClasses: initialBaseClasses,
 				updateQueued: false,
 				errorHandler: inject(ErrorHandler, { optional: true }),
 				zone: inject(NgZone),
 				nextOrder: 0,
 				writtenClassName: null,
-				restoreRafId: null,
 				transitionsSuppressed: false,
 				previousTransition: '',
 				previousTransitionPriority: '',
@@ -132,10 +141,13 @@ export function brnClasses(computed: () => BrnClassValue[] | string, options: Br
 			const newClasses = toClassList(typeof value === 'string' ? value : options.merge(value));
 
 			// Update this source's classes, keeping the original order
-			manager!.sources.set(sourceId, {
-				classes: new Set(newClasses),
-				order: sourceOrder,
-			});
+			const source = manager!.sources.get(sourceId);
+			if (source) {
+				source.classes = new Set(newClasses);
+			} else {
+				manager!.sources.set(sourceId, { classes: new Set(newClasses), order: sourceOrder });
+				manager!.sortedSources = null;
+			}
 
 			// Update the element
 			updateElement(manager!);
@@ -145,18 +157,14 @@ export function brnClasses(computed: () => BrnClassValue[] | string, options: Br
 			// with transitions disabled first, then re-enables them.
 			if (manager!.transitionsSuppressed) {
 				manager!.transitionsSuppressed = false;
-				manager!.restoreRafId = requestAnimationFrame(() => {
-					manager!.restoreRafId = null;
-					restoreTransitionSuppression(manager!);
-				});
+				scheduleTransitionRestore(manager!);
 			}
 		}
 
 		// Register cleanup with DestroyRef
 		destroyRef.onDestroy(() => {
-			if (manager!.restoreRafId !== null) {
-				cancelAnimationFrame(manager!.restoreRafId);
-				manager!.restoreRafId = null;
+			if (pendingTransitionRestores.delete(manager!)) {
+				restoreTransitionSuppression(manager!);
 			}
 
 			if (manager!.transitionsSuppressed) {
@@ -166,6 +174,7 @@ export function brnClasses(computed: () => BrnClassValue[] | string, options: Br
 
 			// Remove this source from the manager
 			manager!.sources.delete(sourceId);
+			manager!.sortedSources = null;
 
 			// If no more sources, clean up the manager
 			if (manager!.sources.size === 0) {
@@ -182,6 +191,17 @@ export function brnClasses(computed: () => BrnClassValue[] | string, options: Br
 		 * effect which works in both browser and SSR.
 		 */
 		effect(updateClasses);
+	});
+}
+
+function scheduleTransitionRestore(manager: ElementClassManager): void {
+	pendingTransitionRestores.add(manager);
+	transitionRestoreRafId ??= requestAnimationFrame(() => {
+		transitionRestoreRafId = null;
+		for (const pending of pendingTransitionRestores) {
+			restoreTransitionSuppression(pending);
+		}
+		pendingTransitionRestores.clear();
 	});
 }
 
@@ -231,10 +251,10 @@ function updateElement(manager: ElementClassManager): void {
 	manager.updateQueued = false;
 
 	// Get classes from all sources, sorted by registration order (later takes precedence)
-	const sortedSources = Array.from(manager.sources.entries()).sort(([, a], [, b]) => a.order - b.order);
+	manager.sortedSources ??= Array.from(manager.sources.values()).sort((a, b) => a.order - b.order);
 
 	const allSourceClasses: string[] = [];
-	for (const [, source] of sortedSources) {
+	for (const source of manager.sortedSources) {
 		allSourceClasses.push(...source.classes);
 	}
 
@@ -400,10 +420,12 @@ function toClassList(className: string): string[] {
 
 	const result = cssClassesToArray(className);
 
-	// Cache results, but limit cache size to prevent memory growth
-	if (classListCache.size < 1000) {
-		classListCache.set(className, result);
+	// Cache results, but limit cache size to prevent memory growth: start over once it is full, so the
+	// class strings in use now are cached rather than the first ones ever seen
+	if (classListCache.size >= 1000) {
+		classListCache.clear();
 	}
+	classListCache.set(className, result);
 
 	return result;
 }

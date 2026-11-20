@@ -121,8 +121,10 @@ export class BrnDrawerSwipeArea {
 				this._openedBySwipe = true;
 				// Moves are handled outside Angular: open inside it, so the popup renders.
 				this._ngZone.run(() => this._drawer.openFromSwipeArea());
-				// The popup renders in the next change detection: position it before its first paint.
+				// The popup renders in the next change detection: measure and position it then, before its
+				// first paint. Measuring now would read the popup without its bound styles.
 				afterNextRender({ read: () => this._applySwipeMovement() }, { injector: this._injector });
+				return;
 			}
 
 			this._applySwipeMovement();

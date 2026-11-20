@@ -14,6 +14,9 @@ import type { TransformerStyle } from './transform';
 /** `spartan-*` tokens the transform intentionally leaves in place (everything else is a replaced placeholder). */
 export const STYLE_PLACEHOLDER_ALLOWLIST = new Set(['spartan-menu-target', 'spartan-logical-sides', 'spartan-invalid']);
 
+/** A `spartan-*` class token; not the tail of a `--spartan-*` custom property such as `--spartan-overlay-backdrop-opacity`. */
+const SPARTAN_CLASS_PATTERN = /(?<![\w-])spartan-[\w-]+\b/g;
+
 function isStringLiteralLike(node: Node): node is StringLiteral | NoSubstitutionTemplateLiteral {
 	return Node.isStringLiteral(node) || Node.isNoSubstitutionTemplateLiteral(node);
 }
@@ -186,13 +189,13 @@ function applyStyle(stringNode: StringLiteral | NoSubstitutionTemplateLiteral, s
 }
 
 function extractSpartanClasses(str: string) {
-	const matches = str.matchAll(/\bspartan-[\w-]+\b/g);
+	const matches = str.matchAll(SPARTAN_CLASS_PATTERN);
 	return Array.from(matches, (m) => m[0]);
 }
 
 function removeSpartanClasses(str: string) {
 	return str
-		.replace(/\bspartan-[\w-]+\b/g, (match) => {
+		.replace(SPARTAN_CLASS_PATTERN, (match) => {
 			if (STYLE_PLACEHOLDER_ALLOWLIST.has(match)) return match;
 			return '';
 		})
@@ -321,13 +324,13 @@ function applyStyleToCvaString(stringNode: StringLiteral, styleMap: StyleMap, ma
 }
 
 function extractCnClasses(str: string) {
-	const matches = str.matchAll(/\bspartan-[\w-]+\b/g);
+	const matches = str.matchAll(SPARTAN_CLASS_PATTERN);
 	return Array.from(matches, (match) => match[0]);
 }
 
 function removeCnClasses(str: string) {
 	return str
-		.replace(/\bspartan-[\w-]+\b/g, (match) => {
+		.replace(SPARTAN_CLASS_PATTERN, (match) => {
 			// Preserve allowlisted classes
 			if (STYLE_PLACEHOLDER_ALLOWLIST.has(match)) {
 				return match;

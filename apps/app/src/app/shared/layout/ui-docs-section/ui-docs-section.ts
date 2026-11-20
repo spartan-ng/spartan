@@ -23,7 +23,8 @@ import { UIApiDocsTable } from '../ui-api-docs-table/ui-api-docs-table';
 				@if (selector) {
 					<p>
 						Selector:
-						<code class="${hlmCode}">{{ selector }}</code>
+						<!-- Selector lists have no spaces: let them wrap, or they widen the page on iOS Safari. -->
+						<code class="${hlmCode} break-all">{{ selector }}</code>
 					</p>
 				}
 				@if (properties.exportAs) {

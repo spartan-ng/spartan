@@ -33,9 +33,10 @@ class PreviewFrameOverlayContainer extends OverlayContainer {
 		BrnDialogService,
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	// `contain` makes the frame the containing block of the fixed drawer and indent background, and
-	// `overflow-clip` keeps focusing the popup from scrolling the frame.
-	host: { class: 'relative block h-80 w-full overflow-clip rounded-xl border [contain:layout_paint]' },
+	// The transform makes the frame the containing block of the fixed drawer and indent background
+	// (`contain` would too, but WebKit then hit-tests them at the wrong spot once the page scrolls),
+	// and `overflow-clip` keeps focusing the popup from scrolling the frame.
+	host: { class: 'relative block h-80 w-full overflow-clip rounded-xl border [transform:translateZ(0)]' },
 	template: `
 		<spartan-drawer-indent-preview />
 	`,

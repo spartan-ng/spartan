@@ -60,6 +60,18 @@ async function openDrawer(view: Awaited<ReturnType<typeof render>>, button = tri
 	view.detectChanges();
 }
 
+@Component({
+	selector: 'hlm-drawer-disabled-host',
+	imports: [HlmDrawerImports],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<hlm-drawer>
+			<button hlmDrawerTrigger disabled>Open Drawer</button>
+		</hlm-drawer>
+	`,
+})
+class DisabledTriggerHost {}
+
 describe('HlmDrawer', () => {
 	afterEach(() => {
 		document.querySelectorAll('.cdk-overlay-container').forEach((el) => el.remove());
@@ -151,5 +163,13 @@ describe('HlmDrawer', () => {
 		expect(popups()).toHaveLength(1);
 		expect(popup()?.hasAttribute('data-nested-drawer-open')).toBe(false);
 		expect(popup()?.style.getPropertyValue('--nested-drawers')).toBe('0');
+	});
+
+	it('keeps a disabled trigger disabled', async () => {
+		const view = await render(DisabledTriggerHost);
+		const trigger = view.getByText('Open Drawer') as HTMLButtonElement;
+
+		expect(trigger.disabled).toBe(true);
+		expect(trigger.hasAttribute('data-disabled')).toBe(true);
 	});
 });

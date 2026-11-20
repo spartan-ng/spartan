@@ -1,3 +1,4 @@
+import type { BooleanInput } from '@angular/cdk/coercion';
 import { booleanAttribute, Directive, inject, input } from '@angular/core';
 import { BrnDialogTrigger } from '@spartan-ng/brain/dialog';
 import { BrnDrawer } from './brn-drawer';
@@ -21,7 +22,7 @@ export class BrnDrawerTrigger extends BrnDialogTrigger {
 	public readonly brnDrawerTriggerFor = input<BrnDrawer | undefined>(undefined);
 	public readonly payload = input<unknown>(undefined);
 	/** Whether the button is disabled. */
-	public readonly disabled = input(false, { transform: booleanAttribute });
+	public readonly disabled = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
 	protected override getDialog(): BrnDrawer | undefined {
 		return this.brnDrawerTriggerFor() ?? this._drawer ?? undefined;

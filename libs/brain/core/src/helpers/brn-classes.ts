@@ -3,6 +3,7 @@ import {
 	DestroyRef,
 	effect,
 	ElementRef,
+	ErrorHandler,
 	HostAttributeToken,
 	inject,
 	Injector,
@@ -34,12 +35,15 @@ interface ElementClassManager {
 	/** The merge function of the first source registered on this element */
 	merge: BrnClassMerge;
 	sources: Map<number, { classes: Set<string>; order: number }>;
+	/** Classes wanted by everything except the sources, in write order; the latest write wins conflicts */
 	baseClasses: Set<string>;
-	isUpdating: boolean;
+	/** A classList write is waiting for the batched merge */
+	updateQueued: boolean;
+	errorHandler: ErrorHandler | null;
+	zone: NgZone;
 	nextOrder: number;
-	hasInitialized: boolean;
-	/** The class list this manager last wrote, to tell external class changes apart from its own. */
-	appliedClasses: Set<string> | null;
+	/** The className as brnClasses last left it (null until the first source runs); a difference is an outside write */
+	writtenClassName: string | null;
 	restoreRafId: number | null;
 	/** Transitions are suppressed until the first effect writes correct classes */
 	transitionsSuppressed: boolean;
@@ -90,20 +94,22 @@ export function brnClasses(computed: () => BrnClassValue[] | string, options: Br
 				merge: options.merge,
 				sources: new Map(),
 				baseClasses: initialBaseClasses,
-				isUpdating: false,
+				updateQueued: false,
+				errorHandler: inject(ErrorHandler, { optional: true }),
+				zone: inject(NgZone),
 				nextOrder: 0,
-				hasInitialized: false,
-				appliedClasses: null,
+				writtenClassName: null,
 				restoreRafId: null,
 				transitionsSuppressed: false,
 				previousTransition: '',
 				previousTransitionPriority: '',
 			};
 			elementClassManagers.set(element, manager);
+			trackClassList(manager);
 
 			// Setup global observer if needed and register this element. Created outside the zone so
 			// class mutations don't trigger app-wide change detection (and loop if CD writes a class).
-			inject(NgZone).runOutsideAngular(() => setupGlobalObserver(platformId));
+			manager.zone.runOutsideAngular(() => setupGlobalObserver(platformId));
 			observedElements.add(element);
 
 			// Suppress transitions until the first effect writes correct classes and
@@ -200,10 +206,11 @@ function setupGlobalObserver(platformId: Object): void {
 
 					// Only process elements we're managing
 					if (manager && observedElements.has(element)) {
-						// Ignore our own writes, and wait for the first source: its effect captures the live classes
-						if (manager.isUpdating || !manager.hasInitialized) continue;
+						// Wait for the first source (it adopts the live classes), and skip our own writes:
+						// the callback runs after they're done, so only the written value tells them apart
+						if (manager.writtenClassName === null || element.className === manager.writtenClassName) continue;
 
-						updateElement(manager);
+						scheduleUpdate(manager);
 					}
 				}
 			}
@@ -219,51 +226,9 @@ function setupGlobalObserver(platformId: Object): void {
 }
 
 function updateElement(manager: ElementClassManager): void {
-	if (manager.isUpdating) return; // Prevent recursive updates
-
-	manager.isUpdating = true;
-
-	// the merge function is user-provided (e.g. createCn), never leave the manager stuck in updating mode
-	try {
-		applyClasses(manager);
-	} finally {
-		manager.isUpdating = false;
-	}
-}
-
-function applyClasses(manager: ElementClassManager): void {
-	// Handle initialization: capture base classes after first source registration
-	if (!manager.hasInitialized && manager.sources.size > 0) {
-		// Get current classes on element (may include SSR classes)
-		const currentClasses = toClassList(manager.element.className);
-
-		// A static class missing from the live element was removed externally before this first write
-		for (const className of manager.baseClasses) {
-			if (!currentClasses.includes(className)) {
-				manager.baseClasses.delete(className);
-			}
-		}
-
-		// Get all classes that will be applied by sources
-		const allSourceClasses = new Set<string>();
-		for (const source of manager.sources.values()) {
-			source.classes.forEach((className) => allSourceClasses.add(className));
-		}
-
-		// Only consider classes as "base" if they're not produced by any source
-		// This prevents SSR-rendered classes from being preserved as base classes
-		currentClasses.forEach((className) => {
-			if (!allSourceClasses.has(className)) {
-				manager.baseClasses.add(className);
-			}
-		});
-
-		manager.hasInitialized = true;
-	} else if (manager.appliedClasses) {
-		// Reconcile with the live element instead of waiting for the mutation observer: a class binding
-		// that changed in the same tick as a source would otherwise be overwritten with stale base classes.
-		syncBaseClasses(manager);
-	}
+	adoptOutsideWrite(manager);
+	// After adopting: this merge is the one adopting queued
+	manager.updateQueued = false;
 
 	// Get classes from all sources, sorted by registration order (later takes precedence)
 	const sortedSources = Array.from(manager.sources.entries()).sort(([, a], [, b]) => a.order - b.order);
@@ -278,40 +243,144 @@ function applyClasses(manager: ElementClassManager): void {
 		allSourceClasses.length > 0 || manager.baseClasses.size > 0
 			? manager.merge([...allSourceClasses, ...manager.baseClasses])
 			: '';
-	const applied = new Set(toClassList(classesToApply));
-	// Forget merged-out base classes like before, so a cleared binding can't bring them back
-	for (const className of manager.baseClasses) {
-		if (!applied.has(className)) manager.baseClasses.delete(className);
-	}
 
 	// Apply the classes to the element
 	if (manager.element.className !== classesToApply) {
 		manager.element.className = classesToApply;
 	}
-	manager.appliedClasses = applied;
+	manager.writtenClassName = manager.element.className;
 }
 
-function syncBaseClasses(manager: ElementClassManager): void {
-	const applied = manager.appliedClasses!;
-	const current = new Set(toClassList(manager.element.className));
+/**
+ * writtenClassName is the class list as brnClasses last left it, so any difference is a className or
+ * class attribute write from outside. Those replace the whole list: the wanted classes become the live
+ * ones (minus what the sources put there), and a class the merge had dropped is forgotten.
+ * Before the first source runs, writtenClassName is null and the live classes (including SSR) are adopted.
+ */
+function adoptOutsideWrite(manager: ElementClassManager): void {
+	if (manager.sources.size === 0) return;
+	const current = manager.element.className;
+	if (current === manager.writtenClassName) return;
 
-	for (const className of applied) {
-		if (!current.has(className)) {
-			manager.baseClasses.delete(className);
-		}
-	}
+	// What the sources put on the element; a class that is also wanted (static or tracked) stays wanted
+	const sourceOutput =
+		manager.writtenClassName === null
+			? [...manager.sources.values()].flatMap((source) => [...source.classes])
+			: toClassList(manager.writtenClassName);
+	const fromSources = new Set(sourceOutput.filter((className) => !manager.baseClasses.has(className)));
 
-	for (const className of current) {
-		if (!applied.has(className)) {
-			manager.baseClasses.add(className);
-		}
+	manager.baseClasses.clear();
+	for (const className of toClassList(current)) {
+		if (!fromSources.has(className)) manager.baseClasses.add(className);
 	}
+	manager.writtenClassName = current;
+	// The observer now sees nothing new, so merge from here even if the write that got us here throws
+	scheduleUpdate(manager);
+}
+
+const trackedMethods = ['add', 'remove', 'toggle', 'replace'] as const;
+
+/**
+ * Angular applies `[class]` and `[class.x]` through `classList`. Recording those writes keeps every wanted
+ * class, including one the merge currently drops, so it comes back once the class it lost to is removed.
+ * The DOM can't tell us that: removing a class that isn't on the element changes nothing there.
+ */
+function trackClassList(manager: ElementClassManager): void {
+	const list = manager.element.classList;
+	if (!list) return;
+	const native = { add: list.add, remove: list.remove, replace: list.replace };
+	const wanted = manager.baseClasses;
+
+	// Write to the DOM right away so the classList answers like the native one; only the merge is batched
+	const write = (apply: () => void, nativeWrite: () => void) => {
+		adoptOutsideWrite(manager);
+		// Native first: it rejects invalid tokens ('', 'a b') before anything lands in the wanted set
+		nativeWrite();
+		apply();
+		// Before the first source runs the wanted set is still kept: it decides which source classes stay wanted
+		if (manager.writtenClassName === null) return;
+		manager.writtenClassName = manager.element.className;
+		scheduleUpdate(manager);
+	};
+
+	const add = (...tokens: string[]) =>
+		write(
+			() => tokens.forEach((token) => (wanted.delete(token), wanted.add(token))),
+			() => native.add.apply(list, tokens),
+		);
+	const remove = (...tokens: string[]) =>
+		write(
+			() => tokens.forEach((token) => wanted.delete(token)),
+			() => native.remove.apply(list, tokens),
+		);
+	const toggle = (token: string, force?: boolean) => {
+		const on = force ?? !list.contains(token);
+		if (on) add(token);
+		else remove(token);
+		return on;
+	};
+	// One native call, so both tokens are validated before anything changes
+	const replace = (oldToken: string, newToken: string) => {
+		let replaced = false;
+		write(
+			() => {
+				if (!replaced) return;
+				wanted.delete(oldToken);
+				wanted.delete(newToken);
+				wanted.add(newToken);
+			},
+			() => (replaced = native.replace.call(list, oldToken, newToken)),
+		);
+		return replaced;
+	};
+
+	// Domino (SSR) declares these read-only on the prototype, so assigning them would throw
+	const overrides = { add, remove, toggle, replace };
+	for (const method of trackedMethods) {
+		Object.defineProperty(list, method, { value: overrides[method], configurable: true, writable: true });
+	}
+}
+
+/**
+ * Angular writes each class binding separately, so merging per write would run the merge once per binding.
+ * One merge per element per tick still lands before paint, and keeps a throwing merge out of Angular's renderer.
+ */
+function scheduleUpdate(manager: ElementClassManager): void {
+	if (manager.updateQueued) return;
+	manager.updateQueued = true;
+
+	// Tracked writes come from the renderer inside the zone; a microtask queued there would make zone.js
+	// fire onMicrotaskEmpty again and run a second change detection pass for every class binding change
+	manager.zone.runOutsideAngular(() =>
+		queueMicrotask(() => {
+			// A source update or cleanup in between already handled it
+			if (!manager.updateQueued || elementClassManagers.get(manager.element) !== manager) return;
+
+			updateElementOutsideAngular(manager);
+		}),
+	);
+}
+
+/** For batched updates (tracked writes and the observer), where nothing in Angular would catch a throwing merge */
+function updateElementOutsideAngular(manager: ElementClassManager): void {
+	try {
+		updateElement(manager);
+	} catch (error) {
+		if (!manager.errorHandler) throw error;
+		manager.errorHandler.handleError(error);
+	}
+}
+
+function untrackClassList(element: HTMLElement): void {
+	// The overrides are own properties, deleting them restores the native DOMTokenList methods
+	for (const method of trackedMethods) delete (element.classList as Partial<DOMTokenList>)[method];
 }
 
 function cleanupManager(element: HTMLElement): void {
 	// Remove from global tracking
 	observedElements.delete(element);
 	elementClassManagers.delete(element);
+	untrackClassList(element);
 
 	// If no more elements being tracked, cleanup global observer
 	if (observedElements.size === 0 && globalObserver) {

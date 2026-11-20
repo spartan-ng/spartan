@@ -2279,4 +2279,51 @@ describe('BrnDrawerVirtualKeyboardProvider', () => {
 			expect(scrollToSpy).not.toHaveBeenCalled();
 		});
 	});
+
+	describe('enter transition', () => {
+		@Component({
+			selector: 'brn-drawer-virtual-keyboard-transition-host',
+			imports: [BrnDrawerImports],
+			changeDetection: ChangeDetectionStrategy.OnPush,
+			template: `
+				<div brnDrawer brnDrawerVirtualKeyboardProvider>
+					<button brnDrawerTrigger>Open</button>
+					<div *brnDrawerPortal brnDrawerViewport style="position: fixed; inset: 0">
+						<div brnDrawerPopup class="transition-test-popup">
+							<div brnDrawerContent><input /></div>
+						</div>
+					</div>
+				</div>
+			`,
+		})
+		class TransitionHost {}
+
+		it('keeps the enter transition of the popup', async () => {
+			// The test setup collapses every transition: lift that, and give the popup a slow one.
+			const collapseSheets = Array.from(document.styleSheets).filter((sheet) =>
+				(sheet.ownerNode as HTMLElement | null)?.textContent?.includes('transition: none !important'),
+			);
+			collapseSheets.forEach((sheet) => (sheet.disabled = true));
+			const style = document.createElement('style');
+			style.textContent = `
+				.transition-test-popup { position: fixed; inset-inline: 0; bottom: 0; height: 300px; transition: transform 2s linear; }
+				.transition-test-popup[data-starting-style] { transform: translateY(300px); }
+			`;
+			document.head.appendChild(style);
+
+			try {
+				const view = await render(TransitionHost);
+				fireEvent.click(screen.getByText('Open'));
+				view.detectChanges();
+				await flushAnimationFrames(3);
+
+				// Shortly after opening, the popup has only just started to move up from its starting style.
+				const popup = document.querySelector('.transition-test-popup') as HTMLElement;
+				expect(new DOMMatrix(getComputedStyle(popup).transform).m42).toBeGreaterThan(200);
+			} finally {
+				style.remove();
+				collapseSheets.forEach((sheet) => (sheet.disabled = false));
+			}
+		});
+	});
 });

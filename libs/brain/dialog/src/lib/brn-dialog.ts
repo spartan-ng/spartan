@@ -220,6 +220,11 @@ export class BrnDialog<TResult = unknown, TContext extends Record<string, unknow
 		this._dialogRef()?.updatePosition();
 	}
 
+	/** Replaces the scroll strategy of the open dialog. */
+	protected updateScrollStrategy(strategy: ScrollStrategy): void {
+		this._dialogRef()?.updateScrollStrategy(strategy);
+	}
+
 	protected getAttachTo(): BrnDialogOptions['attachTo'] {
 		return this.attachTo() ?? this._origin();
 	}

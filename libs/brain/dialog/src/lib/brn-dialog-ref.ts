@@ -1,4 +1,5 @@
 import type { DialogRef } from '@angular/cdk/dialog';
+import type { ScrollStrategy } from '@angular/cdk/overlay';
 import { afterNextRender, computed, type Injector, signal } from '@angular/core';
 import { getActiveElementAnimations, waitForAnimations } from '@spartan-ng/brain/core';
 import { type Observable, ReplaySubject, Subject } from 'rxjs';
@@ -83,13 +84,13 @@ export class BrnDialogRef<DialogResult = unknown> {
 		);
 
 		this._cdkDialogRef.closed.subscribe((result) => {
-			// The CDK can close the dialog itself (e.g. the `close` scroll strategy), skipping `close()`.
-			const closedByCdk = this._phase() !== 'closed';
 			this._cancelStartingFrame();
 			this._phase.set('closed');
-			if (closedByCdk) this._openChangeComplete.next(false);
 			this._transitionStatus.set(undefined);
 			this._closed.next(result);
+			// Once per close, including when the CDK closes the dialog itself (e.g. the `close` scroll
+			// strategy). Emitted after `closed`, so a handler that opens the dialog again starts a new one.
+			this._openChangeComplete.next(false);
 			this._closed.complete();
 			this._closing.complete();
 			this._stateChanged.complete();
@@ -148,7 +149,6 @@ export class BrnDialogRef<DialogResult = unknown> {
 		this._closeGeneration++;
 		this._openGeneration++;
 		this._phase.set('closed');
-		this._openChangeComplete.next(false);
 		this._cdkDialogRef.close(result);
 	}
 
@@ -169,6 +169,10 @@ export class BrnDialogRef<DialogResult = unknown> {
 
 	public updatePosition(): void {
 		this._cdkDialogRef.updatePosition();
+	}
+
+	public updateScrollStrategy(strategy: ScrollStrategy): void {
+		this._cdkDialogRef.overlayRef.updateScrollStrategy(strategy);
 	}
 
 	public registerDescription(id: string): void {
@@ -212,7 +216,6 @@ export class BrnDialogRef<DialogResult = unknown> {
 
 		if (generation === this._closeGeneration && this._phase() === 'closing') {
 			this._phase.set('closed');
-			this._openChangeComplete.next(false);
 			this._cdkDialogRef.close(result);
 		}
 	}
@@ -231,7 +234,9 @@ export class BrnDialogRef<DialogResult = unknown> {
 			this._startingFrame = null;
 			if (this._transitionStatus() !== 'starting') return;
 			this._setTransitionStatus(undefined);
-			void this._completeOpen();
+			// Collect the enter transitions once the cleared starting style is rendered: host bindings
+			// (e.g. the drawer popup's) drop `data-starting-style` in the next change detection.
+			afterNextRender(() => void this._completeOpen(), { injector: this._injector });
 		});
 	}
 

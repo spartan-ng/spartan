@@ -9,6 +9,7 @@ import {
 	type OverlayRef,
 	ScrollStrategyOptions,
 } from '@angular/cdk/overlay';
+import { _getEventTarget, _getFocusedElementPierceShadowDom } from '@angular/cdk/platform';
 import { DOCUMENT } from '@angular/common';
 import type { TemplateRef, ViewContainerRef } from '@angular/core';
 import { ElementRef, inject, Injectable, type InjectOptions, Injector, type StaticProvider } from '@angular/core';
@@ -21,6 +22,17 @@ import { injectBrnDialogDefaultOptions } from './brn-dialog-token';
 let dialogSequence = 0;
 
 export type BrnDialogContext<T> = T & { close: (result?: unknown) => void };
+
+/** Whether `node` is inside `ancestor`, following shadow hosts up to the document. */
+function containsComposed(ancestor: Node, node: Node): boolean {
+	let current: Node | null = node;
+	while (current) {
+		if (ancestor.contains(current)) return true;
+		const root = current.getRootNode();
+		current = root instanceof ShadowRoot ? root.host : null;
+	}
+	return false;
+}
 
 export const injectBrnDialogContext = <DialogContext = unknown>(options: InjectOptions = {}) =>
 	inject(DIALOG_DATA, options) as DialogContext;
@@ -175,15 +187,16 @@ export class BrnDialogService {
 		// leaving that overlay for the page leaves the dialog as well. Track focus on the document, as
 		// the pane gets no `focusout` when focus leaves a nested overlay.
 		const isWithinDialog = (target: Node) => {
-			if (pane.contains(target)) return true;
+			if (containsComposed(pane, target)) return true;
 			const overlays = this._overlayCloseDispatcher._attachedOverlays;
 			const above = overlays.slice(overlays.indexOf(overlayRef) + 1);
-			return above.some((overlay) => overlay.hostElement.contains(target));
+			return above.some((overlay) => containsComposed(overlay.hostElement, target));
 		};
-		const activeElement = this._document.activeElement;
+		// The focused element itself, not the shadow host the document sees when it is in a shadow root.
+		const activeElement = _getFocusedElementPierceShadowDom();
 		let focusWithin = activeElement instanceof Node && isWithinDialog(activeElement);
 		const onFocusIn = (event: FocusEvent) => {
-			const target = event.target;
+			const target = _getEventTarget(event);
 			if (!(target instanceof Node)) return;
 			const wasWithin = focusWithin;
 			focusWithin = isWithinDialog(target);

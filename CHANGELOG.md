@@ -1,3 +1,8 @@
+## 1.10.0-beta.6 (2026-11-20)
+
+- fix: bring merged-out classes back once their conflicting class is removed (#1889) ([e07cf09](https://github.com/spartan-ng/spartan/commit/e07cf09)), closes [#1889](https://github.com/spartan-ng/spartan/issues/1889)
+- fix(select): focus the trigger on click so keyboard navigation works in safari (#1861) ([a20a4e6](https://github.com/spartan-ng/spartan/commit/a20a4e6)), closes [#1861](https://github.com/spartan-ng/spartan/issues/1861)
+
 ## 1.10.0-beta.5 (2026-11-19)
 
 - test(tooltip): park the real mouse away from the trigger before each spec (#1891) ([37b58c2](https://github.com/spartan-ng/spartan/commit/37b58c2)), closes [#1891](https://github.com/spartan-ng/spartan/issues/1891)

@@ -413,6 +413,30 @@ describe('BrnDrawerSwipeArea', () => {
 		filler.remove();
 	});
 
+	it('locks the page scroll when the swipe area is disabled during the opening gesture', async () => {
+		const filler = document.body.appendChild(document.createElement('div'));
+		filler.style.height = '3000px';
+		const view = await render(SwipeAreaHost, { inputs: { modal: true } });
+		const html = document.documentElement;
+
+		await dragUp(200, { release: false });
+		view.detectChanges();
+		await wait(50);
+		expect(popup()?.getAttribute('data-state')).toBe('open');
+		expect(html.classList).not.toContain('cdk-global-scrollblock');
+
+		view.fixture.componentRef.setInput('disabled', true);
+		view.detectChanges();
+		await wait(50);
+		expect(popup()?.getAttribute('data-state')).toBe('open');
+		expect(html.classList).toContain('cdk-global-scrollblock');
+
+		popup()?.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+		view.detectChanges();
+		await wait(100);
+		filler.remove();
+	});
+
 	it('cancels native scrolling for touch moves along the swipe axis only', async () => {
 		const view = await render(SwipeAreaHost);
 		view.detectChanges();

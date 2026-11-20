@@ -157,6 +157,8 @@ export class BrnDrawerSwipeArea {
 				this._dragDelta = { x: 0, y: 0 };
 				this._clearSwipeStyles();
 				this._resetSwipeInteractionState();
+				// A gesture that opened a modal drawer ends here, so lock the page scroll it held back.
+				this._drawer.applyDeferredScrollLock();
 			});
 		});
 
@@ -183,6 +185,7 @@ export class BrnDrawerSwipeArea {
 			this._element.removeEventListener('touchmove', onTouchMove);
 			this._releaseGuardCleanup?.();
 			this._clearSwipeStyles();
+			this._drawer.applyDeferredScrollLock();
 		});
 	}
 

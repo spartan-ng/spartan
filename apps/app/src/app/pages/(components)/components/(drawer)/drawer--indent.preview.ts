@@ -7,27 +7,25 @@ import { HlmDrawerImports } from '@spartan-ng/helm/drawer';
 	selector: 'spartan-drawer-indent-preview',
 	imports: [BrnDrawerImports, HlmDrawerImports, HlmButtonImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	host: { class: 'block w-full' },
+	host: { class: 'block h-full' },
 	template: `
-		<div brnDrawerProvider class="relative isolate h-80 w-full overflow-hidden rounded-xl border">
-			<div brnDrawerIndentBackground class="absolute inset-0 -z-10 bg-black"></div>
+		<!-- In your root component: the provider tracks the drawers opened inside it. -->
+		<div brnDrawerProvider class="h-full">
+			<div brnDrawerIndentBackground class="fixed inset-0 bg-black dark:bg-neutral-300"></div>
 			<div
 				brnDrawerIndent
-				class="bg-background flex h-full origin-top flex-col items-center justify-center gap-4 transition-[transform,border-radius] duration-450 ease-[cubic-bezier(0.22,1,0.36,1)] data-active:scale-[calc(0.94+0.06*var(--drawer-swipe-progress))] data-active:rounded-xl"
+				class="bg-background relative flex min-h-full origin-[center_top] [transform:scale(1)_translateY(0)] items-center justify-center [transition-duration:calc(400ms*var(--indent-transition)),calc(250ms*var(--indent-transition))] will-change-transform [--indent-radius:calc(1rem*(1-var(--drawer-swipe-progress)))] [--indent-transition:calc(1-clamp(0,calc(var(--drawer-swipe-progress)*100000),1))] [transition:transform_0.4s_cubic-bezier(0.32,0.72,0,1),border-radius_0.25s_cubic-bezier(0.32,0.72,0,1)] data-active:transform-[scale(calc(0.98+(0.02*var(--drawer-swipe-progress))))_translateY(calc(0.5rem*(1-var(--drawer-swipe-progress))))] data-active:rounded-t-(--indent-radius)"
 			>
-				<p class="text-muted-foreground text-sm">The app content steps back while the drawer is open.</p>
-				<hlm-drawer>
+				<!-- Your app content, e.g. <router-outlet /> -->
+				<hlm-drawer showSwipeHandle>
 					<button id="drawer-indent-trigger" hlmDrawerTrigger hlmBtn variant="outline">Open Drawer</button>
 					<hlm-drawer-content *hlmDrawerPortal="let ctx">
 						<hlm-drawer-header>
-							<h3 hlmDrawerTitle>Indent</h3>
-							<p hlmDrawerDescription>Swipe down and the page behind follows the drawer back.</p>
+							<h3 hlmDrawerTitle>Notifications</h3>
+							<p hlmDrawerDescription>You are all caught up. Good job!</p>
 						</hlm-drawer-header>
-						<div class="flex-1 p-4">
-							<div class="bg-muted h-40 w-full rounded-2xl"></div>
-						</div>
 						<hlm-drawer-footer>
-							<button hlmDrawerClose hlmBtn>Close</button>
+							<button hlmDrawerClose hlmBtn variant="outline">Close</button>
 						</hlm-drawer-footer>
 					</hlm-drawer-content>
 				</hlm-drawer>

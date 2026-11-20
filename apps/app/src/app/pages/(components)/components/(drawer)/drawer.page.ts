@@ -24,6 +24,7 @@ import { DrawerPositionPreview } from './drawer--position.preview';
 import { DrawerResponsivePreview } from './drawer--responsive.preview';
 import { DrawerRtl } from './drawer--rtl.preview';
 import { DrawerSnapPointsPreview } from './drawer--snap-points.preview';
+import { DrawerSwipeAreaPreview } from './drawer--swipe-area.preview';
 import { DrawerSwipeHandlePreview } from './drawer--swipe-handle.preview';
 import { DrawerPreview, defaultImports, defaultSkeleton } from './drawer.preview';
 
@@ -54,6 +55,7 @@ export const routeMeta: RouteMeta = {
 		DrawerPreview,
 		DrawerPositionPreview,
 		DrawerSwipeHandlePreview,
+		DrawerSwipeAreaPreview,
 		DrawerNestedPreview,
 		DrawerNonModalPreview,
 		DrawerSnapPointsPreview,
@@ -210,6 +212,20 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_swipeHandleCode()" />
 			</spartan-tabs>
 
+			<h3 id="swipe-area" spartanH4>Swipe Area</h3>
+			<p class="${hlmP} mb-6">
+				Place an
+				<code class="${hlmCode}">hlm-drawer-swipe-area</code>
+				inside the drawer to open it by swiping from the screen edge it comes from. It is invisible and sits on that
+				edge by default; the example makes it visible inside the preview.
+			</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-drawer-swipe-area-preview />
+				</div>
+				<spartan-code secondTab [code]="_swipeAreaCode()" />
+			</spartan-tabs>
+
 			<h3 id="nested" spartanH4>Nested</h3>
 			<p class="${hlmP} mb-6">
 				Place an
@@ -354,6 +370,7 @@ export default class DrawerPage {
 	protected readonly _defaultCode = computed(() => this._snippets()['default']);
 	protected readonly _positionCode = computed(() => this._snippets()['position']);
 	protected readonly _swipeHandleCode = computed(() => this._snippets()['swipe-handle']);
+	protected readonly _swipeAreaCode = computed(() => this._snippets()['swipe-area']);
 	protected readonly _nestedCode = computed(() => this._snippets()['nested']);
 	protected readonly _nonModalCode = computed(() => this._snippets()['non-modal']);
 	protected readonly _snapPointsCode = computed(() => this._snippets()['snap-points']);

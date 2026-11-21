@@ -73,16 +73,13 @@ describe('BrnDrawerViewport', () => {
 	it('registers the non-passive document touchmove listener only while open', async () => {
 		const activeListeners = new Set<EventListenerOrEventListenerObject>();
 		const addEventListener = document.addEventListener.bind(document);
-		const removeEventListener = document.removeEventListener.bind(document);
 		vi.spyOn(document, 'addEventListener').mockImplementation((type, listener, options) => {
 			if (type === 'touchmove' && typeof options === 'object' && options.passive === false) {
 				activeListeners.add(listener);
+				// The viewport removes it by aborting the signal it was added with.
+				options.signal?.addEventListener('abort', () => activeListeners.delete(listener));
 			}
 			addEventListener(type, listener, options);
-		});
-		vi.spyOn(document, 'removeEventListener').mockImplementation((type, listener, options) => {
-			if (type === 'touchmove') activeListeners.delete(listener);
-			removeEventListener(type, listener, options);
 		});
 
 		const { view, drawer } = await renderDrawer(drawerTemplate(), { open: false });

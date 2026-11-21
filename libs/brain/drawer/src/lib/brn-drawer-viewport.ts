@@ -200,8 +200,11 @@ export class BrnDrawerViewport {
 		// Pointer moves fire on every hover, so they're handled outside Angular to skip a change
 		// detection per move. A drag writes styles directly; the signals it sets schedule rendering.
 		const onPointerMove = (event: PointerEvent) => this._onPointerMove(event);
-		inject(NgZone).runOutsideAngular(() => this._element.addEventListener('pointermove', onPointerMove));
-		destroyRef.onDestroy(() => this._element.removeEventListener('pointermove', onPointerMove));
+		const listeners = new AbortController();
+		inject(NgZone).runOutsideAngular(() =>
+			this._element.addEventListener('pointermove', onPointerMove, { signal: listeners.signal }),
+		);
+		destroyRef.onDestroy(() => listeners.abort());
 
 		// Settle on the active snap point whenever it changes outside of a drag.
 		effect(() => {
@@ -413,9 +416,13 @@ export class BrnDrawerViewport {
 		effect((onCleanup) => {
 			if (!this._drawer.isOpen() || !this._drawer.mounted()) return;
 
-			const listener = (event: TouchEvent) => this._handleNativeTouchMove(event);
-			this._document.addEventListener('touchmove', listener, { passive: false, capture: true });
-			onCleanup(() => this._document.removeEventListener('touchmove', listener, { capture: true }));
+			const listeners = new AbortController();
+			this._document.addEventListener('touchmove', (event) => this._handleNativeTouchMove(event), {
+				passive: false,
+				capture: true,
+				signal: listeners.signal,
+			});
+			onCleanup(() => listeners.abort());
 		});
 	}
 

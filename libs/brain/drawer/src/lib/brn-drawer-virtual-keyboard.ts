@@ -624,27 +624,26 @@ export class BrnDrawerVirtualKeyboardProvider implements BrnDrawerVirtualKeyboar
 			keyboardScrollElement = null;
 		};
 
-		const listeners: [EventTarget, string, EventListener, boolean][] = [
-			[doc, 'focus', handleFocus as EventListener, true],
-			[doc, 'focusin', handleFocusIn as EventListener, true],
-			[doc, 'focusout', handleFocusOut as EventListener, true],
-			[win, 'scroll', handleWindowScroll, false],
-			[doc, 'pointerdown', cancelKeyboardRealignOnPointerDown, true],
-		];
+		const listeners = new AbortController();
+		doc.addEventListener('focus', handleFocus, { capture: true, signal: listeners.signal });
+		doc.addEventListener('focusin', handleFocusIn, { capture: true, signal: listeners.signal });
+		doc.addEventListener('focusout', handleFocusOut, { capture: true, signal: listeners.signal });
+		win.addEventListener('scroll', handleWindowScroll, { signal: listeners.signal });
+		doc.addEventListener('pointerdown', cancelKeyboardRealignOnPointerDown, {
+			capture: true,
+			signal: listeners.signal,
+		});
 		if (visualViewport) {
-			listeners.push(
-				[visualViewport, 'resize', handleViewportUpdate, false],
-				[visualViewport, 'scroll', handleViewportUpdate, false],
-				// Chrome can keep resizing the layout viewport after visual viewport events stop.
-				[win, 'resize', handleViewportUpdate, false],
-			);
+			visualViewport.addEventListener('resize', handleViewportUpdate, { signal: listeners.signal });
+			visualViewport.addEventListener('scroll', handleViewportUpdate, { signal: listeners.signal });
+			// Chrome can keep resizing the layout viewport after visual viewport events stop.
+			win.addEventListener('resize', handleViewportUpdate, { signal: listeners.signal });
 		}
-		listeners.forEach(([target, type, listener, capture]) => target.addEventListener(type, listener, capture));
 
 		if (captureFocusedKeyboardTarget(activeElement(doc))) scheduleKeyboardFocusAlignment();
 
 		return () => {
-			listeners.forEach(([target, type, listener, capture]) => target.removeEventListener(type, listener, capture));
+			listeners.abort();
 			consumePreemptedFocus();
 			this._focusedKeyboardTarget = null;
 			this._restoreKeyboardScrollAdjustment();

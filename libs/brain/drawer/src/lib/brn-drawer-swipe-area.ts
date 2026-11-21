@@ -173,16 +173,15 @@ export class BrnDrawerSwipeArea {
 			this._preventNativeScroll(event, touchStart);
 			this._swipe.handleMove(event, this._element);
 		};
+		const listeners = new AbortController();
 		this._ngZone.runOutsideAngular(() => {
-			this._element.addEventListener('pointermove', onPointerMove);
-			this._element.addEventListener('touchstart', onTouchStart, { passive: true });
-			this._element.addEventListener('touchmove', onTouchMove);
+			this._element.addEventListener('pointermove', onPointerMove, { signal: listeners.signal });
+			this._element.addEventListener('touchstart', onTouchStart, { passive: true, signal: listeners.signal });
+			this._element.addEventListener('touchmove', onTouchMove, { signal: listeners.signal });
 		});
 
 		destroyRef.onDestroy(() => {
-			this._element.removeEventListener('pointermove', onPointerMove);
-			this._element.removeEventListener('touchstart', onTouchStart);
-			this._element.removeEventListener('touchmove', onTouchMove);
+			listeners.abort();
 			this._releaseGuardCleanup?.();
 			this._clearSwipeStyles();
 			this._drawer.applyDeferredScrollLock();
@@ -270,20 +269,19 @@ export class BrnDrawerSwipeArea {
 	private _enableDismissAfterRelease(): void {
 		this._releaseGuardCleanup?.();
 
-		const document = this._document;
+		const listeners = new AbortController();
 		const restore = (event?: Event) => {
 			if (event?.type === 'click' && (event as MouseEvent).detail !== 0) {
 				// Runs in document capture, ahead of the overlay outside click and backdrop listeners.
 				event.stopPropagation();
 			}
 			this._releaseGuardCleanup = null;
-			document.removeEventListener('pointerdown', restore, true);
-			document.removeEventListener('click', restore, true);
+			listeners.abort();
 		};
 
 		this._releaseGuardCleanup = restore;
-		document.addEventListener('pointerdown', restore, true);
-		document.addEventListener('click', restore, true);
+		this._document.addEventListener('pointerdown', restore, { capture: true, signal: listeners.signal });
+		this._document.addEventListener('click', restore, { capture: true, signal: listeners.signal });
 	}
 
 	private _getPopupSize(popup: HTMLElement): number | null {

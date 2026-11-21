@@ -1,20 +1,33 @@
-import { Directive, computed, effect, input, untracked } from '@angular/core';
+import { computed, Directive, effect, inject, input, untracked } from '@angular/core';
 import { injectCustomClassSettable } from '@spartan-ng/brain/core';
-import { BrnDrawerOverlay } from '@spartan-ng/brain/drawer';
+import { BrnDrawer, BrnDrawerBackdrop } from '@spartan-ng/brain/drawer';
 import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'cn';
 
+/*
+ * The overlay is the CDK backdrop, whose opacity and transition spartan drives through
+ * `--spartan-overlay-backdrop-opacity` / `--spartan-overlay-backdrop-transition` (see the hlm preset),
+ * so the swipe-driven fade sets those variables instead of `opacity-*` utilities. Class strings stay
+ * literal (no interpolation) so Tailwind can find them.
+ */
 @Directive({
 	selector: '[hlmDrawerOverlay],hlm-drawer-overlay',
 	exportAs: 'hlmDrawerOverlay',
-	hostDirectives: [BrnDrawerOverlay],
+	hostDirectives: [{ directive: BrnDrawerBackdrop, inputs: ['forceRender'] }],
 })
 export class HlmDrawerOverlay {
+	private readonly _drawer = inject(BrnDrawer);
 	private readonly _classSettable = injectCustomClassSettable({ optional: true, host: true });
 	public readonly userClass = input<ClassValue>('', { alias: 'class' });
 	protected readonly _computedClass = computed(() =>
 		hlm(
-			'spartan-drawer-overlay transition-opacity duration-150 data-ending-style:opacity-0 data-starting-style:opacity-0',
+			'spartan-drawer-overlay min-h-dvh select-none supports-[-webkit-touch-callout:none]:absolute',
+			'[--spartan-overlay-backdrop-opacity:max(var(--drawer-overlay-min-opacity,0),calc(1-var(--drawer-swipe-progress)))]',
+			'[--spartan-overlay-backdrop-transition:opacity_450ms_cubic-bezier(0.32,0.72,0,1)]',
+			'data-ending-style:[--spartan-overlay-backdrop-opacity:0] data-starting-style:[--spartan-overlay-backdrop-opacity:0]',
+			'data-ending-style:[--spartan-overlay-backdrop-transition:opacity_calc(var(--drawer-swipe-strength)*400ms)_cubic-bezier(0.32,0.72,0,1)]',
+			'data-swiping:[--spartan-overlay-backdrop-transition:none]',
+			this._drawer.hasSnapPoints() && '[--drawer-overlay-min-opacity:0.5]',
 			this.userClass(),
 		),
 	);
@@ -24,5 +37,6 @@ export class HlmDrawerOverlay {
 			const classValue = this._computedClass();
 			untracked(() => this._classSettable?.setClassToCustomElement(classValue));
 		});
+		effect(() => this._drawer.backdropElement()?.setAttribute('data-slot', 'drawer-overlay'));
 	}
 }

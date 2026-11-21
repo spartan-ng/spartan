@@ -20,12 +20,21 @@ export type BrnDialogOptions = {
 	direction?: Direction;
 	closeOnOutsidePointerEvents: boolean;
 	disableClose: boolean;
+	/** Closes the dialog when focus moves outside of it. */
+	closeOnFocusOut: boolean;
 	hasBackdrop: boolean;
+	/** Overlay pane size, forwarded to the CDK overlay config. */
+	height?: string;
 	id: string;
+	maxHeight?: string;
+	maxWidth?: string;
 	panelClass: string | string[];
 	positionStrategy: PositionStrategy | null | undefined;
 	providers?: StaticProvider[] | (() => StaticProvider[]);
 	restoreFocus: RestoreFocusValue;
 	role: 'dialog' | 'alertdialog';
 	scrollStrategy: ScrollStrategy | 'close' | 'reposition' | null | undefined;
+	/** Whether Tab and Shift+Tab are kept inside the dialog. */
+	trapFocus: boolean;
+	width?: string;
 };

@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { OverlayContainer } from '@angular/cdk/overlay';
+import { ApplicationRef, ChangeDetectionStrategy, Component, Injectable } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { fireEvent } from '@testing-library/angular';
 import { BrnDialogService } from './brn-dialog.service';
@@ -10,6 +11,39 @@ import { BrnDialogService } from './brn-dialog.service';
 	`,
 })
 class DialogContent {}
+
+@Component({
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<button id="first">first</button>
+		<button id="last">last</button>
+	`,
+})
+class FocusableDialogContent {}
+
+/** Renders the overlay container inside an open shadow root, as an app rendered in shadow DOM would. */
+@Injectable()
+class ShadowRootOverlayContainer extends OverlayContainer {
+	protected override _createContainer(): void {
+		super._createContainer();
+		const host = document.body.appendChild(document.createElement('div'));
+		host.setAttribute('data-testid', 'shadow-host');
+		host.attachShadow({ mode: 'open' }).appendChild(this._containerElement);
+	}
+}
+
+const nextFrame = () => new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
+
+/** Waits for the dialog to render and for the frame that clears `data-starting-style`. */
+async function settle(): Promise<void> {
+	await TestBed.inject(ApplicationRef).whenStable();
+	await nextFrame();
+	await nextFrame();
+}
+
+function pane(): HTMLElement {
+	return document.querySelector<HTMLElement>('.cdk-overlay-pane')!;
+}
 
 /** CDK's outside-click dispatcher records the target on `pointerdown` and emits on the following `click`. */
 const pointerClick = (target: Element) => {
@@ -69,5 +103,174 @@ describe('BrnDialogService', () => {
 		pressEscape(true);
 
 		expect(dialog.state()).toBe('open');
+	});
+
+	it('renders data-starting-style for the first frame only', async () => {
+		const dialog = TestBed.inject(BrnDialogService).open(DialogContent);
+
+		expect(dialog.transitionStatus()).toBe('starting');
+		expect(pane().hasAttribute('data-starting-style')).toBe(true);
+		expect(backdrops()[0].hasAttribute('data-starting-style')).toBe(true);
+
+		await settle();
+
+		expect(dialog.transitionStatus()).toBeUndefined();
+		expect(pane().hasAttribute('data-starting-style')).toBe(false);
+	});
+
+	it('renders data-ending-style while closing and clears it on reopen', async () => {
+		const dialog = TestBed.inject(BrnDialogService).open(DialogContent);
+		await settle();
+
+		dialog.close();
+		expect(dialog.transitionStatus()).toBe('ending');
+		expect(pane().hasAttribute('data-ending-style')).toBe(true);
+
+		dialog.reopen();
+		expect(dialog.transitionStatus()).toBeUndefined();
+		expect(pane().hasAttribute('data-ending-style')).toBe(false);
+	});
+
+	it('emits openChangeComplete after opening and after closing', async () => {
+		const dialog = TestBed.inject(BrnDialogService).open(DialogContent);
+		const events: boolean[] = [];
+		dialog.openChangeComplete$.subscribe((open) => events.push(open));
+
+		await settle();
+		expect(events).toEqual([true]);
+
+		dialog.close();
+		await settle();
+		expect(events).toEqual([true, false]);
+		expect(dialog.phase()).toBe('closed');
+	});
+
+	it('keeps Tab inside the dialog by default', async () => {
+		TestBed.inject(BrnDialogService).open(FocusableDialogContent);
+		await settle();
+
+		expect(document.querySelectorAll('.cdk-focus-trap-anchor[tabindex="0"]').length).toBe(2);
+	});
+
+	it('lets Tab leave the dialog when trapFocus is false, still moving focus in', async () => {
+		TestBed.inject(BrnDialogService).open(FocusableDialogContent, undefined, undefined, { trapFocus: false });
+		await settle();
+
+		expect(document.querySelectorAll('.cdk-focus-trap-anchor[tabindex="0"]').length).toBe(0);
+		expect(document.activeElement?.id).toBe('first');
+	});
+
+	it('closes on focus out only when closeOnFocusOut is set', async () => {
+		const outside = document.body.appendChild(document.createElement('button'));
+		const service = TestBed.inject(BrnDialogService);
+		const kept = service.open(FocusableDialogContent);
+		await settle();
+		outside.focus();
+		expect(kept.state()).toBe('open');
+		kept.forceClose();
+
+		const dismissed = service.open(FocusableDialogContent, undefined, undefined, {
+			closeOnFocusOut: true,
+			trapFocus: false,
+		});
+		await settle();
+		outside.focus();
+		expect(dismissed.state()).toBe('closed');
+
+		outside.remove();
+	});
+
+	it('closes on focus out when the overlay renders inside a shadow root', async () => {
+		TestBed.configureTestingModule({
+			providers: [{ provide: OverlayContainer, useClass: ShadowRootOverlayContainer }],
+		});
+		const outside = document.body.appendChild(document.createElement('button'));
+		const dialog = TestBed.inject(BrnDialogService).open(FocusableDialogContent, undefined, undefined, {
+			closeOnFocusOut: true,
+			trapFocus: false,
+		});
+		await settle();
+		const host = document.querySelector('[data-testid="shadow-host"]')!;
+		host.shadowRoot!.querySelector<HTMLElement>('.cdk-overlay-pane #first')!.focus();
+		expect(dialog.state()).toBe('open');
+
+		outside.focus();
+		expect(dialog.state()).toBe('closed');
+
+		outside.remove();
+		host.remove();
+	});
+
+	it('keeps closing on focus out after focus passes through a stacked overlay', async () => {
+		const outside = document.body.appendChild(document.createElement('button'));
+		const service = TestBed.inject(BrnDialogService);
+		const parent = service.open(FocusableDialogContent, undefined, undefined, {
+			closeOnFocusOut: true,
+			trapFocus: false,
+		});
+		await settle();
+		service.open(FocusableDialogContent, undefined, undefined, { trapFocus: false, autoFocus: false });
+		await settle();
+		const [parentPane, childPane] = Array.from(document.querySelectorAll<HTMLElement>('.cdk-overlay-pane'));
+		parentPane.querySelector<HTMLElement>('#first')!.focus();
+
+		childPane.querySelector<HTMLElement>('#first')!.focus();
+		expect(parent.state()).toBe('open');
+
+		outside.focus();
+		expect(parent.state()).toBe('closed');
+
+		outside.remove();
+	});
+
+	it('hides the page from assistive technology only for a dialog that traps focus', async () => {
+		const page = document.body.appendChild(document.createElement('main'));
+		const service = TestBed.inject(BrnDialogService);
+
+		const nonModal = service.open(FocusableDialogContent, undefined, undefined, { trapFocus: false });
+		await settle();
+		expect(page.hasAttribute('aria-hidden')).toBe(false);
+		nonModal.forceClose();
+
+		service.open(FocusableDialogContent);
+		await settle();
+		expect(page.getAttribute('aria-hidden')).toBe('true');
+
+		page.remove();
+	});
+
+	it('hides the page while a focus trapping dialog is open above a non trapping one', async () => {
+		const page = document.body.appendChild(document.createElement('main'));
+		const service = TestBed.inject(BrnDialogService);
+
+		const nonModal = service.open(FocusableDialogContent, undefined, undefined, { trapFocus: false });
+		await settle();
+		expect(page.hasAttribute('aria-hidden')).toBe(false);
+
+		const modal = service.open(FocusableDialogContent);
+		await settle();
+		expect(page.getAttribute('aria-hidden')).toBe('true');
+
+		modal.forceClose();
+		await settle();
+		expect(page.hasAttribute('aria-hidden')).toBe(false);
+
+		nonModal.forceClose();
+		await settle();
+		expect(page.hasAttribute('aria-hidden')).toBe(false);
+		page.remove();
+	});
+
+	it('emits openChangeComplete(false) after closed, so a handler can open the dialog again', async () => {
+		const dialog = TestBed.inject(BrnDialogService).open(DialogContent);
+		await settle();
+		const events: string[] = [];
+		dialog.closed$.subscribe(() => events.push('closed'));
+		dialog.openChangeComplete$.subscribe((open) => events.push(`complete:${open}`));
+
+		dialog.close();
+		await settle();
+
+		expect(events).toEqual(['closed', 'complete:false']);
 	});
 });

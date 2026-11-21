@@ -12,6 +12,7 @@ export const defaultOptions: BrnDialogDefaultOptions = {
 	attachTo: null,
 	autoFocus: 'first-tabbable',
 	backdropClass: '',
+	closeOnFocusOut: false,
 	closeOnOutsidePointerEvents: true,
 	disableClose: false,
 	hasBackdrop: true,
@@ -20,6 +21,7 @@ export const defaultOptions: BrnDialogDefaultOptions = {
 	restoreFocus: true,
 	role: 'dialog',
 	scrollStrategy: null,
+	trapFocus: true,
 };
 
 const BRN_DIALOG_DEFAULT_OPTIONS = new InjectionToken<BrnDialogDefaultOptions>('brn-dialog-default-options', {

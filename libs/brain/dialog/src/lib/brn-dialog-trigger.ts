@@ -28,10 +28,17 @@ export class BrnDialogTrigger {
 		alias: 'brnDialogTriggerFor',
 	});
 
-	public readonly state = computed<BrnDialogState>(
-		() => this.getDialog()?.stateComputed() ?? this._dialogRef?.state() ?? 'closed',
-	);
+	public readonly state = computed<BrnDialogState>(() => {
+		const dialog = this.getDialog();
+		if (dialog) return this.isActiveTrigger() ? dialog.stateComputed() : 'closed';
+		return this._dialogRef?.state() ?? 'closed';
+	});
 	public readonly dialogId = computed(() => this.getDialog()?.id() ?? this._dialogRef?.id ?? null);
+
+	/** Whether this trigger reflects the dialog state, when several triggers open the same dialog. */
+	protected isActiveTrigger(): boolean {
+		return true;
+	}
 
 	protected getDialog(): BrnDialog | undefined {
 		return this.brnDialogTriggerFor() ?? this._injectedDialog ?? undefined;

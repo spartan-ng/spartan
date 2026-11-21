@@ -10,6 +10,6 @@ import { classes } from '@spartan-ng/helm/utils';
 })
 export class HlmDrawerDescription {
 	constructor() {
-		classes(() => 'spartan-drawer-description');
+		classes(() => 'spartan-drawer-description text-balance');
 	}
 }

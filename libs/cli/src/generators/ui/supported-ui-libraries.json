@@ -222,6 +222,7 @@
 		"peerDependencies": {
 			"@angular/core": ">=21.0.0 <23.0.0",
 			"@spartan-ng/brain": "1.10.0",
+			"@angular/cdk": ">=21.0.0 <23.0.0",
 			"cn": "^0.5.2"
 		}
 	},

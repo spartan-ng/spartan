@@ -8,13 +8,23 @@ import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmDrawerImports } from '@spartan-ng/helm/drawer';
 import { HlmFieldImports } from '@spartan-ng/helm/field';
 import { HlmRadioGroupImports } from '@spartan-ng/helm/radio-group';
+import { HlmToasterImports } from '@spartan-ng/helm/sonner';
 import { map } from 'rxjs/operators';
 
 @Component({
 	selector: 'spartan-drawer-preview',
-	imports: [FormsModule, HlmDrawerImports, HlmButtonImports, HlmFieldImports, HlmRadioGroupImports, HlmBadgeImports],
+	imports: [
+		FormsModule,
+		HlmDrawerImports,
+		HlmButtonImports,
+		HlmFieldImports,
+		HlmRadioGroupImports,
+		HlmBadgeImports,
+		HlmToasterImports,
+	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
+		<hlm-toaster position="top-center" />
 		<hlm-drawer #drawer="hlmDrawer" [showSwipeHandle]="_isMobile()" [swipeDirection]="_isMobile() ? 'down' : 'right'">
 			<button id="drawer-demo-trigger" hlmDrawerTrigger hlmBtn variant="secondary">Open Drawer</button>
 			<hlm-drawer-content *hlmDrawerPortal="let ctx">

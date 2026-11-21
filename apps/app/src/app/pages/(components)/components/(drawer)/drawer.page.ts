@@ -18,6 +18,7 @@ import { SectionSubHeading } from '../../../../shared/layout/section-sub-heading
 import { Tabs } from '../../../../shared/layout/tabs';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
+import { DrawerControlledPreview } from './drawer--controlled.preview';
 import { DrawerDetachedTriggersPreview } from './drawer--detached-triggers.preview';
 import { DrawerNestedPreview } from './drawer--nested.preview';
 import { DrawerNonModalPreview } from './drawer--non-modal.preview';
@@ -64,6 +65,7 @@ export const routeMeta: RouteMeta = {
 		DrawerSnapPointsPreview,
 		DrawerResponsivePreview,
 		DrawerDetachedTriggersPreview,
+		DrawerControlledPreview,
 		DrawerIndentFrame,
 		DrawerVirtualKeyboardPreview,
 		DrawerRtl,
@@ -142,6 +144,15 @@ export const routeMeta: RouteMeta = {
 				). Avoid
 				<code class="${hlmCode}">h-full</code>
 				, which does not resolve inside a content-sized drawer.
+			</p>
+			<p class="${hlmP}">
+				Add
+				<code class="${hlmCode}">data-swipe-ignore</code>
+				to an element inside the drawer so dragging it does not start a swipe of the drawer. Use
+				<code class="${hlmCode}">data-swipe-ignore="x"</code>
+				or
+				<code class="${hlmCode}">"y"</code>
+				to hand only the drags along that axis to the element, e.g. a horizontal carousel in a bottom drawer.
 			</p>
 
 			<spartan-section-sub-heading id="styling">Styling</spartan-section-sub-heading>
@@ -295,6 +306,31 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_responsiveCode()" />
 			</spartan-tabs>
 
+			<h3 id="controlled" spartanH4>Controlled</h3>
+			<p class="${hlmP} mb-6">
+				Open a drawer without a trigger by calling
+				<code class="${hlmCode}">open()</code>
+				and
+				<code class="${hlmCode}">close(result)</code>
+				on the
+				<code class="${hlmCode}">HlmDrawer</code>
+				instance, e.g. through
+				<code class="${hlmCode}">viewChild</code>
+				. The
+				<code class="${hlmCode}">closed</code>
+				output emits the result. To bind the open state instead, use
+				<code class="${hlmCode} break-all">[state]="open() ? 'open' : 'closed'"</code>
+				with the
+				<code class="${hlmCode}">stateChanged</code>
+				output.
+			</p>
+			<spartan-tabs firstTab="Preview" secondTab="Code">
+				<div spartanCodePreview firstTab>
+					<spartan-drawer-controlled-preview />
+				</div>
+				<spartan-code secondTab [code]="_controlledCode()" />
+			</spartan-tabs>
+
 			<h3 id="detached-triggers" spartanH4>Detached Triggers</h3>
 			<p class="${hlmP} mb-6">
 				A trigger can live outside the drawer: pass the drawer to
@@ -444,6 +480,7 @@ export default class DrawerPage {
 	protected readonly _nonModalCode = computed(() => this._snippets()['nonModal']);
 	protected readonly _snapPointsCode = computed(() => this._snippets()['snapPoints']);
 	protected readonly _responsiveCode = computed(() => this._snippets()['responsive']);
+	protected readonly _controlledCode = computed(() => this._snippets()['controlled']);
 	protected readonly _detachedTriggersCode = computed(() => this._snippets()['detachedTriggers']);
 	protected readonly _indentCode = computed(() => this._snippets()['indent']);
 	protected readonly _virtualKeyboardCode = computed(() => this._snippets()['virtualKeyboard']);

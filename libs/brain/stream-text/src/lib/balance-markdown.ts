@@ -33,18 +33,46 @@ export function balanceMarkdown(text: string): string {
 
 	const outsideFences = outsideLines.join('\n');
 
-	// 2. Remove complete code spans (matching backtick run lengths); they hide `**`.
-	const withoutSpans = outsideFences.replace(/(`+)([\s\S]*?[^`])\1(?!`)/g, '');
+	// 2. Pair backtick runs of equal length into code spans in a single linear pass.
+	const runs: { index: number; length: number }[] = [];
+	for (const match of outsideFences.matchAll(/`+/g)) {
+		runs.push({ index: match.index, length: match[0].length });
+	}
+	const runsByLength = new Map<number, number[]>();
+	runs.forEach((run, i) => runsByLength.set(run.length, [...(runsByLength.get(run.length) ?? []), i]));
+	const cursor = new Map<number, number>();
 
-	// 3. Balance inline code: any backtick run left over is an unclosed opener.
+	let outsideCode = '';
+	let position = 0;
+	let unclosedRun: { index: number; length: number } | null = null;
+	for (let i = 0; i < runs.length; ) {
+		const run = runs[i];
+		const sameLength = runsByLength.get(run.length) ?? [];
+		let next = cursor.get(run.length) ?? 0;
+		while (next < sameLength.length && sameLength[next] <= i) {
+			next++;
+		}
+		cursor.set(run.length, next);
+		const closer = sameLength[next];
+		if (closer === undefined) {
+			unclosedRun = run;
+			break;
+		}
+		outsideCode += outsideFences.slice(position, run.index);
+		position = runs[closer].index + runs[closer].length;
+		i = closer + 1;
+	}
+
+	// 3. Balance inline code: the first unmatched run is an unclosed opener.
 	let result = text;
-	const leftover = /`+/.exec(withoutSpans);
-	if (leftover) {
-		result += leftover[0];
+	if (unclosedRun) {
+		result += '`'.repeat(unclosedRun.length);
+		outsideCode += outsideFences.slice(position, unclosedRun.index);
+	} else {
+		outsideCode += outsideFences.slice(position);
 	}
 
 	// 4. Balance bold markers (**), ignoring code spans and an unclosed code span tail.
-	const outsideCode = leftover ? withoutSpans.slice(0, leftover.index) : withoutSpans;
 	if ((outsideCode.match(/\*\*/g)?.length ?? 0) % 2 !== 0) {
 		result += '**';
 	}

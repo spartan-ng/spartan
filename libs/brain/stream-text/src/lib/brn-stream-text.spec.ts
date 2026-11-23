@@ -50,6 +50,13 @@ describe('balanceMarkdown', () => {
 		expect(balanceMarkdown(text)).toBe(text);
 	});
 
+	it('should stay fast on a long unmatched backtick run', () => {
+		const text = `${'`'.repeat(20000)} text`;
+		const start = performance.now();
+		balanceMarkdown(text);
+		expect(performance.now() - start).toBeLessThan(500);
+	});
+
 	it('should leave already balanced markdown unchanged', () => {
 		const balanced = '```typescript\nconst a = 1;\n```';
 		expect(balanceMarkdown(balanced)).toBe(balanced);

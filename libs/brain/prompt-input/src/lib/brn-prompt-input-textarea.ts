@@ -1,10 +1,10 @@
 import {
 	afterNextRender,
+	afterRenderEffect,
 	booleanAttribute,
 	computed,
 	DestroyRef,
 	Directive,
-	effect,
 	ElementRef,
 	inject,
 	input,
@@ -75,13 +75,12 @@ export class BrnPromptInputTextarea {
 		});
 
 		// Recalculate the height when the row limits or auto-resize change after the first render.
-		effect(() => {
+		// afterRenderEffect runs after host bindings (such as `rows`) are applied.
+		afterRenderEffect(() => {
 			this.effectiveMinRows();
 			this.effectiveMaxRows();
 			this.autoResize();
-			if (typeof window !== 'undefined' && this._elementRef.nativeElement.isConnected) {
-				untracked(() => this.adjustHeight());
-			}
+			untracked(() => this.adjustHeight());
 		});
 	}
 

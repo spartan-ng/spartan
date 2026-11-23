@@ -8,42 +8,6 @@
 		"types": [],
 		"moduleResolution": "bundler"
 	},
-	"exclude": [
-		"**/*.spec.ts",
-		"test-setup.ts",
-		"vite.config.mts",
-		"**/*.test.ts",
-		"src/testing/**",
-		"prompt-input/**/*.spec.ts",
-		"prompt-input/**/*.test.ts",
-		"prompt-input/src/testing/**",
-		"tool-call/**/*.spec.ts",
-		"tool-call/**/*.test.ts",
-		"tool-call/src/testing/**",
-		"tool-call/prompt-input/**/*.spec.ts",
-		"tool-call/prompt-input/**/*.test.ts",
-		"tool-call/prompt-input/src/testing/**",
-		"stream-text/**/*.spec.ts",
-		"stream-text/**/*.test.ts",
-		"stream-text/src/testing/**",
-		"stream-text/prompt-input/**/*.spec.ts",
-		"stream-text/prompt-input/**/*.test.ts",
-		"stream-text/prompt-input/src/testing/**",
-		"stream-text/tool-call/**/*.spec.ts",
-		"stream-text/tool-call/**/*.test.ts",
-		"stream-text/tool-call/src/testing/**",
-		"stream-text/tool-call/prompt-input/**/*.spec.ts",
-		"stream-text/tool-call/prompt-input/**/*.test.ts",
-		"stream-text/tool-call/prompt-input/src/testing/**"
-	],
-	"include": [
-		"**/*.ts",
-		"prompt-input/**/*.ts",
-		"tool-call/**/*.ts",
-		"tool-call/prompt-input/**/*.ts",
-		"stream-text/**/*.ts",
-		"stream-text/prompt-input/**/*.ts",
-		"stream-text/tool-call/**/*.ts",
-		"stream-text/tool-call/prompt-input/**/*.ts"
-	]
+	"exclude": ["**/*.spec.ts", "test-setup.ts", "vite.config.mts", "**/*.test.ts", "src/testing/**"],
+	"include": ["**/*.ts"]
 }

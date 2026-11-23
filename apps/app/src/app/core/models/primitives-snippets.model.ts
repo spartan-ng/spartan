@@ -57,6 +57,7 @@ export type PrimitiveSnippet =
 	| 'slider'
 	| 'sonner'
 	| 'spinner'
+	| 'stream-text'
 	| 'switch'
 	| 'table'
 	| 'tabs'

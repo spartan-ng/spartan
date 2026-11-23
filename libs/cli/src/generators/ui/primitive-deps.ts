@@ -58,6 +58,7 @@ export const primitiveDependencies: Record<Primitive, Primitive[]> = {
 	slider: ['utils'],
 	sonner: ['utils', 'button'],
 	spinner: ['utils'],
+	'stream-text': ['utils'],
 	switch: ['utils'],
 	table: ['utils'],
 	tabs: ['utils', 'button'],

@@ -79,6 +79,7 @@ export const components: Link[] = [
 	{ label: 'Slider', url: '/slider' },
 	{ label: 'Sonner (Toast)', url: '/sonner' },
 	{ label: 'Spinner', url: '/spinner' },
+	{ label: 'Stream Text', url: '/stream-text', new: true },
 	{ label: 'Switch', url: '/switch' },
 	{ label: 'Table', url: '/table' },
 	{ label: 'Tabs', url: '/tabs' },

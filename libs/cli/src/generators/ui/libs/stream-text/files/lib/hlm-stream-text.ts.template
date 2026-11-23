@@ -1,0 +1,25 @@
+import { Directive } from '@angular/core';
+import { BrnStreamText } from '@spartan-ng/brain/stream-text';
+import { classes } from '@spartan-ng/helm/utils';
+
+@Directive({
+	selector: '[hlmStreamText],hlm-stream-text',
+	exportAs: 'hlmStreamText',
+	hostDirectives: [
+		{
+			directive: BrnStreamText,
+			inputs: ['content', 'streaming', 'autoBalance'],
+		},
+	],
+	host: {
+		'data-slot': 'stream-text',
+	},
+})
+export class HlmStreamText {
+	constructor() {
+		classes(
+			() =>
+				'spartan-stream-text relative block font-normal leading-relaxed text-foreground whitespace-pre-wrap data-[streaming]:after:inline-block data-[streaming]:after:h-4 data-[streaming]:after:w-1.5 data-[streaming]:after:animate-pulse data-[streaming]:after:bg-current data-[streaming]:after:ml-0.5 data-[streaming]:after:align-middle',
+		);
+	}
+}

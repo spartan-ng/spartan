@@ -56,6 +56,7 @@ export type Primitive =
 	| 'slider'
 	| 'sonner'
 	| 'spinner'
+	| 'stream-text'
 	| 'switch'
 	| 'table'
 	| 'tabs'

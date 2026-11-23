@@ -67,6 +67,7 @@ module.exports = {
 				'slider',
 				'sonner',
 				'spinner',
+				'stream-text',
 				'switch',
 				'table',
 				'tabs',

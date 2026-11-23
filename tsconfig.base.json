@@ -153,7 +153,9 @@
 			"@spartan-ng/brain/prompt-input": ["./libs/brain/prompt-input/src/index.ts"],
 			"@spartan-ng/helm/prompt-input": ["./libs/helm/prompt-input/src/index.ts"],
 			"@spartan-ng/brain/tool-call": ["./libs/brain/tool-call/src/index.ts"],
-			"@spartan-ng/helm/tool-call": ["./libs/helm/tool-call/src/index.ts"]
+			"@spartan-ng/helm/tool-call": ["./libs/helm/tool-call/src/index.ts"],
+			"@spartan-ng/brain/stream-text": ["./libs/brain/stream-text/src/index.ts"],
+			"@spartan-ng/helm/stream-text": ["./libs/helm/stream-text/src/index.ts"]
 		}
 	},
 	"exclude": ["node_modules", "tmp"]

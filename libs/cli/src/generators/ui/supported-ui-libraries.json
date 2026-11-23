@@ -502,6 +502,13 @@
 			"@ng-icons/lucide": ">=32.0.0 <34.0.0"
 		}
 	},
+	"stream-text": {
+		"name": "stream-text",
+		"peerDependencies": {
+			"@angular/core": ">=21.0.0 <23.0.0",
+			"@spartan-ng/brain": "1.10.0"
+		}
+	},
 	"switch": {
 		"name": "switch",
 		"peerDependencies": {

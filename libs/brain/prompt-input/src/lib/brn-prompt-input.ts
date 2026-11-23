@@ -52,7 +52,7 @@ export class BrnPromptInput {
 
 	/** Requests submission of current textarea content. */
 	public requestSubmit(): void {
-		if (this.disabled()) {
+		if (this.disabled() || this.streaming()) {
 			return;
 		}
 
@@ -74,6 +74,9 @@ export class BrnPromptInput {
 
 	/** Requests generation to stop. */
 	public requestStop(): void {
+		if (!this.streaming()) {
+			return;
+		}
 		this.promptStop.emit();
 	}
 }

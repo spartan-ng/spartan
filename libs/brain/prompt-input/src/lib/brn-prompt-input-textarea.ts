@@ -16,8 +16,6 @@ import { injectBrnPromptInput } from './brn-prompt-input.token';
 	exportAs: 'brnPromptInputTextarea',
 	host: {
 		'data-slot': 'prompt-input-textarea',
-		role: 'textbox',
-		'aria-multiline': 'true',
 		'[disabled]': 'effectiveDisabled()',
 		'[rows]': 'effectiveMinRows()',
 		'(input)': 'onInput()',

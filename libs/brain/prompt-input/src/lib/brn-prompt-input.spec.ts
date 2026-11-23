@@ -47,7 +47,6 @@ describe('BrnPromptInput', () => {
 
 		const textarea = getByRole('textbox') as HTMLTextAreaElement;
 		expect(textarea).not.toBeNull();
-		expect(textarea.getAttribute('aria-multiline')).toBe('true');
 		expect(textarea.rows).toBe(1);
 	});
 
@@ -137,5 +136,30 @@ describe('BrnPromptInput', () => {
 		fireEvent.click(stopBtn);
 
 		expect(stopSpy).toHaveBeenCalled();
+	});
+
+	it('should not submit while streaming', async () => {
+		const submitSpy = vi.fn();
+		const { getByRole } = await render(PromptInputSpecComponent, {
+			componentInputs: { streaming: true },
+			on: { promptSubmit: submitSpy },
+		});
+
+		const textarea = getByRole('textbox') as HTMLTextAreaElement;
+		fireEvent.input(textarea, { target: { value: 'Too soon' } });
+		fireEvent.keyDown(textarea, { key: 'Enter', shiftKey: false });
+
+		expect(submitSpy).not.toHaveBeenCalled();
+	});
+
+	it('should not emit stop when not streaming', async () => {
+		const stopSpy = vi.fn();
+		const { getByTestId } = await render(PromptInputSpecComponent, {
+			on: { promptStop: stopSpy },
+		});
+
+		fireEvent.click(getByTestId('stop-btn'));
+
+		expect(stopSpy).not.toHaveBeenCalled();
 	});
 });

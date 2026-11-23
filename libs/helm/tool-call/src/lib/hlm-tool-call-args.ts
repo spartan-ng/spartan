@@ -1,9 +1,11 @@
 import { Directive } from '@angular/core';
+import { BrnToolCallPanel } from '@spartan-ng/brain/tool-call';
 import { classes } from '@spartan-ng/helm/utils';
 
 @Directive({
 	selector: '[hlmToolCallArgs],hlm-tool-call-args',
 	exportAs: 'hlmToolCallArgs',
+	hostDirectives: [BrnToolCallPanel],
 	host: {
 		'data-slot': 'tool-call-args',
 	},

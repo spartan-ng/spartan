@@ -1,1 +1,8 @@
-export type ToolCallState = 'pending' | 'executing' | 'requires-approval' | 'result' | 'error';
+export type ToolCallState =
+	| 'pending'
+	| 'executing'
+	| 'requires-approval'
+	| 'approval-responded'
+	| 'result'
+	| 'error'
+	| 'denied';

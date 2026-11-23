@@ -3,13 +3,14 @@ import { fireEvent, render } from '@testing-library/angular';
 import { describe, expect, it, vi } from 'vitest';
 import { BrnToolCall } from './brn-tool-call';
 import { BrnToolCallApprove } from './brn-tool-call-approve';
+import { BrnToolCallPanel } from './brn-tool-call-panel';
 import { BrnToolCallReject } from './brn-tool-call-reject';
 import { BrnToolCallRetry } from './brn-tool-call-retry';
 import { BrnToolCallTrigger } from './brn-tool-call-trigger';
 import type { ToolCallState } from './brn-tool-call.types';
 
 @Component({
-	imports: [BrnToolCall, BrnToolCallTrigger, BrnToolCallApprove, BrnToolCallReject, BrnToolCallRetry],
+	imports: [BrnToolCall, BrnToolCallTrigger, BrnToolCallApprove, BrnToolCallReject, BrnToolCallRetry, BrnToolCallPanel],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div
@@ -24,6 +25,7 @@ import type { ToolCallState } from './brn-tool-call.types';
 			<button brnToolCallApprove data-testid="approve-btn">Approve</button>
 			<button brnToolCallReject [reason]="rejectReason()" data-testid="reject-btn">Reject</button>
 			<button brnToolCallRetry data-testid="retry-btn">Retry</button>
+			<div brnToolCallPanel data-testid="panel">Panel</div>
 		</div>
 	`,
 })
@@ -32,14 +34,14 @@ class ToolCallSpecComponent {
 	public readonly state = input<ToolCallState>('executing');
 	public readonly rejectReason = input<string | undefined>(undefined);
 	public readonly approved = output<void>();
-	public readonly rejected = output<string | void>();
+	public readonly rejected = output<string | undefined>();
 	public readonly retried = output<void>();
 
 	protected onApproved(): void {
 		this.approved.emit();
 	}
 
-	protected onRejected(reason?: string | void): void {
+	protected onRejected(reason?: string): void {
 		this.rejected.emit(reason);
 	}
 
@@ -116,5 +118,46 @@ describe('BrnToolCall', () => {
 		fireEvent.click(retryBtn);
 
 		expect(retrySpy).toHaveBeenCalledOnce();
+	});
+
+	it('should ignore approve and reject outside requires-approval', async () => {
+		const approvedSpy = vi.fn();
+		const rejectedSpy = vi.fn();
+		const { getByTestId } = await render(ToolCallSpecComponent, {
+			componentInputs: { state: 'executing' },
+			on: { approved: approvedSpy, rejected: rejectedSpy },
+		});
+
+		fireEvent.click(getByTestId('approve-btn'));
+		fireEvent.click(getByTestId('reject-btn'));
+
+		expect(approvedSpy).not.toHaveBeenCalled();
+		expect(rejectedSpy).not.toHaveBeenCalled();
+	});
+
+	it('should link the trigger to the rendered panel via aria-controls', async () => {
+		const { getByTestId } = await render(ToolCallSpecComponent);
+
+		const panelId = getByTestId('panel').id;
+		expect(panelId).toMatch(/^brn-tool-call-panel-/);
+		expect(getByTestId('trigger-btn').getAttribute('aria-controls')).toBe(panelId);
+	});
+
+	it('should ignore retry outside error or denied', async () => {
+		const retrySpy = vi.fn();
+		const { getByTestId } = await render(ToolCallSpecComponent, {
+			componentInputs: { state: 'executing' },
+			on: { retried: retrySpy },
+		});
+
+		fireEvent.click(getByTestId('retry-btn'));
+
+		expect(retrySpy).not.toHaveBeenCalled();
+	});
+
+	it('should expose the tool name as the accessible name of the group', async () => {
+		const { getByRole } = await render(ToolCallSpecComponent);
+
+		expect(getByRole('group', { name: 'search_database' })).not.toBeNull();
 	});
 });

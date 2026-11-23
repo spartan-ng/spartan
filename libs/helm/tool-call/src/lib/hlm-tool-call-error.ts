@@ -1,0 +1,18 @@
+import { Directive } from '@angular/core';
+import { classes } from '@spartan-ng/helm/utils';
+
+@Directive({
+	selector: '[hlmToolCallError],hlm-tool-call-error',
+	exportAs: 'hlmToolCallError',
+	host: {
+		'data-slot': 'tool-call-error',
+		role: 'alert',
+	},
+})
+export class HlmToolCallError {
+	constructor() {
+		classes(
+			() => 'spartan-tool-call-error border-destructive/30 bg-destructive/5 text-destructive border-t p-3 text-xs',
+		);
+	}
+}

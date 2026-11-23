@@ -42,6 +42,7 @@ export const components: Link[] = [
 	{ label: 'Collapsible', url: '/collapsible' },
 	{ label: 'Combobox', url: '/combobox' },
 	{ label: 'Command', url: '/command' },
+	{ label: 'Confirmation', url: '/confirmation', new: true },
 	{ label: 'Context Menu', url: '/context-menu' },
 	{ label: 'Data Table', url: '/data-table' },
 	{ label: 'Date Picker', url: '/date-picker' },

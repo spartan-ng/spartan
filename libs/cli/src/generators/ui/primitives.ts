@@ -20,6 +20,8 @@ export type Primitive =
 	| 'collapsible'
 	| 'combobox'
 	| 'command'
+	| 'confirmation'
+	| 'confirmation'
 	| 'context-menu'
 	| 'date-picker'
 	| 'dialog'

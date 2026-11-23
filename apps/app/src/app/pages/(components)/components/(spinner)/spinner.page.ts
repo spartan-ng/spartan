@@ -204,7 +204,7 @@ export const routeMeta: RouteMeta = {
 			<spartan-ui-api-docs docType="helm" />
 
 			<spartan-page-bottom-nav>
-				<spartan-page-bottom-nav-link href="switch" label="Switch" />
+				<spartan-page-bottom-nav-link href="stream-text" label="Stream Text" />
 				<spartan-page-bottom-nav-link direction="previous" href="sonner" label="Sonner" />
 			</spartan-page-bottom-nav>
 		</section>

@@ -184,6 +184,13 @@
 			"@ng-icons/lucide": ">=32.0.0 <34.0.0"
 		}
 	},
+	"confirmation": {
+		"name": "confirmation",
+		"peerDependencies": {
+			"@angular/core": ">=21.0.0 <23.0.0",
+			"@spartan-ng/brain": "1.10.0"
+		}
+	},
 	"context-menu": {
 		"name": "context-menu",
 		"peerDependencies": {
@@ -506,7 +513,8 @@
 		"name": "stream-text",
 		"peerDependencies": {
 			"@angular/core": ">=21.0.0 <23.0.0",
-			"@spartan-ng/brain": "1.10.0"
+			"@spartan-ng/brain": "1.10.0",
+			"marked": ">=15.0.0"
 		}
 	},
 	"switch": {
@@ -566,8 +574,7 @@
 		"name": "tool-call",
 		"peerDependencies": {
 			"@angular/core": ">=21.0.0 <23.0.0",
-			"@spartan-ng/brain": "1.10.0",
-			"class-variance-authority": "^0.7.0"
+			"@spartan-ng/brain": "1.10.0"
 		}
 	},
 	"tooltip": {

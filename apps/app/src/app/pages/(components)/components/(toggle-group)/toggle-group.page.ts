@@ -180,7 +180,7 @@ export const routeMeta: RouteMeta = {
 			<spartan-ui-api-docs docType="helm" />
 
 			<spartan-page-bottom-nav>
-				<spartan-page-bottom-nav-link href="tooltip" label="Tooltip" />
+				<spartan-page-bottom-nav-link href="tool-call" label="Tool Call" />
 				<spartan-page-bottom-nav-link direction="previous" href="toggle" label="Toggle" />
 			</spartan-page-bottom-nav>
 		</section>

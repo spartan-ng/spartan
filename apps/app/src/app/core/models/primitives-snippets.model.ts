@@ -20,6 +20,7 @@ export type PrimitiveSnippet =
 	| 'collapsible'
 	| 'combobox'
 	| 'command'
+	| 'confirmation'
 	| 'context-menu'
 	| 'data-table'
 	| 'date-picker'

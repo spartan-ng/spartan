@@ -29,6 +29,7 @@ module.exports = {
 				'collapsible',
 				'combobox',
 				'command',
+				'confirmation',
 				'context-menu',
 				'data-table',
 				'date-picker',

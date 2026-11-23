@@ -34,6 +34,7 @@ body:
         - collapsible
         - combobox
         - command
+        - confirmation
         - context-menu
         - data-table
         - date-picker
@@ -56,6 +57,7 @@ body:
         - pagination
         - popover
         - progress
+        - prompt-input
         - radio-group
         - resizable
         - scroll-area
@@ -67,12 +69,14 @@ body:
         - slider
         - sonner
         - spinner
+        - stream-text
         - switch
         - table
         - tabs
         - textarea
         - toggle
         - toggle-group
+        - tool-call
         - tooltip
         - trace
         - trpc

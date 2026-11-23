@@ -173,7 +173,7 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="trace" label="Trace" />
-				<spartan-page-bottom-nav-link direction="previous" href="toggle" label="Toggle" />
+				<spartan-page-bottom-nav-link direction="previous" href="tool-call" label="Tool Call" />
 			</spartan-page-bottom-nav>
 		</section>
 		<spartan-page-nav />

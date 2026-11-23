@@ -64,6 +64,7 @@ export const primitiveDependencies: Record<Primitive, Primitive[]> = {
 	textarea: ['utils'],
 	toggle: ['utils'],
 	'toggle-group': ['utils', 'toggle'],
+	'tool-call': ['utils', 'button', 'badge'],
 	tooltip: ['utils'],
 	trace: ['utils'],
 	typography: ['utils'],

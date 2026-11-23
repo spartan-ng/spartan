@@ -85,6 +85,7 @@ export const components: Link[] = [
 	{ label: 'Textarea', url: '/textarea' },
 	{ label: 'Toggle', url: '/toggle' },
 	{ label: 'Toggle Group', url: '/toggle-group' },
+	{ label: 'Tool Call', url: '/tool-call', new: true },
 	{ label: 'Tooltip', url: '/tooltip' },
 	{ label: 'Trace', url: '/trace', new: true },
 ];

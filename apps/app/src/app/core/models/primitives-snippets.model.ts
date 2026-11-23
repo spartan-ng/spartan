@@ -63,6 +63,7 @@ export type PrimitiveSnippet =
 	| 'textarea'
 	| 'toggle'
 	| 'toggle-group'
+	| 'tool-call'
 	| 'tooltip'
 	| 'trace';
 

@@ -16,7 +16,13 @@
 		"src/testing/**",
 		"prompt-input/**/*.spec.ts",
 		"prompt-input/**/*.test.ts",
-		"prompt-input/src/testing/**"
+		"prompt-input/src/testing/**",
+		"tool-call/**/*.spec.ts",
+		"tool-call/**/*.test.ts",
+		"tool-call/src/testing/**",
+		"tool-call/prompt-input/**/*.spec.ts",
+		"tool-call/prompt-input/**/*.test.ts",
+		"tool-call/prompt-input/src/testing/**"
 	],
-	"include": ["**/*.ts", "prompt-input/**/*.ts"]
+	"include": ["**/*.ts", "prompt-input/**/*.ts", "tool-call/**/*.ts", "tool-call/prompt-input/**/*.ts"]
 }

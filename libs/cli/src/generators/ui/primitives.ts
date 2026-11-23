@@ -62,6 +62,7 @@ export type Primitive =
 	| 'textarea'
 	| 'toggle'
 	| 'toggle-group'
+	| 'tool-call'
 	| 'tooltip'
 	| 'trace'
 	| 'typography'

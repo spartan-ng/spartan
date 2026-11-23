@@ -73,6 +73,7 @@ module.exports = {
 				'textarea',
 				'toggle',
 				'toggle-group',
+				'tool-call',
 				'tooltip',
 				'trace',
 				'trpc',

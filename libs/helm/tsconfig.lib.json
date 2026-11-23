@@ -14,7 +14,11 @@
 		"vite.config.mts",
 		"**/*.test.ts",
 		"prompt-input/**/*.spec.ts",
-		"prompt-input/**/*.test.ts"
+		"prompt-input/**/*.test.ts",
+		"tool-call/**/*.spec.ts",
+		"tool-call/**/*.test.ts",
+		"tool-call/prompt-input/**/*.spec.ts",
+		"tool-call/prompt-input/**/*.test.ts"
 	],
-	"include": ["**/*.ts", "prompt-input/**/*.ts"]
+	"include": ["**/*.ts", "prompt-input/**/*.ts", "tool-call/**/*.ts", "tool-call/prompt-input/**/*.ts"]
 }

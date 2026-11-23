@@ -1,0 +1,18 @@
+import { Directive } from '@angular/core';
+import { classes } from '@spartan-ng/helm/utils';
+
+@Directive({
+	selector: '[hlmToolCallResult],hlm-tool-call-result',
+	exportAs: 'hlmToolCallResult',
+	host: {
+		'data-slot': 'tool-call-result',
+	},
+})
+export class HlmToolCallResult {
+	constructor() {
+		classes(
+			() =>
+				'spartan-tool-call-result border-border/50 border-t p-3 text-sm group-data-[expanded=false]/tool-call:hidden',
+		);
+	}
+}

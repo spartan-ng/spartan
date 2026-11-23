@@ -555,6 +555,14 @@
 			"@angular/cdk": ">=21.0.0 <23.0.0"
 		}
 	},
+	"tool-call": {
+		"name": "tool-call",
+		"peerDependencies": {
+			"@angular/core": ">=21.0.0 <23.0.0",
+			"@spartan-ng/brain": "1.10.0",
+			"class-variance-authority": "^0.7.0"
+		}
+	},
 	"tooltip": {
 		"name": "tooltip",
 		"peerDependencies": {

@@ -11,8 +11,11 @@ import {
 	signal,
 	untracked,
 } from '@angular/core';
-import { marked } from 'marked';
+import { Marked } from 'marked';
 import { balanceMarkdown } from './balance-markdown';
+
+// Private instance so global `marked` options (e.g. async) cannot change the return type.
+const markdownParser = new Marked({ async: false, gfm: true });
 
 function escapeHtml(text: string): string {
 	return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -73,7 +76,7 @@ export class BrnStreamText {
 	});
 
 	/** Markdown rendered to HTML. */
-	public readonly html = computed(() => marked.parse(this.effectiveContent(), { async: false, gfm: true }));
+	public readonly html = computed(() => markdownParser.parse(this.effectiveContent()) as string);
 
 	/** What is bound to the host: rendered Markdown, or the escaped plain text. Angular sanitizes either. */
 	protected readonly _renderedHtml = computed(() =>

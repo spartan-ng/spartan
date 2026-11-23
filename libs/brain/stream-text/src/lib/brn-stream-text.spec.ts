@@ -40,6 +40,16 @@ describe('balanceMarkdown', () => {
 		expect(balanceMarkdown(unclosed)).toBe('This is **important**');
 	});
 
+	it('should not treat a fence delimiter inside a fenced block as a fence', () => {
+		const balanced = '```js\nconst fence = "```";\n```';
+		expect(balanceMarkdown(balanced)).toBe(balanced);
+	});
+
+	it('should ignore bold markers inside multi-backtick code spans', () => {
+		const text = 'Use ``a ** b``';
+		expect(balanceMarkdown(text)).toBe(text);
+	});
+
 	it('should leave already balanced markdown unchanged', () => {
 		const balanced = '```typescript\nconst a = 1;\n```';
 		expect(balanceMarkdown(balanced)).toBe(balanced);

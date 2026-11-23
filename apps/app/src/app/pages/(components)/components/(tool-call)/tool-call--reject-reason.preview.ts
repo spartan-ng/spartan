@@ -9,7 +9,13 @@ import { HlmToolCallImports } from '@spartan-ng/helm/tool-call';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div class="flex w-96 max-w-full flex-col gap-2">
-			<div hlmToolCall name="send_email" [state]="_state()" (rejected)="_reject($event)">
+			<div
+				hlmToolCall
+				name="send_email"
+				[state]="_state()"
+				(approved)="_state.set('result')"
+				(rejected)="_reject($event)"
+			>
 				<div hlmToolCallHeader>
 					<span class="font-mono text-sm">send_email</span>
 				</div>

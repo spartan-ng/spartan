@@ -9,7 +9,7 @@ import { HlmConfirmationImports } from '@spartan-ng/helm/confirmation';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div class="flex w-96 max-w-full flex-col gap-2">
-			<div hlmConfirmation [state]="_state()" (rejected)="_reject($event)">
+			<div hlmConfirmation [state]="_state()" (approved)="_state.set('approved')" (rejected)="_reject($event)">
 				<h4 hlmConfirmationTitle>Send invoice?</h4>
 				<div hlmConfirmationActions>
 					<button hlmBtn hlmConfirmationReject reason="Not allowed by policy" variant="outline" size="sm">

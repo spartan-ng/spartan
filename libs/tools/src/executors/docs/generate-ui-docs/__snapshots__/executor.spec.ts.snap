@@ -12024,6 +12024,10 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "name": "retried",
             "type": "void",
           },
+          {
+            "name": "expandedChange",
+            "type": "boolean",
+          },
         ],
         "selector": "[hlmToolCall],hlm-tool-call",
       },

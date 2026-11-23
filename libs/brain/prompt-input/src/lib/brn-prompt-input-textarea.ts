@@ -127,15 +127,20 @@ export class BrnPromptInputTextarea {
 		const borderTop = parseFloat(computedStyle.borderTopWidth) || 0;
 		const borderBottom = parseFloat(computedStyle.borderBottomWidth) || 0;
 
-		const verticalPadding = paddingTop + paddingBottom + borderTop + borderBottom;
-		const minHeight = this.effectiveMinRows() * lineHeight + verticalPadding;
-		const maxHeight = this.effectiveMaxRows() * lineHeight + verticalPadding;
+		const borderBox = computedStyle.boxSizing === 'border-box';
+		const border = borderTop + borderBottom;
+		const padding = paddingTop + paddingBottom;
+		// Height bounds and the measured content height, all in the box model of the element.
+		// scrollHeight includes padding but not borders.
+		const extra = borderBox ? padding + border : 0;
+		const minHeight = this.effectiveMinRows() * lineHeight + extra;
+		const maxHeight = this.effectiveMaxRows() * lineHeight + extra;
+		const needed = borderBox ? el.scrollHeight + border : el.scrollHeight - padding;
 
-		const currentScrollHeight = el.scrollHeight;
-		const targetHeight = Math.min(Math.max(currentScrollHeight, minHeight), maxHeight);
+		const targetHeight = Math.min(Math.max(needed, minHeight), maxHeight);
 
 		el.style.height = `${targetHeight}px`;
-		el.style.overflowY = currentScrollHeight > maxHeight ? 'auto' : 'hidden';
+		el.style.overflowY = needed > maxHeight ? 'auto' : 'hidden';
 	}
 
 	protected onInput(): void {

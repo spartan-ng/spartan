@@ -43,6 +43,7 @@ export type Primitive =
 	| 'pagination'
 	| 'popover'
 	| 'progress'
+	| 'prompt-input'
 	| 'questionnaire'
 	| 'radio-group'
 	| 'resizable'

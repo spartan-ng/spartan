@@ -385,6 +385,13 @@
 			"@spartan-ng/brain": "1.10.0"
 		}
 	},
+	"prompt-input": {
+		"name": "prompt-input",
+		"peerDependencies": {
+			"@angular/core": ">=21.0.0 <23.0.0",
+			"@spartan-ng/brain": "1.10.0"
+		}
+	},
 	"questionnaire": {
 		"name": "questionnaire",
 		"peerDependencies": {

@@ -54,6 +54,7 @@ module.exports = {
 				'pagination',
 				'popover',
 				'progress',
+				'prompt-input',
 				'questionnaire',
 				'radio-group',
 				'resizable',

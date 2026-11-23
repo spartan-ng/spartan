@@ -44,6 +44,7 @@ export type PrimitiveSnippet =
 	| 'pagination'
 	| 'popover'
 	| 'progress'
+	| 'prompt-input'
 	| 'questionnaire'
 	| 'radio-group'
 	| 'resizable'

@@ -66,6 +66,7 @@ export const components: Link[] = [
 	{ label: 'Pagination', url: '/pagination' },
 	{ label: 'Popover', url: '/popover' },
 	{ label: 'Progress', url: '/progress' },
+	{ label: 'Prompt Input', url: '/prompt-input', new: true },
 	{ label: 'Questionnaire', url: '/questionnaire' },
 	{ label: 'Radio Group', url: '/radio-group' },
 	{ label: 'Resizable', url: '/resizable' },

@@ -45,6 +45,7 @@ export const primitiveDependencies: Record<Primitive, Primitive[]> = {
 	pagination: ['utils', 'button', 'select'],
 	popover: ['utils'],
 	progress: ['utils'],
+	'prompt-input': ['utils', 'button'],
 	questionnaire: ['utils', 'button'],
 	'radio-group': ['utils'],
 	resizable: ['utils'],

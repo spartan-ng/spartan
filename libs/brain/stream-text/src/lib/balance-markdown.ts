@@ -1,36 +1,29 @@
 /**
  * Balances unclosed Markdown tokens during active streaming to prevent layout flicker
- * and DOM thrash (e.g. unclosed code fences, bold, italic, and inline code).
+ * and DOM thrash. Handles unclosed code fences, inline code and bold (`**`) markers.
  */
 export function balanceMarkdown(text: string): string {
 	if (!text) {
 		return text;
 	}
 
-	let result = text;
-
 	// 1. Balance triple backtick code fences (```)
-	const fenceMatches = text.match(/```/g);
-	const fenceCount = fenceMatches ? fenceMatches.length : 0;
-	const hasUnclosedFence = fenceCount % 2 !== 0;
-
-	if (hasUnclosedFence) {
-		// Code fence is open; close it at the end
-		result += '\n```';
-		return result;
+	const fenceCount = text.match(/```/g)?.length ?? 0;
+	if (fenceCount % 2 !== 0) {
+		// Code fence is open; close it at the end. Nothing inside a fence is Markdown.
+		return `${text}\n\`\`\``;
 	}
 
-	// 2. Balance inline code (single backtick `) outside fences
-	const backtickMatches = result.match(/`/g);
-	const backtickCount = backtickMatches ? backtickMatches.length : 0;
-	if (backtickCount % 2 !== 0) {
-		result += '`';
-	}
+	// Ignore fenced blocks when counting inline markers.
+	const outsideFences = text.replace(/```[\s\S]*?```/g, '');
 
-	// 3. Balance bold markers (**)
-	const boldMatches = result.match(/\*\*/g);
-	const boldCount = boldMatches ? boldMatches.length : 0;
-	if (boldCount % 2 !== 0) {
+	// 2. Balance inline code (single backtick `)
+	const unclosedInlineCode = (outsideFences.match(/`/g)?.length ?? 0) % 2 !== 0;
+	let result = unclosedInlineCode ? `${text}\`` : text;
+
+	// 3. Balance bold markers (**), ignoring those inside inline code spans
+	const outsideCode = outsideFences.replace(/`[^`]*`?/g, '');
+	if ((outsideCode.match(/\*\*/g)?.length ?? 0) % 2 !== 0) {
 		result += '**';
 	}
 

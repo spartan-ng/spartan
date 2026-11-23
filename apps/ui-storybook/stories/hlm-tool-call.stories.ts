@@ -1,4 +1,4 @@
-import { provideIcons } from '@ng-icons/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCheck, lucideDatabase, lucideShieldAlert, lucideX } from '@ng-icons/lucide';
 import { HlmBadge } from '@spartan-ng/helm/badge';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
@@ -12,7 +12,7 @@ export default {
 	tags: ['autodocs'],
 	decorators: [
 		moduleMetadata({
-			imports: [HlmToolCallImports, HlmButtonImports, HlmBadge],
+			imports: [HlmToolCallImports, HlmButtonImports, HlmBadge, NgIcon],
 			providers: [provideIcons({ lucideDatabase, lucideShieldAlert, lucideCheck, lucideX })],
 		}),
 	],
@@ -33,10 +33,10 @@ export const Default: Story = {
 					<button hlmToolCallTrigger>Details</button>
 				</div>
 				<div hlmToolCallArgs>
-					<code>{ "userId": "usr_102" }</code>
+					<code>{{ "{" }} "userId": "usr_102" {{ "}" }}</code>
 				</div>
 				<div hlmToolCallResult>
-					<code>{ "name": "Jane Doe", "status": "active" }</code>
+					<code>{{ "{" }} "name": "Jane Doe", "status": "active" {{ "}" }}</code>
 				</div>
 			</div>
 		`,

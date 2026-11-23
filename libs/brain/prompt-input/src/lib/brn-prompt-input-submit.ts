@@ -15,7 +15,7 @@ export class BrnPromptInputSubmit {
 	private readonly _parent = injectBrnPromptInput({ optional: true });
 
 	/** Explicit disabled override. */
-	public readonly disabled = input<boolean | undefined>(undefined, { transform: booleanAttribute });
+	public readonly disabled = input<boolean | undefined, unknown>(undefined, { transform: booleanAttribute });
 
 	public readonly effectiveDisabled = computed(() => {
 		const explicit = this.disabled();

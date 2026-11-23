@@ -1,4 +1,4 @@
-import { provideIcons } from '@ng-icons/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideArrowUp, lucideGlobe, lucidePaperclip, lucideSquare } from '@ng-icons/lucide';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmPromptInput, HlmPromptInputImports } from '@spartan-ng/helm/prompt-input';
@@ -11,7 +11,7 @@ export default {
 	tags: ['autodocs'],
 	decorators: [
 		moduleMetadata({
-			imports: [HlmPromptInputImports, HlmButtonImports],
+			imports: [HlmPromptInputImports, HlmButtonImports, NgIcon],
 			providers: [provideIcons({ lucideArrowUp, lucidePaperclip, lucideGlobe, lucideSquare })],
 		}),
 	],

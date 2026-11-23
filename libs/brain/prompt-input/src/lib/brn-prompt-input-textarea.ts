@@ -4,10 +4,12 @@ import {
 	computed,
 	DestroyRef,
 	Directive,
+	effect,
 	ElementRef,
 	inject,
 	input,
 	output,
+	untracked,
 } from '@angular/core';
 import { injectBrnPromptInput } from './brn-prompt-input.token';
 
@@ -34,7 +36,7 @@ export class BrnPromptInputTextarea {
 	public readonly maxRows = input<number | undefined>(undefined);
 
 	/** Explicit disabled override. Defaults to parent prompt-input disabled state. */
-	public readonly disabled = input<boolean | undefined>(undefined, { transform: booleanAttribute });
+	public readonly disabled = input<boolean | undefined, unknown>(undefined, { transform: booleanAttribute });
 
 	/** Whether to auto-resize the textarea height based on content. */
 	public readonly autoResize = input(true, { transform: booleanAttribute });
@@ -70,6 +72,16 @@ export class BrnPromptInputTextarea {
 
 		afterNextRender(() => {
 			this.adjustHeight();
+		});
+
+		// Recalculate the height when the row limits or auto-resize change after the first render.
+		effect(() => {
+			this.effectiveMinRows();
+			this.effectiveMaxRows();
+			this.autoResize();
+			if (typeof window !== 'undefined' && this._elementRef.nativeElement.isConnected) {
+				untracked(() => this.adjustHeight());
+			}
 		});
 	}
 

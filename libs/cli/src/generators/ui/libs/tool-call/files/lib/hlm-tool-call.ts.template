@@ -9,7 +9,7 @@ import { classes } from '@spartan-ng/helm/utils';
 		{
 			directive: BrnToolCall,
 			inputs: ['name', 'state', 'expanded'],
-			outputs: ['approved', 'rejected', 'retried'],
+			outputs: ['approved', 'rejected', 'retried', 'expandedChange'],
 		},
 	],
 	host: {

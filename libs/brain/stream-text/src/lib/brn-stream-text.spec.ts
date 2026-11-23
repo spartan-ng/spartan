@@ -57,6 +57,13 @@ describe('balanceMarkdown', () => {
 		expect(performance.now() - start).toBeLessThan(500);
 	});
 
+	it('should stay fast with many inline code spans', () => {
+		const text = 'x `a` '.repeat(50000);
+		const start = performance.now();
+		expect(balanceMarkdown(text)).toBe(text);
+		expect(performance.now() - start).toBeLessThan(1000);
+	});
+
 	it('should leave already balanced markdown unchanged', () => {
 		const balanced = '```typescript\nconst a = 1;\n```';
 		expect(balanceMarkdown(balanced)).toBe(balanced);

@@ -39,7 +39,14 @@ export function balanceMarkdown(text: string): string {
 		runs.push({ index: match.index, length: match[0].length });
 	}
 	const runsByLength = new Map<number, number[]>();
-	runs.forEach((run, i) => runsByLength.set(run.length, [...(runsByLength.get(run.length) ?? []), i]));
+	runs.forEach((run, i) => {
+		const bucket = runsByLength.get(run.length);
+		if (bucket) {
+			bucket.push(i);
+		} else {
+			runsByLength.set(run.length, [i]);
+		}
+	});
 	const cursor = new Map<number, number>();
 
 	let outsideCode = '';

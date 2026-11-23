@@ -1,0 +1,26 @@
+import { Directive } from '@angular/core';
+import { BrnConfirmation } from '@spartan-ng/brain/confirmation';
+import { classes } from '@spartan-ng/helm/utils';
+
+@Directive({
+	selector: '[hlmConfirmation],hlm-confirmation',
+	exportAs: 'hlmConfirmation',
+	hostDirectives: [
+		{
+			directive: BrnConfirmation,
+			inputs: ['state'],
+			outputs: ['approved', 'rejected'],
+		},
+	],
+	host: {
+		'data-slot': 'confirmation',
+	},
+})
+export class HlmConfirmation {
+	constructor() {
+		classes(
+			() =>
+				'group/confirmation spartan-confirmation border-border bg-card text-card-foreground flex w-full flex-col gap-3 rounded-xl border p-4 shadow-xs data-[state=pending]:border-amber-500/50 data-[state=pending]:bg-amber-500/5',
+		);
+	}
+}

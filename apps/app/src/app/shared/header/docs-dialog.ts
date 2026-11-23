@@ -1,101 +1,97 @@
-import { searchClient, SearchHits } from '@algolia/client-search';
-import { Component, computed, resource, signal } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { searchClient } from '@algolia/client-search';
+import { Clipboard } from '@angular/cdk/clipboard';
+import { isPlatformBrowser } from '@angular/common';
+import {
+	afterNextRender,
+	Component,
+	computed,
+	effect,
+	inject,
+	Injector,
+	linkedSignal,
+	PLATFORM_ID,
+	resource,
+	signal,
+	untracked,
+	viewChild,
+} from '@angular/core';
+import { Router } from '@angular/router';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { lucideArrowRight, lucideCornerDownLeft, lucideSearch } from '@ng-icons/lucide';
+import {
+	lucideArrowDown,
+	lucideArrowRight,
+	lucideArrowUp,
+	lucideCheck,
+	lucideCircleDashed,
+	lucideCornerDownLeft,
+	lucideFileText,
+	lucideHash,
+	lucideHistory,
+	lucideSearch,
+	lucideText,
+} from '@ng-icons/lucide';
+import { BrnCommand } from '@spartan-ng/brain/command';
 import type { BrnDialogState } from '@spartan-ng/brain/dialog';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmCommandImports } from '@spartan-ng/helm/command';
 import { HlmKbdImports } from '@spartan-ng/helm/kbd';
+import { HlmSeparatorImports } from '@spartan-ng/helm/separator';
+import { HlmSpinnerImports } from '@spartan-ng/helm/spinner';
+import { CLIModeService } from '../cli-mode.service';
+import {
+	type AlgoliaDocsRecord,
+	buildPageGroups,
+	type DocsSearchHit,
+	type DocsSearchPage,
+	groupHits,
+	searchPages,
+} from './docs-search';
 
-type AlgoliaHits = {
-	url: string;
-	content?: string;
-	type: string;
-	hierarchy: Record<string, string>;
-	objectID: string;
-	_snippetResult: {
-		hierarchy: {
-			lvl1: {
-				value: string;
-				matchLevel: string;
-			};
-			lvl2?: {
-				value: string;
-				matchLevel: string;
-			};
-			lvl3?: {
-				value: string;
-				matchLevel: string;
-			};
-			lvl4?: {
-				value: string;
-				matchLevel: string;
-			};
-		};
-		content?: {
-			value: string;
-			matchLevel: string;
-		};
-	};
-	_highlightResult: {
-		hierarchy: {
-			lvl0: {
-				value: string;
-				matchLevel: string;
-				matchedWords: Array<any>;
-			};
-			lvl1: {
-				value: string;
-				matchLevel: string;
-				fullyHighlighted?: boolean;
-				matchedWords: Array<string>;
-			};
-			lvl2?: {
-				value: string;
-				matchLevel: string;
-				matchedWords: Array<any>;
-			};
-			lvl3?: {
-				value: string;
-				matchLevel: string;
-				matchedWords: Array<any>;
-			};
-			lvl4?: {
-				value: string;
-				matchLevel: string;
-				fullyHighlighted: boolean;
-				matchedWords: Array<string>;
-			};
-		};
-		content?: {
-			value: string;
-			matchLevel: string;
-			fullyHighlighted: boolean;
-			matchedWords: Array<string>;
-		};
-	};
+type RecentEntry = { url: string; label: string; group: string };
+
+type SearchEntry =
+	| { type: 'page'; key: string; page: DocsSearchPage }
+	| { type: 'hit'; key: string; hit: DocsSearchHit }
+	| { type: 'recent'; key: string; recent: RecentEntry };
+
+type SearchGroup = {
+	label: string;
+	entries: SearchEntry[];
+	/** Show the navigation group (e.g. "Components") next to page entries. */
+	showPageGroup?: boolean;
 };
+
+const RECENT_STORAGE_KEY = 'spartan-docs-search-recent';
+const MAX_RECENT = 5;
+const SEARCH_DEBOUNCE_MS = 200;
 
 @Component({
 	selector: 'spartan-docs-dialog',
-	imports: [HlmButtonImports, HlmKbdImports, HlmCommandImports, NgIcon, FormsModule],
+	imports: [HlmButtonImports, HlmKbdImports, HlmCommandImports, HlmSeparatorImports, HlmSpinnerImports, NgIcon],
 	providers: [
 		provideIcons({
 			lucideSearch,
 			lucideCornerDownLeft,
 			lucideArrowRight,
+			lucideArrowUp,
+			lucideArrowDown,
+			lucideCircleDashed,
+			lucideHash,
+			lucideText,
+			lucideFileText,
+			lucideHistory,
+			lucideCheck,
 		}),
 	],
 	host: {
-		'(window:keydown)': '_onKeyDown($event)',
+		'(window:keydown)': '_onWindowKeyDown($event)',
 	},
 	template: `
 		<button
 			hlmBtn
 			variant="outline"
 			class="bg-input/30 border-input/30 text-muted-foreground hover:bg-input/50 hover:text-muted-foreground relative h-8 w-full justify-start gap-2 pl-2.5 font-normal shadow-none active:translate-y-px sm:pr-12 md:w-48 lg:w-60 xl:w-64"
-			(click)="_state.set('open')"
+			(click)="_open()"
 		>
 			<ng-icon name="lucideSearch" class="shrink-0 opacity-50" />
 			<span class="hidden lg:inline-flex">Search documentation...</span>
@@ -110,148 +106,177 @@ type AlgoliaHits = {
 		</button>
 
 		<hlm-command-dialog
+			title="Search documentation"
+			description="Search for a page, component or section of the documentation"
 			[state]="_state()"
 			(stateChange)="_state.set($event)"
-			dialogContentClass="border-ring/50 w-full rounded-xl! border-4 p-1 sm:max-w-lg"
+			dialogContentClass="border-ring/50 w-[calc(100vw-2rem)] rounded-xl! border-4 p-1 pb-11 sm:max-w-lg"
 		>
-			<hlm-command class="min-h-[400px] w-full pb-10" [filter]="_algoliaFilter" [(search)]="_searchVal">
-				<hlm-command-input placeholder="Type a command or search..." />
-				<hlm-command-list class="max-h-[400px] pt-1">
-					@for (item of _values(); track item.objectID) {
+			<hlm-command
+				class="min-h-[400px] w-full"
+				[filter]="_noopFilter"
+				[(search)]="_search"
+				(keydown)="_onCommandKeyDown($event)"
+			>
+				<hlm-command-input placeholder="Search documentation..." />
+
+				<hlm-command-list class="max-h-[min(60vh,420px)] min-h-80">
+					<!-- every item is rendered inline (no ngTemplateOutlet) so the command's keyboard order matches the visual order -->
+					@for (group of _groups(); track group.label) {
 						<hlm-command-group>
-							@if (item.url) {
-								<!-- lvl1 -->
-								@if (item.type === 'lvl1' && item.hierarchy[item.type]) {
-									<button hlm-command-item (selected)="onSelect(item.url)" [value]="cleanLabel(item.hierarchy['lvl1'])">
-										<a [href]="item.url" class="flex w-full min-w-0 items-center gap-2">
-											<ng-icon name="lucideArrowRight" class="shrink-0" />
-											<div class="flex min-w-0 flex-col items-start gap-0.5 text-left">
-												<span class="w-full truncate font-semibold">{{ cleanLabel(item.hierarchy['lvl1']) }}</span>
-												@if (item.content) {
-													<span class="w-full truncate text-sm">{{ item['content'] }}</span>
+							<hlm-command-group-label>{{ group.label }}</hlm-command-group-label>
+							@for (entry of group.entries; track entry.key) {
+								@switch (entry.type) {
+									@case ('page') {
+										<button hlm-command-item [value]="entry.key" (selected)="_select(entry)">
+											<ng-icon
+												[name]="entry.page.kind === 'component' ? 'lucideCircleDashed' : 'lucideArrowRight'"
+												class="text-muted-foreground"
+											/>
+											<span class="truncate">{{ entry.page.label }}</span>
+											@if (group.showPageGroup) {
+												<span class="text-muted-foreground ms-auto shrink-0 text-xs">{{ entry.page.group }}</span>
+											}
+										</button>
+									}
+									@case ('recent') {
+										<button hlm-command-item [value]="entry.key" (selected)="_select(entry)">
+											<ng-icon name="lucideHistory" class="text-muted-foreground" />
+											<span class="truncate">{{ entry.recent.label }}</span>
+											<span class="text-muted-foreground ms-auto shrink-0 text-xs">{{ entry.recent.group }}</span>
+										</button>
+									}
+									@case ('hit') {
+										<button hlm-command-item [value]="entry.key" (selected)="_select(entry)">
+											<ng-icon [name]="_hitIcon[entry.hit.kind]" class="text-muted-foreground" />
+											<span class="flex min-w-0 flex-col gap-0.5 text-left">
+												<span
+													class="[&_mark]:text-primary truncate [&_mark]:bg-transparent [&_mark]:font-semibold [&_mark]:underline [&_mark]:underline-offset-2"
+													[innerHTML]="entry.hit.title"
+												></span>
+												@if (entry.hit.breadcrumb) {
+													<span class="text-muted-foreground truncate text-xs">{{ entry.hit.breadcrumb }}</span>
 												}
-											</div>
-										</a>
-									</button>
-								}
-
-								<!-- askAI -->
-								@if (item.type === 'askAI') {
-									<button hlm-command-item (selected)="onSelect(item.url)" [value]="cleanLabel(item.hierarchy['lvl1'])">
-										<a [href]="item.url" class="flex w-full min-w-0 items-center gap-2">
-											{{ cleanLabel(item.hierarchy['lvl1']) }}
-										</a>
-									</button>
-								}
-
-								@if (['lvl2', 'lvl3', 'lvl4', 'lvl5', 'lvl6'].includes(item.type) && item.hierarchy[item.type]) {
-									<button hlm-command-item (selected)="onSelect(item.url)" [value]="cleanLabel(item.hierarchy['lvl1'])">
-										<a [href]="item.url" class="flex w-full min-w-0 items-center gap-2">
-											<ng-icon name="lucideArrowRight" class="shrink-0" />
-											<div class="flex min-w-0 flex-col items-start gap-0.5 text-left">
-												<span class="w-full truncate font-semibold">{{ item.hierarchy[item.type] }}</span>
-												<span class="w-full truncate text-sm">{{ cleanLabel(item.hierarchy['lvl1']) }}</span>
-											</div>
-										</a>
-									</button>
-								}
-
-								<!-- content -->
-								@if (item.type === 'content') {
-									<button
-										hlm-command-item
-										(selected)="onSelect(item.url)"
-										[value]="item.content ?? cleanLabel(item.hierarchy['lvl1'])"
-									>
-										<a [href]="item.url" class="flex w-full min-w-0 items-center gap-2">
-											<ng-icon name="lucideArrowRight" class="shrink-0" />
-											<div class="flex min-w-0 flex-col items-start gap-0.5 text-left">
-												<span class="w-full truncate font-semibold">{{ item.content }}</span>
-												<span class="w-full truncate text-sm">{{ cleanLabel(item.hierarchy['lvl1']) }}</span>
-											</div>
-										</a>
-									</button>
+											</span>
+										</button>
+									}
 								}
 							}
 						</hlm-command-group>
 					}
+
+					@if (_query() && _groups().length === 0) {
+						<div hlmCommandEmpty class="py-12">
+							@if (_isSearching()) {
+								Searching...
+							} @else {
+								No results found for "{{ _query() }}".
+							}
+						</div>
+					}
 				</hlm-command-list>
-				<!-- Empty state -->
-				<div *hlmCommandEmptyState hlmCommandEmpty>No results found.</div>
 			</hlm-command>
 
 			<div
-				class="text-muted-foreground absolute inset-x-0 bottom-0 z-20 flex h-10 items-center gap-2 rounded-b-lg border-t border-t-neutral-100 bg-neutral-50 px-4 text-xs font-medium dark:border-t-neutral-700 dark:bg-neutral-800"
+				class="text-muted-foreground [&_.spartan-kbd]:bg-background absolute inset-x-0 bottom-0 z-20 flex h-10 items-center gap-3 rounded-b-lg border-t border-t-neutral-100 bg-neutral-50 px-4 text-xs font-medium dark:border-t-neutral-700 dark:bg-neutral-800 [&_.spartan-kbd]:border"
 			>
 				<div class="flex items-center gap-2">
-					<kbd hlmKbd>
-						<ng-icon name="lucideCornerDownLeft" />
-					</kbd>
-					<span>Go to Page</span>
+					<kbd hlmKbd><ng-icon name="lucideCornerDownLeft" /></kbd>
+					<span class="text-nowrap">Go to Page</span>
 				</div>
-				<a
-					href="https://www.algolia.com/"
-					target="_blank"
-					rel="noopener noreferrer"
-					aria-label="Search by Algolia"
-					class="ms-auto inline-flex items-center gap-1.5 opacity-80 transition-opacity hover:opacity-100"
-				>
-					<span>Search by</span>
-					<img src="/assets/algolia-logo.svg" alt="Algolia" class="h-3.5 w-auto" />
-				</a>
+
+				@if (_copyCommand(); as command) {
+					<hlm-separator orientation="vertical" class="h-4! self-center!" />
+					<button
+						type="button"
+						class="hover:text-foreground flex min-w-0 items-center gap-1 transition-colors"
+						title="Copy install command"
+						(click)="_copy(command)"
+					>
+						<kbd hlmKbdGroup>
+							<kbd hlmKbd class="hidden [html[style*='--is-mac']_&]:inline-flex">⌘</kbd>
+							<kbd hlmKbd class="[html[style*='--is-mac']_&]:hidden">Ctrl</kbd>
+							<kbd hlmKbd>C</kbd>
+						</kbd>
+						@if (_copied()) {
+							<ng-icon name="lucideCheck" class="text-foreground shrink-0" />
+							<span class="text-foreground">Copied</span>
+						} @else {
+							<span class="truncate font-mono">{{ command }}</span>
+						}
+					</button>
+				} @else {
+					<div class="hidden items-center gap-2 sm:flex">
+						<kbd hlmKbdGroup>
+							<kbd hlmKbd><ng-icon name="lucideArrowUp" /></kbd>
+							<kbd hlmKbd><ng-icon name="lucideArrowDown" /></kbd>
+						</kbd>
+						<span>Navigate</span>
+					</div>
+
+					<!-- the copy command needs the room, so the attribution only shows without it -->
+					<a
+						href="https://www.algolia.com/"
+						target="_blank"
+						rel="noopener noreferrer"
+						aria-label="Search by Algolia"
+						class="ms-auto hidden shrink-0 items-center gap-1.5 opacity-80 transition-opacity hover:opacity-100 sm:inline-flex"
+					>
+						<span>Search by</span>
+						<img src="/assets/algolia-logo.svg" alt="Algolia" class="h-3.5 w-auto" />
+					</a>
+				}
 			</div>
 		</hlm-command-dialog>
 	`,
 })
 export class DocsDialog {
 	private readonly _client = searchClient('JJRQPPSU45', '0fe1bcb9dbe76b2a149f00bc0709c5fd');
+	private readonly _router = inject(Router);
+	private readonly _clipboard = inject(Clipboard);
+	private readonly _cliMode = inject(CLIModeService).cliMode;
+	private readonly _injector = inject(Injector);
+	private readonly _isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
+	private readonly _command = viewChild(BrnCommand);
+
 	protected readonly _state = signal<BrnDialogState>('closed');
+	protected readonly _search = signal('');
+	protected readonly _query = computed(() => this._search().trim());
+	protected readonly _copied = signal(false);
+	protected readonly _recent = signal<RecentEntry[]>([]);
 
-	protected readonly _values = computed(() => {
-		const value = this._algoliaResource.value();
-		if (!value) return [];
-		return value.hits
-			.filter((h) => {
-				const url = new URL(h.url);
-				let isPageNotFound = false;
-				// eslint-disable-next-line @typescript-eslint/naming-convention
-				for (const [_, value] of Object.entries(h.hierarchy)) {
-					if (value) {
-						isPageNotFound = value.toLowerCase().includes('page not found');
-					}
-				}
-				return (
-					url.hash !== '#spartan-main' &&
-					url.pathname !== '/' &&
-					!isPageNotFound &&
-					// iframe-only preview routes are indexed by the crawler but should not surface in search
-					!url.pathname.startsWith('/sidebar-preview') &&
-					!url.pathname.startsWith('/blocks-preview')
-				);
-			})
-			.map((h) => {
-				const u = new URL(h.url);
-				return { ...h, url: u.pathname + u.hash };
-			});
-	});
+	/** Results are filtered (locally and by Algolia) before they are rendered, so the command must not filter again. */
+	protected readonly _noopFilter = () => true;
 
-	protected readonly _searchVal = signal('');
+	protected readonly _hitIcon: Record<DocsSearchHit['kind'], string> = {
+		page: 'lucideFileText',
+		section: 'lucideHash',
+		content: 'lucideText',
+	};
 
-	/** Algolia already filtered and ranked the hits, so the command must not filter them again on the client. */
-	protected readonly _algoliaFilter = () => true;
-	private readonly _cache = new Map<string, SearchHits<AlgoliaHits>>();
+	/** All docs pages from the navigation - searchable instantly, without a network request. */
+	protected readonly _pageGroups = buildPageGroups();
 
-	private readonly _algoliaResource = resource<SearchHits<AlgoliaHits> | undefined, string>({
-		params: () => this._searchVal(),
-		loader: async ({ params }) => {
-			const cache = this._cache.get(params);
-			if (cache) return cache;
-			const result = await this._client.searchSingleIndex<AlgoliaHits>({
+	protected readonly _pageResults = computed(() => searchPages(this._pageGroups, this._query()));
+
+	private readonly _algoliaResource = resource<AlgoliaDocsRecord[], string>({
+		params: () => this._query(),
+		loader: async ({ params: query, abortSignal }) => {
+			if (!query) return [];
+
+			// debounce: a newer query aborts this loader while it waits
+			// TODO(angular-22): replace with the `debounced()` signal utility once the docs are on Angular 22
+			// (e.g. `params: debounced(this._query, SEARCH_DEBOUNCE_MS)`) and drop this wait + abort check.
+			await new Promise((resolve) => setTimeout(resolve, SEARCH_DEBOUNCE_MS));
+			if (abortSignal.aborted) return [];
+
+			const result = await this._client.searchSingleIndex<AlgoliaDocsRecord>({
 				indexName: 'spartan-ng',
 				searchParams: {
-					highlightPreTag: '<span>',
-					hitsPerPage: 100,
-					highlightPostTag: '</span>',
+					query,
+					hitsPerPage: 50,
+					highlightPreTag: '<mark>',
+					highlightPostTag: '</mark>',
 					attributesToRetrieve: [
 						'hierarchy.lvl0',
 						'hierarchy.lvl1',
@@ -264,50 +289,213 @@ export class DocsDialog {
 						'type',
 						'url',
 					],
-					attributesToSnippet: [
-						'hierarchy.lvl1:5',
-						'hierarchy.lvl2:5',
-						'hierarchy.lvl3:5',
-						'hierarchy.lvl4:5',
-						'hierarchy.lvl5:5',
-						'hierarchy.lvl6:5',
-						'content:5',
+					attributesToHighlight: [
+						'hierarchy.lvl1',
+						'hierarchy.lvl2',
+						'hierarchy.lvl3',
+						'hierarchy.lvl4',
+						'hierarchy.lvl5',
+						'hierarchy.lvl6',
 					],
+					attributesToSnippet: ['content:12'],
+					snippetEllipsisText: '…',
 					clickAnalytics: false,
-					snippetEllipsisText: '...',
-					query: params,
 				},
 			});
-
-			// keep Algolia's relevance ranking - do not re-sort the hits on the client
-
-			this._cache.set(params, result);
-			return result;
+			return result.hits;
 		},
+		defaultValue: [],
 	});
 
-	protected _onKeyDown(e: KeyboardEvent) {
-		if ((e.key === 'k' && (e.metaKey || e.ctrlKey)) || e.key === '/') {
-			if (
-				(e.target instanceof HTMLElement && e.target.isContentEditable) ||
-				e.target instanceof HTMLInputElement ||
-				e.target instanceof HTMLTextAreaElement ||
-				e.target instanceof HTMLSelectElement
-			) {
-				return;
-			}
+	protected readonly _isSearching = computed(() => !!this._query() && this._algoliaResource.isLoading());
 
-			e.preventDefault();
-			this._state.set('open');
+	/** The latest Algolia records - the previous results stay visible while the next query is loading. */
+	private readonly _records = linkedSignal<{ loading: boolean; records: AlgoliaDocsRecord[] }, AlgoliaDocsRecord[]>({
+		source: () => ({
+			loading: this._algoliaResource.isLoading(),
+			records: this._algoliaResource.hasValue() ? this._algoliaResource.value() : [],
+		}),
+		computation: (source, previous) => (source.loading && previous ? previous.value : source.records),
+	});
+
+	protected readonly _hitGroups = computed(() => {
+		if (!this._query()) return [];
+		const localUrls = new Set(this._pageResults().map((page) => page.url));
+		return groupHits(this._records(), localUrls);
+	});
+
+	/** The groups rendered in the list - the navigation when the query is empty, the search results otherwise. */
+	protected readonly _groups = computed<SearchGroup[]>(() => {
+		const pageEntry = (page: DocsSearchPage): SearchEntry => ({ type: 'page', key: page.key, page });
+
+		if (!this._query()) {
+			const recent: SearchEntry[] = this._recent().map((entry) => ({
+				type: 'recent',
+				key: `recent:${entry.url}`,
+				recent: entry,
+			}));
+			return [
+				{ label: 'Recent', entries: recent },
+				...this._pageGroups.map((group) => ({ label: group.label, entries: group.pages.map(pageEntry) })),
+			].filter((group) => group.entries.length > 0);
+		}
+
+		return [
+			{ label: 'Pages', entries: this._pageResults().map(pageEntry), showPageGroup: true },
+			...this._hitGroups().map((group) => ({
+				label: group.page,
+				entries: group.hits.map((hit): SearchEntry => ({ type: 'hit', key: hit.key, hit })),
+			})),
+		].filter((group) => group.entries.length > 0);
+	});
+
+	/** Lookup from the command item value to the entry it represents. */
+	private readonly _entries = computed(
+		() => new Map(this._groups().flatMap((group) => group.entries.map((entry) => [entry.key, entry] as const))),
+	);
+
+	/** The value of the highlighted item - read from the key manager's signal, so it can never go stale. */
+	private readonly _activeKey = computed(() => this._command()?.keyManager.activeItem?.value());
+
+	/** The install command for the highlighted component, like shadcn's "Copy Command". */
+	protected readonly _copyCommand = computed(() => {
+		const key = this._activeKey();
+		const entry = key ? this._entries().get(key) : undefined;
+		if (entry?.type !== 'page' || entry.page.kind !== 'component' || !entry.page.primitive) return undefined;
+		const cli = this._cliMode() === 'nx' ? 'nx' : 'ng';
+		return `${cli} g @spartan-ng/cli:ui ${entry.page.primitive}`;
+	});
+
+	constructor() {
+		// Highlight the first result whenever the query changes or the dialog opens.
+		effect(() => {
+			this._query();
+			this._state();
+			untracked(() => this._afterRender((command) => command.keyManager.setFirstItemActive()));
+		});
+
+		// When the results change (e.g. the Algolia results arrive), keep the highlighted item if it is still listed.
+		effect(() => {
+			this._groups();
+			untracked(() =>
+				this._afterRender((command) => {
+					const active = command.keyManager.activeItem;
+					if (!active || !command.items().includes(active)) {
+						command.keyManager.setFirstItemActive();
+					}
+				}),
+			);
+		});
+	}
+
+	private _afterRender(fn: (command: BrnCommand) => void): void {
+		afterNextRender(
+			() => {
+				const command = this._command();
+				if (command) fn(command);
+			},
+			{ injector: this._injector },
+		);
+	}
+
+	protected _open(): void {
+		this._search.set('');
+		this._copied.set(false);
+		this._recent.set(this._readRecent());
+		this._state.set('open');
+	}
+
+	protected _onWindowKeyDown(event: KeyboardEvent): void {
+		const isShortcut = event.key === 'k' && (event.metaKey || event.ctrlKey);
+		if (!isShortcut && event.key !== '/') return;
+
+		if (this._state() === 'open') {
+			if (isShortcut) {
+				event.preventDefault();
+				this._state.set('closed');
+			}
+			return;
+		}
+
+		const target = event.target;
+		if (
+			(target instanceof HTMLElement && target.isContentEditable) ||
+			target instanceof HTMLInputElement ||
+			target instanceof HTMLTextAreaElement ||
+			target instanceof HTMLSelectElement
+		) {
+			return;
+		}
+
+		event.preventDefault();
+		this._open();
+	}
+
+	protected _onCommandKeyDown(event: KeyboardEvent): void {
+		if (event.key !== 'c' || !(event.metaKey || event.ctrlKey)) return;
+
+		// let the browser copy text the user selected in the input
+		const input = event.target;
+		if (input instanceof HTMLInputElement && input.selectionStart !== input.selectionEnd) return;
+
+		const command = this._copyCommand();
+		if (!command) return;
+
+		event.preventDefault();
+		this._copy(command);
+	}
+
+	protected _copy(command: string): void {
+		this._clipboard.copy(command);
+		this._copied.set(true);
+		setTimeout(() => this._copied.set(false), 1500);
+	}
+
+	protected _select(entry: SearchEntry): void {
+		const target = this._toRecent(entry);
+		this._saveRecent(target);
+		this._state.set('closed');
+		void this._router.navigateByUrl(target.url);
+	}
+
+	private _toRecent(entry: SearchEntry): RecentEntry {
+		switch (entry.type) {
+			case 'recent':
+				return entry.recent;
+			case 'page':
+				return { url: entry.page.url, label: entry.page.label, group: entry.page.group };
+			case 'hit':
+				return {
+					url: entry.hit.url,
+					label: entry.hit.kind === 'content' ? entry.hit.breadcrumb || entry.hit.page : entry.hit.text,
+					group: entry.hit.kind === 'page' ? entry.hit.breadcrumb : entry.hit.page,
+				};
 		}
 	}
 
-	protected onSelect(url: string): void {
-		window.location.href = url;
+	private _readRecent(): RecentEntry[] {
+		if (!this._isBrowser) return [];
+		try {
+			const value: unknown = JSON.parse(localStorage.getItem(RECENT_STORAGE_KEY) ?? '[]');
+			if (!Array.isArray(value)) return [];
+			return value
+				.filter(
+					(entry): entry is RecentEntry =>
+						typeof entry?.url === 'string' && typeof entry?.label === 'string' && typeof entry?.group === 'string',
+				)
+				.slice(0, MAX_RECENT);
+		} catch {
+			return [];
+		}
 	}
 
-	/** Strip the "spartan -" / "spartan/ui -" title prefix so results read cleanly in the search palette. */
-	protected cleanLabel(value: string | undefined): string {
-		return (value ?? '').replace(/^spartan(\/ui)?\s*-\s*/i, '');
+	private _saveRecent(entry: RecentEntry): void {
+		if (!this._isBrowser) return;
+		const recent = [entry, ...this._readRecent().filter((r) => r.url !== entry.url)].slice(0, MAX_RECENT);
+		try {
+			localStorage.setItem(RECENT_STORAGE_KEY, JSON.stringify(recent));
+		} catch {
+			// storage can be unavailable (private mode, blocked site data) - recent searches are optional
+		}
 	}
 }

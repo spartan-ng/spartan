@@ -13,6 +13,16 @@ import { BrnTooltip } from './brn-tooltip';
 })
 class TooltipHost {}
 
+@Component({
+	imports: [BrnTooltip],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<button>Before</button>
+		<button brnTooltip="Tooltip">Trigger</button>
+	`,
+})
+class FocusTooltipHost {}
+
 const pointer = (target: Element, type: 'pointerenter' | 'pointerleave') =>
 	target.dispatchEvent(new PointerEvent(type, { pointerType: 'mouse' }));
 
@@ -85,5 +95,23 @@ describe('BrnTooltip', () => {
 
 		pointer(overlayHost, 'pointerleave');
 		await vi.waitFor(() => expect(tooltip()).toBeNull());
+	});
+
+	it('opens on keyboard focus but not on focus moved by script after a mouse click', async () => {
+		const fixture = TestBed.createComponent(FocusTooltipHost);
+		await fixture.whenStable();
+		const [before, trigger]: HTMLElement[] = Array.from(fixture.nativeElement.querySelectorAll('button'));
+		const tooltip = () => document.querySelector('[role="tooltip"]');
+
+		await userEvent.click(before);
+		trigger.focus();
+		expect(document.activeElement).toBe(trigger);
+		await new Promise((resolve) => setTimeout(resolve, 100));
+		expect(tooltip()).toBeNull();
+
+		before.focus();
+		await userEvent.tab();
+		expect(document.activeElement).toBe(trigger);
+		await vi.waitFor(() => expect(tooltip()).toBeTruthy());
 	});
 });

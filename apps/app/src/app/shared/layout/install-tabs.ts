@@ -1,6 +1,6 @@
 import { Clipboard } from '@angular/cdk/clipboard';
 import { TitleCasePipe } from '@angular/common';
-import { Component, computed, inject, input } from '@angular/core';
+import { Component, computed, inject, input, signal } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCheck, lucideClipboard, lucideTerminal } from '@ng-icons/lucide';
 import {
@@ -47,7 +47,7 @@ const cliBtn =
 
 		<ng-content />
 
-		<div class="mt-6 block" hlmTabs tab="Command">
+		<div class="mt-6 block" hlmTabs tab="Command" (tabActivated)="onInstallTabChange($event)">
 			<div
 				brnTabsList
 				class="border-border text-muted-foreground mb-4 inline-flex h-9 w-full items-center justify-start rounded-none border-b bg-transparent p-0"
@@ -94,7 +94,7 @@ const cliBtn =
 				@let utils = _utils();
 				@let styles = _styles;
 
-				@if (code && utils) {
+				@if (_manualOpened() && code && utils) {
 					<div class="space-y-4">
 						<hlm-accordion type="multiple">
 							<hlm-accordion-item class="border-b-0">
@@ -153,7 +153,9 @@ const cliBtn =
 
 										@for (style of styles; track style) {
 											<div [hlmTabsContent]="style">
-												<spartan-code [code]="code[style]" language="ts" disableCopy />
+												@if (style === _styleService.style()) {
+													<spartan-code [code]="code[style]" language="ts" disableCopy />
+												}
 											</div>
 										}
 									</div>
@@ -176,6 +178,13 @@ export class InstallTabs {
 
 	private readonly _clipboard = inject(Clipboard);
 	private readonly _installService = inject(ManualInstallService);
+
+	/** The manual code is only created once its tab has been opened */
+	protected readonly _manualOpened = signal(false);
+
+	protected onInstallTabChange(tab: string) {
+		if (tab === 'Manual') this._manualOpened.set(true);
+	}
 
 	protected _cliCopied = false;
 

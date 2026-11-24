@@ -48,10 +48,7 @@ export class HlmCommandDialog {
 
 	public readonly stateChange = output<BrnDialogState>();
 
-	/**
-	 * Emits once the dialog is fully closed: after the exit animation has finished and the overlay
-	 * has been disposed (so the block scroll strategy has already restored the scroll position).
-	 */
+	/** Emits once the dialog has fully closed, after its exit animation has finished. */
 	public readonly closed = output<void>();
 
 	protected stateChanged(state: BrnDialogState) {

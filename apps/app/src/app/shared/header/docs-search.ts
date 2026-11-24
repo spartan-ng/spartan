@@ -148,7 +148,11 @@ export function findComponentPage(groups: DocsSearchPageGroup[], url: string | u
 }
 
 function normalize(value: string): string {
-	return value.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').trim();
+	return value
+		.toLowerCase()
+		.normalize('NFD')
+		.replace(/[\u0300-\u036f]/g, '')
+		.trim();
 }
 
 /**
@@ -217,20 +221,10 @@ function isSearchable(record: AlgoliaDocsRecord, url: URL): boolean {
 	);
 }
 
-/** The deepest heading level the record has a value for, e.g. `lvl3`. */
-function deepestLevel(record: AlgoliaDocsRecord): (typeof LEVELS)[number] {
-	let deepest: (typeof LEVELS)[number] = 'lvl1';
-	for (const level of LEVELS) {
-		if (record.hierarchy[level]) deepest = level;
-	}
-	return deepest;
-}
-
 function toHit(record: AlgoliaDocsRecord, url: URL): DocsSearchHit | null {
 	const page = cleanLabel(record.hierarchy['lvl1']);
 	if (!page) return null;
 
-	const level = deepestLevel(record);
 	const headings = LEVELS.map((lvl) => record.hierarchy[lvl])
 		.filter((value): value is string => !!value)
 		.map(cleanLabel);
@@ -244,6 +238,8 @@ function toHit(record: AlgoliaDocsRecord, url: URL): DocsSearchHit | null {
 		return { ...base, kind: 'content', title: snippet, text, breadcrumb: headings.join(' › ') };
 	}
 
+	// DocSearch sets `type` to the record's heading level (`lvl1` - `lvl6`) for heading records
+	const level = record.type;
 	if (level === 'lvl1') {
 		return {
 			...base,
@@ -257,7 +253,8 @@ function toHit(record: AlgoliaDocsRecord, url: URL): DocsSearchHit | null {
 		};
 	}
 
-	const heading = record.hierarchy[level] ?? '';
+	const heading = record.hierarchy[level];
+	if (!heading) return null;
 	return {
 		...base,
 		kind: 'section',
@@ -273,7 +270,7 @@ function isSamePage(a: string, b: string): boolean {
 }
 
 /**
- * Normalizes the Algolia records and groups them by page (pathname).
+ * Normalizes the Algolia records and groups them by page.
  * Keeps Algolia's relevance order (a page is ranked by its best hit), drops duplicates and
  * page hits for pages already shown in the local results.
  */
@@ -281,10 +278,7 @@ export function groupHits(
 	records: AlgoliaDocsRecord[],
 	excludePageUrls: ReadonlySet<string> = new Set(),
 ): DocsSearchHitGroup[] {
-	const groups = new Map<string, DocsSearchHitGroup>();
-	const seen = new Set<string>();
-	/** Pathnames of the listed page hits, by their raw title. */
-	const listedPages = new Map<string, string[]>();
+	const groups: { group: DocsSearchHitGroup; seen: Set<string> }[] = [];
 
 	for (const record of records) {
 		const url = toRelativeUrl(record.url);
@@ -294,32 +288,23 @@ export function groupHits(
 		if (!hit) continue;
 		if (hit.kind === 'page' && excludePageUrls.has(url.pathname)) continue;
 
-		if (hit.kind === 'page') {
-			// A page can be recorded more than once: under different anchors, or under a parent route that
-			// renders its default child (`/blocks` shows "spartan/blocks - Sidebar"). List it once, but keep
-			// unrelated pages that happen to share a title.
-			const title = record.hierarchy['lvl1'] ?? '';
-			const paths = listedPages.get(title) ?? [];
-			if (paths.some((path) => isSamePage(path, url.pathname))) continue;
-			listedPages.set(title, [...paths, url.pathname]);
-		} else {
-			const dedupeKey = `${hit.url}|${hit.text}`;
-			if (seen.has(dedupeKey)) continue;
-			seen.add(dedupeKey);
+		// A page can be recorded under several urls: different anchors, or a parent route that renders its
+		// default child (`/stack` shows "Overview"). Merge those, but keep unrelated pages that share a title.
+		let entry = groups.find(({ group }) => group.page === hit.page && isSamePage(group.key, url.pathname));
+		if (!entry) {
+			entry = { group: { key: url.pathname, page: hit.page, hits: [] }, seen: new Set() };
+			groups.push(entry);
 		}
 
-		let group = groups.get(url.pathname);
-		if (!group) {
-			group = { key: url.pathname, page: hit.page, hits: [] };
-			groups.set(url.pathname, group);
-		}
-		if (group.hits.length < MAX_HITS_PER_PAGE) group.hits.push(hit);
+		const dedupeKey = hit.kind === 'page' ? 'page' : `${url.hash}|${hit.text}`;
+		if (entry.seen.has(dedupeKey)) continue;
+		entry.seen.add(dedupeKey);
+		if (entry.group.hits.length < MAX_HITS_PER_PAGE) entry.group.hits.push(hit);
 	}
 
-	const result = [...groups.values()];
 	const titleCounts = new Map<string, number>();
-	for (const group of result) titleCounts.set(group.page, (titleCounts.get(group.page) ?? 0) + 1);
-	return result.map((group) =>
+	for (const { group } of groups) titleCounts.set(group.page, (titleCounts.get(group.page) ?? 0) + 1);
+	return groups.map(({ group }) =>
 		(titleCounts.get(group.page) ?? 0) > 1 ? { ...group, section: sectionOf(group.key) } : group,
 	);
 }

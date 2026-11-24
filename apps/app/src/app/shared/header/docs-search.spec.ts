@@ -178,6 +178,19 @@ describe('docs search', () => {
 			]);
 		});
 
+		it('merges the section hits of a parent route into its default child', () => {
+			const overview = (id: string, path: string) =>
+				record(id, 'lvl2', { lvl1: 'spartan/stack - Overview', lvl2: 'Technologies' }, `${path}#technologies`);
+			const groups = groupHits([
+				overview('1', '/stack/overview'),
+				overview('2', '/stack'),
+				record('3', 'lvl2', { lvl1: 'spartan/stack - Overview', lvl2: 'Usage' }, '/stack#usage'),
+			]);
+			expect(groups.map((g) => [g.key, g.page, g.section, g.hits.map((h) => h.url)])).toEqual([
+				['/stack/overview', 'Overview', undefined, ['/stack/overview#technologies', '/stack#usage']],
+			]);
+		});
+
 		it('keeps page hits of unrelated pages that share a title', () => {
 			const groups = groupHits([
 				record('1', 'lvl1', { lvl1: 'spartan - Installation' }, '/documentation/installation'),

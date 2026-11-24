@@ -1,6 +1,6 @@
 import { searchClient } from '@algolia/client-search';
 import { Clipboard } from '@angular/cdk/clipboard';
-import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { DOCUMENT } from '@angular/common';
 import {
 	afterNextRender,
 	Component,
@@ -9,7 +9,6 @@ import {
 	inject,
 	Injector,
 	linkedSignal,
-	PLATFORM_ID,
 	resource,
 	signal,
 	untracked,
@@ -267,7 +266,6 @@ export class DocsDialog {
 	private readonly _clipboard = inject(Clipboard);
 	private readonly _cliMode = inject(CLIModeService).cliMode;
 	private readonly _injector = inject(Injector);
-	private readonly _isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 	private readonly _document = inject(DOCUMENT);
 	private readonly _command = viewChild(BrnCommand);
 
@@ -289,15 +287,14 @@ export class DocsDialog {
 	};
 
 	/** All docs pages from the navigation - searchable instantly, without a network request. */
-	protected readonly _pageGroups = buildPageGroups();
+	private readonly _pageGroups = buildPageGroups();
 
 	protected readonly _pageResults = computed(() => searchPages(this._pageGroups, this._query()));
 
-	private readonly _algoliaResource = resource<AlgoliaDocsRecord[], string>({
-		params: () => this._query(),
+	private readonly _algoliaResource = resource<AlgoliaDocsRecord[], string | undefined>({
+		// an empty query leaves the resource idle, which also clears the kept results below
+		params: () => this._query() || undefined,
 		loader: async ({ params: query, abortSignal }) => {
-			if (!query) return [];
-
 			// debounce: a newer query aborts this loader while it waits
 			// TODO(angular-22): replace with the `debounced()` signal utility once the docs are on Angular 22
 			// (e.g. `params: debounced(this._query, SEARCH_DEBOUNCE_MS)`) and drop this wait + abort check.
@@ -341,10 +338,10 @@ export class DocsDialog {
 		defaultValue: [],
 	});
 
-	protected readonly _isSearching = computed(() => !!this._query() && this._algoliaResource.isLoading());
+	protected readonly _isSearching = computed(() => this._algoliaResource.isLoading());
 
 	/** Algolia failed - an empty list would wrongly claim that nothing matches. */
-	protected readonly _searchFailed = computed(() => !!this._query() && this._algoliaResource.status() === 'error');
+	protected readonly _searchFailed = computed(() => this._algoliaResource.status() === 'error');
 
 	/** The latest Algolia records - the previous results stay visible while the next query is loading. */
 	private readonly _records = linkedSignal<{ loading: boolean; records: AlgoliaDocsRecord[] }, AlgoliaDocsRecord[]>({
@@ -355,8 +352,7 @@ export class DocsDialog {
 		computation: (source, previous) => (source.loading && previous ? previous.value : source.records),
 	});
 
-	protected readonly _hitGroups = computed(() => {
-		if (!this._query()) return [];
+	private readonly _hitGroups = computed(() => {
 		const localUrls = new Set(this._pageResults().map((page) => page.url));
 		return groupHits(this._records(), localUrls);
 	});
@@ -416,11 +412,6 @@ export class DocsDialog {
 	});
 
 	constructor() {
-		// The previous results only bridge consecutive queries - a cleared input starts a fresh search.
-		effect(() => {
-			if (!this._query()) this._records.set([]);
-		});
-
 		// Highlight the first result whenever the query changes or the dialog opens.
 		effect(() => {
 			this._query();
@@ -537,7 +528,7 @@ export class DocsDialog {
 
 	private _whenScrollUnlocked(): Promise<void> {
 		const html = this._document.documentElement;
-		if (!this._isBrowser || !html.classList.contains(SCROLL_BLOCK_CLASS)) return Promise.resolve();
+		if (!html.classList.contains(SCROLL_BLOCK_CLASS)) return Promise.resolve();
 
 		return new Promise((resolve) => {
 			const done = () => {
@@ -581,7 +572,6 @@ export class DocsDialog {
 	}
 
 	private _readRecent(): RecentEntry[] {
-		if (!this._isBrowser) return [];
 		try {
 			const value: unknown = JSON.parse(localStorage.getItem(RECENT_STORAGE_KEY) ?? '[]');
 			if (!Array.isArray(value)) return [];
@@ -597,7 +587,6 @@ export class DocsDialog {
 	}
 
 	private _saveRecent(entry: RecentEntry): void {
-		if (!this._isBrowser) return;
 		const recent = [entry, ...this._readRecent().filter((r) => r.url !== entry.url)].slice(0, MAX_RECENT);
 		try {
 			localStorage.setItem(RECENT_STORAGE_KEY, JSON.stringify(recent));

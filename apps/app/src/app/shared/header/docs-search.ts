@@ -138,6 +138,15 @@ export function buildPageGroups(): DocsSearchPageGroup[] {
 	return groups.filter((group) => group.pages.length > 0);
 }
 
+/** The component page a url points to (anchors and trailing slashes ignored), if it has a CLI primitive. */
+export function findComponentPage(groups: DocsSearchPageGroup[], url: string | undefined): DocsSearchPage | undefined {
+	if (!url) return undefined;
+	const pathname = url.split(/[?#]/)[0].replace(/\/+$/, '');
+	return groups
+		.flatMap((group) => group.pages)
+		.find((page) => page.kind === 'component' && page.primitive && page.url === pathname);
+}
+
 function normalize(value: string): string {
 	return value.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').trim();
 }

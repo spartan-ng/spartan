@@ -4,6 +4,7 @@ import {
 	buildPageGroups,
 	cleanLabel,
 	type DocsSearchPage,
+	findComponentPage,
 	groupHits,
 	scorePage,
 	searchPages,
@@ -65,6 +66,21 @@ describe('docs search', () => {
 
 		it('resolves index links to the section url', () => {
 			expect(pages.find((p) => p.label === 'Forms')?.url).toBe('/forms');
+		});
+	});
+
+	describe('findComponentPage', () => {
+		const groups = buildPageGroups();
+
+		it('finds the component of a page url, ignoring anchors and trailing slashes', () => {
+			expect(findComponentPage(groups, '/components/switch')?.primitive).toBe('switch');
+			expect(findComponentPage(groups, '/components/switch/#usage')?.primitive).toBe('switch');
+		});
+
+		it('ignores pages without a CLI primitive', () => {
+			expect(findComponentPage(groups, '/components/data-table')).toBeUndefined();
+			expect(findComponentPage(groups, '/documentation/installation')).toBeUndefined();
+			expect(findComponentPage(groups, undefined)).toBeUndefined();
 		});
 	});
 

@@ -6,6 +6,7 @@ import {
 	Component,
 	computed,
 	effect,
+	ElementRef,
 	inject,
 	Injector,
 	linkedSignal,
@@ -34,7 +35,7 @@ import {
 import { BrnCommand } from '@spartan-ng/brain/command';
 import type { BrnDialogState } from '@spartan-ng/brain/dialog';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
-import { HlmCommandImports } from '@spartan-ng/helm/command';
+import { HlmCommandImports, HlmCommandInput } from '@spartan-ng/helm/command';
 import { HlmKbdImports } from '@spartan-ng/helm/kbd';
 import { HlmSeparatorImports } from '@spartan-ng/helm/separator';
 import { CLIModeService } from '../cli-mode.service';
@@ -43,6 +44,7 @@ import {
 	buildPageGroups,
 	type DocsSearchHit,
 	type DocsSearchPage,
+	findComponentPage,
 	groupHits,
 	searchPages,
 } from './docs-search';
@@ -183,7 +185,13 @@ const SCROLL_BLOCK_CLASS = 'cdk-global-scrollblock';
 						>
 							<ng-icon name="lucideFileWarning" class="shrink-0" />
 							<span>Full-text search is unavailable.</span>
-							<button type="button" class="text-foreground underline underline-offset-4" (click)="_retrySearch()">
+							<!-- Enter must not reach the command, which would select the highlighted result -->
+							<button
+								type="button"
+								class="text-foreground underline underline-offset-4"
+								(keydown.enter)="$event.stopPropagation()"
+								(click)="_retrySearch()"
+							>
 								Retry
 							</button>
 						</div>
@@ -267,6 +275,7 @@ export class DocsDialog {
 	private readonly _isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 	private readonly _document = inject(DOCUMENT);
 	private readonly _command = viewChild(BrnCommand);
+	private readonly _commandInput = viewChild(HlmCommandInput, { read: ElementRef<HTMLElement> });
 
 	protected readonly _state = signal<BrnDialogState>('closed');
 	protected readonly _search = signal('');
@@ -274,6 +283,8 @@ export class DocsDialog {
 	/** The last copy attempt - only shown while that command is still the highlighted one. */
 	private readonly _copyAttempt = signal<{ command: string; ok: boolean } | null>(null);
 	private _copyAttemptTimeout?: ReturnType<typeof setTimeout>;
+	/** Incremented per selection and per open, so only the latest selection navigates. */
+	private _pendingNavigation = 0;
 	protected readonly _recent = signal<RecentEntry[]>([]);
 
 	/** Results are filtered (locally and by Algolia) before they are rendered, so the command must not filter again. */
@@ -400,9 +411,10 @@ export class DocsDialog {
 	protected readonly _copyCommand = computed(() => {
 		const key = this._activeKey();
 		const entry = key ? this._entries().get(key) : undefined;
-		if (entry?.type !== 'page' || entry.page.kind !== 'component' || !entry.page.primitive) return undefined;
+		const primitive = entry ? findComponentPage(this._pageGroups, this._entryUrl(entry))?.primitive : undefined;
+		if (!primitive) return undefined;
 		const cli = this._cliMode() === 'nx' ? 'nx' : 'ng';
-		return `${cli} g @spartan-ng/cli:ui ${entry.page.primitive}`;
+		return `${cli} g @spartan-ng/cli:ui ${primitive}`;
 	});
 
 	protected readonly _copyStatus = computed<'copied' | 'failed' | null>(() => {
@@ -412,11 +424,16 @@ export class DocsDialog {
 	});
 
 	constructor() {
+		// The previous results only bridge consecutive queries - a cleared input starts a fresh search.
+		effect(() => {
+			if (!this._query()) this._records.set([]);
+		});
+
 		// Highlight the first result whenever the query changes or the dialog opens.
 		effect(() => {
 			this._query();
 			this._state();
-			untracked(() => this._afterRender((command) => command.keyManager.setFirstItemActive()));
+			untracked(() => this._afterRender((command) => this._highlightFirst(command)));
 		});
 
 		// When the results change (e.g. the Algolia results arrive), keep the highlighted item if it is still listed.
@@ -426,11 +443,20 @@ export class DocsDialog {
 				this._afterRender((command) => {
 					const active = command.keyManager.activeItem;
 					if (!active || !command.items().includes(active)) {
-						command.keyManager.setFirstItemActive();
+						this._highlightFirst(command);
 					}
 				}),
 			);
 		});
+	}
+
+	/** Highlights the first item, or clears the highlight so `aria-activedescendant` never points to a removed item. */
+	private _highlightFirst(command: BrnCommand): void {
+		if (command.items().length > 0) {
+			command.keyManager.setFirstItemActive();
+		} else {
+			command.keyManager.setActiveItem(-1);
+		}
 	}
 
 	private _afterRender(fn: (command: BrnCommand) => void): void {
@@ -444,6 +470,8 @@ export class DocsDialog {
 	}
 
 	protected _open(): void {
+		// a selection still waiting for the previous close must not navigate while the palette is in use again
+		this._pendingNavigation++;
 		this._search.set('');
 		this._copyAttempt.set(null);
 		this._recent.set(this._readRecent());
@@ -499,6 +527,8 @@ export class DocsDialog {
 
 	protected _retrySearch(): void {
 		this._algoliaResource.reload();
+		// keep typing and keyboard navigation working after a click on Retry
+		this._commandInput()?.nativeElement.querySelector('input')?.focus();
 	}
 
 	protected _select(entry: SearchEntry): void {
@@ -507,7 +537,11 @@ export class DocsDialog {
 		this._state.set('closed');
 		// The dialog's scroll lock restores the old scroll position once the close animation ends,
 		// which would undo the router's scroll to the top / to the anchor - so navigate after it.
-		void this._whenScrollUnlocked().then(() => this._router.navigateByUrl(target.url));
+		const navigation = ++this._pendingNavigation;
+		void this._whenScrollUnlocked().then(() => {
+			if (navigation !== this._pendingNavigation || this._state() === 'open') return;
+			void this._router.navigateByUrl(target.url);
+		});
 	}
 
 	private _whenScrollUnlocked(): Promise<void> {
@@ -526,6 +560,18 @@ export class DocsDialog {
 			const timeout = setTimeout(done, SCROLL_UNLOCK_TIMEOUT_MS);
 			observer.observe(html, { attributes: true, attributeFilter: ['class'] });
 		});
+	}
+
+	/** The url an entry opens - the copy command is offered for page-level entries of a component. */
+	private _entryUrl(entry: SearchEntry): string | undefined {
+		switch (entry.type) {
+			case 'page':
+				return entry.page.url;
+			case 'recent':
+				return entry.recent.url;
+			case 'hit':
+				return entry.hit.kind === 'page' ? entry.hit.url : undefined;
+		}
 	}
 
 	private _toRecent(entry: SearchEntry): RecentEntry {

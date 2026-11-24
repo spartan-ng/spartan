@@ -6,7 +6,6 @@ import {
 	Component,
 	computed,
 	effect,
-	ElementRef,
 	inject,
 	Injector,
 	linkedSignal,
@@ -35,7 +34,7 @@ import {
 import { BrnCommand } from '@spartan-ng/brain/command';
 import type { BrnDialogState } from '@spartan-ng/brain/dialog';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
-import { HlmCommandImports, HlmCommandInput } from '@spartan-ng/helm/command';
+import { HlmCommandImports } from '@spartan-ng/helm/command';
 import { HlmKbdImports } from '@spartan-ng/helm/kbd';
 import { HlmSeparatorImports } from '@spartan-ng/helm/separator';
 import { CLIModeService } from '../cli-mode.service';
@@ -157,7 +156,13 @@ const SCROLL_BLOCK_CLASS = 'cdk-global-scrollblock';
 										</button>
 									}
 									@case ('hit') {
-										<button hlm-command-item [value]="entry.key" (selected)="_select(entry)">
+										<!-- while searching, the hits belong to the previous query: shown dimmed, not selectable -->
+										<button
+											hlm-command-item
+											[value]="entry.key"
+											[disabled]="_isSearching()"
+											(selected)="_select(entry)"
+										>
 											<ng-icon [name]="_hitIcon[entry.hit.kind]" class="text-muted-foreground" />
 											<span class="flex min-w-0 flex-col gap-0.5 text-left">
 												<span
@@ -178,22 +183,12 @@ const SCROLL_BLOCK_CLASS = 'cdk-global-scrollblock';
 					@if (_searchFailed()) {
 						<!-- local page results stay usable, only the full-text search failed -->
 						<div
-							role="alert"
 							class="text-muted-foreground flex items-center justify-center gap-2 px-2 text-sm"
 							[class.py-3]="_groups().length > 0"
 							[class.py-12]="_groups().length === 0"
 						>
 							<ng-icon name="lucideFileWarning" class="shrink-0" />
-							<span>Full-text search is unavailable.</span>
-							<!-- Enter must not reach the command, which would select the highlighted result -->
-							<button
-								type="button"
-								class="text-foreground underline underline-offset-4"
-								(keydown.enter)="$event.stopPropagation()"
-								(click)="_retrySearch()"
-							>
-								Retry
-							</button>
+							Full-text search is unavailable.
 						</div>
 					} @else if (_query() && _groups().length === 0) {
 						<div hlmCommandEmpty class="py-12">
@@ -275,7 +270,6 @@ export class DocsDialog {
 	private readonly _isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 	private readonly _document = inject(DOCUMENT);
 	private readonly _command = viewChild(BrnCommand);
-	private readonly _commandInput = viewChild(HlmCommandInput, { read: ElementRef<HTMLElement> });
 
 	protected readonly _state = signal<BrnDialogState>('closed');
 	protected readonly _search = signal('');
@@ -283,8 +277,6 @@ export class DocsDialog {
 	/** The last copy attempt - only shown while that command is still the highlighted one. */
 	private readonly _copyAttempt = signal<{ command: string; ok: boolean } | null>(null);
 	private _copyAttemptTimeout?: ReturnType<typeof setTimeout>;
-	/** Incremented per selection and per open, so only the latest selection navigates. */
-	private _pendingNavigation = 0;
 	protected readonly _recent = signal<RecentEntry[]>([]);
 
 	/** Results are filtered (locally and by Algolia) before they are rendered, so the command must not filter again. */
@@ -436,13 +428,14 @@ export class DocsDialog {
 			untracked(() => this._afterRender((command) => this._highlightFirst(command)));
 		});
 
-		// When the results change (e.g. the Algolia results arrive), keep the highlighted item if it is still listed.
+		// When the results change (e.g. the Algolia results arrive), keep the highlighted item if it is still selectable.
 		effect(() => {
 			this._groups();
+			this._isSearching();
 			untracked(() =>
 				this._afterRender((command) => {
 					const active = command.keyManager.activeItem;
-					if (!active || !command.items().includes(active)) {
+					if (!active || active.disabled || !command.items().includes(active)) {
 						this._highlightFirst(command);
 					}
 				}),
@@ -450,9 +443,12 @@ export class DocsDialog {
 		});
 	}
 
-	/** Highlights the first item, or clears the highlight so `aria-activedescendant` never points to a removed item. */
+	/**
+	 * Highlights the first selectable item, or clears the highlight - so Enter can't select a disabled item
+	 * and `aria-activedescendant` never points to a removed one.
+	 */
 	private _highlightFirst(command: BrnCommand): void {
-		if (command.items().length > 0) {
+		if (command.items().some((item) => !item.disabled)) {
 			command.keyManager.setFirstItemActive();
 		} else {
 			command.keyManager.setActiveItem(-1);
@@ -470,8 +466,6 @@ export class DocsDialog {
 	}
 
 	protected _open(): void {
-		// a selection still waiting for the previous close must not navigate while the palette is in use again
-		this._pendingNavigation++;
 		this._search.set('');
 		this._copyAttempt.set(null);
 		this._recent.set(this._readRecent());
@@ -525,21 +519,18 @@ export class DocsDialog {
 		this._copyAttemptTimeout = setTimeout(() => this._copyAttempt.set(null), COPY_FEEDBACK_MS);
 	}
 
-	protected _retrySearch(): void {
-		this._algoliaResource.reload();
-		// keep typing and keyboard navigation working after a click on Retry
-		this._commandInput()?.nativeElement.querySelector('input')?.focus();
-	}
-
 	protected _select(entry: SearchEntry): void {
+		// the list stays interactive during the close animation (e.g. Escape, then Enter)
+		if (this._state() !== 'open') return;
+
 		const target = this._toRecent(entry);
 		this._saveRecent(target);
 		this._state.set('closed');
 		// The dialog's scroll lock restores the old scroll position once the close animation ends,
 		// which would undo the router's scroll to the top / to the anchor - so navigate after it.
-		const navigation = ++this._pendingNavigation;
 		void this._whenScrollUnlocked().then(() => {
-			if (navigation !== this._pendingNavigation || this._state() === 'open') return;
+			// the palette was reopened in the meantime
+			if (this._state() === 'open') return;
 			void this._router.navigateByUrl(target.url);
 		});
 	}

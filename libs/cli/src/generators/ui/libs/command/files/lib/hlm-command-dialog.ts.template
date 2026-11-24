@@ -19,7 +19,7 @@ import { ClassValue } from 'cn';
 	imports: [HlmDialogImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<hlm-dialog [state]="_state()" (stateChanged)="stateChanged($event)">
+		<hlm-dialog [state]="_state()" (stateChanged)="stateChanged($event)" (closed)="closed.emit()">
 			<hlm-dialog-content
 				*hlmDialogPortal="let ctx"
 				[class]="_computedDialogContentClass()"
@@ -47,6 +47,12 @@ export class HlmCommandDialog {
 	protected readonly _computedDialogContentClass = computed(() => hlm('w-96 p-0', this.dialogContentClass()));
 
 	public readonly stateChange = output<BrnDialogState>();
+
+	/**
+	 * Emits once the dialog is fully closed: after the exit animation has finished and the overlay
+	 * has been disposed (so the block scroll strategy has already restored the scroll position).
+	 */
+	public readonly closed = output<void>();
 
 	protected stateChanged(state: BrnDialogState) {
 		this.stateChange.emit(state);

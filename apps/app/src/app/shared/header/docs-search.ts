@@ -34,7 +34,11 @@ export type DocsSearchHit = {
 };
 
 export type DocsSearchHitGroup = {
+	/** The page pathname - pages can share a title (e.g. the Installation docs and stack pages). */
+	key: string;
 	page: string;
+	/** The docs section (e.g. `Blocks`), set when another group has the same page title. */
+	section?: string;
 	hits: DocsSearchHit[];
 };
 
@@ -56,6 +60,8 @@ export type AlgoliaDocsRecord = {
 const LEVELS = ['lvl1', 'lvl2', 'lvl3', 'lvl4', 'lvl5', 'lvl6'] as const;
 const IGNORED_PATH_PREFIXES = ['/sidebar-preview', '/blocks-preview'];
 const MAX_HITS_PER_PAGE = 5;
+/** Component pages that document a pattern instead of a CLI primitive, so there is no install command to copy. */
+export const COMPONENTS_WITHOUT_CLI_PRIMITIVE: ReadonlySet<string> = new Set(['data-table']);
 
 /** Escapes text so it can be rendered next to Algolia's (already escaped) highlight HTML. */
 export function escapeHtml(value: string): string {
@@ -72,9 +78,16 @@ function stripTags(value: string): string {
 		.replace(/&amp;/g, '&');
 }
 
-/** Strip the "spartan -" / "spartan/ui -" title prefix so results read cleanly in the search palette. */
+/** Strip the "spartan -" / "spartan/ui -" / "spartan/blocks -" title prefix so results read cleanly in the search palette. */
 export function cleanLabel(value: string | null | undefined): string {
-	return (value ?? '').replace(/^spartan(\/ui)?\s*-\s*/i, '').trim();
+	return (value ?? '').replace(/^spartan(\/[\w-]+)?\s*-\s*/i, '').trim();
+}
+
+/** Like `cleanLabel`, for highlighted HTML where the prefix itself can be wrapped in `<mark>` tags. */
+function cleanHighlightedLabel(value: string): string {
+	const tag = '(?:</?mark>)*';
+	const prefix = new RegExp(`^${tag}spartan${tag}(?:/${tag}[\\w-]+${tag})?\\s*-\\s*`, 'i');
+	return value.replace(prefix, '').trim();
 }
 
 function joinUrl(base: string, path: string): string {
@@ -88,7 +101,8 @@ export function buildPageGroups(): DocsSearchPageGroup[] {
 	const toPage = (label: string, url: string, group: string, kind: DocsSearchPage['kind']): DocsSearchPage | null => {
 		if (seen.has(url)) return null;
 		seen.add(url);
-		const primitive = kind === 'component' ? url.split('/').pop() : undefined;
+		const slug = url.split('/').pop();
+		const primitive = kind === 'component' && slug && !COMPONENTS_WITHOUT_CLI_PRIMITIVE.has(slug) ? slug : undefined;
 		return {
 			key: `page:${url}`,
 			label,
@@ -96,7 +110,7 @@ export function buildPageGroups(): DocsSearchPageGroup[] {
 			group,
 			kind,
 			primitive,
-			keywords: kind === 'component' ? ['component', primitive ?? ''] : [],
+			keywords: kind === 'component' ? ['component', slug ?? ''] : [],
 		};
 	};
 
@@ -161,9 +175,21 @@ export function searchPages(groups: DocsSearchPageGroup[], query: string, limit 
 		.map((result) => result.page);
 }
 
+/** The docs section of a path, e.g. `Blocks` for `/blocks/sidebar`. */
+function sectionOf(pathname: string): string {
+	const [segment = ''] = pathname.split('/').filter(Boolean);
+	return segment
+		.split('-')
+		.map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+		.join(' ');
+}
+
 function toRelativeUrl(url: string): URL | null {
 	try {
-		return new URL(url, 'https://spartan.ng');
+		const parsed = new URL(url, 'https://spartan.ng');
+		// `/components/card/` and `/components/card` are the same page
+		if (parsed.pathname.length > 1) parsed.pathname = parsed.pathname.replace(/\/+$/, '');
+		return parsed;
 	} catch {
 		return null;
 	}
@@ -212,10 +238,13 @@ function toHit(record: AlgoliaDocsRecord, url: URL): DocsSearchHit | null {
 	if (level === 'lvl1') {
 		return {
 			...base,
+			// a page hit opens the page itself, not an anchor the crawler happened to record
+			url: url.pathname,
 			kind: 'page',
-			title: cleanLabel(highlight('lvl1') ?? escapeHtml(page)),
+			title: cleanHighlightedLabel(highlight('lvl1') ?? escapeHtml(page)),
 			text: page,
-			breadcrumb: cleanLabel(record.hierarchy['lvl0']),
+			// the crawler's lvl0 is the same ("Documentation") for every page, the section tells them apart
+			breadcrumb: sectionOf(url.pathname) || cleanLabel(record.hierarchy['lvl0']),
 		};
 	}
 
@@ -230,7 +259,7 @@ function toHit(record: AlgoliaDocsRecord, url: URL): DocsSearchHit | null {
 }
 
 /**
- * Normalizes the Algolia records and groups them by page.
+ * Normalizes the Algolia records and groups them by page (pathname).
  * Keeps Algolia's relevance order (a page is ranked by its best hit), drops duplicates and
  * page hits for pages already shown in the local results.
  */
@@ -249,17 +278,24 @@ export function groupHits(
 		if (!hit) continue;
 		if (hit.kind === 'page' && excludePageUrls.has(url.pathname)) continue;
 
-		const dedupeKey = `${hit.url}|${hit.text}`;
+		// A page can be recorded more than once: under different anchors, or under a parent route that
+		// renders its default child (`/blocks` shows "spartan/blocks - Sidebar"). List it once.
+		const dedupeKey = hit.kind === 'page' ? `page|${record.hierarchy['lvl1']}` : `${hit.url}|${hit.text}`;
 		if (seen.has(dedupeKey)) continue;
 		seen.add(dedupeKey);
 
-		let group = groups.get(hit.page);
+		let group = groups.get(url.pathname);
 		if (!group) {
-			group = { page: hit.page, hits: [] };
-			groups.set(hit.page, group);
+			group = { key: url.pathname, page: hit.page, hits: [] };
+			groups.set(url.pathname, group);
 		}
 		if (group.hits.length < MAX_HITS_PER_PAGE) group.hits.push(hit);
 	}
 
-	return [...groups.values()];
+	const result = [...groups.values()];
+	const titleCounts = new Map<string, number>();
+	for (const group of result) titleCounts.set(group.page, (titleCounts.get(group.page) ?? 0) + 1);
+	return result.map((group) =>
+		(titleCounts.get(group.page) ?? 0) > 1 ? { ...group, section: sectionOf(group.key) } : group,
+	);
 }

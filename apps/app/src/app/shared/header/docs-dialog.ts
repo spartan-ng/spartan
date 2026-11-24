@@ -1,6 +1,6 @@
 import { searchClient } from '@algolia/client-search';
 import { Clipboard } from '@angular/cdk/clipboard';
-import { isPlatformBrowser } from '@angular/common';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import {
 	afterNextRender,
 	Component,
@@ -25,6 +25,7 @@ import {
 	lucideCircleDashed,
 	lucideCornerDownLeft,
 	lucideFileText,
+	lucideFileWarning,
 	lucideHash,
 	lucideHistory,
 	lucideSearch,
@@ -36,7 +37,6 @@ import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmCommandImports } from '@spartan-ng/helm/command';
 import { HlmKbdImports } from '@spartan-ng/helm/kbd';
 import { HlmSeparatorImports } from '@spartan-ng/helm/separator';
-import { HlmSpinnerImports } from '@spartan-ng/helm/spinner';
 import { CLIModeService } from '../cli-mode.service';
 import {
 	type AlgoliaDocsRecord,
@@ -55,6 +55,8 @@ type SearchEntry =
 	| { type: 'recent'; key: string; recent: RecentEntry };
 
 type SearchGroup = {
+	/** Unique key - several pages can share a title. */
+	key: string;
 	label: string;
 	entries: SearchEntry[];
 	/** Show the navigation group (e.g. "Components") next to page entries. */
@@ -64,10 +66,15 @@ type SearchGroup = {
 const RECENT_STORAGE_KEY = 'spartan-docs-search-recent';
 const MAX_RECENT = 5;
 const SEARCH_DEBOUNCE_MS = 200;
+const COPY_FEEDBACK_MS = 1500;
+/** Fallback in case the dialog never releases the scroll lock (e.g. another overlay keeps it). */
+const SCROLL_UNLOCK_TIMEOUT_MS = 1000;
+/** The class the CDK block scroll strategy puts on `<html>` while a dialog is open. */
+const SCROLL_BLOCK_CLASS = 'cdk-global-scrollblock';
 
 @Component({
 	selector: 'spartan-docs-dialog',
-	imports: [HlmButtonImports, HlmKbdImports, HlmCommandImports, HlmSeparatorImports, HlmSpinnerImports, NgIcon],
+	imports: [HlmButtonImports, HlmKbdImports, HlmCommandImports, HlmSeparatorImports, NgIcon],
 	providers: [
 		provideIcons({
 			lucideSearch,
@@ -79,6 +86,7 @@ const SEARCH_DEBOUNCE_MS = 200;
 			lucideHash,
 			lucideText,
 			lucideFileText,
+			lucideFileWarning,
 			lucideHistory,
 			lucideCheck,
 		}),
@@ -122,7 +130,7 @@ const SEARCH_DEBOUNCE_MS = 200;
 
 				<hlm-command-list class="max-h-[min(60vh,420px)] min-h-80">
 					<!-- every item is rendered inline (no ngTemplateOutlet) so the command's keyboard order matches the visual order -->
-					@for (group of _groups(); track group.label) {
+					@for (group of _groups(); track group.key) {
 						<hlm-command-group>
 							<hlm-command-group-label>{{ group.label }}</hlm-command-group-label>
 							@for (entry of group.entries; track entry.key) {
@@ -165,7 +173,21 @@ const SEARCH_DEBOUNCE_MS = 200;
 						</hlm-command-group>
 					}
 
-					@if (_query() && _groups().length === 0) {
+					@if (_searchFailed()) {
+						<!-- local page results stay usable, only the full-text search failed -->
+						<div
+							role="alert"
+							class="text-muted-foreground flex items-center justify-center gap-2 px-2 text-sm"
+							[class.py-3]="_groups().length > 0"
+							[class.py-12]="_groups().length === 0"
+						>
+							<ng-icon name="lucideFileWarning" class="shrink-0" />
+							<span>Full-text search is unavailable.</span>
+							<button type="button" class="text-foreground underline underline-offset-4" (click)="_retrySearch()">
+								Retry
+							</button>
+						</div>
+					} @else if (_query() && _groups().length === 0) {
 						<div hlmCommandEmpty class="py-12">
 							@if (_isSearching()) {
 								Searching...
@@ -198,11 +220,17 @@ const SEARCH_DEBOUNCE_MS = 200;
 							<kbd hlmKbd class="[html[style*='--is-mac']_&]:hidden">Ctrl</kbd>
 							<kbd hlmKbd>C</kbd>
 						</kbd>
-						@if (_copied()) {
-							<ng-icon name="lucideCheck" class="text-foreground shrink-0" />
-							<span class="text-foreground">Copied</span>
-						} @else {
-							<span class="truncate font-mono">{{ command }}</span>
+						@switch (_copyStatus()) {
+							@case ('copied') {
+								<ng-icon name="lucideCheck" class="text-foreground shrink-0" />
+								<span class="text-foreground" aria-live="polite">Copied</span>
+							}
+							@case ('failed') {
+								<span class="text-destructive" aria-live="polite">Copy failed - try again</span>
+							}
+							@default {
+								<span class="truncate font-mono">{{ command }}</span>
+							}
 						}
 					</button>
 				} @else {
@@ -237,12 +265,15 @@ export class DocsDialog {
 	private readonly _cliMode = inject(CLIModeService).cliMode;
 	private readonly _injector = inject(Injector);
 	private readonly _isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
+	private readonly _document = inject(DOCUMENT);
 	private readonly _command = viewChild(BrnCommand);
 
 	protected readonly _state = signal<BrnDialogState>('closed');
 	protected readonly _search = signal('');
 	protected readonly _query = computed(() => this._search().trim());
-	protected readonly _copied = signal(false);
+	/** The last copy attempt - only shown while that command is still the highlighted one. */
+	private readonly _copyAttempt = signal<{ command: string; ok: boolean } | null>(null);
+	private _copyAttemptTimeout?: ReturnType<typeof setTimeout>;
 	protected readonly _recent = signal<RecentEntry[]>([]);
 
 	/** Results are filtered (locally and by Algolia) before they are rendered, so the command must not filter again. */
@@ -309,6 +340,9 @@ export class DocsDialog {
 
 	protected readonly _isSearching = computed(() => !!this._query() && this._algoliaResource.isLoading());
 
+	/** Algolia failed - an empty list would wrongly claim that nothing matches. */
+	protected readonly _searchFailed = computed(() => !!this._query() && this._algoliaResource.status() === 'error');
+
 	/** The latest Algolia records - the previous results stay visible while the next query is loading. */
 	private readonly _records = linkedSignal<{ loading: boolean; records: AlgoliaDocsRecord[] }, AlgoliaDocsRecord[]>({
 		source: () => ({
@@ -335,15 +369,20 @@ export class DocsDialog {
 				recent: entry,
 			}));
 			return [
-				{ label: 'Recent', entries: recent },
-				...this._pageGroups.map((group) => ({ label: group.label, entries: group.pages.map(pageEntry) })),
+				{ key: 'recent', label: 'Recent', entries: recent },
+				...this._pageGroups.map((group) => ({
+					key: `nav:${group.label}`,
+					label: group.label,
+					entries: group.pages.map(pageEntry),
+				})),
 			].filter((group) => group.entries.length > 0);
 		}
 
 		return [
-			{ label: 'Pages', entries: this._pageResults().map(pageEntry), showPageGroup: true },
+			{ key: 'pages', label: 'Pages', entries: this._pageResults().map(pageEntry), showPageGroup: true },
 			...this._hitGroups().map((group) => ({
-				label: group.page,
+				key: `hits:${group.key}`,
+				label: group.section ? `${group.page} · ${group.section}` : group.page,
 				entries: group.hits.map((hit): SearchEntry => ({ type: 'hit', key: hit.key, hit })),
 			})),
 		].filter((group) => group.entries.length > 0);
@@ -364,6 +403,12 @@ export class DocsDialog {
 		if (entry?.type !== 'page' || entry.page.kind !== 'component' || !entry.page.primitive) return undefined;
 		const cli = this._cliMode() === 'nx' ? 'nx' : 'ng';
 		return `${cli} g @spartan-ng/cli:ui ${entry.page.primitive}`;
+	});
+
+	protected readonly _copyStatus = computed<'copied' | 'failed' | null>(() => {
+		const attempt = this._copyAttempt();
+		if (!attempt || attempt.command !== this._copyCommand()) return null;
+		return attempt.ok ? 'copied' : 'failed';
 	});
 
 	constructor() {
@@ -400,7 +445,7 @@ export class DocsDialog {
 
 	protected _open(): void {
 		this._search.set('');
-		this._copied.set(false);
+		this._copyAttempt.set(null);
 		this._recent.set(this._readRecent());
 		this._state.set('open');
 	}
@@ -446,16 +491,41 @@ export class DocsDialog {
 	}
 
 	protected _copy(command: string): void {
-		this._clipboard.copy(command);
-		this._copied.set(true);
-		setTimeout(() => this._copied.set(false), 1500);
+		const ok = this._clipboard.copy(command);
+		this._copyAttempt.set({ command, ok });
+		clearTimeout(this._copyAttemptTimeout);
+		this._copyAttemptTimeout = setTimeout(() => this._copyAttempt.set(null), COPY_FEEDBACK_MS);
+	}
+
+	protected _retrySearch(): void {
+		this._algoliaResource.reload();
 	}
 
 	protected _select(entry: SearchEntry): void {
 		const target = this._toRecent(entry);
 		this._saveRecent(target);
 		this._state.set('closed');
-		void this._router.navigateByUrl(target.url);
+		// The dialog's scroll lock restores the old scroll position once the close animation ends,
+		// which would undo the router's scroll to the top / to the anchor - so navigate after it.
+		void this._whenScrollUnlocked().then(() => this._router.navigateByUrl(target.url));
+	}
+
+	private _whenScrollUnlocked(): Promise<void> {
+		const html = this._document.documentElement;
+		if (!this._isBrowser || !html.classList.contains(SCROLL_BLOCK_CLASS)) return Promise.resolve();
+
+		return new Promise((resolve) => {
+			const done = () => {
+				observer.disconnect();
+				clearTimeout(timeout);
+				resolve();
+			};
+			const observer = new MutationObserver(() => {
+				if (!html.classList.contains(SCROLL_BLOCK_CLASS)) done();
+			});
+			const timeout = setTimeout(done, SCROLL_UNLOCK_TIMEOUT_MS);
+			observer.observe(html, { attributes: true, attributeFilter: ['class'] });
+		});
 	}
 
 	private _toRecent(entry: SearchEntry): RecentEntry {

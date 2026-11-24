@@ -1,3 +1,17 @@
+## <small>1.10.1-beta.1 (2026-11-24)</small>
+
+- fix: let the last repeated class win in a classes() text source ([97804a2](https://github.com/spartan-ng/spartan/commit/97804a2))
+- fix: missing token exports (#1912) ([c29f96d](https://github.com/spartan-ng/spartan/commit/c29f96d)), closes [#1912](https://github.com/spartan-ng/spartan/issues/1912)
+- fix(tooltip): open on focus only when the trigger is focus-visible (#1908) ([303412d](https://github.com/spartan-ng/spartan/commit/303412d)), closes [#1908](https://github.com/spartan-ng/spartan/issues/1908) [#1899](https://github.com/spartan-ng/spartan/issues/1899)
+- chore(release): backmerge main into beta ([48aa234](https://github.com/spartan-ng/spartan/commit/48aa234))
+- chore(release): backmerge main into beta ([bbbd009](https://github.com/spartan-ng/spartan/commit/bbbd009))
+- chore(release): backmerge main into beta ([82abd74](https://github.com/spartan-ng/spartan/commit/82abd74))
+- chore(release): backmerge main into beta ([496992b](https://github.com/spartan-ng/spartan/commit/496992b))
+- Merge pull request #1898 from spartan-ng/fix/classes-text-source-repeated-class ([9415f6d](https://github.com/spartan-ng/spartan/commit/9415f6d)), closes [#1898](https://github.com/spartan-ng/spartan/issues/1898)
+- docs: add new contributors to our 300 ([0f84d71](https://github.com/spartan-ng/spartan/commit/0f84d71))
+- docs: create manual install code only when its tab is opened (#1897) ([f99c8f8](https://github.com/spartan-ng/spartan/commit/f99c8f8)), closes [#1897](https://github.com/spartan-ng/spartan/issues/1897)
+- docs: keep algolia relevance order in docs search (#1906) ([fe1c693](https://github.com/spartan-ng/spartan/commit/fe1c693)), closes [#1906](https://github.com/spartan-ng/spartan/issues/1906)
+
 ## 1.10.0 (2026-11-20)
 
 - fix(combobox, autocomplete): prevent default on escape when it clears the value (#1857) ([fabc882](https://github.com/spartan-ng/spartan/commit/fabc882)), closes [#1857](https://github.com/spartan-ng/spartan/issues/1857)

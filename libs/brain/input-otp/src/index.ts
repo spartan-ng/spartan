@@ -5,5 +5,6 @@ import { BrnInputOtpSlot } from './lib/brn-input-otp-slot';
 export * from './lib/brn-input-otp';
 export * from './lib/brn-input-otp-input';
 export * from './lib/brn-input-otp-slot';
+export * from './lib/brn-input-otp.token';
 
 export const BrnInputOtpImports = [BrnInputOtp, BrnInputOtpInput, BrnInputOtpSlot] as const;

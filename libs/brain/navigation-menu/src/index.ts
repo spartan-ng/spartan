@@ -8,9 +8,13 @@ import { BrnNavigationMenuTrigger } from './lib/brn-navigation-menu-trigger';
 export * from './lib/brn-navigation-menu';
 export * from './lib/brn-navigation-menu-content';
 export * from './lib/brn-navigation-menu-item';
+export * from './lib/brn-navigation-menu-item-focusable.token';
+export * from './lib/brn-navigation-menu-item.token';
 export * from './lib/brn-navigation-menu-link';
 export * from './lib/brn-navigation-menu-list';
 export * from './lib/brn-navigation-menu-trigger';
+export * from './lib/brn-navigation-menu.token';
+export * from './lib/brn-parent-nav-menu.token';
 
 export const BrnNavigationMenuImports = [
 	BrnNavigationMenu,

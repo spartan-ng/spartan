@@ -34,7 +34,8 @@ const pendingTransitionRestores = new Set<ElementClassManager>();
 let transitionRestoreRafId: number | null = null;
 
 interface ClassSource {
-	classes: Set<string>;
+	/** The source's classes as one string, in the order it produced them: a later class wins a conflict */
+	text: string;
 	order: number;
 }
 
@@ -63,6 +64,8 @@ interface ElementClassManager {
 }
 
 let sourceCounter = 0;
+/** A source with no class in it (empty or only whitespace) adds nothing to merge */
+const hasClass = /\S/;
 
 /**
  * This function dynamically adds and removes classes for a given element without requiring
@@ -138,14 +141,14 @@ export function brnClasses(computed: () => BrnClassValue[] | string, options: Br
 		function updateClasses(): void {
 			// Get the new classes from the computed function, the merge function resolves arrays and objects
 			const value = computed();
-			const newClasses = toClassList(typeof value === 'string' ? value : options.merge(value));
+			const text = typeof value === 'string' ? value : options.merge(value);
 
 			// Update this source's classes, keeping the original order
 			const source = manager!.sources.get(sourceId);
 			if (source) {
-				source.classes = new Set(newClasses);
+				source.text = text;
 			} else {
-				manager!.sources.set(sourceId, { classes: new Set(newClasses), order: sourceOrder });
+				manager!.sources.set(sourceId, { text, order: sourceOrder });
 				manager!.sortedSources = null;
 			}
 
@@ -256,16 +259,16 @@ function updateElement(manager: ElementClassManager): void {
 	// Get classes from all sources, sorted by registration order (later takes precedence)
 	manager.sortedSources ??= Array.from(manager.sources.values()).sort((a, b) => a.order - b.order);
 
-	const allSourceClasses: string[] = [];
+	// Sources first, then the base classes: the merge lets a later class win, so base classes take precedence
+	const toMerge: string[] = [];
 	for (const source of manager.sortedSources) {
-		allSourceClasses.push(...source.classes);
+		if (hasClass.test(source.text)) toMerge.push(source.text);
+	}
+	for (const className of manager.baseClasses) {
+		toMerge.push(className);
 	}
 
-	// Combine base classes with all source classes, ensuring base classes take precedence
-	const classesToApply =
-		allSourceClasses.length > 0 || manager.baseClasses.size > 0
-			? manager.merge([...allSourceClasses, ...manager.baseClasses])
-			: '';
+	const classesToApply = toMerge.length > 0 ? manager.merge(toMerge) : '';
 
 	// Apply the classes to the element
 	if (manager.element.className !== classesToApply) {
@@ -288,7 +291,7 @@ function adoptOutsideWrite(manager: ElementClassManager): void {
 	// What the sources put on the element; a class that is also wanted (static or tracked) stays wanted
 	const sourceOutput =
 		manager.writtenClassName === null
-			? [...manager.sources.values()].flatMap((source) => [...source.classes])
+			? [...manager.sources.values()].flatMap((source) => toClassList(source.text))
 			: toClassList(manager.writtenClassName);
 	const fromSources = new Set(sourceOutput.filter((className) => !manager.baseClasses.has(className)));
 

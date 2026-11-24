@@ -1,6 +1,5 @@
 import { searchClient } from '@algolia/client-search';
 import { Clipboard } from '@angular/cdk/clipboard';
-import { DOCUMENT } from '@angular/common';
 import {
 	afterNextRender,
 	Component,
@@ -67,10 +66,6 @@ const RECENT_STORAGE_KEY = 'spartan-docs-search-recent';
 const MAX_RECENT = 5;
 const SEARCH_DEBOUNCE_MS = 200;
 const COPY_FEEDBACK_MS = 1500;
-/** Fallback in case the dialog never releases the scroll lock (e.g. another overlay keeps it). */
-const SCROLL_UNLOCK_TIMEOUT_MS = 1000;
-/** The class the CDK block scroll strategy puts on `<html>` while a dialog is open. */
-const SCROLL_BLOCK_CLASS = 'cdk-global-scrollblock';
 
 @Component({
 	selector: 'spartan-docs-dialog',
@@ -118,6 +113,7 @@ const SCROLL_BLOCK_CLASS = 'cdk-global-scrollblock';
 			description="Search for a page, component or section of the documentation"
 			[state]="_state()"
 			(stateChange)="_state.set($event)"
+			(closed)="_onClosed()"
 			dialogContentClass="border-ring/50 w-[calc(100vw-2rem)] rounded-xl! border-4 p-1 pb-11 sm:max-w-lg"
 		>
 			<hlm-command
@@ -266,7 +262,6 @@ export class DocsDialog {
 	private readonly _clipboard = inject(Clipboard);
 	private readonly _cliMode = inject(CLIModeService).cliMode;
 	private readonly _injector = inject(Injector);
-	private readonly _document = inject(DOCUMENT);
 	private readonly _command = viewChild(BrnCommand);
 
 	protected readonly _state = signal<BrnDialogState>('closed');
@@ -275,6 +270,8 @@ export class DocsDialog {
 	/** The last copy attempt - only shown while that command is still the highlighted one. */
 	private readonly _copyAttempt = signal<{ command: string; ok: boolean } | null>(null);
 	private _copyAttemptTimeout?: ReturnType<typeof setTimeout>;
+	/** The url to open once the dialog has closed. */
+	private _pendingUrl: string | null = null;
 	protected readonly _recent = signal<RecentEntry[]>([]);
 
 	/** Results are filtered (locally and by Algolia) before they are rendered, so the command must not filter again. */
@@ -458,6 +455,7 @@ export class DocsDialog {
 
 	protected _open(): void {
 		this._search.set('');
+		this._pendingUrl = null;
 		this._copyAttempt.set(null);
 		this._recent.set(this._readRecent());
 		this._state.set('open');
@@ -516,32 +514,16 @@ export class DocsDialog {
 
 		const target = this._toRecent(entry);
 		this._saveRecent(target);
+		// The dialog's scroll lock restores the old scroll position when it closes, which would undo the
+		// router's scroll to the top / to the anchor - so navigate once the dialog has closed.
+		this._pendingUrl = target.url;
 		this._state.set('closed');
-		// The dialog's scroll lock restores the old scroll position once the close animation ends,
-		// which would undo the router's scroll to the top / to the anchor - so navigate after it.
-		void this._whenScrollUnlocked().then(() => {
-			// the palette was reopened in the meantime
-			if (this._state() === 'open') return;
-			void this._router.navigateByUrl(target.url);
-		});
 	}
 
-	private _whenScrollUnlocked(): Promise<void> {
-		const html = this._document.documentElement;
-		if (!html.classList.contains(SCROLL_BLOCK_CLASS)) return Promise.resolve();
-
-		return new Promise((resolve) => {
-			const done = () => {
-				observer.disconnect();
-				clearTimeout(timeout);
-				resolve();
-			};
-			const observer = new MutationObserver(() => {
-				if (!html.classList.contains(SCROLL_BLOCK_CLASS)) done();
-			});
-			const timeout = setTimeout(done, SCROLL_UNLOCK_TIMEOUT_MS);
-			observer.observe(html, { attributes: true, attributeFilter: ['class'] });
-		});
+	protected _onClosed(): void {
+		const url = this._pendingUrl;
+		this._pendingUrl = null;
+		if (url) void this._router.navigateByUrl(url);
 	}
 
 	/** The url an entry opens - the copy command is offered for page-level entries of a component. */

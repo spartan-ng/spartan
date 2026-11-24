@@ -212,6 +212,8 @@ Our initial 300 contributors and sponsors are featured here and on the front pag
 178. [hiyouwhatsapp](https://github.com/hiyouwhatsapp)
 179. [trs-dev-1](https://github.com/trs-dev-1)
 180. [wokis](https://github.com/wokis)
+181. [claude](https://github.com/claude)
+182. [gasparoff](https://github.com/gasparoff)
 
 ### Sponsor spartan
 

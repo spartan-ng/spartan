@@ -227,8 +227,23 @@ describe('docs search', () => {
 		});
 
 		it('drops page hits for pages that are already shown locally', () => {
-			const groups = groupHits(records, new Set(['/components/field']));
+			const groups = groupHits(records, [{ url: '/components/field', label: 'Form Field' }]);
 			expect(groups.map((g) => g.page)).toEqual(['Switch']);
+		});
+
+		it('drops page hits of a parent route whose default child is shown locally', () => {
+			const groups = groupHits(
+				[
+					record('1', 'lvl1', { lvl1: 'spartan - Introduction' }, '/documentation'),
+					record('2', 'lvl2', { lvl1: 'spartan - Introduction', lvl2: 'FAQ' }, '/documentation#faq'),
+					record('3', 'lvl1', { lvl1: 'spartan - Changelog' }, '/documentation/changelog'),
+				],
+				[{ url: '/documentation/introduction', label: 'Introduction' }],
+			);
+			expect(groups.map((g) => [g.key, g.hits.map((h) => h.kind)])).toEqual([
+				['/documentation', ['section']],
+				['/documentation/changelog', ['page']],
+			]);
 		});
 	});
 });

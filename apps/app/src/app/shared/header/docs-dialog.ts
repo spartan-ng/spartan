@@ -349,10 +349,7 @@ export class DocsDialog {
 		computation: (source, previous) => (source.loading && previous ? previous.value : source.records),
 	});
 
-	private readonly _hitGroups = computed(() => {
-		const localUrls = new Set(this._pageResults().map((page) => page.url));
-		return groupHits(this._records(), localUrls);
-	});
+	private readonly _hitGroups = computed(() => groupHits(this._records(), this._pageResults()));
 
 	/** The groups rendered in the list - the navigation when the query is empty, the search results otherwise. */
 	protected readonly _groups = computed<SearchGroup[]>(() => {

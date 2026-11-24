@@ -276,7 +276,7 @@ function isSamePage(a: string, b: string): boolean {
  */
 export function groupHits(
 	records: AlgoliaDocsRecord[],
-	excludePageUrls: ReadonlySet<string> = new Set(),
+	localPages: readonly Pick<DocsSearchPage, 'url' | 'label'>[] = [],
 ): DocsSearchHitGroup[] {
 	const groups: { group: DocsSearchHitGroup; seen: Set<string> }[] = [];
 
@@ -286,11 +286,14 @@ export function groupHits(
 
 		const hit = toHit(record, url);
 		if (!hit) continue;
-		if (hit.kind === 'page' && excludePageUrls.has(url.pathname)) continue;
 
 		// A page can be recorded under several urls: different anchors, or a parent route that renders its
 		// default child (`/stack` shows "Overview"). Merge those, but keep unrelated pages that share a title.
-		let entry = groups.find(({ group }) => group.page === hit.page && isSamePage(group.key, url.pathname));
+		const isSame = (path: string, title: string) => title === hit.page && isSamePage(path, url.pathname);
+		const isLocal = localPages.some((page) => page.url === url.pathname || isSame(page.url, page.label));
+		if (hit.kind === 'page' && isLocal) continue;
+
+		let entry = groups.find(({ group }) => isSame(group.key, group.page));
 		if (!entry) {
 			entry = { group: { key: url.pathname, page: hit.page, hits: [] }, seen: new Set() };
 			groups.push(entry);

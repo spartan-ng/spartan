@@ -114,7 +114,7 @@ type AlgoliaHits = {
 			(stateChange)="_state.set($event)"
 			dialogContentClass="border-ring/50 w-full rounded-xl! border-4 p-1 sm:max-w-lg"
 		>
-			<hlm-command class="min-h-[400px] w-full pb-10" [(search)]="_searchVal">
+			<hlm-command class="min-h-[400px] w-full pb-10" [filter]="_algoliaFilter" [(search)]="_searchVal">
 				<hlm-command-input placeholder="Type a command or search..." />
 				<hlm-command-list class="max-h-[400px] pt-1">
 					@for (item of _values(); track item.objectID) {
@@ -236,6 +236,9 @@ export class DocsDialog {
 	});
 
 	protected readonly _searchVal = signal('');
+
+	/** Algolia already filtered and ranked the hits, so the command must not filter them again on the client. */
+	protected readonly _algoliaFilter = () => true;
 	private readonly _cache = new Map<string, SearchHits<AlgoliaHits>>();
 
 	private readonly _algoliaResource = resource<SearchHits<AlgoliaHits> | undefined, string>({
@@ -276,13 +279,7 @@ export class DocsDialog {
 				},
 			});
 
-			if (result.hits) {
-				result.hits.sort((a, b) => {
-					const nameA = (a.hierarchy['lvl1'] || '').toLowerCase();
-					const nameB = (b.hierarchy['lvl1'] || '').toLowerCase();
-					return nameA.localeCompare(nameB);
-				});
-			}
+			// keep Algolia's relevance ranking - do not re-sort the hits on the client
 
 			this._cache.set(params, result);
 			return result;

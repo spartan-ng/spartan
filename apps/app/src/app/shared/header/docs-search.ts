@@ -258,6 +258,11 @@ function toHit(record: AlgoliaDocsRecord, url: URL): DocsSearchHit | null {
 	};
 }
 
+/** Whether two paths show the same page - the same path, or a parent route and its default child. */
+function isSamePage(a: string, b: string): boolean {
+	return a === b || b.startsWith(`${a}/`) || a.startsWith(`${b}/`);
+}
+
 /**
  * Normalizes the Algolia records and groups them by page (pathname).
  * Keeps Algolia's relevance order (a page is ranked by its best hit), drops duplicates and
@@ -269,6 +274,8 @@ export function groupHits(
 ): DocsSearchHitGroup[] {
 	const groups = new Map<string, DocsSearchHitGroup>();
 	const seen = new Set<string>();
+	/** Pathnames of the listed page hits, by their raw title. */
+	const listedPages = new Map<string, string[]>();
 
 	for (const record of records) {
 		const url = toRelativeUrl(record.url);
@@ -278,11 +285,19 @@ export function groupHits(
 		if (!hit) continue;
 		if (hit.kind === 'page' && excludePageUrls.has(url.pathname)) continue;
 
-		// A page can be recorded more than once: under different anchors, or under a parent route that
-		// renders its default child (`/blocks` shows "spartan/blocks - Sidebar"). List it once.
-		const dedupeKey = hit.kind === 'page' ? `page|${record.hierarchy['lvl1']}` : `${hit.url}|${hit.text}`;
-		if (seen.has(dedupeKey)) continue;
-		seen.add(dedupeKey);
+		if (hit.kind === 'page') {
+			// A page can be recorded more than once: under different anchors, or under a parent route that
+			// renders its default child (`/blocks` shows "spartan/blocks - Sidebar"). List it once, but keep
+			// unrelated pages that happen to share a title.
+			const title = record.hierarchy['lvl1'] ?? '';
+			const paths = listedPages.get(title) ?? [];
+			if (paths.some((path) => isSamePage(path, url.pathname))) continue;
+			listedPages.set(title, [...paths, url.pathname]);
+		} else {
+			const dedupeKey = `${hit.url}|${hit.text}`;
+			if (seen.has(dedupeKey)) continue;
+			seen.add(dedupeKey);
+		}
 
 		let group = groups.get(url.pathname);
 		if (!group) {

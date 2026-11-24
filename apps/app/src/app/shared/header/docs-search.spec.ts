@@ -162,6 +162,18 @@ describe('docs search', () => {
 			]);
 		});
 
+		it('keeps page hits of unrelated pages that share a title', () => {
+			const groups = groupHits([
+				record('1', 'lvl1', { lvl1: 'spartan - Installation' }, '/documentation/installation'),
+				record('2', 'lvl1', { lvl1: 'spartan - Installation' }, '/stack/installation'),
+				record('3', 'lvl1', { lvl1: 'spartan - Installation' }, '/documentation/installation#cli'),
+			]);
+			expect(groups.map((g) => [g.key, g.hits.map((h) => h.url)])).toEqual([
+				['/documentation/installation', ['/documentation/installation']],
+				['/stack/installation', ['/stack/installation']],
+			]);
+		});
+
 		it('strips the title prefix when it is highlighted', () => {
 			const [group] = groupHits([
 				record('1', 'lvl1', { lvl1: 'spartan/ui - Switch' }, '/components/switch', {

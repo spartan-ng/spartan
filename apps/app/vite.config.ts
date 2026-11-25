@@ -106,6 +106,7 @@ export default defineConfig(({ command, mode }) => {
 							'/documentation/dark-mode',
 							'/documentation/cli',
 							'/documentation/typography',
+							'/documentation/typeset',
 							'/documentation/figma',
 							'/documentation/version-support',
 							'/documentation/health-checks',
@@ -130,6 +131,8 @@ export default defineConfig(({ command, mode }) => {
 							'/stack/overview',
 							'/stack/technologies',
 							'/stack/installation',
+
+							'/typeset',
 						];
 
 						return await getPrerenderedRoutes(staticRoutes);

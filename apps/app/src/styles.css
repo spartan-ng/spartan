@@ -38,6 +38,10 @@
 
 @import '../../../libs/brain/hlm-tailwind-preset.css';
 
+/* Typeset lives in `components` so Tailwind utilities (unlayered) can override it without `!important`.
+   The same file is served from /typeset.css for the builder to copy and for consumers to download. */
+@import './public/typeset.css' layer(components);
+
 @custom-variant fixed (&:is(.layout-fixed *));
 
 @custom-variant logo-legacy (&:is(.logo-legacy *));
@@ -159,6 +163,15 @@
 
 [data-lang='he'] {
 	font-family: var(--font-he);
+}
+
+/*
+ * Standalone typeset previews (`/preview/typeset/*`) render only the typeset content, so the docs
+ * chrome is hidden. Using :has keeps SSR and the client in agreement without a route-data flash.
+ */
+body:has(.typeset-preview-page) #spartan-header,
+body:has(.typeset-preview-page) #spartan-footer {
+	display: none;
 }
 
 /*

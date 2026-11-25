@@ -186,7 +186,7 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="typeset" label="Typeset" />
-				<spartan-page-bottom-nav-link direction="previous" href="cli" label="CLI" />
+				<spartan-page-bottom-nav-link direction="previous" href="rtl" label="RTL" />
 			</spartan-page-bottom-nav>
 		</section>
 

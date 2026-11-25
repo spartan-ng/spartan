@@ -188,7 +188,10 @@ export class Code {
 		this._code = value;
 		this._runnable = isRunnableExample(value);
 		this.codeValue.set(value);
-		const source = this._language === 'sh' ? (value?.trim() ?? '') : `\`\`\`typescript\n${value?.trim() ?? ''}\n\`\`\``;
+		const source =
+			this._language === 'sh'
+				? (value?.trim() ?? '')
+				: `\`\`\`${this._language === 'css' ? 'css' : this._language === 'js' ? 'javascript' : 'typescript'}\n${value?.trim() ?? ''}\n\`\`\``;
 		this._content = this._marked.parse(source) as string;
 	}
 

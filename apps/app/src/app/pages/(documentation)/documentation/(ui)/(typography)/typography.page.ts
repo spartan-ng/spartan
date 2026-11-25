@@ -1,5 +1,6 @@
 import type { RouteMeta } from '@analogjs/router';
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { InstallTabs } from '@spartan-ng/app/app/shared/layout/install-tabs';
 import {
 	hlmBlockquote,
@@ -61,10 +62,22 @@ export const routeMeta: RouteMeta = {
 		TypographyPreview,
 		CodePreview,
 		InstallTabs,
+		RouterLink,
 	],
 	template: `
 		<section spartanMainSection>
 			<spartan-section-intro name="Typography" lead="Styles for headings, paragraphs, lists... etc." />
+
+			<div class="border-border bg-muted/40 mt-4 flex flex-col gap-1 rounded-lg border p-4 text-sm">
+				<p class="font-medium">Typeset is the recommended replacement for these utilities.</p>
+				<p class="text-muted-foreground">
+					Typeset styles rendered markdown from a single container instead of per-element classes. Use it for blog
+					posts, docs and streaming chat.
+					<a class="text-foreground font-medium underline" routerLink="/documentation/typeset">Read the Typeset docs</a>
+					or
+					<a class="text-foreground font-medium underline" routerLink="/typeset">open the builder.</a>
+				</p>
+			</div>
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanCodePreview firstTab>
@@ -172,7 +185,7 @@ export const routeMeta: RouteMeta = {
 			</spartan-tabs>
 
 			<spartan-page-bottom-nav>
-				<spartan-page-bottom-nav-link href="figma" label="Figma" />
+				<spartan-page-bottom-nav-link href="typeset" label="Typeset" />
 				<spartan-page-bottom-nav-link direction="previous" href="cli" label="CLI" />
 			</spartan-page-bottom-nav>
 		</section>

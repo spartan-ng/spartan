@@ -1,4 +1,6 @@
-import { ChangeDetectionStrategy, Component, computed, input, output } from '@angular/core';
+import { BreakpointObserver } from '@angular/cdk/layout';
+import { ChangeDetectionStrategy, Component, computed, inject, input, output } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
 	lucideALargeSmall,
@@ -10,6 +12,7 @@ import {
 	lucideUnfoldVertical,
 } from '@ng-icons/lucide';
 import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
+import { map } from 'rxjs/operators';
 
 export interface TypesetPickerGroup {
 	label?: string;
@@ -38,8 +41,8 @@ export interface TypesetPickerGroup {
 		<button
 			type="button"
 			[hlmDropdownMenuTrigger]="menu"
-			side="right"
-			align="start"
+			[side]="_isDesktop() ? 'right' : 'top'"
+			[align]="_isDesktop() ? 'start' : 'center'"
 			(hlmDropdownMenuClosed)="previewClear.emit()"
 			class="ring-foreground/10 hover:bg-muted focus-visible:ring-foreground/50 relative w-full cursor-pointer touch-manipulation rounded-lg p-2.5 text-start ring-1 transition-colors select-none focus-visible:outline-none"
 		>
@@ -101,6 +104,13 @@ export interface TypesetPickerGroup {
 	`,
 })
 export class TypesetPicker {
+	protected readonly _isDesktop = toSignal(
+		inject(BreakpointObserver)
+			.observe('(min-width: 768px)')
+			.pipe(map((state) => state.matches)),
+		{ initialValue: true },
+	);
+
 	public readonly label = input.required<string>();
 	public readonly value = input.required<string>();
 	public readonly groups = input.required<readonly TypesetPickerGroup[]>();

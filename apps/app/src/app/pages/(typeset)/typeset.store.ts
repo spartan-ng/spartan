@@ -121,7 +121,7 @@ ${this.presetCss()}`,
 	);
 
 	public readonly usageCode = computed(
-		() => `<div class="typeset ${this.presetName()}" style="max-width: ${this.measure().width}">
+		() => `<div class="typeset ${this.presetName()} max-w-[${this.measure().width}]">
   <ng-content />
 </div>`,
 	);

@@ -44,9 +44,9 @@ let nextId = 0;
 		'[attr.data-orientation]': 'orientation()',
 		'data-slot': 'slider',
 		'(focusout)': '_onFocusOut($event)',
-		'[attr.aria-invalid]': '_ariaInvalid() ? "true" : null',
-		'[attr.data-invalid]': '_ariaInvalid() ? "true" : null',
-		'[attr.data-matches-spartan-invalid]': '_ariaInvalid() ? "true" : null',
+		'[attr.aria-invalid]': '_spartanInvalid() ? "true" : null',
+		'[attr.data-invalid]': '_invalid() ? "true" : null',
+		'[attr.data-matches-spartan-invalid]': '_spartanInvalid() ? "true" : null',
 		'[attr.data-dirty]': '_dirty() ? "true" : null',
 		'[attr.data-touched]': '_touched() ? "true" : null',
 	},
@@ -57,7 +57,7 @@ export class BrnSlider implements ControlValueAccessor, OnInit {
 	private readonly _fieldControl = inject(BrnFieldControl);
 	public ngControl: NgControl | null = null;
 
-	protected readonly _ariaInvalid = this._fieldControl.invalid;
+	protected readonly _invalid = this._fieldControl.invalid;
 	protected readonly _dirty = this._fieldControl.dirty;
 	protected readonly _touched = this._fieldControl.touched;
 	protected readonly _spartanInvalid = this._fieldControl.spartanInvalid;

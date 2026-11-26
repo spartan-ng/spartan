@@ -202,14 +202,14 @@ describe('select', () => {
 			// initial
 			cy.get('[hlmselecttrigger]').should('not.have.attr', 'data-touched');
 			cy.get('[hlmselecttrigger]').should('not.have.attr', 'data-dirty');
-			cy.get('[hlmselecttrigger]').should('have.attr', 'aria-invalid', 'true');
+			cy.get('[hlmselecttrigger]').should('not.have.attr', 'aria-invalid');
 			cy.get('[hlmselecttrigger]').should('not.have.attr', 'data-matches-spartan-invalid');
 
 			// on open
 			cy.get('[hlmselecttrigger]').click();
 			cy.get('[hlmselecttrigger]').should('not.have.attr', 'data-touched');
 			cy.get('[hlmselecttrigger]').should('not.have.attr', 'data-dirty');
-			cy.get('[hlmselecttrigger]').should('have.attr', 'aria-invalid', 'true');
+			cy.get('[hlmselecttrigger]').should('not.have.attr', 'aria-invalid');
 			cy.get('[hlmselecttrigger]').should('not.have.attr', 'data-matches-spartan-invalid');
 			cy.get('body').click();
 
@@ -275,14 +275,14 @@ describe('select', () => {
 			// initial
 			cy.get('[hlmselecttrigger]').should('not.have.attr', 'data-touched');
 			cy.get('[hlmselecttrigger]').should('not.have.attr', 'data-dirty');
-			cy.get('[hlmselecttrigger]').should('have.attr', 'aria-invalid', 'true');
+			cy.get('[hlmselecttrigger]').should('not.have.attr', 'aria-invalid');
 			cy.get('[hlmselecttrigger]').should('not.have.attr', 'data-matches-spartan-invalid');
 
 			// on open
 			cy.get('[hlmselecttrigger]').click();
 			cy.get('[hlmselecttrigger]').should('not.have.attr', 'data-touched');
 			cy.get('[hlmselecttrigger]').should('not.have.attr', 'data-dirty');
-			cy.get('[hlmselecttrigger]').should('have.attr', 'aria-invalid', 'true');
+			cy.get('[hlmselecttrigger]').should('not.have.attr', 'aria-invalid');
 			cy.get('[hlmselecttrigger]').should('not.have.attr', 'data-matches-spartan-invalid');
 			cy.get('[hlmselecttrigger]').click();
 

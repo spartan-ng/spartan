@@ -9,22 +9,26 @@ interface NativeHostElementMigration {
 	element: 'button' | 'a';
 	/** The new attribute selector */
 	attribute: string;
+	/** Element used when the legacy usage has no `link`, i.e. it is an action rather than a navigation */
+	actionElement?: 'button';
 }
 
 export const nativeHostElementMigrations: NativeHostElementMigration[] = [
 	{ tag: 'hlm-combobox-trigger', element: 'button', attribute: 'hlmComboboxTrigger' },
 	{ tag: 'hlm-select-trigger', element: 'button', attribute: 'hlmSelectTrigger' },
 	{ tag: 'hlm-date-picker-trigger', element: 'button', attribute: 'hlmDatePickerTrigger' },
-	{ tag: 'hlm-pagination-next', element: 'a', attribute: 'hlmPaginationNext' },
-	{ tag: 'hlm-pagination-previous', element: 'a', attribute: 'hlmPaginationPrevious' },
+	{ tag: 'hlm-pagination-next', element: 'a', attribute: 'hlmPaginationNext', actionElement: 'button' },
+	{ tag: 'hlm-pagination-previous', element: 'a', attribute: 'hlmPaginationPrevious', actionElement: 'button' },
 ];
 
 /** Matches a single attribute, taking quoted values (which may contain `>` or `/`) into account. */
 const attributePattern = `(?:\\s+[^\\s"'=/>]+(?:\\s*=\\s*(?:"[^"]*"|'[^']*'|[^\\s"'>]+))?)`;
 
 export function createLegacyTagPattern(tag: string, flags = 'g') {
-	return new RegExp(`<${tag}(?![\\w-])((?:${attributePattern})*)(\\s*)(\\/?)>`, flags);
+	return new RegExp(`<${tag}(?![\\w-])((?:${attributePattern})*)(\\s*)(\\/?)>(\\s*<\\/${tag}\\s*>)?`, flags);
 }
+
+const linkAttributePattern = /\s\[?link\]?(?=\s*=)/;
 
 export function hasLegacyNativeHostElements(content: string): boolean {
 	return nativeHostElementMigrations.some(({ tag }) => createLegacyTagPattern(tag, '').test(content));
@@ -58,20 +62,30 @@ export async function migrateNativeHostElementsGenerator(
 }
 
 export function migrateNativeHostElements(content: string): string {
-	for (const { tag, element, attribute } of nativeHostElementMigrations) {
+	for (const { tag, element, attribute, actionElement } of nativeHostElementMigrations) {
 		content = content.replace(
 			createLegacyTagPattern(tag),
-			(_match, attributes: string, trailing: string, selfClosing: string) => {
-				const opening = `<${element}${formatAttribute(attribute, attributes)}${attributes}${selfClosing ? '' : trailing}>`;
-				return selfClosing ? `${opening}</${element}>` : opening;
+			(_match, attributes: string, trailing: string, selfClosing: string, emptyClosing?: string) => {
+				// only empty usages can switch element, otherwise the closing tag could not be matched reliably
+				const isAction = actionElement && (selfClosing || emptyClosing) && !linkAttributePattern.test(attributes);
+				const target = isAction ? actionElement : element;
+				const type = isAction ? ' type="button"' : '';
+				const opening = `<${target}${type}${formatAttribute(attribute, attributes)}${attributes}${selfClosing ? '' : trailing}>`;
+
+				if (selfClosing) {
+					return `${opening}</${target}>`;
+				}
+
+				return emptyClosing ? `${opening}${emptyClosing.replace(tag, target)}` : opening;
 			},
 		);
 
 		content = content.replace(new RegExp(`</${tag}\\s*>`, 'g'), `</${element}>`);
 
 		// DOM queries / CSS selectors that targeted the native element inside the wrapper, e.g. `hlm-select-trigger > button`
+		const innerElements = actionElement ? `(?:${element}|${actionElement})` : element;
 		content = content.replace(
-			new RegExp(`\\b${tag}\\s*>?\\s*${element}(?=\\s*['"\`\\[\\]:.,){>])`, 'g'),
+			new RegExp(`\\b${tag}\\s*>?\\s*${innerElements}(?=\\s*['"\`\\[\\]:.,){>])`, 'g'),
 			`[${attribute}]`,
 		);
 	}

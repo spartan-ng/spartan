@@ -3,11 +3,13 @@ import type { AbstractControl, FormGroupDirective, NgControl, NgForm } from '@an
 import type { Subscription } from 'rxjs';
 import type { ControlState } from './control-state';
 import type { ErrorStateMatcher } from './error-options';
+import { onParentFormSubmitOrReset } from './parent-form-events';
 import { controlStateEqual, type StateTracker } from './state-tracker';
 
 export class ReactiveStateTracker implements StateTracker {
 	private readonly _stateVersion = signal(0);
 	private readonly _eventsSubscription?: Subscription;
+	private readonly _submitSubscription?: Subscription;
 
 	public readonly controlState = computed<ControlState | null>(
 		() => {
@@ -51,9 +53,14 @@ export class ReactiveStateTracker implements StateTracker {
 				this._stateVersion.update((v) => v + 1);
 			});
 		}
+		// the matcher may depend on the parent's `submitted` state
+		this._submitSubscription = onParentFormSubmitOrReset(this._controlParent, () =>
+			this._stateVersion.update((v) => v + 1),
+		);
 	}
 
 	public destroy(): void {
 		this._eventsSubscription?.unsubscribe();
+		this._submitSubscription?.unsubscribe();
 	}
 }

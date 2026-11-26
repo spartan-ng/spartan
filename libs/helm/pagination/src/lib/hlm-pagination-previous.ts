@@ -1,5 +1,13 @@
 import type { BooleanInput } from '@angular/cdk/coercion';
-import { booleanAttribute, ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import {
+	booleanAttribute,
+	ChangeDetectionStrategy,
+	Component,
+	computed,
+	ElementRef,
+	inject,
+	input,
+} from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronLeft } from '@ng-icons/lucide';
@@ -8,7 +16,8 @@ import { classes, hlm } from '@spartan-ng/helm/utils';
 import { injectHlmPaginationConfig } from './hlm-pagination.token';
 
 @Component({
-	selector: 'a[hlm-pagination-previous],a[hlmPaginationPrevious]',
+	selector:
+		'a[hlm-pagination-previous],a[hlmPaginationPrevious],button[hlm-pagination-previous],button[hlmPaginationPrevious]',
 	exportAs: 'hlmPaginationPrevious',
 	imports: [NgIcon],
 	providers: [provideIcons({ lucideChevronLeft })],
@@ -33,6 +42,7 @@ import { injectHlmPaginationConfig } from './hlm-pagination.token';
 	],
 	host: {
 		'data-slot': 'pagination-link',
+		'[attr.type]': '_isButton ? "button" : null',
 		'[attr.aria-label]': 'ariaLabel()',
 	},
 	template: `
@@ -42,6 +52,9 @@ import { injectHlmPaginationConfig } from './hlm-pagination.token';
 })
 export class HlmPaginationPrevious {
 	private readonly _config = injectHlmPaginationConfig();
+	/** Without a link this is an action, so it can be rendered as a focusable button. */
+	protected readonly _isButton =
+		inject<ElementRef<HTMLElement>>(ElementRef).nativeElement.tagName.toLowerCase() === 'button';
 
 	/** The aria-label for the previous page link. */
 	public readonly ariaLabel = input<string>(this._config.previousAriaLabel, { alias: 'aria-label' });

@@ -65,12 +65,12 @@ function render<T>(component: new () => T): HTMLElement {
 	return fixture.nativeElement;
 }
 
-function previousLink(el: HTMLElement): HTMLAnchorElement {
-	return el.querySelector('[hlmPaginationPrevious]') as HTMLAnchorElement;
+function previousLink(el: HTMLElement): HTMLElement {
+	return el.querySelector('[hlmPaginationPrevious]') as HTMLElement;
 }
 
-function nextLink(el: HTMLElement): HTMLAnchorElement {
-	return el.querySelector('[hlmPaginationNext]') as HTMLAnchorElement;
+function nextLink(el: HTMLElement): HTMLElement {
+	return el.querySelector('[hlmPaginationNext]') as HTMLElement;
 }
 
 describe('HlmPaginationConfig', () => {

@@ -8,7 +8,9 @@ import {
 	DoCheck,
 	ElementRef,
 	EnvironmentInjector,
+	ErrorHandler,
 	Injector,
+	input,
 	provideZoneChangeDetection,
 	runInInjectionContext,
 	signal,
@@ -424,6 +426,8 @@ describe('brnClasses', () => {
 		element.className = 'bg-blue-500';
 
 		const elementRef = new ElementRef(element);
+		// All restores share one frame: let the one an earlier test scheduled run before mocking it
+		await new Promise((resolve) => requestAnimationFrame(resolve));
 		const rafSpy = vi.spyOn(window, 'requestAnimationFrame');
 		let restoreTransition: FrameRequestCallback | undefined;
 
@@ -531,6 +535,51 @@ describe('brnClasses', () => {
 		expect(element.style.getPropertyPriority('transition')).toBe('important');
 	});
 
+	it('should restore all suppressed transitions in one frame and right away for a destroyed source', async () => {
+		await TestBed.configureTestingModule({}).compileComponents();
+
+		const first = document.createElement('div');
+		first.style.setProperty('transition', 'opacity 0.3s ease', 'important');
+		const second = document.createElement('div');
+		second.style.setProperty('transition', 'color 0.2s ease');
+
+		const parentInjector = TestBed.inject(EnvironmentInjector);
+		const firstInjector = createEnvironmentInjector([], parentInjector);
+		const secondInjector = createEnvironmentInjector([], parentInjector);
+
+		// All restores share one frame: let the one an earlier test scheduled run before mocking it
+		await new Promise((resolve) => requestAnimationFrame(resolve));
+		const rafSpy = vi.spyOn(window, 'requestAnimationFrame');
+		const frames: FrameRequestCallback[] = [];
+		rafSpy.mockImplementation((callback: FrameRequestCallback) => frames.push(callback));
+
+		try {
+			classes(() => 'bg-red-500', { elementRef: new ElementRef(first), injector: firstInjector });
+			classes(() => 'bg-blue-500', { elementRef: new ElementRef(second), injector: secondInjector });
+
+			// Drop the frame Angular requested to schedule change detection, then run both effects: both
+			// restores wait for the same frame
+			frames.length = 0;
+			TestBed.tick();
+			expect(first.style.getPropertyValue('transition')).toBe('none');
+			expect(second.style.getPropertyValue('transition')).toBe('none');
+			expect(frames).toHaveLength(1);
+
+			// A destroyed source gets its transition back right away, the other one keeps waiting
+			firstInjector.destroy();
+			expect(first.style.getPropertyValue('transition')).toBe('opacity 0.3s');
+			expect(first.style.getPropertyPriority('transition')).toBe('important');
+			expect(second.style.getPropertyValue('transition')).toBe('none');
+
+			frames[0](performance.now());
+			expect(second.style.getPropertyValue('transition')).toBe('color 0.2s');
+			expect(second.style.getPropertyPriority('transition')).toBe('');
+		} finally {
+			rafSpy.mockRestore();
+			secondInjector.destroy();
+		}
+	});
+
 	it('should preserve external classes added by mutation observer', async () => {
 		await TestBed.configureTestingModule({}).compileComponents();
 
@@ -601,5 +650,403 @@ describe('brnClasses', () => {
 		await new Promise((resolve) => setTimeout(resolve, 50));
 
 		expect(checks).toBeLessThan(10);
+	});
+
+	it('should not run an extra zone change detection pass when suppressed transitions are restored', async () => {
+		@Directive({ selector: '[brnTestClasses]' })
+		class TestClassesDirective {
+			constructor() {
+				classes(() => 'inline-flex');
+			}
+		}
+
+		let checks = 0;
+
+		@Component({
+			imports: [TestClassesDirective],
+			// counts every pass the zone triggers
+			// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
+			changeDetection: ChangeDetectionStrategy.Eager,
+			template: `
+				<span brnTestClasses>a</span>
+				<span brnTestClasses>b</span>
+			`,
+		})
+		class TestComponent implements DoCheck {
+			ngDoCheck() {
+				checks++;
+			}
+		}
+
+		const frame = () => new Promise((resolve) => requestAnimationFrame(resolve));
+		// All restores share one frame: let the one an earlier test scheduled run first
+		await frame();
+
+		TestBed.configureTestingModule({ providers: [provideZoneChangeDetection()] });
+		const fixture = TestBed.createComponent(TestComponent);
+		fixture.autoDetectChanges();
+		const span = fixture.nativeElement.querySelector('span') as HTMLElement;
+		expect(span.style.getPropertyValue('transition')).toBe('none');
+
+		checks = 0;
+		await frame();
+		await frame();
+
+		expect(span.style.getPropertyValue('transition')).toBe('');
+		expect(checks).toBe(0);
+	});
+
+	it('should not run an extra zone change detection pass for a batched merge', async () => {
+		@Directive({ selector: '[brnTestClasses]' })
+		class TestClassesDirective {
+			constructor() {
+				classes(() => 'inline-flex');
+			}
+		}
+
+		let checks = 0;
+
+		@Component({
+			imports: [TestClassesDirective],
+			// counts every pass the zone triggers
+			// eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
+			changeDetection: ChangeDetectionStrategy.Eager,
+			template: `
+				<button brnTestClasses [class.on]="on" (click)="on = !on">toggle</button>
+			`,
+		})
+		class TestComponent implements DoCheck {
+			public on = false;
+
+			ngDoCheck() {
+				checks++;
+			}
+		}
+
+		TestBed.configureTestingModule({ providers: [provideZoneChangeDetection()] });
+		const fixture = TestBed.createComponent(TestComponent);
+		fixture.autoDetectChanges();
+		await fixture.whenStable();
+		await new Promise((resolve) => setTimeout(resolve, 0));
+
+		checks = 0;
+		fixture.nativeElement.querySelector('button').click();
+		await fixture.whenStable();
+		await new Promise((resolve) => setTimeout(resolve, 0));
+
+		expect(fixture.nativeElement.querySelector('button').className).toBe('inline-flex on');
+		expect(checks).toBe(1);
+	});
+
+	it('should merge once when several class bindings change in the same pass', async () => {
+		let merges = 0;
+		const merge = (...inputs: ClassValue[]) => (merges++, cn(...inputs));
+
+		@Directive({ selector: '[brnTestClasses]' })
+		class TestClassesDirective {
+			constructor() {
+				brnClasses(() => 'inline-flex', { merge });
+			}
+		}
+
+		@Component({
+			imports: [TestClassesDirective],
+			changeDetection: ChangeDetectionStrategy.OnPush,
+			template: `
+				<span brnTestClasses [class.p-2]="on()" [class.m-2]="on()" [class.gap-2]="on()"></span>
+			`,
+		})
+		class TestComponent {
+			public readonly on = signal(false);
+		}
+
+		const fixture = TestBed.createComponent(TestComponent);
+		fixture.autoDetectChanges();
+		await fixture.whenStable();
+
+		merges = 0;
+		fixture.componentInstance.on.set(true);
+		await fixture.whenStable();
+		await new Promise((resolve) => setTimeout(resolve, 0));
+
+		expect(fixture.nativeElement.querySelector('span').className).toBe('inline-flex p-2 m-2 gap-2');
+		expect(merges).toBe(1);
+	});
+
+	it('should drop a source class once the source stops emitting it, even after classList.toggle', async () => {
+		await TestBed.configureTestingModule({}).compileComponents();
+
+		const element = document.createElement('div');
+		const elementRef = new ElementRef(element);
+		const line = signal('border-solid');
+
+		TestBed.runInInjectionContext(() => {
+			classes(() => line(), { elementRef });
+		});
+		TestBed.tick();
+
+		// a third-party toggle of a class it sees on the element removes it natively
+		expect(element.classList.toggle('border-solid')).toBe(false);
+
+		line.set('border-dotted');
+		TestBed.tick();
+
+		expect(element.className).toBe('border-dotted');
+	});
+
+	it('should report a merge error from a class binding without breaking the host template', async () => {
+		const handleError = vi.fn();
+		const merge = (...inputs: ClassValue[]) => {
+			const merged = cn(...inputs);
+			if (merged.includes('boom')) throw new Error('merge failed');
+			return merged;
+		};
+
+		@Directive({ selector: '[brnTestClasses]' })
+		class TestClassesDirective {
+			constructor() {
+				brnClasses(() => 'inline-flex', { merge });
+			}
+		}
+
+		@Component({
+			imports: [TestClassesDirective],
+			changeDetection: ChangeDetectionStrategy.OnPush,
+			template: `
+				<span brnTestClasses [class.boom]="on()"></span>
+				<p>{{ on() ? 'on' : 'off' }}</p>
+			`,
+		})
+		class TestComponent {
+			public readonly on = signal(false);
+		}
+
+		TestBed.configureTestingModule({
+			rethrowApplicationErrors: false,
+			providers: [{ provide: ErrorHandler, useValue: { handleError } }],
+		});
+		const fixture = TestBed.createComponent(TestComponent);
+		fixture.autoDetectChanges();
+		await fixture.whenStable();
+
+		fixture.componentInstance.on.set(true);
+		await fixture.whenStable();
+		await new Promise((resolve) => setTimeout(resolve, 0));
+
+		expect(fixture.nativeElement.querySelector('p').textContent).toBe('on');
+		expect(handleError).toHaveBeenCalledWith(expect.objectContaining({ message: 'merge failed' }));
+	});
+
+	it('should replace a source class through classList.replace like the native method', async () => {
+		await TestBed.configureTestingModule({}).compileComponents();
+
+		const element = document.createElement('div');
+		const elementRef = new ElementRef(element);
+
+		TestBed.runInInjectionContext(() => {
+			classes(() => 'border-solid', { elementRef });
+		});
+		TestBed.tick();
+
+		expect(element.classList.replace('border-solid', 'border-dashed')).toBe(true);
+	});
+
+	it('should report a merge error from an external className write', async () => {
+		const handleError = vi.fn();
+		TestBed.configureTestingModule({
+			rethrowApplicationErrors: false,
+			providers: [{ provide: ErrorHandler, useValue: { handleError } }],
+		});
+
+		const element = document.createElement('div');
+		document.body.appendChild(element);
+		const merge = (...inputs: ClassValue[]) => {
+			const merged = cn(...inputs);
+			if (merged.includes('boom')) throw new Error('merge failed');
+			return merged;
+		};
+
+		TestBed.runInInjectionContext(() => {
+			brnClasses(() => 'inline-flex', { elementRef: new ElementRef(element), merge });
+		});
+		TestBed.tick();
+
+		element.className = 'boom';
+		await new Promise((resolve) => setTimeout(resolve, 0));
+
+		expect(handleError).toHaveBeenCalledWith(expect.objectContaining({ message: 'merge failed' }));
+		element.remove();
+	});
+
+	describe('tracked classList', () => {
+		const settle = () => new Promise((resolve) => setTimeout(resolve, 0));
+		const sorted = (element: HTMLElement) => element.className.split(' ').filter(Boolean).sort();
+		let element: HTMLElement;
+
+		beforeEach(async () => {
+			await TestBed.configureTestingModule({}).compileComponents();
+			element = document.createElement('div');
+			document.body.appendChild(element);
+		});
+
+		afterEach(() => element.remove());
+
+		function track(initial = '') {
+			element.className = initial;
+			TestBed.runInInjectionContext(() => {
+				classes(() => 'inline-flex', { elementRef: new ElementRef(element) });
+			});
+			TestBed.tick();
+		}
+
+		it('should toggle a class back on when toggled twice in the same tick', async () => {
+			track('active');
+
+			expect(element.classList.toggle('active')).toBe(false);
+			expect(element.classList.toggle('active')).toBe(true);
+			await settle();
+
+			expect(sorted(element)).toEqual(['active', 'inline-flex']);
+		});
+
+		it('should keep a classList write made right after a className write', async () => {
+			track();
+
+			element.className = 'm-2';
+			element.classList.add('p-4');
+			await settle();
+
+			expect(sorted(element)).toEqual(['inline-flex', 'm-2', 'p-4']);
+		});
+
+		it('should forget merged-out classes when className is rewritten in a different order', async () => {
+			track();
+			element.classList.add('p-2');
+			element.classList.add('p-4');
+			await settle();
+			expect(sorted(element)).toEqual(['inline-flex', 'p-4']);
+
+			element.className = 'p-4 inline-flex';
+			await settle();
+			element.classList.remove('p-4');
+			await settle();
+
+			expect(sorted(element)).toEqual(['inline-flex']);
+		});
+
+		it('should not replace a class the merge dropped from the element', async () => {
+			track();
+			element.classList.add('bg-red-500');
+			element.classList.add('bg-blue-500');
+			await settle();
+
+			expect(element.classList.replace('bg-red-500', 'm-2')).toBe(false);
+			element.classList.remove('bg-blue-500');
+			await settle();
+
+			expect(sorted(element)).toEqual(['bg-red-500', 'inline-flex']);
+		});
+
+		it('should toggle on a class the merge dropped from the element', async () => {
+			track();
+			element.classList.add('bg-red-500');
+			element.classList.add('bg-blue-500');
+			await settle();
+
+			expect(element.classList.toggle('bg-red-500')).toBe(true);
+			await settle();
+
+			expect(sorted(element)).toEqual(['bg-red-500', 'inline-flex']);
+		});
+
+		it('should not track a token the native classList rejects', async () => {
+			track();
+
+			expect(() => element.classList.add('p-2 p-4')).toThrow();
+			element.classList.add('m-2');
+			await settle();
+
+			expect(sorted(element)).toEqual(['inline-flex', 'm-2']);
+		});
+
+		it('should merge a className write even when the next classList write is rejected', async () => {
+			track();
+
+			element.className = 'm-2';
+			expect(() => element.classList.add('p-2 p-4')).toThrow();
+			await settle();
+
+			expect(sorted(element)).toEqual(['inline-flex', 'm-2']);
+		});
+
+		it('should keep the old class when replace rejects the new token', async () => {
+			track('active');
+
+			expect(() => element.classList.replace('active', 'p-2 p-4')).toThrow();
+			await settle();
+
+			expect(sorted(element)).toEqual(['active', 'inline-flex']);
+		});
+
+		it('should replace a tracked class', async () => {
+			track('active');
+
+			expect(element.classList.replace('active', 'idle')).toBe(true);
+			expect(element.classList.replace('missing', 'other')).toBe(false);
+			await settle();
+
+			expect(sorted(element)).toEqual(['idle', 'inline-flex']);
+		});
+	});
+
+	it('should let the last of a repeated class win in a text source, the same as in a list source', async () => {
+		await TestBed.configureTestingModule({}).compileComponents();
+
+		const asText = document.createElement('div');
+		const asList = document.createElement('div');
+
+		// A default, a size variant, and a consumer override that repeats the default
+		const base = 'inline-flex px-2';
+		const size = 'px-4';
+		const override = 'px-2';
+
+		TestBed.runInInjectionContext(() => {
+			classes(() => `${base} ${size} ${override}`, { elementRef: new ElementRef(asText) });
+			classes(() => [base, size, override], { elementRef: new ElementRef(asList) });
+		});
+		TestBed.tick();
+
+		expect(asList.className).toBe('inline-flex px-2');
+		expect(asText.className).toBe('inline-flex px-2');
+	});
+
+	it('should keep a static class that a source also produces once the source changes', async () => {
+		@Directive({ selector: '[brnDisplay]' })
+		class Display {
+			public readonly block = input(false);
+
+			constructor() {
+				classes(() => (this.block() ? 'block' : 'inline-flex'));
+			}
+		}
+
+		@Component({
+			imports: [Display],
+			changeDetection: ChangeDetectionStrategy.OnPush,
+			template: `
+				<span brnDisplay [block]="block()" class="inline-flex"></span>
+			`,
+		})
+		class Host {
+			public readonly block = signal(false);
+		}
+
+		const fixture = TestBed.createComponent(Host);
+		fixture.autoDetectChanges();
+		await fixture.whenStable();
+		fixture.componentInstance.block.set(true);
+		await fixture.whenStable();
+
+		expect(fixture.nativeElement.querySelector('span').className).toBe('inline-flex');
 	});
 });

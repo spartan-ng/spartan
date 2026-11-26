@@ -15,8 +15,8 @@ import { injectBrnComboboxBase } from './brn-combobox.token';
 		'[attr.disabled]': '_disabled() ? "" : null',
 		'[attr.data-disabled]': '_disabled() || null',
 		'[attr.data-placeholder]': '_isPlaceholder() ? "" : null',
-		'[attr.aria-invalid]': ' _ariaInvalid() ? "true": null',
-		'[attr.data-invalid]': ' _ariaInvalid() ? "true": null',
+		'[attr.aria-invalid]': ' _spartanInvalid() ? "true": null',
+		'[attr.data-invalid]': ' _invalid() ? "true": null',
 		'[attr.data-matches-spartan-invalid]': ' _spartanInvalid() ? "true": null',
 		'[attr.data-touched]': ' _touched() ? "true": null',
 		'[attr.data-dirty]': ' _dirty() ? "true": null',
@@ -35,7 +35,7 @@ export class BrnComboboxTrigger<T> {
 
 	protected readonly _isPlaceholder = computed(() => !this._combobox.hasValue());
 
-	protected readonly _ariaInvalid = computed(() => this._combobox.controlState?.()?.invalid);
+	protected readonly _invalid = computed(() => this._combobox.controlState?.()?.invalid);
 	protected readonly _dirty = computed(() => this._combobox.controlState?.()?.dirty);
 	protected readonly _touched = computed(() => this._combobox.controlState?.()?.touched);
 	protected readonly _spartanInvalid = computed(

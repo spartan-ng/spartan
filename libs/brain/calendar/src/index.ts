@@ -41,6 +41,7 @@ export * from './lib/month-year-calendar/brn-month-year-calendar-month-button';
 export * from './lib/month-year-calendar/brn-month-year-calendar-next-button';
 export * from './lib/month-year-calendar/brn-month-year-calendar-previous-button';
 export * from './lib/month-year-calendar/brn-month-year-calendar-year-button';
+export * from './lib/month-year-calendar/brn-month-year-calendar.token';
 
 export const BrnCalendarImports = [
 	BrnCalendarCellButton,

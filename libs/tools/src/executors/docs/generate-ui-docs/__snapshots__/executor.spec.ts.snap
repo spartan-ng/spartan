@@ -3966,6 +3966,26 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "type": "boolean",
           },
           {
+            "name": "aria-label",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "name": "aria-labelledby",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "name": "aria-describedby",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "name": "aria-invalid",
+            "required": false,
+            "type": "boolean | undefined",
+          },
+          {
             "name": "clearAriaLabel",
             "required": false,
             "type": "string",
@@ -4024,6 +4044,26 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "name": "forceInvalid",
             "required": false,
             "type": "boolean",
+          },
+          {
+            "name": "aria-label",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "name": "aria-labelledby",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "name": "aria-describedby",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "name": "aria-invalid",
+            "required": false,
+            "type": "boolean | undefined",
           },
           {
             "name": "clearAriaLabel",
@@ -4158,6 +4198,26 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "name": "forceInvalid",
             "required": false,
             "type": "boolean",
+          },
+          {
+            "name": "aria-label",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "name": "aria-labelledby",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "name": "aria-describedby",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "name": "aria-invalid",
+            "required": false,
+            "type": "boolean | undefined",
           },
           {
             "name": "clearAriaLabel",
@@ -4319,6 +4379,26 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "type": "boolean",
           },
           {
+            "name": "aria-label",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "name": "aria-labelledby",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "name": "aria-describedby",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "name": "aria-invalid",
+            "required": false,
+            "type": "boolean | undefined",
+          },
+          {
             "name": "clearAriaLabel",
             "required": false,
             "type": "string",
@@ -4433,6 +4513,26 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "name": "forceInvalid",
             "required": false,
             "type": "boolean",
+          },
+          {
+            "name": "aria-label",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "name": "aria-labelledby",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "name": "aria-describedby",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "name": "aria-invalid",
+            "required": false,
+            "type": "boolean | undefined",
           },
           {
             "name": "clearAriaLabel",
@@ -5838,6 +5938,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "required": false,
             "type": "boolean",
           },
+          {
+            "name": "aria-invalid",
+            "required": false,
+            "type": "boolean | undefined",
+          },
         ],
         "models": [],
         "outputs": [],
@@ -5857,6 +5962,16 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "name": "forceInvalid",
             "required": false,
             "type": "boolean",
+          },
+          {
+            "name": "aria-invalid",
+            "required": false,
+            "type": "boolean | undefined",
+          },
+          {
+            "name": "aria-describedby",
+            "required": false,
+            "type": "string | null",
           },
         ],
         "models": [],
@@ -7169,6 +7284,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "required": false,
             "type": "string",
           },
+          {
+            "name": "pageSizeAriaLabel",
+            "required": false,
+            "type": "string",
+          },
         ],
         "models": [
           {
@@ -7240,6 +7360,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
           },
           {
             "name": "previousAriaLabel",
+            "required": false,
+            "type": "string",
+          },
+          {
+            "name": "pageSizeAriaLabel",
             "required": false,
             "type": "string",
           },
@@ -7348,7 +7473,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "a[hlm-pagination-next],a[hlmPaginationNext]",
+        "selector": "a[hlm-pagination-next],a[hlmPaginationNext],button[hlm-pagination-next],button[hlmPaginationNext]",
       },
       "HlmPaginationPrevious": {
         "exportAs": "hlmPaginationPrevious",
@@ -7376,7 +7501,7 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "a[hlm-pagination-previous],a[hlmPaginationPrevious]",
+        "selector": "a[hlm-pagination-previous],a[hlmPaginationPrevious],button[hlm-pagination-previous],button[hlmPaginationPrevious]",
       },
     },
   },
@@ -8415,6 +8540,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "required": false,
             "type": "boolean",
           },
+          {
+            "name": "aria-invalid",
+            "required": false,
+            "type": "boolean | undefined",
+          },
         ],
         "models": [],
         "outputs": [
@@ -8511,6 +8641,16 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "name": "required",
             "required": false,
             "type": "boolean",
+          },
+          {
+            "name": "aria-invalid",
+            "required": false,
+            "type": "boolean | undefined",
+          },
+          {
+            "name": "aria-describedby",
+            "required": false,
+            "type": "string | null",
           },
         ],
         "models": [],
@@ -11016,6 +11156,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "required": false,
             "type": "boolean",
           },
+          {
+            "name": "aria-invalid",
+            "required": false,
+            "type": "boolean | undefined",
+          },
         ],
         "models": [],
         "outputs": [],
@@ -11035,6 +11180,16 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "name": "forceInvalid",
             "required": false,
             "type": "boolean",
+          },
+          {
+            "name": "aria-invalid",
+            "required": false,
+            "type": "boolean | undefined",
+          },
+          {
+            "name": "aria-describedby",
+            "required": false,
+            "type": "string | null",
           },
         ],
         "models": [],

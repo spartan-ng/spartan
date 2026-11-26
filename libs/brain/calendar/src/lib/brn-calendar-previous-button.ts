@@ -2,6 +2,7 @@ import { computed, Directive } from '@angular/core';
 import { injectDateAdapter } from '@spartan-ng/brain/date-time';
 import { injectBrnCalendar } from './brn-calendar.token';
 import { injectBrnCalendarI18n } from './i18n/calendar-i18n';
+import { nearestEnabledDateInMonth } from './utils/nearest-enabled-date-in-month';
 
 @Directive({
 	selector: 'button[brnCalendarPreviousButton]',
@@ -25,32 +26,32 @@ export class BrnCalendarPreviousButton {
 	/** Access the calendar i18n */
 	protected readonly _i18n = injectBrnCalendarI18n();
 
-	/** Whether navigating to the previous month is disabled. */
-	protected readonly _disabled = computed(() => {
-		const { targetDate, possibleDate } = this.previousMonthTarget();
-		const effective = this._dateAdapter.isSameMonth(possibleDate, targetDate) ? possibleDate : targetDate;
-		return this._calendar.isDateDisabled(effective);
+	/**
+	 * An enabled day in the previous month, closest to the focused day number.
+	 * Undefined when the whole month is outside min/max or rejected by `dateDisabled`.
+	 */
+	private readonly _enabledTarget = computed(() => {
+		const targetDate = this.previousMonthDate();
+		return nearestEnabledDateInMonth(targetDate, targetDate, this._dateAdapter, (date) =>
+			this._calendar.isDateDisabled(date),
+		);
 	});
+
+	/** Whether navigating to the previous month is disabled. */
+	protected readonly _disabled = computed(() => this._enabledTarget() === undefined);
 
 	/** Focus the previous month */
 	protected focusPreviousMonth(): void {
-		if (this._disabled()) {
+		const date = this._enabledTarget();
+		if (date === undefined) {
 			return;
 		}
 
-		const { targetDate, possibleDate } = this.previousMonthTarget();
-
-		if (this._dateAdapter.isSameMonth(possibleDate, targetDate)) {
-			// if this date is within the same month, then focus it
-			this._calendar.setFocusedDate(possibleDate);
-			return;
-		}
-
-		this._calendar.setFocusedDate(targetDate);
+		this._calendar.setFocusedDate(date);
 	}
 
-	/** @internal The target date in the previous month and its constrained counterpart. */
-	private previousMonthTarget(): { targetDate: unknown; possibleDate: unknown } {
+	/** The same day number in the previous month, clamped to that month's length. */
+	private previousMonthDate() {
 		const focusedDate = this._calendar.focusedDate();
 		const date = this._dateAdapter.getDate(focusedDate);
 
@@ -61,14 +62,10 @@ export class BrnCalendarPreviousButton {
 		const lastDay = this._dateAdapter.endOfMonth(previousMonthTarget);
 
 		// if we are on a date that does not exist in the previous month, clamp to the last day of the month.
-		let targetDate: typeof focusedDate;
 		if (date > this._dateAdapter.getDate(lastDay)) {
-			targetDate = lastDay;
-		} else {
-			targetDate = this._dateAdapter.set(previousMonthTarget, { day: date });
+			return lastDay;
 		}
 
-		// if the date is disabled, but there are available dates in the month, focus the constrained date.
-		return { targetDate, possibleDate: this._calendar.constrainDate(targetDate) };
+		return this._dateAdapter.set(previousMonthTarget, { day: date });
 	}
 }

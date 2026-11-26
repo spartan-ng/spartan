@@ -22,7 +22,7 @@ import { injectBrnAutocompleteBase } from './brn-autocomplete.token';
 		'[attr.aria-activedescendant]': '_isExpanded() ? _activeDescendant() : null',
 		'[attr.autocomplete]': 'autocomplete()',
 		'[attr.aria-invalid]': '_ariaInvalid() ? "true": null',
-		'[attr.data-invalid]': '_ariaInvalid() ? "true": null',
+		'[attr.data-invalid]': '_invalid() ? "true": null',
 		'[attr.data-matches-spartan-invalid]': '_spartanInvalid() ? "true": null',
 		'[attr.data-touched]': '_touched() ? "true": null',
 		'[attr.data-dirty]': '_dirty() ? "true": null',
@@ -61,16 +61,20 @@ export class BrnAutocompleteInput<T> {
 
 	protected readonly _activeDescendant = signal<string | undefined>(undefined);
 
-	/** Computed aria-invalid: uses manual override if provided, otherwise reads from parent error state. */
-	protected readonly _ariaInvalid = computed(
-		() => this.ariaInvalidInput() ?? this._autocomplete.controlState?.()?.invalid,
-	);
+	/** Computed aria-invalid: uses the manual override if provided, otherwise the error state matcher result. */
+	protected readonly _ariaInvalid = computed(() => this.ariaInvalidInput() ?? !!this._spartanInvalid());
+	protected readonly _invalid = computed(() => this._autocomplete.controlState?.()?.invalid);
 
 	protected readonly _spartanInvalid = computed(
 		() => this.forceInvalid() || this._autocomplete.controlState?.()?.spartanInvalid,
 	);
 	protected readonly _touched = computed(() => this._autocomplete.controlState?.()?.touched);
 	protected readonly _dirty = computed(() => this._autocomplete.controlState?.()?.dirty);
+
+	private readonly _hasValue = computed(() => {
+		const value = this._autocomplete.value();
+		return this._autocomplete.search() !== '' || (value ?? '') !== '';
+	});
 
 	constructor() {
 		this._autocomplete.registerAutocompleteInput(this);
@@ -120,7 +124,8 @@ export class BrnAutocompleteInput<T> {
 				this._autocomplete.open();
 			}
 
-			if (event.key === 'Escape') {
+			if (event.key === 'Escape' && this._hasValue()) {
+				event.preventDefault();
 				this._autocomplete.resetValue();
 			}
 		}

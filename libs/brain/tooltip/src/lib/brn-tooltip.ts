@@ -286,7 +286,9 @@ export class BrnTooltip {
 			this._renderer.listen(this._elementRef.nativeElement, 'pointerleave', (event: PointerEvent) => {
 				if (this._isHoverPointer(event)) this.delay(false, this.hideDelay());
 			}),
-			this._renderer.listen(this._elementRef.nativeElement, 'focus', () => this._requestShow()),
+			this._renderer.listen(this._elementRef.nativeElement, 'focus', () => {
+				if (this._elementRef.nativeElement.matches(':focus-visible')) this._requestShow();
+			}),
 			this._renderer.listen(this._elementRef.nativeElement, 'blur', () => this.delay(false, this.hideDelay())),
 		];
 	}
@@ -452,6 +454,8 @@ export class BrnTooltip {
 	}
 
 	private _detach(): void {
+		// The content may be removed while hovered, which fires no pointerleave.
+		this._tooltipHovered = false;
 		this._clearAriaDescribedBy();
 		this._positionChangeSub?.unsubscribe();
 		this._positionChangeSub = undefined;

@@ -33,6 +33,20 @@ describe('migrate-native-host-elements generator', () => {
 		expect(result).toContain('<a hlmPaginationNext iconOnly link="."></a>');
 	});
 
+	it('should migrate pagination links without a link to buttons', () => {
+		const result = migrateNativeHostElements(`
+			<hlm-pagination-previous [text]="label" (click)="goToPrevious()" />
+			<hlm-pagination-next (click)="goToNext()"></hlm-pagination-next>
+			el.querySelector('hlm-pagination-next button');
+		`);
+
+		expect(result).toContain(
+			'<button type="button" hlmPaginationPrevious [text]="label" (click)="goToPrevious()"></button>',
+		);
+		expect(result).toContain('<button type="button" hlmPaginationNext (click)="goToNext()"></button>');
+		expect(result).toContain(`el.querySelector('[hlmPaginationNext]')`);
+	});
+
 	it('should keep multi-line attribute layouts and handle ">" inside bindings', () => {
 		const result = migrateNativeHostElements(`
 			<hlm-select-trigger

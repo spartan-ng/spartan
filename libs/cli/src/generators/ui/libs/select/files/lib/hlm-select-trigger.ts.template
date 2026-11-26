@@ -1,55 +1,41 @@
 import type { BooleanInput } from '@angular/cdk/coercion';
-import { booleanAttribute, ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronDown } from '@ng-icons/lucide';
 import { BrnFieldControlDescribedBy } from '@spartan-ng/brain/field';
 import { BrnSelectTrigger } from '@spartan-ng/brain/select';
-import { hlm } from '<%- importAlias %>/utils';
-import type { ClassValue } from 'cn';
+import { classes } from '<%- importAlias %>/utils';
 
 @Component({
-	selector: 'hlm-select-trigger',
+	selector: 'button[hlm-select-trigger],button[hlmSelectTrigger]',
 	exportAs: 'hlmSelectTrigger',
-	imports: [NgIcon, BrnSelectTrigger, BrnFieldControlDescribedBy],
+	imports: [NgIcon],
 	providers: [provideIcons({ lucideChevronDown })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	hostDirectives: [
+		{ directive: BrnSelectTrigger, inputs: ['id: buttonId', 'forceInvalid', 'aria-invalid'] },
+		{ directive: BrnFieldControlDescribedBy, inputs: ['aria-describedby'] },
+	],
+	host: {
+		'data-slot': 'select-trigger',
+		'[attr.data-size]': 'size()',
+	},
 	template: `
-		<button
-			brnSelectTrigger
-			brnFieldControlDescribedBy
-			[forceInvalid]="forceInvalid()"
-			[id]="buttonId()"
-			[class]="_computedClass()"
-			[aria-invalid]="ariaInvalidInput()"
-			[attr.data-size]="size()"
-			data-slot="select-trigger"
-		>
-			<ng-content />
+		<ng-content />
+		@if (!hideIcon()) {
 			<ng-icon name="lucideChevronDown" class="spartan-select-trigger-icon ms-auto" />
-		</button>
+		}
 	`,
 })
 export class HlmSelectTrigger {
-	private static _id = 0;
-
-	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	protected readonly _computedClass = computed(() =>
-		hlm(
-			'spartan-select-trigger flex w-fit items-center justify-between whitespace-nowrap outline-none disabled:cursor-not-allowed disabled:opacity-50 *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center [&_ng-icon]:pointer-events-none [&_ng-icon]:shrink-0',
-			this.userClass(),
-		),
-	);
-
-	public readonly buttonId = input<string>(`hlm-select-trigger-${HlmSelectTrigger._id++}`);
-
 	public readonly size = input<'default' | 'sm'>('default');
 
-	/** Whether to force the trigger into an invalid state. */
-	public readonly forceInvalid = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
+	public readonly hideIcon = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
-	/** Manual override for aria-invalid. When not set, auto-detects from the parent autocomplete error state. */
-	public readonly ariaInvalidInput = input<boolean | undefined, BooleanInput>(undefined, {
-		transform: (v: BooleanInput) => (v === '' || v === undefined ? undefined : booleanAttribute(v)),
-		alias: 'aria-invalid',
-	});
+	constructor() {
+		classes(
+			() =>
+				'spartan-select-trigger flex w-fit items-center justify-between whitespace-nowrap outline-none disabled:cursor-not-allowed disabled:opacity-50 *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center [&_ng-icon]:pointer-events-none [&_ng-icon]:shrink-0',
+		);
+	}
 }

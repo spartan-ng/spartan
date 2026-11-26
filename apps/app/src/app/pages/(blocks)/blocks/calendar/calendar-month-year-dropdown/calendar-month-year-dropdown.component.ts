@@ -15,9 +15,9 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 			<hlm-calendar class="bg-background" [captionLayout]="_captionLayout()" />
 
 			<hlm-select class="bg-background" [(ngModel)]="_captionLayout" [itemToString]="itemToString">
-				<hlm-select-trigger class="w-full">
+				<button hlmSelectTrigger class="w-full">
 					<hlm-select-value />
-				</hlm-select-trigger>
+				</button>
 				<hlm-select-content *hlmSelectPortal>
 					<hlm-select-group>
 						@for (option of options; track option.value) {

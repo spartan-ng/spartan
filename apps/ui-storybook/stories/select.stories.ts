@@ -47,9 +47,9 @@ export const Default: Story = {
 		props: { ...args },
 		template: /* HTML */ `
 			<hlm-select ${argsToTemplate(args, { exclude: ['value', 'placeholder'] })}>
-				<hlm-select-trigger class="w-56">
+				<button hlmSelectTrigger class="w-56">
 					<hlm-select-value ${argsToTemplate(args, { include: ['placeholder'] })} />
-				</hlm-select-trigger>
+				</button>
 				<hlm-select-content *hlmSelectPortal>
 					<hlm-select-group>
 						<hlm-select-label>Fruits</hlm-select-label>
@@ -70,12 +70,12 @@ export const Multiple: Story = {
 		props: { ...args },
 		template: /* HTML */ `
 			<hlm-select-multiple ${argsToTemplate(args, { exclude: ['value', 'placeholder'] })}>
-				<hlm-select-trigger class="w-56">
+				<button hlmSelectTrigger class="w-56">
 					<hlm-select-placeholder>Select fruits</hlm-select-placeholder>
 					<ng-template hlmSelectValues let-values>
 						<hlm-select-values-content>@for (value of values; track value) { {{ value }} }</hlm-select-values-content>
 					</ng-template>
-				</hlm-select-trigger>
+				</button>
 				<hlm-select-content *hlmSelectPortal>
 					<hlm-select-group>
 						<hlm-select-label>Fruits</hlm-select-label>
@@ -100,9 +100,9 @@ export const ReactiveFormControl: Story = {
 			</div>
 			<form [formGroup]="fruitGroup">
 				<hlm-select class="w-56" ${argsToTemplate(args, { exclude: ['value', 'placeholder'] })} formControlName="fruit">
-					<hlm-select-trigger>
+					<button hlmSelectTrigger>
 						<hlm-select-value ${argsToTemplate(args, { include: ['placeholder'] })} />
-					</hlm-select-trigger>
+					</button>
 					<hlm-select-content *hlmSelectPortal>
 						<hlm-select-group>
 							<hlm-select-label>Fruits</hlm-select-label>
@@ -128,9 +128,9 @@ export const DisabledOption: Story = {
 			</div>
 			<form [formGroup]="fruitGroup">
 				<hlm-select class="w-56" ${argsToTemplate(args, { exclude: ['value', 'placeholder'] })} formControlName="fruit">
-					<hlm-select-trigger>
+					<button hlmSelectTrigger>
 						<hlm-select-value ${argsToTemplate(args, { include: ['placeholder'] })} />
-					</hlm-select-trigger>
+					</button>
 					<hlm-select-content *hlmSelectPortal>
 						<hlm-select-group>
 							<hlm-select-label>Fruits</hlm-select-label>
@@ -168,9 +168,9 @@ export const SelectItemToString: Story = {
 					formControlName="fruit"
 					[itemToString]="itemToString"
 				>
-					<hlm-select-trigger>
+					<button hlmSelectTrigger>
 						<hlm-select-value ${argsToTemplate(args, { include: ['placeholder'] })} />
-					</hlm-select-trigger>
+					</button>
 					<hlm-select-content *hlmSelectPortal>
 						<hlm-select-group>
 							<hlm-select-label>Fruits</hlm-select-label>
@@ -211,9 +211,9 @@ export const ReactiveFormControlWithForAndInitialValue: Story = {
 			</div>
 			<form [formGroup]="fruitGroup">
 				<hlm-select class="w-56" ${argsToTemplate(args, { exclude: ['value'] })} formControlName="fruit">
-					<hlm-select-trigger>
+					<button hlmSelectTrigger>
 						<hlm-select-value ${argsToTemplate(args, { include: ['placeholder'] })} />
-					</hlm-select-trigger>
+					</button>
 					<hlm-select-content *hlmSelectPortal>
 						<hlm-select-group>
 							<hlm-select-label>Fruits</hlm-select-label>
@@ -292,12 +292,12 @@ export const ReactiveFormControlWithForAndInitialValueAndMultiple: StoryObj<
 					${argsToTemplate(args, { exclude: ['value', 'options', 'placeholder', 'initialFormValue'] })}
 					formControlName="fruit"
 				>
-					<hlm-select-trigger>
+					<button hlmSelectTrigger>
 						<hlm-select-placeholder>Select fruits</hlm-select-placeholder>
 						<ng-template hlmSelectValues let-values>
 							<hlm-select-values-content>@for (value of values; track value) { {{ value }} }</hlm-select-values-content>
 						</ng-template>
-					</hlm-select-trigger>
+					</button>
 					<hlm-select-content *hlmSelectPortal>
 						<hlm-select-group>
 							<hlm-select-label>Fruits</hlm-select-label>
@@ -329,9 +329,9 @@ export const ReactiveFormControlWithValidation: Story = {
 			</div>
 			<form [formGroup]="fruitGroup">
 				<hlm-select class="w-56" formControlName="fruit" ${argsToTemplate(args, { exclude: ['value', 'placeholder'] })}>
-					<hlm-select-trigger>
+					<button hlmSelectTrigger>
 						<hlm-select-value ${argsToTemplate(args, { include: ['placeholder'] })} />
-					</hlm-select-trigger>
+					</button>
 					<hlm-select-content *hlmSelectPortal>
 						<hlm-select-group>
 							<hlm-select-label>Fruits</hlm-select-label>
@@ -366,9 +366,9 @@ export const ReactiveFormControlWithValidationWithLabel: Story = {
 			<form [formGroup]="fruitGroup">
 				<label hlmLabel>Select a Fruit</label>
 				<hlm-select class="w-56" formControlName="fruit" ${argsToTemplate(args, { exclude: ['value'] })}>
-					<hlm-select-trigger>
+					<button hlmSelectTrigger>
 						<hlm-select-value ${argsToTemplate(args, { include: ['placeholder'] })} />
-					</hlm-select-trigger>
+					</button>
 					<hlm-select-content *hlmSelectPortal>
 						<hlm-select-group>
 							<hlm-select-label>Fruits</hlm-select-label>
@@ -405,9 +405,9 @@ export const WithHintAndError: Story = {
 						formControlName="fruit"
 						${argsToTemplate(args, { exclude: ['value', 'placeholder'] })}
 					>
-						<hlm-select-trigger>
+						<button hlmSelectTrigger>
 							<hlm-select-value ${argsToTemplate(args, { include: ['placeholder'] })} />
-						</hlm-select-trigger>
+						</button>
 						<hlm-select-content *hlmSelectPortal>
 							<hlm-select-group>
 								<hlm-select-label>Fruits</hlm-select-label>
@@ -447,9 +447,9 @@ export const NgModelFormControl: Story = {
 				</div>
 				<label hlmLabel>Select a Fruit</label>
 				<hlm-select class="w-56" ${argsToTemplate(args, { exclude: ['value'] })} [(ngModel)]="fruit" name="fruit">
-					<hlm-select-trigger>
+					<button hlmSelectTrigger>
 						<hlm-select-value ${argsToTemplate(args, { include: ['placeholder'] })} />
-					</hlm-select-trigger>
+					</button>
 					<hlm-select-content *hlmSelectPortal>
 						<hlm-select-group>
 							<hlm-select-label>Fruits</hlm-select-label>
@@ -492,9 +492,9 @@ export const NgModelFormControlInitialValue: Story = {
                     [(ngModel)]="fruit"
                     name="fruit"
                 >
-                    <hlm-select-trigger>
+                    <button hlmSelectTrigger>
                         <hlm-select-value ${argsToTemplate(args, { include: ['placeholder'] })} />
-                    </hlm-select-trigger>
+                    </button>
                     <hlm-select-content *hlmSelectPortal>
 						<hlm-select-group>
                         	<hlm-select-label>Fruits</hlm-select-label>
@@ -518,9 +518,9 @@ export const SelectWithLabel: Story = {
 			<form [formGroup]="fruitGroup">
 				<label hlmLabel for="select-trigger">Select a Fruit</label>
 				<hlm-select formControlName="fruit" ${argsToTemplate(args, { exclude: ['value'] })}>
-					<hlm-select-trigger class="w-56" buttonId="select-trigger">
+					<button hlmSelectTrigger class="w-56" buttonId="select-trigger">
 						<hlm-select-value ${argsToTemplate(args, { include: ['placeholder'] })} />
-					</hlm-select-trigger>
+					</button>
 					<hlm-select-content *hlmSelectPortal class="w-56">
 						<hlm-select-group>
 							<hlm-select-label>Fruits</hlm-select-label>
@@ -543,9 +543,9 @@ export const Scrollable: Story = {
 		template: /* HTML */ `
 			<form [formGroup]="myform">
 				<hlm-select formControlName="timezone" ${argsToTemplate(args, { exclude: ['value', 'placeholder'] })}>
-					<hlm-select-trigger class="w-[280px]">
+					<button hlmSelectTrigger class="w-[280px]">
 						<hlm-select-value ${argsToTemplate(args, { include: ['placeholder'] })} />
-					</hlm-select-trigger>
+					</button>
 					<hlm-select-content *hlmSelectPortal showScroll class="min-w-content max-h-96">
 						<hlm-select-group>
 							<hlm-select-label>North America</hlm-select-label>
@@ -605,13 +605,13 @@ export const CustomPlaceholder: Story = {
 		props: { ...args },
 		template: /* HTML */ `
 			<hlm-select class="inline-block" ${argsToTemplate(args, { exclude: ['value'] })}>
-				<hlm-select-trigger class="w-56">
+				<button hlmSelectTrigger class="w-56">
 					<hlm-select-placeholder>
 						<ng-icon name="lucideCitrus" />
 						Select a fruit
 					</hlm-select-placeholder>
 					<hlm-select-value />
-				</hlm-select-trigger>
+				</button>
 				<hlm-select-content *hlmSelectPortal>
 					<hlm-select-group>
 						<hlm-select-label>Fruits</hlm-select-label>
@@ -648,9 +648,9 @@ export const WithLabelAndForm: Story = {
 		<form class="space-y-5" (ngSubmit)="handleSubmit()">
 			<label hlmLabel>Select a Fruit*</label>
 			<hlm-select class="w-56" [(ngModel)]="fruit">
-				<hlm-select-trigger>
+				<button hlmSelectTrigger>
 					<hlm-select-value placeholder="Select a fruit" />
-				</hlm-select-trigger>
+				</button>
 				<hlm-select-content *hlmSelectPortal>
 					<hlm-select-group>
 						<hlm-select-label>Fruits</hlm-select-label>
@@ -698,7 +698,7 @@ export const DynamicOptionsMultiSelect: Story = {
 			</div>
 			<label hlmLabel>Select a Fruit*</label>
 			<hlm-select-multiple class="w-56" [formControl]="fruit">
-				<hlm-select-trigger>
+				<button hlmSelectTrigger>
 					<hlm-select-placeholder>Select an option</hlm-select-placeholder>
 					<ng-template hlmSelectValues let-values>
 						<hlm-select-values-content>
@@ -707,7 +707,7 @@ export const DynamicOptionsMultiSelect: Story = {
 							}
 						</hlm-select-values-content>
 					</ng-template>
-				</hlm-select-trigger>
+				</button>
 				<hlm-select-content *hlmSelectPortal>
 					<hlm-select-group>
 						<hlm-select-label>Fruits</hlm-select-label>
@@ -784,9 +784,9 @@ export const FalsyValue: Story = {
 				<pre data-testid="value">Form Control Value: {{ allowPayments.value | json }}</pre>
 			</div>
 			<hlm-select class="w-56" [formControl]="allowPayments">
-				<hlm-select-trigger>
+				<button hlmSelectTrigger>
 					<hlm-select-value placeholder="Select an option" />
-				</hlm-select-trigger>
+				</button>
 				<hlm-select-content *hlmSelectPortal>
 					<hlm-select-item [value]="true">Allowed</hlm-select-item>
 					<hlm-select-item [value]="false">Not allowed</hlm-select-item>

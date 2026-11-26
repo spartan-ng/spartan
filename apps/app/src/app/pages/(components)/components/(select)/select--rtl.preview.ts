@@ -7,9 +7,9 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 	imports: [HlmSelectImports],
 	template: `
 		<hlm-select [attr.dir]="_dir()" [itemToString]="itemToString">
-			<hlm-select-trigger class="w-32">
+			<button hlmSelectTrigger class="w-32">
 				<hlm-select-value [placeholder]="_t()['selectFruit']" />
-			</hlm-select-trigger>
+			</button>
 			<hlm-select-content *hlmSelectPortal [attr.dir]="_dir()">
 				<hlm-select-group>
 					<hlm-select-label>{{ _t()['fruits'] }}</hlm-select-label>

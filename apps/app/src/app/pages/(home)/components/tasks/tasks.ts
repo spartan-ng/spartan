@@ -267,9 +267,9 @@ const columns = columnHelper.columns([
 							[ngModel]="table.atoms.pagination.get().pageSize"
 							(ngModelChange)="table.setPageSize($event); table.resetPageIndex()"
 						>
-							<hlm-select-trigger size="sm" class="mr-1 inline-flex h-8 w-fit">
+							<button hlmSelectTrigger size="sm" class="mr-1 inline-flex h-8 w-fit">
 								<hlm-select-value placeholder="{{ _availablePageSizes[0] }}" />
-							</hlm-select-trigger>
+							</button>
 							<hlm-select-content *hlmSelectPortal>
 								<hlm-select-group>
 									@for (size of _availablePageSizes; track size) {

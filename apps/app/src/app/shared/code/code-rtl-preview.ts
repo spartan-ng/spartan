@@ -25,9 +25,9 @@ import { HlmSeparator } from '@spartan-ng/helm/separator';
 	template: `
 		<div class="border-border flex flex-row items-center justify-between border-b p-4">
 			<hlm-select class="inline-block" [(value)]="_languageService.language" [itemToString]="itemToString">
-				<hlm-select-trigger class="w-52">
+				<button hlmSelectTrigger class="w-52">
 					<hlm-select-value />
-				</hlm-select-trigger>
+				</button>
 				<hlm-select-content *hlmSelectPortal>
 					<hlm-select-group>
 						@for (language of languages; track language.value) {

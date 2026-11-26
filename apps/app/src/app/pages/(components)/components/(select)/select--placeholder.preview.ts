@@ -9,13 +9,13 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 	providers: [provideIcons({ lucideCitrus })],
 	template: `
 		<hlm-select>
-			<hlm-select-trigger class="w-56">
+			<button hlmSelectTrigger class="w-56">
 				<hlm-select-placeholder>
 					<ng-icon name="lucideCitrus" />
 					Select a fruit
 				</hlm-select-placeholder>
 				<hlm-select-value />
-			</hlm-select-trigger>
+			</button>
 			<hlm-select-content *hlmSelectPortal>
 				<hlm-select-group>
 					<hlm-select-label>Fruits</hlm-select-label>

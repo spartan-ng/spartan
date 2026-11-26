@@ -611,9 +611,9 @@ import { injectTableContext } from '@tanstack/angular-table';
 				<div class="flex items-center space-x-2">
 					<p class="text-sm font-medium">Rows per page</p>
 					<hlm-select [value]="pagination().pageSize" (valueChange)="setPageSize($event)">
-						<hlm-select-trigger class="h-8 w-[70px]">
+						<button hlmSelectTrigger class="h-8 w-[70px]">
 							<hlm-select-value />
-						</hlm-select-trigger>
+						</button>
 						<hlm-select-content *hlmSelectPortal>
 							@for (pageSize of pageSizes; track pageSize) {
 								<hlm-select-item [value]="pageSize">{{ pageSize }}</hlm-select-item>

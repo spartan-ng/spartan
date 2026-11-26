@@ -1,45 +1,47 @@
 import type { BooleanInput } from '@angular/cdk/coercion';
 import { booleanAttribute, ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
-import type { RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronRight } from '@ng-icons/lucide';
-import type { ButtonVariants } from '<%- importAlias %>/button';
-import { hlm } from '<%- importAlias %>/utils';
-import type { ClassValue } from 'cn';
-import { HlmPaginationLink } from './hlm-pagination-link';
+import { buttonVariants } from '<%- importAlias %>/button';
+import { classes, hlm } from '<%- importAlias %>/utils';
 import { injectHlmPaginationConfig } from './hlm-pagination.token';
 
 @Component({
-	selector: 'hlm-pagination-next',
+	selector: 'a[hlm-pagination-next],a[hlmPaginationNext]',
 	exportAs: 'hlmPaginationNext',
-	imports: [HlmPaginationLink, NgIcon],
+	imports: [NgIcon],
 	providers: [provideIcons({ lucideChevronRight })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	hostDirectives: [
+		{
+			directive: RouterLink,
+			inputs: [
+				'routerLink: link',
+				'target',
+				'queryParams',
+				'fragment',
+				'queryParamsHandling',
+				'state',
+				'info',
+				'relativeTo',
+				'preserveFragment',
+				'skipLocationChange',
+				'replaceUrl',
+			],
+		},
+	],
+	host: {
+		'data-slot': 'pagination-link',
+		'[attr.aria-label]': 'ariaLabel()',
+	},
 	template: `
-		<a
-			hlmPaginationLink
-			[class]="_computedClass()"
-			[link]="link()"
-			[queryParams]="queryParams()"
-			[queryParamsHandling]="queryParamsHandling()"
-			[size]="_size()"
-			[attr.aria-label]="ariaLabel()"
-		>
-			<span [class]="_labelClass()">{{ text() }}</span>
-			<ng-icon name="lucideChevronRight" class="spartan-rtl-flip" />
-		</a>
+		<span [class]="_labelClass()">{{ text() }}</span>
+		<ng-icon name="lucideChevronRight" class="spartan-rtl-flip" />
 	`,
 })
 export class HlmPaginationNext {
 	private readonly _config = injectHlmPaginationConfig();
-
-	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	/** The link to navigate to the next page. */
-	public readonly link = input<RouterLink['routerLink']>();
-	/** The query parameters to pass to the next page. */
-	public readonly queryParams = input<RouterLink['queryParams']>();
-	/** How to handle query parameters when navigating to the next page. */
-	public readonly queryParamsHandling = input<RouterLink['queryParamsHandling']>();
 
 	/** The aria-label for the next page link. */
 	public readonly ariaLabel = input<string>(this._config.nextAriaLabel, { alias: 'aria-label' });
@@ -49,11 +51,16 @@ export class HlmPaginationNext {
 	public readonly iconOnly = input<boolean, BooleanInput>(false, {
 		transform: booleanAttribute,
 	});
-	protected readonly _labelClass = computed(() => (this.iconOnly() ? 'sr-only' : 'hidden sm:block'));
+	/** The link to navigate to the page. */
+	public readonly link = input<RouterLink['routerLink']>();
+	protected readonly _labelClass = computed(() => hlm(this.iconOnly() ? 'sr-only' : 'hidden sm:block'));
 
-	protected readonly _size = computed<ButtonVariants['size']>(() => (this.iconOnly() ? 'icon' : 'default'));
-
-	protected readonly _computedClass = computed(() =>
-		hlm(!this.iconOnly() && 'spartan-pagination-next', this.userClass()),
-	);
+	constructor() {
+		classes(() => [
+			'spartan-pagination-link relative',
+			buttonVariants({ variant: 'ghost', size: this.iconOnly() ? 'icon' : 'default' }),
+			this.link() === undefined && 'cursor-pointer',
+			!this.iconOnly() && 'spartan-pagination-next',
+		]);
+	}
 }

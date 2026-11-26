@@ -9,9 +9,9 @@ import { HlmSelectImports } from '../../index';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<hlm-select [formField]="form.fruit" class="w-56">
-			<hlm-select-trigger>
+			<button hlmSelectTrigger>
 				<hlm-select-value [placeholder]="_placeholder()" />
-			</hlm-select-trigger>
+			</button>
 			<hlm-select-content *hlmSelectPortal>
 				<hlm-select-item value="apple">Apple</hlm-select-item>
 				<hlm-select-item value="banana">Banana</hlm-select-item>

@@ -5,7 +5,7 @@
  *   `hlm-date-range-input`, `hlm-month-year-input`), including the enter-then-blur
  *   regression where committing with Enter and then blurring must NOT clear the value.
  *
- * The Input stories render a hidden `hlm-date-picker-trigger` next to the input. Its
+ * The Input stories render a hidden `hlmDatePickerTrigger` button next to the input. Its
  * `data-placeholder` attribute mirrors the picker's model: present == empty, absent == a
  * date is committed. That makes the underlying model observable from the DOM.
  */

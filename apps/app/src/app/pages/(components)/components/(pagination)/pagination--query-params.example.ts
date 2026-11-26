@@ -12,7 +12,12 @@ import { map } from 'rxjs/operators';
 			<ul hlmPaginationContent>
 				@if (currentPage() > 1) {
 					<li hlmPaginationItem>
-						<hlm-pagination-previous link="." [queryParams]="{ page: currentPage() - 1 }" queryParamsHandling="merge" />
+						<a
+							hlmPaginationPrevious
+							link="."
+							[queryParams]="{ page: currentPage() - 1 }"
+							queryParamsHandling="merge"
+						></a>
 					</li>
 				}
 				@for (page of pages; track 'page_' + page) {
@@ -31,7 +36,7 @@ import { map } from 'rxjs/operators';
 
 				@if (currentPage() < pages[pages.length - 1]) {
 					<li hlmPaginationItem>
-						<hlm-pagination-next link="." [queryParams]="{ page: currentPage() + 1 }" queryParamsHandling="merge" />
+						<a hlmPaginationNext link="." [queryParams]="{ page: currentPage() + 1 }" queryParamsHandling="merge"></a>
 					</li>
 				}
 			</ul>

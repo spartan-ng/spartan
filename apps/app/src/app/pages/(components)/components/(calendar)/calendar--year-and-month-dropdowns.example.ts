@@ -19,9 +19,9 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 		</div>
 
 		<hlm-select class="inline-block" [(ngModel)]="_captionLayout" [itemToString]="itemToString">
-			<hlm-select-trigger class="w-full">
+			<button hlmSelectTrigger class="w-full">
 				<hlm-select-value placeholder="Select an option" />
-			</hlm-select-trigger>
+			</button>
 			<hlm-select-content *hlmSelectPortal>
 				<hlm-select-group>
 					<hlm-select-item value="dropdown">Month and Year</hlm-select-item>

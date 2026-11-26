@@ -26,9 +26,9 @@ type ShortcutSelectValue = 'none' | 'letters' | 'numbers';
 				[itemToString]="shortcutLabel"
 				(valueChange)="onShortcutsChange($event)"
 			>
-				<hlm-select-trigger class="w-36" buttonId="questionnaire-shortcut-style">
+				<button hlmSelectTrigger class="w-36" buttonId="questionnaire-shortcut-style">
 					<hlm-select-value placeholder="Shortcuts" />
-				</hlm-select-trigger>
+				</button>
 				<hlm-select-content *hlmSelectPortal>
 					<hlm-select-group>
 						@for (option of shortcutOptions; track option.value) {

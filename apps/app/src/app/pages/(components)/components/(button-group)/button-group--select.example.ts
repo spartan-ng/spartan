@@ -13,11 +13,11 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 	providers: [provideIcons({ lucideArrowRight })],
 	template: `
 		<div hlmButtonGroup>
-			<div hlmButtonGroup class="[&>hlm-select>hlm-select-trigger>button]:rounded-r-none">
+			<div hlmButtonGroup class="[&>hlm-select>button]:rounded-r-none">
 				<hlm-select class="inline-block" [value]="_currencies[0].value">
-					<hlm-select-trigger>
+					<button hlmSelectTrigger>
 						<hlm-select-value placeholder="Select an option" />
-					</hlm-select-trigger>
+					</button>
 					<hlm-select-content *hlmSelectPortal class="!min-w-40">
 						<hlm-select-group>
 							@for (currency of _currencies; track currency.label) {

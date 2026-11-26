@@ -9,7 +9,7 @@ import { HlmFieldImports } from '@spartan-ng/helm/field';
 		<hlm-field>
 			<label hlmFieldLabel>Date of birth</label>
 			<hlm-date-picker [minDate]="minDate" [maxDate]="maxDate">
-				<hlm-date-picker-trigger buttonId="date">Pick a date</hlm-date-picker-trigger>
+				<button hlmDatePickerTrigger buttonId="date">Pick a date</button>
 			</hlm-date-picker>
 		</hlm-field>
 	`,
@@ -28,7 +28,7 @@ import { HlmDatePickerImports } from '@spartan-ng/helm/date-picker';
 
 export const defaultSkeleton = `
 <hlm-date-picker [minDate]="minDate" [maxDate]="maxDate">
-  <hlm-date-picker-trigger buttonId="date">Pick a date</hlm-date-picker-trigger>
+  <button hlmDatePickerTrigger buttonId="date">Pick a date</button>
 </hlm-date-picker>
 
 `;

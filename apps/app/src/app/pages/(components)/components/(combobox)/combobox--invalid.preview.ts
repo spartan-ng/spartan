@@ -51,9 +51,9 @@ import { HlmFieldImports } from '@spartan-ng/helm/field';
 			<hlm-field forceInvalid>
 				<label hlmFieldLabel>Frameworks</label>
 				<hlm-combobox>
-					<hlm-combobox-trigger forceInvalid class="w-full justify-between">
+					<button hlmComboboxTrigger forceInvalid class="w-full justify-between">
 						<hlm-combobox-value placeholder="Select a framework" />
-					</hlm-combobox-trigger>
+					</button>
 					<hlm-combobox-content *hlmComboboxPortal>
 						<hlm-combobox-input showTrigger="false" placeholder="Search" showClear />
 						<hlm-combobox-empty>No items found.</hlm-combobox-empty>

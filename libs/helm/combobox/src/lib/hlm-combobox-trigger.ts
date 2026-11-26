@@ -1,55 +1,44 @@
-import { BooleanInput } from '@angular/cdk/coercion';
-import { booleanAttribute, ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import type { BooleanInput } from '@angular/cdk/coercion';
+import { booleanAttribute, ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronDown } from '@ng-icons/lucide';
 import { BrnComboboxAnchor, BrnComboboxPopoverTrigger, BrnComboboxTrigger } from '@spartan-ng/brain/combobox';
 import { BrnFieldControlDescribedBy } from '@spartan-ng/brain/field';
-import { ButtonVariants, HlmButton } from '@spartan-ng/helm/button';
-import { hlm } from '@spartan-ng/helm/utils';
-import type { ClassValue } from 'cn';
+import { HlmButton, provideBrnButtonConfig } from '@spartan-ng/helm/button';
+import { classes } from '@spartan-ng/helm/utils';
 
 @Component({
-	selector: 'hlm-combobox-trigger',
+	selector: 'button[hlm-combobox-trigger],button[hlmComboboxTrigger]',
 	exportAs: 'hlmComboboxTrigger',
-	imports: [
-		NgIcon,
-		HlmButton,
-		BrnComboboxAnchor,
-		BrnComboboxTrigger,
-		BrnComboboxPopoverTrigger,
-		BrnFieldControlDescribedBy,
-	],
-	providers: [provideIcons({ lucideChevronDown })],
+	imports: [NgIcon],
+	providers: [provideIcons({ lucideChevronDown }), provideBrnButtonConfig({ variant: 'outline' })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	hostDirectives: [
+		BrnComboboxAnchor,
+		{ directive: BrnComboboxTrigger, inputs: ['forceInvalid'] },
+		BrnComboboxPopoverTrigger,
+		{ directive: BrnFieldControlDescribedBy, inputs: ['aria-describedby'] },
+		{ directive: HlmButton, inputs: ['variant'] },
+	],
+	host: {
+		'data-slot': 'combobox-trigger',
+		'[id]': 'buttonId()',
+	},
 	template: `
-		<button
-			brnComboboxTrigger
-			brnComboboxAnchor
-			brnComboboxPopoverTrigger
-			brnFieldControlDescribedBy
-			hlmBtn
-			data-slot="combobox-trigger"
-			[id]="buttonId()"
-			[class]="_computedClass()"
-			[variant]="variant()"
-			[forceInvalid]="forceInvalid()"
-		>
-			<ng-content />
+		<ng-content />
+		@if (!hideIcon()) {
 			<ng-icon name="lucideChevronDown" class="spartan-combobox-trigger-icon" />
-		</button>
+		}
 	`,
 })
 export class HlmComboboxTrigger {
 	private static _id = 0;
 
-	public readonly userClass = input<ClassValue>('', {
-		alias: 'class',
-	});
-	protected readonly _computedClass = computed(() => hlm('spartan-combobox-trigger', this.userClass()));
-
 	public readonly buttonId = input<string>(`hlm-combobox-trigger-${HlmComboboxTrigger._id++}`);
 
-	public readonly variant = input<ButtonVariants['variant']>('outline');
+	public readonly hideIcon = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
-	public readonly forceInvalid = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
+	constructor() {
+		classes(() => 'spartan-combobox-trigger');
+	}
 }

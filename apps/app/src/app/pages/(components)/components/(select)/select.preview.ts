@@ -6,9 +6,9 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 	imports: [HlmSelectImports],
 	template: `
 		<hlm-select [itemToString]="itemToString">
-			<hlm-select-trigger class="w-56">
+			<button hlmSelectTrigger class="w-56">
 				<hlm-select-value placeholder="Select a fruit" />
-			</hlm-select-trigger>
+			</button>
 			<hlm-select-content *hlmSelectPortal>
 				<hlm-select-group>
 					<hlm-select-label>Fruits</hlm-select-label>
@@ -38,9 +38,9 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 
 export const defaultSkeleton = `
 <hlm-select>
-	<hlm-select-trigger>
+	<button hlmSelectTrigger>
 		<hlm-select-value placeholder="Select a fruit" />
-	</hlm-select-trigger>
+	</button>
 	<hlm-select-content *hlmSelectPortal>
 		<hlm-select-group>
 			<hlm-select-label>Fruits</hlm-select-label>

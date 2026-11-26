@@ -47,13 +47,14 @@ import { injectHlmPaginationConfig } from './hlm-pagination.token';
 			<ul hlmPaginationContent>
 				@if (showEdges() && !_isFirstPageActive()) {
 					<li hlmPaginationItem>
-						<hlm-pagination-previous
+						<a
+							hlmPaginationPrevious
 							[link]="link()"
 							[queryParams]="{ page: currentPage() - 1 }"
 							queryParamsHandling="merge"
 							[text]="previousLabel()"
 							[aria-label]="previousAriaLabel()"
-						/>
+						></a>
 					</li>
 				}
 
@@ -77,13 +78,14 @@ import { injectHlmPaginationConfig } from './hlm-pagination.token';
 
 				@if (showEdges() && !_isLastPageActive()) {
 					<li hlmPaginationItem>
-						<hlm-pagination-next
+						<a
+							hlmPaginationNext
 							[link]="link()"
 							[queryParams]="{ page: currentPage() + 1 }"
 							queryParamsHandling="merge"
 							[text]="nextLabel()"
 							[aria-label]="nextAriaLabel()"
-						/>
+						></a>
 					</li>
 				}
 			</ul>
@@ -91,9 +93,9 @@ import { injectHlmPaginationConfig } from './hlm-pagination.token';
 
 		<!-- Show Page Size selector -->
 		<hlm-select [(value)]="itemsPerPage" class="ml-auto">
-			<hlm-select-trigger class="w-fit">
+			<button hlmSelectTrigger class="w-fit">
 				<hlm-select-value />
-			</hlm-select-trigger>
+			</button>
 			<hlm-select-content *hlmSelectPortal>
 				<hlm-select-group>
 					@for (pageSize of _pageSizesWithCurrent(); track pageSize) {

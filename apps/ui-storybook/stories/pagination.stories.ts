@@ -23,7 +23,7 @@ export const Default: Story = {
     <nav hlmPagination>
 			<ul hlmPaginationContent>
 				<li hlmPaginationItem>
-					<hlm-pagination-previous link="#" />
+					<a hlmPaginationPrevious link="#"></a>
 				</li>
 				<li hlmPaginationItem>
 					<a hlmPaginationLink link="#">1</a>
@@ -38,7 +38,7 @@ export const Default: Story = {
 					<hlm-pagination-ellipsis />
 				</li>
 				<li hlmPaginationItem>
-					<hlm-pagination-next link="#" />
+					<a hlmPaginationNext link="#"></a>
 				</li>
 			</ul>
 		</nav>

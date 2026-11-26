@@ -1,5 +1,13 @@
-import { BooleanInput } from '@angular/cdk/coercion';
-import { booleanAttribute, ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
+import type { BooleanInput } from '@angular/cdk/coercion';
+import {
+	booleanAttribute,
+	ChangeDetectionStrategy,
+	Component,
+	computed,
+	ElementRef,
+	inject,
+	input,
+} from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronDown } from '@ng-icons/lucide';
 import {
@@ -8,53 +16,58 @@ import {
 	provideBrnDatePickerTrigger,
 } from '@spartan-ng/brain/date-picker';
 import { BrnFieldControl, BrnFieldControlDescribedBy } from '@spartan-ng/brain/field';
-import { ButtonVariants, HlmButtonImports } from '@spartan-ng/helm/button';
-import { HlmPopoverTrigger } from '@spartan-ng/helm/popover';
-import { hlm } from '@spartan-ng/helm/utils';
-import { ClassValue } from 'cn';
+import { HlmButton, provideBrnButtonConfig } from '@spartan-ng/helm/button';
+import { classes } from '@spartan-ng/helm/utils';
 
 @Component({
-	selector: 'hlm-date-picker-trigger',
+	selector: 'button[hlm-date-picker-trigger],button[hlmDatePickerTrigger]',
 	exportAs: 'hlmDatePickerTrigger',
-	imports: [HlmButtonImports, HlmPopoverTrigger, NgIcon, BrnFieldControlDescribedBy],
-	providers: [provideIcons({ lucideChevronDown }), provideBrnDatePickerTrigger(HlmDatePickerTrigger)],
+	imports: [NgIcon],
+	providers: [
+		provideIcons({ lucideChevronDown }),
+		provideBrnDatePickerTrigger(HlmDatePickerTrigger),
+		provideBrnButtonConfig({ variant: 'outline' }),
+	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	host: { 'data-slot': 'date-picker-trigger' },
+	hostDirectives: [
+		{ directive: BrnFieldControlDescribedBy, inputs: ['aria-describedby'] },
+		{ directive: HlmButton, inputs: ['variant'] },
+	],
+	host: {
+		'data-slot': 'date-picker-trigger',
+		type: 'button',
+		'aria-haspopup': 'dialog',
+		'[id]': 'buttonId()',
+		'[disabled]': '_disabled()',
+		'[attr.aria-expanded]': '_state() === "open" ? "true" : "false"',
+		'[attr.aria-controls]': '_popover().id()',
+		'[attr.data-state]': '_state()',
+		'[attr.aria-invalid]': '_ariaInvalid()',
+		'[attr.data-invalid]': '_ariaInvalid()',
+		'[attr.data-touched]': '_touched?.() ? "true" : null',
+		'[attr.data-dirty]': '_dirty?.() ? "true" : null',
+		'[attr.data-matches-spartan-invalid]': '_spartanInvalid() ? "true" : null',
+		'[attr.data-placeholder]': '_isPlaceholder() ? "" : null',
+		'(click)': '_toggle()',
+	},
 	template: `
-		<button
-			[id]="buttonId()"
-			type="button"
-			[class]="_computedClass()"
-			[disabled]="_disabled()"
-			[attr.aria-invalid]="_ariaInvalid()"
-			[attr.data-invalid]="_ariaInvalid()"
-			[attr.data-touched]="_touched?.() ? 'true' : null"
-			[attr.data-dirty]="_dirty?.() ? 'true' : null"
-			[attr.data-matches-spartan-invalid]="_spartanInvalid() ? 'true' : null"
-			hlmBtn
-			[variant]="variant()"
-			hlmPopoverTrigger
-			[hlmPopoverTriggerFor]="_popover()"
-			brnFieldControlDescribedBy
-			[attr.data-placeholder]="_isPlaceholder() ? '' : null"
-		>
-			<span class="truncate">
-				@if (_formattedDate(); as formattedDate) {
-					{{ formattedDate }}
-				} @else {
-					<ng-content />
-				}
-			</span>
-
-			@if (showTrigger()) {
-				<ng-icon name="lucideChevronDown" />
+		<span class="truncate">
+			@if (_formattedDate(); as formattedDate) {
+				{{ formattedDate }}
+			} @else {
+				<ng-content />
 			}
-		</button>
+		</span>
+
+		@if (showTrigger()) {
+			<ng-icon name="lucideChevronDown" />
+		}
 	`,
 })
 export class HlmDatePickerTrigger implements BrnDatePickerTriggerBase {
 	private static _nextId = 0;
 
+	private readonly _host = inject<ElementRef<HTMLButtonElement>>(ElementRef);
 	private readonly _fieldControl = inject(BrnFieldControl, { optional: true });
 	private readonly _datePicker = injectBrnDatePicker();
 
@@ -64,11 +77,6 @@ export class HlmDatePickerTrigger implements BrnDatePickerTriggerBase {
 	protected readonly _touched = this._fieldControl?.touched;
 
 	protected readonly _ariaInvalid = computed(() => (this._invalid?.() ? 'true' : null));
-
-	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	protected readonly _computedClass = computed(() =>
-		hlm('spartan-date-picker-trigger justify-between', this.userClass()),
-	);
 
 	protected readonly _isPlaceholder = computed(() => !this._datePicker.hasDate());
 
@@ -81,11 +89,20 @@ export class HlmDatePickerTrigger implements BrnDatePickerTriggerBase {
 	/** Forces the invalid state visually, regardless of form control state. */
 	public readonly forceInvalid = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
-	public readonly variant = input<ButtonVariants['variant']>('outline');
-
 	public readonly showTrigger = input<boolean, BooleanInput>(true, { transform: booleanAttribute });
 
 	protected readonly _popover = this._datePicker.popover;
+	protected readonly _state = computed(() => this._popover().stateComputed());
 	protected readonly _disabled = this._datePicker.disabledState;
 	protected readonly _formattedDate = this._datePicker.formattedDate;
+
+	constructor() {
+		classes(() => 'spartan-date-picker-trigger justify-between');
+	}
+
+	protected _toggle(): void {
+		const popover = this._popover();
+		popover.setOrigin(this._host.nativeElement);
+		popover.toggle();
+	}
 }

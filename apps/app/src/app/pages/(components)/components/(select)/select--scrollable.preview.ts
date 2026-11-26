@@ -6,9 +6,9 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 	imports: [HlmSelectImports],
 	template: `
 		<hlm-select [itemToString]="itemToString">
-			<hlm-select-trigger class="w-80">
+			<button hlmSelectTrigger class="w-80">
 				<hlm-select-value placeholder="Select a time zone" />
-			</hlm-select-trigger>
+			</button>
 			<hlm-select-content *hlmSelectPortal showScroll class="max-h-96">
 				@for (timezone of timezones; track $index) {
 					<hlm-select-group>

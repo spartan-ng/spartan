@@ -27,9 +27,9 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 				<div class="flex flex-col gap-4">
 					<input hlmInput placeholder="Enter text..." />
 					<hlm-select [itemToString]="itemToString">
-						<hlm-select-trigger class="w-full">
+						<button hlmSelectTrigger class="w-full">
 							<hlm-select-value placeholder="Select option" />
-						</hlm-select-trigger>
+						</button>
 						<hlm-select-content *hlmSelectPortal>
 							<hlm-select-item value="1">Option 1</hlm-select-item>
 							<hlm-select-item value="2">Option 2</hlm-select-item>

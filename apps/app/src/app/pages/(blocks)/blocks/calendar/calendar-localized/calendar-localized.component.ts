@@ -109,9 +109,9 @@ export class LanguageService {
 
 				<div hlmCardAction>
 					<hlm-select [value]="lang" (valueChange)="setLang($event)">
-						<hlm-select-trigger>
+						<button hlmSelectTrigger>
 							<hlm-select-value />
-						</hlm-select-trigger>
+						</button>
 
 						<hlm-select-content *hlmSelectPortal>
 							<hlm-select-group>

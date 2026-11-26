@@ -23,7 +23,7 @@ import { HlmFieldImports } from '@spartan-ng/helm/field';
 						[formField]="form.birthday"
 						[autoCloseOnSelect]="true"
 					>
-						<hlm-date-picker-trigger buttonId="date-birthday">Pick a date</hlm-date-picker-trigger>
+						<button hlmDatePickerTrigger buttonId="date-birthday">Pick a date</button>
 					</hlm-date-picker>
 					<hlm-field-description>Your date of birth is used to calculate your age.</hlm-field-description>
 				</hlm-field>

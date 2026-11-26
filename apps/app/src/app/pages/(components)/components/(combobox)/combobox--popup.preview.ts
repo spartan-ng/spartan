@@ -10,9 +10,9 @@ import { HlmFieldImports } from '@spartan-ng/helm/field';
 		<hlm-field>
 			<label hlmFieldLabel for="countries">Countries</label>
 			<hlm-combobox>
-				<hlm-combobox-trigger buttonId="countries" class="w-64 justify-between font-normal">
+				<button hlmComboboxTrigger buttonId="countries" class="w-64 justify-between font-normal">
 					<hlm-combobox-value placeholder="Select a country" />
-				</hlm-combobox-trigger>
+				</button>
 				<hlm-combobox-content *hlmComboboxPortal>
 					<hlm-combobox-input showTrigger="false" placeholder="Search" showClear />
 					<hlm-combobox-empty>No items found.</hlm-combobox-empty>

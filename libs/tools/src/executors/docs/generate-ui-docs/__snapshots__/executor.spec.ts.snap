@@ -3542,29 +3542,34 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "exportAs": "hlmComboboxTrigger",
         "inputs": [
           {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-          {
             "name": "buttonId",
             "required": false,
             "type": "string",
           },
           {
-            "name": "variant",
+            "name": "hideIcon",
             "required": false,
-            "type": "ButtonVariants['variant']",
+            "type": "boolean",
           },
           {
             "name": "forceInvalid",
             "required": false,
             "type": "boolean",
           },
+          {
+            "name": "aria-describedby",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "name": "variant",
+            "required": false,
+            "type": "ButtonVariants['variant']",
+          },
         ],
         "models": [],
         "outputs": [],
-        "selector": "hlm-combobox-trigger",
+        "selector": "button[hlm-combobox-trigger],button[hlmComboboxTrigger]",
       },
       "HlmComboboxValue": {
         "exportAs": "hlmComboboxValue",
@@ -4246,11 +4251,6 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "exportAs": "hlmDatePickerTrigger",
         "inputs": [
           {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-          {
             "name": "buttonId",
             "required": false,
             "type": "string",
@@ -4261,19 +4261,24 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "type": "boolean",
           },
           {
-            "name": "variant",
-            "required": false,
-            "type": "ButtonVariants['variant']",
-          },
-          {
             "name": "showTrigger",
             "required": false,
             "type": "boolean",
           },
+          {
+            "name": "aria-describedby",
+            "required": false,
+            "type": "string | null",
+          },
+          {
+            "name": "variant",
+            "required": false,
+            "type": "ButtonVariants['variant']",
+          },
         ],
         "models": [],
         "outputs": [],
-        "selector": "hlm-date-picker-trigger",
+        "selector": "button[hlm-date-picker-trigger],button[hlmDatePickerTrigger]",
       },
       "HlmDateRangeInput": {
         "exportAs": "hlmDateRangeInput",
@@ -7321,26 +7326,6 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "exportAs": "hlmPaginationNext",
         "inputs": [
           {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-          {
-            "name": "link",
-            "required": false,
-            "type": "RouterLink['routerLink']",
-          },
-          {
-            "name": "queryParams",
-            "required": false,
-            "type": "RouterLink['queryParams']",
-          },
-          {
-            "name": "queryParamsHandling",
-            "required": false,
-            "type": "RouterLink['queryParamsHandling']",
-          },
-          {
             "name": "aria-label",
             "required": false,
             "type": "string",
@@ -7355,35 +7340,20 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "required": false,
             "type": "boolean",
           },
+          {
+            "name": "link",
+            "required": false,
+            "type": "RouterLink['routerLink']",
+          },
         ],
         "models": [],
         "outputs": [],
-        "selector": "hlm-pagination-next",
+        "selector": "a[hlm-pagination-next],a[hlmPaginationNext]",
       },
       "HlmPaginationPrevious": {
         "exportAs": "hlmPaginationPrevious",
         "inputs": [
           {
-            "name": "class",
-            "required": false,
-            "type": "ClassValue",
-          },
-          {
-            "name": "link",
-            "required": false,
-            "type": "RouterLink['routerLink']",
-          },
-          {
-            "name": "queryParams",
-            "required": false,
-            "type": "RouterLink['queryParams']",
-          },
-          {
-            "name": "queryParamsHandling",
-            "required": false,
-            "type": "RouterLink['queryParamsHandling']",
-          },
-          {
             "name": "aria-label",
             "required": false,
             "type": "string",
@@ -7398,10 +7368,15 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "required": false,
             "type": "boolean",
           },
+          {
+            "name": "link",
+            "required": false,
+            "type": "RouterLink['routerLink']",
+          },
         ],
         "models": [],
         "outputs": [],
-        "selector": "hlm-pagination-previous",
+        "selector": "a[hlm-pagination-previous],a[hlmPaginationPrevious]",
       },
     },
   },
@@ -9211,19 +9186,19 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "exportAs": "hlmSelectTrigger",
         "inputs": [
           {
-            "name": "class",
+            "name": "size",
             "required": false,
-            "type": "ClassValue",
+            "type": "'default' | 'sm'",
+          },
+          {
+            "name": "hideIcon",
+            "required": false,
+            "type": "boolean",
           },
           {
             "name": "buttonId",
             "required": false,
             "type": "string",
-          },
-          {
-            "name": "size",
-            "required": false,
-            "type": "'default' | 'sm'",
           },
           {
             "name": "forceInvalid",
@@ -9235,10 +9210,15 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "required": false,
             "type": "boolean | undefined",
           },
+          {
+            "name": "aria-describedby",
+            "required": false,
+            "type": "string | null",
+          },
         ],
         "models": [],
         "outputs": [],
-        "selector": "hlm-select-trigger",
+        "selector": "button[hlm-select-trigger],button[hlmSelectTrigger]",
       },
       "HlmSelectValue": {
         "exportAs": "hlmSelectValue",

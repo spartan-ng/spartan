@@ -12,8 +12,9 @@ import { provideHlmPaginationConfig } from './hlm-pagination.token';
 	imports: [HlmPaginationPrevious, HlmPaginationNext],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<hlm-pagination-previous link="." />
-		<hlm-pagination-next link="." />
+		<!-- eslint-disable @angular-eslint/template/elements-content -->
+		<a hlmPaginationPrevious link="."></a>
+		<a hlmPaginationNext link="."></a>
 	`,
 })
 class HlmMockLinks {}
@@ -65,11 +66,11 @@ function render<T>(component: new () => T): HTMLElement {
 }
 
 function previousLink(el: HTMLElement): HTMLAnchorElement {
-	return el.querySelector('hlm-pagination-previous a') as HTMLAnchorElement;
+	return el.querySelector('[hlmPaginationPrevious]') as HTMLAnchorElement;
 }
 
 function nextLink(el: HTMLElement): HTMLAnchorElement {
-	return el.querySelector('hlm-pagination-next a') as HTMLAnchorElement;
+	return el.querySelector('[hlmPaginationNext]') as HTMLAnchorElement;
 }
 
 describe('HlmPaginationConfig', () => {

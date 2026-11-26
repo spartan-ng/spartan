@@ -27,6 +27,7 @@ import { helmIconHealthcheck } from './healthchecks/hlm-icon';
 import { hlmInputIdHealthcheck } from './healthchecks/hlm-input-id';
 import { inputOtpHealthcheck } from './healthchecks/hlm-input-otp';
 import { helmMenuHealthcheck } from './healthchecks/hlm-menu';
+import { hlmNativeHostElementsHealthcheck } from './healthchecks/hlm-native-host-elements';
 import { progressHealthcheck } from './healthchecks/hlm-progress';
 import { scrollAreaHealthcheck } from './healthchecks/hlm-scroll-area';
 import { selectHealthcheck } from './healthchecks/hlm-select';
@@ -75,6 +76,7 @@ export async function healthcheckGenerator(tree: Tree, options: HealthcheckGener
 		brnInputOtpMaxLengthRename,
 		inputOtpHealthcheck,
 		cnHealthcheck,
+		hlmNativeHostElementsHealthcheck,
 		scaffoldIntegrityHealthcheck,
 	];
 

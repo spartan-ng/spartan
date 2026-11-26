@@ -40,9 +40,9 @@ import { HlmTextareaImports } from '@spartan-ng/helm/textarea';
 							<div hlmField>
 								<label hlmFieldLabel for="field-exp-month--trigger">Month</label>
 								<hlm-select id="field-exp-month" class="inline-block">
-									<hlm-select-trigger class="w-full">
+									<button hlmSelectTrigger class="w-full">
 										<hlm-select-value />
-									</hlm-select-trigger>
+									</button>
 									<hlm-select-content *hlmSelectPortal>
 										<hlm-select-group>
 											<hlm-select-item value="01">01</hlm-select-item>
@@ -64,9 +64,9 @@ import { HlmTextareaImports } from '@spartan-ng/helm/textarea';
 							<div hlmField>
 								<label hlmFieldLabel for="field-exp-year--trigger">Year</label>
 								<hlm-select id="field-exp-year" class="inline-block">
-									<hlm-select-trigger class="w-full">
+									<button hlmSelectTrigger class="w-full">
 										<hlm-select-value placeholder="YYYY" />
-									</hlm-select-trigger>
+									</button>
 									<hlm-select-content *hlmSelectPortal>
 										<hlm-select-group>
 											<hlm-select-item value="2024">2024</hlm-select-item>

@@ -65,7 +65,7 @@ const meta: Meta<HlmDatePicker<JalaliDate>> = {
 		template: `
 		<div class="preview flex min-h-[350px] w-full justify-center p-10 items-center" dir="rtl">
 			<hlm-date-picker [captionLayout]="captionLayout">
-                <hlm-date-picker-trigger buttonId="date-jalali">انتخاب تاریخ</hlm-date-picker-trigger>
+                <button hlmDatePickerTrigger buttonId="date-jalali">انتخاب تاریخ</button>
             </hlm-date-picker>
 		</div>
 		`,

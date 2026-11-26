@@ -42,9 +42,9 @@ import { HlmTextareaImports } from '@spartan-ng/helm/textarea';
 							<div hlmField>
 								<label hlmFieldLabel for="field-exp-month--trigger">{{ _t()['month'] }}</label>
 								<hlm-select id="field-exp-month" class="inline-block" [itemToString]="_monthToString">
-									<hlm-select-trigger class="w-full">
+									<button hlmSelectTrigger class="w-full">
 										<hlm-select-value />
-									</hlm-select-trigger>
+									</button>
 									<hlm-select-content *hlmSelectPortal>
 										<hlm-select-group>
 											@for (month of _months(); track month.value) {
@@ -57,9 +57,9 @@ import { HlmTextareaImports } from '@spartan-ng/helm/textarea';
 							<div hlmField>
 								<label hlmFieldLabel for="field-exp-year--trigger">{{ _t()['year'] }}</label>
 								<hlm-select id="field-exp-year" class="inline-block">
-									<hlm-select-trigger class="w-full">
+									<button hlmSelectTrigger class="w-full">
 										<hlm-select-value />
-									</hlm-select-trigger>
+									</button>
 									<hlm-select-content *hlmSelectPortal>
 										<hlm-select-group>
 											@for (year of years; track year.value) {

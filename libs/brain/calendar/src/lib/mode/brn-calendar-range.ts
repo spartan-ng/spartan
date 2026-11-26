@@ -17,7 +17,7 @@ import {
 import { injectDateAdapter } from '@spartan-ng/brain/date-time';
 import { BrnCalendarCellButton } from '../brn-calendar-cell-button';
 import { BrnCalendarHeader } from '../brn-calendar-header';
-import { type BrnCalendarBase, provideBrnCalendar } from '../brn-calendar.token';
+import { type BrnCalendarBase, type BrnCalendarMonthData, provideBrnCalendar } from '../brn-calendar.token';
 import { injectBrnCalendarI18n, type Weekday } from '../i18n/calendar-i18n';
 import { compareDays } from '../utils/compare-days';
 import { findInitialFocusedDate } from '../utils/find-enabled-date';
@@ -66,6 +66,11 @@ export class BrnCalendarRange<T> implements BrnCalendarBase<T> {
 
 	/** The default focused date. */
 	public readonly defaultFocusedDate = input<T>();
+
+	/** The number of months to display. */
+	public readonly numberOfMonths = input<number, NumberInput>(1, {
+		transform: (value) => Math.max(1, Math.floor(numberAttribute(value, 1))),
+	});
 
 	/** @internal Access the header */
 	public readonly header = contentChild(BrnCalendarHeader);
@@ -121,43 +126,94 @@ export class BrnCalendarRange<T> implements BrnCalendarBase<T> {
 	public readonly endDate = model<T>();
 
 	/**
+	 * The first displayed month. It only moves when the focused date leaves the displayed months,
+	 * so navigating within the displayed months does not shift them.
+	 */
+	private readonly _firstMonth = linkedSignal<{ focusedDate: T; numberOfMonths: number }, T>({
+		source: () => ({ focusedDate: this.focusedDate(), numberOfMonths: this.numberOfMonths() }),
+		computation: ({ focusedDate, numberOfMonths }, previous): T => {
+			const focusedMonth = this._dateAdapter.startOfMonth(focusedDate);
+
+			if (!previous) {
+				return focusedMonth;
+			}
+
+			const offset = this._monthDifference(previous.value, focusedMonth);
+
+			if (offset < 0) {
+				return focusedMonth;
+			}
+
+			if (offset >= numberOfMonths) {
+				return this._dateAdapter.subtract(focusedMonth, { months: numberOfMonths - 1 });
+			}
+
+			return previous.value;
+		},
+		equal: (a, b) => this._dateAdapter.isSameMonth(a, b),
+	});
+
+	/** The months to display, starting with the first displayed month. */
+	public readonly months = computed<BrnCalendarMonthData<T>[]>(() => {
+		const firstMonth = this._firstMonth();
+
+		return Array.from({ length: this.numberOfMonths() }, (_, offset) => {
+			const month = this._dateAdapter.add(firstMonth, { months: offset });
+			return { month, days: this._getDays(month) };
+		});
+	});
+
+	/**
 	 * Get all the days to display, this is the days of the current month
 	 * and the days of the previous and next month to fill the grid.
 	 */
-	public readonly days = computed(
-		() => {
-			const weekStartsOn = this._weekStartsOn();
-			const month = this.focusedDate();
-			const days: T[] = [];
+	public readonly days = computed(() => this._getDays(this.focusedDate()), {
+		equal: (a, b) => compareDays(a, b, this._dateAdapter),
+	});
 
-			// Get the first and last day of the month.
-			let firstDay = this._dateAdapter.startOfMonth(month);
-			let lastDay = this._dateAdapter.endOfMonth(month);
+	/** Show the month of the given date at the given offset of the displayed months. */
+	showMonth(date: T, offset: number): void {
+		const month = this._dateAdapter.startOfMonth(date);
+		this._firstMonth.set(this._dateAdapter.subtract(month, { months: offset }));
+	}
 
-			// we need to subtract until we get the to starting day before or on the start of the month.
-			while (this._dateAdapter.getDay(firstDay) !== weekStartsOn) {
-				firstDay = this._dateAdapter.subtract(firstDay, { days: 1 });
-			}
+	private _monthDifference(from: T, to: T): number {
+		return (
+			(this._dateAdapter.getYear(to) - this._dateAdapter.getYear(from)) * 12 +
+			this._dateAdapter.getMonth(to) -
+			this._dateAdapter.getMonth(from)
+		);
+	}
 
-			const weekEndsOn = (weekStartsOn + 6) % 7;
+	/** Get the days of the month of the given date, padded to full weeks. */
+	private _getDays(month: T): T[] {
+		const weekStartsOn = this._weekStartsOn();
+		const days: T[] = [];
 
-			// we need to add until we get to the ending day after or on the end of the month.
-			while (this._dateAdapter.getDay(lastDay) !== weekEndsOn) {
-				lastDay = this._dateAdapter.add(lastDay, { days: 1 });
-			}
+		// Get the first and last day of the month.
+		let firstDay = this._dateAdapter.startOfMonth(month);
+		let lastDay = this._dateAdapter.endOfMonth(month);
 
-			// collect all the days to display.
-			while (firstDay <= lastDay) {
-				days.push(firstDay);
-				firstDay = this._dateAdapter.add(firstDay, { days: 1 });
-			}
+		// we need to subtract until we get the to starting day before or on the start of the month.
+		while (this._dateAdapter.getDay(firstDay) !== weekStartsOn) {
+			firstDay = this._dateAdapter.subtract(firstDay, { days: 1 });
+		}
 
-			return days;
-		},
-		{
-			equal: (a, b) => compareDays(a, b, this._dateAdapter),
-		},
-	);
+		const weekEndsOn = (weekStartsOn + 6) % 7;
+
+		// we need to add until we get to the ending day after or on the end of the month.
+		while (this._dateAdapter.getDay(lastDay) !== weekEndsOn) {
+			lastDay = this._dateAdapter.add(lastDay, { days: 1 });
+		}
+
+		// collect all the days to display.
+		while (firstDay <= lastDay) {
+			days.push(firstDay);
+			firstDay = this._dateAdapter.add(firstDay, { days: 1 });
+		}
+
+		return days;
+	}
 
 	isSelected(date: T): boolean {
 		const start = this.startDate();
@@ -268,7 +324,7 @@ export class BrnCalendarRange<T> implements BrnCalendarBase<T> {
 		afterNextRender(
 			{
 				write: () => {
-					const cell = this._cells.find((c) => this._dateAdapter.isSameDay(c.date(), date));
+					const cell = this._cells.find((c) => !c.outside() && this._dateAdapter.isSameDay(c.date(), date));
 					if (cell) {
 						cell.focus();
 					}

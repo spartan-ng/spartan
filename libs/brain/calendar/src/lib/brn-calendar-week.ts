@@ -10,6 +10,7 @@ import {
 	untracked,
 	ViewContainerRef,
 } from '@angular/core';
+import { injectBrnCalendarMonth } from './brn-calendar-month';
 import { injectBrnCalendar } from './brn-calendar.token';
 
 @Directive({
@@ -19,6 +20,9 @@ import { injectBrnCalendar } from './brn-calendar.token';
 export class BrnCalendarWeek<T> implements OnDestroy {
 	/** Access the calendar */
 	private readonly _calendar = injectBrnCalendar<T>();
+
+	/** Access the month this week belongs to, if rendering multiple months */
+	private readonly _month = injectBrnCalendarMonth<T>();
 
 	/** Access the view container ref */
 	private readonly _viewContainerRef = inject(ViewContainerRef);
@@ -31,7 +35,7 @@ export class BrnCalendarWeek<T> implements OnDestroy {
 
 	// get the weeks to display.
 	protected readonly _weeks = computed(() => {
-		const days = this._calendar.days();
+		const days = this._month?.days() ?? this._calendar.days();
 		const weeks = [];
 
 		for (let i = 0; i < days.length; i += 7) {

@@ -11,6 +11,7 @@ import {
 	ViewContainerRef,
 } from '@angular/core';
 import { injectDateAdapter } from '@spartan-ng/brain/date-time';
+import { injectBrnCalendarMonth } from './brn-calendar-month';
 import { injectBrnCalendar } from './brn-calendar.token';
 
 @Directive({
@@ -20,6 +21,9 @@ import { injectBrnCalendar } from './brn-calendar.token';
 export class BrnCalendarWeekday<T> implements OnDestroy {
 	/** Access the calendar */
 	private readonly _calendar = injectBrnCalendar<T>();
+
+	/** Access the month these weekdays belong to, if rendering multiple months */
+	private readonly _month = injectBrnCalendarMonth<T>();
 
 	/** Access the date time adapter */
 	private readonly _dateAdapter = injectDateAdapter<T>();
@@ -34,7 +38,7 @@ export class BrnCalendarWeekday<T> implements OnDestroy {
 	private readonly _templateRef = inject<TemplateRef<BrnWeekdayContext>>(TemplateRef);
 
 	/** Get the days of the week to display in the header. */
-	protected readonly _weekdays = computed(() => this._calendar.days().slice(0, 7));
+	protected readonly _weekdays = computed(() => (this._month?.days() ?? this._calendar.days()).slice(0, 7));
 
 	/** Store the view refs */
 	private _viewRefs: EmbeddedViewRef<BrnWeekdayContext>[] = [];

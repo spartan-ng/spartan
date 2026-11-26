@@ -95,6 +95,13 @@ export class BrnOverlay<TResult = unknown, TContext extends Record<string, unkno
 	public readonly autoFocus = input<boolean, BooleanInput>(this._defaultOptions.autoFocus, {
 		transform: booleanAttribute,
 	});
+	/**
+	 * Whether to move focus back to the element that was focused when the overlay opened, if focus
+	 * is lost (e.g. on `body`) when the overlay closes.
+	 */
+	public readonly restoreFocus = input<boolean, BooleanInput>(this._defaultOptions.restoreFocus, {
+		transform: booleanAttribute,
+	});
 
 	protected readonly _options = computed<Partial<BrnOverlayOptions>>(() => ({
 		id: this.id(),
@@ -109,6 +116,7 @@ export class BrnOverlay<TResult = unknown, TContext extends Record<string, unkno
 		attachPositions: this.getAttachPositions(),
 		disableClose: this.disableClose(),
 		autoFocus: this.autoFocus(),
+		restoreFocus: this.restoreFocus(),
 		backdropClass: cssClassesToArray(this._resolvedBackdropClass()),
 		panelClass: cssClassesToArray(this._resolvedPanelClass()),
 	}));
@@ -161,7 +169,7 @@ export class BrnOverlay<TResult = unknown, TContext extends Record<string, unkno
 
 		overlayRef.closed$.pipe(takeUntilDestroyed(this._destroyRef)).subscribe((result) => {
 			if (this._overlayRef() === overlayRef) this._overlayRef.set(undefined);
-			this._restoreFocus(elementToRestoreFocusTo);
+			if (this.restoreFocus()) this._restoreFocus(elementToRestoreFocusTo);
 			if (!this._destroyed) this.closed.emit(result as TResult);
 		});
 	}

@@ -97,7 +97,7 @@ let nextId = 0;
 		<!-- Show Page Size selector -->
 		<label class="sr-only" [for]="_pageSizeTriggerId">{{ pageSizeAriaLabel() }}</label>
 		<hlm-select [(value)]="itemsPerPage" class="ml-auto">
-			<button hlmSelectTrigger class="w-fit" [buttonId]="_pageSizeTriggerId">
+			<button hlmSelectTrigger class="w-fit" [id]="_pageSizeTriggerId">
 				<hlm-select-value />
 			</button>
 			<hlm-select-content *hlmSelectPortal>

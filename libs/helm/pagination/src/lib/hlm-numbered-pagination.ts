@@ -1,18 +1,18 @@
 import type { BooleanInput, NumberInput } from '@angular/cdk/coercion';
 import {
-	ChangeDetectionStrategy,
-	Component,
-	DestroyRef,
-	ElementRef,
-	Renderer2,
-	type Signal,
 	afterRenderEffect,
 	booleanAttribute,
+	ChangeDetectionStrategy,
+	Component,
 	computed,
+	DestroyRef,
+	ElementRef,
 	inject,
 	input,
 	model,
 	numberAttribute,
+	Renderer2,
+	type Signal,
 	untracked,
 } from '@angular/core';
 import { HlmSelectImports } from '@spartan-ng/helm/select';
@@ -98,7 +98,7 @@ let nextId = 0;
 			<!-- Show Page Size selector -->
 			<label class="sr-only" [for]="_pageSizeTriggerId">{{ pageSizeAriaLabel() }}</label>
 			<hlm-select [(value)]="itemsPerPage" class="ml-auto">
-				<button hlmSelectTrigger class="w-fit" [buttonId]="_pageSizeTriggerId">
+				<button hlmSelectTrigger class="w-fit" [id]="_pageSizeTriggerId">
 					<hlm-select-value />
 				</button>
 				<hlm-select-content *hlmSelectPortal>

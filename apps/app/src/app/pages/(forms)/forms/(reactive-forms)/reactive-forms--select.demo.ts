@@ -36,7 +36,7 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 								</hlm-field-error>
 							</hlm-field-content>
 							<hlm-select formControlName="language" [itemToString]="itemToString">
-								<button hlmSelectTrigger buttonId="language">
+								<button hlmSelectTrigger id="language">
 									<hlm-select-value placeholder="Select" />
 								</button>
 								<hlm-select-content *hlmSelectPortal>
@@ -142,7 +142,7 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 								</hlm-field-error>
 							</hlm-field-content>
 							<hlm-select formControlName="language" [itemToString]="itemToString">
-								<button hlmSelectTrigger buttonId="language">
+								<button hlmSelectTrigger id="language">
 									<hlm-select-value placeholder="Select" />
 								</button>
 								<hlm-select-content *hlmSelectPortal>

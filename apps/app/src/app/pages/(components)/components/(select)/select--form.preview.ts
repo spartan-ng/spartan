@@ -16,7 +16,7 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 				<hlm-field>
 					<label hlmFieldLabel for="fruit">Fruit</label>
 					<hlm-select [formField]="form.fruit" [itemToString]="itemToString">
-						<button hlmSelectTrigger buttonId="fruit" class="w-56">
+						<button hlmSelectTrigger id="fruit" class="w-56">
 							<hlm-select-value placeholder="Select a fruit" />
 						</button>
 						<hlm-select-content *hlmSelectPortal>

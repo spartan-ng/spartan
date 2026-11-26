@@ -518,7 +518,7 @@ export const SelectWithLabel: Story = {
 			<form [formGroup]="fruitGroup">
 				<label hlmLabel for="select-trigger">Select a Fruit</label>
 				<hlm-select formControlName="fruit" ${argsToTemplate(args, { exclude: ['value'] })}>
-					<button hlmSelectTrigger class="w-56" buttonId="select-trigger">
+					<button hlmSelectTrigger class="w-56" id="select-trigger">
 						<hlm-select-value ${argsToTemplate(args, { include: ['placeholder'] })} />
 					</button>
 					<hlm-select-content *hlmSelectPortal class="w-56">

@@ -132,6 +132,38 @@ describe('migrate-native-host-elements generator', () => {
 		expect(migrateNativeHostElements(source)).toBe(source);
 	});
 
+	it('should ignore legacy tags inside HTML comments when pairing opening and closing tags', () => {
+		const result = migrateNativeHostElements(`
+			<hlm-select-trigger class="w-56">
+				<!-- </hlm-select-trigger> -->
+				<hlm-select-value />
+			</hlm-select-trigger>
+			<!-- <hlm-select-trigger>Old</hlm-select-trigger> -->
+			<hlm-select-trigger><hlm-select-value /></hlm-select-trigger>
+		`);
+
+		expect(result).toContain(`<button hlmSelectTrigger class="w-56">
+				<!-- </hlm-select-trigger> -->
+				<hlm-select-value />
+			</button>`);
+		expect(result).toContain('<!-- <hlm-select-trigger>Old</hlm-select-trigger> -->');
+		expect(result).toContain('<button hlmSelectTrigger><hlm-select-value /></button>');
+	});
+
+	it('should rename the select trigger buttonId input to id', () => {
+		const result = migrateNativeHostElements(`
+			<hlm-select-trigger buttonId="fruit" class="w-56"><hlm-select-value /></hlm-select-trigger>
+			<hlm-select-trigger [buttonId]="triggerId" aria-label="buttonId"><hlm-select-value /></hlm-select-trigger>
+			<hlm-combobox-trigger buttonId="countries"><hlm-combobox-value /></hlm-combobox-trigger>
+		`);
+
+		expect(result).toContain('<button hlmSelectTrigger id="fruit" class="w-56"><hlm-select-value /></button>');
+		expect(result).toContain(
+			'<button hlmSelectTrigger [id]="triggerId" aria-label="buttonId"><hlm-select-value /></button>',
+		);
+		expect(result).toContain('<button hlmComboboxTrigger buttonId="countries"><hlm-combobox-value /></button>');
+	});
+
 	it('should flag [class] arrays containing class maps for manual conversion', () => {
 		const result = migrateNativeHostElements(`
 			<hlm-select-trigger [class]="['w-64', { 'w-full': expanded }]"><hlm-select-value /></hlm-select-trigger>

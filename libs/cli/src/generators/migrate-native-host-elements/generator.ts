@@ -11,11 +11,13 @@ interface NativeHostElementMigration {
 	attribute: string;
 	/** Element used when the legacy usage has no `link`, i.e. it is an action rather than a navigation */
 	actionElement?: 'button';
+	/** Inputs that were renamed, e.g. `buttonId` -> `id` */
+	renamedInputs?: Record<string, string>;
 }
 
 export const nativeHostElementMigrations: NativeHostElementMigration[] = [
 	{ tag: 'hlm-combobox-trigger', element: 'button', attribute: 'hlmComboboxTrigger' },
-	{ tag: 'hlm-select-trigger', element: 'button', attribute: 'hlmSelectTrigger' },
+	{ tag: 'hlm-select-trigger', element: 'button', attribute: 'hlmSelectTrigger', renamedInputs: { buttonId: 'id' } },
 	{ tag: 'hlm-date-picker-trigger', element: 'button', attribute: 'hlmDatePickerTrigger' },
 	{ tag: 'hlm-pagination-next', element: 'a', attribute: 'hlmPaginationNext', actionElement: 'button' },
 	{ tag: 'hlm-pagination-previous', element: 'a', attribute: 'hlmPaginationPrevious', actionElement: 'button' },
@@ -31,9 +33,12 @@ export function createLegacyTagPattern(tag: string, flags = 'g') {
 	return new RegExp(`<${tag}(?![\\w-])((?:${attributePattern})*)(\\s*)(\\/?)>`, flags);
 }
 
-/** Matches migratable opening tags, closing tags and opening tags that cannot be migrated (in that order of precedence). */
+/**
+ * Matches HTML comments (kept as is), migratable opening tags, closing tags and opening tags that cannot be migrated
+ * (in that order of precedence).
+ */
 function createLegacyTokenPattern(tag: string) {
-	return new RegExp(`${createLegacyTagPattern(tag).source}|<\\/${tag}\\s*>|<${tag}(?![\\w-])`, 'g');
+	return new RegExp(`<!--[\\s\\S]*?-->|${createLegacyTagPattern(tag).source}|<\\/${tag}\\s*>|<${tag}(?![\\w-])`, 'g');
 }
 
 const linkAttributePattern = /\s\[?link\]?(?=\s*=)/;
@@ -70,7 +75,7 @@ export async function migrateNativeHostElementsGenerator(
 }
 
 export function migrateNativeHostElements(content: string): string {
-	for (const { tag, element, attribute, actionElement } of nativeHostElementMigrations) {
+	for (const { tag, element, attribute, actionElement, renamedInputs } of nativeHostElementMigrations) {
 		// element of each open legacy tag, `null` if the opening tag could not be migrated and its closing tag must stay as is
 		const openElements: (string | null)[] = [];
 
@@ -84,6 +89,10 @@ export function migrateNativeHostElements(content: string): string {
 				offset: number,
 				source: string,
 			) => {
+				if (match.startsWith('<!--')) {
+					return match;
+				}
+
 				if (match.startsWith('</')) {
 					const target = openElements.pop();
 					return target ? `</${target}>` : match;
@@ -94,6 +103,7 @@ export function migrateNativeHostElements(content: string): string {
 					return match;
 				}
 
+				attributes = renameInputs(attributes, renamedInputs);
 				const isAction = !!actionElement && !linkAttributePattern.test(attributes);
 				const target = isAction ? actionElement : element;
 				const type = isAction ? ' type="button"' : '';
@@ -142,6 +152,15 @@ function classValueTodo(attributes: string, source: string, offset: number): str
 	const indentation = /(?:^|\n)([ \t]*)$/.exec(source.slice(0, offset));
 
 	return indentation ? `${todo}\n${indentation[1]}` : todo;
+}
+
+/** Renames inputs (static attributes and `[input]` bindings), only the attribute names are touched. */
+function renameInputs(attributes: string, renamedInputs: Record<string, string> = {}): string {
+	return attributes.replace(new RegExp(attributePattern, 'g'), (attr) =>
+		attr.replace(/^(\s+\[?)([^\s"'=/>\]]+)(?=\]?(?:\s*=|$))/, (name, prefix: string, input: string) =>
+			Object.hasOwn(renamedInputs, input) ? `${prefix}${renamedInputs[input]}` : name,
+		),
+	);
 }
 
 /** Keeps the attribute layout: multi-line tags get the new attribute on its own line. */

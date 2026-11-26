@@ -54,7 +54,7 @@ import { HlmSwitchImports } from '@spartan-ng/helm/switch';
 						<hlm-field>
 							<label hlmFieldLabel>Billing Period</label>
 							<hlm-select [formField]="form.billingPeriod" [itemToString]="itemToString">
-								<button hlmSelectTrigger buttonId="billingPeriod" class="w-full">
+								<button hlmSelectTrigger id="billingPeriod" class="w-full">
 									<hlm-select-value placeholder="Select" />
 								</button>
 								<hlm-select-content *hlmSelectPortal>
@@ -275,7 +275,7 @@ import { HlmSwitchImports } from '@spartan-ng/helm/switch';
 						<hlm-field>
 							<label hlmFieldLabel>Billing Period</label>
 							<hlm-select [formField]="form.billingPeriod" [itemToString]="itemToString">
-								<button hlmSelectTrigger buttonId="billingPeriod" class="w-full">
+								<button hlmSelectTrigger id="billingPeriod" class="w-full">
 									<hlm-select-value placeholder="Select" />
 								</button>
 								<hlm-select-content *hlmSelectPortal>

@@ -1,12 +1,15 @@
-import { ChangeDetectionStrategy, Component, input, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, output, viewChild, viewChildren } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
+import { BrnSelect } from '@spartan-ng/brain/select';
 import { BrnCalendarCellButton } from '../brn-calendar-cell-button';
 import { BrnCalendarGrid } from '../brn-calendar-grid';
 import { BrnCalendarHeader } from '../brn-calendar-header';
 import { BrnCalendarMonth } from '../brn-calendar-month';
+import { BrnCalendarMonthSelect } from '../brn-calendar-month-select';
 import { BrnCalendarNextButton } from '../brn-calendar-next-button';
 import { BrnCalendarPreviousButton } from '../brn-calendar-previous-button';
 import { BrnCalendarWeek } from '../brn-calendar-week';
+import { BrnCalendarYearSelect } from '../brn-calendar-year-select';
 import { BrnCalendarRange } from './brn-calendar-range';
 
 @Component({
@@ -177,5 +180,99 @@ describe('BrnCalendarRange numberOfMonths', () => {
 			[2026, 4],
 			[2026, 5],
 		]);
+	});
+});
+
+@Component({
+	// eslint-disable-next-line @angular-eslint/component-selector -- matches the selector of the calendar selects
+	selector: 'hlm-select',
+	providers: [{ provide: BrnSelect, useExisting: SelectStub }],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: '',
+})
+class SelectStub {
+	public readonly value = output<unknown>();
+	public written: unknown;
+
+	public writeValue(value: unknown): void {
+		this.written = value;
+	}
+}
+
+@Component({
+	selector: 'brn-calendar-range-selects-spec-host',
+	imports: [BrnCalendarRange, BrnCalendarMonth, BrnCalendarMonthSelect, BrnCalendarYearSelect, SelectStub],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<div brnCalendarRange [numberOfMonths]="2" [defaultFocusedDate]="defaultFocusedDate" [dateDisabled]="dateDisabled">
+			@for (month of calendar().months(); track $index) {
+				<div brnCalendarMonth [offset]="$index">
+					<hlm-select brnCalendarMonthSelect #monthSelect />
+					<hlm-select brnCalendarYearSelect #yearSelect />
+				</div>
+			}
+		</div>
+	`,
+})
+class CalendarRangeSelectsSpecHost {
+	public readonly defaultFocusedDate = new Date(2026, 5, 10);
+	public readonly dateDisabled = (date: Date) => date.getMonth() === 8 || date.getFullYear() === 2027;
+	public readonly calendar = viewChild.required<BrnCalendarRange<Date>>(BrnCalendarRange);
+	public readonly monthSelects = viewChildren('monthSelect', { read: SelectStub });
+	public readonly yearSelects = viewChildren('yearSelect', { read: SelectStub });
+}
+
+describe('BrnCalendarRange numberOfMonths with month and year selects', () => {
+	async function setup(): Promise<ComponentFixture<CalendarRangeSelectsSpecHost>> {
+		await TestBed.configureTestingModule({ imports: [CalendarRangeSelectsSpecHost] }).compileComponents();
+
+		const fixture = TestBed.createComponent(CalendarRangeSelectsSpecHost);
+		fixture.detectChanges();
+		fixture.detectChanges();
+		return fixture;
+	}
+
+	const displayedMonths = (fixture: ComponentFixture<CalendarRangeSelectsSpecHost>) =>
+		fixture.componentInstance
+			.calendar()
+			.months()
+			.map(({ month }) => [month.getFullYear(), month.getMonth()]);
+
+	it('keeps the selected month at the position of its select', async () => {
+		const fixture = await setup();
+
+		fixture.componentInstance.monthSelects()[1].value.emit('Oct');
+		fixture.detectChanges();
+
+		expect(displayedMonths(fixture)).toEqual([
+			[2026, 8],
+			[2026, 9],
+		]);
+	});
+
+	it('does not move the displayed months when the selected month is rejected', async () => {
+		const fixture = await setup();
+
+		fixture.componentInstance.monthSelects()[1].value.emit('Sep');
+		fixture.detectChanges();
+
+		expect(displayedMonths(fixture)).toEqual([
+			[2026, 5],
+			[2026, 6],
+		]);
+		expect(fixture.componentInstance.monthSelects()[1].written).toBe('Jul');
+	});
+
+	it('does not move the displayed months when the selected year is rejected', async () => {
+		const fixture = await setup();
+
+		fixture.componentInstance.yearSelects()[1].value.emit(2027);
+		fixture.detectChanges();
+
+		expect(displayedMonths(fixture)).toEqual([
+			[2026, 5],
+			[2026, 6],
+		]);
+		expect(fixture.componentInstance.yearSelects()[1].written).toBe(2026);
 	});
 });

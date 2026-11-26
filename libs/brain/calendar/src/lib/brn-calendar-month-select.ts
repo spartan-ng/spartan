@@ -67,7 +67,10 @@ export class BrnCalendarMonthSelect {
 		const target = this._calendar.constrainDate(this._dateAdapter.set(targetDate, { day }));
 		this._calendar.setFocusedDate(target);
 		// Keep the selected month at the position of this select when rendering multiple months.
-		this._calendar.showMonth?.(this._calendar.focusedDate(), this._month?.offset() ?? 0);
+		// A rejected target leaves the focused date unchanged, so the displayed months must not move.
+		if (this._dateAdapter.isSameDay(this._calendar.focusedDate(), target)) {
+			this._calendar.showMonth?.(target, this._month?.offset() ?? 0);
+		}
 		// The select already shows the picked month. When the focused month did not change
 		// (target rejected or constrained back into it), the effect does not run again.
 		this._select.writeValue(this._selectedMonth());

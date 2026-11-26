@@ -59,7 +59,10 @@ export class BrnCalendarYearSelect {
 		const target = this._calendar.constrainDate(this._dateAdapter.set(targetDate, { day }));
 		this._calendar.setFocusedDate(target);
 		// Keep the selected year at the position of this select when rendering multiple months.
-		this._calendar.showMonth?.(this._calendar.focusedDate(), this._month?.offset() ?? 0);
+		// A rejected target leaves the focused date unchanged, so the displayed months must not move.
+		if (this._dateAdapter.isSameDay(this._calendar.focusedDate(), target)) {
+			this._calendar.showMonth?.(target, this._month?.offset() ?? 0);
+		}
 		// Keep the select on the year actually shown when the target was rejected.
 		this._select.writeValue(this._dateAdapter.getYear(this._displayedMonth()));
 	}

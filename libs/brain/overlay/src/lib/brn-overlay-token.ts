@@ -14,6 +14,7 @@ const createDefaultOptions = (): BrnOverlayDefaultOptions => ({
 	hasBackdrop: false,
 	panelClass: '',
 	positionStrategy: null,
+	restoreFocus: true,
 	role: null,
 	scrollStrategy: null,
 });

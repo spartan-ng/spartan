@@ -1,3 +1,11 @@
+## 1.11.0-beta.1 (2026-11-26)
+
+- feat(command): add closed output to hlm-command-dialog ([44f5255](https://github.com/spartan-ng/spartan/commit/44f5255))
+- feat(popover): add restoreFocus option to overlay and popover (#1920) ([6ccb7e5](https://github.com/spartan-ng/spartan/commit/6ccb7e5)), closes [#1920](https://github.com/spartan-ng/spartan/issues/1920)
+- chore(release): backmerge main into beta ([5f27ee2](https://github.com/spartan-ng/spartan/commit/5f27ee2))
+- chore(release): backmerge main into beta ([02f1cbd](https://github.com/spartan-ng/spartan/commit/02f1cbd))
+- docs: add new contributors to our 300 ([0a14a52](https://github.com/spartan-ng/spartan/commit/0a14a52))
+
 ## <small>1.10.1 (2026-11-24)</small>
 
 - fix: 1.10.1 (#1914) ([2311725](https://github.com/spartan-ng/spartan/commit/2311725)), closes [#1914](https://github.com/spartan-ng/spartan/issues/1914) [#1912](https://github.com/spartan-ng/spartan/issues/1912) [#1908](https://github.com/spartan-ng/spartan/issues/1908) [#1899](https://github.com/spartan-ng/spartan/issues/1899)

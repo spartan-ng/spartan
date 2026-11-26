@@ -62,28 +62,29 @@ The CLI ships with a suite of generators that automate breaking changes between 
 <details>
 <summary>View all migration generators</summary>
 
-| Generator                            | Description                                                                                  |
-| ------------------------------------ | -------------------------------------------------------------------------------------------- |
-| `migrate-brain-accordion-trigger`    | Wrap brain accordion triggers in a heading element.                                          |
-| `migrate-brain-imports`              | Move brain imports to their secondary entry points.                                          |
-| `migrate-brn-checkbox-changed-event` | Rename `changed` to `checkedChange` on `brn-checkbox`.                                       |
-| `migrate-brn-switch-changed-event`   | Rename `changed` to `checkedChange` on `brn-switch`.                                         |
-| `migrate-core`                       | Migrate the legacy `core` library to the `@spartan-ng/brain/core` entry point.               |
-| `migrate-date-picker`                | Rename `changed` to `dateChange` on `hlm-date-picker`.                                       |
-| `migrate-date-picker-min-max`        | Rename `min`/`max` inputs to `minDate`/`maxDate` on helm date pickers.                       |
-| `migrate-helm-imports`               | Move helm imports to the new entry-point structure.                                          |
-| `migrate-helm-libraries`             | Update helm libraries to their latest versions.                                              |
-| `migrate-hlm`                        | Move `hlm` from `@spartan-ng/brain` to `@spartan-ng/helm/utils`.                             |
-| `migrate-input-id`                   | Rename the `id` input on helm inputs to `inputId`.                                           |
-| `migrate-icon`                       | Migrate `hlm-icon` to `ng-icon`.                                                             |
-| `migrate-module-imports`             | Replace `NgModule`-style imports with `const` array imports.                                 |
-| `migrate-naming-conventions`         | Update legacy naming conventions to the latest standards.                                    |
-| `migrate-progress`                   | Migrate `brn-progress` to `hlm-progress`.                                                    |
-| `migrate-radio`                      | Migrate `brn-radio` to `hlm-radio`.                                                          |
-| `migrate-scroll-area`                | Migrate `hlm-scroll-area` to `ngx-scrollbar`.                                                |
-| `migrate-select`                     | Migrate `brn-select` / `hlm-select` to `openChange` and active descendants.                  |
-| `migrate-separator`                  | Migrate `brn-separator` to `hlm-separator`.                                                  |
-| `migrate-toggle-group`               | Move `brn-toggle-group` from `@spartan-ng/brain/toggle` to `@spartan-ng/brain/toggle-group`. |
+| Generator                            | Description                                                                                     |
+| ------------------------------------ | ----------------------------------------------------------------------------------------------- |
+| `migrate-brain-accordion-trigger`    | Wrap brain accordion triggers in a heading element.                                             |
+| `migrate-brain-imports`              | Move brain imports to their secondary entry points.                                             |
+| `migrate-brn-checkbox-changed-event` | Rename `changed` to `checkedChange` on `brn-checkbox`.                                          |
+| `migrate-brn-switch-changed-event`   | Rename `changed` to `checkedChange` on `brn-switch`.                                            |
+| `migrate-core`                       | Migrate the legacy `core` library to the `@spartan-ng/brain/core` entry point.                  |
+| `migrate-date-picker`                | Rename `changed` to `dateChange` on `hlm-date-picker`.                                          |
+| `migrate-date-picker-min-max`        | Rename `min`/`max` inputs to `minDate`/`maxDate` on helm date pickers.                          |
+| `migrate-drawer`                     | Migrate the vaul based drawer: `direction` to `swipeDirection`, and regenerate the helm drawer. |
+| `migrate-helm-imports`               | Move helm imports to the new entry-point structure.                                             |
+| `migrate-helm-libraries`             | Update helm libraries to their latest versions.                                                 |
+| `migrate-hlm`                        | Move `hlm` from `@spartan-ng/brain` to `@spartan-ng/helm/utils`.                                |
+| `migrate-input-id`                   | Rename the `id` input on helm inputs to `inputId`.                                              |
+| `migrate-icon`                       | Migrate `hlm-icon` to `ng-icon`.                                                                |
+| `migrate-module-imports`             | Replace `NgModule`-style imports with `const` array imports.                                    |
+| `migrate-naming-conventions`         | Update legacy naming conventions to the latest standards.                                       |
+| `migrate-progress`                   | Migrate `brn-progress` to `hlm-progress`.                                                       |
+| `migrate-radio`                      | Migrate `brn-radio` to `hlm-radio`.                                                             |
+| `migrate-scroll-area`                | Migrate `hlm-scroll-area` to `ngx-scrollbar`.                                                   |
+| `migrate-select`                     | Migrate `brn-select` / `hlm-select` to `openChange` and active descendants.                     |
+| `migrate-separator`                  | Migrate `brn-separator` to `hlm-separator`.                                                     |
+| `migrate-toggle-group`               | Move `brn-toggle-group` from `@spartan-ng/brain/toggle` to `@spartan-ng/brain/toggle-group`.    |
 
 </details>
 

@@ -332,7 +332,7 @@ function mergeAttributes(existing: ParsedAttribute[], added: ParsedAttribute[]):
 	return merged;
 }
 
-function findTagEnd(content: string, from: number): number {
+export function findTagEnd(content: string, from: number): number {
 	let quote: string | null = null;
 
 	for (let index = from; index < content.length; index++) {

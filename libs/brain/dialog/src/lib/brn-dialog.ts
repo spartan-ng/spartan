@@ -79,12 +79,6 @@ export class BrnDialog<TResult = unknown, TContext extends Record<string, unknow
 		this._defaultOptions.scrollStrategy,
 	);
 	public readonly restoreFocus = input<BrnDialogOptions['restoreFocus']>(this._defaultOptions.restoreFocus);
-	public readonly closeOnFocusOut = input<boolean, BooleanInput>(this._defaultOptions.closeOnFocusOut, {
-		transform: booleanAttribute,
-	});
-	public readonly trapFocus = input<boolean, BooleanInput>(this._defaultOptions.trapFocus, {
-		transform: booleanAttribute,
-	});
 	public readonly closeOnOutsidePointerEvents = input<boolean, BooleanInput>(
 		this._defaultOptions.closeOnOutsidePointerEvents,
 		{ transform: booleanAttribute },
@@ -120,8 +114,6 @@ export class BrnDialog<TResult = unknown, TContext extends Record<string, unknow
 			scrollStrategy: this.getScrollStrategy(),
 			restoreFocus: this.restoreFocus(),
 			closeOnOutsidePointerEvents: this.closeOnOutsidePointerEvents(),
-			closeOnFocusOut: this.closeOnFocusOut(),
-			trapFocus: this.trapFocus(),
 			attachTo: this.getAttachTo(),
 			attachPositions: this.attachPositions(),
 			autoFocus: this.autoFocus(),

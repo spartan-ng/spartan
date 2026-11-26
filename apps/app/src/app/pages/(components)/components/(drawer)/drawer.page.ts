@@ -16,6 +16,7 @@ import { PageNav } from '../../../../shared/layout/page-nav/page-nav';
 import { SectionIntro } from '../../../../shared/layout/section-intro';
 import { SectionSubHeading } from '../../../../shared/layout/section-sub-heading';
 import { Tabs } from '../../../../shared/layout/tabs';
+import { TabsCli } from '../../../../shared/layout/tabs-cli';
 import { UIApiDocs } from '../../../../shared/layout/ui-docs-section/ui-docs-section';
 import { metaWith } from '../../../../shared/meta/meta.util';
 import { DrawerControlledPreview } from './drawer--controlled.preview';
@@ -48,6 +49,7 @@ export const routeMeta: RouteMeta = {
 		SectionIntro,
 		SectionSubHeading,
 		Tabs,
+		TabsCli,
 
 		CodePreview,
 		PageNav,
@@ -397,8 +399,19 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-section-sub-heading id="migration">Migrating from the vaul based drawer</spartan-section-sub-heading>
 			<p class="${hlmP}">
-				The drawer is now a port of the Base UI drawer. Add the helm drawer again with the CLI, then update usages:
+				The drawer is now a port of the Base UI drawer. Run the health check after updating: it regenerates the helm
+				drawer, replaces
+				<code class="${hlmCode}">direction</code>
+				with
+				<code class="${hlmCode}">swipeDirection</code>
+				where it can, and lists what has to be migrated by hand.
 			</p>
+			<spartan-cli-tabs
+				class="mt-6 mb-6"
+				nxCode="nx g @spartan-ng/cli:healthcheck"
+				ngCode="ng g @spartan-ng/cli:healthcheck"
+			/>
+			<p class="${hlmP}">The changes:</p>
 			<ul class="${hlmUl}">
 				<li>
 					<code class="${hlmCode}">direction</code>

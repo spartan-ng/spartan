@@ -240,16 +240,6 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "type": "BrnDialogOptions['restoreFocus']",
           },
           {
-            "name": "closeOnFocusOut",
-            "required": false,
-            "type": "boolean",
-          },
-          {
-            "name": "trapFocus",
-            "required": false,
-            "type": "boolean",
-          },
-          {
             "name": "closeOnOutsidePointerEvents",
             "required": false,
             "type": "boolean",
@@ -424,16 +414,6 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "name": "restoreFocus",
             "required": false,
             "type": "BrnDialogOptions['restoreFocus']",
-          },
-          {
-            "name": "closeOnFocusOut",
-            "required": false,
-            "type": "boolean",
-          },
-          {
-            "name": "trapFocus",
-            "required": false,
-            "type": "boolean",
           },
           {
             "name": "closeOnOutsidePointerEvents",
@@ -4682,16 +4662,6 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "type": "BrnDialogOptions['restoreFocus']",
           },
           {
-            "name": "closeOnFocusOut",
-            "required": false,
-            "type": "boolean",
-          },
-          {
-            "name": "trapFocus",
-            "required": false,
-            "type": "boolean",
-          },
-          {
             "name": "closeOnOutsidePointerEvents",
             "required": false,
             "type": "boolean",
@@ -4868,16 +4838,6 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "name": "restoreFocus",
             "required": false,
             "type": "BrnDialogOptions['restoreFocus']",
-          },
-          {
-            "name": "closeOnFocusOut",
-            "required": false,
-            "type": "boolean",
-          },
-          {
-            "name": "trapFocus",
-            "required": false,
-            "type": "boolean",
           },
           {
             "name": "closeOnOutsidePointerEvents",
@@ -5120,16 +5080,6 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "name": "restoreFocus",
             "required": false,
             "type": "BrnDialogOptions['restoreFocus']",
-          },
-          {
-            "name": "closeOnFocusOut",
-            "required": false,
-            "type": "boolean",
-          },
-          {
-            "name": "trapFocus",
-            "required": false,
-            "type": "boolean",
           },
           {
             "name": "closeOnOutsidePointerEvents",
@@ -5437,16 +5387,6 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "name": "restoreFocus",
             "required": false,
             "type": "BrnDialogOptions['restoreFocus']",
-          },
-          {
-            "name": "closeOnFocusOut",
-            "required": false,
-            "type": "boolean",
-          },
-          {
-            "name": "trapFocus",
-            "required": false,
-            "type": "boolean",
           },
           {
             "name": "closeOnOutsidePointerEvents",
@@ -9790,16 +9730,6 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "type": "BrnDialogOptions['restoreFocus']",
           },
           {
-            "name": "closeOnFocusOut",
-            "required": false,
-            "type": "boolean",
-          },
-          {
-            "name": "trapFocus",
-            "required": false,
-            "type": "boolean",
-          },
-          {
             "name": "closeOnOutsidePointerEvents",
             "required": false,
             "type": "boolean",
@@ -9986,16 +9916,6 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "name": "restoreFocus",
             "required": false,
             "type": "BrnDialogOptions['restoreFocus']",
-          },
-          {
-            "name": "closeOnFocusOut",
-            "required": false,
-            "type": "boolean",
-          },
-          {
-            "name": "trapFocus",
-            "required": false,
-            "type": "boolean",
           },
           {
             "name": "closeOnOutsidePointerEvents",

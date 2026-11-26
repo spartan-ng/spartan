@@ -77,9 +77,13 @@ describe('waitForAnimations', () => {
 		const el = track(mount());
 		const animation = el.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 1000, iterations: Infinity });
 
-		const start = performance.now();
-		await waitForAnimations([animation]);
-		expect(performance.now() - start).toBeLessThan(500);
+		// Resolves before any timer fires: it neither waits on the animation nor on the fallback timer.
+		const first = await Promise.race([
+			waitForAnimations([animation]).then(() => 'animations'),
+			new Promise((resolve) => setTimeout(() => resolve('timer'), 0)),
+		]);
+		expect(first).toBe('animations');
+		expect(animation.playState).toBe('running');
 	});
 
 	// The fallback timer guarantees teardown even if an animation never reaches `finished`

@@ -13,7 +13,7 @@ import { classes } from '<%- importAlias %>/utils';
 	providers: [provideIcons({ lucideChevronDown })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	hostDirectives: [
-		{ directive: BrnSelectTrigger, inputs: ['id: buttonId', 'forceInvalid', 'aria-invalid'] },
+		{ directive: BrnSelectTrigger, inputs: ['id', 'forceInvalid', 'aria-invalid'] },
 		{ directive: BrnFieldControlDescribedBy, inputs: ['aria-describedby'] },
 	],
 	host: {

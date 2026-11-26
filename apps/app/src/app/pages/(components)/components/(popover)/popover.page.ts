@@ -7,6 +7,7 @@ import { CodeRtlPreview } from '@spartan-ng/app/app/shared/code/code-rtl-preview
 import { RtlHeader } from '@spartan-ng/app/app/shared/code/rtl-header';
 import { InstallTabs } from '@spartan-ng/app/app/shared/layout/install-tabs';
 import { SectionSubSubHeading } from '@spartan-ng/app/app/shared/layout/section-sub-sub-heading';
+import { hlmCode, hlmP } from '@spartan-ng/helm/typography';
 import { Code } from '../../../../shared/code/code';
 import { CodePreview } from '../../../../shared/code/code-preview';
 import { MainSection } from '../../../../shared/layout/main-section';
@@ -90,6 +91,19 @@ export const routeMeta: RouteMeta = {
 				<spartan-code secondTab [code]="_alignCode()" />
 			</spartan-tabs>
 
+			<h3 id="restore-focus" spartanH4>Restore Focus</h3>
+			<p class="${hlmP} mb-6">
+				When the popover closes and focus is lost (for example because the focused element was removed or a
+				non-focusable area was clicked), focus moves back to the element that was focused when it opened. Set
+				<code class="${hlmCode}">[restoreFocus]="false"</code>
+				on the popover, or provide
+				<code class="${hlmCode}">provideBrnPopoverDefaultOptions({{ '{' }} restoreFocus: false {{ '}' }})</code>
+				to change the default. It defaults to
+				<code class="${hlmCode}">true</code>
+				.
+			</p>
+			<spartan-code [code]="_restoreFocusCode" />
+
 			<spartan-header-rtl />
 			<spartan-tabs firstTab="Preview" secondTab="Code">
 				<div spartanRtlCodePreview firstTab>
@@ -124,4 +138,10 @@ export default class PopoverPage {
 	protected readonly _rtlCode = computed(() => this._snippets()['rtl']);
 	protected readonly _defaultSkeleton = defaultSkeleton;
 	protected readonly _defaultImports = defaultImports;
+	protected readonly _restoreFocusCode = `import { provideBrnPopoverDefaultOptions } from '@spartan-ng/brain/popover';
+
+@Component({
+  providers: [provideBrnPopoverDefaultOptions({ restoreFocus: false })],
+  template: \`<hlm-popover [restoreFocus]="false">...</hlm-popover>\`,
+})`;
 }

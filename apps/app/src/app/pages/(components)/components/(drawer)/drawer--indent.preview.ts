@@ -25,7 +25,7 @@ import { HlmDrawerImports } from '@spartan-ng/helm/drawer';
 							<h3 hlmDrawerTitle>Notifications</h3>
 							<p hlmDrawerDescription>You are all caught up. Good job!</p>
 						</hlm-drawer-header>
-						<hlm-drawer-footer>
+						<hlm-drawer-footer class="pt-4">
 							<button hlmDrawerClose hlmBtn variant="outline">Close</button>
 						</hlm-drawer-footer>
 					</hlm-drawer-content>

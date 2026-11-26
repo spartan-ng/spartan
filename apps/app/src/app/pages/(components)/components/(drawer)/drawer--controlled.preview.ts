@@ -18,7 +18,7 @@ import { HlmDrawer, HlmDrawerImports } from '@spartan-ng/helm/drawer';
 					<h3 hlmDrawerTitle>Save changes?</h3>
 					<p hlmDrawerDescription>This drawer is opened and closed from code, without a trigger.</p>
 				</hlm-drawer-header>
-				<hlm-drawer-footer>
+				<hlm-drawer-footer class="pt-4">
 					<button hlmBtn (click)="closeDrawer('saved')">Save</button>
 					<button hlmBtn variant="outline" (click)="closeDrawer('discarded')">Discard</button>
 				</hlm-drawer-footer>

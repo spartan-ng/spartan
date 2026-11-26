@@ -27,7 +27,7 @@ interface Plan {
 					<h3 hlmDrawerTitle>{{ _plan()?.name }} plan</h3>
 					<p hlmDrawerDescription>{{ _plan()?.price }}</p>
 				</hlm-drawer-header>
-				<p class="text-muted-foreground px-4 text-sm">{{ _plan()?.description }}</p>
+				<p class="text-muted-foreground flex-1 p-4 text-sm">{{ _plan()?.description }}</p>
 				<hlm-drawer-footer>
 					<button hlmBtn>Choose {{ _plan()?.name }}</button>
 					<button hlmDrawerClose hlmBtn variant="outline">Cancel</button>

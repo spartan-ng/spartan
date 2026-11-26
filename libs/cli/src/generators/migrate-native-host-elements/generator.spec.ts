@@ -80,6 +80,71 @@ describe('migrate-native-host-elements generator', () => {
 		expect(result).toContain('[&>hlm-select>[hlmSelectTrigger]]:rounded-r-none');
 	});
 
+	it('should migrate selectors that targeted the wrapper element', () => {
+		const result = migrateNativeHostElements(`
+			cy.get('hlm-select-trigger').click();
+			fixture.nativeElement.querySelector("hlm-select hlm-combobox-trigger");
+			el.querySelectorAll('hlm-pagination-next:not([disabled]), hlm-date-picker-trigger');
+		`);
+
+		expect(result).toContain(`cy.get('[hlmSelectTrigger]')`);
+		expect(result).toContain(`querySelector("hlm-select [hlmComboboxTrigger]")`);
+		expect(result).toContain(`querySelectorAll('[hlmPaginationNext]:not([disabled]), [hlmDatePickerTrigger]')`);
+	});
+
+	it('should migrate pagination actions with content to buttons', () => {
+		const result = migrateNativeHostElements(`
+			<hlm-pagination-next (click)="advance()"><!-- next page --></hlm-pagination-next>
+			<hlm-pagination-previous link="/prev">
+				<span>Back</span>
+			</hlm-pagination-previous>
+		`);
+
+		expect(result).toContain('<button type="button" hlmPaginationNext (click)="advance()"><!-- next page --></button>');
+		expect(result).toContain(`<a hlmPaginationPrevious link="/prev">
+				<span>Back</span>
+			</a>`);
+	});
+
+	it('should keep a self-closing slash out of unquoted attribute values', () => {
+		const result = migrateNativeHostElements(`
+			<hlm-select-trigger class=compact/>
+			<hlm-pagination-next class=compact/>
+			<hlm-pagination-previous link=/products />
+		`);
+
+		expect(result).toContain('<button hlmSelectTrigger class=compact></button>');
+		expect(result).toContain('<button type="button" hlmPaginationNext class=compact></button>');
+		expect(result).toContain('<a hlmPaginationPrevious link=/products></a>');
+	});
+
+	it('should migrate inline templates with escaped quotes', () => {
+		const result = migrateNativeHostElements(
+			`@Component({ template: "<hlm-select-trigger aria-label=\\"Choose\\">Value</hlm-select-trigger>" })`,
+		);
+
+		expect(result).toContain(`template: "<button hlmSelectTrigger aria-label=\\"Choose\\">Value</button>"`);
+	});
+
+	it('should not replace closing tags of opening tags that could not be migrated', () => {
+		const source = `<hlm-select-trigger class="w-56" "invalid">Value</hlm-select-trigger>`;
+
+		expect(migrateNativeHostElements(source)).toBe(source);
+	});
+
+	it('should flag [class] arrays containing class maps for manual conversion', () => {
+		const result = migrateNativeHostElements(`
+			<hlm-select-trigger [class]="['w-64', { 'w-full': expanded }]"><hlm-select-value /></hlm-select-trigger>
+			<hlm-combobox-trigger [class]="{ 'w-full': expanded }" />
+		`);
+
+		expect(result).toContain(`<!-- TODO(spartan): [class] no longer supports class maps inside arrays`);
+		expect(result).toContain(
+			`<button hlmSelectTrigger [class]="['w-64', { 'w-full': expanded }]"><hlm-select-value /></button>`,
+		);
+		expect(result.match(/TODO\(spartan\)/g)).toHaveLength(1);
+	});
+
 	it('should not touch imports, similar selectors or prose', () => {
 		const source = `
 			import { HlmSelectTrigger } from './lib/hlm-select-trigger';

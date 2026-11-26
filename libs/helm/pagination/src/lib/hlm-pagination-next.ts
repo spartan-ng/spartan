@@ -42,7 +42,11 @@ import { injectHlmPaginationConfig } from './hlm-pagination.token';
 	host: {
 		'data-slot': 'pagination-link',
 		'[attr.type]': '_isButton ? "button" : null',
+		'[attr.role]': '_isActionAnchor() ? "button" : null',
+		'[attr.tabindex]': '_isActionAnchor() ? 0 : null',
 		'[attr.aria-label]': 'ariaLabel()',
+		'(keydown.enter)': '_activate($event)',
+		'(keydown.space)': '_activate($event)',
 	},
 	template: `
 		<span [class]="_labelClass()">{{ text() }}</span>
@@ -51,9 +55,9 @@ import { injectHlmPaginationConfig } from './hlm-pagination.token';
 })
 export class HlmPaginationNext {
 	private readonly _config = injectHlmPaginationConfig();
+	private readonly _host = inject<ElementRef<HTMLElement>>(ElementRef).nativeElement;
 	/** Without a link this is an action, so it can be rendered as a focusable button. */
-	protected readonly _isButton =
-		inject<ElementRef<HTMLElement>>(ElementRef).nativeElement.tagName.toLowerCase() === 'button';
+	protected readonly _isButton = this._host.tagName.toLowerCase() === 'button';
 
 	/** The aria-label for the next page link. */
 	public readonly ariaLabel = input<string>(this._config.nextAriaLabel, { alias: 'aria-label' });
@@ -65,6 +69,8 @@ export class HlmPaginationNext {
 	});
 	/** The link to navigate to the page. */
 	public readonly link = input<RouterLink['routerLink']>();
+	/** An anchor without a link has no `href`, so it needs to be made keyboard accessible like a button. */
+	protected readonly _isActionAnchor = computed(() => !this._isButton && this.link() == null);
 	protected readonly _labelClass = computed(() => hlm(this.iconOnly() ? 'sr-only' : 'hidden sm:block'));
 
 	constructor() {
@@ -74,5 +80,13 @@ export class HlmPaginationNext {
 			this.link() === undefined && 'cursor-pointer',
 			!this.iconOnly() && 'spartan-pagination-next',
 		]);
+	}
+
+	protected _activate(event: Event): void {
+		if (!this._isActionAnchor()) {
+			return;
+		}
+		event.preventDefault();
+		this._host.click();
 	}
 }

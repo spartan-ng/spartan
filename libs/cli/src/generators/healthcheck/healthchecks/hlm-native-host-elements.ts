@@ -1,4 +1,4 @@
-import { visitNotIgnoredFiles } from '@nx/devkit';
+import { visitFiles } from '../../../utils/visit-files';
 import migrateNativeHostElementsGenerator, {
 	hasLegacyNativeHostElements,
 } from '../../migrate-native-host-elements/generator';
@@ -7,7 +7,7 @@ import { type Healthcheck, HealthcheckSeverity } from '../healthchecks';
 export const hlmNativeHostElementsHealthcheck: Healthcheck = {
 	name: 'Helm native host elements',
 	async detect(tree, failure) {
-		visitNotIgnoredFiles(tree, '/', (file) => {
+		visitFiles(tree, '.', (file) => {
 			if (!file.endsWith('.ts') && !file.endsWith('.html')) {
 				return;
 			}

@@ -21,11 +21,19 @@ export const nativeHostElementMigrations: NativeHostElementMigration[] = [
 	{ tag: 'hlm-pagination-previous', element: 'a', attribute: 'hlmPaginationPrevious', actionElement: 'button' },
 ];
 
-/** Matches a single attribute, taking quoted values (which may contain `>` or `/`) into account. */
-const attributePattern = `(?:\\s+[^\\s"'=/>]+(?:\\s*=\\s*(?:"[^"]*"|'[^']*'|[^\\s"'>]+))?)`;
+/**
+ * Matches a single attribute, taking quoted values (which may contain `>` or `/`) into account.
+ * Also supports escaped quotes of TypeScript string literals and keeps a self-closing `/` out of unquoted values.
+ */
+const attributePattern = `(?:\\s+[^\\s"'=/>\\\\]+(?:\\s*=\\s*(?:\\\\"[^"]*?\\\\"|\\\\'[^']*?\\\\'|"[^"]*"|'[^']*'|(?:[^\\s"'>/]|\\/(?!>))+))?)`;
 
 export function createLegacyTagPattern(tag: string, flags = 'g') {
-	return new RegExp(`<${tag}(?![\\w-])((?:${attributePattern})*)(\\s*)(\\/?)>(\\s*<\\/${tag}\\s*>)?`, flags);
+	return new RegExp(`<${tag}(?![\\w-])((?:${attributePattern})*)(\\s*)(\\/?)>`, flags);
+}
+
+/** Matches migratable opening tags, closing tags and opening tags that cannot be migrated (in that order of precedence). */
+function createLegacyTokenPattern(tag: string) {
+	return new RegExp(`${createLegacyTagPattern(tag).source}|<\\/${tag}\\s*>|<${tag}(?![\\w-])`, 'g');
 }
 
 const linkAttributePattern = /\s\[?link\]?(?=\s*=)/;
@@ -63,24 +71,42 @@ export async function migrateNativeHostElementsGenerator(
 
 export function migrateNativeHostElements(content: string): string {
 	for (const { tag, element, attribute, actionElement } of nativeHostElementMigrations) {
+		// element of each open legacy tag, `null` if the opening tag could not be migrated and its closing tag must stay as is
+		const openElements: (string | null)[] = [];
+
 		content = content.replace(
-			createLegacyTagPattern(tag),
-			(_match, attributes: string, trailing: string, selfClosing: string, emptyClosing?: string) => {
-				// only empty usages can switch element, otherwise the closing tag could not be matched reliably
-				const isAction = actionElement && (selfClosing || emptyClosing) && !linkAttributePattern.test(attributes);
+			createLegacyTokenPattern(tag),
+			(
+				match: string,
+				attributes: string | undefined,
+				trailing: string | undefined,
+				selfClosing: string | undefined,
+				offset: number,
+				source: string,
+			) => {
+				if (match.startsWith('</')) {
+					const target = openElements.pop();
+					return target ? `</${target}>` : match;
+				}
+
+				if (attributes === undefined) {
+					openElements.push(null);
+					return match;
+				}
+
+				const isAction = !!actionElement && !linkAttributePattern.test(attributes);
 				const target = isAction ? actionElement : element;
 				const type = isAction ? ' type="button"' : '';
-				const opening = `<${target}${type}${formatAttribute(attribute, attributes)}${attributes}${selfClosing ? '' : trailing}>`;
+				const opening = `${classValueTodo(attributes, source, offset)}<${target}${type}${formatAttribute(attribute, attributes)}${attributes}${selfClosing ? '' : trailing}>`;
 
 				if (selfClosing) {
 					return `${opening}</${target}>`;
 				}
 
-				return emptyClosing ? `${opening}${emptyClosing.replace(tag, target)}` : opening;
+				openElements.push(target);
+				return opening;
 			},
 		);
-
-		content = content.replace(new RegExp(`</${tag}\\s*>`, 'g'), `</${element}>`);
 
 		// DOM queries / CSS selectors that targeted the native element inside the wrapper, e.g. `hlm-select-trigger > button`
 		const innerElements = actionElement ? `(?:${element}|${actionElement})` : element;
@@ -88,9 +114,34 @@ export function migrateNativeHostElements(content: string): string {
 			new RegExp(`\\b${tag}\\s*>?\\s*${innerElements}(?=\\s*['"\`\\[\\]:.,){>])`, 'g'),
 			`[${attribute}]`,
 		);
+
+		// DOM queries / CSS selectors that targeted the wrapper itself, e.g. `cy.get('hlm-select-trigger')`
+		content = content.replace(
+			new RegExp(`(?<=['"\`>+~,(\\s])${tag}(?![\\w-])(?=\\s*[)'"\`\\]>+~,\\[:{])`, 'g'),
+			`[${attribute}]`,
+		);
 	}
 
 	return content;
+}
+
+/**
+ * The legacy components passed `[class]` through `hlm()`, native elements only support strings, arrays of strings
+ * and class maps. Arrays containing class maps need to be converted manually.
+ */
+function classValueTodo(attributes: string, source: string, offset: number): string {
+	const classBinding = /\s\[class\]\s*=\s*(?:"([^"]*)"|'([^']*)')/.exec(attributes);
+	const value = (classBinding?.[1] ?? classBinding?.[2] ?? '').trim();
+
+	if (!value.startsWith('[') || !value.includes('{')) {
+		return '';
+	}
+
+	const todo =
+		'<!-- TODO(spartan): [class] no longer supports class maps inside arrays, use a string, an array of strings or a single class map -->';
+	const indentation = /(?:^|\n)([ \t]*)$/.exec(source.slice(0, offset));
+
+	return indentation ? `${todo}\n${indentation[1]}` : todo;
 }
 
 /** Keeps the attribute layout: multi-line tags get the new attribute on its own line. */

@@ -14,11 +14,12 @@ import { classes } from '<%- importAlias %>/utils';
 	providers: [provideIcons({ lucideChevronDown }), provideBrnButtonConfig({ variant: 'outline' })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	hostDirectives: [
+		// applied first so the combobox disabled state wins over the button's own disabled bindings
+		{ directive: HlmButton, inputs: ['variant'] },
 		BrnComboboxAnchor,
 		{ directive: BrnComboboxTrigger, inputs: ['forceInvalid'] },
 		BrnComboboxPopoverTrigger,
 		{ directive: BrnFieldControlDescribedBy, inputs: ['aria-describedby'] },
-		{ directive: HlmButton, inputs: ['variant'] },
 	],
 	host: {
 		'data-slot': 'combobox-trigger',

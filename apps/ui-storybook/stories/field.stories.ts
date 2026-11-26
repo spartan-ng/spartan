@@ -338,7 +338,7 @@ export const ComplexForm: Story = {
 									<div hlmField>
 										<label hlmFieldLabel for="field-complex-expiration-month">Month</label>
 										<hlm-select class="inline-block">
-											<button hlmSelectTrigger class="w-full" id="field-complex-expiration-month">
+											<button hlmSelectTrigger class="w-full" buttonId="field-complex-expiration-month">
 												<hlm-select-value placeholder="MM" />
 											</button>
 											<hlm-select-content *hlmSelectPortal>
@@ -362,7 +362,7 @@ export const ComplexForm: Story = {
 									<div hlmField>
 										<label hlmFieldLabel for="field-complex-expiration-year">Year</label>
 										<hlm-select class="inline-block">
-											<button hlmSelectTrigger class="w-full" id="field-complex-expiration-year">
+											<button hlmSelectTrigger class="w-full" buttonId="field-complex-expiration-year">
 												<hlm-select-value placeholder="YYYY" />
 											</button>
 											<hlm-select-content *hlmSelectPortal>

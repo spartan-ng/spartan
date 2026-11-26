@@ -43,7 +43,11 @@ import { injectHlmPaginationConfig } from './hlm-pagination.token';
 	host: {
 		'data-slot': 'pagination-link',
 		'[attr.type]': '_isButton ? "button" : null',
+		'[attr.role]': '_isActionAnchor() ? "button" : null',
+		'[attr.tabindex]': '_isActionAnchor() ? 0 : null',
 		'[attr.aria-label]': 'ariaLabel()',
+		'(keydown.enter)': '_activate($event)',
+		'(keydown.space)': '_activate($event)',
 	},
 	template: `
 		<ng-icon name="lucideChevronLeft" class="spartan-rtl-flip" />
@@ -52,9 +56,9 @@ import { injectHlmPaginationConfig } from './hlm-pagination.token';
 })
 export class HlmPaginationPrevious {
 	private readonly _config = injectHlmPaginationConfig();
+	private readonly _host = inject<ElementRef<HTMLElement>>(ElementRef).nativeElement;
 	/** Without a link this is an action, so it can be rendered as a focusable button. */
-	protected readonly _isButton =
-		inject<ElementRef<HTMLElement>>(ElementRef).nativeElement.tagName.toLowerCase() === 'button';
+	protected readonly _isButton = this._host.tagName.toLowerCase() === 'button';
 
 	/** The aria-label for the previous page link. */
 	public readonly ariaLabel = input<string>(this._config.previousAriaLabel, { alias: 'aria-label' });
@@ -66,6 +70,8 @@ export class HlmPaginationPrevious {
 	});
 	/** The link to navigate to the page. */
 	public readonly link = input<RouterLink['routerLink']>();
+	/** An anchor without a link has no `href`, so it needs to be made keyboard accessible like a button. */
+	protected readonly _isActionAnchor = computed(() => !this._isButton && this.link() == null);
 	protected readonly _labelClass = computed(() =>
 		hlm(this.iconOnly() ? 'sr-only' : 'spartan-pagination-previous-text hidden sm:block'),
 	);
@@ -77,5 +83,13 @@ export class HlmPaginationPrevious {
 			this.link() === undefined && 'cursor-pointer',
 			!this.iconOnly() && 'spartan-pagination-previous',
 		]);
+	}
+
+	protected _activate(event: Event): void {
+		if (!this._isActionAnchor()) {
+			return;
+		}
+		event.preventDefault();
+		this._host.click();
 	}
 }

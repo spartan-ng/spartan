@@ -19,7 +19,7 @@ function toArabicNumerals(num: number): string {
 		<nav hlmPagination [dir]="_dir()">
 			<ul hlmPaginationContent>
 				<li hlmPaginationItem>
-					<a hlmPaginationPrevious [text]="_t()['previous']"></a>
+					<button hlmPaginationPrevious [text]="_t()['previous']"></button>
 				</li>
 				<li hlmPaginationItem>
 					<a hlmPaginationLink link="#">{{ formatNumber()(1) }}</a>
@@ -34,7 +34,7 @@ function toArabicNumerals(num: number): string {
 					<hlm-pagination-ellipsis />
 				</li>
 				<li hlmPaginationItem>
-					<a hlmPaginationNext [text]="_t()['next']"></a>
+					<button hlmPaginationNext [text]="_t()['next']"></button>
 				</li>
 			</ul>
 		</nav>

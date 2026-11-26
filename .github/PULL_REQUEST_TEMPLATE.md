@@ -51,6 +51,7 @@ What kind of change does this PR introduce?
 - [ ] data-table
 - [ ] date-picker
 - [ ] dialog
+- [ ] drawer
 - [ ] empty
 - [ ] dropdown-menu
 - [ ] field

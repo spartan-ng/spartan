@@ -22,6 +22,7 @@ import { datePickerHealthcheck } from './healthchecks/hlm-date-picker';
 import { datePickerMinMaxHealthcheck } from './healthchecks/hlm-date-picker-min-max';
 import { helmDialogHealthcheck } from './healthchecks/hlm-dialog';
 import { helmDialogPortalHealthcheck } from './healthchecks/hlm-dialog-portal';
+import { helmDrawerHealthcheck } from './healthchecks/hlm-drawer';
 import { helmFormFieldHealthcheck } from './healthchecks/hlm-form-field';
 import { helmIconHealthcheck } from './healthchecks/hlm-icon';
 import { hlmInputIdHealthcheck } from './healthchecks/hlm-input-id';
@@ -69,6 +70,7 @@ export async function healthcheckGenerator(tree: Tree, options: HealthcheckGener
 		helmMenuHealthcheck,
 		helmDialogHealthcheck,
 		helmDialogPortalHealthcheck,
+		helmDrawerHealthcheck,
 		helmFormFieldHealthcheck,
 		sonnerHealthcheck,
 		brnSelectHealthcheck,

@@ -22,7 +22,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { nextBrnDialogId } from './brn-dialog-id';
 import type { BrnDialogOptions } from './brn-dialog-options';
 import type { BrnDialogRef } from './brn-dialog-ref';
-import type { BrnDialogState } from './brn-dialog-state';
+import type { BrnDialogState, BrnDialogTransitionStatus } from './brn-dialog-state';
 import { injectBrnDialogDefaultOptions } from './brn-dialog-token';
 import { cssClassesToArray } from './brn-dialog-utils';
 import { BrnDialogService } from './brn-dialog.service';
@@ -63,7 +63,10 @@ export class BrnDialog<TResult = unknown, TContext extends Record<string, unknow
 
 	public readonly closed = output<TResult>();
 	public readonly stateChanged = output<BrnDialogState>();
+	/** Emits `true` once the open transition finished and `false` once the close transition finished. */
+	public readonly openChangeComplete = output<boolean>();
 	public readonly stateComputed = computed<BrnDialogState>(() => this._dialogRef()?.state() ?? 'closed');
+	public readonly transitionStatus = computed<BrnDialogTransitionStatus>(() => this._dialogRef()?.transitionStatus());
 
 	public readonly id = input<string>(nextBrnDialogId());
 	public readonly state = input<BrnDialogState | null>(null);
@@ -101,26 +104,28 @@ export class BrnDialog<TResult = unknown, TContext extends Record<string, unknow
 		transform: booleanAttribute,
 	});
 
-	protected readonly _options = computed<Partial<BrnDialogOptions>>(() => ({
-		id: this.id(),
-		role: this.role(),
-		direction: this._directionality.valueSignal(),
-		hasBackdrop: this.hasBackdrop(),
-		positionStrategy: this.getPositionStrategy(),
-		scrollStrategy: this.getScrollStrategy(),
-		restoreFocus: this.restoreFocus(),
-		closeOnOutsidePointerEvents: this.closeOnOutsidePointerEvents(),
-		attachTo: this.getAttachTo(),
-		attachPositions: this.attachPositions(),
-		autoFocus: this.autoFocus(),
-		disableClose: this.disableClose(),
-		backdropClass: cssClassesToArray(this._resolvedBackdropClass()),
-		panelClass: cssClassesToArray(this._resolvedPanelClass()),
-		ariaDescribedBy: this.ariaDescribedBy(),
-		ariaLabelledBy: this.ariaLabelledBy(),
-		ariaLabel: this.ariaLabel(),
-		ariaModal: this.ariaModal(),
-	}));
+	protected readonly _options = computed<Partial<BrnDialogOptions>>(() =>
+		this.resolveOptions({
+			id: this.id(),
+			role: this.role(),
+			direction: this._directionality.valueSignal(),
+			hasBackdrop: this.hasBackdrop(),
+			positionStrategy: this.getPositionStrategy(),
+			scrollStrategy: this.getScrollStrategy(),
+			restoreFocus: this.restoreFocus(),
+			closeOnOutsidePointerEvents: this.closeOnOutsidePointerEvents(),
+			attachTo: this.getAttachTo(),
+			attachPositions: this.attachPositions(),
+			autoFocus: this.autoFocus(),
+			disableClose: this.disableClose(),
+			backdropClass: cssClassesToArray(this._resolvedBackdropClass()),
+			panelClass: cssClassesToArray(this._resolvedPanelClass()),
+			ariaDescribedBy: this.ariaDescribedBy(),
+			ariaLabelledBy: this.ariaLabelledBy(),
+			ariaLabel: this.ariaLabel(),
+			ariaModal: this.ariaModal(),
+		}),
+	);
 
 	constructor() {
 		// Registered first so the flag is set before forceClose() below tears the dialog down and
@@ -163,6 +168,10 @@ export class BrnDialog<TResult = unknown, TContext extends Record<string, unknow
 			if (!this._destroyed) this.stateChanged.emit(state);
 		});
 
+		dialogRef.openChangeComplete$.pipe(takeUntilDestroyed(this._destroyRef)).subscribe((open) => {
+			if (!this._destroyed) this.openChangeComplete.emit(open);
+		});
+
 		dialogRef.closed$.pipe(takeUntilDestroyed(this._destroyRef)).subscribe((result) => {
 			if (this._dialogRef() === dialogRef) this._dialogRef.set(undefined);
 			if (!this._destroyed) this.closed.emit(result as TResult);
@@ -203,8 +212,18 @@ export class BrnDialog<TResult = unknown, TContext extends Record<string, unknow
 		this._dialogRef()?.updatePosition();
 	}
 
+	/** Replaces the scroll strategy of the open dialog. */
+	protected updateScrollStrategy(strategy: ScrollStrategy): void {
+		this._dialogRef()?.updateScrollStrategy(strategy);
+	}
+
 	protected getAttachTo(): BrnDialogOptions['attachTo'] {
 		return this.attachTo() ?? this._origin();
+	}
+
+	/** Lets subclasses derive options from their own inputs before the dialog opens. */
+	protected resolveOptions(options: Partial<BrnDialogOptions>): Partial<BrnDialogOptions> {
+		return options;
 	}
 
 	protected getPositionStrategy(): BrnDialogOptions['positionStrategy'] {

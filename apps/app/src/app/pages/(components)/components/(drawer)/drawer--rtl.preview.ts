@@ -17,7 +17,7 @@ import { HlmInputImports } from '@spartan-ng/helm/input';
 					<h3 hlmDrawerTitle>{{ _t()['editProfile'] }}</h3>
 					<p hlmDrawerDescription>{{ _t()['description'] }}</p>
 				</hlm-drawer-header>
-				<hlm-field-group class="px-4">
+				<hlm-field-group class="flex-1 p-4">
 					<hlm-field>
 						<label hlmFieldLabel for="name-rtl">{{ _t()['name'] }}</label>
 						<input hlmInput id="name-rtl" value="Pedro Duarte" />

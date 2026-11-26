@@ -73,6 +73,19 @@ describe('waitForAnimations', () => {
 		expect(animation.playState).toBe('finished');
 	});
 
+	it('does not wait on an infinite animation', async () => {
+		const el = track(mount());
+		const animation = el.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 1000, iterations: Infinity });
+
+		// Resolves before any timer fires: it neither waits on the animation nor on the fallback timer.
+		const first = await Promise.race([
+			waitForAnimations([animation]).then(() => 'animations'),
+			new Promise((resolve) => setTimeout(() => resolve('timer'), 0)),
+		]);
+		expect(first).toBe('animations');
+		expect(animation.playState).toBe('running');
+	});
+
 	// The fallback timer guarantees teardown even if an animation never reaches `finished`
 	// (e.g. paused/stuck), so the overlay can never get wedged open.
 	it('resolves via the fallback timer when an animation never finishes', async () => {

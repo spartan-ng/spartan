@@ -60,6 +60,11 @@
 			"schema": "./src/generators/migrate-date-picker-min-max/schema.json",
 			"description": "Migrate hlm-date-picker min/max inputs to minDate/maxDate"
 		},
+		"migrate-drawer": {
+			"factory": "./src/generators/migrate-drawer/generator",
+			"schema": "./src/generators/migrate-drawer/schema.json",
+			"description": "Migrate the vaul based drawer to the Base UI drawer"
+		},
 		"migrate-helm-imports": {
 			"factory": "./src/generators/migrate-helm-imports/generator",
 			"schema": "./src/generators/migrate-helm-imports/schema.json",
@@ -201,6 +206,11 @@
 			"factory": "./src/generators/migrate-date-picker-min-max/compat",
 			"schema": "./src/generators/migrate-date-picker-min-max/schema.json",
 			"description": "Migrate hlm-date-picker min/max inputs to minDate/maxDate"
+		},
+		"migrate-drawer": {
+			"factory": "./src/generators/migrate-drawer/compat",
+			"schema": "./src/generators/migrate-drawer/schema.json",
+			"description": "Migrate the vaul based drawer to the Base UI drawer"
 		},
 		"migrate-helm-imports": {
 			"factory": "./src/generators/migrate-helm-imports/compat",

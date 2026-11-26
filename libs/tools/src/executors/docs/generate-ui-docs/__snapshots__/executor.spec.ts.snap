@@ -295,6 +295,10 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "name": "stateChanged",
             "type": "BrnDialogState",
           },
+          {
+            "name": "openChangeComplete",
+            "type": "boolean",
+          },
         ],
         "selector": "[brnAlertDialog],brn-alert-dialog",
       },
@@ -466,6 +470,10 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
           {
             "name": "stateChanged",
             "type": "BrnDialogState",
+          },
+          {
+            "name": "openChangeComplete",
+            "type": "boolean",
           },
         ],
         "selector": "hlm-alert-dialog",
@@ -4709,6 +4717,10 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "name": "stateChanged",
             "type": "BrnDialogState",
           },
+          {
+            "name": "openChangeComplete",
+            "type": "boolean",
+          },
         ],
         "selector": "[brnDialog],brn-dialog",
       },
@@ -4883,6 +4895,10 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "name": "stateChanged",
             "type": "BrnDialogState",
           },
+          {
+            "name": "openChangeComplete",
+            "type": "boolean",
+          },
         ],
         "selector": "hlm-dialog",
       },
@@ -5001,9 +5017,34 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "exportAs": "brnDrawer",
         "inputs": [
           {
-            "name": "direction",
+            "name": "swipeDirection",
             "required": false,
-            "type": "'bottom' | 'top' | 'left' | 'right'",
+            "type": "BrnDrawerSwipeDirection",
+          },
+          {
+            "name": "modal",
+            "required": false,
+            "type": "BrnDrawerModal",
+          },
+          {
+            "name": "snapPoints",
+            "required": false,
+            "type": "readonly BrnDrawerSnapPoint[] | undefined",
+          },
+          {
+            "name": "defaultSnapPoint",
+            "required": false,
+            "type": "BrnDrawerSnapPoint | null | undefined",
+          },
+          {
+            "name": "snapToSequentialPoints",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "autoFocus",
+            "required": false,
+            "type": "BrnDialogOptions['autoFocus']",
           },
           {
             "name": "id",
@@ -5056,11 +5097,6 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "type": "BrnDialogOptions['attachPositions']",
           },
           {
-            "name": "autoFocus",
-            "required": false,
-            "type": "BrnDialogOptions['autoFocus']",
-          },
-          {
             "name": "disableClose",
             "required": false,
             "type": "boolean",
@@ -5086,7 +5122,13 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "type": "boolean",
           },
         ],
-        "models": [],
+        "models": [
+          {
+            "name": "snapPoint",
+            "required": false,
+            "type": "BrnDrawerSnapPoint | null | undefined",
+          },
+        ],
         "outputs": [
           {
             "name": "closed",
@@ -5096,18 +5138,81 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "name": "stateChanged",
             "type": "BrnDialogState",
           },
+          {
+            "name": "openChangeComplete",
+            "type": "boolean",
+          },
         ],
         "selector": "[brnDrawer],brn-drawer",
       },
+      "BrnDrawerBackdrop": {
+        "exportAs": "brnDrawerBackdrop",
+        "inputs": [
+          {
+            "name": "class",
+            "required": false,
+            "type": "string | null | undefined",
+          },
+          {
+            "name": "forceRender",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnDrawerBackdrop],brn-drawer-backdrop",
+      },
       "BrnDrawerClose": {
         "exportAs": "brnDrawerClose",
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
         "models": [],
         "outputs": [],
         "selector": "button[brnDrawerClose]",
       },
       "BrnDrawerContent": {
         "exportAs": "brnDrawerContent",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnDrawerContent],brn-drawer-content",
+      },
+      "BrnDrawerDescription": {
+        "exportAs": "brnDrawerDescription",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnDrawerDescription]",
+      },
+      "BrnDrawerIndent": {
+        "exportAs": "brnDrawerIndent",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnDrawerIndent],brn-drawer-indent",
+      },
+      "BrnDrawerIndentBackground": {
+        "exportAs": "brnDrawerIndentBackground",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnDrawerIndentBackground],brn-drawer-indent-background",
+      },
+      "BrnDrawerPopup": {
+        "exportAs": "brnDrawerPopup",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnDrawerPopup],brn-drawer-popup",
+      },
+      "BrnDrawerPortal": {
+        "exportAs": "brnDrawerPortal",
         "inputs": [
           {
             "name": "class",
@@ -5122,40 +5227,32 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "[brnDrawerContent]",
+        "selector": "[brnDrawerPortal]",
       },
-      "BrnDrawerDescription": {
-        "exportAs": "brnDrawerDescription",
+      "BrnDrawerProvider": {
+        "exportAs": "brnDrawerProvider",
         "inputs": [],
         "models": [],
         "outputs": [],
-        "selector": "[brnDrawerDescription]",
+        "selector": "[brnDrawerProvider],brn-drawer-provider",
       },
-      "BrnDrawerHandle": {
-        "exportAs": "brnDrawerHandle",
+      "BrnDrawerSwipeArea": {
+        "exportAs": "brnDrawerSwipeArea",
         "inputs": [
           {
-            "name": "closeThreshold",
+            "name": "disabled",
             "required": false,
-            "type": "number",
+            "type": "boolean",
+          },
+          {
+            "name": "swipeDirection",
+            "required": false,
+            "type": "BrnDrawerSwipeDirection",
           },
         ],
         "models": [],
         "outputs": [],
-        "selector": "[brnDrawerHandle]",
-      },
-      "BrnDrawerOverlay": {
-        "exportAs": "brnDrawerOverlay",
-        "inputs": [
-          {
-            "name": "class",
-            "required": false,
-            "type": "string | null | undefined",
-          },
-        ],
-        "models": [],
-        "outputs": [],
-        "selector": "[brnDrawerOverlay],brn-drawer-overlay",
+        "selector": "[brnDrawerSwipeArea],brn-drawer-swipe-area",
       },
       "BrnDrawerTitle": {
         "exportAs": "brnDrawerTitle",
@@ -5168,9 +5265,19 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "exportAs": "brnDrawerTrigger",
         "inputs": [
           {
-            "name": "direction",
+            "name": "brnDrawerTriggerFor",
             "required": false,
-            "type": "'bottom' | 'top' | 'left' | 'right' | undefined",
+            "type": "BrnDrawer | undefined",
+          },
+          {
+            "name": "payload",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
           },
           {
             "name": "id",
@@ -5190,7 +5297,21 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         ],
         "models": [],
         "outputs": [],
-        "selector": "button[brnDrawerTrigger]",
+        "selector": "button[brnDrawerTrigger],button[brnDrawerTriggerFor]",
+      },
+      "BrnDrawerViewport": {
+        "exportAs": "brnDrawerViewport",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnDrawerViewport],brn-drawer-viewport",
+      },
+      "BrnDrawerVirtualKeyboardProvider": {
+        "exportAs": "brnDrawerVirtualKeyboardProvider",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnDrawerVirtualKeyboardProvider]",
       },
     },
     "helm": {
@@ -5198,9 +5319,39 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "exportAs": "hlmDrawer",
         "inputs": [
           {
-            "name": "direction",
+            "name": "showSwipeHandle",
             "required": false,
-            "type": "'bottom' | 'top' | 'left' | 'right'",
+            "type": "boolean",
+          },
+          {
+            "name": "swipeDirection",
+            "required": false,
+            "type": "BrnDrawerSwipeDirection",
+          },
+          {
+            "name": "modal",
+            "required": false,
+            "type": "BrnDrawerModal",
+          },
+          {
+            "name": "snapPoints",
+            "required": false,
+            "type": "readonly BrnDrawerSnapPoint[] | undefined",
+          },
+          {
+            "name": "defaultSnapPoint",
+            "required": false,
+            "type": "BrnDrawerSnapPoint | null | undefined",
+          },
+          {
+            "name": "snapToSequentialPoints",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "autoFocus",
+            "required": false,
+            "type": "BrnDialogOptions['autoFocus']",
           },
           {
             "name": "id",
@@ -5253,11 +5404,6 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "type": "BrnDialogOptions['attachPositions']",
           },
           {
-            "name": "autoFocus",
-            "required": false,
-            "type": "BrnDialogOptions['autoFocus']",
-          },
-          {
             "name": "disableClose",
             "required": false,
             "type": "boolean",
@@ -5283,7 +5429,13 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "type": "boolean",
           },
         ],
-        "models": [],
+        "models": [
+          {
+            "name": "snapPoint",
+            "required": false,
+            "type": "BrnDrawerSnapPoint | null | undefined",
+          },
+        ],
         "outputs": [
           {
             "name": "closed",
@@ -5293,12 +5445,22 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "name": "stateChanged",
             "type": "BrnDialogState",
           },
+          {
+            "name": "openChangeComplete",
+            "type": "boolean",
+          },
         ],
         "selector": "hlm-drawer",
       },
       "HlmDrawerClose": {
         "exportAs": "hlmDrawerClose",
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
         "models": [],
         "outputs": [],
         "selector": "button[hlmDrawerClose]",
@@ -5307,9 +5469,14 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "exportAs": "hlmDrawerContent",
         "inputs": [
           {
-            "name": "closeThreshold",
+            "name": "class",
             "required": false,
-            "type": "number",
+            "type": "ClassValue",
+          },
+          {
+            "name": "showSwipeHandle",
+            "required": false,
+            "type": "boolean | undefined",
           },
         ],
         "models": [],
@@ -5345,6 +5512,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "required": false,
             "type": "ClassValue",
           },
+          {
+            "name": "forceRender",
+            "required": false,
+            "type": "boolean",
+          },
         ],
         "models": [],
         "outputs": [],
@@ -5368,6 +5540,31 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "outputs": [],
         "selector": "[hlmDrawerPortal]",
       },
+      "HlmDrawerSwipeArea": {
+        "exportAs": "hlmDrawerSwipeArea",
+        "inputs": [
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "swipeDirection",
+            "required": false,
+            "type": "BrnDrawerSwipeDirection",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmDrawerSwipeArea],hlm-drawer-swipe-area",
+      },
+      "HlmDrawerSwipeHandle": {
+        "exportAs": "hlmDrawerSwipeHandle",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmDrawerSwipeHandle],hlm-drawer-swipe-handle",
+      },
       "HlmDrawerTitle": {
         "exportAs": "hlmDrawerTitle",
         "inputs": [],
@@ -5384,19 +5581,29 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "type": "string",
           },
           {
-            "name": "direction",
-            "required": false,
-            "type": "'bottom' | 'top' | 'left' | 'right' | undefined",
-          },
-          {
             "name": "type",
             "required": false,
             "type": "'button' | 'submit' | 'reset'",
           },
+          {
+            "name": "payload",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+          },
+          {
+            "name": "hlmDrawerTriggerFor",
+            "required": false,
+            "type": "BrnDrawer | undefined",
+          },
         ],
         "models": [],
         "outputs": [],
-        "selector": "button[hlmDrawerTrigger]",
+        "selector": "button[hlmDrawerTrigger],button[hlmDrawerTriggerFor]",
       },
     },
   },
@@ -9578,6 +9785,10 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "name": "stateChanged",
             "type": "BrnDialogState",
           },
+          {
+            "name": "openChangeComplete",
+            "type": "boolean",
+          },
         ],
         "selector": "[brnSheet],brn-sheet",
       },
@@ -9761,6 +9972,10 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
           {
             "name": "stateChanged",
             "type": "BrnDialogState",
+          },
+          {
+            "name": "openChangeComplete",
+            "type": "boolean",
           },
         ],
         "selector": "hlm-sheet",

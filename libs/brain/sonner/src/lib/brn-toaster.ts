@@ -1,3 +1,5 @@
+// Adapted from Sonner (https://github.com/emilkowalski/sonner), MIT License, Copyright (c) 2023 Emil Kowalski,
+// via ngx-sonner (https://github.com/tutkli/ngx-sonner), MIT License, Copyright (c) 2024 Clara Castillo.
 import { Directionality } from '@angular/cdk/bidi';
 import type { BooleanInput, NumberInput } from '@angular/cdk/coercion';
 import { isPlatformBrowser, NgTemplateOutlet } from '@angular/common';

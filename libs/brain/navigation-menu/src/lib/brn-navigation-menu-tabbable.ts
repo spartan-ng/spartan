@@ -1,3 +1,4 @@
+// Portions adapted from Radix Primitives (https://github.com/radix-ui/primitives), MIT License, Copyright (c) 2022 WorkOS.
 /** Returns the tabbable elements inside `container`, in DOM order. Ported from Radix's navigation menu. */
 export function getTabbableCandidates(container: HTMLElement): HTMLElement[] {
 	const nodes: HTMLElement[] = [];

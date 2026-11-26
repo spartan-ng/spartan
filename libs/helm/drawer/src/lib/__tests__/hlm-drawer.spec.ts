@@ -4,6 +4,7 @@ import { HlmDrawerImports } from '../../index';
 
 const flush = async () => {
 	await new Promise((resolve) => setTimeout(resolve, 0));
+	await new Promise((resolve) => requestAnimationFrame(resolve));
 	await new Promise((resolve) => setTimeout(resolve, 0));
 };
 
@@ -12,9 +13,9 @@ const flush = async () => {
 	imports: [HlmDrawerImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<hlm-drawer [direction]="direction()">
+		<hlm-drawer [swipeDirection]="swipeDirection()" [modal]="modal()" [showSwipeHandle]="showSwipeHandle()">
 			<button hlmDrawerTrigger>Open Drawer</button>
-			<hlm-drawer-content *hlmDrawerPortal="let ctx">
+			<hlm-drawer-content *hlmDrawerPortal="let ctx" class="custom-popup-class">
 				<h3 hlmDrawerTitle>Edit Profile</h3>
 				<button hlmDrawerClose data-testid="close">Cancel</button>
 			</hlm-drawer-content>
@@ -22,7 +23,9 @@ const flush = async () => {
 	`,
 })
 class DrawerHost {
-	public readonly direction = input<'bottom' | 'top' | 'left' | 'right'>('bottom');
+	public readonly swipeDirection = input<'down' | 'up' | 'left' | 'right'>('down');
+	public readonly modal = input<boolean | 'trap-focus'>(true);
+	public readonly showSwipeHandle = input(false);
 }
 
 @Component({
@@ -30,10 +33,10 @@ class DrawerHost {
 	imports: [HlmDrawerImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<hlm-drawer direction="bottom">
+		<hlm-drawer>
 			<button hlmDrawerTrigger data-testid="outer-trigger">Open Drawer</button>
 			<hlm-drawer-content *hlmDrawerPortal>
-				<hlm-drawer direction="right">
+				<hlm-drawer swipeDirection="right">
 					<button hlmDrawerTrigger data-testid="nested-trigger">Open Nested</button>
 					<hlm-drawer-content *hlmDrawerPortal>
 						<button hlmDrawerClose data-testid="nested-close">Close</button>
@@ -46,103 +49,147 @@ class DrawerHost {
 class NestedDrawerHost {}
 
 const trigger = () => document.querySelector('button[hlmDrawerTrigger]') as HTMLButtonElement;
-const content = () => document.querySelector('[hlmdrawercontent], hlm-drawer-content') as HTMLElement | null;
-const contents = () => Array.from(document.querySelectorAll<HTMLElement>('hlm-drawer-content'));
+const popups = () => Array.from(document.querySelectorAll<HTMLElement>('[data-slot="drawer-popup"]'));
+const popup = () => popups()[0] ?? null;
 const backdrop = () => document.querySelector('.cdk-overlay-backdrop');
-const globalWrapper = () => document.querySelector('.cdk-global-overlay-wrapper') as HTMLElement | null;
+
+async function openDrawer(view: Awaited<ReturnType<typeof render>>, button = trigger()) {
+	fireEvent.click(button);
+	view.detectChanges();
+	await flush();
+	view.detectChanges();
+}
+
+@Component({
+	selector: 'hlm-drawer-disabled-host',
+	imports: [HlmDrawerImports],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<hlm-drawer>
+			<button hlmDrawerTrigger disabled>Open Drawer</button>
+		</hlm-drawer>
+	`,
+})
+class DisabledTriggerHost {}
+
+@Component({
+	selector: 'hlm-drawer-content-handle-host',
+	imports: [HlmDrawerImports],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<hlm-drawer>
+			<button hlmDrawerTrigger>Open Drawer</button>
+			<hlm-drawer-content *hlmDrawerPortal showSwipeHandle>Content</hlm-drawer-content>
+		</hlm-drawer>
+	`,
+})
+class ContentSwipeHandleHost {}
 
 describe('HlmDrawer', () => {
 	afterEach(() => {
 		document.querySelectorAll('.cdk-overlay-container').forEach((el) => el.remove());
 	});
 
-	it('opens with content and a (modal) backdrop, and closes via the close button', async () => {
+	it('renders viewport, popup and content, with a modal backdrop, and closes via the close button', async () => {
 		const view = await render(DrawerHost);
+		await openDrawer(view);
 
-		fireEvent.click(trigger());
-		view.detectChanges();
-		await flush();
-
-		expect(content()).toBeTruthy();
-		expect(content()?.textContent).toContain('Edit Profile');
+		expect(document.querySelector('[data-slot="drawer-viewport"] > [data-slot="drawer-popup"]')).toBeTruthy();
+		expect(popup()?.querySelector('[data-slot="drawer-content"][data-drawer-content]')?.textContent).toContain(
+			'Edit Profile',
+		);
 		expect(backdrop()).toBeTruthy();
 
 		fireEvent.click(document.querySelector('[data-testid="close"]') as HTMLButtonElement);
 		view.detectChanges();
 		await flush();
 
-		expect(content()).toBeNull();
+		expect(popup()).toBeNull();
 	});
 
 	it('closes on Escape', async () => {
 		const view = await render(DrawerHost);
-
-		fireEvent.click(trigger());
-		view.detectChanges();
-		await flush();
-		expect(content()).toBeTruthy();
+		await openDrawer(view);
+		expect(popup()).toBeTruthy();
 
 		fireEvent.keyDown(document.querySelector('.cdk-overlay-pane') as HTMLElement, { key: 'Escape' });
 		view.detectChanges();
 		await flush();
 
-		expect(content()).toBeNull();
+		expect(popup()).toBeNull();
 	});
 
-	// getPositionStrategy() override: each direction anchors the drawer to the matching screen edge
-	// via a CDK global position strategy. The wrapper's flex alignment reflects the chosen edge.
-	it('anchors to the bottom edge by default', async () => {
+	it('applies the content class to the popup and exposes the swipe direction and axis', async () => {
+		const view = await render(DrawerHost, { inputs: { swipeDirection: 'left' } });
+		await openDrawer(view);
+
+		expect(popup()?.classList).toContain('custom-popup-class');
+		expect(popup()?.getAttribute('data-swipe-direction')).toBe('left');
+		expect(popup()?.getAttribute('data-swipe-axis')).toBe('x');
+	});
+
+	it('focuses the popup when it opens', async () => {
 		const view = await render(DrawerHost);
+		await openDrawer(view);
 
-		fireEvent.click(trigger());
-		view.detectChanges();
-		await flush();
-
-		expect(globalWrapper()?.style.alignItems).toBe('flex-end');
+		expect(document.activeElement).toBe(popup());
 	});
 
-	it('anchors to the right edge when direction="right"', async () => {
-		const view = await render(DrawerHost, { inputs: { direction: 'right' } });
-
-		fireEvent.click(trigger());
-		view.detectChanges();
+	it('renders the swipe handle only with showSwipeHandle', async () => {
+		const view = await render(DrawerHost);
+		await openDrawer(view);
+		expect(document.querySelector('[data-slot="drawer-swipe-handle"]')).toBeNull();
+		fireEvent.keyDown(document.querySelector('.cdk-overlay-pane') as HTMLElement, { key: 'Escape' });
 		await flush();
 
-		expect(globalWrapper()?.style.justifyContent).toBe('flex-end');
+		view.fixture.componentRef.setInput('showSwipeHandle', true);
+		await openDrawer(view);
+		expect(document.querySelector('[data-slot="drawer-swipe-handle"]')).toBeTruthy();
 	});
 
-	it('anchors to the left edge when direction="left"', async () => {
-		const view = await render(DrawerHost, { inputs: { direction: 'left' } });
+	it('renders the swipe handle for a bare showSwipeHandle attribute on the content', async () => {
+		const view = await render(ContentSwipeHandleHost);
+		await openDrawer(view);
 
-		fireEvent.click(trigger());
-		view.detectChanges();
-		await flush();
-
-		expect(globalWrapper()?.style.justifyContent).toBe('flex-start');
+		expect(document.querySelector('[data-slot="drawer-swipe-handle"]')).toBeTruthy();
 	});
 
-	it('anchors to the top edge when direction="top"', async () => {
-		const view = await render(DrawerHost, { inputs: { direction: 'top' } });
+	it('has no backdrop and no scroll lock when not modal', async () => {
+		const view = await render(DrawerHost, { inputs: { modal: false } });
+		await openDrawer(view);
 
-		fireEvent.click(trigger());
-		view.detectChanges();
-		await flush();
-
-		expect(globalWrapper()?.style.alignItems).toBe('flex-start');
+		expect(popup()).toBeTruthy();
+		expect(backdrop()).toBeNull();
+		expect(document.documentElement.classList).not.toContain('cdk-global-scrollblock');
 	});
 
-	it('uses the nested drawer direction instead of the parent drawer direction', async () => {
+	it('marks the parent while a nested drawer is open and keeps each drawer direction', async () => {
 		const view = await render(NestedDrawerHost);
+		await openDrawer(view, document.querySelector('[data-testid="outer-trigger"]') as HTMLButtonElement);
+		await openDrawer(view, document.querySelector('[data-testid="nested-trigger"]') as HTMLButtonElement);
 
-		fireEvent.click(document.querySelector('[data-testid="outer-trigger"]') as HTMLButtonElement);
+		const [parent, nested] = popups();
+		expect(parent.getAttribute('data-swipe-direction')).toBe('down');
+		expect(nested.getAttribute('data-swipe-direction')).toBe('right');
+		expect(nested.hasAttribute('data-nested')).toBe(true);
+		expect(parent.hasAttribute('data-nested-drawer-open')).toBe(true);
+		expect(parent.style.getPropertyValue('--nested-drawers')).toBe('1');
+
+		fireEvent.click(document.querySelector('[data-testid="nested-close"]') as HTMLButtonElement);
 		view.detectChanges();
 		await flush();
-
-		fireEvent.click(document.querySelector('[data-testid="nested-trigger"]') as HTMLButtonElement);
 		view.detectChanges();
-		await flush();
 
-		const nestedContent = contents().at(-1);
-		expect(nestedContent?.getAttribute('data-vaul-drawer-direction')).toBe('right');
+		expect(popups()).toHaveLength(1);
+		expect(popup()?.hasAttribute('data-nested-drawer-open')).toBe(false);
+		expect(popup()?.style.getPropertyValue('--nested-drawers')).toBe('0');
+	});
+
+	it('keeps a disabled trigger disabled', async () => {
+		const view = await render(DisabledTriggerHost);
+		const trigger = view.getByText('Open Drawer') as HTMLButtonElement;
+
+		expect(trigger.disabled).toBe(true);
+		expect(trigger.hasAttribute('data-disabled')).toBe(true);
 	});
 });

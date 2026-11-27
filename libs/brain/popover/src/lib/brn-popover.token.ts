@@ -30,6 +30,7 @@ export const BRN_POPOVER_OVERLAY_DEFAULT_OPTIONS: BrnOverlayDefaultOptions = {
 	autoFocus: true,
 	closeOnOutsidePointerEvents: true,
 	hasBackdrop: false,
+	restoreFocus: true,
 	role: 'dialog',
 	scrollStrategy: 'reposition',
 };

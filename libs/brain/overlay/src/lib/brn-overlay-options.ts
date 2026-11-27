@@ -22,6 +22,11 @@ export type BrnOverlayOptions = {
 	panelClass: string | string[];
 	positionStrategy: PositionStrategy | null | undefined;
 	providers?: StaticProvider[] | (() => StaticProvider[]);
+	/**
+	 * Move focus back to the element that was focused when the overlay opened, if focus is lost
+	 * (`body`, null or disconnected) when the overlay closes.
+	 */
+	restoreFocus: boolean;
 	role: string | null;
 	scrollStrategy: ScrollStrategy | 'close' | 'reposition' | null | undefined;
 };

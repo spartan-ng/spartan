@@ -29,6 +29,9 @@ export class BrnCalendarMonthSelect {
 	/** The month displayed by this select */
 	private readonly _displayedMonth = computed(() => this._month?.month() ?? this._calendar.focusedDate());
 
+	/** Whether the select value is being synced from the calendar rather than picked by the user */
+	private _syncing = false;
+
 	protected readonly _selectedMonth = computed(() => {
 		return this._i18n.config().months()[this._dateAdapter.getMonth(this._displayedMonth())];
 	});
@@ -40,13 +43,14 @@ export class BrnCalendarMonthSelect {
 		outputToObservable(this._select.value)
 			.pipe(takeUntilDestroyed())
 			.subscribe((value) => {
-				if (typeof value === 'string') {
+				// writeValue emits on the same output; only a real user selection should move focus.
+				if (!this._syncing && typeof value === 'string') {
 					this.monthSelected(value);
 				}
 			});
 
 		effect(() => {
-			this._select.writeValue(this._selectedMonth());
+			this._syncSelect(this._selectedMonth());
 		});
 	}
 
@@ -73,6 +77,16 @@ export class BrnCalendarMonthSelect {
 		}
 		// The select already shows the picked month. When the focused month did not change
 		// (target rejected or constrained back into it), the effect does not run again.
-		this._select.writeValue(this._selectedMonth());
+		this._syncSelect(this._selectedMonth());
+	}
+
+	/** Write the calendar's value into the select without treating it as a user selection */
+	private _syncSelect(value: string): void {
+		this._syncing = true;
+		try {
+			this._select.writeValue(value);
+		} finally {
+			this._syncing = false;
+		}
 	}
 }

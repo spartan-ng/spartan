@@ -14,6 +14,7 @@ import { BrnPopover } from '@spartan-ng/brain/popover';
 				'autoFocus',
 				'closeOnOutsidePointerEvents',
 				'offsetX',
+				'restoreFocus',
 				'scrollStrategy',
 				'sideOffset',
 				'state',

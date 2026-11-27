@@ -29,6 +29,9 @@ export class BrnCalendarYearSelect {
 	/** Access the calendar i18n */
 	protected readonly _i18n = injectBrnCalendarI18n();
 
+	/** Whether the select value is being synced from the calendar rather than picked by the user */
+	private _syncing = false;
+
 	constructor() {
 		// React to user selection through the injected select's typed `value` output rather than a
 		// host-listener `$event` (which Angular types as `Event`). The year select's values are
@@ -36,13 +39,14 @@ export class BrnCalendarYearSelect {
 		outputToObservable(this._select.value)
 			.pipe(takeUntilDestroyed())
 			.subscribe((value) => {
-				if (typeof value === 'number') {
+				// writeValue emits on the same output; only a real user selection should move focus.
+				if (!this._syncing && typeof value === 'number') {
 					this.yearSelected(value);
 				}
 			});
 
 		effect(() => {
-			this._select.writeValue(this._dateAdapter.getYear(this._displayedMonth()));
+			this._syncSelect(this._dateAdapter.getYear(this._displayedMonth()));
 		});
 	}
 
@@ -64,6 +68,16 @@ export class BrnCalendarYearSelect {
 			this._calendar.showMonth?.(target, this._month?.offset() ?? 0);
 		}
 		// Keep the select on the year actually shown when the target was rejected.
-		this._select.writeValue(this._dateAdapter.getYear(this._displayedMonth()));
+		this._syncSelect(this._dateAdapter.getYear(this._displayedMonth()));
+	}
+
+	/** Write the calendar's value into the select without treating it as a user selection */
+	private _syncSelect(value: number): void {
+		this._syncing = true;
+		try {
+			this._select.writeValue(value);
+		} finally {
+			this._syncing = false;
+		}
 	}
 }

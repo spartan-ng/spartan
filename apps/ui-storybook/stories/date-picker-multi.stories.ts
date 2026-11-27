@@ -31,7 +31,7 @@ const meta: Meta<HlmDatePickerMulti<Date>> = {
 		template: `
 		<div class="preview flex min-h-[350px] w-full justify-center p-10 items-center">
 			<hlm-date-picker-multi [minDate]="minDate" [maxDate]="maxDate" [captionLayout]="captionLayout">
-                <button hlmDatePickerTrigger buttonId="date">Pick a date</button>
+                <button hlmDatePickerTrigger id="date">Pick a date</button>
             </hlm-date-picker-multi>
 		</div>
 		`,
@@ -53,7 +53,7 @@ export const Input: Story = {
 		<div class="preview flex min-h-[350px] w-full justify-center p-10 items-center">
 			<hlm-date-picker-multi>
 				<hlm-date-multi-input inputId="date-input" placeholder="dd/MM/yyyy, dd/MM/yyyy" />
-				<button hlmDatePickerTrigger buttonId="date-trigger" [showTrigger]="false">unset</button>
+				<button hlmDatePickerTrigger id="date-trigger" [showTrigger]="false">unset</button>
 			</hlm-date-picker-multi>
 		</div>
 		`,
@@ -77,7 +77,7 @@ export const WithHintAndError: Story = {
 					[captionLayout]="captionLayout"
 					[minDate]="minDate"
 					[maxDate]="maxDate">
-					<button hlmDatePickerTrigger buttonId="date">Select dates</button>
+					<button hlmDatePickerTrigger id="date">Select dates</button>
 				</hlm-date-picker-multi>
 
 				<p hlmFieldDescription>Select multiple dates for your availability.</p>

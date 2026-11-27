@@ -87,7 +87,7 @@ export const CALENDAR_I18N: Record<'en' | 'ar' | 'he', BrnCalendarI18n> = {
 	template: `
 		<hlm-field [dir]="_dir()">
 			<hlm-date-picker [minDate]="minDate" [maxDate]="maxDate" [formatDate]="_formatDate()">
-				<button hlmDatePickerTrigger buttonId="date">{{ _t()['placeholder'] }}</button>
+				<button hlmDatePickerTrigger id="date">{{ _t()['placeholder'] }}</button>
 			</hlm-date-picker>
 		</hlm-field>
 	`,

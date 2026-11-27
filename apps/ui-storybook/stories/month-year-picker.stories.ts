@@ -22,7 +22,7 @@ const meta: Meta<HlmMonthYearPicker<Date>> = {
 		template: `
 		<div class="preview flex min-h-[350px] w-full justify-center p-10 items-center">
 			<hlm-month-year-picker [minDate]="minDate" [maxDate]="maxDate">
-				<button hlmDatePickerTrigger buttonId="date">Pick a year and month</button>
+				<button hlmDatePickerTrigger id="date">Pick a year and month</button>
 			</hlm-month-year-picker>
 		</div>
 		`,
@@ -66,7 +66,7 @@ export const Input: Story = {
 					[parseDate]="parseDate"
 					[formatInputDate]="formatInputDate"
 				/>
-				<button hlmDatePickerTrigger buttonId="date-trigger" [showTrigger]="false">unset</button>
+				<button hlmDatePickerTrigger id="date-trigger" [showTrigger]="false">unset</button>
 			</hlm-month-year-picker>
 		</div>
 		`,

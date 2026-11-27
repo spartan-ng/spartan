@@ -16,9 +16,19 @@ interface NativeHostElementMigration {
 }
 
 export const nativeHostElementMigrations: NativeHostElementMigration[] = [
-	{ tag: 'hlm-combobox-trigger', element: 'button', attribute: 'hlmComboboxTrigger' },
+	{
+		tag: 'hlm-combobox-trigger',
+		element: 'button',
+		attribute: 'hlmComboboxTrigger',
+		renamedInputs: { buttonId: 'id' },
+	},
 	{ tag: 'hlm-select-trigger', element: 'button', attribute: 'hlmSelectTrigger', renamedInputs: { buttonId: 'id' } },
-	{ tag: 'hlm-date-picker-trigger', element: 'button', attribute: 'hlmDatePickerTrigger' },
+	{
+		tag: 'hlm-date-picker-trigger',
+		element: 'button',
+		attribute: 'hlmDatePickerTrigger',
+		renamedInputs: { buttonId: 'id' },
+	},
 	{ tag: 'hlm-pagination-next', element: 'a', attribute: 'hlmPaginationNext', actionElement: 'button' },
 	{ tag: 'hlm-pagination-previous', element: 'a', attribute: 'hlmPaginationPrevious', actionElement: 'button' },
 ];
@@ -125,9 +135,10 @@ export function migrateNativeHostElements(content: string): string {
 			`[${attribute}]`,
 		);
 
-		// DOM queries / CSS selectors that targeted the wrapper itself, e.g. `cy.get('hlm-select-trigger')`
+		// DOM queries / CSS selectors that targeted the wrapper itself, e.g. `cy.get('hlm-select-trigger')`.
+		// Component selectors are skipped: an old helm copy must keep its own selector until it is regenerated.
 		content = content.replace(
-			new RegExp(`(?<=['"\`>+~,(\\s])${tag}(?![\\w-])(?=\\s*[)'"\`\\]>+~,\\[:{])`, 'g'),
+			new RegExp(`(?<!selector:\\s*['"\`])(?<=['"\`>+~,(\\s])${tag}(?![\\w-])(?=\\s*[)'"\`\\]>+~,\\[:{])`, 'g'),
 			`[${attribute}]`,
 		);
 	}

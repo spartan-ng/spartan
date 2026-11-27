@@ -16,9 +16,7 @@ describe('migrate-native-host-elements generator', () => {
 			<hlm-date-picker-trigger forceInvalid>Pick a date</hlm-date-picker-trigger>
 		`);
 
-		expect(result).toContain(
-			'<button hlmComboboxTrigger buttonId="countries" class="w-64"><hlm-combobox-value /></button>',
-		);
+		expect(result).toContain('<button hlmComboboxTrigger id="countries" class="w-64"><hlm-combobox-value /></button>');
 		expect(result).toContain('<button hlmSelectTrigger size="sm" [class]="cls"><hlm-select-value /></button>');
 		expect(result).toContain('<button hlmDatePickerTrigger forceInvalid>Pick a date</button>');
 	});
@@ -150,18 +148,46 @@ describe('migrate-native-host-elements generator', () => {
 		expect(result).toContain('<button hlmSelectTrigger><hlm-select-value /></button>');
 	});
 
-	it('should rename the select trigger buttonId input to id', () => {
+	it('should rename the trigger buttonId inputs to id', () => {
 		const result = migrateNativeHostElements(`
 			<hlm-select-trigger buttonId="fruit" class="w-56"><hlm-select-value /></hlm-select-trigger>
 			<hlm-select-trigger [buttonId]="triggerId" aria-label="buttonId"><hlm-select-value /></hlm-select-trigger>
 			<hlm-combobox-trigger buttonId="countries"><hlm-combobox-value /></hlm-combobox-trigger>
+			<hlm-date-picker-trigger [buttonId]="dateId">Pick a date</hlm-date-picker-trigger>
 		`);
 
 		expect(result).toContain('<button hlmSelectTrigger id="fruit" class="w-56"><hlm-select-value /></button>');
 		expect(result).toContain(
 			'<button hlmSelectTrigger [id]="triggerId" aria-label="buttonId"><hlm-select-value /></button>',
 		);
-		expect(result).toContain('<button hlmComboboxTrigger buttonId="countries"><hlm-combobox-value /></button>');
+		expect(result).toContain('<button hlmComboboxTrigger id="countries"><hlm-combobox-value /></button>');
+		expect(result).toContain('<button hlmDatePickerTrigger [id]="dateId">Pick a date</button>');
+	});
+
+	it('should not touch the selectors of legacy helm components', () => {
+		const legacySelectTrigger = `
+			@Component({
+				selector: 'hlm-select-trigger',
+				exportAs: 'hlmSelectTrigger',
+				imports: [NgIcon, BrnSelectTrigger, BrnFieldControlDescribedBy],
+				template: \`
+					<button brnSelectTrigger brnFieldControlDescribedBy [id]="buttonId()" [class]="_computedClass()">
+						<ng-content />
+						<ng-icon name="lucideChevronDown" />
+					</button>
+				\`,
+			})
+			export class HlmSelectTrigger {}
+		`;
+		const legacySelectors = [
+			"selector: 'hlm-combobox-trigger'",
+			'selector: "hlm-date-picker-trigger"',
+			'selector: `hlm-pagination-next`',
+			"selector:'hlm-pagination-previous'",
+		].join('\n');
+
+		expect(migrateNativeHostElements(legacySelectTrigger)).toBe(legacySelectTrigger);
+		expect(migrateNativeHostElements(legacySelectors)).toBe(legacySelectors);
 	});
 
 	it('should flag [class] arrays containing class maps for manual conversion', () => {

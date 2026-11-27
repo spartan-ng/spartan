@@ -16,7 +16,7 @@ import { DateTime } from 'luxon';
 		<hlm-field>
 			<label hlmFieldLabel for="date-custom-config">Date Picker with Config</label>
 			<hlm-date-picker [minDate]="minDate" [maxDate]="maxDate">
-				<button hlmDatePickerTrigger buttonId="date-custom-config">Pick a date</button>
+				<button hlmDatePickerTrigger id="date-custom-config">Pick a date</button>
 			</hlm-date-picker>
 		</hlm-field>
 	`,

@@ -55,7 +55,7 @@ class ComboboxDefaultStory {
 		<hlm-field>
 			<label hlmFieldLabel for="countries">Countries</label>
 			<hlm-combobox>
-				<button hlmComboboxTrigger buttonId="countries" class="w-64 justify-between font-normal">
+				<button hlmComboboxTrigger id="countries" class="w-64 justify-between font-normal">
 					<hlm-combobox-value placeholder="Select a country" />
 				</button>
 				<hlm-combobox-content *hlmComboboxPortal>
@@ -228,7 +228,7 @@ class ComboboxMultipleHintErrorStory {
 			<div hlmField>
 				<label hlmFieldLabel for="countries">Countries</label>
 				<hlm-combobox formControlName="framework">
-					<button hlmComboboxTrigger buttonId="countries" class="w-64 justify-between font-normal">
+					<button hlmComboboxTrigger id="countries" class="w-64 justify-between font-normal">
 						<hlm-combobox-value placeholder="Select a country" />
 					</button>
 					<hlm-combobox-content *hlmComboboxPortal>

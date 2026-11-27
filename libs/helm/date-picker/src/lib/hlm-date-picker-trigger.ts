@@ -37,7 +37,7 @@ import { classes } from '@spartan-ng/helm/utils';
 		'data-slot': 'date-picker-trigger',
 		type: 'button',
 		'aria-haspopup': 'dialog',
-		'[id]': 'buttonId()',
+		'[id]': 'id()',
 		'[disabled]': '_disabled()',
 		'[attr.aria-expanded]': '_state() === "open" ? "true" : "false"',
 		'[attr.aria-controls]': '_popover().id()',
@@ -79,10 +79,10 @@ export class HlmDatePickerTrigger implements BrnDatePickerTriggerBase {
 	protected readonly _isPlaceholder = computed(() => !this._datePicker.hasDate());
 
 	/** The id of the button that opens the date picker. */
-	public readonly buttonId = input<string>(`hlm-date-picker-${++HlmDatePickerTrigger._nextId}`);
+	public readonly id = input<string>(`hlm-date-picker-${++HlmDatePickerTrigger._nextId}`);
 
 	/** @internal The id of the button that opens the date picker, used for labeling. */
-	public readonly triggerId = this.buttonId;
+	public readonly triggerId = this.id;
 
 	/** Forces the invalid state visually, regardless of form control state. */
 	public readonly forceInvalid = input<boolean, BooleanInput>(false, { transform: booleanAttribute });

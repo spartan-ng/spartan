@@ -15,7 +15,7 @@ import { HlmFieldImports } from '@spartan-ng/helm/field';
 				<hlm-field>
 					<label hlmFieldLabel for="framework">Select a framework</label>
 					<hlm-combobox [formField]="form.framework">
-						<button hlmComboboxTrigger buttonId="countries" class="w-64 justify-between font-normal">
+						<button hlmComboboxTrigger id="countries" class="w-64 justify-between font-normal">
 							<hlm-combobox-value placeholder="Select a country" />
 						</button>
 						<hlm-combobox-content *hlmComboboxPortal>

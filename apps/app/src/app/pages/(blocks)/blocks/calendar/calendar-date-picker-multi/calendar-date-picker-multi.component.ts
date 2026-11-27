@@ -24,7 +24,7 @@ import { HlmFieldImports } from '@spartan-ng/helm/field';
 						[minSelection]="2"
 						[maxSelection]="4"
 					>
-						<button hlmDatePickerTrigger buttonId="availableDates">Pick dates</button>
+						<button hlmDatePickerTrigger id="availableDates">Pick dates</button>
 					</hlm-date-picker-multi>
 				</hlm-field>
 				<hlm-field orientation="horizontal">

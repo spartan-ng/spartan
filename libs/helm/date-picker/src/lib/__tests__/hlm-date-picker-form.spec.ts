@@ -36,7 +36,7 @@ class HlmDatePickerHost {
 	template: `
 		<form [formGroup]="form">
 			<hlm-date-picker captionLayout="dropdown" formControlName="date">
-				<button hlmDatePickerTrigger buttonId="date">Pick date</button>
+				<button hlmDatePickerTrigger id="date">Pick date</button>
 			</hlm-date-picker>
 		</form>
 	`,

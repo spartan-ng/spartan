@@ -23,7 +23,7 @@ import { classes } from '@spartan-ng/helm/utils';
 	],
 	host: {
 		'data-slot': 'combobox-trigger',
-		'[id]': 'buttonId()',
+		'[id]': 'id()',
 	},
 	template: `
 		<ng-content />
@@ -35,7 +35,7 @@ import { classes } from '@spartan-ng/helm/utils';
 export class HlmComboboxTrigger {
 	private static _id = 0;
 
-	public readonly buttonId = input<string>(`hlm-combobox-trigger-${HlmComboboxTrigger._id++}`);
+	public readonly id = input<string>(`hlm-combobox-trigger-${HlmComboboxTrigger._id++}`);
 
 	public readonly hideIcon = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 

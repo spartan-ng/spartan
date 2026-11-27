@@ -1,9 +1,6 @@
 /*
  * shadcn/typeset
  * https://ui.shadcn.com/docs/typeset.
- *
- * Vendored from shadcn/ui and kept in sync with upstream. Served from /typeset.css
- * so consumers and the builder can copy the same file the docs use.
  */
 
 @layer components {

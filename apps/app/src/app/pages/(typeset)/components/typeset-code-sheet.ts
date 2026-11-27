@@ -1,7 +1,7 @@
 import { isPlatformBrowser } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject, PLATFORM_ID, signal } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { lucideCheck, lucideCode, lucideCopy, lucideDownload } from '@ng-icons/lucide';
+import { lucideCheck, lucideCode, lucideCopy } from '@ng-icons/lucide';
 import type { BrnDialogState } from '@spartan-ng/brain/dialog';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmSheetImports } from '@spartan-ng/helm/sheet';
@@ -11,7 +11,7 @@ import { TypesetStore } from '../typeset.store';
 @Component({
 	selector: 'spartan-typeset-code-sheet',
 	imports: [HlmButton, HlmSheetImports, HlmTabsImports, NgIcon],
-	providers: [provideIcons({ lucideCheck, lucideCode, lucideCopy, lucideDownload })],
+	providers: [provideIcons({ lucideCheck, lucideCode, lucideCopy })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		class: 'block',
@@ -59,12 +59,9 @@ import { TypesetStore } from '../typeset.store';
 										[disabled]="_loadingCss() || !_typesetCss()"
 										(click)="_copyTypesetCss()"
 									>
-										<ng-icon [name]="_copied() === 'css' ? 'lucideCheck' : 'lucideDownload'" />
+										<ng-icon [name]="_copied() === 'css' ? 'lucideCheck' : 'lucideCopy'" />
 										{{ _copied() === 'css' ? 'Copied' : 'Copy typeset.css' }}
 									</button>
-									<a href="/typeset.css" download="typeset.css" hlmBtn variant="ghost" size="sm" class="w-fit">
-										Download
-									</a>
 								</div>
 								<pre
 									class="bg-muted/60 overflow-x-auto rounded-lg p-3 font-mono text-xs leading-relaxed"
@@ -227,7 +224,7 @@ export class TypesetCodeSheet {
 			if (!response.ok) return;
 			this._typesetCss.set(await response.text());
 		} catch {
-			// Leave the button disabled; the Download link remains available.
+			// Copy stays disabled; reopening the sheet retries the preload.
 		} finally {
 			this._loadingCss.set(false);
 		}

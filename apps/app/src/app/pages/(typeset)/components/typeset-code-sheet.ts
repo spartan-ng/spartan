@@ -2,6 +2,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject, PLATFORM_ID, signal } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCheck, lucideCode, lucideCopy, lucideDownload } from '@ng-icons/lucide';
+import type { BrnDialogState } from '@spartan-ng/brain/dialog';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmSheetImports } from '@spartan-ng/helm/sheet';
 import { HlmTabsImports } from '@spartan-ng/helm/tabs';
@@ -16,7 +17,7 @@ import { TypesetStore } from '../typeset.store';
 		class: 'block',
 	},
 	template: `
-		<hlm-sheet>
+		<hlm-sheet (stateChanged)="_onSheetState($event)">
 			<button hlmSheetTrigger side="right" hlmBtn variant="outline" type="button" class="w-full gap-2">
 				<ng-icon name="lucideCode" />
 				Get code
@@ -212,7 +213,15 @@ export class TypesetCodeSheet {
 		}
 	}
 
+	protected _onSheetState(state: BrnDialogState): void {
+		// A failed preload should not disable Copy for the rest of the session.
+		if (state === 'open' && !this._typesetCss() && !this._loadingCss()) {
+			void this._loadTypesetCss();
+		}
+	}
+
 	private async _loadTypesetCss(): Promise<void> {
+		this._loadingCss.set(true);
 		try {
 			const response = await fetch('/typeset.css');
 			if (!response.ok) return;

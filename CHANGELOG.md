@@ -1,3 +1,17 @@
+## 1.11.0 (2026-11-27)
+
+- Merge pull request #1923 from spartan-ng/beta ([8ee0570](https://github.com/spartan-ng/spartan/commit/8ee0570)), closes [#1923](https://github.com/spartan-ng/spartan/issues/1923)
+- chore(release): 1.11.0-beta.1 ([462d593](https://github.com/spartan-ng/spartan/commit/462d593))
+- chore(release): 1.11.0-beta.2 ([b12d8c3](https://github.com/spartan-ng/spartan/commit/b12d8c3))
+- chore(release): 1.11.0-beta.3 ([3917579](https://github.com/spartan-ng/spartan/commit/3917579))
+- chore(release): backmerge main into beta ([5f27ee2](https://github.com/spartan-ng/spartan/commit/5f27ee2))
+- chore(release): backmerge main into beta ([02f1cbd](https://github.com/spartan-ng/spartan/commit/02f1cbd))
+- feat(calendar): add numberOfMonths input to range calendar (#1921) ([2247727](https://github.com/spartan-ng/spartan/commit/2247727)), closes [#1921](https://github.com/spartan-ng/spartan/issues/1921)
+- feat(command): add closed output to hlm-command-dialog ([44f5255](https://github.com/spartan-ng/spartan/commit/44f5255))
+- feat(popover): add restoreFocus option to overlay and popover (#1920) ([6ccb7e5](https://github.com/spartan-ng/spartan/commit/6ccb7e5)), closes [#1920](https://github.com/spartan-ng/spartan/issues/1920)
+- fix(calendar): do not move focus when syncing the month/year select (#1919) ([dace9a5](https://github.com/spartan-ng/spartan/commit/dace9a5)), closes [#1919](https://github.com/spartan-ng/spartan/issues/1919)
+- docs: add new contributors to our 300 ([0a14a52](https://github.com/spartan-ng/spartan/commit/0a14a52))
+
 ## 1.11.0-beta.3 (2026-11-27)
 
 - feat(calendar): add numberOfMonths input to range calendar (#1921) ([2247727](https://github.com/spartan-ng/spartan/commit/2247727)), closes [#1921](https://github.com/spartan-ng/spartan/issues/1921)

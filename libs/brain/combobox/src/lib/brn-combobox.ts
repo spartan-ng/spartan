@@ -20,6 +20,7 @@ import {
 import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { BrnFieldControl, provideBrnLabelable } from '@spartan-ng/brain/field';
 import { type ChangeFn, type TouchFn } from '@spartan-ng/brain/forms';
+import { BrnOverlay } from '@spartan-ng/brain/overlay';
 import { BrnPopover } from '@spartan-ng/brain/popover';
 import { BrnComboboxContent } from './brn-combobox-content';
 import type { BrnComboboxInput } from './brn-combobox-input';
@@ -60,6 +61,7 @@ export class BrnCombobox<T> implements BrnComboboxBase<T>, ControlValueAccessor 
 
 	/** Access the popover if present */
 	private readonly _brnPopover = inject(BrnPopover, { optional: true });
+	private readonly _brnOverlay = inject(BrnOverlay, { optional: true });
 
 	public readonly controlState = this._fieldControl?.controlState;
 
@@ -171,6 +173,18 @@ export class BrnCombobox<T> implements BrnComboboxBase<T>, ControlValueAccessor 
 		});
 
 		afterNextRender(() => {
+			effect(
+				() => {
+					this.items();
+					if (!this.isExpanded()) return;
+
+					untracked(() => {
+						this.updatePosition();
+					});
+				},
+				{ injector: this._injector },
+			);
+
 			effect(
 				() => {
 					if (!this.autoHighlight() || !this.isExpanded() || !this.search()) return;
@@ -290,5 +304,12 @@ export class BrnCombobox<T> implements BrnComboboxBase<T>, ControlValueAccessor 
 		if (this._disabled() || !this.isExpanded()) return;
 
 		this._brnPopover?.close();
+	}
+
+	public updatePosition(): void {
+		this._brnPopover?.updatePosition();
+		if (this._brnOverlay && this._brnOverlay !== this._brnPopover) {
+			this._brnOverlay.updatePosition();
+		}
 	}
 }

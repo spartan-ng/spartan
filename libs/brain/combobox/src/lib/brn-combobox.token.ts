@@ -55,6 +55,7 @@ export interface BrnComboboxBase<T> {
 	/** Register the combobox list component so the input can reference its id via aria-controls */
 	registerComboboxList?: (list: BrnComboboxList) => void;
 	updateInputWidth: (width: number | null) => void;
+	updatePosition?: () => void;
 }
 
 export const BrnComboboxBaseToken = new InjectionToken<BrnComboboxBase<unknown>>('BrnComboboxBaseToken');

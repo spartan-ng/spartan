@@ -11,20 +11,30 @@ export class TypesetFontService {
 	private readonly _document = inject(DOCUMENT);
 	private readonly _isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 	private readonly _loaded = new Set<string>();
+	private readonly _pending = new Set<string>();
 
 	public load(ids: readonly string[]): void {
 		if (!this._isBrowser) return;
 
 		for (const id of ids) {
 			const font = findTypesetFont(id);
-			if (!font?.googleFamily || this._loaded.has(font.id)) continue;
-			this._loaded.add(font.id);
+			if (!font?.googleFamily || this._loaded.has(font.id) || this._pending.has(font.id)) continue;
+			this._pending.add(font.id);
 
 			const family = font.googleFamily.replace(/ /g, '+');
 			const link = this._document.createElement('link');
 			link.rel = 'stylesheet';
 			link.href = `https://fonts.googleapis.com/css2?family=${family}:wght@400;700&display=swap`;
 			link.setAttribute('data-typeset-font', font.id);
+			link.addEventListener('load', () => {
+				this._pending.delete(font.id);
+				this._loaded.add(font.id);
+			});
+			link.addEventListener('error', () => {
+				// Drop the pending marker and the link so a later attempt can retry.
+				this._pending.delete(font.id);
+				link.remove();
+			});
 			this._document.head.appendChild(link);
 		}
 	}

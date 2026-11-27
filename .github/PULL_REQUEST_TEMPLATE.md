@@ -47,6 +47,7 @@ What kind of change does this PR introduce?
 - [ ] collapsible
 - [ ] combobox
 - [ ] command
+- [ ] confirmation
 - [ ] context-menu
 - [ ] data-table
 - [ ] date-picker
@@ -71,6 +72,7 @@ What kind of change does this PR introduce?
 - [ ] pagination
 - [ ] popover
 - [ ] progress
+- [ ] prompt-input
 - [ ] questionnaire
 - [ ] radio-group
 - [ ] resizable
@@ -83,12 +85,14 @@ What kind of change does this PR introduce?
 - [ ] slider
 - [ ] sonner
 - [ ] spinner
+- [ ] stream-text
 - [ ] switch
 - [ ] table
 - [ ] tabs
 - [ ] textarea
 - [ ] toggle
 - [ ] toggle-group
+- [ ] tool-call
 - [ ] tooltip
 - [ ] trace
 - [ ] typography

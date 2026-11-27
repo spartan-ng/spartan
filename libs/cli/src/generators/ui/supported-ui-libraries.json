@@ -184,6 +184,13 @@
 			"@ng-icons/lucide": ">=32.0.0 <34.0.0"
 		}
 	},
+	"confirmation": {
+		"name": "confirmation",
+		"peerDependencies": {
+			"@angular/core": ">=21.0.0 <23.0.0",
+			"@spartan-ng/brain": "1.10.0"
+		}
+	},
 	"context-menu": {
 		"name": "context-menu",
 		"peerDependencies": {
@@ -385,6 +392,13 @@
 			"@spartan-ng/brain": "1.11.0-beta.3"
 		}
 	},
+	"prompt-input": {
+		"name": "prompt-input",
+		"peerDependencies": {
+			"@angular/core": ">=21.0.0 <23.0.0",
+			"@spartan-ng/brain": "1.10.0"
+		}
+	},
 	"questionnaire": {
 		"name": "questionnaire",
 		"peerDependencies": {
@@ -495,6 +509,14 @@
 			"@ng-icons/lucide": ">=32.0.0 <34.0.0"
 		}
 	},
+	"stream-text": {
+		"name": "stream-text",
+		"peerDependencies": {
+			"@angular/core": ">=21.0.0 <23.0.0",
+			"@spartan-ng/brain": "1.10.0",
+			"marked": ">=15.0.0"
+		}
+	},
 	"switch": {
 		"name": "switch",
 		"peerDependencies": {
@@ -546,6 +568,13 @@
 			"@angular/core": ">=21.0.0 <23.0.0",
 			"@spartan-ng/brain": "1.11.0-beta.3",
 			"@angular/cdk": ">=21.0.0 <23.0.0"
+		}
+	},
+	"tool-call": {
+		"name": "tool-call",
+		"peerDependencies": {
+			"@angular/core": ">=21.0.0 <23.0.0",
+			"@spartan-ng/brain": "1.10.0"
 		}
 	},
 	"tooltip": {

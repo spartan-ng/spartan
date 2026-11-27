@@ -1,0 +1,20 @@
+import { Directive } from '@angular/core';
+import { BrnToolCallPanel } from '@spartan-ng/brain/tool-call';
+import { classes } from '@spartan-ng/helm/utils';
+
+@Directive({
+	selector: '[hlmToolCallArgs],hlm-tool-call-args',
+	exportAs: 'hlmToolCallArgs',
+	hostDirectives: [BrnToolCallPanel],
+	host: {
+		'data-slot': 'tool-call-args',
+	},
+})
+export class HlmToolCallArgs {
+	constructor() {
+		classes(
+			() =>
+				'spartan-tool-call-args border-t border-border/50 px-3 py-2 text-xs text-muted-foreground group-data-[expanded=false]/tool-call:hidden',
+		);
+	}
+}

@@ -1,0 +1,15 @@
+import { Directive } from '@angular/core';
+import { classes } from '@spartan-ng/helm/utils';
+
+@Directive({
+	selector: '[hlmConfirmationActions],hlm-confirmation-actions',
+	exportAs: 'hlmConfirmationActions',
+	host: {
+		'data-slot': 'confirmation-actions',
+	},
+})
+export class HlmConfirmationActions {
+	constructor() {
+		classes(() => 'spartan-confirmation-actions flex items-center justify-end gap-2 group-data-[state=approved]/confirmation:hidden group-data-[state=rejected]/confirmation:hidden');
+	}
+}

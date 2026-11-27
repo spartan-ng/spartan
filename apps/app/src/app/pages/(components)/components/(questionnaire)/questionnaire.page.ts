@@ -269,7 +269,7 @@ export const routeMeta: RouteMeta = {
 
 			<spartan-page-bottom-nav>
 				<spartan-page-bottom-nav-link href="radio-group" label="Radio Group" />
-				<spartan-page-bottom-nav-link direction="previous" href="progress" label="Progress" />
+				<spartan-page-bottom-nav-link direction="previous" href="prompt-input" label="Prompt Input" />
 			</spartan-page-bottom-nav>
 		</section>
 		<spartan-page-nav />

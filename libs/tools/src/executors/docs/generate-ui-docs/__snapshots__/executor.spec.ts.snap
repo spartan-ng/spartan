@@ -3930,6 +3930,117 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
       },
     },
   },
+  "confirmation": {
+    "brain": {
+      "BrnConfirmation": {
+        "exportAs": "brnConfirmation",
+        "inputs": [
+          {
+            "name": "state",
+            "required": false,
+            "type": "ConfirmationState",
+          },
+        ],
+        "models": [],
+        "outputs": [
+          {
+            "name": "approved",
+            "type": "void",
+          },
+          {
+            "name": "rejected",
+            "type": "string | undefined",
+          },
+        ],
+        "selector": "[brnConfirmation],brn-confirmation",
+      },
+      "BrnConfirmationApprove": {
+        "exportAs": "brnConfirmationApprove",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "button[brnConfirmationApprove],[brnConfirmationApprove]",
+      },
+      "BrnConfirmationReject": {
+        "exportAs": "brnConfirmationReject",
+        "inputs": [
+          {
+            "name": "reason",
+            "required": false,
+            "type": "string | undefined",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "button[brnConfirmationReject],[brnConfirmationReject]",
+      },
+    },
+    "helm": {
+      "HlmConfirmation": {
+        "exportAs": "hlmConfirmation",
+        "inputs": [
+          {
+            "name": "state",
+            "required": false,
+            "type": "ConfirmationState",
+          },
+        ],
+        "models": [],
+        "outputs": [
+          {
+            "name": "approved",
+            "type": "void",
+          },
+          {
+            "name": "rejected",
+            "type": "string | undefined",
+          },
+        ],
+        "selector": "[hlmConfirmation],hlm-confirmation",
+      },
+      "HlmConfirmationActions": {
+        "exportAs": "hlmConfirmationActions",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmConfirmationActions],hlm-confirmation-actions",
+      },
+      "HlmConfirmationApprove": {
+        "exportAs": "hlmConfirmationApprove",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "button[hlmConfirmationApprove],[hlmConfirmationApprove]",
+      },
+      "HlmConfirmationDescription": {
+        "exportAs": "hlmConfirmationDescription",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmConfirmationDescription],hlm-confirmation-description",
+      },
+      "HlmConfirmationReject": {
+        "exportAs": "hlmConfirmationReject",
+        "inputs": [
+          {
+            "name": "reason",
+            "required": false,
+            "type": "string | undefined",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "button[hlmConfirmationReject],[hlmConfirmationReject]",
+      },
+      "HlmConfirmationTitle": {
+        "exportAs": "hlmConfirmationTitle",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmConfirmationTitle],hlm-confirmation-title",
+      },
+    },
+  },
   "context-menu": {
     "helm": {
       "HlmContextMenuTrigger": {
@@ -7913,6 +8024,228 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
       },
     },
   },
+  "prompt-input": {
+    "brain": {
+      "BrnPromptInput": {
+        "exportAs": "brnPromptInput",
+        "inputs": [
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "streaming",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "minRows",
+            "required": false,
+            "type": "number",
+          },
+          {
+            "name": "maxRows",
+            "required": false,
+            "type": "number",
+          },
+        ],
+        "models": [],
+        "outputs": [
+          {
+            "name": "promptSubmit",
+            "type": "string",
+          },
+          {
+            "name": "promptStop",
+            "type": "void",
+          },
+        ],
+        "selector": "[brnPromptInput],brn-prompt-input",
+      },
+      "BrnPromptInputStop": {
+        "exportAs": "brnPromptInputStop",
+        "inputs": [
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean | undefined",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "button[brnPromptInputStop],[brnPromptInputStop]",
+      },
+      "BrnPromptInputSubmit": {
+        "exportAs": "brnPromptInputSubmit",
+        "inputs": [
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean | undefined",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "button[brnPromptInputSubmit],[brnPromptInputSubmit]",
+      },
+      "BrnPromptInputTextarea": {
+        "exportAs": "brnPromptInputTextarea",
+        "inputs": [
+          {
+            "name": "minRows",
+            "required": false,
+            "type": "number | undefined",
+          },
+          {
+            "name": "maxRows",
+            "required": false,
+            "type": "number | undefined",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean | undefined",
+          },
+          {
+            "name": "autoResize",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "submitOnEnter",
+            "required": false,
+            "type": "unknown",
+          },
+        ],
+        "models": [],
+        "outputs": [
+          {
+            "name": "promptSubmit",
+            "type": "string",
+          },
+        ],
+        "selector": "textarea[brnPromptInputTextarea],[brnPromptInputTextarea]",
+      },
+    },
+    "helm": {
+      "HlmPromptInput": {
+        "exportAs": "hlmPromptInput",
+        "inputs": [
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "streaming",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "minRows",
+            "required": false,
+            "type": "number",
+          },
+          {
+            "name": "maxRows",
+            "required": false,
+            "type": "number",
+          },
+        ],
+        "models": [],
+        "outputs": [
+          {
+            "name": "promptSubmit",
+            "type": "string",
+          },
+          {
+            "name": "promptStop",
+            "type": "void",
+          },
+        ],
+        "selector": "[hlmPromptInput],hlm-prompt-input",
+      },
+      "HlmPromptInputActions": {
+        "exportAs": "hlmPromptInputActions",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmPromptInputActions],hlm-prompt-input-actions",
+      },
+      "HlmPromptInputAttachments": {
+        "exportAs": "hlmPromptInputAttachments",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmPromptInputAttachments],hlm-prompt-input-attachments",
+      },
+      "HlmPromptInputStop": {
+        "exportAs": "hlmPromptInputStop",
+        "inputs": [
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean | undefined",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "button[hlmPromptInputStop],[hlmPromptInputStop]",
+      },
+      "HlmPromptInputSubmit": {
+        "exportAs": "hlmPromptInputSubmit",
+        "inputs": [
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean | undefined",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "button[hlmPromptInputSubmit],[hlmPromptInputSubmit]",
+      },
+      "HlmPromptInputTextarea": {
+        "exportAs": "hlmPromptInputTextarea",
+        "inputs": [
+          {
+            "name": "minRows",
+            "required": false,
+            "type": "number | undefined",
+          },
+          {
+            "name": "maxRows",
+            "required": false,
+            "type": "number | undefined",
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean | undefined",
+          },
+          {
+            "name": "autoResize",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "submitOnEnter",
+            "required": false,
+            "type": "unknown",
+          },
+        ],
+        "models": [],
+        "outputs": [
+          {
+            "name": "promptSubmit",
+            "type": "string",
+          },
+        ],
+        "selector": "textarea[hlmPromptInputTextarea],[hlmPromptInputTextarea]",
+      },
+    },
+  },
   "questionnaire": {
     "brain": {
       "BrnQuestionnaire": {
@@ -10763,6 +11096,78 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
       },
     },
   },
+  "stream-text": {
+    "brain": {
+      "BrnStreamText": {
+        "exportAs": "brnStreamText",
+        "inputs": [
+          {
+            "name": "content",
+            "required": true,
+            "type": "string",
+          },
+          {
+            "name": "streaming",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "autoBalance",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "markdown",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "smooth",
+            "required": false,
+            "type": "unknown",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnStreamText],brn-stream-text",
+      },
+    },
+    "helm": {
+      "HlmStreamText": {
+        "exportAs": "hlmStreamText",
+        "inputs": [
+          {
+            "name": "content",
+            "required": true,
+            "type": "string",
+          },
+          {
+            "name": "streaming",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "autoBalance",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "markdown",
+            "required": false,
+            "type": "unknown",
+          },
+          {
+            "name": "smooth",
+            "required": false,
+            "type": "unknown",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmStreamText],hlm-stream-text",
+      },
+    },
+  },
   "switch": {
     "brain": {
       "BrnSwitch": {
@@ -11543,6 +11948,206 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
           },
         ],
         "selector": "button[hlmToggleGroupItem]",
+      },
+    },
+  },
+  "tool-call": {
+    "brain": {
+      "BrnToolCall": {
+        "exportAs": "brnToolCall",
+        "inputs": [
+          {
+            "name": "name",
+            "required": true,
+            "type": "string",
+          },
+          {
+            "name": "state",
+            "required": false,
+            "type": "ToolCallState",
+          },
+        ],
+        "models": [
+          {
+            "name": "expanded",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "outputs": [
+          {
+            "name": "approved",
+            "type": "void",
+          },
+          {
+            "name": "rejected",
+            "type": "string | undefined",
+          },
+          {
+            "name": "retried",
+            "type": "void",
+          },
+        ],
+        "selector": "[brnToolCall],brn-tool-call",
+      },
+      "BrnToolCallApprove": {
+        "exportAs": "brnToolCallApprove",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "button[brnToolCallApprove],[brnToolCallApprove]",
+      },
+      "BrnToolCallPanel": {
+        "exportAs": "brnToolCallPanel",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnToolCallPanel]",
+      },
+      "BrnToolCallReject": {
+        "exportAs": "brnToolCallReject",
+        "inputs": [
+          {
+            "name": "reason",
+            "required": false,
+            "type": "string | undefined",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "button[brnToolCallReject],[brnToolCallReject]",
+      },
+      "BrnToolCallRetry": {
+        "exportAs": "brnToolCallRetry",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "button[brnToolCallRetry],[brnToolCallRetry]",
+      },
+      "BrnToolCallTrigger": {
+        "exportAs": "brnToolCallTrigger",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "button[brnToolCallTrigger],[brnToolCallTrigger]",
+      },
+    },
+    "helm": {
+      "HlmToolCall": {
+        "exportAs": "hlmToolCall",
+        "inputs": [
+          {
+            "name": "name",
+            "required": true,
+            "type": "string",
+          },
+          {
+            "name": "state",
+            "required": false,
+            "type": "ToolCallState",
+          },
+          {
+            "name": "expanded",
+            "required": false,
+            "type": "boolean",
+          },
+        ],
+        "models": [],
+        "outputs": [
+          {
+            "name": "approved",
+            "type": "void",
+          },
+          {
+            "name": "rejected",
+            "type": "string | undefined",
+          },
+          {
+            "name": "retried",
+            "type": "void",
+          },
+          {
+            "name": "expandedChange",
+            "type": "boolean",
+          },
+        ],
+        "selector": "[hlmToolCall],hlm-tool-call",
+      },
+      "HlmToolCallActions": {
+        "exportAs": "hlmToolCallActions",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmToolCallActions],hlm-tool-call-actions",
+      },
+      "HlmToolCallApprove": {
+        "exportAs": "hlmToolCallApprove",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "button[hlmToolCallApprove],[hlmToolCallApprove]",
+      },
+      "HlmToolCallArgs": {
+        "exportAs": "hlmToolCallArgs",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmToolCallArgs],hlm-tool-call-args",
+      },
+      "HlmToolCallError": {
+        "exportAs": "hlmToolCallError",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmToolCallError],hlm-tool-call-error",
+      },
+      "HlmToolCallHeader": {
+        "exportAs": "hlmToolCallHeader",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmToolCallHeader],hlm-tool-call-header",
+      },
+      "HlmToolCallReject": {
+        "exportAs": "hlmToolCallReject",
+        "inputs": [
+          {
+            "name": "reason",
+            "required": false,
+            "type": "string | undefined",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "button[hlmToolCallReject],[hlmToolCallReject]",
+      },
+      "HlmToolCallResult": {
+        "exportAs": "hlmToolCallResult",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmToolCallResult],hlm-tool-call-result",
+      },
+      "HlmToolCallRetry": {
+        "exportAs": "hlmToolCallRetry",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "button[hlmToolCallRetry],[hlmToolCallRetry]",
+      },
+      "HlmToolCallStatus": {
+        "exportAs": "hlmToolCallStatus",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "[hlmToolCallStatus],hlm-tool-call-status",
+      },
+      "HlmToolCallTrigger": {
+        "exportAs": "hlmToolCallTrigger",
+        "inputs": [],
+        "models": [],
+        "outputs": [],
+        "selector": "button[hlmToolCallTrigger],[hlmToolCallTrigger]",
       },
     },
   },

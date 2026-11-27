@@ -95,6 +95,7 @@ export default defineConfig(({ command, mode }) => {
 						const staticRoutes = [
 							'/',
 							'/colors',
+							'/charts',
 
 							'/documentation/introduction',
 							'/documentation/changelog',

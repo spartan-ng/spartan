@@ -2,7 +2,8 @@ import { Directionality } from '@angular/cdk/bidi';
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { BrnPopover } from '@spartan-ng/brain/popover';
-import { fireEvent, render } from '@testing-library/angular';
+import { HlmTooltip } from '@spartan-ng/helm/tooltip';
+import { fireEvent, render, screen, waitFor } from '@testing-library/angular';
 import { HlmPopover } from './hlm-popover';
 import { HlmPopoverContent } from './hlm-popover-content';
 import { HlmPopoverPortal } from './hlm-popover-portal';
@@ -62,12 +63,68 @@ class PopoverOverlayHost {
 })
 class PopoverTwoHost {}
 
+@Component({
+	selector: 'hlm-popover-tooltip-host',
+	imports: [HlmPopover, HlmPopoverContent, HlmPopoverPortal, HlmPopoverTrigger, HlmTooltip],
+	providers: [Directionality],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<hlm-popover [autoFocus]="false">
+			<button hlmPopoverTrigger data-testid="outer-trigger">open outer</button>
+			<hlm-popover-content *hlmPopoverPortal data-testid="outer-content">
+				<button hlmTooltip="outer help" [showDelay]="0" [hideDelay]="0" data-testid="outer-tooltip">help</button>
+				<hlm-popover [autoFocus]="false">
+					<button hlmPopoverTrigger data-testid="inner-trigger">open inner</button>
+					<hlm-popover-content *hlmPopoverPortal data-testid="inner-content">
+						<button hlmTooltip="inner help" [showDelay]="0" data-testid="inner-tooltip">help</button>
+					</hlm-popover-content>
+				</hlm-popover>
+			</hlm-popover-content>
+		</hlm-popover>
+	`,
+})
+class PopoverTooltipHost {}
+
 const popoverOf = (view: Awaited<ReturnType<typeof render>>) =>
 	view.fixture.debugElement.query(By.directive(HlmPopover)).injector.get(BrnPopover);
 
 describe('HlmPopover overlay behaviour', () => {
 	afterEach(() => {
 		document.querySelectorAll('.cdk-overlay-container').forEach((el) => el.remove());
+	});
+
+	it.each([false, true])('dismisses on Escape after showing a tooltip (hidden: %s)', async (hideTooltip) => {
+		const view = await render(PopoverTooltipHost);
+		pointerClick(view.getByTestId('outer-trigger'));
+		const tooltipTrigger = await screen.findByTestId('outer-tooltip');
+		fireEvent.pointerEnter(tooltipTrigger, { pointerType: 'mouse' });
+		await waitFor(() => expect(document.querySelector('[role="tooltip"]')).toBeTruthy());
+
+		if (hideTooltip) {
+			fireEvent.pointerLeave(tooltipTrigger, { pointerType: 'mouse' });
+			await waitFor(() => expect(document.querySelector('[role="tooltip"]')).toBeNull());
+		}
+
+		fireEvent.keyDown(tooltipTrigger, { key: 'Escape' });
+		await waitFor(() => expect(screen.queryByTestId('outer-content')).toBeNull());
+		expect(document.querySelector('[role="tooltip"]')).toBeNull();
+	});
+
+	it('dismisses only the top interactive popover when a tooltip is visible', async () => {
+		const view = await render(PopoverTooltipHost);
+		pointerClick(view.getByTestId('outer-trigger'));
+		pointerClick(await screen.findByTestId('inner-trigger'));
+		const tooltipTrigger = await screen.findByTestId('inner-tooltip');
+		fireEvent.pointerEnter(tooltipTrigger, { pointerType: 'mouse' });
+		await waitFor(() => expect(document.querySelector('[role="tooltip"]')).toBeTruthy());
+
+		fireEvent.keyDown(tooltipTrigger, { key: 'Escape' });
+		await waitFor(() => expect(screen.queryByTestId('inner-content')).toBeNull());
+		expect(screen.queryByTestId('outer-content')).toBeTruthy();
+		expect(document.querySelector('[role="tooltip"]')).toBeNull();
+
+		fireEvent.keyDown(screen.getByTestId('inner-trigger'), { key: 'Escape' });
+		await waitFor(() => expect(screen.queryByTestId('outer-content')).toBeNull());
 	});
 
 	it('is non-modal: opens without a backdrop (issue #3)', async () => {

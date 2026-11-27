@@ -23,6 +23,16 @@ class TooltipHost {}
 })
 class FocusTooltipHost {}
 
+@Component({
+	imports: [BrnTooltip],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<p id="existing-help">Existing description</p>
+		<button aria-describedby="existing-help" brnTooltip="Tooltip">Trigger</button>
+	`,
+})
+class DescribedByTooltipHost {}
+
 const pointer = (target: Element, type: 'pointerenter' | 'pointerleave') =>
 	target.dispatchEvent(new PointerEvent(type, { pointerType: 'mouse' }));
 
@@ -113,5 +123,21 @@ describe('BrnTooltip', () => {
 		await userEvent.tab();
 		expect(document.activeElement).toBe(trigger);
 		await vi.waitFor(() => expect(tooltip()).toBeTruthy());
+	});
+
+	it('keeps the existing aria-describedby while open and after it closes', async () => {
+		const fixture = TestBed.createComponent(DescribedByTooltipHost);
+		await fixture.whenStable();
+		const trigger: HTMLElement = fixture.nativeElement.querySelector('button');
+		const tooltip = () => document.querySelector('[role="tooltip"]');
+
+		pointer(trigger, 'pointerenter');
+		await vi.waitFor(() => expect(tooltip()).toBeTruthy());
+		const tooltipId = tooltip()!.id;
+		await vi.waitFor(() => expect(trigger).toHaveAttribute('aria-describedby', `existing-help ${tooltipId}`));
+
+		pointer(trigger, 'pointerleave');
+		await vi.waitFor(() => expect(tooltip()).toBeNull());
+		expect(trigger).toHaveAttribute('aria-describedby', 'existing-help');
 	});
 });

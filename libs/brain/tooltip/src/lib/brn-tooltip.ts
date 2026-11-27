@@ -29,6 +29,7 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
+import { addAriaReferencedId, removeAriaReferencedId } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import type { NumberInput } from '@angular/cdk/coercion';
 import { hasModifierKey } from '@angular/cdk/keycodes';
@@ -74,6 +75,7 @@ export class BrnTooltip {
 	private _componentRef: ComponentRef<BrnTooltipContent> | undefined = undefined;
 	private _overlayRef: OverlayRef | undefined = undefined;
 	private _ariaEffectRef: ReturnType<typeof effect> | undefined = undefined;
+	private _describedById: string | undefined = undefined;
 	private _positionChangeSub: Subscription | undefined = undefined;
 	/** Bumped on every close/show so a pending exit-animation teardown can detect it was superseded. */
 	private _closeGeneration = 0;
@@ -400,7 +402,8 @@ export class BrnTooltip {
 			this._ariaEffectRef = effect(() => {
 				const tooltipId = this._componentRef?.instance.id();
 				if (tooltipId) {
-					this._renderer.setAttribute(this._elementRef.nativeElement, 'aria-describedby', tooltipId);
+					this._describedById = tooltipId;
+					addAriaReferencedId(this._elementRef.nativeElement, 'aria-describedby', tooltipId);
 					this._ariaEffectRef?.destroy();
 					this._ariaEffectRef = undefined;
 				}
@@ -459,7 +462,10 @@ export class BrnTooltip {
 		this._clearAriaDescribedBy();
 		this._positionChangeSub?.unsubscribe();
 		this._positionChangeSub = undefined;
-		this._renderer.removeAttribute(this._elementRef.nativeElement, 'aria-describedby');
+		if (this._describedById) {
+			removeAriaReferencedId(this._elementRef.nativeElement, 'aria-describedby', this._describedById);
+			this._describedById = undefined;
+		}
 		this._overlayRef?.detach();
 	}
 

@@ -59,7 +59,7 @@ function getDefaultConfig<T>(): HlmDateRangePickerConfig<T> {
 				.join(' - '),
 		transformDates: (dates) => dates,
 		autoCloseOnEndSelection: false,
-		numberOfMonths: 1,
+		numberOfMonths: 2,
 		parseDate: (value) => {
 			if (typeof value !== 'string') return null;
 

@@ -56,7 +56,9 @@ export class BrnCalendarPreviousButton {
 		const date = this._dateAdapter.getDate(focusedDate);
 
 		// go to start of month first, then subtract 1 month to avoid day overflow
-		let previousMonthTarget = this._dateAdapter.startOfMonth(focusedDate);
+		// when rendering multiple months, navigate relative to the first displayed month
+		const displayedMonth = this._calendar.months?.()[0]?.month ?? focusedDate;
+		let previousMonthTarget = this._dateAdapter.startOfMonth(displayedMonth);
 		previousMonthTarget = this._dateAdapter.subtract(previousMonthTarget, { months: 1 });
 
 		const lastDay = this._dateAdapter.endOfMonth(previousMonthTarget);

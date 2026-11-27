@@ -1704,6 +1704,19 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "outputs": [],
         "selector": "[brnCalendarHeader]",
       },
+      "BrnCalendarMonth": {
+        "exportAs": "brnCalendarMonth",
+        "inputs": [
+          {
+            "name": "offset",
+            "required": false,
+            "type": "number",
+          },
+        ],
+        "models": [],
+        "outputs": [],
+        "selector": "[brnCalendarMonth]",
+      },
       "BrnCalendarMonthSelect": {
         "exportAs": "brnCalendarMonthSelect",
         "inputs": [],
@@ -1826,6 +1839,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "name": "defaultFocusedDate",
             "required": false,
             "type": "T",
+          },
+          {
+            "name": "numberOfMonths",
+            "required": false,
+            "type": "number",
           },
         ],
         "models": [
@@ -2153,6 +2171,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "name": "defaultFocusedDate",
             "required": false,
             "type": "T",
+          },
+          {
+            "name": "numberOfMonths",
+            "required": false,
+            "type": "number",
           },
         ],
         "models": [],
@@ -3790,6 +3813,10 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
           {
             "name": "stateChange",
             "type": "BrnDialogState",
+          },
+          {
+            "name": "closed",
+            "type": "void",
           },
         ],
         "selector": "hlm-command-dialog",
@@ -7160,6 +7187,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "required": false,
             "type": "boolean",
           },
+          {
+            "name": "restoreFocus",
+            "required": false,
+            "type": "boolean",
+          },
         ],
         "models": [],
         "outputs": [
@@ -7610,6 +7642,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "required": false,
             "type": "boolean",
           },
+          {
+            "name": "restoreFocus",
+            "required": false,
+            "type": "boolean",
+          },
         ],
         "models": [],
         "outputs": [
@@ -7704,6 +7741,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "name": "offsetX",
             "required": false,
             "type": "number",
+          },
+          {
+            "name": "restoreFocus",
+            "required": false,
+            "type": "boolean",
           },
           {
             "name": "scrollStrategy",

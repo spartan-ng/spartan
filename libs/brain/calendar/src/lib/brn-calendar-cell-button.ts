@@ -1,5 +1,6 @@
 import { computed, DestroyRef, Directive, ElementRef, inject, input } from '@angular/core';
 import { injectDateAdapter } from '@spartan-ng/brain/date-time';
+import { injectBrnCalendarMonth } from './brn-calendar-month';
 import { injectBrnCalendar } from './brn-calendar.token';
 import { findEnabledDate } from './utils/find-enabled-date';
 
@@ -41,6 +42,9 @@ export class BrnCalendarCellButton<T> {
 	/** Access the calendar component */
 	protected readonly _calendar = injectBrnCalendar<T>();
 
+	/** Access the month this cell belongs to, if rendering multiple months */
+	private readonly _month = injectBrnCalendarMonth<T>();
+
 	/** Access the element ref */
 	private readonly _elementRef = inject<ElementRef<HTMLButtonElement>>(ElementRef);
 
@@ -62,14 +66,18 @@ export class BrnCalendarCellButton<T> {
 		this._destroyRef.onDestroy(() => this._calendar.unregisterCalendarCell(this));
 	}
 
-	/** Whether this date is focusable */
+	/**
+	 * Whether this date is focusable.
+	 * Days outside of their month are never focusable, as the same date is also rendered within its own month.
+	 */
 	public readonly focusable = computed(
-		() => !this.disabled() && this._dateAdapter.isSameDay(this._calendar.focusedDate(), this.date()),
+		() => !this.disabled() && !this.outside() && this._dateAdapter.isSameDay(this._calendar.focusedDate(), this.date()),
 	);
 
+	/** Whether this date is outside of the month it is rendered in */
 	public readonly outside = computed(() => {
-		const focusedDate = this._calendar.focusedDate();
-		return !this._dateAdapter.isSameMonth(this.date(), focusedDate);
+		const month = this._month?.month() ?? this._calendar.focusedDate();
+		return !this._dateAdapter.isSameMonth(this.date(), month);
 	});
 
 	/** Whether this date is today */

@@ -1,7 +1,8 @@
-import { Directive, effect, inject } from '@angular/core';
+import { computed, Directive, effect, inject } from '@angular/core';
 import { outputToObservable, takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { injectDateAdapter } from '@spartan-ng/brain/date-time';
 import { BrnSelect } from '@spartan-ng/brain/select';
+import { injectBrnCalendarMonth } from './brn-calendar-month';
 import { injectBrnCalendar } from './brn-calendar.token';
 import { injectBrnCalendarI18n } from './i18n/calendar-i18n';
 
@@ -16,11 +17,20 @@ export class BrnCalendarYearSelect {
 	/** Access the calendar */
 	private readonly _calendar = injectBrnCalendar();
 
+	/** Access the month this select belongs to, if rendering multiple months */
+	private readonly _month = injectBrnCalendarMonth();
+
+	/** The month displayed by this select */
+	private readonly _displayedMonth = computed(() => this._month?.month() ?? this._calendar.focusedDate());
+
 	/** Access the date adapter */
 	private readonly _dateAdapter = injectDateAdapter();
 
 	/** Access the calendar i18n */
 	protected readonly _i18n = injectBrnCalendarI18n();
+
+	/** Whether the select value is being synced from the calendar rather than picked by the user */
+	private _syncing = false;
 
 	constructor() {
 		// React to user selection through the injected select's typed `value` output rather than a
@@ -29,13 +39,14 @@ export class BrnCalendarYearSelect {
 		outputToObservable(this._select.value)
 			.pipe(takeUntilDestroyed())
 			.subscribe((value) => {
-				if (typeof value === 'number') {
+				// writeValue emits on the same output; only a real user selection should move focus.
+				if (!this._syncing && typeof value === 'number') {
 					this.yearSelected(value);
 				}
 			});
 
 		effect(() => {
-			this._select.writeValue(this._dateAdapter.getYear(this._calendar.focusedDate()));
+			this._syncSelect(this._dateAdapter.getYear(this._displayedMonth()));
 		});
 	}
 
@@ -44,14 +55,29 @@ export class BrnCalendarYearSelect {
 		const focusedDate = this._calendar.focusedDate();
 		// Start from the first of the month so a day that does not exist in the target year
 		// (e.g. the 29th of February in a non-leap year) is clamped instead of rolling over.
-		const targetDate = this._dateAdapter.set(this._dateAdapter.startOfMonth(focusedDate), { year });
+		const targetDate = this._dateAdapter.set(this._dateAdapter.startOfMonth(this._displayedMonth()), { year });
 		const lastDay = this._dateAdapter.getDate(this._dateAdapter.endOfMonth(targetDate));
 		const day = Math.min(this._dateAdapter.getDate(focusedDate), lastDay);
 		// Like the previous/next buttons, constrain the target to min/max instead of letting
 		// setFocusedDate reject it: otherwise the grid stays on the old year.
 		const target = this._calendar.constrainDate(this._dateAdapter.set(targetDate, { day }));
 		this._calendar.setFocusedDate(target);
+		// Keep the selected year at the position of this select when rendering multiple months.
+		// A rejected target leaves the focused date unchanged, so the displayed months must not move.
+		if (this._dateAdapter.isSameDay(this._calendar.focusedDate(), target)) {
+			this._calendar.showMonth?.(target, this._month?.offset() ?? 0);
+		}
 		// Keep the select on the year actually shown when the target was rejected.
-		this._select.writeValue(this._dateAdapter.getYear(this._calendar.focusedDate()));
+		this._syncSelect(this._dateAdapter.getYear(this._displayedMonth()));
+	}
+
+	/** Write the calendar's value into the select without treating it as a user selection */
+	private _syncSelect(value: number): void {
+		this._syncing = true;
+		try {
+			this._select.writeValue(value);
+		} finally {
+			this._syncing = false;
+		}
 	}
 }

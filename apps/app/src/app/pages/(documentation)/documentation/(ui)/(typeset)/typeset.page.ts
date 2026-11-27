@@ -18,6 +18,7 @@ import {
 	defaultsCss,
 	importCss,
 	inlineOverrideCode,
+	oneOffOverrideCode,
 	optingOutCode,
 	overrideCode,
 	presetCss,
@@ -202,6 +203,10 @@ export const routeMeta: RouteMeta = {
 			</div>
 			<div class="my-4">
 				<spartan-code language="ts" [code]="_inlineOverrideCode" />
+			</div>
+			<p class="${hlmP}">For a one-off change, skip the preset and set a value on the container:</p>
+			<div class="my-4">
+				<spartan-code language="ts" [code]="_oneOffOverrideCode" />
 			</div>
 
 			<spartan-section-sub-heading id="custom-themes">Custom themes</spartan-section-sub-heading>
@@ -395,6 +400,7 @@ export default class TypesetPage {
 	protected readonly _defaultsCss = defaultsCss;
 	protected readonly _twoPresetsCss = twoPresetsCss;
 	protected readonly _inlineOverrideCode = inlineOverrideCode;
+	protected readonly _oneOffOverrideCode = oneOffOverrideCode;
 	protected readonly _customThemesCss = customThemesCss;
 	protected readonly _accessibilityCss = accessibilityCss;
 	protected readonly _responsiveTableCode = responsiveTableCode;

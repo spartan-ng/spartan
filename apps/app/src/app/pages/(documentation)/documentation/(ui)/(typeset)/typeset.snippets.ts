@@ -47,6 +47,8 @@ export const inlineOverrideCode = `<div class="typeset typeset-chat">{{ message 
   <ng-content />
 </article>`;
 
+export const oneOffOverrideCode = `<article class="typeset [--typeset-flow:1.75em]">...</article>`;
+
 export const customThemesCss = `/* Reading: serif, larger type, roomy rhythm. */
 .typeset-reading {
   --typeset-font-body: var(--font-lora);

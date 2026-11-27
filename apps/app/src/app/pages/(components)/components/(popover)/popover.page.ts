@@ -98,9 +98,9 @@ export const routeMeta: RouteMeta = {
 				<code class="${hlmCode}">[restoreFocus]="false"</code>
 				on the popover, or provide
 				<code class="${hlmCode}">provideBrnPopoverDefaultOptions({{ '{' }} restoreFocus: false {{ '}' }})</code>
-				to change the default. It defaults to
+				to change the default (
 				<code class="${hlmCode}">true</code>
-				.
+				).
 			</p>
 			<spartan-code [code]="_restoreFocusCode" />
 

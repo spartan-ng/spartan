@@ -22,9 +22,15 @@ export class BrnOverlayRef<OverlayResult = unknown> {
 	private _closeGeneration = 0;
 	private _panelClasses: string[];
 	private _backdropClasses: string[];
+	private _restoreFocus: boolean;
 
 	public get open(): boolean {
 		return this._phase() === 'open';
+	}
+
+	/** Whether focus is restored to the previously focused element when the overlay closes. */
+	public get restoreFocus(): boolean {
+		return this._restoreFocus;
 	}
 
 	public get id(): string {
@@ -40,6 +46,7 @@ export class BrnOverlayRef<OverlayResult = unknown> {
 	) {
 		this._panelClasses = cssClassesToArray(initialOptions.panelClass);
 		this._backdropClasses = cssClassesToArray(initialOptions.backdropClass);
+		this._restoreFocus = initialOptions.restoreFocus;
 		this._setDataState('open');
 		this._stateChanged.next('open');
 	}
@@ -115,6 +122,10 @@ export class BrnOverlayRef<OverlayResult = unknown> {
 		backdrop.classList.remove(...this._backdropClasses);
 		this._backdropClasses = cssClassesToArray(backdropClass);
 		backdrop.classList.add(...this._backdropClasses);
+	}
+
+	public setRestoreFocus(restoreFocus: boolean): void {
+		this._restoreFocus = restoreFocus;
 	}
 
 	public updatePosition(): void {

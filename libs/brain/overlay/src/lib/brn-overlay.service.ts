@@ -10,7 +10,7 @@ import {
 } from '@angular/cdk/overlay';
 import { ComponentPortal, type ComponentType, TemplatePortal } from '@angular/cdk/portal';
 import { ScrollDispatcher } from '@angular/cdk/scrolling';
-import { isPlatformBrowser } from '@angular/common';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import type { ViewContainerRef } from '@angular/core';
 import {
 	afterNextRender,
@@ -43,6 +43,7 @@ export class BrnOverlayService {
 	private readonly _interactivityChecker = inject(InteractivityChecker);
 	private readonly _scrollDispatcher = inject(ScrollDispatcher);
 	private readonly _ngZone = inject(NgZone);
+	private readonly _document = inject(DOCUMENT);
 	private readonly _isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 	private readonly _defaultOptions = injectBrnOverlayDefaultOptions();
 
@@ -56,6 +57,7 @@ export class BrnOverlayService {
 		options?: Partial<BrnOverlayOptions>,
 	): BrnOverlayRef<OverlayResult> {
 		const overlayId = ++overlaySequence;
+		const elementToRestoreFocusTo = this._document.activeElement;
 		const mergedOptions: BrnOverlayOptions = {
 			...this._defaultOptions,
 			...options,
@@ -94,6 +96,9 @@ export class BrnOverlayService {
 			destroyed.complete();
 			this._openOverlayIds.delete(mergedOptions.id);
 			this._removeFromStack(overlayRef);
+		});
+		brnOverlayRef.closed$.subscribe(() => {
+			if (brnOverlayRef.restoreFocus) this._restoreFocus(elementToRestoreFocusTo);
 		});
 
 		const contextOrData: BrnOverlayContext<OverlayContext> = {
@@ -199,6 +204,27 @@ export class BrnOverlayService {
 			},
 			{ injector: this._injector },
 		);
+	}
+
+	/**
+	 * Moves focus back to `element` if focus was lost (`body`, null or disconnected) while the
+	 * overlay closed. Focus that moved elsewhere on purpose is left alone.
+	 */
+	private _restoreFocus(element: Element | null): void {
+		const HTMLElementCtor = this._document.defaultView?.HTMLElement;
+		if (
+			!HTMLElementCtor ||
+			!(element instanceof HTMLElementCtor) ||
+			element === this._document.body ||
+			!element.isConnected
+		) {
+			return;
+		}
+
+		const activeElement = this._document.activeElement;
+		const shouldRestoreFocus = activeElement === this._document.body || !activeElement || !activeElement.isConnected;
+
+		if (shouldRestoreFocus) element.focus({ preventScroll: true });
 	}
 
 	private _firstTabbableElement(root: HTMLElement): HTMLElement | null {

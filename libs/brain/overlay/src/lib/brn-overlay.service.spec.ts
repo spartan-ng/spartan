@@ -236,3 +236,64 @@ describe('BrnOverlayService scroll containers', () => {
 		expect(gap()).toBeCloseTo(0, 0);
 	});
 });
+
+@Component({
+	selector: 'brn-overlay-focus-host',
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<button #trigger type="button">trigger</button>
+		<ng-template #content><button id="service-inside" type="button">inside</button></ng-template>
+	`,
+})
+class FocusHost {
+	public readonly trigger = viewChild.required<ElementRef<HTMLElement>>('trigger');
+	public readonly content = viewChild.required<TemplateRef<unknown>>('content');
+	public readonly vcr = inject(ViewContainerRef);
+}
+
+describe('BrnOverlayService restoreFocus', () => {
+	afterEach(() => {
+		(document.activeElement as HTMLElement | null)?.blur();
+		TestBed.resetTestingModule();
+		document.querySelectorAll('.cdk-overlay-container').forEach((el) => el.remove());
+	});
+
+	const openAndFocusInside = (options: Partial<BrnOverlayOptions> = {}) => {
+		const fixture = TestBed.createComponent(FocusHost);
+		fixture.detectChanges();
+		const component = fixture.componentInstance;
+		const trigger = component.trigger().nativeElement;
+		trigger.focus();
+
+		const ref = TestBed.inject(BrnOverlayService).open(component.content(), component.vcr, {}, options);
+		document.getElementById('service-inside')?.focus();
+		expect(document.activeElement?.id).toBe('service-inside');
+
+		return { ref, trigger };
+	};
+
+	it('restores focus to the previously focused element by default', () => {
+		const { ref, trigger } = openAndFocusInside();
+
+		ref.forceClose();
+
+		expect(document.activeElement).toBe(trigger);
+	});
+
+	it('leaves focus on body when restoreFocus is false', () => {
+		const { ref } = openAndFocusInside({ restoreFocus: false });
+
+		ref.forceClose();
+
+		expect(document.activeElement).toBe(document.body);
+	});
+
+	it('uses the value set through setRestoreFocus after opening', () => {
+		const { ref } = openAndFocusInside({ restoreFocus: true });
+
+		ref.setRestoreFocus(false);
+		ref.forceClose();
+
+		expect(document.activeElement).toBe(document.body);
+	});
+});

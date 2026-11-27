@@ -1,7 +1,6 @@
 import { Directionality } from '@angular/cdk/bidi';
 import type { BooleanInput } from '@angular/cdk/coercion';
 import { OverlayPositionBuilder, type ScrollStrategy, ScrollStrategyOptions } from '@angular/cdk/overlay';
-import { DOCUMENT } from '@angular/common';
 import {
 	afterNextRender,
 	booleanAttribute,
@@ -48,7 +47,6 @@ export class BrnOverlay<TResult = unknown, TContext extends Record<string, unkno
 	private readonly _scrollStrategies = inject(ScrollStrategyOptions);
 	private readonly _injector = inject(Injector);
 	private readonly _directionality = inject(Directionality);
-	private readonly _document = inject(DOCUMENT);
 	protected readonly _defaultOptions = this.getDefaultOptions();
 
 	private readonly _overlayRef = signal<BrnOverlayRef<TResult> | undefined>(undefined);
@@ -128,6 +126,7 @@ export class BrnOverlay<TResult = unknown, TContext extends Record<string, unkno
 		this._destroyRef.onDestroy(() => this._overlayRef()?.forceClose());
 		this._syncPanelClass();
 		this._syncBackdropClass();
+		this._syncRestoreFocus();
 
 		afterNextRender(() => {
 			effect(
@@ -154,7 +153,6 @@ export class BrnOverlay<TResult = unknown, TContext extends Record<string, unkno
 			return;
 		}
 
-		const elementToRestoreFocusTo = this._document.activeElement;
 		const overlayRef = this._overlayService.open<TContext, TResult>(
 			this._content.template,
 			this._vcr,
@@ -169,7 +167,6 @@ export class BrnOverlay<TResult = unknown, TContext extends Record<string, unkno
 
 		overlayRef.closed$.pipe(takeUntilDestroyed(this._destroyRef)).subscribe((result) => {
 			if (this._overlayRef() === overlayRef) this._overlayRef.set(undefined);
-			if (this.restoreFocus()) this._restoreFocus(elementToRestoreFocusTo);
 			if (!this._destroyed) this.closed.emit(result as TResult);
 		});
 	}
@@ -227,23 +224,6 @@ export class BrnOverlay<TResult = unknown, TContext extends Record<string, unkno
 		return strategy;
 	}
 
-	private _restoreFocus(element: Element | null): void {
-		const HTMLElementCtor = this._document.defaultView?.HTMLElement;
-		if (
-			!HTMLElementCtor ||
-			!(element instanceof HTMLElementCtor) ||
-			element === this._document.body ||
-			!element.isConnected
-		) {
-			return;
-		}
-
-		const activeElement = this._document.activeElement;
-		const shouldRestoreFocus = activeElement === this._document.body || !activeElement || !activeElement.isConnected;
-
-		if (shouldRestoreFocus) element.focus({ preventScroll: true });
-	}
-
 	private _syncPanelClass(): void {
 		effect(
 			() => {
@@ -252,6 +232,19 @@ export class BrnOverlay<TResult = unknown, TContext extends Record<string, unkno
 
 				const panelClass = this._resolvedPanelClass();
 				untracked(() => overlayRef.setPanelClass(panelClass));
+			},
+			{ injector: this._injector },
+		);
+	}
+
+	private _syncRestoreFocus(): void {
+		effect(
+			() => {
+				const overlayRef = this._overlayRef();
+				if (!overlayRef) return;
+
+				const restoreFocus = this.restoreFocus();
+				untracked(() => overlayRef.setRestoreFocus(restoreFocus));
 			},
 			{ injector: this._injector },
 		);

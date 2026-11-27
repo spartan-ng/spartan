@@ -14,9 +14,9 @@ import { HlmSelectImports } from '../../index';
 				<!-- eslint-disable-next-line @angular-eslint/template/label-has-associated-control -->
 				<label hlmFieldLabel>Fruit *</label>
 				<hlm-select formControlName="fruit" class="w-56">
-					<hlm-select-trigger>
+					<button hlmSelectTrigger>
 						<hlm-select-value placeholder="Select a fruit" />
-					</hlm-select-trigger>
+					</button>
 					<hlm-select-content *hlmSelectPortal>
 						<hlm-select-group>
 							<hlm-select-label>Fruits</hlm-select-label>
@@ -56,7 +56,7 @@ describe('HlmSelect form integration', () => {
 
 		const description = fixture.nativeElement.querySelector('[data-slot="field-description"]');
 		const error = fixture.nativeElement.querySelector('[data-slot="field-error"]');
-		const triggerButton: HTMLButtonElement | null = fixture.nativeElement.querySelector('hlm-select-trigger > button');
+		const triggerButton: HTMLButtonElement | null = fixture.nativeElement.querySelector('[hlmSelectTrigger]');
 
 		expect(host.form.invalid).toBe(true);
 		expect(description).toBeTruthy();

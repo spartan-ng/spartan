@@ -15,7 +15,7 @@ import { HlmDatePicker } from '../hlm-date-picker';
 				<!-- eslint-disable-next-line @angular-eslint/template/label-has-associated-control -->
 				<label hlmFieldLabel>Date *</label>
 				<hlm-date-picker captionLayout="dropdown" formControlName="date">
-					<hlm-date-picker-trigger>Pick date</hlm-date-picker-trigger>
+					<button hlmDatePickerTrigger>Pick date</button>
 				</hlm-date-picker>
 				<p hlmFieldDescription>Pick a date for the event.</p>
 				<hlm-field-error>Select a date to continue.</hlm-field-error>
@@ -36,7 +36,7 @@ class HlmDatePickerHost {
 	template: `
 		<form [formGroup]="form">
 			<hlm-date-picker captionLayout="dropdown" formControlName="date">
-				<hlm-date-picker-trigger buttonId="date">Pick date</hlm-date-picker-trigger>
+				<button hlmDatePickerTrigger id="date">Pick date</button>
 			</hlm-date-picker>
 		</form>
 	`,
@@ -67,7 +67,7 @@ describe('HlmDatePicker form integration', () => {
 
 		const description: HTMLElement | null = fixture.nativeElement.querySelector('[data-slot="field-description"]');
 		const error: HTMLElement | null = fixture.nativeElement.querySelector('[data-slot="field-error"]');
-		const button: HTMLButtonElement | null = fixture.nativeElement.querySelector('hlm-date-picker-trigger button');
+		const button: HTMLButtonElement | null = fixture.nativeElement.querySelector('[hlmDatePickerTrigger]');
 
 		expect(host.form.invalid).toBe(true);
 		expect(description).toBeTruthy();
@@ -93,9 +93,7 @@ describe('HlmDatePicker form integration', () => {
 		dropdownFixture.detectChanges();
 		await dropdownFixture.whenStable();
 
-		const trigger: HTMLButtonElement | null = dropdownFixture.nativeElement.querySelector(
-			'hlm-date-picker-trigger button',
-		);
+		const trigger: HTMLButtonElement | null = dropdownFixture.nativeElement.querySelector('[hlmDatePickerTrigger]');
 		expect(trigger?.getAttribute('aria-invalid')).toBe('true');
 
 		const overlay = document.querySelector('.cdk-overlay-container');
@@ -114,7 +112,7 @@ describe('HlmDatePicker form integration', () => {
 		const field: HTMLElement | null = fixture.nativeElement.querySelector('[data-slot="field"]');
 		expect(field?.getAttribute('data-matches-spartan-invalid')).toBeNull();
 
-		const trigger: HTMLButtonElement | null = fixture.nativeElement.querySelector('hlm-date-picker-trigger button');
+		const trigger: HTMLButtonElement | null = fixture.nativeElement.querySelector('[hlmDatePickerTrigger]');
 		trigger?.click();
 		fixture.detectChanges();
 		await fixture.whenStable();

@@ -14,9 +14,9 @@ const flush = async () => {
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<hlm-select class="w-56">
-			<hlm-select-trigger>
+			<button hlmSelectTrigger>
 				<hlm-select-value placeholder="Select a fruit" />
-			</hlm-select-trigger>
+			</button>
 			<hlm-select-content *hlmSelectPortal>
 				<hlm-select-item value="apple">Apple</hlm-select-item>
 				<hlm-select-item value="banana">Banana</hlm-select-item>
@@ -32,9 +32,9 @@ class SelectKeyboardHost {}
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<hlm-select-multiple [(value)]="selected">
-			<hlm-select-trigger class="w-56">
+			<button hlmSelectTrigger class="w-56">
 				<hlm-select-placeholder>Select fruits</hlm-select-placeholder>
-			</hlm-select-trigger>
+			</button>
 			<hlm-select-content *hlmSelectPortal>
 				<hlm-select-item value="apple">Apple</hlm-select-item>
 				<hlm-select-item value="banana">Banana</hlm-select-item>
@@ -52,9 +52,9 @@ class SelectMultipleKeyboardHost {
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<hlm-select [(value)]="value" class="w-56">
-			<hlm-select-trigger>
+			<button hlmSelectTrigger>
 				<hlm-select-value placeholder="Select a fruit" />
-			</hlm-select-trigger>
+			</button>
 			<hlm-select-content *hlmSelectPortal>
 				<hlm-select-item value="locked" disabled>Locked</hlm-select-item>
 				<hlm-select-item value="open">Open</hlm-select-item>
@@ -72,9 +72,9 @@ class SelectDisabledKeyboardHost {
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<hlm-select-multiple [(value)]="selected">
-			<hlm-select-trigger class="w-56">
+			<button hlmSelectTrigger class="w-56">
 				<hlm-select-placeholder>Select fruits</hlm-select-placeholder>
-			</hlm-select-trigger>
+			</button>
 			<hlm-select-content *hlmSelectPortal>
 				<hlm-select-item value="anna" disabled>Anna</hlm-select-item>
 				<hlm-select-item value="ben">Ben</hlm-select-item>
@@ -91,7 +91,7 @@ describe('HlmSelect keyboard', () => {
 		document.querySelectorAll('.cdk-overlay-container').forEach((el) => el.remove());
 	});
 
-	const trigger = () => document.querySelector('button[brnselecttrigger]') as HTMLButtonElement;
+	const trigger = () => document.querySelector('button[hlmselecttrigger]') as HTMLButtonElement;
 	const listboxOpen = () => trigger().getAttribute('aria-expanded') === 'true';
 
 	it('opens on ArrowDown', async () => {

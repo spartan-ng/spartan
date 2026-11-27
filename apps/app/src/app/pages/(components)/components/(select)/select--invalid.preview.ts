@@ -9,9 +9,9 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 		<hlm-field forceInvalid class="w-56">
 			<label hlmFieldLabel for="select-invalid">Fruit</label>
 			<hlm-select>
-				<hlm-select-trigger forceInvalid buttonId="select-invalid" class="w-full">
+				<button hlmSelectTrigger forceInvalid id="select-invalid" class="w-full">
 					<hlm-select-value placeholder="Select a fruit" />
-				</hlm-select-trigger>
+				</button>
 				<hlm-select-content *hlmSelectPortal>
 					<hlm-select-group>
 						<hlm-select-label>Fruits</hlm-select-label>

@@ -9,7 +9,7 @@ import { HlmFieldImports } from '@spartan-ng/helm/field';
 		<hlm-field>
 			<label hlmFieldLabel for="date-range-picker">Date Picker Range</label>
 			<hlm-date-range-picker [minDate]="minDate" [maxDate]="maxDate" [autoCloseOnEndSelection]="true">
-				<hlm-date-picker-trigger buttonId="date-range-picker">Enter a date range</hlm-date-picker-trigger>
+				<button hlmDatePickerTrigger id="date-range-picker">Enter a date range</button>
 			</hlm-date-range-picker>
 		</hlm-field>
 	`,

@@ -191,7 +191,7 @@ export const routeMeta: RouteMeta = {
 				Use
 				<code class="${hlmCode}">hlm-date-picker-input</code>
 				instead of
-				<code class="${hlmCode}">hlm-date-picker-trigger</code>
+				<code class="${hlmCode}">hlmDatePickerTrigger</code>
 				to let users type a date directly. Provide a
 				<code class="${hlmCode}">parseDate</code>
 				input (or set it globally via

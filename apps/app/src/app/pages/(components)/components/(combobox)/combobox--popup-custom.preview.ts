@@ -18,7 +18,7 @@ type Country = {
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<hlm-combobox>
-			<hlm-combobox-trigger class="w-64 justify-between font-normal">
+			<button hlmComboboxTrigger class="w-64 justify-between font-normal">
 				<hlm-combobox-placeholder>
 					<ng-icon name="lucideEarth" />
 					Select a country
@@ -26,7 +26,7 @@ type Country = {
 				<ng-template hlmComboboxValueTemplate let-value>
 					<span>{{ value.flag }} {{ value.label }}</span>
 				</ng-template>
-			</hlm-combobox-trigger>
+			</button>
 			<hlm-combobox-content *hlmComboboxPortal>
 				<hlm-combobox-input showTrigger="false" placeholder="Search" showClear />
 				<hlm-combobox-empty>No items found.</hlm-combobox-empty>

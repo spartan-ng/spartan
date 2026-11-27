@@ -20,7 +20,7 @@ import { HlmFieldImports } from '@spartan-ng/helm/field';
 						[formField]="form.range"
 						[autoCloseOnEndSelection]="true"
 					>
-						<hlm-date-picker-trigger buttonId="date-range-form">Pick date range</hlm-date-picker-trigger>
+						<button hlmDatePickerTrigger id="date-range-form">Pick date range</button>
 					</hlm-date-range-picker>
 				</hlm-field>
 

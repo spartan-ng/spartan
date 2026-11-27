@@ -49,13 +49,14 @@ let nextId = 0;
 			<ul hlmPaginationContent>
 				@if (showEdges() && !_isFirstPageActive()) {
 					<li hlmPaginationItem>
-						<hlm-pagination-previous
+						<a
+							hlmPaginationPrevious
 							[link]="link()"
 							[queryParams]="{ page: currentPage() - 1 }"
 							queryParamsHandling="merge"
 							[text]="previousLabel()"
 							[aria-label]="previousAriaLabel()"
-						/>
+						></a>
 					</li>
 				}
 
@@ -80,13 +81,14 @@ let nextId = 0;
 
 				@if (showEdges() && !_isLastPageActive()) {
 					<li hlmPaginationItem>
-						<hlm-pagination-next
+						<a
+							hlmPaginationNext
 							[link]="link()"
 							[queryParams]="{ page: currentPage() + 1 }"
 							queryParamsHandling="merge"
 							[text]="nextLabel()"
 							[aria-label]="nextAriaLabel()"
-						/>
+						></a>
 					</li>
 				}
 			</ul>
@@ -95,9 +97,9 @@ let nextId = 0;
 		<!-- Show Page Size selector -->
 		<label class="sr-only" [for]="_pageSizeTriggerId">{{ pageSizeAriaLabel() }}</label>
 		<hlm-select [(value)]="itemsPerPage" class="ml-auto">
-			<hlm-select-trigger class="w-fit" [buttonId]="_pageSizeTriggerId">
+			<button hlmSelectTrigger class="w-fit" [id]="_pageSizeTriggerId">
 				<hlm-select-value />
-			</hlm-select-trigger>
+			</button>
 			<hlm-select-content *hlmSelectPortal>
 				<hlm-select-group>
 					@for (pageSize of _pageSizesWithCurrent(); track pageSize) {

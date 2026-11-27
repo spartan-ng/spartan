@@ -37,9 +37,9 @@ export const Default: Story = {
        </label>
        <label class='block my-4' hlmLabel>Framework
        <hlm-select class="inline-block w-full mt-1.5">
-            <hlm-select-trigger class="w-full">
+            <button hlmSelectTrigger class="w-full">
                 <hlm-select-value placeholder="Select an option" />
-            </hlm-select-trigger>
+            </button>
             <hlm-select-content *hlmSelectPortal>
               <hlm-select-group>
                 <hlm-select-item value="Angular">Angular</hlm-select-item>

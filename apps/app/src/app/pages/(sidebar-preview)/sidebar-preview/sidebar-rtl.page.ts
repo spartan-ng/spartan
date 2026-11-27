@@ -244,9 +244,9 @@ import { HlmSidebarImports, HlmSidebarService } from '@spartan-ng/helm/sidebar';
 					<button hlmSidebarTrigger><span class="sr-only"></span></button>
 
 					<hlm-select class="inline-block" [(value)]="_languageService.language" [itemToString]="itemToString">
-						<hlm-select-trigger class="w-52">
+						<button hlmSelectTrigger class="w-52">
 							<hlm-select-value />
-						</hlm-select-trigger>
+						</button>
 						<hlm-select-content *hlmSelectPortal [dir]="_dir()">
 							<hlm-select-group>
 								@for (language of languages; track language.value) {

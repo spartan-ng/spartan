@@ -31,7 +31,7 @@ const meta: Meta<HlmDateRangePicker<Date>> = {
 		template: `
 		<div class="preview flex min-h-[350px] w-full justify-center p-10 items-center">
 			<hlm-date-range-picker [minDate]="minDate" [maxDate]="maxDate" [captionLayout]="captionLayout">
-                <hlm-date-picker-trigger buttonId="date">Pick a date</hlm-date-picker-trigger>
+                <button hlmDatePickerTrigger id="date">Pick a date</button>
             </hlm-date-range-picker>
 		</div>
 		`,
@@ -91,7 +91,7 @@ export const Input: Story = {
 					[parseDate]="parseDate"
 					[formatInputDates]="formatInputDates"
 				/>
-				<hlm-date-picker-trigger buttonId="date-trigger" [showTrigger]="false">unset</hlm-date-picker-trigger>
+				<button hlmDatePickerTrigger id="date-trigger" [showTrigger]="false">unset</button>
 			</hlm-date-range-picker>
 		</div>
 		`,
@@ -115,7 +115,7 @@ export const WithHintAndError: Story = {
 					[captionLayout]="captionLayout"
 					[minDate]="minDate"
 					[maxDate]="maxDate">
-					<hlm-date-picker-trigger buttonId="date">Select a date range</hlm-date-picker-trigger>
+					<button hlmDatePickerTrigger id="date">Select a date range</button>
 				</hlm-date-range-picker>
 
 				<p hlmFieldDescription>Pick a start and end date for your booking.</p>

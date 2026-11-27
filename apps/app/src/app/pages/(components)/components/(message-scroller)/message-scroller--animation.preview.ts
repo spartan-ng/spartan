@@ -133,9 +133,9 @@ const ANIMATION_PRESETS: AnimationPreset[] = [
 
 				<hlm-card-footer class="border-t">
 					<hlm-select [value]="_presetId()" (valueChange)="onPresetChange($event)" [itemToString]="_presetToString">
-						<hlm-select-trigger aria-label="Animation preset">
+						<button hlmSelectTrigger aria-label="Animation preset">
 							<hlm-select-value />
-						</hlm-select-trigger>
+						</button>
 						<hlm-select-content *hlmSelectPortal>
 							@for (preset of _presets; track preset.id) {
 								<hlm-select-item [value]="preset.id">{{ preset.name }}</hlm-select-item>

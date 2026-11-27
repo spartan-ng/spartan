@@ -1,59 +1,64 @@
 import type { BooleanInput } from '@angular/cdk/coercion';
-import { booleanAttribute, ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
-import type { RouterLink } from '@angular/router';
+import {
+	booleanAttribute,
+	ChangeDetectionStrategy,
+	Component,
+	computed,
+	ElementRef,
+	inject,
+	input,
+} from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronLeft } from '@ng-icons/lucide';
-import type { ButtonVariants } from '<%- importAlias %>/button';
-import { hlm } from '<%- importAlias %>/utils';
-import type { ClassValue } from 'cn';
-import { HlmPaginationLink } from './hlm-pagination-link';
+import { buttonVariants } from '<%- importAlias %>/button';
+import { classes, hlm } from '<%- importAlias %>/utils';
 import { injectHlmPaginationConfig } from './hlm-pagination.token';
 
 @Component({
-	selector: 'hlm-pagination-previous',
+	selector:
+		'a[hlm-pagination-previous],a[hlmPaginationPrevious],button[hlm-pagination-previous],button[hlmPaginationPrevious]',
 	exportAs: 'hlmPaginationPrevious',
-	imports: [HlmPaginationLink, NgIcon],
+	imports: [NgIcon],
 	providers: [provideIcons({ lucideChevronLeft })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	hostDirectives: [
+		{
+			directive: RouterLink,
+			inputs: [
+				'routerLink: link',
+				'target',
+				'queryParams',
+				'fragment',
+				'queryParamsHandling',
+				'state',
+				'info',
+				'relativeTo',
+				'preserveFragment',
+				'skipLocationChange',
+				'replaceUrl',
+			],
+		},
+	],
+	host: {
+		'data-slot': 'pagination-link',
+		'[attr.type]': '_isButton ? "button" : null',
+		'[attr.role]': '_isActionAnchor() ? "button" : null',
+		'[attr.tabindex]': '_isActionAnchor() ? 0 : null',
+		'[attr.aria-label]': 'ariaLabel()',
+		'(keydown.enter)': '_activate($event)',
+		'(keydown.space)': '_activate($event)',
+	},
 	template: `
-		@if (link() === undefined) {
-			<!-- Without a link this is an action, so render a focusable button instead of an anchor without href. -->
-			<button
-				type="button"
-				hlmPaginationLink
-				[class]="_computedClass()"
-				[size]="_size()"
-				[attr.aria-label]="ariaLabel()"
-			>
-				<ng-icon name="lucideChevronLeft" class="spartan-rtl-flip" />
-				<span [class]="_labelClass()">{{ text() }}</span>
-			</button>
-		} @else {
-			<a
-				hlmPaginationLink
-				[class]="_computedClass()"
-				[link]="link()"
-				[queryParams]="queryParams()"
-				[queryParamsHandling]="queryParamsHandling()"
-				[size]="_size()"
-				[attr.aria-label]="ariaLabel()"
-			>
-				<ng-icon name="lucideChevronLeft" class="spartan-rtl-flip" />
-				<span [class]="_labelClass()">{{ text() }}</span>
-			</a>
-		}
+		<ng-icon name="lucideChevronLeft" class="spartan-rtl-flip" />
+		<span [class]="_labelClass()">{{ text() }}</span>
 	`,
 })
 export class HlmPaginationPrevious {
 	private readonly _config = injectHlmPaginationConfig();
-
-	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	/** The link to navigate to the previous page. */
-	public readonly link = input<RouterLink['routerLink']>();
-	/** The query parameters to pass to the previous page. */
-	public readonly queryParams = input<RouterLink['queryParams']>();
-	/** How to handle query parameters when navigating to the previous page. */
-	public readonly queryParamsHandling = input<RouterLink['queryParamsHandling']>();
+	private readonly _host = inject<ElementRef<HTMLElement>>(ElementRef).nativeElement;
+	/** Without a link this is an action, so it can be rendered as a focusable button. */
+	protected readonly _isButton = this._host.tagName.toLowerCase() === 'button';
 
 	/** The aria-label for the previous page link. */
 	public readonly ariaLabel = input<string>(this._config.previousAriaLabel, { alias: 'aria-label' });
@@ -63,13 +68,28 @@ export class HlmPaginationPrevious {
 	public readonly iconOnly = input<boolean, BooleanInput>(false, {
 		transform: booleanAttribute,
 	});
+	/** The link to navigate to the page. */
+	public readonly link = input<RouterLink['routerLink']>();
+	/** An anchor without a link has no `href`, so it needs to be made keyboard accessible like a button. */
+	protected readonly _isActionAnchor = computed(() => !this._isButton && this.link() == null);
 	protected readonly _labelClass = computed(() =>
 		hlm(this.iconOnly() ? 'sr-only' : 'spartan-pagination-previous-text hidden sm:block'),
 	);
 
-	protected readonly _size = computed<ButtonVariants['size']>(() => (this.iconOnly() ? 'icon' : 'default'));
+	constructor() {
+		classes(() => [
+			'spartan-pagination-link relative',
+			buttonVariants({ variant: 'ghost', size: this.iconOnly() ? 'icon' : 'default' }),
+			this.link() === undefined && 'cursor-pointer',
+			!this.iconOnly() && 'spartan-pagination-previous',
+		]);
+	}
 
-	protected readonly _computedClass = computed(() =>
-		hlm(!this.iconOnly() && 'spartan-pagination-previous', this.userClass()),
-	);
+	protected _activate(event: Event): void {
+		if (!this._isActionAnchor()) {
+			return;
+		}
+		event.preventDefault();
+		this._host.click();
+	}
 }

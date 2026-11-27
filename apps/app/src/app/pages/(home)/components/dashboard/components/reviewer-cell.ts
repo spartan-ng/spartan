@@ -13,12 +13,13 @@ import { type DashboardFeatures } from './table-section';
 			{{ _data().reviewer }}
 		} @else {
 			<hlm-select id="{{ _data().id }}-reviewer">
-				<hlm-select-trigger
+				<button
+					hlmSelectTrigger
 					size="sm"
 					class="w-38 **:data-[slot=select-value]:block **:data-[slot=select-value]:truncate"
 				>
 					<hlm-select-value placeholder="Assign reviewer" />
-				</hlm-select-trigger>
+				</button>
 				<hlm-select-content *hlmSelectPortal>
 					<hlm-select-group>
 						<hlm-select-item value="Eddie Lake">Eddie Lake</hlm-select-item>

@@ -15,7 +15,7 @@ import { HlmInputImports } from '@spartan-ng/helm/input';
 			<hlm-field>
 				<label hlmFieldLabel for="date-picker">Date</label>
 				<hlm-date-picker [minDate]="minDate" [maxDate]="maxDate">
-					<hlm-date-picker-trigger buttonId="date-picker">Select date</hlm-date-picker-trigger>
+					<button hlmDatePickerTrigger id="date-picker">Select date</button>
 				</hlm-date-picker>
 			</hlm-field>
 

@@ -38,9 +38,9 @@ import { classes, hlm } from '@spartan-ng/helm/utils';
 			<div class="flex w-full items-center justify-between gap-1.5">
 				<ng-template #month>
 					<hlm-select brnCalendarMonthSelect class="order-1">
-						<hlm-select-trigger size="sm" [class]="_selectClass">
+						<button hlmSelectTrigger size="sm" [class]="_selectClass">
 							<hlm-select-value />
-						</hlm-select-trigger>
+						</button>
 						<hlm-select-content *hlmSelectPortal class="max-h-80">
 							<hlm-select-group>
 								@for (month of _i18n.config().months(); track month) {
@@ -52,9 +52,9 @@ import { classes, hlm } from '@spartan-ng/helm/utils';
 				</ng-template>
 				<ng-template #year>
 					<hlm-select brnCalendarYearSelect class="order-3">
-						<hlm-select-trigger size="sm" [class]="_selectClass">
+						<button hlmSelectTrigger size="sm" [class]="_selectClass">
 							<hlm-select-value />
-						</hlm-select-trigger>
+						</button>
 						<hlm-select-content *hlmSelectPortal class="max-h-80">
 							<hlm-select-group>
 								@for (year of _i18n.config().years(); track year) {

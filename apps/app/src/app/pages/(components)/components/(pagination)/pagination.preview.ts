@@ -8,7 +8,7 @@ import { HlmPaginationImports } from '@spartan-ng/helm/pagination';
 		<nav hlmPagination>
 			<ul hlmPaginationContent>
 				<li hlmPaginationItem>
-					<hlm-pagination-previous link="/components/menubar" />
+					<a hlmPaginationPrevious link="/components/menubar"></a>
 				</li>
 				<li hlmPaginationItem>
 					<a hlmPaginationLink link="#">1</a>
@@ -23,7 +23,7 @@ import { HlmPaginationImports } from '@spartan-ng/helm/pagination';
 					<hlm-pagination-ellipsis />
 				</li>
 				<li hlmPaginationItem>
-					<hlm-pagination-next link="/components/popover" />
+					<a hlmPaginationNext link="/components/popover"></a>
 				</li>
 			</ul>
 		</nav>
@@ -39,7 +39,7 @@ export const defaultSkeleton = `
 <nav hlmPagination>
   <ul hlmPaginationContent>
     <li hlmPaginationItem>
-      <hlm-pagination-previous link="/components/menubar" />
+      <a hlmPaginationPrevious link="/components/menubar"></a>
     </li>
     <li hlmPaginationItem>
       <a hlmPaginationLink link="#">1</a>
@@ -54,7 +54,7 @@ export const defaultSkeleton = `
       <hlm-pagination-ellipsis />
     </li>
     <li hlmPaginationItem>
-      <hlm-pagination-next link="/components/popover" />
+      <a hlmPaginationNext link="/components/popover"></a>
     </li>
   </ul>
 </nav>

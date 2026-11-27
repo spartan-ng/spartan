@@ -189,9 +189,9 @@ export const WithSelect: Story = {
 						<div hlmField>
 							<label hlmFieldLabel for="field-select-country">Country</label>
 							<hlm-select class="inline-block">
-								<hlm-select-trigger class="w-full" buttonId="field-select-country">
+								<button hlmSelectTrigger class="w-full" id="field-select-country">
 									<hlm-select-value placeholder="Select a country" />
-								</hlm-select-trigger>
+								</button>
 								<hlm-select-content *hlmSelectPortal>
 									<hlm-select-group>
 										<hlm-select-item value="us">United States</hlm-select-item>
@@ -338,9 +338,9 @@ export const ComplexForm: Story = {
 									<div hlmField>
 										<label hlmFieldLabel for="field-complex-expiration-month">Month</label>
 										<hlm-select class="inline-block">
-											<hlm-select-trigger class="w-full" id="field-complex-expiration-month">
+											<button hlmSelectTrigger class="w-full" id="field-complex-expiration-month">
 												<hlm-select-value placeholder="MM" />
-											</hlm-select-trigger>
+											</button>
 											<hlm-select-content *hlmSelectPortal>
 <hlm-select-group>
 												<hlm-select-item value="01">01</hlm-select-item>
@@ -362,9 +362,9 @@ export const ComplexForm: Story = {
 									<div hlmField>
 										<label hlmFieldLabel for="field-complex-expiration-year">Year</label>
 										<hlm-select class="inline-block">
-											<hlm-select-trigger class="w-full" id="field-complex-expiration-year">
+											<button hlmSelectTrigger class="w-full" id="field-complex-expiration-year">
 												<hlm-select-value placeholder="YYYY" />
-											</hlm-select-trigger>
+											</button>
 											<hlm-select-content *hlmSelectPortal>
 <hlm-select-group>
 												<hlm-select-item value="2024">2024</hlm-select-item>

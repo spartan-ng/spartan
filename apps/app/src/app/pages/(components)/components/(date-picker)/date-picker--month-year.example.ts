@@ -9,7 +9,7 @@ import { HlmFieldImports } from '@spartan-ng/helm/field';
 		<hlm-field>
 			<label hlmFieldLabel>Month Year Picker</label>
 			<hlm-month-year-picker [minDate]="minDate" [maxDate]="maxDate" autoCloseOnSelect>
-				<hlm-date-picker-trigger>Pick a year and month</hlm-date-picker-trigger>
+				<button hlmDatePickerTrigger>Pick a year and month</button>
 			</hlm-month-year-picker>
 		</hlm-field>
 	`,

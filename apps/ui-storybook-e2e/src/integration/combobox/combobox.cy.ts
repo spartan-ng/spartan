@@ -82,14 +82,14 @@ describe('combobox--popup', () => {
 
 	it('clicking the button trigger again should close the content (closeOnTriggerClick is true)', () => {
 		cy.findByText(/Angular/i).should('not.exist');
-		cy.get('hlm-combobox-trigger button').realClick();
+		cy.get('[hlmComboboxTrigger]').realClick();
 		cy.findByText('Angular').should('be.visible');
-		cy.get('hlm-combobox-trigger button').realClick();
+		cy.get('[hlmComboboxTrigger]').realClick();
 		cy.findByText('Angular').should('not.exist');
 	});
 
 	it('clicking outside should close the content', () => {
-		cy.get('hlm-combobox-trigger button').realClick();
+		cy.get('[hlmComboboxTrigger]').realClick();
 		cy.findByText('Angular').should('be.visible');
 		cy.get('body').realClick({ position: 'topLeft' });
 		cy.findByText('Angular').should('not.exist');

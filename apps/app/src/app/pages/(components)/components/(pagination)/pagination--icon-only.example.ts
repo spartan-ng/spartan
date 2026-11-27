@@ -8,7 +8,7 @@ import { HlmPaginationImports } from '@spartan-ng/helm/pagination';
 		<nav hlmPagination>
 			<ul hlmPaginationContent>
 				<li hlmPaginationItem>
-					<hlm-pagination-previous iconOnly="true" link="/components/menubar" />
+					<a hlmPaginationPrevious iconOnly="true" link="/components/menubar"></a>
 				</li>
 				<li hlmPaginationItem>
 					<a hlmPaginationLink link="#">1</a>
@@ -23,7 +23,7 @@ import { HlmPaginationImports } from '@spartan-ng/helm/pagination';
 					<hlm-pagination-ellipsis />
 				</li>
 				<li hlmPaginationItem>
-					<hlm-pagination-next iconOnly="true" link="/components/popover" />
+					<a hlmPaginationNext iconOnly="true" link="/components/popover"></a>
 				</li>
 			</ul>
 		</nav>

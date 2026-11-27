@@ -9,9 +9,9 @@ import { HlmSelectImports } from '../../index';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<hlm-select [formControl]="control">
-			<hlm-select-trigger [aria-invalid]="override()">
+			<button hlmSelectTrigger [aria-invalid]="override()">
 				<hlm-select-value placeholder="Select a fruit" />
-			</hlm-select-trigger>
+			</button>
 			<hlm-select-content *hlmSelectPortal>
 				<hlm-select-item value="apple">Apple</hlm-select-item>
 			</hlm-select-content>
@@ -26,7 +26,7 @@ class AriaInvalidHost {
 describe('HlmSelect aria-invalid', () => {
 	it('is not announced while the error state matcher does not report the error', async () => {
 		const { container, fixture } = await render(AriaInvalidHost);
-		const control = container.querySelector('hlm-select-trigger > button')!;
+		const control = container.querySelector('[hlmSelectTrigger]')!;
 
 		expect(fixture.componentInstance.control.invalid).toBe(true);
 		expect(control).not.toHaveAttribute('aria-invalid');
@@ -37,7 +37,7 @@ describe('HlmSelect aria-invalid', () => {
 		fixture.componentInstance.control.markAsTouched();
 		fixture.detectChanges();
 
-		expect(container.querySelector('hlm-select-trigger > button')).toHaveAttribute('aria-invalid', 'true');
+		expect(container.querySelector('[hlmSelectTrigger]')).toHaveAttribute('aria-invalid', 'true');
 	});
 
 	it('can be set by the consumer', async () => {
@@ -45,12 +45,12 @@ describe('HlmSelect aria-invalid', () => {
 		fixture.componentInstance.override.set(true);
 		fixture.detectChanges();
 
-		expect(container.querySelector('hlm-select-trigger > button')).toHaveAttribute('aria-invalid', 'true');
+		expect(container.querySelector('[hlmSelectTrigger]')).toHaveAttribute('aria-invalid', 'true');
 	});
 
 	it('keeps an explicit false from the consumer over the error state matcher', async () => {
 		const { container, fixture } = await render(AriaInvalidHost);
-		const control = container.querySelector('hlm-select-trigger > button')!;
+		const control = container.querySelector('[hlmSelectTrigger]')!;
 		fixture.componentInstance.control.markAsTouched();
 		fixture.componentInstance.override.set(false);
 		fixture.detectChanges();

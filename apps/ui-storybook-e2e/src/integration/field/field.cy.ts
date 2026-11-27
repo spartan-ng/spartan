@@ -147,9 +147,9 @@ describe('field', () => {
 		});
 
 		it('should allow selecting an option', () => {
-			cy.get('hlm-select-trigger').click();
+			cy.get('[hlmSelectTrigger]').click();
 			cy.contains('United States').click();
-			cy.get('hlm-select-trigger').should('contain.text', 'us');
+			cy.get('[hlmSelectTrigger]').should('contain.text', 'us');
 		});
 	});
 

@@ -21,10 +21,10 @@ import { ColorFormat } from './format-color';
 				<h2 class="capitalize">{{ palette.name }}</h2>
 			</div>
 			<hlm-select [(ngModel)]="colorFormat" align="end">
-				<hlm-select-trigger size="sm" class="bg-secondary text-secondary-foreground border-secondary shadow-none">
+				<button hlmSelectTrigger size="sm" class="bg-secondary text-secondary-foreground border-secondary shadow-none">
 					<span class="font-medium">Format:</span>
 					<span class="text-muted-foreground font-mono">{{ colorFormat() }}</span>
-				</hlm-select-trigger>
+				</button>
 				<hlm-select-content *hlmSelectPortal class="min-w-max rounded-xl">
 					<hlm-select-group>
 						@for (keyValue of palette.colors[0] | formatColor | keyvalue; track keyValue) {

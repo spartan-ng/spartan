@@ -14,9 +14,9 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 				<div hlmField>
 					<label hlmFieldLabel for="field-select-department">Department</label>
 					<hlm-select [itemToString]="itemToString">
-						<hlm-select-trigger class="w-full" buttonId="field-select-department">
+						<button hlmSelectTrigger class="w-full" id="field-select-department">
 							<hlm-select-value placeholder="Choose a department" />
-						</hlm-select-trigger>
+						</button>
 						<hlm-select-content *hlmSelectPortal>
 							<hlm-select-group>
 								@for (department of departments; track department.value) {

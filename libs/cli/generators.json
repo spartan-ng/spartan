@@ -85,6 +85,11 @@
 			"schema": "./src/generators/migrate-input-otp/schema.json",
 			"description": "Migrate input-otp to the directive-based API"
 		},
+		"migrate-native-host-elements": {
+			"factory": "./src/generators/migrate-native-host-elements/generator",
+			"schema": "./src/generators/migrate-native-host-elements/schema.json",
+			"description": "Migrate Helm wrapper elements (e.g. hlm-select-trigger) to attribute selectors on native elements"
+		},
 		"migrate-icon": {
 			"factory": "./src/generators/migrate-icon/generator",
 			"schema": "./src/generators/migrate-icon/schema.json",
@@ -226,6 +231,11 @@
 			"factory": "./src/generators/migrate-input-otp/compat",
 			"schema": "./src/generators/migrate-input-otp/schema.json",
 			"description": "Migrate input-otp to the directive-based API"
+		},
+		"migrate-native-host-elements": {
+			"factory": "./src/generators/migrate-native-host-elements/compat",
+			"schema": "./src/generators/migrate-native-host-elements/schema.json",
+			"description": "Migrate Helm wrapper elements (e.g. hlm-select-trigger) to attribute selectors on native elements"
 		},
 		"migrate-icon": {
 			"factory": "./src/generators/migrate-icon/compat",

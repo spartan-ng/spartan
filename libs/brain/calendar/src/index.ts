@@ -3,6 +3,7 @@ import { BrnCalendarCell } from './lib/brn-calendar-cell';
 import { BrnCalendarCellButton } from './lib/brn-calendar-cell-button';
 import { BrnCalendarGrid } from './lib/brn-calendar-grid';
 import { BrnCalendarHeader } from './lib/brn-calendar-header';
+import { BrnCalendarMonth } from './lib/brn-calendar-month';
 import { BrnCalendarMonthSelect } from './lib/brn-calendar-month-select';
 import { BrnCalendarNextButton } from './lib/brn-calendar-next-button';
 import { BrnCalendarPreviousButton } from './lib/brn-calendar-previous-button';
@@ -24,6 +25,7 @@ export * from './lib/brn-calendar-cell';
 export * from './lib/brn-calendar-cell-button';
 export * from './lib/brn-calendar-grid';
 export * from './lib/brn-calendar-header';
+export * from './lib/brn-calendar-month';
 export * from './lib/brn-calendar-month-select';
 export * from './lib/brn-calendar-next-button';
 export * from './lib/brn-calendar-previous-button';
@@ -53,6 +55,7 @@ export const BrnCalendarImports = [
 	BrnCalendarWeekday,
 	BrnCalendar,
 	BrnCalendarCell,
+	BrnCalendarMonth,
 	BrnCalendarMulti,
 	BrnCalendarRange,
 	BrnCalendarMonthSelect,

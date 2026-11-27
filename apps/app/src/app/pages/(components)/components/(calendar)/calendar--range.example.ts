@@ -12,7 +12,13 @@ import { HlmCard, HlmCardImports } from '@spartan-ng/helm/card';
 	},
 	template: `
 		<div hlmCardContent class="p-0">
-			<hlm-calendar-range [(startDate)]="start" [(endDate)]="end" [min]="minDate" [max]="maxDate" />
+			<hlm-calendar-range
+				[(startDate)]="start"
+				[(endDate)]="end"
+				[min]="minDate"
+				[max]="maxDate"
+				[numberOfMonths]="2"
+			/>
 		</div>
 	`,
 })

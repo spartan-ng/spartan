@@ -1,3 +1,7 @@
+## 1.11.0-beta.3 (2026-11-27)
+
+- feat(calendar): add numberOfMonths input to range calendar (#1921) ([2247727](https://github.com/spartan-ng/spartan/commit/2247727)), closes [#1921](https://github.com/spartan-ng/spartan/issues/1921)
+
 ## 1.11.0-beta.2 (2026-11-27)
 
 - fix(calendar): do not move focus when syncing the month/year select (#1919) ([dace9a5](https://github.com/spartan-ng/spartan/commit/dace9a5)), closes [#1919](https://github.com/spartan-ng/spartan/issues/1919)

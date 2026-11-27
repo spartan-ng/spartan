@@ -4454,6 +4454,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "type": "'dropdown' | 'label' | 'dropdown-months' | 'dropdown-years'",
           },
           {
+            "name": "numberOfMonths",
+            "required": false,
+            "type": "number",
+          },
+          {
             "name": "minDate",
             "required": false,
             "type": "T",

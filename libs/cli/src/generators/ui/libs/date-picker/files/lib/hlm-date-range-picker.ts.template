@@ -1,4 +1,4 @@
-import type { BooleanInput } from '@angular/cdk/coercion';
+import type { BooleanInput, NumberInput } from '@angular/cdk/coercion';
 import {
 	booleanAttribute,
 	ChangeDetectionStrategy,
@@ -8,6 +8,7 @@ import {
 	forwardRef,
 	input,
 	linkedSignal,
+	numberAttribute,
 	output,
 	signal,
 	untracked,
@@ -51,6 +52,7 @@ export const HLM_DATE_RANGE_PICKER_VALUE_ACCESSOR = {
 					class="rounded-none border-0"
 					[startDate]="_start()"
 					[captionLayout]="captionLayout()"
+					[numberOfMonths]="numberOfMonths()"
 					[endDate]="_end()"
 					[min]="minDate()"
 					[max]="maxDate()"
@@ -74,6 +76,11 @@ export class HlmDateRangePicker<T> implements BrnDatePickerBase<[T, T]>, Control
 
 	/** Show dropdowns to navigate between months or years. */
 	public readonly captionLayout = input<'dropdown' | 'label' | 'dropdown-months' | 'dropdown-years'>('label');
+
+	/** The number of months to display in the calendar. */
+	public readonly numberOfMonths = input<number, NumberInput>(this._config.numberOfMonths, {
+		transform: numberAttribute,
+	});
 
 	/** The minimum date that can be selected.*/
 	public readonly minDate = input<T>();

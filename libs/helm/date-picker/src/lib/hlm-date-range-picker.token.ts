@@ -7,6 +7,11 @@ export interface HlmDateRangePickerConfig<T> {
 	autoCloseOnEndSelection: boolean;
 
 	/**
+	 * The number of months to display in the calendar.
+	 */
+	numberOfMonths: number;
+
+	/**
 	 * Defines how the date should be displayed in the UI.
 	 *
 	 * @param dates
@@ -54,6 +59,7 @@ function getDefaultConfig<T>(): HlmDateRangePickerConfig<T> {
 				.join(' - '),
 		transformDates: (dates) => dates,
 		autoCloseOnEndSelection: false,
+		numberOfMonths: 2,
 		parseDate: (value) => {
 			if (typeof value !== 'string') return null;
 

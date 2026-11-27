@@ -94,13 +94,12 @@ export const routeMeta: RouteMeta = {
 			<h3 id="restore-focus" spartanH4>Restore Focus</h3>
 			<p class="${hlmP} mb-6">
 				When the popover closes and focus is lost (for example because the focused element was removed or a
-				non-focusable area was clicked), focus moves back to the element that was focused when it opened. Set
+				non-focusable area was clicked), focus moves back to the element that was focused when it opened. This is
+				enabled by default. Set
 				<code class="${hlmCode}">[restoreFocus]="false"</code>
-				on the popover, or provide
+				on the popover to disable it, or provide
 				<code class="${hlmCode}">provideBrnPopoverDefaultOptions({{ '{' }} restoreFocus: false {{ '}' }})</code>
-				to change the default (
-				<code class="${hlmCode}">true</code>
-				).
+				to change the default.
 			</p>
 			<spartan-code [code]="_restoreFocusCode" />
 

@@ -135,4 +135,20 @@ describe('BrnOverlay restoreFocus', () => {
 			expect(document.activeElement).toBe(outside);
 		},
 	);
+
+	it('opens a new overlay when open() is called from a focus handler during restoration', async () => {
+		const fixture = TestBed.createComponent(OverlayHost);
+		fixture.autoDetectChanges();
+		await fixture.whenStable();
+		const overlay = fixture.componentInstance.overlay();
+		const { trigger } = await openFromTrigger(overlay, fixture);
+		trigger.addEventListener('focus', () => overlay.open(), { once: true });
+
+		await closeAndWait(overlay);
+		await fixture.whenStable();
+
+		expect(document.activeElement).toBe(trigger);
+		expect(overlay.stateComputed()).toBe('open');
+		expect(byId('inside')).toBeTruthy();
+	});
 });

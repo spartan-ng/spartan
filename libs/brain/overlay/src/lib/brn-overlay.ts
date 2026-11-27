@@ -123,7 +123,12 @@ export class BrnOverlay<TResult = unknown, TContext extends Record<string, unkno
 		// Registered first so the flag is set before forceClose() below tears the overlay down and
 		// emits on closed$/stateChanged$ - otherwise those emits hit a destroyed OutputRef (NG0953).
 		this._destroyRef.onDestroy(() => (this._destroyed = true));
-		this._destroyRef.onDestroy(() => this._overlayRef()?.forceClose());
+		this._destroyRef.onDestroy(() => {
+			const overlayRef = this._overlayRef();
+			// The sync effect may not have run yet, so pass the current input before closing.
+			overlayRef?.setRestoreFocus(this.restoreFocus());
+			overlayRef?.forceClose();
+		});
 		this._syncPanelClass();
 		this._syncBackdropClass();
 		this._syncRestoreFocus();
@@ -148,7 +153,9 @@ export class BrnOverlay<TResult = unknown, TContext extends Record<string, unkno
 		if (!this._content) return;
 
 		const currentRef = this._overlayRef();
-		if (currentRef) {
+		// A ref in the 'closed' phase is already disposed (e.g. open() is called from a focus handler
+		// while focus is being restored on close), so open a new overlay instead of reopening it.
+		if (currentRef && currentRef.phase() !== 'closed') {
 			currentRef.reopen();
 			return;
 		}

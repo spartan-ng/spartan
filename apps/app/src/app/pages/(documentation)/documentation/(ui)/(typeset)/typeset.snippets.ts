@@ -10,13 +10,17 @@ export const presetCss = `.typeset-docs {
 export const importCss = `@import "tailwindcss";
 @import "./typeset.css";`;
 
-export const usageCode = `@Component({
+export const usageCode = `import { Component, input } from '@angular/core';
+
+@Component({
   selector: 'app-markdown',
   template: \`
     <div class="typeset typeset-docs" [innerHTML]="content()"></div>
   \`,
 })
-export class MarkdownComponent {}`;
+export class MarkdownComponent {
+  readonly content = input('');
+}`;
 
 export const defaultsCss = `.typeset {
   --typeset-font-body: inherit;

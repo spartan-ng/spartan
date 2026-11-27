@@ -63,6 +63,9 @@ export function typesetPreviewStyles(state: TypesetState): Record<string, string
 		'--typeset-size': `${state.scale}px`,
 		'--typeset-leading': state.leading,
 		'--typeset-flow': state.flow,
+		// Match the generated `max-w-[<measure>]` class: the width belongs to the
+		// typeset container, so it tracks the selected font size.
+		'max-width': typesetMeasureWidth(state),
 	};
 }
 

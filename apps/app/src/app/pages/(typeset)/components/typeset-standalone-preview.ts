@@ -24,13 +24,15 @@ import {
 	},
 	template: `
 		<div class="flex min-h-svh justify-center px-6 pt-8 pb-24 md:pt-24 md:pb-32">
-			<div class="flex w-full flex-col" [style.max-width]="_measureWidth()">
+			<div class="flex w-full flex-col">
 				@if (_isChat()) {
-					<div class="bg-muted ms-auto mb-10 w-fit max-w-[65%] rounded-3xl px-4 py-2.5">
-						{{ _chatQuestion }}
+					<div class="mx-auto mb-10 flex w-full justify-end" [style.max-width]="_measureWidth()">
+						<div class="bg-muted w-fit max-w-[65%] rounded-3xl px-4 py-2.5">
+							{{ _chatQuestion }}
+						</div>
 					</div>
 				}
-				<div class="typeset" [style]="_styles()" [innerHTML]="_html()"></div>
+				<div class="typeset mx-auto" [style]="_styles()" [innerHTML]="_html()"></div>
 			</div>
 		</div>
 	`,

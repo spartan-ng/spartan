@@ -21,16 +21,16 @@ import { TYPESET_CONTENT_OPTIONS } from '../typeset.types';
 	},
 	template: `
 		<div class="min-h-0 flex-1 overflow-y-auto">
-			<div class="mx-auto w-full px-5 py-10 md:px-10 md:py-14" [style.max-width]="_measureWidth()">
+			<div class="mx-auto w-full px-5 py-10 md:px-10 md:py-14">
 				@if (_isChat()) {
-					<div class="mb-8 flex flex-col gap-6">
+					<div class="mx-auto mb-8 flex w-full flex-col gap-6" [style.max-width]="_measureWidth()">
 						<div class="bg-primary text-primary-foreground ms-auto max-w-[85%] rounded-2xl px-4 py-2.5 text-sm">
 							{{ _chatQuestion }}
 						</div>
 					</div>
 				}
 
-				<div class="typeset" [style]="_styles()" [innerHTML]="_html()"></div>
+				<div class="typeset mx-auto" [style]="_styles()" [innerHTML]="_html()"></div>
 			</div>
 		</div>
 

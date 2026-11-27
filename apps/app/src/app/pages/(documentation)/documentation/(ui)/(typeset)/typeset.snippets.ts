@@ -71,10 +71,9 @@ export const accessibilityCss = `.typeset-large {
   --typeset-size: 16px;
   --typeset-leading: 2;
   --typeset-flow: 2em;
-}
+}`;
 
-/* Dark mode follows your theme colors. Loosen the leading if it feels tight. */
-.dark .typeset {
+export const darkModeCss = `.dark .typeset {
   --typeset-leading: 1.9;
 }`;
 

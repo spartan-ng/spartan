@@ -80,6 +80,9 @@ function execEnv(): NodeJS.ProcessEnv {
 		// The all-components cell generates 57 primitives and compiles them in one `ng build`, which
 		// exceeds the 4GB default heap. Raise it for all cells (harmless for the small ones).
 		NODE_OPTIONS: '--max-old-space-size=8192',
+		// pnpm 11+ fails installs on unapproved dependency build scripts (ERR_PNPM_IGNORED_BUILDS). The
+		// scaffolded workspaces have no allowBuilds config, so keep the pnpm 10 behaviour of skipping them.
+		PNPM_CONFIG_STRICT_DEP_BUILDS: 'false',
 	};
 	// Force standard (non-AI-agent) tooling behaviour so the scaffold is deterministic on any host.
 	for (const key of AI_AGENT_ENV_VARS) {

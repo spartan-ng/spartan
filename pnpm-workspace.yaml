@@ -1,0 +1,14 @@
+allowBuilds:
+  '@parcel/watcher': false
+  '@swc/core': false
+  cypress: false
+  esbuild: false
+  lmdb: false
+  msgpackr-extract: false
+  msw: false
+  nx: false
+  unrs-resolver: false
+
+overrides:
+  form-data: '>=4.0.5'
+  handlebars: '>=4.7.9'

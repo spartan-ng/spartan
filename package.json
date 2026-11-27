@@ -200,7 +200,7 @@
 		"vite-tsconfig-paths": "5.0.1",
 		"vitest": "^2.1.8"
 	},
-	"packageManager": "pnpm@10.30.3",
+	"packageManager": "pnpm@12.23.0",
 	"engines": {
 		"node": ">=22.15",
 		"npm": "please-use-pnpm",
@@ -208,12 +208,6 @@
 		"yarn": "please-use-pnpm"
 	},
 	"engineStrict": true,
-	"pnpm": {
-		"overrides": {
-			"form-data": ">=4.0.5",
-			"handlebars": ">=4.7.9"
-		}
-	},
 	"nx": {
 		"includedScripts": []
 	},

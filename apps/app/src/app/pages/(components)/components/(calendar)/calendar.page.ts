@@ -139,7 +139,9 @@ export const routeMeta: RouteMeta = {
 				<code class="${hlmCode}">startDate</code>
 				and
 				<code class="${hlmCode}">endDate</code>
-				inputs.
+				inputs. Use
+				<code class="${hlmCode}">numberOfMonths</code>
+				to display multiple months, which are stacked vertically on small screens.
 			</p>
 
 			<spartan-tabs firstTab="Preview" secondTab="Code">

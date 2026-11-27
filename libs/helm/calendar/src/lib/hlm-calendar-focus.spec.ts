@@ -1,7 +1,12 @@
 import { ChangeDetectionStrategy, Component, type DebugElement, input, viewChild } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { BrnCalendarMonthSelect, BrnCalendarToken, BrnCalendarYearSelect } from '@spartan-ng/brain/calendar';
+import {
+	BrnCalendarCellButton,
+	BrnCalendarMonthSelect,
+	BrnCalendarToken,
+	BrnCalendarYearSelect,
+} from '@spartan-ng/brain/calendar';
 import { BrnPopover } from '@spartan-ng/brain/popover';
 import { BrnSelect } from '@spartan-ng/brain/select';
 import { HlmPopoverImports } from '@spartan-ng/helm/popover';
@@ -64,6 +69,20 @@ const selectFor = (
 const focusedDate = (fixture: { debugElement: DebugElement }) =>
 	fixture.debugElement.query(By.directive(BrnCalendarMonthSelect)).injector.get(BrnCalendarToken).focusedDate() as Date;
 
+const dayButtonFor = (fixture: { debugElement: DebugElement }, date: Date) =>
+	fixture.debugElement.queryAll(By.directive(BrnCalendarCellButton)).find((el) => {
+		const day = el.injector.get(BrnCalendarCellButton).date() as Date;
+		return (
+			day.getFullYear() === date.getFullYear() && day.getMonth() === date.getMonth() && day.getDate() === date.getDate()
+		);
+	})?.nativeElement as HTMLElement | undefined;
+
+// let afterNextRender focus callbacks run
+async function waitForRender(fixture: { whenStable: () => Promise<unknown> }) {
+	await new Promise((resolve) => setTimeout(resolve));
+	await fixture.whenStable();
+}
+
 describe.each<CalendarKind>(['single', 'range', 'multi'])(
 	'calendar (%s) with dropdown caption in a popover',
 	(kind) => {
@@ -75,9 +94,7 @@ describe.each<CalendarKind>(['single', 'range', 'multi'])(
 			const { fixture, input } = await openFromFocusedInput(kind);
 
 			expect(fixture.debugElement.query(By.directive(BrnCalendarMonthSelect))).toBeTruthy();
-			// let any afterNextRender focus callbacks run
-			await new Promise((resolve) => setTimeout(resolve));
-			await fixture.whenStable();
+			await waitForRender(fixture);
 
 			expect(document.activeElement).toBe(input);
 		});
@@ -86,13 +103,19 @@ describe.each<CalendarKind>(['single', 'range', 'multi'])(
 			const { fixture } = await openFromFocusedInput(kind);
 
 			selectFor(fixture, BrnCalendarMonthSelect).select('Mar');
-			await fixture.whenStable();
+			await waitForRender(fixture);
 			expect(focusedDate(fixture).getMonth()).toBe(2);
+			const marchDay = dayButtonFor(fixture, new Date(2026, 2, 15));
+			expect(marchDay).toBeTruthy();
+			expect(document.activeElement).toBe(marchDay);
 
 			selectFor(fixture, BrnCalendarYearSelect).select(2024);
-			await fixture.whenStable();
+			await waitForRender(fixture);
 			expect(focusedDate(fixture).getFullYear()).toBe(2024);
 			expect(focusedDate(fixture).getMonth()).toBe(2);
+			const yearDay = dayButtonFor(fixture, new Date(2024, 2, 15));
+			expect(yearDay).toBeTruthy();
+			expect(document.activeElement).toBe(yearDay);
 		});
 	},
 );

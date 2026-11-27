@@ -50,6 +50,10 @@ export class BrnSelectContent {
 		this._scrollDown.set(Math.ceil(scrollTop) < maxScroll);
 	}
 
+	public scrollBy(top: number) {
+		this._elementRef.nativeElement.scrollTop += top;
+	}
+
 	public scrollDown(stop: () => void) {
 		this._elementRef.nativeElement.scrollBy({
 			top: SCROLLBY_PIXEL,

@@ -38,6 +38,9 @@ import { TypesetStore } from '../typeset.store';
 						</hlm-tabs-list>
 
 						<div [hlmTabsContent]="'docs'" class="flex flex-col gap-6 pt-5">
+							@if (_copyError()) {
+								<p class="text-destructive text-xs">Could not copy to the clipboard. Please try again.</p>
+							}
 							<section class="flex flex-col gap-2.5">
 								<h4 class="text-sm font-medium">1. Create typeset.css</h4>
 								<p class="text-muted-foreground text-sm leading-relaxed">
@@ -52,7 +55,7 @@ import { TypesetStore } from '../typeset.store';
 										size="sm"
 										type="button"
 										class="w-fit"
-										[disabled]="_loadingCss()"
+										[disabled]="_loadingCss() || !_typesetCss()"
 										(click)="_copyTypesetCss()"
 									>
 										<ng-icon [name]="_copied() === 'css' ? 'lucideCheck' : 'lucideDownload'" />
@@ -134,6 +137,9 @@ import { TypesetStore } from '../typeset.store';
 						</div>
 
 						<div [hlmTabsContent]="'prompt'" class="flex flex-col gap-3 pt-5">
+							@if (_copyError()) {
+								<p class="text-destructive text-xs">Could not copy to the clipboard. Please try again.</p>
+							}
 							<p class="text-muted-foreground text-sm leading-relaxed">
 								One prompt with your picks baked in. Copy it and paste it into your coding agent.
 							</p>
@@ -164,7 +170,9 @@ export class TypesetCodeSheet {
 
 	protected readonly _tab = signal('docs');
 	protected readonly _copied = signal<string | null>(null);
-	protected readonly _loadingCss = signal(false);
+	protected readonly _copyError = signal(false);
+	protected readonly _loadingCss = signal(true);
+	protected readonly _typesetCss = signal<string | null>(null);
 
 	protected readonly _importCode = computed(() => `@import "tailwindcss";\n@import "./typeset.css";`);
 	protected readonly _fontInstallCommand = this._store.fontInstallCommand;
@@ -173,24 +181,52 @@ export class TypesetCodeSheet {
 	protected readonly _usageCode = this._store.usageCode;
 	protected readonly _prompt = this._store.prompt;
 
-	protected _copy(text: string, key: string): void {
+	constructor() {
+		if (this._isBrowser) {
+			void this._loadTypesetCss();
+		} else {
+			this._loadingCss.set(false);
+		}
+	}
+
+	protected async _copy(text: string, key: string): Promise<void> {
 		if (!this._isBrowser) return;
-		void navigator.clipboard.writeText(text);
-		this._flagCopied(key);
+		try {
+			await navigator.clipboard.writeText(text);
+			this._flagCopied(key);
+		} catch {
+			this._showCopyError();
+		}
 	}
 
 	protected async _copyTypesetCss(): Promise<void> {
-		if (!this._isBrowser) return;
-		this._loadingCss.set(true);
+		const css = this._typesetCss();
+		// Invoke the clipboard inside the click gesture: Safari drops the permission
+		// when an await (such as the stylesheet fetch) happens first.
+		if (!this._isBrowser || !css) return;
+		try {
+			await navigator.clipboard.writeText(css);
+			this._flagCopied('css');
+		} catch {
+			this._showCopyError();
+		}
+	}
+
+	private async _loadTypesetCss(): Promise<void> {
 		try {
 			const response = await fetch('/typeset.css');
 			if (!response.ok) return;
-			const css = await response.text();
-			await navigator.clipboard.writeText(css);
-			this._flagCopied('css');
+			this._typesetCss.set(await response.text());
+		} catch {
+			// Leave the button disabled; the Download link remains available.
 		} finally {
 			this._loadingCss.set(false);
 		}
+	}
+
+	private _showCopyError(): void {
+		this._copyError.set(true);
+		setTimeout(() => this._copyError.set(false), 3000);
 	}
 
 	private _flagCopied(key: string): void {

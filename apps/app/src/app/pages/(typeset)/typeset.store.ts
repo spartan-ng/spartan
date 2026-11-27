@@ -253,6 +253,14 @@ Notes:
 		this._leading.set(TYPESET_DEFAULT_STATE.leading);
 		this._item.set(TYPESET_DEFAULT_STATE.item);
 
+		// Reset restores `inherit`, so a heading lock would no longer represent the
+		// font the user saw. Drop that lock; other locks stay put.
+		if (this._heading() === 'inherit' && this._locks().has('heading')) {
+			const locks = new Set(this._locks());
+			locks.delete('heading');
+			this._locks.set(locks);
+		}
+
 		// Reset means "back to the defaults", not "defaults written into the URL".
 		// Clear the sharing params even when the state was already at its defaults.
 		this._syncUrl({});

@@ -16,6 +16,7 @@ export const pageNavs: Link[] = [
 	{ label: 'Docs', url: '/documentation' },
 	{ label: 'Components', url: '/components' },
 	{ label: 'Blocks', url: '/blocks' },
+	{ label: 'Typeset', url: '/typeset' },
 	{ label: 'Colors', url: '/colors' },
 	{ label: 'Stack', url: '/stack' },
 ];
@@ -121,6 +122,7 @@ export const sidenavItems: NavItem[] = [
 			{ label: 'CLI', url: '/cli' },
 			{ label: 'RTL', url: '/rtl' },
 			{ label: 'Typography', url: '/typography' },
+			{ label: 'Typeset', url: '/typeset', new: true },
 			{ label: 'Figma', url: '/figma' },
 			{ label: 'Version Support', url: '/version-support' },
 			{ label: 'Health Checks', url: '/health-checks' },

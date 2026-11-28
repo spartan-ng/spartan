@@ -1,4 +1,6 @@
-import { computed, DestroyRef, Directive, ElementRef, inject, input } from '@angular/core';
+import type { BooleanInput } from '@angular/cdk/coercion';
+import { booleanAttribute, computed, DestroyRef, Directive, ElementRef, inject, input } from '@angular/core';
+import { BrnFieldControlDescribedBy } from '@spartan-ng/brain/field';
 import { injectBrnInputOtp } from './brn-input-otp.token';
 
 export type InputMode = 'text' | 'tel' | 'url' | 'email' | 'numeric' | 'decimal' | 'search';
@@ -9,11 +11,13 @@ const DEFAULT_INPUT_STYLES =
 @Directive({
 	selector: 'input[brnInputOtpInput]',
 	exportAs: 'brnInputOtpInput',
+	hostDirectives: [{ directive: BrnFieldControlDescribedBy, inputs: ['aria-describedby'] }],
 	host: {
 		'data-slot': 'input-otp',
 		'[id]': '_otp.inputId()',
 		'[attr.autocomplete]': 'autocomplete()',
 		'[attr.inputmode]': 'inputMode()',
+		'[attr.aria-invalid]': '_ariaInvalid() ? "true" : null',
 		'[disabled]': '_otp.disabledState()',
 		'[value]': '_otp.value() ?? ""',
 		'[style]': '_inputStyles()',
@@ -38,6 +42,13 @@ export class BrnInputOtpInput {
 	/** Styles applied to the input element to make it invisible and clickable. */
 	public readonly inputStyles = input<string | undefined>(undefined);
 
+	/** Overrides the error state matcher and forceInvalid for aria-invalid. */
+	public readonly ariaInvalidInput = input<boolean | undefined, BooleanInput>(undefined, {
+		transform: (v: BooleanInput) => (v === '' || v === undefined ? undefined : booleanAttribute(v)),
+		alias: 'aria-invalid',
+	});
+
+	protected readonly _ariaInvalid = computed(() => this.ariaInvalidInput() ?? this._otp.spartanInvalid());
 	protected readonly _inputStyles = computed(() => this.inputStyles() ?? DEFAULT_INPUT_STYLES);
 
 	constructor() {

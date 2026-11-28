@@ -6076,6 +6076,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
         "exportAs": "brnInputOtp",
         "inputs": [
           {
+            "name": "forceInvalid",
+            "required": false,
+            "type": "boolean",
+          },
+          {
             "name": "hostStyles",
             "required": false,
             "type": "string",
@@ -6157,6 +6162,16 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "required": false,
             "type": "string | undefined",
           },
+          {
+            "name": "aria-invalid",
+            "required": false,
+            "type": "boolean | undefined",
+          },
+          {
+            "name": "aria-describedby",
+            "required": false,
+            "type": "string | null",
+          },
         ],
         "models": [],
         "outputs": [],
@@ -6204,6 +6219,16 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "name": "inputStyles",
             "required": false,
             "type": "string | undefined",
+          },
+          {
+            "name": "aria-invalid",
+            "required": false,
+            "type": "BooleanInput",
+          },
+          {
+            "name": "aria-describedby",
+            "required": false,
+            "type": "string | null",
           },
           {
             "name": "length",
@@ -6254,6 +6279,11 @@ exports[`generate-ui-docs executor > produces stable output 1`] = `
             "name": "slotPattern",
             "required": false,
             "type": "string | RegExp | null",
+          },
+          {
+            "name": "forceInvalid",
+            "required": false,
+            "type": "boolean",
           },
         ],
         "models": [],

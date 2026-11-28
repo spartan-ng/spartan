@@ -15,7 +15,6 @@ import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCheck } from '@ng-icons/lucide';
 import { BrnCheckbox } from '@spartan-ng/brain/checkbox';
-import { BrnFieldControlDescribedBy } from '@spartan-ng/brain/field';
 import type { ChangeFn, TouchFn } from '@spartan-ng/brain/forms';
 import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'cn';
@@ -33,12 +32,12 @@ export const HLM_CHECKBOX_VALUE_ACCESSOR = {
 	providers: [HLM_CHECKBOX_VALUE_ACCESSOR],
 	viewProviders: [provideIcons({ lucideCheck })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	hostDirectives: [BrnFieldControlDescribedBy],
 	host: {
 		class: 'contents peer',
 		'data-slot': 'checkbox',
 		'[attr.aria-label]': 'null',
 		'[attr.aria-labelledby]': 'null',
+		'[attr.aria-describedby]': 'null',
 		'[attr.data-disabled]': '_disabled() ? "" : null',
 	},
 	template: `

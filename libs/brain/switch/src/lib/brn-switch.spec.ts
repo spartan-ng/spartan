@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { form, FormField, required } from '@angular/forms/signals';
+import { By } from '@angular/platform-browser';
+import { BrnField, BrnFieldA11yService } from '@spartan-ng/brain/field';
 import { axe } from '@spartan-ng/brain/testing';
 import { render, screen } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
@@ -165,6 +167,32 @@ describe('BrnSwitchComponent', () => {
 		it('unchecked by default', async () => {
 			await setup();
 			await validateSwitchOff();
+		});
+
+		it('merges consumer and Field descriptions on the switch button', async () => {
+			const view = await render(
+				`
+					<div brnField>
+						<brn-switch aria-label="switch" aria-describedby="consumer-hint field-hint" />
+						<p id="consumer-hint">Consumer hint</p>
+						<p id="field-hint">Field hint</p>
+						<p id="field-error">Field error</p>
+					</div>
+				`,
+				{ imports: [BrnField, BrnSwitch] },
+			);
+			const a11y = view.fixture.debugElement.query(By.directive(BrnField)).injector.get(BrnFieldA11yService);
+			a11y.registerDescription('field-hint');
+			a11y.registerError('field-error');
+			view.detectChanges();
+
+			const button = screen.getByRole('switch');
+			expect(button).toHaveAttribute('aria-describedby', 'consumer-hint field-hint field-error');
+			expect(button.closest('brn-switch')).not.toHaveAttribute('aria-describedby');
+
+			a11y.unregisterError('field-error');
+			view.detectChanges();
+			expect(button).toHaveAttribute('aria-describedby', 'consumer-hint field-hint');
 		});
 
 		it('exposes required and invalid state on the switch button', async () => {

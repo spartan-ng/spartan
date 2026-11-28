@@ -26,7 +26,7 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { BrnFieldControl, provideBrnLabelable } from '@spartan-ng/brain/field';
+import { BrnFieldControl, BrnFieldControlDescribedBy, provideBrnLabelable } from '@spartan-ng/brain/field';
 import { type ChangeFn, type TouchFn } from '@spartan-ng/brain/forms';
 
 export const BRN_CHECKBOX_VALUE_ACCESSOR = {
@@ -42,6 +42,7 @@ const CONTAINER_POST_FIX = '-checkbox';
 @Component({
 	selector: 'brn-checkbox',
 	exportAs: 'brnCheckbox',
+	imports: [BrnFieldControlDescribedBy],
 	providers: [BRN_CHECKBOX_VALUE_ACCESSOR, provideBrnLabelable(BrnCheckbox)],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	hostDirectives: [BrnFieldControl],
@@ -64,6 +65,7 @@ const CONTAINER_POST_FIX = '-checkbox';
 	template: `
 		<button
 			#checkBox
+			brnFieldControlDescribedBy
 			role="checkbox"
 			type="button"
 			[attr.id]="_buttonId()"
@@ -74,7 +76,7 @@ const CONTAINER_POST_FIX = '-checkbox';
 			[attr.aria-invalid]="spartanInvalid() ? 'true' : null"
 			[attr.aria-label]="ariaLabel() || null"
 			[attr.aria-labelledby]="mutableAriaLabelledby() || null"
-			[attr.aria-describedby]="ariaDescribedby() || null"
+			[aria-describedby]="ariaDescribedby()"
 			[attr.data-state]="_dataState()"
 			[attr.data-focus-visible]="_focusVisible()"
 			[attr.data-focus]="_focused()"

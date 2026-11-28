@@ -13,10 +13,11 @@ import { HlmCheckbox } from '../../index';
 			<div hlmField>
 				<!-- eslint-disable-next-line @angular-eslint/template/label-has-associated-control -->
 				<label hlmFieldLabel>Accept terms *</label>
-				<hlm-checkbox formControlName="agreement"></hlm-checkbox>
+				<hlm-checkbox formControlName="agreement" aria-describedby="agreement-hint"></hlm-checkbox>
 				<p hlmFieldDescription>You must agree to proceed.</p>
 				<hlm-field-error>Agree to continue.</hlm-field-error>
 			</div>
+			<p id="agreement-hint">Review the agreement first.</p>
 		</form>
 	`,
 })
@@ -37,23 +38,23 @@ describe('HlmCheckbox form integration', () => {
 		fixture.detectChanges();
 	});
 
-	it('collects hint + error ids on checkbox', () => {
+	it('merges consumer and Field descriptions on the checkbox button', () => {
 		const host = fixture.componentInstance as HlmCheckboxHost;
-		host.form.markAllAsTouched();
-		host.form.get('agreement')?.updateValueAndValidity();
-		fixture.detectChanges();
 
 		const description: HTMLElement | null = fixture.nativeElement.querySelector('[data-slot="field-description"]');
 		const error: HTMLElement | null = fixture.nativeElement.querySelector('[data-slot="field-error"]');
-		const checkbox = fixture.nativeElement.querySelector('hlm-checkbox');
+		const checkbox = fixture.nativeElement.querySelector('button[role="checkbox"]');
 
 		expect(host.form.invalid).toBeTruthy();
 		expect(description).toBeTruthy();
 		expect(error).toBeTruthy();
 
-		const describedBy = checkbox.getAttribute('aria-describedby') ?? '';
-		expect(describedBy.split(' ')).toContain(description!.id);
-		// TODO should the error id be included in aria-describedby when the field is invalid? If so, we need to add it to the hlm-checkbox component.
-		// expect(describedBy.split(' ')).toContain(error!.id);
+		expect(checkbox).toHaveAttribute('aria-describedby', `agreement-hint ${description!.id}`);
+		expect(checkbox.closest('hlm-checkbox')).not.toHaveAttribute('aria-describedby');
+
+		host.form.markAllAsTouched();
+		host.form.get('agreement')?.updateValueAndValidity();
+		fixture.detectChanges();
+		expect(checkbox).toHaveAttribute('aria-describedby', `agreement-hint ${description!.id} ${error!.id}`);
 	});
 });

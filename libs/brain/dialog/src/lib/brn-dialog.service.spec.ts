@@ -1,6 +1,9 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { fireEvent } from '@testing-library/angular';
+import { BrnPopover, BrnPopoverContent } from '@spartan-ng/brain/popover';
+import { BrnSelectImports } from '@spartan-ng/brain/select';
+import { fireEvent, render, screen, waitFor } from '@testing-library/angular';
+import { BrnDialogImports } from '../index';
 import { BrnDialogService } from './brn-dialog.service';
 
 @Component({
@@ -53,6 +56,52 @@ describe('BrnDialogService', () => {
 		expect(above.state()).toBe('closed');
 		expect(below.state()).toBe('open');
 	});
+
+	it.each([false, true])(
+		'keeps the lower dialog open after clicking the top backdrop (select open: %s)',
+		async (openSelect) => {
+			await render(
+				`
+				<brn-dialog>
+					<button brnDialogTrigger>Open lower dialog</button>
+					<div *brnDialogContent>
+						<h3 brnDialogTitle>Lower dialog</h3>
+						<brn-dialog>
+							<button brnDialogTrigger>Open top dialog</button>
+							<div *brnDialogContent>
+								<h3 brnDialogTitle>Top dialog</h3>
+								<div brnSelect brnPopover>
+									<button brnSelectTrigger><span brnSelectValue placeholder="Pick a fruit"></span></button>
+									<div *brnPopoverContent brnSelectContent>
+										<div brnSelectList>
+											<div brnSelectItem value="apple">Apple</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</brn-dialog>
+					</div>
+				</brn-dialog>
+			`,
+				{ imports: [BrnDialogImports, BrnSelectImports, BrnPopover, BrnPopoverContent] },
+			);
+
+			pointerClick(screen.getByRole('button', { name: 'Open lower dialog' }));
+			pointerClick(screen.getByRole('button', { name: 'Open top dialog' }));
+			const lowerTitle = screen.getByText('Lower dialog');
+			const topTitle = screen.getByText('Top dialog');
+			if (openSelect) {
+				pointerClick(screen.getByRole('combobox'));
+				expect(screen.getByRole('listbox')).toBeInTheDocument();
+			}
+
+			pointerClick(backdrops()[1]);
+
+			await waitFor(() => expect(topTitle).not.toBeInTheDocument());
+			expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
+			expect(lowerTitle).toBeInTheDocument();
+		},
+	);
 
 	it('closes a dialog on Escape and marks the event as handled', () => {
 		const dialog = TestBed.inject(BrnDialogService).open(DialogContent);

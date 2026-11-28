@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { provideErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@spartan-ng/brain/forms';
+import { HlmFieldImports } from '@spartan-ng/helm/field';
 import { render } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
 import { HlmInputOtpImports } from '../index';
@@ -30,6 +32,26 @@ class HlmInputOtpFormHost {
 	public readonly form = new FormGroup({
 		otp: new FormControl(''),
 	});
+}
+
+@Component({
+	selector: 'hlm-input-otp-field-host',
+	imports: [ReactiveFormsModule, HlmInputOtpImports, HlmFieldImports],
+	providers: [provideErrorStateMatcher(ShowOnDirtyErrorStateMatcher)],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<div hlmField>
+			<hlm-input-otp [formControl]="control" length="6" aria-describedby="otp-hint" />
+			<p id="otp-hint">Check your messages.</p>
+			<p hlmFieldDescription>Enter the six-digit code.</p>
+			@if (control.dirty && control.invalid) {
+				<hlm-field-error>The code is required.</hlm-field-error>
+			}
+		</div>
+	`,
+})
+class HlmInputOtpFieldHost {
+	public readonly control = new FormControl('', Validators.required);
 }
 
 describe('HlmInputOtp', () => {
@@ -146,5 +168,66 @@ describe('HlmInputOtp', () => {
 		fixture.detectChanges();
 
 		expect(host.form.value.otp).toBe('123456');
+	});
+
+	it('announces invalidity on the input only when the error state matcher reports it', async () => {
+		const { container, fixture } = await render(HlmInputOtpFieldHost);
+		const input = container.querySelector('input')!;
+		const { control } = fixture.componentInstance;
+
+		control.markAsTouched();
+		fixture.detectChanges();
+		expect(control.invalid).toBe(true);
+		expect(input).not.toHaveAttribute('aria-invalid');
+
+		control.markAsDirty();
+		fixture.detectChanges();
+		expect(input).toHaveAttribute('aria-invalid', 'true');
+
+		control.setValue('123456');
+		fixture.detectChanges();
+		expect(input).not.toHaveAttribute('aria-invalid');
+	});
+
+	it('applies forceInvalid to the input and slots', async () => {
+		const { container } = await render(
+			`<hlm-input-otp length="6" forceInvalid><hlm-input-otp-slot index="0" /></hlm-input-otp>`,
+			{ imports: [HlmInputOtpImports] },
+		);
+		expect(container.querySelector('input')).toHaveAttribute('aria-invalid', 'true');
+		expect(container.querySelector('brn-input-otp-slot')).toHaveAttribute('data-matches-spartan-invalid', 'true');
+	});
+
+	it('lets consumers override aria-invalid on the input', async () => {
+		const { container } = await render(
+			`<hlm-input-otp length="6" aria-invalid="true" />
+			<hlm-input-otp length="6" forceInvalid aria-invalid="false" />`,
+			{ imports: [HlmInputOtpImports] },
+		);
+		const [invalid, valid] = container.querySelectorAll('input');
+		expect(invalid).toHaveAttribute('aria-invalid', 'true');
+		expect(valid).not.toHaveAttribute('aria-invalid');
+		for (const host of container.querySelectorAll('hlm-input-otp')) {
+			expect(host).not.toHaveAttribute('aria-invalid');
+		}
+	});
+
+	it('merges consumer and Field descriptions on the input', async () => {
+		const { container, fixture } = await render(HlmInputOtpFieldHost);
+		const input = container.querySelector('input')!;
+		const description = container.querySelector('[data-slot="field-description"]')!;
+		const { control } = fixture.componentInstance;
+
+		expect(input).toHaveAttribute('aria-describedby', `otp-hint ${description.id}`);
+		expect(input.closest('hlm-input-otp')).not.toHaveAttribute('aria-describedby');
+
+		control.markAsDirty();
+		fixture.detectChanges();
+		const error = container.querySelector('[data-slot="field-error"]')!;
+		expect(input).toHaveAttribute('aria-describedby', `otp-hint ${description.id} ${error.id}`);
+
+		control.setValue('123456');
+		fixture.detectChanges();
+		expect(input).toHaveAttribute('aria-describedby', `otp-hint ${description.id}`);
 	});
 });
